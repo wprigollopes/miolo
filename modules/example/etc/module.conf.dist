@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?> 
+<conf>
+    <namespace>
+        <business>/db</business>
+    </namespace>
+    <db>
+       <tutorial>
+           <system>sqlite</system>
+           <host>localhost</host>
+           <name>/var/www/miolo/modules/example/sql/tutorial.sqlite</name>
+           <user>miolo</user>
+           <password>miolo</password>
+       </tutorial>
+       <example>
+           <system>sqlite</system>
+           <host>localhost</host>
+           <name>/var/www/miolo/modules/example/sql/example.sqlite</name>
+           <user>miolo</user>
+           <password>miolo</password>
+       </example>
+       <persistence>
+           <system>sqlite</system>
+           <host>localhost</host>
+           <name>/var/www/miolo/modules/example/sql/persistence.sqlite</name>
+           <user>miolo</user>
+           <password>miolo</password>
+       </persistence>
+    </db>
+    <login>
+        <check>0</check>
+    </login>
+</conf>

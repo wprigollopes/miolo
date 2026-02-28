@@ -1,0 +1,11 @@
+/* CSS for Tutorial Module */
+
+.icon-properties-off
+{
+ background-image: url(index.php/tutorial/html/images/properties_on.png);
+}
+
+.icon-properties-on
+{
+ background-image: url(index.php/tutorial/html/images/properties_on.png);
+}

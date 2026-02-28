@@ -1,0 +1,19 @@
+
+NÃ£o esqueÃ§a que Ã© necessÃ¡rio fazer as devidas configuraÃ§Ãµes no servidor Apache.
+Aqui apresentamos uma sugestÃ£o de VirtualHost.
+ 
+<VirtualHost *> 
+    ServerAdmin webmaster@localhost 
+    DocumentRoot /usr/local/miolo2-000/html 
+    ServerName your.domain.name 
+    ErrorLog logs/your.domain.name.error_log 
+    CustomLog logs/your.domain.name.access_log common 
+ 
+    <Directory "/usr/local/miolo2-000/html"> 
+        Options FollowSymLinks 
+        AllowOverride All 
+        Order allow,deny 
+        Allow from all 
+    </Directory> 
+ 
+</VirtualHost> 

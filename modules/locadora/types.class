@@ -1,0 +1,11 @@
+<?php
+
+    class Locacao
+    {
+        var $cod_loc;
+        var $cliente;
+        var $fone;
+        var $plac_veic;
+    };
+
+?>

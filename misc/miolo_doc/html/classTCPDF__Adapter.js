@@ -1,0 +1,25 @@
+var classTCPDF__Adapter =
+[
+    [ "__construct", "classTCPDF__Adapter.html#a2c9ce85f95218df8c76664d3ea9a36a6", null ],
+    [ "_set_fill_colour", "classTCPDF__Adapter.html#a18dfef0015614a953497de4dbfaf6bb4", null ],
+    [ "_set_stroke_colour", "classTCPDF__Adapter.html#a5fa71b38f0146ccc5001a53709389607", null ],
+    [ "add_link", "classTCPDF__Adapter.html#aac094a444469773ec5656e9072f09f42", null ],
+    [ "add_named_dest", "classTCPDF__Adapter.html#a3bd8ba141bf26f599883c6c8c1fbeee7", null ],
+    [ "circle", "classTCPDF__Adapter.html#a2478e56eee9727540958bcb1d8804e8e", null ],
+    [ "filled_rectangle", "classTCPDF__Adapter.html#a357bba9be7040ac240346bc2bc3ba8ea", null ],
+    [ "get_font_height", "classTCPDF__Adapter.html#a93a0c7ea298bc8ca6d4fc71ebfc5fe88", null ],
+    [ "get_page_count", "classTCPDF__Adapter.html#a671893b527e81786e7def8b448304bca", null ],
+    [ "get_page_number", "classTCPDF__Adapter.html#ad29ded0e894cfe8c933f4352c2b1ea72", null ],
+    [ "get_tcpdf", "classTCPDF__Adapter.html#ae5dc0bea4761b8719bba13bf505e5afc", null ],
+    [ "get_text_width", "classTCPDF__Adapter.html#a641effb0471d3b1ad14da5daf1fa61cf", null ],
+    [ "image", "classTCPDF__Adapter.html#a0cfb2e3b127786a57e08939134eb533f", null ],
+    [ "line", "classTCPDF__Adapter.html#a7065b3fb8f116be5a7036c16950594b2", null ],
+    [ "new_page", "classTCPDF__Adapter.html#a2d6093dcef3824fd108d0a2239a9887a", null ],
+    [ "output", "classTCPDF__Adapter.html#a9a8c524ad449b3b10b1c35ec3cf27740", null ],
+    [ "polygon", "classTCPDF__Adapter.html#a0df1b13a712bdb9652157a1d49c10242", null ],
+    [ "rectangle", "classTCPDF__Adapter.html#a1b86e5e697c23ab0868f57adebadd7d3", null ],
+    [ "set_page_count", "classTCPDF__Adapter.html#ab7bd12189347e25b9ef228c14290d454", null ],
+    [ "stream", "classTCPDF__Adapter.html#a099c2b436f685ed4bf7285c768f833fc", null ],
+    [ "text", "classTCPDF__Adapter.html#a61c590395c649d75210ab569e2d846f1", null ],
+    [ "y", "classTCPDF__Adapter.html#a4ae29c4e77834ef0e39c94f5dd432c80", null ]
+];
