@@ -9,3 +9,6 @@ var/cache/
 *.swp
 *.swo
 *~
+
+# Worktrees
+.worktrees/
