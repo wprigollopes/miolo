@@ -565,45 +565,45 @@ class MUtil
     }
     
     public static function getBrowser()
-    {   
+    {
         $browser = $_SERVER['HTTP_USER_AGENT'];
-        
+
         if(strstr($browser, 'MSIE'))
         {
-            $tipo = 'IE';
+            $type = 'IE';
         }
-        
+
         if(strstr($browser, 'Firefox'))
         {
-            $tipo = 'Firefox';
+            $type = 'Firefox';
         }
-        
+
         if(strstr($browser, 'Chrome'))
         {
-            $tipo = 'Google Chrome';
+            $type = 'Google Chrome';
         }
-        
+
         if(strstr($browser, 'Android'))
         {
-            $tipo = 'Android';
+            $type = 'Android';
         }
-        
+
         if(strstr($browser, 'webOS'))
         {
-            $tipo = 'webOS';
+            $type = 'webOS';
         }
-        
+
         if(strstr($browser, 'iPhone'))
         {
-            $tipo = 'iPhone';
+            $type = 'iPhone';
         }
-        
+
         if(strstr($browser, 'iPod'))
         {
-            $tipo = 'iPod';
+            $type = 'iPod';
         }
-        
-        return $tipo;
+
+        return $type;
     }
 }
 

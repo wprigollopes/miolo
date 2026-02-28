@@ -126,9 +126,9 @@ class MAuthLdap extends MAuth
                         if ( strlen($info[$i]['userpassword'][0]) )
                         {
                             $passwordColumn = 'userpassword';
-                            $senhaDigitada = self::pwdEncrypt($pass);
-                            
-                            $exists = $info[$i][$passwordColumn][0] == $senhaDigitada["userPassword"];
+                            $encryptedPassword = self::pwdEncrypt($pass);
+
+                            $exists = $info[$i][$passwordColumn][0] == $encryptedPassword["userPassword"];
                         }
                     }
                 }

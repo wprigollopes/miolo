@@ -60,7 +60,7 @@ class frmDinamico extends bFormCadastro
     /**
      * @var array Array with the field names in order.
      */
-    private $ordemDosCampos = null;
+    private $fieldOrder = null;
     
     public function __construct($parametros, $titulo=NULL)
     {
@@ -80,33 +80,33 @@ class frmDinamico extends bFormCadastro
         if ( $montarCampos )
         {
             // Gets the fields and validators for the form.
-            $camposEValidadores = $this->gerarCampos();
+            $fieldsAndValidators = $this->gerarCampos();
 
-            $campos = $camposEValidadores[0];
-            
+            $fields = $fieldsAndValidators[0];
+
             // Gets the MSubDetail components
             $camposSubDetail = $this->gerarCamposSubDetail();
-            
+
             // Merges the MSubDetail components with the remaining fields.
             if ( is_array($camposSubDetail) )
             {
-                $campos = array_merge($campos, $camposSubDetail);
+                $fields = array_merge($fields, $camposSubDetail);
             }
-            
+
             // Performs field ordering if necessary.
-            if ( $this->ordemDosCampos )
+            if ( $this->fieldOrder )
             {
-                $camposDesordenados = $campos;
-                $campos = array();
-                
-                foreach ( $this->ordemDosCampos as $nomeCampo )
+                $unsortedFields = $fields;
+                $fields = array();
+
+                foreach ( $this->fieldOrder as $fieldName )
                 {
-                    $campos[$nomeCampo] = $camposDesordenados[$nomeCampo];
+                    $fields[$fieldName] = $unsortedFields[$fieldName];
                 }
             }
- 
-            $this->addFields($campos);
-            $this->setValidators($camposEValidadores[1]);
+
+            $this->addFields($fields);
+            $this->setValidators($fieldsAndValidators[1]);
         }
     }
     
@@ -120,29 +120,29 @@ class frmDinamico extends bFormCadastro
         // Gets the table columns.
         $colunas = $this->tipo->obterEstruturaDaTabela();
         
-        $campos = array();
+        $fields = array();
         $validadores = array();
 
         foreach ( $colunas as $coluna )
         {
-            if ( !in_array($coluna->nome, $this->restrictColumns) )
+            if ( !in_array($coluna->name, $this->restrictColumns) )
             {
                 // Generates the field and validator for the column.
-                list($campo, $validador) = $this->gerarCampo($coluna);
+                list($field, $validador) = $this->gerarCampo($coluna);
 
-                if ( $campo )
+                if ( $field )
                 {
-                    $campos[$coluna->nome] = $campo;
+                    $fields[$coluna->name] = $field;
 
                     if ( $validador )
                     {
-                        $validadores[$coluna->nome] = $validador;
+                        $validadores[$coluna->name] = $validador;
                     }
                 }
             }
         }
 
-        return array( $campos, $validadores );
+        return array( $fields, $validadores );
     }
     
     /**
@@ -153,22 +153,22 @@ class frmDinamico extends bFormCadastro
      */
     protected function gerarCamposEspecificos(array $lista)
     {
-        list($campos, $validadores) = $this->gerarCampos();
-     
-        $campos = array_merge($campos, $this->gerarCamposSubDetail());
+        list($fields, $validadores) = $this->gerarCampos();
+
+        $fields = array_merge($fields, $this->gerarCamposSubDetail());
         $camposRet = array();
         $validadoresRet = array();
-        
-        foreach ( $lista as $campo )
+
+        foreach ( $lista as $field )
         {
-            $camposRet[$campo] = $campos[$campo];
-            
-            if ( isset($validadores[$campo]) )
+            $camposRet[$field] = $fields[$field];
+
+            if ( isset($validadores[$field]) )
             {
-                $validadoresRet[$campo] = $validadores[$campo];
+                $validadoresRet[$field] = $validadores[$field];
             }
         }
-        
+
         return array($camposRet, $validadoresRet);
     }
 
@@ -180,98 +180,98 @@ class frmDinamico extends bFormCadastro
      */
     protected function gerarCampo(bInfoColuna $coluna)
     {
-        $campo = NULL;
+        $field = NULL;
 
-        $idColuna = explode('__', $coluna->campo);
-        $coluna->campo = end($idColuna);
-        
+        $idColuna = explode('__', $coluna->field);
+        $coluna->field = end($idColuna);
+
         $atributosReservados = array_keys(get_object_vars($this));
-        
+
         // If the field id is already being used in the form, concatenates '_' at the end of the id.
-        if ( in_array($coluna->campo, $atributosReservados) )
+        if ( in_array($coluna->field, $atributosReservados) )
         {
-            $coluna->campo .= '_';
-        }
-        
-        if ( substr($coluna->valorPadrao, 0, 7) != 'nextval')
-        {
-            $valor = $coluna->valorPadrao;
+            $coluna->field .= '_';
         }
 
-        $rotulo = _M($coluna->titulo, $this->modulo);
-
-        if ( $coluna->obrigatorio == DB_TRUE )
+        if ( substr($coluna->defaultValue, 0, 7) != 'nextval')
         {
-            $validador = new MRequiredValidator($coluna->campo, $coluna->titulo, $coluna->tamanho);
+            $valor = $coluna->defaultValue;
+        }
+
+        $rotulo = _M($coluna->title, $this->modulo);
+
+        if ( $coluna->required == DB_TRUE )
+        {
+            $validador = new MRequiredValidator($coluna->field, $coluna->title, $coluna->size);
         }
 
         // Checks if field is a foreign key.
-        if ( strlen($coluna->fkTabela) )
+        if ( strlen($coluna->fkTable) )
         {
-            $campo = new bEscolha($coluna->campo, $coluna->fkTabela, $this->modulo, NULL, $coluna->titulo );
+            $field = new bEscolha($coluna->field, $coluna->fkTable, $this->modulo, NULL, $coluna->title );
         }
-        
-        if ( !$campo )
+
+        if ( !$field )
         {
-            switch ( $coluna->tipo )
+            switch ( $coluna->type )
             {
-                case bInfoColuna::TIPO_BOOLEAN:
+                case bInfoColuna::TYPE_BOOLEAN:
                     if ( $valor === NULL )
                     {
                         $valor = DB_FALSE;
                     }
-                    
-                    $campo = new MSelection($coluna->campo, $valor, $rotulo, bBooleano::obterVetorSimNao(), NULL, '', '', FALSE);
+
+                    $field = new MSelection($coluna->field, $valor, $rotulo, bBooleano::obterVetorSimNao(), NULL, '', '', FALSE);
                     $validador = NULL;
                     break;
 
-                case bInfoColuna::TIPO_DATA:
-                    $campo = new MCalendarField($coluna->campo, $valor, $rotulo, T_DESCRICAO);
+                case bInfoColuna::TYPE_DATE:
+                    $field = new MCalendarField($coluna->field, $valor, $rotulo, T_DESCRICAO);
                     break;
-                
-                case bInfoColuna::TIPO_TIMESTAMP:
+
+                case bInfoColuna::TYPE_TIMESTAMP:
                     // FIXME: add the MTimestampField component after resolution of #15440.
-                    $campo = new MTimestampField($coluna->campo, NULL, $rotulo);
-                    
+                    $field = new MTimestampField($coluna->field, NULL, $rotulo);
+
                     break;
 
-                case bInfoColuna::TIPO_DECIMAL:
-                    $campo = new MFloatField($coluna->campo, $valor, $rotulo, T_DESCRICAO);
-                    break;
-                
-                case bInfoColuna::TIPO_NUMERIC:
-                    $campo = new MFloatField($coluna->campo, $valor, $rotulo, T_DESCRICAO);
+                case bInfoColuna::TYPE_DECIMAL:
+                    $field = new MFloatField($coluna->field, $valor, $rotulo, T_DESCRICAO);
                     break;
 
-                case bInfoColuna::TIPO_INTEIRO:
-                case bInfoColuna::TIPO_INTEIRO_LONGO:
-                    $campo = new MIntegerField($coluna->campo, $valor, $rotulo, T_CODIGO);
-                    $validador = new MIntegerValidator($coluna->campo, $rotulo);
+                case bInfoColuna::TYPE_NUMERIC:
+                    $field = new MFloatField($coluna->field, $valor, $rotulo, T_DESCRICAO);
+                    break;
 
-                    if ( $coluna->obrigatorio == DB_TRUE )
+                case bInfoColuna::TYPE_INTEGER:
+                case bInfoColuna::TYPE_BIG_INTEGER:
+                    $field = new MIntegerField($coluna->field, $valor, $rotulo, T_CODIGO);
+                    $validador = new MIntegerValidator($coluna->field, $rotulo);
+
+                    if ( $coluna->required == DB_TRUE )
                     {
                         $validador->type = 'required';
                     }
 
                     break;
 
-                case bInfoColuna::TIPO_TEXTO_LONGO:
-                    $campo = new MMultiLineField($coluna->campo, $valor, $rotulo, NULL, T_VERTICAL_TEXTO, T_HORIZONTAL_TEXTO);
+                case bInfoColuna::TYPE_LONG_TEXT:
+                    $field = new MMultiLineField($coluna->field, $valor, $rotulo, NULL, T_VERTICAL_TEXTO, T_HORIZONTAL_TEXTO);
                     break;
-                    
-                case bInfoColuna::TIPO_TEXTO:
+
+                case bInfoColuna::TYPE_TEXT:
                 default:
-                    $campo = new MTextField($coluna->campo, $valor, $rotulo, T_DESCRICAO);
+                    $field = new MTextField($coluna->field, $valor, $rotulo, T_DESCRICAO);
                     break;
             }
         }
 
-        if ( $coluna->restricao == 'p' && substr($coluna->valorPadrao, 0, 7) == 'nextval' )
+        if ( $coluna->constraint == 'p' && substr($coluna->defaultValue, 0, 7) == 'nextval' )
         {
             $validador = NULL;
         }
 
-        return array( $campo, $validador );
+        return array( $field, $validador );
     }
     
     /**
@@ -308,37 +308,37 @@ class frmDinamico extends bFormCadastro
 
                 if ( is_array($estruturaTabela) )
                 {
-                    $campos = array();
+                    $fields = array();
                     $validadores = array();
                     $colunas = array();
 
-                    foreach ( $estruturaTabela as $campoId => $campo )
+                    foreach ( $estruturaTabela as $campoId => $field )
                     {
-                        if ( !in_array($campo->nome, $this->restrictColumns) )
+                        if ( !in_array($field->name, $this->restrictColumns) )
                         {
-                            $campo instanceof bInfoColuna;
-                            $chaveRelacionada = in_array($campo->nome, $chavesPrimarias);
+                            $field instanceof bInfoColuna;
+                            $chaveRelacionada = in_array($field->name, $chavesPrimarias);
 
                             // Checks if the field has the same id as the form's primary key, if so, does not build the field and column.
-    //                        if ( !($campo->restricao == 'p' && substr($campo->valorPadrao, 0, 7) == 'nextval' ) )
+    //                        if ( !($field->constraint == 'p' && substr($field->defaultValue, 0, 7) == 'nextval' ) )
 
                             if ( !$chaveRelacionada )
                             {
-                                list($campos[$campoId], $validadores[$campoId]) =  $this->gerarCampo($campo);
+                                list($fields[$campoId], $validadores[$campoId]) =  $this->gerarCampo($field);
 
                                 // Hides primary key in the subdetail
-                                if ( $campo->eChavePrimaria() )
+                                if ( $field->eChavePrimaria() )
                                 {
-                                    $campos[$campoId] = new MTextField($campoId, $campos[$campoId]->value);
-                                    $campos[$campoId]->addBoxStyle('display', 'none');
+                                    $fields[$campoId] = new MTextField($campoId, $fields[$campoId]->value);
+                                    $fields[$campoId]->addBoxStyle('display', 'none');
                                 }
 
                                 // Sets the alignment of the subdetail grid column.
-                                if ( in_array($campo->tipo, array(bInfoColuna::TIPO_BOOLEAN, bInfoColuna::TIPO_DATA, bInfoColuna::TIPO_TIMESTAMP)) )
+                                if ( in_array($field->type, array(bInfoColuna::TYPE_BOOLEAN, bInfoColuna::TYPE_DATE, bInfoColuna::TYPE_TIMESTAMP)) )
                                 {
                                     $alinhamento = 'center';
                                 }
-                                elseif ( in_array($campo->tipo, array(bInfoColuna::TIPO_TEXTO_LONGO, bInfoColuna::TIPO_TEXTO, bInfoColuna::TIPO_INTEIRO, bInfoColuna::TIPO_NUMERIC) ) )
+                                elseif ( in_array($field->type, array(bInfoColuna::TYPE_LONG_TEXT, bInfoColuna::TYPE_TEXT, bInfoColuna::TYPE_INTEGER, bInfoColuna::TYPE_NUMERIC) ) )
                                 {
                                     $alinhamento = 'right';
                                 }
@@ -347,12 +347,12 @@ class frmDinamico extends bFormCadastro
                                     $alinhamento = 'left';
                                 }
 
-                                if ( !$chaveRelacionada && !$campo->eChavePrimaria() )
+                                if ( !$chaveRelacionada && !$field->eChavePrimaria() )
                                 {
-                                    $colunas[$campoId] = new MGridColumn( $campo->titulo, $alinhamento, true, null, true, $campoId );
+                                    $colunas[$campoId] = new MGridColumn( $field->title, $alinhamento, true, null, true, $campoId );
 
                                     // Only needs to be done when not inserting
-                                    $relacionamentos = $tipoObjeto->obterRelacionamentos(); 
+                                    $relacionamentos = $tipoObjeto->obterRelacionamentos();
 
                                     foreach( $relacionamentos as $relacionamento )
                                     {
@@ -370,12 +370,12 @@ class frmDinamico extends bFormCadastro
 
                                             // If this attribute exists, a bEscolha is built, and consequently
                                             // a new column is created for this value
-                                            if ( strlen($campo->fkTabela) && 
-                                                 count($chavesPKRelacionado) > 0 && 
+                                            if ( strlen($field->fkTable) &&
+                                                 count($chavesPKRelacionado) > 0 &&
                                                  strlen($tipoRelacionado->obterColunaDescritiva()) > 0 )
                                             {
                                                 // Only fetch related values, not all
-                                                $colunas[$campoId . 'Descricao'] = new MGridColumn( $campo->titulo, 'left', true, null, true, $campoId . 'Descricao');
+                                                $colunas[$campoId . 'Descricao'] = new MGridColumn( $field->title, 'left', true, null, true, $campoId . 'Descricao');
 
     //                                          $colunas[$campoId]->setTitle("Código " . strtolower($colunas[$campoId]->getTitle()));
                                                 $colunas[$campoId]->visible = false;
@@ -386,11 +386,11 @@ class frmDinamico extends bFormCadastro
                             }
                         }
                     }
-                    
+
                     // setValidators needs to be done before setFields - ticket #41291
                     $subDetail[$tipo] = $campoSubDetail = new MSubDetail($tipo, $tipoObjeto->obterComentarioDaTabela());
                     $campoSubDetail->setValidators( $validadores );
-                    $campoSubDetail->setFields( $campos );
+                    $campoSubDetail->setFields( $fields );
                     $campoSubDetail->setColumns($colunas);
                     
                     // Clears the subdetail.
@@ -410,9 +410,9 @@ class frmDinamico extends bFormCadastro
      *
      * @param array $ordemDosCampos Array with the field order.
      */
-    protected function definirOrdemDosCampos(array $ordemDosCampos)
+    protected function definirOrdemDosCampos(array $fieldOrder)
     {
-        $this->ordemDosCampos = $ordemDosCampos;
+        $this->fieldOrder = $fieldOrder;
     }
     
     /**
@@ -422,7 +422,7 @@ class frmDinamico extends bFormCadastro
      */
     protected function obterOrdemDosCampos()
     {
-        return $this->ordemDosCampos;
+        return $this->fieldOrder;
     }    
     
                     }

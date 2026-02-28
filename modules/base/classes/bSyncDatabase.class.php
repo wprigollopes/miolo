@@ -520,7 +520,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
 
             //if it is a primary key field in the database, adds to the array
            // if ( MUtil::getBooleanValue($columnDb->primaryKey) == true )
-            if ( $columnDb->restricao == 'p' )
+            if ( $columnDb->constraint == 'p' )
             {
                 $primaryKeysDb[] = $this->reservedColumnNames($columnDb->name);
             }
@@ -545,9 +545,9 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
                 {
                     //type verification
                     $typeXml = $this->xmlTypeToDB($this->getColumnType($column, false));
-                    $typeDB = strtolower($columnDb->tipo);
+                    $typeDB = strtolower($columnDb->type);
                     $lengthXml = strtolower($column->getAttribute('length'));
-                    $lengthDB = strtolower($columnDb->tamanho);
+                    $lengthDB = strtolower($columnDb->size);
 
                     $doDiff = true;
 
@@ -588,12 +588,12 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
 
             //from this point on, assumes the field exists
 
-            $uniqueDb = $columnDb->restricao == 'u';
+            $uniqueDb = $columnDb->constraint == 'u';
             $uniqueXmi = $column->getAttribute('unique') == 'true';
 
             //they are different, needs database modification, but only if it is not a primary key
             // if ( $uniqueDb != $uniqueXmi && MUtil::getBooleanValue($columnDb->primaryKey) == false )
-            if ( $uniqueDb != $uniqueXmi && $columnDb->restricao != 'p' )
+            if ( $uniqueDb != $uniqueXmi && $columnDb->constraint != 'p' )
             {
                 //exists in database but not in XMI, drops it
                 if ( $uniqueDb && !$uniqueXmi )
@@ -650,7 +650,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
 
             //verification of null value possibility
             $notNullXml = $column->getAttribute('nullable') == 'true';
-            $notNullDB = $columnDb->obrigatorio == DB_FALSE;
+            $notNullDB = $columnDb->required == DB_FALSE;
 
             //checks need to remove or add not null
             if ( $notNullDB != $notNullXml )

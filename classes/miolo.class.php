@@ -991,14 +991,14 @@ mdump($this->getConf("options.fileextension"));
      */
     public function saguCompatibility($url)
     {
-        $arquivoVersao = $this->getModulePath('basic', 'VERSION');
-        $versao = file_exists($arquivoVersao) ? file_get_contents($arquivoVersao) : '1.0.0';
-        
-        $contasPagar20 = (version_compare($versao, "3.67.0") >= 0);
-        $relCliente20 = (version_compare($versao, "3.68.0") >= 0);
+        $versionFile = $this->getModulePath('basic', 'VERSION');
+        $version = file_exists($versionFile) ? file_get_contents($versionFile) : '1.0.0';
+
+        $accountsPayable20 = (version_compare($version, "3.67.0") >= 0);
+        $clientReport20 = (version_compare($version, "3.68.0") >= 0);
 
         if (
-             preg_match('/\?module=(admin|basic|academic|finance|services|selectiveProcess|'.($relCliente20?'relcliente|':'').'accountancy|controlCopies|'.($contasPagar20?'contaspagar|':'').'training|institutional|protocol|research|residency|humanResources)&/', $url) ||
+             preg_match('/\?module=(admin|basic|academic|finance|services|selectiveProcess|'.($clientReport20?'relcliente|':'').'accountancy|controlCopies|'.($accountsPayable20?'contaspagar|':'').'training|institutional|protocol|research|residency|humanResources)&/', $url) ||
              preg_match('/main:report:generateReport&report=/', $url) || // Redireciona relatorios genericos para o SAGU MIOLO 2.0
              preg_match('/main:document:genericReports&reportid=/', $url) ||
              preg_match('/main:report:genericReports&reportid=/', $url)

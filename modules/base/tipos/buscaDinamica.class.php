@@ -132,31 +132,31 @@ class buscaDinamica extends bTipo
         {
             $coluna = new bInfoColuna();
             list(
-                $coluna->nome,
-                $coluna->tipo,
-                $coluna->titulo,
-                $coluna->obrigatorio,
-                $coluna->valorPadrao,
-                $coluna->tamanho,
-                $coluna->restricao,
-                $coluna->fkEsquema,
-                $coluna->fkTabela,
-                $coluna->fkColuna,
-                $coluna->valoresPossiveis,
-                $coluna->editavel,
-                $coluna->visivel,
-                $coluna->filtravel,
-                $coluna->exibirNaGrid,
-                $coluna->parametros,
+                $coluna->name,
+                $coluna->type,
+                $coluna->title,
+                $coluna->required,
+                $coluna->defaultValue,
+                $coluna->size,
+                $coluna->constraint,
+                $coluna->fkSchema,
+                $coluna->fkTable,
+                $coluna->fkColumn,
+                $coluna->possibleValues,
+                $coluna->editable,
+                $coluna->visible,
+                $coluna->filterable,
+                $coluna->showInGrid,
+                $coluna->parameters,
                 $coluna->chave,
                 $coluna->modulo,
                 $coluna->ordenar,
-                $coluna->esquema,
-                $coluna->tabela,
-                $coluna->campo
+                $coluna->schema,
+                $coluna->table,
+                $coluna->field
             ) = $linha;
 
-            $chave = "$coluna->esquema.$coluna->tabela.$coluna->nome";
+            $chave = "$coluna->schema.$coluna->table.$coluna->name";
             $colunas[$chave] = $coluna;
         }
         

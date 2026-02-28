@@ -47,11 +47,11 @@ class bEmail extends PHPMailer
     private $log = FALSE;
     
     /**
-     * @var string $arquivoDeLog Full log file path.
+     * @var string $logFile Full log file path.
      */
-    private $arquivoDeLog;
+    private $logFile;
 
-    function __construct($host, $porta, $enderecoRemetente, $nomeRemetente, $necessidadeDeAutenticacao, $usuario, $senha, $tipoDeConteudo)
+    function __construct($host, $port, $senderAddress, $senderName, $authRequired, $username, $password, $contentType)
     {
         parent::__construct();
         $this->setLanguage('br');
@@ -62,13 +62,13 @@ class bEmail extends PHPMailer
 
         // Sets the parameter values.
         $this->definirHost($host);
-        $this->definirPorta($porta);
-        $this->definirRemetente($enderecoRemetente);
-        $this->definirNomeRemetente($nomeRemetente);
-        $this->definirNecessidadeAutenticacao($necessidadeDeAutenticacao);
-        $this->definirUsuario($usuario);
-        $this->definirSenha($senha);
-        $this->definirTipoConteudo($tipoDeConteudo);
+        $this->definirPorta($port);
+        $this->definirRemetente($senderAddress);
+        $this->definirNomeRemetente($senderName);
+        $this->definirNecessidadeAutenticacao($authRequired);
+        $this->definirUsuario($username);
+        $this->definirSenha($password);
+        $this->definirTipoConteudo($contentType);
         
         // Increases the connection timeout with the email service.
         $this->Timeout = 60; 
@@ -77,11 +77,11 @@ class bEmail extends PHPMailer
     /**
      * Sets the email encoding.
      *
-     * @param string $codificacao Email encoding.
+     * @param string $encoding Email encoding.
      */
-    public function definirCodificacao( $codificacao )
+    public function definirCodificacao( $encoding )
     {
-        $this->CharSet = $codificacao;
+        $this->CharSet = $encoding;
     }
 
     /**
@@ -99,7 +99,7 @@ class bEmail extends PHPMailer
      */
     private function definirCaminhoCompletoLog()
     {
-        if ( strlen( $this->arquivoDeLog ) )
+        if ( strlen( $this->logFile ) )
         {
             return;
         }
@@ -111,51 +111,51 @@ class bEmail extends PHPMailer
         }
 
         $MIOLO = MIOLO::getInstance();
-        $this->arquivoDeLog  = $MIOLO->getConf('home.logs')."/";
-        $this->arquivoDeLog .= defined('MAIL_LOG_FILE_NAME') ? MAIL_LOG_FILE_NAME : "mail.log";
+        $this->logFile  = $MIOLO->getConf('home.logs')."/";
+        $this->logFile .= defined('MAIL_LOG_FILE_NAME') ? MAIL_LOG_FILE_NAME : "mail.log";
     }
 
     /**
      * This method increments the recipients array.
      *
-     * @param string $endereco Recipients separated by comma.
+     * @param string $address Recipients separated by comma.
      */
-    public function adicionarDestinatario($endereco)
+    public function adicionarDestinatario($address)
     {
         // If @ is not found, do not add,
-        if ( !preg_match( "/@/", $endereco ) )
+        if ( !preg_match( "/@/", $address ) )
         {
             return;
         }
 
         // If separated by commas.
-        if ( preg_match("/,/", $endereco ) )
+        if ( preg_match("/,/", $address ) )
         {
-            $destinatarios = explode(",", $endereco);
+            $recipients = explode(",", $address);
             
-            foreach($destinatarios as $enderecoDestinatario)
+            foreach($recipients as $recipientAddress)
             {
-                parent::addAddress($enderecoDestinatario);
+                parent::addAddress($recipientAddress);
             }
         }
         else
         {
-            parent::addAddress( trim( $endereco ) );
+            parent::addAddress( trim( $address ) );
         }
     }
     
     /**
      * Sets the recipient address.
      *
-     * @param string $endereco Recipient address.
+     * @param string $address Recipient address.
      */
-    public function definirEndereco($endereco)
+    public function definirEndereco($address)
     {
         // Clears all previous recipients.
         $this->ClearAddresses();
         
         // Adds the recipient address.
-        $this->adicionarDestinatario($endereco);
+        $this->adicionarDestinatario($address);
     }
     
     /**
@@ -173,25 +173,25 @@ class bEmail extends PHPMailer
      *
      * @param string Full path of the file(s).
      */
-    public function adicionarAnexo($caminhoCompletoArquivo)
+    public function adicionarAnexo($fullFilePath)
     {
-        $caminhoCompletoArquivo = trim($caminhoCompletoArquivo);
+        $fullFilePath = trim($fullFilePath);
 
         // Supports multiple files separated by comma.
-        if ( preg_match( "/,/", $caminhoCompletoArquivo ) )
+        if ( preg_match( "/,/", $fullFilePath ) )
         {
-            $arquivos = explode(",", $caminhoCompletoArquivo);
+            $files = explode(",", $fullFilePath);
 
-            foreach($arquivos as $arquivo)
+            foreach($files as $file)
             {
-                parent::addAttachment($arquivo);
+                parent::addAttachment($file);
             }
         }
         else
         {
-            if ( file_exists( $caminhoCompletoArquivo ) )
+            if ( file_exists( $fullFilePath ) )
             {
-                parent::addAttachment( $caminhoCompletoArquivo );
+                parent::addAttachment( $fullFilePath );
             }
         }
     }
@@ -209,11 +209,11 @@ class bEmail extends PHPMailer
     /**
      * Sets the email content.
      *
-     * @param string $conteudo Email content.
+     * @param string $content Email content.
      */
-    public function definirConteudo($conteudo)
+    public function definirConteudo($content)
     {
-        $this->Body = new BString($conteudo);
+        $this->Body = new BString($content);
     }
     
     /**
@@ -234,12 +234,12 @@ class bEmail extends PHPMailer
     /**
      * Sets the email subject.
      *
-     * @param string $assunto Email subject.
+     * @param string $subject Email subject.
      */
-    public function definirAssunto($assunto)
+    public function definirAssunto($subject)
     {
-        $assunto = str_replace('  ', ' ', $assunto);
-        $this->Subject = new BString($assunto);
+        $subject = str_replace('  ', ' ', $subject);
+        $this->Subject = new BString($subject);
     }
     
     /**
@@ -255,14 +255,14 @@ class bEmail extends PHPMailer
     /**
      * Sets the authentication user.
      *
-     * @param string $usuario Authentication user.
+     * @param string $username Authentication user.
      */
-    public function definirUsuario($usuario)
+    public function definirUsuario($username)
     {
-        $usuario = new BString($usuario);
-        $usuario->replace(array("\n", "\t", "\r"), "");
-        $usuario->trim();
-        $this->Username = $usuario;
+        $username = new BString($username);
+        $username->replace(array("\n", "\t", "\r"), "");
+        $username->trim();
+        $this->Username = $username;
     }
     
     /**
@@ -278,11 +278,11 @@ class bEmail extends PHPMailer
     /**
      * Sets the authentication password.
      *
-     * @param string $senha Password required for authentication.
+     * @param string $password Password required for authentication.
      */
-    public function definirSenha($senha)
+    public function definirSenha($password)
     {
-        $this->Password = new BString($senha);
+        $this->Password = new BString($password);
     }
     
      /**
@@ -318,11 +318,11 @@ class bEmail extends PHPMailer
     /**
      * Sets the connection port.
      *
-     * @param Integer $porta Port number.
+     * @param Integer $port Port number.
      */
-    public function definirPorta($porta)
+    public function definirPorta($port)
     {
-        $this->Port = $porta;
+        $this->Port = $port;
     }
     
     /**
@@ -338,14 +338,14 @@ class bEmail extends PHPMailer
     /**
      * Sets the email sender.
      *
-     * @param string $remetente Email sender.
+     * @param string $sender Email sender.
      */
-    public function definirRemetente($remetente)
+    public function definirRemetente($sender)
     {
-        $remetente = new BString($remetente);
-        $remetente->replace(array("\n", "\t", "\r"), "");
-        $remetente->trim();
-        $this->From = $remetente;
+        $sender = new BString($sender);
+        $sender->replace(array("\n", "\t", "\r"), "");
+        $sender->trim();
+        $this->From = $sender;
     }
 
     /**
@@ -361,11 +361,11 @@ class bEmail extends PHPMailer
     /**
      * Sets the sender name.
      *
-     * @param string $nomeRemetente Sender name.
+     * @param string $senderName Sender name.
      */
-    public function definirNomeRemetente($nomeRemetente)
+    public function definirNomeRemetente($senderName)
     {
-        $this->FromName = new BString($nomeRemetente);
+        $this->FromName = new BString($senderName);
     }
     
     /**
@@ -382,11 +382,11 @@ class bEmail extends PHPMailer
      *
      * Sets whether the server connection method is authenticated or not
      *
-     * @param boolean $autenticacao If true, uses authentication when sending email.
+     * @param boolean $authentication If true, uses authentication when sending email.
      */
-    public function definirNecessidadeAutenticacao($autenticacao)
+    public function definirNecessidadeAutenticacao($authentication)
     {
-        $this->SMTPAuth = $autenticacao;
+        $this->SMTPAuth = $authentication;
     }
     
     /**
@@ -422,11 +422,11 @@ class bEmail extends PHPMailer
     /**
      * Defines the content language.
      *
-     * @param string $tipo Email content type.
+     * @param string $type Email content type.
      */
-    public function definirTipoConteudo($tipo = 'html')
+    public function definirTipoConteudo($type = 'html')
     {
-        switch ($tipo)
+        switch ($type)
         {
             default:
                 $this->definirEmailFormatoHTML(TRUE);
@@ -450,10 +450,10 @@ class bEmail extends PHPMailer
      */
     public function enviar()
     {
-        $enviou = parent::send();
-        $this->gravarLog($enviou);
+        $sent = parent::send();
+        $this->gravarLog($sent);
         
-        return $enviou;
+        return $sent;
     }
 
     /**
@@ -461,11 +461,11 @@ class bEmail extends PHPMailer
      *
      * @param boolean Email sending result.
      */
-    private function gravarLog($resultado)
+    private function gravarLog($result)
     {
         $this->definirCaminhoCompletoLog();
 
-        if(!strlen($this->arquivoDeLog))
+        if(!strlen($this->logFile))
         {
             return;
         }
@@ -491,7 +491,7 @@ class bEmail extends PHPMailer
             $content.=  "\n". $this->ErrorInfo ."\n";
         }
 
-        file_put_contents($this->arquivoDeLog, $content, FILE_APPEND);
+        file_put_contents($this->logFile, $content, FILE_APPEND);
     }
     
     /**

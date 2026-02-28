@@ -775,23 +775,23 @@ class bTipo
         {
             foreach ( $filtros as $idFiltro => $filtro )
             {
-                $tipoColuna = $this->estruturaTabela[$idFiltro]->tipo;
+                $tipoColuna = $this->estruturaTabela[$idFiltro]->type;
 
                 if ( strlen($tipoColuna) && strlen($filtro) )
                 {
                     switch ( $tipoColuna )
                     {
-                        case bInfoColuna::TIPO_TEXTO_LONGO:
+                        case bInfoColuna::TYPE_LONG_TEXT:
                             $sql->setWhere("unaccent(lower($idFiltro)) LIKE unaccent(lower(?))");
                             $parametros[] = '%' . $filtro . '%';
                             break;
 
-                        case bInfoColuna::TIPO_TEXTO:
+                        case bInfoColuna::TYPE_TEXT:
                             $sql->setWhere("unaccent(lower($idFiltro)) LIKE unaccent(lower(?))");
                             $parametros[] = $filtro . '%';
                             break;
                         
-                        case bInfoColuna::TIPO_CHAR:
+                        case bInfoColuna::TYPE_CHAR:
                             $sql->setWhere("unaccent(lower($idFiltro)) LIKE unaccent(lower(?))");
                             $parametros[] = $filtro . '%';
                             break;
@@ -842,7 +842,7 @@ class bTipo
             $dadosDaColuna = bCatalogo::buscarDadosDaColuna($column, $this->tabela);
             
             // If the column is timestamp, applies the mask defined in the type.
-            if ( $dadosDaColuna->tipo == bInfoColuna::TIPO_TIMESTAMP )
+            if ( $dadosDaColuna->type == bInfoColuna::TYPE_TIMESTAMP )
             {
                 $columns[$key] = "to_char($column, '{$this->mascaraTimeStamp}') as $column";
             }
@@ -920,8 +920,8 @@ class bTipo
                         // Adding relationship description key
                         foreach ( $tipoObjeto->estruturaTabela as $rel )
                         {                            
-                            $idDescription = $rel->nome . 'Descricao';
-                            $tipoObjeto->$idDescription = $tipoObjeto->valorDaColunaEstrangeira[$rel->nome];
+                            $idDescription = $rel->name . 'Descricao';
+                            $tipoObjeto->$idDescription = $tipoObjeto->valorDaColunaEstrangeira[$rel->name];
                         }
                         
                         $this->dadosTiposRelacionados[$tipo][] = $tipoObjeto;
@@ -963,9 +963,9 @@ class bTipo
         {
             foreach ( $colunas as $coluna => $dados )
             {
-                if ( $dados->restricao == 'p' )
+                if ( $dados->constraint == 'p' )
                 {
-                    if ( substr($dados->valorPadrao, 0, 7) == 'nextval' )
+                    if ( substr($dados->defaultValue, 0, 7) == 'nextval' )
                     {
                         $this->chavesPrimarias['sequencial'] = $coluna;
                     }
@@ -1005,7 +1005,7 @@ class bTipo
     {
         $estrutura = $this->obterEstruturaDaTabela();
         
-        return $estrutura[$coluna]->tipo;
+        return $estrutura[$coluna]->type;
     }
     
     /**
@@ -1015,7 +1015,7 @@ class bTipo
      */
     public function colunaTipoNumerico($coluna)
     {
-        return in_array($this->obterTipoColuna($coluna), array(bInfoColuna::TIPO_INTEIRO, bInfoColuna::TIPO_INTEIRO_LONGO, bInfoColuna::TIPO_NUMERIC));
+        return in_array($this->obterTipoColuna($coluna), array(bInfoColuna::TYPE_INTEGER, bInfoColuna::TYPE_BIG_INTEGER, bInfoColuna::TYPE_NUMERIC));
     }
     
     /**
@@ -1161,15 +1161,15 @@ class bTipo
                 }
                 
                 // Checks if required field was filled.
-                if ( ($estrutura->obrigatorio == DB_TRUE) && (strlen($this->$campo) == 0) && ( $estrutura->valorPadrao == DB_FALSE ) )
+                if ( ($estrutura->required == DB_TRUE) && (strlen($this->$campo) == 0) && ( $estrutura->defaultValue == DB_FALSE ) )
                 {
                     $camposInvalidos[$campo] = _M('Este campo é obrigatório');
                 }
                 
                 // Checks if the number of characters exceeds the field size in the database.
-                if ( $estrutura->tamanho && (strlen($this->$campo) > $estrutura->tamanho) )
+                if ( $estrutura->size && (strlen($this->$campo) > $estrutura->size) )
                 {
-                    $camposInvalidos[$campo] = _M('O campo excede o número de caracteres permitido', NULL, $estrutura->titulo);
+                    $camposInvalidos[$campo] = _M('O campo excede o número de caracteres permitido', NULL, $estrutura->title);
                 }
             }
             
@@ -1214,36 +1214,36 @@ class bTipo
             {
                 $orderBy = $coluna->ordenar;
             }
-            
+
             // Adjusts the filters coming from the form.
-            if ( $coluna->filtravel )
+            if ( $coluna->filterable )
             {
-                $filtros->{$coluna->campo} = $valoresFiltrados->{$coluna->campo};
+                $filtros->{$coluna->field} = $valoresFiltrados->{$coluna->field};
             }
-            
-            if ( !in_array("$coluna->esquema.$coluna->tabela", $tabelas) )
+
+            if ( !in_array("$coluna->schema.$coluna->table", $tabelas) )
             {
-                $tabelas[] = "$coluna->esquema.$coluna->tabela";
-                
-                $colunasString[] = "$coluna->esquema.$coluna->tabela.$coluna->nome";
-                
+                $tabelas[] = "$coluna->schema.$coluna->table";
+
+                $colunasString[] = "$coluna->schema.$coluna->table.$coluna->name";
+
                 if ( $tabelaAnterior == '' )
                 {
-                    $esquemaAnterior = $coluna->esquema;
-                    $tabelaAnterior = $coluna->tabela;
-                    
+                    $esquemaAnterior = $coluna->schema;
+                    $tabelaAnterior = $coluna->table;
+
                     // Gets data from the previous table.
                     $dadosDaTabelaAnterior = bCatalogo::buscarChavesEstrangeirasDaTabela($tabelaAnterior, $esquemaAnterior);
                 }
 
                 if ( $tabelasString == '' )
                 {
-                    $tabelasString .= "$coluna->esquema.$coluna->tabela ";
+                    $tabelasString .= "$coluna->schema.$coluna->table ";
                 }
                 else
                 {
-                    $dadosDaTabela = bCatalogo::buscarChavesPrimariasDaTabela($coluna->tabela, $coluna->esquema);
-                    
+                    $dadosDaTabela = bCatalogo::buscarChavesPrimariasDaTabela($coluna->table, $coluna->schema);
+
                     foreach ( $dadosDaTabela as $pk )
                     {
                         list($pkColuna, $pkTipo) = $pk;
@@ -1251,8 +1251,8 @@ class bTipo
                         foreach ( $dadosDaTabelaAnterior as $fk )
                         {
                             list($fkFromSchema, $fkFromTable, $fkFromColumn, $fkToSchema, $fkToTable, $fkToColumn, $fkObrigatorio) = $fk;
-//        var_dump($coluna->esquema.' - '.$coluna->tabela );
-                            
+//        var_dump($coluna->schema.' - '.$coluna->table );
+
                             $join = $fkToSchema.$fkToTable;
                             
                             if ( $fkToColumn == $pkColuna && !in_array($join, $joins) )
@@ -1269,7 +1269,7 @@ class bTipo
             }
             else
             {
-                $colunasString[] = "$coluna->esquema.$coluna->tabela.$coluna->nome";
+                $colunasString[] = "$coluna->schema.$coluna->table.$coluna->name";
             }
         }
         
@@ -1307,10 +1307,10 @@ class bTipo
 
             $chave = str_replace('__', '.', $chave);
             
-            switch( $colunas[$chave]->tipo )
+            switch( $colunas[$chave]->type )
             {
-                case bInfoColuna::TIPO_TEXTO:
-                case bInfoColuna::TIPO_TEXTO_LONGO:
+                case bInfoColuna::TYPE_TEXT:
+                case bInfoColuna::TYPE_LONG_TEXT:
                     
                     if ( strlen($valor) )
                     {
@@ -1327,11 +1327,11 @@ class bTipo
 
                     break;
                     
-                case bInfoColuna::TIPO_LISTA:
+                case bInfoColuna::TYPE_LIST:
                     
                     if (strlen($valor) )
                     {
-                        $relacionamentos = bCatalogo::obterRelacionamentos($this->tabela, $colunas[$chave]->tabela);
+                        $relacionamentos = bCatalogo::obterRelacionamentos($this->tabela, $colunas[$chave]->table);
                         if ( $relacionamentos[0] )
                         {
                             $chaveEstrangeira = "{$relacionamentos[0]->esquema}.{$relacionamentos[0]->tabela_ref}.{$relacionamentos[0]->atributo_ref}";
@@ -1347,10 +1347,10 @@ class bTipo
                     
                     break;
                     
-                case bInfoColuna::TIPO_INTEIRO:
-                case bInfoColuna::TIPO_INTEIRO_LONGO:
-                case bInfoColuna::TIPO_NUMERIC:
-                case bInfoColuna::TIPO_DECIMAL:
+                case bInfoColuna::TYPE_INTEGER:
+                case bInfoColuna::TYPE_BIG_INTEGER:
+                case bInfoColuna::TYPE_NUMERIC:
+                case bInfoColuna::TYPE_DECIMAL:
                     
                     if ( strlen($valor) && is_numeric($valor) )
                     {

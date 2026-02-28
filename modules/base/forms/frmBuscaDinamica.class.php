@@ -61,7 +61,7 @@ class frmBuscaDinamica extends bFormCadastro
         $campoBuscaDinamicaId->addStyle('display', 'none');
         
         $camposBusca[] = new MDiv('containerReferencias',  $this->gerarCamposDeReferencia(NULL, NULL, TRUE));
-        $camposBusca[] = new MDiv('dadosDoCampo', $this->obterDadosDoCampo(NULL, bInfoColuna::TIPO_TEXTO, NULL, TRUE));
+        $camposBusca[] = new MDiv('dadosDoCampo', $this->obterDadosDoCampo(NULL, bInfoColuna::TYPE_TEXT, NULL, TRUE));
         
         $camposBusca[] = new MMultilineField('valorespossiveis', $this->getFormValue('valoresPossiveis', $data->valoresPossiveis), _M('Valores possíveis', $module), T_DESCRICAO, 5, 50);
         $camposBusca[] = new MIntegerField('posicao', '0', _M('Posição', $module), T_CODIGO);
@@ -211,7 +211,7 @@ class frmBuscaDinamica extends bFormCadastro
     {
         $infoColuna = bCatalogo::buscarDadosDaColuna($args->campoBuscaDinamica_referenciaColuna, $args->campoBuscaDinamica_referenciaTabela, $args->campoBuscaDinamica_referenciaEsquema);
        
-        $dadosDoCampo = $this->obterDadosDoCampo(NULL, $infoColuna->tipo, $args->campoBuscaDinamica_referenciaEsquema.'.'.$args->campoBuscaDinamica_referenciaTabela.'.'.$args->campoBuscaDinamica_referenciaColuna);
+        $dadosDoCampo = $this->obterDadosDoCampo(NULL, $infoColuna->type, $args->campoBuscaDinamica_referenciaEsquema.'.'.$args->campoBuscaDinamica_referenciaTabela.'.'.$args->campoBuscaDinamica_referenciaColuna);
 
         $this->setResponse($dadosDoCampo, 'campoBuscaDinamica_dadosDoCampo');
     }
@@ -224,7 +224,7 @@ class frmBuscaDinamica extends bFormCadastro
      * @param string $referencia Default value for the reference.
      * @return MFormContainer Name, type and default value fields aligned vertically.
      */
-    public function obterDadosDoCampo($nomePadrao='', $tipoPadrao=bInfoColuna::TIPO_TEXTO, $referencia='', $createFields=FALSE)
+    public function obterDadosDoCampo($nomePadrao='', $tipoPadrao=bInfoColuna::TYPE_TEXT, $referencia='', $createFields=FALSE)
     {
         $campos = array();
         $id = $createFields ? 'nome' : 'campoBuscaDinamica_nome';

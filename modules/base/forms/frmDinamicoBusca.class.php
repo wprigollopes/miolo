@@ -102,7 +102,7 @@ class frmDinamicoBusca extends bFormBusca
             }
 
             // Gets the fields, columns and keys of the search.
-            list($camposBuscaDinamica, $colunas, $chaves) = $this->gerarFiltrosEColunas();
+            list($camposBuscaDinamica, $columns, $keys) = $this->gerarFiltrosEColunas();
             
             // Checks if there are configured filters.
             if ( count($camposBuscaDinamica) > 0 && $montarCampos )
@@ -130,7 +130,7 @@ class frmDinamicoBusca extends bFormBusca
         
         $this->adicionarFiltros($campos);
 
-        $this->criarGrid($colunas, TRUE, $chaves);
+        $this->criarGrid($columns, TRUE, $keys);
     }
     
     /**
@@ -140,9 +140,9 @@ class frmDinamicoBusca extends bFormBusca
      */
     public function gerarFiltrosEColunas()
     {
-        $filtros = array();
-        $colunasGrid = array();
-        $chaves = array();
+        $filters = array();
+        $gridColumns = array();
+        $keys = array();
         $i = 0;
 
         foreach ( $this->colunas as $coluna )
@@ -152,21 +152,21 @@ class frmDinamicoBusca extends bFormBusca
 
             if ( $filtro )
             {
-                $filtros[] = $filtro;
+                $filters[] = $filtro;
             }
 
-            $colunasGrid[] = $colunaGrid;
-            
+            $gridColumns[] = $colunaGrid;
+
             // If it is a primary key, the column value must be passed to the edit form.
-            if ( $coluna->restricao == 'p' || $coluna->chave == DB_TRUE )
+            if ( $coluna->constraint == 'p' || $coluna->chave == DB_TRUE )
             {
-                $chaves[$coluna->nome] = "%$i%";
+                $keys[$coluna->name] = "%$i%";
             }
 
             $i++;
         }
 
-        return array( $filtros, $colunasGrid, $chaves );
+        return array( $filters, $gridColumns, $keys );
     }
 
     /**
@@ -180,50 +180,50 @@ class frmDinamicoBusca extends bFormBusca
         $filtro = NULL;
 
         $valor = $this->obterValorDoFiltro($coluna);
-        $rotulo = _M($coluna->titulo);
+        $rotulo = _M($coluna->title);
 
-        if ( $coluna->filtravel == DB_TRUE )
+        if ( $coluna->filterable == DB_TRUE )
         {
-            switch ( $coluna->tipo )
+            switch ( $coluna->type )
             {
-                case bInfoColuna::TIPO_BOOLEAN:
-                    $filtro = new MSelection($coluna->campo, $valor, $rotulo, bBooleano::obterVetorSimNao());
+                case bInfoColuna::TYPE_BOOLEAN:
+                    $filtro = new MSelection($coluna->field, $valor, $rotulo, bBooleano::obterVetorSimNao());
                     break;
 
-                case bInfoColuna::TIPO_DATA:
-                    $filtro = new MCalendarField($coluna->campo, $valor, $rotulo, T_DESCRICAO);
+                case bInfoColuna::TYPE_DATE:
+                    $filtro = new MCalendarField($coluna->field, $valor, $rotulo, T_DESCRICAO);
                     break;
                 
-                case bInfoColuna::TIPO_TIMESTAMP:
-                    $filtro = new MCalendarField($coluna->campo, $valor, $rotulo, T_DESCRICAO);
+                case bInfoColuna::TYPE_TIMESTAMP:
+                    $filtro = new MCalendarField($coluna->field, $valor, $rotulo, T_DESCRICAO);
                     break;
 
-                case bInfoColuna::TIPO_DECIMAL:
-                    $filtro = new MFloatField($coluna->campo, $valor, $rotulo, T_DESCRICAO);
+                case bInfoColuna::TYPE_DECIMAL:
+                    $filtro = new MFloatField($coluna->field, $valor, $rotulo, T_DESCRICAO);
                     break;
                 
-                case bInfoColuna::TIPO_NUMERIC:
-                    $filtro = new MFloatField($coluna->campo, $valor, $rotulo, T_DESCRICAO);
+                case bInfoColuna::TYPE_NUMERIC:
+                    $filtro = new MFloatField($coluna->field, $valor, $rotulo, T_DESCRICAO);
                     break;
 
-                case bInfoColuna::TIPO_INTEIRO:
-                    $filtro = new MIntegerField($coluna->campo, $valor, $rotulo, T_CODIGO);
-                    $validator = new MIntegerValidator($coluna->campo, $rotulo);
+                case bInfoColuna::TYPE_INTEGER:
+                    $filtro = new MIntegerField($coluna->field, $valor, $rotulo, T_CODIGO);
+                    $validator = new MIntegerValidator($coluna->field, $rotulo);
                     break;
 
-                case bInfoColuna::TIPO_LISTA:
+                case bInfoColuna::TYPE_LIST:
                     
                     // Checks if possible values exist, otherwise gets them from the database.
-                    if ( strlen($coluna->valoresPossiveis) )
+                    if ( strlen($coluna->possibleValues) )
                     {
-                        $possibleValues = explode("\n", trim($coluna->valoresPossiveis));
+                        $possibleValues = explode("\n", trim($coluna->possibleValues));
 
                         // Uses the values as keys
                         $possibleValues = array_combine($possibleValues, $possibleValues);
                     }
                     else
                     {
-                        $tipoChaveEstrangeira = bTipo::instanciarTipo($coluna->tabela, $this->modulo);
+                        $tipoChaveEstrangeira = bTipo::instanciarTipo($coluna->table, $this->modulo);
             
                         // Builds a MSelection field with the table values.
                         if ( $tipoChaveEstrangeira instanceof bTipo )
@@ -232,24 +232,24 @@ class frmDinamicoBusca extends bFormBusca
                         }
                     }
 
-                    $filtro = new MSelection($coluna->campo, $valor, $rotulo, $possibleValues);
+                    $filtro = new MSelection($coluna->field, $valor, $rotulo, $possibleValues);
                     break;
 
-                case bInfoColuna::TIPO_TEXTO_LONGO:
-                case bInfoColuna::TIPO_TEXTO:
-                    $filtro = new MTextField($coluna->campo, $valor, $rotulo, T_DESCRICAO);
+                case bInfoColuna::TYPE_LONG_TEXT:
+                case bInfoColuna::TYPE_TEXT:
+                    $filtro = new MTextField($coluna->field, $valor, $rotulo, T_DESCRICAO);
                     break;
             }
             
             if ( $filtro )
             {
-                if ( !$coluna->editavel == DB_TRUE )
+                if ( !$coluna->editable == DB_TRUE )
                 {
                     $filtro->setReadOnly(true);
                     $validator = NULL;
                 }
 
-                if ( !$coluna->visivel == DB_TRUE )
+                if ( !$coluna->visible == DB_TRUE )
                 {
                     $filtro->addBoxStyle('display', 'none');
                     $validator = NULL;
@@ -265,17 +265,17 @@ class frmDinamicoBusca extends bFormBusca
         $alinhamento = $this->obterAlinhamentoPadrao($coluna);
 
         // Generates the column for the Grid.
-        if ( $coluna->tipo == bInfoColuna::TIPO_BOOLEAN )
+        if ( $coluna->type == bInfoColuna::TYPE_BOOLEAN )
         {
-            $colunaGrid = new MGridColumn($rotulo, $alinhamento, true, NULL, $coluna->exibirNaGrid == DB_TRUE, bBooleano::obterVetorSimNao(), TRUE);
+            $colunaGrid = new MGridColumn($rotulo, $alinhamento, true, NULL, $coluna->showInGrid == DB_TRUE, bBooleano::obterVetorSimNao(), TRUE);
         }
-        else if ( $coluna->tipo == bInfoColuna::TIPO_NUMERIC ) 
+        else if ( $coluna->type == bInfoColuna::TYPE_NUMERIC ) 
         {
-            $colunaGrid = new MGridColumn($rotulo, $alinhamento, true, NULL, $coluna->exibirNaGrid == DB_TRUE, NULL, TRUE, '', TRUE);
+            $colunaGrid = new MGridColumn($rotulo, $alinhamento, true, NULL, $coluna->showInGrid == DB_TRUE, NULL, TRUE, '', TRUE);
         }
         else
         {
-            $colunaGrid = new MGridColumn($rotulo, $alinhamento, true, NULL, $coluna->exibirNaGrid == DB_TRUE, NULL, TRUE);
+            $colunaGrid = new MGridColumn($rotulo, $alinhamento, true, NULL, $coluna->showInGrid == DB_TRUE, NULL, TRUE);
         }
         
         return array( $filtro, $colunaGrid );
@@ -284,8 +284,8 @@ class frmDinamicoBusca extends bFormBusca
     public function obterValorDoFiltro(bInfoColuna $coluna)
     {
         // Checks if there is a value in REQUEST, to maintain filters when changing pages - #56499
-        $valor = $coluna->valorPadrao;
-        $valorNoRequest = MIOLO::_REQUEST($coluna->campo);
+        $valor = $coluna->defaultValue;
+        $valorNoRequest = MIOLO::_REQUEST($coluna->field);
 
         if ($valor <> $valorNoRequest && MUtil::getBooleanValue(MIOLO::_REQUEST('__ISAJAXEVENT')))
         {
@@ -308,15 +308,15 @@ class frmDinamicoBusca extends bFormBusca
     public function obterAlinhamentoPadrao(bInfoColuna $coluna)
     {
         $alinhamentos = array(
-            bInfoColuna::TIPO_BOOLEAN => 'center',
-            bInfoColuna::TIPO_DATA => 'center',
-            bInfoColuna::TIPO_TIMESTAMP => 'center',
-            bInfoColuna::TIPO_DECIMAL => 'right',
-            bInfoColuna::TIPO_NUMERIC => 'right',
-            bInfoColuna::TIPO_INTEIRO => 'right',
+            bInfoColuna::TYPE_BOOLEAN => 'center',
+            bInfoColuna::TYPE_DATE => 'center',
+            bInfoColuna::TYPE_TIMESTAMP => 'center',
+            bInfoColuna::TYPE_DECIMAL => 'right',
+            bInfoColuna::TYPE_NUMERIC => 'right',
+            bInfoColuna::TYPE_INTEGER => 'right',
         );
         
-        return MUtil::NVL($alinhamentos[$coluna->tipo], 'left');
+        return MUtil::NVL($alinhamentos[$coluna->type], 'left');
     }
     
     /**
@@ -342,12 +342,12 @@ class frmDinamicoBusca extends bFormBusca
      *
      * @param array $colunas Array with MGridColumn instances.
      */
-    protected function criarGrid($colunas, $mostrarCheckBoxes=TRUE, $chaves)
+    protected function criarGrid($columns, $mostrarCheckBoxes=TRUE, $keys)
     {
         // Gets the search SQL.
         $sqlConsulta = $this->obterObjetoConsulta();
-        
-        $this->grid = new MSpecialGrid(NULL, $colunas, 'bSearchGrid', 15, $mostrarCheckBoxes, $chaves);
+
+        $this->grid = new MSpecialGrid(NULL, $columns, 'bSearchGrid', 15, $mostrarCheckBoxes, $keys);
         $this->grid->setGridMostraTotalNumeric(SAGU::getParameter('BASIC', 'GRID_MOSTRA_TOTAL_NUMERIC') == DB_TRUE);
         $this->grid->showExport = true;
         $this->grid->setQuery($sqlConsulta, $this->modulo);
@@ -383,11 +383,11 @@ class frmDinamicoBusca extends bFormBusca
      *
      * @param array $filtros Array of filter fields.
      */
-    protected function adicionarFiltros($filtros)
+    protected function adicionarFiltros($filters)
     {
-        $filtros[] = $this->obterBotoes();
+        $filters[] = $this->obterBotoes();
 
-        $this->addFields($filtros);
+        $this->addFields($filters);
     }
     
     protected function adicionarEventoEnter($campo)

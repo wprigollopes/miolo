@@ -329,9 +329,9 @@ class bEscolha extends MRowContainer
         
         foreach( $colunas as $coluna )
         {
-            if( in_array($coluna->nome, array("descricao", "description")) )
+            if( in_array($coluna->name, array("descricao", "description")) )
             {
-                $colunaDescricao = $coluna->nome;
+                $colunaDescricao = $coluna->name;
             }
             
         }

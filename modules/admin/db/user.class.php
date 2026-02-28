@@ -297,11 +297,11 @@ class BusinessAdminUser extends MBusiness implements IUser
     public function setArrayGroups($aGroups)
     {
         $this->groups = NULL;
-        if ( count( $aGrupos ) )
+        if ( count( $aGroups ) )
         {
-            foreach ( $aGrupos as $g )
+            foreach ( $aGroups as $g )
             {
-                $grupo = $this->_miolo->getBusiness( 'admin', 'group', $g );
+                $group = $this->_miolo->getBusiness( 'admin', 'group', $g );
                 $this->groups[$g] = $group;
             }
         }

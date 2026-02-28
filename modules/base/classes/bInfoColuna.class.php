@@ -42,92 +42,92 @@ class bInfoColuna
     /**
      * @var string 
      */
-    public $esquema = 'public';
+    public $schema = 'public';
 
     /**
      * @var string 
      */
-    public $tabela;
+    public $table;
 
     /**
      * @var string 
      */
-    public $nome;
+    public $name;
 
     /**
      * @var string 
      */
-    public $tipo;
+    public $type;
 
     /**
      * @var string 
      */
-    public $titulo;
+    public $title;
 
     /**
      * @var string 
      */
-    public $obrigatorio;
+    public $required;
 
     /**
      * @var string 
      */
-    public $valorPadrao;
+    public $defaultValue;
 
     /**
      * @var string 
      */
-    public $tamanho;
+    public $size;
 
     /**
      * @var character Indicates whether it is a foreign key (f) or primary key (p).
      */
-    public $restricao;
+    public $constraint;
 
     /**
      * @var string 
      */
-    public $fkEsquema;
+    public $fkSchema;
 
     /**
      * @var string 
      */
-    public $fkTabela;
+    public $fkTable;
 
     /**
      * @var string 
      */
-    public $fkColuna;
+    public $fkColumn;
 
     /**
      * @var string 
      */
-    public $valoresPossiveis;
+    public $possibleValues;
 
     /**
      * @var string 
      */
-    public $editavel;
+    public $editable;
 
     /**
      * @var string 
      */
-    public $visivel;
+    public $visible;
 
     /**
      * @var string 
      */
-    public $filtravel;
+    public $filterable;
 
     /**
      * @var string 
      */
-    public $exibirNaGrid;
+    public $showInGrid;
 
     /**
      * @var string 
      */
-    public $parametros;
+    public $parameters;
 
     /**
      * @var boolean 
@@ -137,30 +137,30 @@ class bInfoColuna
     /**
      * @var string Name of the class attribute (type or business) by which the column is represented.
      */
-    public $atributo;
+    public $attribute;
 
     /**
      * @var string Field name in the form.
      */
-    public $campo;
+    public $field;
 
     /**
      * Column type constants.
      */
-    const TIPO_TEXTO = 'character varying';
-    const TIPO_CHAR = 'character';
-    const TIPO_TEXTO_LONGO = 'text';
-    const TIPO_INTEIRO = 'integer';
-    const TIPO_INTEIRO_LONGO = 'bigint';
-    const TIPO_DECIMAL = 'real';
-    const TIPO_LISTA = 'list';
-    const TIPO_DATA = 'date';
-    const TIPO_TIMESTAMP = 'timestamp without time zone';
-    const TIPO_TIME = 'time without time zone';
-    const TIPO_BOOLEAN = 'boolean';
-    const TIPO_NUMERIC = 'numeric';
-    const TIPO_DOUBLE = 'double precision';
-    const TIPO_INTERVAL = 'interval';
+    const TYPE_TEXT = 'character varying';
+    const TYPE_CHAR = 'character';
+    const TYPE_LONG_TEXT = 'text';
+    const TYPE_INTEGER = 'integer';
+    const TYPE_BIG_INTEGER = 'bigint';
+    const TYPE_DECIMAL = 'real';
+    const TYPE_LIST = 'list';
+    const TYPE_DATE = 'date';
+    const TYPE_TIMESTAMP = 'timestamp without time zone';
+    const TYPE_TIME = 'time without time zone';
+    const TYPE_BOOLEAN = 'boolean';
+    const TYPE_NUMERIC = 'numeric';
+    const TYPE_DOUBLE = 'double precision';
+    const TYPE_INTERVAL = 'interval';
 
     /**
      * @return array Lists the supported field types.
@@ -168,15 +168,15 @@ class bInfoColuna
     public static function listarTipos()
     {
         return array(
-            self::TIPO_TEXTO => _M('Texto'),
-            self::TIPO_TEXTO_LONGO => _M('Texto longo'),
-            self::TIPO_INTEIRO => _M('Integer'),
-            self::TIPO_DECIMAL => _M('Decimal'),
-            self::TIPO_NUMERIC => _M('Numérico'),
-            self::TIPO_LISTA => _M('Lista'),
-            self::TIPO_DATA => _M('Data'),
-            self::TIPO_TIMESTAMP => _M('Timestamp'),
-            self::TIPO_BOOLEAN => _M('Boolean')
+            self::TYPE_TEXT => _M('Texto'),
+            self::TYPE_LONG_TEXT => _M('Texto longo'),
+            self::TYPE_INTEGER => _M('Integer'),
+            self::TYPE_DECIMAL => _M('Decimal'),
+            self::TYPE_NUMERIC => _M('Numérico'),
+            self::TYPE_LIST => _M('Lista'),
+            self::TYPE_DATE => _M('Data'),
+            self::TYPE_TIMESTAMP => _M('Timestamp'),
+            self::TYPE_BOOLEAN => _M('Boolean')
         );
     }
 
@@ -186,7 +186,7 @@ class bInfoColuna
      */
     public function eChavePrimaria()
     {
-        return $this->restricao == 'p';
+        return $this->constraint == 'p';
     }
 }
 

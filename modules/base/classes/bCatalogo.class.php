@@ -125,8 +125,8 @@ class bCatalogo
         $infoColuna = new bInfoColuna();
         list(
                 $infoColuna->label,
-                $infoColuna->tipo,
-                $infoColuna->valorPadrao
+                $infoColuna->type,
+                $infoColuna->defaultValue
                 ) = current($resultado);
 
         return $infoColuna;
@@ -286,29 +286,29 @@ class bCatalogo
         {
             $coluna = new bInfoColuna();
             list(
-                    $coluna->nome,
-                    $coluna->tipo,
-                    $coluna->titulo,
-                    $coluna->obrigatorio,
-                    $coluna->valorPadrao,
-                    $coluna->tamanho,
-                    $coluna->restricao,
-                    $coluna->fkEsquema,
-                    $coluna->fkTabela,
-                    $coluna->fkColuna,
-                    $coluna->esquema,
-                    $coluna->tabela,
-                    $coluna->campo
+                    $coluna->name,
+                    $coluna->type,
+                    $coluna->title,
+                    $coluna->required,
+                    $coluna->defaultValue,
+                    $coluna->size,
+                    $coluna->constraint,
+                    $coluna->fkSchema,
+                    $coluna->fkTable,
+                    $coluna->fkColumn,
+                    $coluna->schema,
+                    $coluna->table,
+                    $coluna->field
                     ) = $linha;
 
-            if ($colunas[$coluna->nome] != NULL)
+            if ($colunas[$coluna->name] != NULL)
             {
-                $coluna->fkEsquema = $colunas[$coluna->nome]->fkEsquema;
-                $coluna->fkTabela = $colunas[$coluna->nome]->fkTabela;
-                $coluna->fkColuna = $colunas[$coluna->nome]->fkColuna;
+                $coluna->fkSchema = $colunas[$coluna->name]->fkSchema;
+                $coluna->fkTable = $colunas[$coluna->name]->fkTable;
+                $coluna->fkColumn = $colunas[$coluna->name]->fkColumn;
             }
 
-            $colunas[$coluna->nome] = $coluna;
+            $colunas[$coluna->name] = $coluna;
         }
 
         return $colunas;
@@ -1294,28 +1294,28 @@ class bCatalogo
         {
             $coluna = new bInfoColuna();
             list(
-                $coluna->nome,
-                $coluna->tipo,
-                $coluna->titulo,
-                $coluna->obrigatorio,
-                $coluna->valorPadrao,
-                $coluna->tamanho,
-                $coluna->restricao,
-                $coluna->fkEsquema,
-                $coluna->fkTabela,
-                $coluna->fkColuna,
-                $coluna->esquema,
-                $coluna->tabela,
-                $coluna->campo
+                $coluna->name,
+                $coluna->type,
+                $coluna->title,
+                $coluna->required,
+                $coluna->defaultValue,
+                $coluna->size,
+                $coluna->constraint,
+                $coluna->fkSchema,
+                $coluna->fkTable,
+                $coluna->fkColumn,
+                $coluna->schema,
+                $coluna->table,
+                $coluna->field
                 ) = $linha;
 
-            if ($colunas[$coluna->nome] != NULL)
+            if ($colunas[$coluna->name] != NULL)
             {
-                $coluna->fkEsquema = $colunas[$coluna->nome]->fkEsquema;
-                $coluna->fkTabela = $colunas[$coluna->nome]->fkTabela;
-                $coluna->fkColuna = $colunas[$coluna->nome]->fkColuna;
+                $coluna->fkSchema = $colunas[$coluna->name]->fkSchema;
+                $coluna->fkTable = $colunas[$coluna->name]->fkTable;
+                $coluna->fkColumn = $colunas[$coluna->name]->fkColumn;
             }
-            $colunas[$coluna->nome] = $coluna;
+            $colunas[$coluna->name] = $coluna;
         }
         return $colunas;
     }
