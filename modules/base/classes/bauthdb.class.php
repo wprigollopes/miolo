@@ -12,7 +12,7 @@ class bAuthDb extends MAuth
         try
         {
             $user = $this->manager->getBusinessMAD('user');
-            $user->getByLoginPass($userId, $pass);   //ele não acha o user.class.php
+            $user->getByLoginPass($userId, $pass);   //it cannot find user.class.php
 
             if ($user->login)
             {

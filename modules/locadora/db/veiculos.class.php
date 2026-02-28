@@ -9,15 +9,15 @@ class BusinessLocadoraVeiculos extends Business
     private $modelo;
 
     /**
-     * Override do método GetDatabase, para facilitar a chamada 
-     * ao GetDatabase
+     * Override of the GetDatabase method, to simplify the call
+     * to GetDatabase
      */
     public function getDatabase()
     {
         $MIOLO = MIOLO::getInstance();
 
-        // obter conexão com a base 'locadora'
-        // a base 'locadora' é definida no arquivo locadora.conf
+        // get connection to the 'locadora' database
+        // the 'locadora' database is defined in the locadora.conf file
         return $MIOLO->getDatabase( 'locadora' );
     }
 
@@ -35,7 +35,7 @@ class BusinessLocadoraVeiculos extends Business
      */
      public function insertVehicle( $objVehicle )
     {
-        // sql para inclusão do veiculo.
+        // sql for inserting the vehicle.
         $sql = "insert into lcd_veiculos " .
                "       ( placa, modelo ) " .
                "values " .
@@ -45,7 +45,7 @@ class BusinessLocadoraVeiculos extends Business
                        $objVehicle->modelo
                       );
 
-        // executa a instrução $sql e retorna true ou false
+        // execute the $sql statement and return true or false
         $rs = $db->query( $db->prepare( $sql, $obj ) );
 
         $this->checkError( $db );
@@ -56,48 +56,48 @@ class BusinessLocadoraVeiculos extends Business
      */
     public function getVehicles()
     {
-        // consulta sql
+        // sql query
         $sql = " select placa, textcat(textcat(placa,' '),modelo)" .
                "   from lcd_veiculos ".
                "  order by modelo";
 
-        // abre conexão com a base 'locadora'
+        // open connection to the 'locadora' database
         $db = $this->getDatabase( 'locadora' );
 
-        // executa a consulta $sql
+        // execute the $sql query
         $data = $db->query( $sql );
 
-        // verifica erros na query e adiciona ao objeto
+        // check for query errors and add to the object
         $this->checkError( $db );
 
-        // retorna os veículos
+        // return the vehicles
         return $data;
     }
 
     /**
-     * @param $placa (string) Placa do veículo
+     * @param $placa (string) Vehicle license plate
      */
     public function getVehicle( $placa )
     {
-        // consulta sql
+        // sql query
         $sql = " select placa, modelo".
                "   from lcd_veiculos ".
                "  where placa = ?";
 
-        // abre conexão com a base 'locadora'
+        // open connection to the 'locadora' database
         $db = $this->getDatabase();
 
-        // executa a consulta $sql
+        // execute the $sql query
         $data = $db->query( $db->prepare( $sql, $placa ) );
 
-        // se a consulta retornou dados, 
-        // setar nos atributos
+        // if the query returned data,
+        // set in the attributes
         if ( $data )
         {
             $this->setData( $data );
         }
 
-        // verifica erros na query e adiciona ao objeto
+        // check for query errors and add to the object
         $this->checkError( $db );
     }
 

@@ -51,7 +51,7 @@ class logReader
                 $logSQL  = trim(substr($aux[3], strpos($aux[3], '"')));
                 $dataLine = array($pointer, $logIP, $logDate, $logTime, $logMod, $logUser, $logSQL);
 
-                //Grava no indice todas as datas que passam e ainda não estão gravadas  
+                //Records in the index all dates that pass and are not yet recorded
                 if( ($logDate != $startDate) and !$this->getIndex($logDate) )
                 {
                     $this->createIndex($logDate, $pointer);

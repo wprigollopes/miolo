@@ -5,25 +5,24 @@ class MContainer extends MContainerControl
     public $disposition;
 
 //    public $separator;
-//    public $spaceHeight; // espaçamento em pixels entre os campos no disposition=vertical
-//    public $spaceWidth='&nbsp;&nbsp;'; //espaçamento em pixels entre os campos no disposition=horizontal
+//    public $spaceHeight; // spacing in pixels between fields in disposition=vertical
+//    public $spaceWidth='&nbsp;&nbsp;'; //spacing in pixels between fields in disposition=horizontal
 
     /* How the labels are showed */
     public $formMode;
     
-    /*  se label deve ser exibido junto com os campos
-     *  Esse atributo foi modificado para private para forçar a 
-     *  utilizaçào do método setShowLabel. Esta modificação foi
-     *  necessária para os casos em que o programador necessite
-     *  que os labels dos conteúdos fossem exibidos
+    /*  whether the label should be displayed alongside the fields
+     *  This attribute was changed to private to force the use of the
+     *  setShowLabel method. This change was necessary for cases where
+     *  the programmer needs the content labels to be displayed
      */
     public $showLabel;
 
-    /*   esta propriedade controla a exibição ou não do label dos
-     *   conteúdos de um container. É necessário utilizar o método
-     *   setShowChildLabel para modificar esta propriedade.
+    /*   this property controls whether or not the labels of a
+     *   container's contents are displayed. It is necessary to use
+     *   the setShowChildLabel method to modify this property.
      */
-    public $showChildLabel = true; //se o label dos conteiner conteúdos deste serão exibidos
+    public $showChildLabel = true; //whether the labels of this container's contents will be displayed
 
     public function __construct($name = NULL, $controls = NULL, $disposition = 'none', $formMode = MFormControl::FORM_MODE_SHOW_ABOVE)
     {
@@ -53,7 +52,7 @@ class MContainer extends MContainerControl
     {
         $this->disposition = ($disposition == 'none') ? 'horizontal' : $disposition;
 
-/* o uso do separator foi substituido pelos atributos css - ely
+/* the use of separator was replaced by css attributes - ely
         switch ($this->disposition)
             {
             case 'vertical':
@@ -113,7 +112,7 @@ class MContainer extends MContainerControl
             {
                 $c->setShowChildLabel($this->showChildLabel,true);
             }
-            if( is_object($c) )  //acrescentado devido ao erro!
+            if( is_object($c) )  //added due to the error!
             {
                 if ($c instanceof MFormControl)
                 {
@@ -243,11 +242,11 @@ class MRowContainer extends MContainer
             $span = new MSpan('', $mainField->label . ':', 'label');
 
             /*
-             * A princípio, $this->attrs->items nunca foi um valor válido, o correto seria:
+             * In principle, $this->attrs->items was never a valid value, the correct would be:
              *     $this->attrs->attrs->items['required']
-             * ou
+             * or
              *     $this->attrs->getAttribute('required')
-             * Isso significa que a primeira parte da condicional nunca retorna true, sendo desnecessária:
+             * This means the first part of the conditional never returns true, making it unnecessary:
              * $this->attrs->items['required'] || ($mainField->validator && $mainField->validator->type == 'required')
              */
             if ($mainField->validator && $mainField->validator->type == 'required')
@@ -276,11 +275,11 @@ class MRowContainer extends MContainer
                 $span->addStyle('padding-left', $this->paddingLeft);
 
                 /*
-                 * A princípio, $this->attrs->items nunca foi um valor válido, o correto seria:
+                 * In principle, $this->attrs->items was never a valid value, the correct would be:
                  *     $this->attrs->attrs->items['required']
-                 * ou
+                 * or
                  *     $this->attrs->getAttribute('required')
-                 * Isso significa que a primeira parte da condicional nunca retorna true, sendo desnecessária:
+                 * This means the first part of the conditional never returns true, making it unnecessary:
                  * $this->attrs->items['required'] || ($control->validator && $control->validator->type == 'required')
                  */
                 if ($control->validator && $control->validator->type == 'required')

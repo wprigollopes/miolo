@@ -140,12 +140,11 @@ class MUtil
     }
 
     /**
-     * @todo TRANSLATION
-     * Retorna o valor booleano da variável
-     * Função utilizada para testar se uma variável tem um valor booleano, conforme definição: será verdadeiro de 
-     *      for 1, t ou true... caso contrário será falso.
+     * Returns the boolean value of the variable.
+     * Function used to test whether a variable has a boolean value, as defined: it will be true if
+     *      it is 1, t or true... otherwise it will be false.
      *
-     * @param mixed $value valor a ser testado
+     * @param mixed $value value to be tested
      *
      * @return boolean value
      *
@@ -158,11 +157,10 @@ class MUtil
     }
 
     /**
-     * @todo TRANSLATION
-     * Retorna o valor da variável sem os caracteres considerados vazios
-     * Função utilizada para remover os caracteres considerados vazios
+     * Returns the value of the variable without characters considered as blank.
+     * Function used to remove characters considered as blank.
      *
-     * @param mixed $value valor a ser substituido
+     * @param mixed $value value to be replaced
      *
      * @return string value
      */
@@ -174,12 +172,11 @@ class MUtil
     }
 
     /**
-     * @todo TRANSLATION
-     * Copia diretorio
-     * Esta funcao copia o conteudo de um diretorio para outro
+     * Copies a directory.
+     * This function copies the contents of one directory to another.
      *
-     * @param string $sourceDir Diretorio de origem
-     * @param string $destinDir Diretorio de destino
+     * @param string $sourceDir Source directory
+     * @param string $destinDir Destination directory
      *
      * @return string value
      */
@@ -221,12 +218,11 @@ class MUtil
     }
 
     /**
-     * @todo TRANSLATION
-     * Remove diretorio
-     * Esta funcao remove recursivamente o diretorio e todo o conteudo existente dentro dele
+     * Removes a directory.
+     * This function recursively removes the directory and all its contents.
      *
-     * @param string $directory Diretorio a ser removido
-     * @param boolean $empty 
+     * @param string $directory Directory to be removed
+     * @param boolean $empty
      *
      * @return string value
      */
@@ -277,9 +273,8 @@ class MUtil
     }
 
     /**
-     * @todo TRANSLATION
-     * Retorna o diretório temporario
-     * Esta funcao retorna o diretório temporário do sistema operacional
+     * Returns the temporary directory.
+     * This function returns the operating system's temporary directory.
      *
      * @return string directory name
      */
@@ -400,8 +395,8 @@ class MUtil
     {
         $url = '//' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
         
-        // Compatibilidade com instalacao sem virtualHost no apache (utilizando .htaccess)
-        // nestes casos a URL fica normalizada, sem o sufixo /html/
+        // Compatibility with installations without virtualHost on apache (using .htaccess)
+        // in these cases the URL is normalized, without the /html/ suffix
         $urlReplaced = str_replace('/html/', '/', $url);
         
         return in_array($_SERVER['HTTP_REFERER'], array($url, $urlReplaced)) && self::isFirstAccessToForm();

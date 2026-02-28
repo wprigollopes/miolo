@@ -1,26 +1,26 @@
 <?
 	/**
-	 *	 limpa o conteúdo da página
+	 * Clear the page content
 	 */
     $theme->clearContent();
-	
+
 	/**
-	 * obter acesso as classes de Interface de Usuario
+	 * Get access to User Interface classes
 	 */
     $ui = $MIOLO->getUI();
-    
+
 	/**
-	 * adicionando link ao barra de navegação
+	 * Adding link to the navigation bar
 	 */
     $navbar->addOption('Save', $module, $self);
 
 	/**
-	 * cria o formulário, definido no arquivo example/forms/FrmSession.class
+	 * Create the form, defined in the file example/forms/FrmSession.class
 	 */
     $formSave = $ui->getForm($module,'frmSave');
 
 	/**
-	 * coloca o conteúdo da página (primeiro o menubar, depois o $page)
+	 * Place the page content (first the menubar, then the $page)
 	 */
 	if ($theme->getContent()  == '')
 	{

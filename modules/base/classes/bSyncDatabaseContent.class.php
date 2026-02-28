@@ -1,47 +1,47 @@
 <?php
 /**
- * Copyright 2005-2017 de Solis Soluções Livres Ltda.
+ * Copyright 2005-2017 Solis Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa SolisGE/Sagu.
+ * This file is part of the SolisGE/Sagu program.
  *
- * O SolisGE/Sagu é um software de propriedade da SOLIS, sendo desenvolvido
- * e mantido exclusivamente por esta empresa.
+ * SolisGE/Sagu is proprietary software of SOLIS, developed and maintained
+ * exclusively by this company.
  *
- * A licença de uso está disponível mediante aquisição exclusiva junto à
- * SOLIS. A licença é concedida sem caráter de exclusividade ao licenciado.
- * Os direitos de uso são perpétuos.
+ * The usage license is available through exclusive acquisition from SOLIS.
+ * The license is granted on a non-exclusive basis to the licensee.
+ * Usage rights are perpetual.
  *
- * Embora os códigos fontes sejam fornecidos, o software é de propriedade
- * da SOLIS, não sendo permitido ao adquirente da licença a sua revenda,
- * empréstimo ou cessão (onerosa ou não) à terceiros. Também não é permitido,
- * a qualquer título e tempo, promover no software qualquer tipo de alienação,
- * reprodução, distribuição, divulgação, registro, licenciamento, transferência
- * ou qualquer outro ato que prejudique ou comprometa os direitos de propriedade
- * de software, o nome e a imagem da sua proprietária e do próprio software,
- * além de configurar concorrência à SOLIS.
+ * Although source code is provided, the software is the property of SOLIS.
+ * The licensee is not permitted to resell, lend, or transfer (whether for
+ * payment or not) the license to third parties. It is also not permitted,
+ * at any time or for any reason, to perform any alienation, reproduction,
+ * distribution, disclosure, registration, licensing, transfer, or any other
+ * act that may harm or compromise the software property rights, the name
+ * and image of its owner and the software itself, or that constitutes
+ * competition with SOLIS.
  *
- * O licenciado, com o acesso ao código fonte do software, terá o direito de
- * promover mudanças no respectivo código. No entanto, nas situações em que ele
- * contar com o suporte oficial prestado pela SOLIS, não poderá promover mudanças
- * no código fonte, sob pena de perda do referido suporte.
+ * The licensee, with access to the software source code, shall have the
+ * right to make changes to the respective code. However, in situations
+ * where the licensee relies on official support provided by SOLIS, changes
+ * to the source code are not permitted, under penalty of losing said support.
  *
- * Para conhecer em detalhes o Termo de Licenciamento do Software SolisGE/Sagu
- * leia o arquivo “LICENCA.txt” disponível junto ao código deste software. e
+ * For detailed information about the SolisGE/Sagu Software Licensing Terms,
+ * read the "LICENCA.txt" file included with this software. e
  * 
- * O Gnuteca é um software livre; você pode redistribuí-lo e/ou modificá-lo
- * dentro dos termos da Licença Pública Geral GNU como publicada pela Fundação
- * do Software Livre (FSF); na versão 2 da Licença.
+ * Gnuteca is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation (FSF); version 2 of the License.
  * 
- * Este programa é distribuído na esperança que possa ser útil, mas SEM
- * NENHUMA GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a qualquer MERCADO
- * ou APLICAÇÃO EM PARTICULAR. Veja a Licença Pública Geral GNU/GPL em
- * português para maiores detalhes.
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License/GPL
+ * for more details.
  * 
- * Você deve ter recebido uma cópia da Licença Pública Geral GNU, sob o título
- * "LICENCA.txt", junto com este programa, se não, acesse o Portal do Software
- * Público Brasileiro no endereço www.softwarepublico.gov.br ou escreva para a
- * Fundação do Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
- * MA 02110-1301, USA --->
+ * You should have received a copy of the GNU General Public License, under
+ * the title "LICENCA.txt", along with this program. If not, visit the
+ * Brazilian Public Software Portal at www.softwarepublico.gov.br or write
+ * to the Free Software Foundation (FSF) Inc., 51 Franklin St, Fifth Floor,
+ * Boston, MA 02110-1301, USA --->
  * 
  *
  *
@@ -49,7 +49,7 @@
  *
  **/
 /**
- * Sincroniza dados de uma tabela com um xml
+ * Synchronizes table data with an xml
  */
 class bSyncDatabaseContent
 {
@@ -85,7 +85,7 @@ class bSyncDatabaseContent
     }
     
     /**
-     * Define se faz a comparação
+     * Sets whether to do the comparison
      * 
      * @param boolean $compare 
      */
@@ -95,7 +95,7 @@ class bSyncDatabaseContent
     }
     
     /**
-     * Retorna se faz a comparação
+     * Returns whether to do the comparison
      * 
      * @return type 
      */
@@ -105,7 +105,7 @@ class bSyncDatabaseContent
     }
 
     /**
-     * Define o modulo de acesso 
+     * Sets the access module 
      * 
      * @param string $module 
      */
@@ -115,8 +115,8 @@ class bSyncDatabaseContent
     }
     
     /**
-     * Retorna modulo de acesso
-     * @return string modulo de acesso
+     * Returns access module
+     * @return string access module
      */
     public function getModule()
     {
@@ -124,7 +124,7 @@ class bSyncDatabaseContent
     }
     
     /**
-     * Retorna um array com os arquivos de sincronização de base do módulo informado.
+     * Returns an array with the base synchronization files of the specified module.
      * @param string $module
      * @return array 
      */
@@ -138,7 +138,7 @@ class bSyncDatabaseContent
     }
     
     /**
-     * Definir o caminho do xml a ser interpretado
+     * Sets the xml path to be interpreted
      * 
      * @param string $xmlPath 
      */
@@ -159,13 +159,13 @@ class bSyncDatabaseContent
 
         $this->xml= new SimpleXMLElement($content);
         
-        //obtem o nome da tabela
+        //gets the table name
         $this->table = $this->xml->getName();
     }
     
     /**
-     * Sincroniza os dados da tabela
-     * Nâo remove nenhum registro.
+     * Synchronizes the table data
+     * Does not remove any records.
      * 
      * @return stdClass 
      */
@@ -183,7 +183,7 @@ class bSyncDatabaseContent
         $result->countStart = $ok[0][0];
         $result->countXml = count($items);
         
-        //faz atualizações
+        //performs updates
         if ( count( $items ) > 0 )
         {
             foreach ( $items as $line => $item )
@@ -192,7 +192,7 @@ class bSyncDatabaseContent
 
                 if ( is_array( $ok ) )
                 {
-                     //Ignora completamente o update
+                     //Completely ignores the update
                     if ( trim($this->xml->ignoreOnUpdate[0]) != '*' )
                     {
                         $sql = $this->mountUpdateSql( $item );
@@ -212,7 +212,7 @@ class bSyncDatabaseContent
         
         $deletes = $this->xml->delete;
         
-        //procede com as remoções
+        //proceeds with deletions
         if ( count( $deletes ) > 0 )
         {
             foreach ( $deletes as $line => $delete )
@@ -234,7 +234,7 @@ class bSyncDatabaseContent
         $ok = bBaseDeDados::consultar( $this->mountSqlCount() );
         $result->countEnd = $ok[0][0];
         
-        //caso tenha diferenças entre o xml e a contagem final tenta localizar registros sobrando
+        //if there are differences between the xml and the final count, tries to locate extra records
         if ( $result->countEnd != $result->countXml )
         {
             $sqlListAll = $this->mountSqlSelectAll();
@@ -246,10 +246,10 @@ class bSyncDatabaseContent
             {
                 foreach ( $all as $line => $info )
                 {
-                    //converte para objeto
+                    //converts to object
                     $info = $this->resultToObject($columns, $info);
                     
-                    //monta array de localização
+                    //builds location array
                     foreach ( $this->xml->locate as $l => $locate)
                     {
                         $locate = $locate.'';
@@ -258,7 +258,7 @@ class bSyncDatabaseContent
                     
                     $achou = false;
                     
-                    //sai procurando 1 por 1 (pode demorar)
+                    //searches one by one (may be slow)
                     if ( count( $items ) > 0 )
                     {
                         foreach ( $items as $line => $item )
@@ -281,7 +281,7 @@ class bSyncDatabaseContent
                         }
                     }
 
-                    //caso não encontrou joga em um array com os que estão sobrando
+                    //if not found, adds to an array with the extra records
                     if ( !$achou)
                     {
                         $sobrando[] = $info;
@@ -306,10 +306,10 @@ class bSyncDatabaseContent
     
             foreach ( (array)$extra as $attribute => $value )
             {
-                // Estes atributos não devem aparecer no xml do sagu
+                // These attributes should not appear in the sagu xml
                 if( !in_array($attribute, array('datetime', 'ipaddress', 'username')) )
                 {
-                    //Adicionando suporte a CDATA nos caracteres <>/
+                    //Adding CDATA support for <> / characters
                     if(preg_match('/(>|<|\/)/', $value))
                     {
                         $value = '<![CDATA[' . $value . ']]>';
@@ -328,10 +328,10 @@ class bSyncDatabaseContent
     
     
     /**
-     * Tenta localizar elemenet XML na base
+     * Tries to locate XML element in the database
      * 
      * @param XMLElement $item
-     * @return arrat
+     * @return array
      */
     public function locateItem( $item )
     {
@@ -346,7 +346,7 @@ class bSyncDatabaseContent
     }
     
     /** 
-     * Converte um resultado para objeto
+     * Converts a result to object
      * 
      * @param array $columns
      * @param array $info
@@ -366,21 +366,21 @@ class bSyncDatabaseContent
     }
     
     /**
-     * Retorna a string de localização de registro
+     * Returns the record location string
      * @param type $item 
      */
     public function getLocateString( $item )
     {
-        //obtem o parametro de localização de registros
+        //gets the record location parameter
         foreach ( $this->xml->locate as $l => $locate)
         {
-            //define item localizador
+            //defines locator item
             $itemLocator = addslashes( $item->$locate );
             
-            //monta string sql de localização de sql
+            //builds SQL location string
             if ( ! $itemLocator ) 
             {
-                //caso especial para string vazia
+                //special case for empty string
                 $locateString[] = "( $locate = '$itemLocator' OR  $locate IS NULL ) ";
             }
             else
@@ -395,8 +395,8 @@ class bSyncDatabaseContent
     }
 
     /**
-     * Obtem a listagem de campos a serã atualizados.
-     * Considera a propriedade ignoreOnUpdate do xml
+     * Gets the list of fields to be updated.
+     * Considers the ignoreOnUpdate property of the xml
      *  
      * @param SimpleXmlElement $item
      * @return array 
@@ -414,7 +414,7 @@ class bSyncDatabaseContent
     }
 
     /**
-     * Monta sql de atualização para um item
+     * Builds update SQL for an item
      * 
      * @param SimpleXmlElement $item
      * @return string
@@ -475,9 +475,9 @@ class bSyncDatabaseContent
     }
     
     /**
-     * Monta instrução sql para contagem.
+     * Builds SQL statement for counting.
      * 
-     * @return MSQL Objeto para contar a quantidade de registros.
+     * @return MSQL Object to count the number of records.
      */
     public function mountSqlCount()
     {
@@ -489,7 +489,7 @@ class bSyncDatabaseContent
     }
     
     /**
-     * Monta intrução sql com seleção de todos regitros
+     * Builds SQL statement selecting all records
      * 
      * @return string
      */

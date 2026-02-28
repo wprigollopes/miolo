@@ -77,7 +77,7 @@ function _M($msg, $dom = 'miolo', $p1 = null, $p2 = null, $p3 = null)
         return $msg;
     }
 
-    // Faz desta forma para tratar as mensagens vindas do miolo20 com acentuação #49910
+    // Done this way to handle messages coming from miolo20 with accented characters #49910
     if ( mb_detect_encoding($msg.'x', 'UTF-8, ISO-8859-1') == 'ISO-8859-1' )
     {
         $msg = mb_convert_encoding($msg, 'UTF-8', 'ISO-8859-1');

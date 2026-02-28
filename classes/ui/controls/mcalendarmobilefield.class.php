@@ -32,8 +32,8 @@ class MCalendarMobileField extends MTextField
         
         
         /**
-         * Retirada validação abaixo. Recebia o valor já formatado em dd/mm/yyyy
-         * e acabava convertendo para um formato errado. - ticket #37578
+         * Removed validation below. It received the value already formatted as dd/mm/yyyy
+         * and ended up converting it to an incorrect format. - ticket #37578
          */
         
         // dijit.form.DateTextBox has a standard date format (ansi) : yyyy-mm-dd

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Formulário de autenticação do cliente LaSalle
+ * LaSalle client authentication form
  *
  * @author Luís Augusto Weber Mercado [luis_augusto@solis.com.br]
  *
@@ -167,9 +167,9 @@ class frmLoginLaSalle extends MForm
            }
 
            /**
-           * Valida onBlur se o cpf é válido ou n?o, 
-           * caso seja digitado um.
-           * 
+           * Validates onBlur whether the CPF is valid or not,
+           * in case one is typed.
+           *
            * param input element.
            */
           function validateOnBlurCPF(element)
@@ -179,7 +179,7 @@ class frmLoginLaSalle extends MForm
 
               if ( len > 0 )
               {
-                   if ( len == 11 ) // Sem máscara
+                   if ( len == 11 ) // Without mask
                    {
                        if ( parseInt(element.value) )
                        {
@@ -201,7 +201,7 @@ class frmLoginLaSalle extends MForm
                             element.value = "";
                        }
                    }
-                   else if ( len == 14 ) // Com máscara.
+                   else if ( len == 14 ) // With mask.
                    {
                        if ( cpf.replace("-", "") )
                        {
@@ -220,9 +220,9 @@ class frmLoginLaSalle extends MForm
                    }
                    else
                    {
-                        // Conforme combinado com suporte, no ticket #39432
-                        // não acusa erro caso não bater o cpf, só se digitou a
-                        // quantidade de caracteres correta
+                        // As agreed with support, in ticket #39432
+                        // does not show error if the CPF does not match, only if
+                        // the correct number of characters was entered
                    }
                }                    
           }
@@ -263,7 +263,7 @@ class frmLoginLaSalle extends MForm
         {
             $btnLogin = new MButton('btnLogin', _M("Entrar"), null);
             
-            // Alterando CSS do botão, conforme ticket #40212
+            // Changing button CSS, as per ticket #40212
             $btnLogin->addBoxStyle('font-size', '18px');
             $btnLogin->addBoxStyle('font-weight', 'bold');
             $btnLogin->addBoxStyle('background-color', 'goldenrod');
@@ -291,7 +291,7 @@ class frmLoginLaSalle extends MForm
         $event = MUtil::getAjaxAction('btnLogin_click', NULL);
         $this->page->onload("handleEnterLogin = dojo.connect(dojo.byId('divCamposAutenticacao'), 'onkeypress', function (event) { if (event.keyCode==dojo.keys.ENTER) { event.preventDefault(); dojo.disconnect(handleEnterLogin); {$event}; }});");
         
-        // Validar hash de autenticação do webServicesBasic, função wsLogin
+        // Validate authentication hash from webServicesBasic, wsLogin function
         if ( SAGU::validarHashDeAutenticacao() ) 
         {
             $this->btnLogin_click();
@@ -302,7 +302,7 @@ class frmLoginLaSalle extends MForm
     {
         $MIOLO = MIOLO::getInstance();
         
-        // Verifica se está habilitada preferência para verificar e bloqueiar o acesso caso navegador não seja homologado
+        // Checks if the preference is enabled to verify and block access if the browser is not approved
         $validaNavegador = SAGU::getParameter('BASIC', 'VALIDACAO_NAVEGADORES_HOMOLOGADOS');
         $alerta = SAGU::getParameter('BASIC', 'MENSAGEM_NAVEGADORES_NAO_HOMOLOGADOS');
         
@@ -387,7 +387,7 @@ class frmLoginLaSalle extends MForm
         $pwd = $this->getFormValue('pwd');
         $unitId = $this->GetFormValue('unitId');
         
-        // Seta dados quando há um hash válido
+        // Sets data when there is a valid hash
         if ( SAGU::validarHashDeAutenticacao() )
         {
             $userInformation = SAGU::obterDadosDeLoginAPartirDoHash();
@@ -406,7 +406,7 @@ class frmLoginLaSalle extends MForm
 
         $MIOLO->logMessage('[LOGIN] Validating login information: ' . $uid);
 
-        // Multiunidade
+        // Multi-unit
         if ( sMultiUnidade::estaHabilitada() && !sMultiUnidade::loginTemPermissao($uid, $unitId) && SAGU::allIsFilled($uid) )
         {
             if( !$unitId )
@@ -475,13 +475,13 @@ class frmLoginLaSalle extends MForm
                 }
             }
                         
-            //Verifica se existe uma configuração para troca de senha e redireciona para tela de troca
+            // Checks if there is a password change configuration and redirects to the change screen
             if( BusinessBasicBusConfiguracaoTrocaDeSenha::verificaTrocaDeSenha() == DB_TRUE )
             {
                 $url = $MIOLO->getActionURL('portal', 'main');
             }
             
-            // Redireciona para a url pós login
+            // Redirects to the post-login URL
             if ( $this->manager->getIsAjaxCall() )
             {   
                 $MIOLO->page->addJsCode("location.href = '{$url}';");

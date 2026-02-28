@@ -1,36 +1,36 @@
 <?php
 
 /**
- * Copyright 2005-2017 de Solis Soluções Livres Ltda.
+ * Copyright 2005-2017 Solis Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa SolisGE/Sagu.
+ * This file is part of the SolisGE/Sagu program.
  *
- * O SolisGE/Sagu é um software de propriedade da SOLIS, sendo desenvolvido
- * e mantido exclusivamente por esta empresa.
+ * SolisGE/Sagu is proprietary software of SOLIS, developed and maintained
+ * exclusively by this company.
  *
- * A licença de uso está disponível mediante aquisição exclusiva junto à
- * SOLIS. A licença é concedida sem caráter de exclusividade ao licenciado.
- * Os direitos de uso são perpétuos.
+ * The usage license is available through exclusive acquisition from SOLIS.
+ * The license is granted on a non-exclusive basis to the licensee.
+ * Usage rights are perpetual.
  *
- * Embora os códigos fontes sejam fornecidos, o software é de propriedade
- * da SOLIS, não sendo permitido ao adquirente da licença a sua revenda,
- * empréstimo ou cessão (onerosa ou não) à terceiros. Também não é permitido,
- * a qualquer título e tempo, promover no software qualquer tipo de alienação,
- * reprodução, distribuição, divulgação, registro, licenciamento, transferência
- * ou qualquer outro ato que prejudique ou comprometa os direitos de propriedade
- * de software, o nome e a imagem da sua proprietária e do próprio software,
- * além de configurar concorrência à SOLIS.
+ * Although source code is provided, the software is the property of SOLIS.
+ * The licensee is not permitted to resell, lend, or transfer (whether for
+ * payment or not) the license to third parties. It is also not permitted,
+ * at any time or for any reason, to perform any alienation, reproduction,
+ * distribution, disclosure, registration, licensing, transfer, or any other
+ * act that may harm or compromise the software property rights, the name
+ * and image of its owner and the software itself, or that constitutes
+ * competition with SOLIS.
  *
- * O licenciado, com o acesso ao código fonte do software, terá o direito de
- * promover mudanças no respectivo código. No entanto, nas situações em que ele
- * contar com o suporte oficial prestado pela SOLIS, não poderá promover mudanças
- * no código fonte, sob pena de perda do referido suporte.
+ * The licensee, with access to the software source code, shall have the
+ * right to make changes to the respective code. However, in situations
+ * where the licensee relies on official support provided by SOLIS, changes
+ * to the source code are not permitted, under penalty of losing said support.
  *
- * Para conhecer em detalhes o Termo de Licenciamento do Software SolisGE/Sagu
- * leia o arquivo “LICENCA.txt” disponível junto ao código deste software.
+ * For detailed information about the SolisGE/Sagu Software Licensing Terms,
+ * read the "LICENCA.txt" file included with this software.
  *
  *
- * Classe que representa a tabela de cadastro dinâmico.
+ * Class that represents the dynamic registration table.
  *
  *
  *
@@ -46,10 +46,10 @@ class cadastroDinamico extends bTipo
     }
     
     /**
-     * Verifica se identificador existe na base.
+     * Checks if the identifier exists in the database.
      *
-     * @param string $identificador Identificador do cadastro dinâmico.
-     * @return boolean Retorna positivo caso tenha um cadastro dinâmico para o identificador.
+     * @param string $identificador Dynamic registration identifier.
+     * @return boolean Returns true if there is a dynamic registration for the identifier.
      */
     public static function verificarIdentificador($modulo, $identificador)
     {
@@ -65,10 +65,10 @@ class cadastroDinamico extends bTipo
     }
 
     /**
-     * Método público para popular o cadastro dinâmico através do módulo e identificador.
-     * 
-     * @param string $modulo Módulo do cadastro dinâmico.
-     * @param string $identificador Identificador do cadastro dinâmico.
+     * Public method to populate the dynamic registration through module and identifier.
+     *
+     * @param string $modulo Module of the dynamic registration.
+     * @param string $identificador Identifier of the dynamic registration.
      */
     public function popularPorIdentificador($modulo, $identificador)
     {
@@ -86,9 +86,9 @@ class cadastroDinamico extends bTipo
     }
     
     /**
-     * Obtém as tabelas que são relacionadas do a tabela principal.
-     * 
-     * @return array Vetor com o nome das tabelas que são relacionadas. 
+     * Gets the tables that are related to the main table.
+     *
+     * @return array Array with the names of the related tables.
      */
     public function obterTabelasRelacionadas()
     {

@@ -27,51 +27,51 @@ $MIOLO->page->addScript('m_grider.js');
 class MGrider extends MTableRaw
 {
     /**
-     * controles utilizados pelo componente
-     * @var array 
+     * Controls used by the component
+     * @var array
      */
     protected $controls;
 
     /**
-     * Dados utilizados pelo componente
-     * @var array 
+     * Data used by the component
+     * @var array
      */
     protected $data;
 
     /**
-     * Javascript adicional do Botão de adição de item
+     * Additional JavaScript for the add item button
      * @var string
      */
     protected $addAction;
 
     /**
-     * Javascript adicional do botão de remoção de item
-     * 
+     * Additional JavaScript for the remove item button
+     *
      * @var string
      */
     protected $delAction;
 
     /**
-     * Define se mostra ou não contagem de linhas
-     * 
+     * Defines whether to show row count or not
+     *
      * @var boolean
      */
     protected $countRow;
 
     /**
-     * Texto para aparecer na coluna de contagem de linhas
+     * Text to appear in the row count column
      * @var string
      */
     protected $countRowText;
 
     /**
-     * Se é para mostrar botão de adição
+     * Whether to show the add button
      * @var boolean
      */
     protected $addRow = true;
 
     /**
-     * Se é para mostrar botão de remoção
+     * Whether to show the remove button
      * @var boolean
      */
     protected $delRow = true;
@@ -92,18 +92,18 @@ class MGrider extends MTableRaw
 
         parent::__construct($title, null, $colTitle, $name);
 
-        //configurações padrão
+        //default configurations
         $this->setCountRow(false);
         $this->setAlternate(false);
         $this->setCountRowText('Nº');
         $this->setClass("mGrider");
         
-        // Remover as colunas header da tabela
+        // Remove the table header columns
         foreach($controls as $key => $control)
         {
             $this->setHeadClass($key, 'mGriderHead');
         }
-        // Remover a coluna header 'Excluir'
+        // Remove the 'Delete' header column
         $this->setHeadClass(count($controls), 'mGriderHead');
         
         $this->setControls($controls);
@@ -115,9 +115,9 @@ class MGrider extends MTableRaw
     }
 
     /**
-     * Define os controles iniciais do componente
-     * 
-     * @param array $controls 
+     * Defines the initial controls of the component
+     *
+     * @param array $controls
      */
     public function setControls($controls)
     {
@@ -125,9 +125,9 @@ class MGrider extends MTableRaw
     }
 
     /**
-     * Obtem os controles atuais do componente
-     * 
-     * @return array 
+     * Gets the current controls of the component
+     *
+     * @return array
      */
     public function getControls()
     {
@@ -135,9 +135,9 @@ class MGrider extends MTableRaw
     }
 
     /**
-     * Define se mostra ou não contagem de linhas
-     * 
-     * @param boolean $countRow 
+     * Defines whether to show row count or not
+     *
+     * @param boolean $countRow
      */
     public function setCountRow($countRow)
     {
@@ -145,9 +145,9 @@ class MGrider extends MTableRaw
     }
 
     /**
-     * Retorna se mostra ou não contagem de linhas
-     * 
-     * @param boolean $countRow 
+     * Returns whether to show row count or not
+     *
+     * @param boolean $countRow
      */
     public function getCountRow()
     {
@@ -155,9 +155,9 @@ class MGrider extends MTableRaw
     }
 
     /**
-     * Define o conteudo do botão de adição de item
-     * 
-     * @param string $rowText 
+     * Defines the content of the add item button
+     *
+     * @param string $rowText
      */
     public function setAddAction($javascript)
     {
@@ -165,8 +165,8 @@ class MGrider extends MTableRaw
     }
 
     /**
-     * Obtem conteúdo de botão de adição de item
-     * 
+     * Gets the content of the add item button
+     *
      * @return string
      */
     public function getAddAction()
@@ -175,9 +175,9 @@ class MGrider extends MTableRaw
     }
 
     /**
-     * Define o conteudo do botão de remoção de item
-     * 
-     * @param string $rowText 
+     * Defines the content of the remove item button
+     *
+     * @param string $rowText
      */
     public function setDelAction($javascript)
     {
@@ -185,8 +185,8 @@ class MGrider extends MTableRaw
     }
 
     /**
-     * Obtem conteúdo de botão de remoção de item
-     * 
+     * Gets the content of the remove item button
+     *
      * @return string
      */
     public function getDelAction()
@@ -195,9 +195,9 @@ class MGrider extends MTableRaw
     }
 
     /**
-     * Texto para aparecer na coluna de contagem
-     * 
-     * @param string $countRowText 
+     * Text to appear in the count column
+     *
+     * @param string $countRowText
      */
     public function setCountRowText($countRowText)
     {
@@ -205,9 +205,9 @@ class MGrider extends MTableRaw
     }
 
     /**
-     * Obtem texto para aparecer na coluna de contagem
-     * 
-     * @return string $countRowText 
+     * Gets the text to appear in the count column
+     *
+     * @return string $countRowText
      */
     public function getCountRowText($countRowText)
     {
@@ -215,9 +215,9 @@ class MGrider extends MTableRaw
     }
 
     /**
-     * Mostra/esconde botão de adição
-     * 
-     * @param type $addRow 
+     * Show/hide the add button
+     *
+     * @param type $addRow
      */
     public function setAddRow($addRow)
     {
@@ -225,8 +225,8 @@ class MGrider extends MTableRaw
     }
 
     /**
-     * Se botão de adição está ativado
-     * 
+     * Whether the add button is enabled
+     *
      * @return boolean
      */
     public function getAddRow()
@@ -235,8 +235,8 @@ class MGrider extends MTableRaw
     }
 
     /**
-     * Mostra/Esconde botão de remoção
-     * @param boolean $delRow 
+     * Show/hide the remove button
+     * @param boolean $delRow
      */
     public function setDelRow($delRow)
     {
@@ -244,8 +244,8 @@ class MGrider extends MTableRaw
     }
 
     /**
-     * Informa se o botão de remoção está ativado
-     * 
+     * Returns whether the remove button is enabled
+     *
      * @return boolean
      */
     public function getDelRow()
@@ -262,13 +262,13 @@ class MGrider extends MTableRaw
             throw new Exception(_M("É necessário definir algum controle para o ideal funcionamento do mGrider."));
         }
 
-        //caso não tenha data, cria um simplificado para funcionar corretamente
+        //if there is no data, create a simplified one to work correctly
         if ( !is_array($this->data) || count($this->data) == 0 )
         {
             $this->data[] = new stdClass();
         }
 
-        //caso não exista colunas, cria as padrões baseadas no label dos campos
+        //if there are no columns, create default ones based on the field labels
         if ( !$this->colTitle )
         {
             foreach ( $controls as $line => $control )
@@ -277,13 +277,13 @@ class MGrider extends MTableRaw
             }
         }
 
-        //passa pelas informações montando campos iniciais
+        //iterates through the data building initial fields
         if ( is_array($controls) )
         {
             $controls[] = $status = new MTextField('status', 'original');
             $status->setClass('griderStatus');
 
-            //guarda os nomes originais
+            //store the original names
             foreach ( $controls as $line => $control )
             {
                 $originalName[] = $control->name;
@@ -292,16 +292,16 @@ class MGrider extends MTableRaw
             $tmpControls = $controls;
             $controls = null;
 
-            //é necessário fazer isso, caso contrário a tableRaw não consegue lidar corretamente com as informações
+            //this is necessary, otherwise tableRaw cannot handle the data correctly
             $this->data = array_values($this->data);
 
             foreach ( $this->data as $line => $dataItem )
             {
-                //esconde coluna de 
+                //hide column of
                 $this->setCellAttribute($line, count($this->colTitle), 'style', 'display:none;');
                 $controls[$line] = $tmpControls;
 
-                //define se é ou não para esconder a linha
+                //determines whether or not to hide the row
                 if ( is_array($dataItem) && $dataItem['status'] == self::STATUS_REMOVE
                         || ( is_object($dataItem) && $dataItem->status == self::STATUS_REMOVE ) )
                 {
@@ -319,26 +319,26 @@ class MGrider extends MTableRaw
                         $innerControls[1]->name = $innerControls[1]->name.'['.$line.']';
                     }
                     
-                    //clona controle para funcionar a definição de valores
+                    //clone control to make value assignment work
                     $controls[$line][$item] = clone $tmpControls[$item];
                     $myOriginalName = $originalName[$item];
 
-                    $controls[$line][$item]->name = $this->name . '[' . $line . '][' . $myOriginalName . ']'; //corrige name
-                    $controls[$line][$item]->id = $this->name . '[' . $line . '][' . $myOriginalName . ']'; //corrige id
+                    $controls[$line][$item]->name = $this->name . '[' . $line . '][' . $myOriginalName . ']'; //fix name
+                    $controls[$line][$item]->id = $this->name . '[' . $line . '][' . $myOriginalName . ']'; //fix id
                     
                     $value = '';
                     
-                    //caso for objeto, caso so Type
+                    //if it is an object, Type case
                     if ( ($myOriginalName != null) && (is_object($this->data[$line])) )
                     {
                         $value = $this->data[$line]->$myOriginalName;
                     }
-                    else if ( is_array($this->data[$line]) ) //caso for objeto, caso do post
+                    else if ( is_array($this->data[$line]) ) //if it is an array, post case
                     {
                         $value = $this->data[$line][$myOriginalName];
                     }
 
-                    //adiciona suporte a checkbox
+                    //add checkbox support
                     if ( $controls[$line][$item] instanceof MCheckBox )
                     {
                         $checked = isset($value);
@@ -346,10 +346,10 @@ class MGrider extends MTableRaw
                     }
                     else
                     {
-                        $controls[$line][$item]->value = $value; //define valor
+                        $controls[$line][$item]->value = $value; //set value
                     }
 
-                    //define os campos internos como somente leitura caso o grider esteja definido como
+                    //set internal fields as read-only if the grider is set as such
                     if ( $this->readonly == true && method_exists($control, 'setReadOnly') )
                     {
                         $controls[$line][$item]->setReadOnly(true);
@@ -360,7 +360,7 @@ class MGrider extends MTableRaw
             $this->array = $controls;
         }
 
-        //se for somente leitura passa a ser uma tabela normal
+        //if read-only, it becomes a normal table
         if ( $this->readonly == false )
         {
             if ( $this->delRow )
@@ -375,11 +375,11 @@ class MGrider extends MTableRaw
             $showAddRow = $this->addRow == true ? 'true' : 'false';
 
             /**
-             * Observação:
-             * O código abaixo passa as informação para o componente javascript.
-             * Infelizmente não consegui utilizar o miolo para gerar os botões, gerava erro de javascript.
+             * Note:
+             * The code below passes the information to the javascript component.
+             * Unfortunately, I could not use miolo to generate the buttons; it caused a javascript error.
              */
-            //monta grider caso não tenha sido montado
+            //mount grider if it has not been mounted yet
             $this->manager->page->onload("if ( !$('#addRow{$this->name}')[0] )
             {
                 var {$this->name}Mount = $('#{$this->name}').grider(
@@ -396,7 +396,7 @@ class MGrider extends MTableRaw
             };");
         }
 
-        //TODO soma, média formula,
+        //TODO sum, average, formula,
 
         return parent::generate();
     }
@@ -429,9 +429,9 @@ class MGrider extends MTableRaw
     }
 
     /**
-     * Retorna uma ação ajax preparada para o mGrider
-     * 
-     * @param string $event evento ajax a ser chamado
+     * Returns an ajax action prepared for the mGrider
+     *
+     * @param string $event ajax event to be called
      * @return string
      */
     public function getAjaxAction($event)
@@ -440,8 +440,8 @@ class MGrider extends MTableRaw
     }
 
     /**
-     * Separa por partes um id/name composto do mGrider
-     * 
+     * Splits a composite mGrider id/name into parts
+     *
      * @param string $args
      * @return stdClass
      */

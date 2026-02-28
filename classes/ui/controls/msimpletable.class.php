@@ -11,7 +11,7 @@ class MSimpleTable extends MTable
         $this->setName($name);
         
         $this->setAttributes($attrs);
-        // Assim como acontece na MLookupContainer, $this->attrs->items['class'] não é um atributo válido, logo, pode ser removido:
+        // Just like in MLookupContainer, $this->attrs->items['class'] is not a valid attribute, therefore it can be removed:
         // $this->setClass('mSimpleTable ' . $this->attrs->items['class']);
         $this->setClass('mSimpleTable ');
         for($i=0; $i < $row; $i++)
@@ -27,8 +27,8 @@ class MSimpleTable extends MTable
    private function setTableAttribute($area, $i, $j=NULL,$name, $attr)
    {
         /*
-         * Usar .= nos índices $area/$i/$j quando estes ainda não existem emite um notice.
-         * É necessário inicializá-los primeiro como uma string antes de tentar concatenar.
+         * Using .= on indices $area/$i/$j when they do not yet exist emits a notice.
+         * It is necessary to initialize them as a string before attempting to concatenate.
          */
         $at = ($attr != '') ? " $name=\"$attr\" " : " $name ";
         if (is_null($j))
@@ -58,8 +58,8 @@ class MSimpleTable extends MTable
     private function setTableClass($area, $i,$j=NULL,$class)
     {
         /*
-         * Usar .= nos índices $area/$i/$j quando estes ainda não existem emite um notice.
-         * É necessário inicializá-los primeiro como uma string antes de tentar concatenar.
+         * Using .= on indices $area/$i/$j when they do not yet exist emits a notice.
+         * It is necessary to initialize them as a string before attempting to concatenate.
          */
         if (is_null($j))
         {
@@ -130,8 +130,8 @@ class MSimpleTable extends MTable
         $this->cell[$i][$j] = $content;
         if ($attrs != '')
         {
-            // Usar o operador de concatenação em uma variável que ainda não existe gera um notice.
-            // É necessário inicializar a string quando for acessar um determinado índice pela primeira vez.
+            // Using the concatenation operator on a variable that does not yet exist generates a notice.
+            // It is necessary to initialize the string when accessing a given index for the first time.
             if (isset($this->attributes['cell'][$i][$j]))
             {
                 $this->attributes['cell'][$i][$j] .= $attrs;
@@ -144,15 +144,15 @@ class MSimpleTable extends MTable
     }
 
     /*
-     * $content = null só para compatibilizar a assinatura com a classe pai.
+     * $content = null only to make the signature compatible with the parent class.
      */
     public function setHead($i, $content = null, $attrs = '')
     {
         $this->head[$i] = $content;
         if ($attrs != '')
         {
-            // Usar o operador de concatenação em uma variável que ainda não existe gera um notice.
-            // É necessário inicializar a string quando for acessar um determinado índice pela primeira vez.
+            // Using the concatenation operator on a variable that does not yet exist generates a notice.
+            // It is necessary to initialize the string when accessing a given index for the first time.
             if (isset($this->attributes['head'][$i]))
             {
                 $this->attributes['head'][$i] .= $attrs;
@@ -165,7 +165,7 @@ class MSimpleTable extends MTable
     }
 
    /*
-    * $content = null só para compatibilizar a assinatura com a classe pai.
+    * $content = null only to make the signature compatible with the parent class.
     */
    public function setFoot($i, $content = null, $attrs = '')
    {

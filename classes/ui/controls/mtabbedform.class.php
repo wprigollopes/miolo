@@ -1,10 +1,10 @@
 <?php
 class MTabbedFormPage extends MControl
 {
-    public $tabbedform; // em qual tabbedform esta página está inserida
-    public $form; // form a ser renderizado na pagina
-    public $index; // indice desta pagina dentro do tabbedform (0-based)
-    public $title; // titulo da pagina
+    public $tabbedform; // in which tabbedform this page is inserted
+    public $form; // form to be rendered on the page
+    public $index; // index of this page within the tabbedform (0-based)
+    public $title; // page title
 
     public function __construct($form)
     {
@@ -19,12 +19,12 @@ class MTabbedFormPage extends MControl
 
 class MTabbedForm extends MForm
 {
-    static  $order = 0; // número de ordem do form
-    public $nOrder; // número de ordem do form
-    public $pages; // array de TabbedFormPages
-    public $activepage; // referencia a TabbedFormPage sendo mostrada
-    public $currentpage; // id do form da TabbedFormPage sendo exibida 
-    public $pagecount; // quantas TabbedFormPage associadas a este form
+    static  $order = 0; // form order number
+    public $nOrder; // form order number
+    public $pages; // array of TabbedFormPages
+    public $activepage; // reference to the TabbedFormPage being shown
+    public $currentpage; // id of the form of the TabbedFormPage being displayed
+    public $pagecount; // how many TabbedFormPages associated with this form
     public $pagewidth = 100;
     public $pageheight = 250;
     public $header;

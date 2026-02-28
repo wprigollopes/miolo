@@ -1,155 +1,155 @@
-INSTALAÇÃO MIOLO - Versão 2.0 - RC 1
+MIOLO INSTALLATION - Version 2.0 - RC 1
 ====================================
 
-1 - Requisitos
+1 - Requirements
  1.1 - PHP
-  1.1.1 - Versão
-  1.1.2 - Memória
-  1.1.3 - Segurança
-  1.1.4 - Extensões
+  1.1.1 - Version
+  1.1.2 - Memory
+  1.1.3 - Security
+  1.1.4 - Extensions
   1.1.5 - Mac OS X
 
  1.2 - Apache
-  1.2.1 - Configuração/acesso www
+  1.2.1 - Configuration/www access
 
-2 - Instalando apartir do SVN
- 2.1 - Requisitos
- 2.2 - Baixando
- 2.3 - Instalando
+2 - Installing from SVN
+ 2.1 - Requirements
+ 2.2 - Downloading
+ 2.3 - Installing
 
-3 - Instalação e Configuração utilizando arquivo
- 3.1 - Baixando
- 3.2 - Instalação
- 3.3 - Base de Dados
- 3.4 - Configurações
+3 - Installation and Configuration using an archive
+ 3.1 - Downloading
+ 3.2 - Installation
+ 3.3 - Database
+ 3.4 - Configuration
  3.5 - Apache
- 3.6 - Apache Passo-a-Passo
-  3.6.1 - Arquivos de Configuração
-  3.6.2 - Exemplo 1
-  3.6.3 - Exemplo 2
-  3.6.4 - Exemplo 3
-  3.6.5 - Reiniciando o Apache
+ 3.6 - Apache Step-by-Step
+  3.6.1 - Configuration Files
+  3.6.2 - Example 1
+  3.6.3 - Example 2
+  3.6.4 - Example 3
+  3.6.5 - Restarting Apache
 
-4 - Por onde começar
+4 - Where to start
 
-5 - Ajudando no projeto
+5 - Contributing to the project
 
-6 - Ajuda/Suporte
- 6.1 - Listas
+6 - Help/Support
+ 6.1 - Mailing lists
 
-1. Requisitos
+1. Requirements
 ==============
 
 1.1 - PHP
 ---------
 
 1.1.1
------ 
-Versão: o MIOLO 2 foi desenvolvido para ser utilizado com o PHP 5.
+-----
+Version: MIOLO 2 was developed to be used with PHP 5.
 
 1.1.2
 -----
-Memória: Em testes preliminares realizados, o limite de memória do PHP deve ser maior que os 8 MB padrão. Altere isso no php.ini
+Memory: In preliminary tests, the PHP memory limit must be greater than the default 8 MB. Change this in php.ini
 
 1.1.3
 -----
-Segurança: aconselhamos a seguir as normas do PHP quanto à segurança:
+Security: we recommend following the PHP security guidelines:
     - Register Globals = off
     - Magic Quotes = on
     - Safe Mode = on
 
 1.1.4
 -----
-É imprescindível que a extensão do SQLite esteja habilitada no PHP.
+It is essential that the SQLite extension is enabled in PHP.
 
 1.1.5
 -----
-Para usuários do Sistema Operacional Mac OS X, é aconselhável que modifiquem a seguinte linha no arquivo php.init
+For Mac OS X users, it is recommended to modify the following line in the php.ini file
 variables_order = "GPCS"
 
-Foi constatado que o instalador não funciona corretamente quando a opção estiver como "EGPCS"
-Percebeu-se também que utilizando Mampstack (versão 5.5) funcionou prontamente, o que não aconteceu quando se estava utilizando Mamp (1.41-intel).
+It was found that the installer does not work correctly when this option is set to "EGPCS"
+It was also noticed that using Mampstack (version 5.5) it worked right away, which did not happen when using Mamp (1.41-intel).
 
-Contribuição: Henrique B. Gravina
+Contribution: Henrique B. Gravina
 
 
 1.2 - Apache
 ------------
 
-1.2.1 - Configuração/acesso www
+1.2.1 - Configuration/www access
 -------------------------------
-Observe que apenas o diretório html do MIOLO deverá ser visível na web, ou seja, não instale todo o diretório miolo2 numa pasta visível via web.
+Note that only the MIOLO html directory should be visible on the web, that is, do not install the entire miolo2 directory in a web-visible folder.
 
 
-2 - Instalando apartir do SVN
+2 - Installing from SVN
 ==============================
-2.1 - Requisitos
+2.1 - Requirements
 -----------------
-Para baixar o MIOLO diretamente apartir do SVN, o único requisito necessário é um cliente SVN.
+To download MIOLO directly from SVN, the only requirement is an SVN client.
 
-Para windows, ocê pode utilizar um cliente como o TortoiseSVN (http://tortoisesvn.tigris.org)
+For Windows, you can use a client such as TortoiseSVN (http://tortoisesvn.tigris.org)
 
-Você pode obter mais informações em http://subversion.tigris.org
+You can find more information at http://subversion.tigris.org
 
 
-2.2 - Baixando
+2.2 - Downloading
 ---------------
-Por padrão, no Linux, o MIOLO 2 é instalado no diretório /usr/local/miolo2 enquanto que no 
-windows é instalado em C:\miolo2
-Abordaremos aqui a instalação no Linux e para windows basta fazer as devidas modificações
+By default, on Linux, MIOLO 2 is installed in the /usr/local/miolo2 directory, while on
+Windows it is installed in C:\miolo2
+We will cover the Linux installation here; for Windows, simply make the appropriate changes
 
-- mude para um diretório visível no via www no seu apache: cd /var/www (este diretório pode ser outro, dependendo da sua distribuição)
+- change to a www-visible directory in your Apache: cd /var/www (this directory may differ depending on your distribution)
 
-- agora, baixe os arquivos do miolo2:
+- now, download the miolo2 files:
   svn export http://200.180.156.28:8081/svn/miolo2/trunk miolo2
 
-2.3 - Instalando
+2.3 - Installing
 ----------------
-Proceda conforme indicado no item 3.2
+Proceed as indicated in item 3.2
 
 
-3 - Instalação e Configuração utilizando arquivo
+3 - Installation and Configuration using an archive
 ================================================
 
-3.1 - Baixando
+3.1 - Downloading
 ---------------
-O MIOLO 2 pode ser baixado através do site (http://www.miolo.org.br) no link "Releases do MIOLO" localizado na caixa "Downloads".
-Copie o arquivo baixado para uma pasta visível (via www) no seu Apache, por exemplo, /var/www. Observe que esse local dependerá muito do seu sistema operacional, distribuição Linux,...
-Agora, descompacte o arquivo. Você perceberá que foi criado a pasta miolo2
+MIOLO 2 can be downloaded from the website (http://www.miolo.org.br) via the "MIOLO Releases" link located in the "Downloads" box.
+Copy the downloaded file to a www-visible folder in your Apache, for example, /var/www. Note that this location will depend on your operating system, Linux distribution, etc.
+Now, extract the file. You will notice that a miolo2 folder has been created
 
-3.2 - Instalação
+3.2 - Installation
 -----------------
-Abra o seu browser (navegador) e acesse o endereço que lhe dará acesso à pasta miolo2 criada acima. Geralmente, o endereço é http://localhost , mas observe que isso dependerá de sua instalação do Apache
-Agora acesse o diretório onde está o diretório miolo2, por exemplo http://localhost/miolo2 e você verá o programa de instalação
-Agora, basta seguir os passos para fazer a instalação do Miolo. 
-No final do processo, o instalador criará automaticamente o arquivo de configuração (miolo.conf), refletindo suas opções de instalação.
-Observe que concluída a instalação você deverá criar um VirtualHost para o Apache, conforme sugestão apresentada pelo instalador e também deverá atualizar a informação no arquivo hosts
-Para alterar a configuração do seu sistema, efetue login e acesse a administração. Usuário e Senha: admin e admin
+Open your browser and navigate to the address that gives you access to the miolo2 folder created above. Usually, the address is http://localhost , but note that this will depend on your Apache installation
+Now navigate to the directory where the miolo2 directory is located, for example http://localhost/miolo2 and you will see the installation program
+Now, simply follow the steps to install Miolo.
+At the end of the process, the installer will automatically create the configuration file (miolo.conf), reflecting your installation options.
+Note that once the installation is complete, you will need to create a VirtualHost for Apache, as suggested by the installer, and you will also need to update the information in the hosts file
+To change your system configuration, log in and access the administration panel. Username and Password: admin and admin
 
-Importante
+Important
 ----------
-- No processo de instalação, não escolha a pasta de destino como sendo a mesma da origem
-- Instale o Miolo FORA da pasta visível via www do Apache (/var/www , por exemplo)
-- Observe que o único diretório que será visível (via www) na nova instalação do Miolo será a pasta html.
+- During the installation process, do not choose the destination folder to be the same as the source folder
+- Install Miolo OUTSIDE the www-visible folder of Apache (/var/www, for example)
+- Note that the only directory that will be www-visible in the new Miolo installation will be the html folder.
 
-3.3 - Base de Dados
+3.3 - Database
 --------------------
-Diferente do que acontecia na versão 1, o MIOLO agora utiliza o sqlite como padrão para armazenar usuários e senhas.
-Você encontrará o arquivo da base no diretório <MIOLO_DIR>/modules/admin/sql/admin.sqlite
+Unlike version 1, MIOLO now uses SQLite as the default for storing users and passwords.
+You will find the database file in the <MIOLO_DIR>/modules/admin/sql/admin.sqlite directory
 
-O usuário padrão para acessar o MIOLO (login):
-Usuário: admin
-Senha: admin
+The default user to access MIOLO (login):
+Username: admin
+Password: admin
 
-3.4 - Configurações
+3.4 - Configuration
 ---------------------
-A partir desta versão, o arquivo de configuração do MIOLO está localizado em <MIOLO_DIR>/etc/miolo.conf e não mais em /etc/miolo/miolo.conf.
-Observe que agora é utilizado xml.
+Starting from this version, the MIOLO configuration file is located at <MIOLO_DIR>/etc/miolo.conf and no longer at /etc/miolo/miolo.conf.
+Note that XML is now used.
 
 3.5 - Apache
 -------------
-Um dos problemas mais comuns enfrentados por usuários novos do MIOLO é a configuração do Apache. O MIOLO não precisa de nenhuma configuração especial e usuários que já tiveram algum contato com esse servidor conseguirão configurar sem maiores problemas.
-Segue um exemplo de Virtual Host no Apache:
+One of the most common problems faced by new MIOLO users is the Apache configuration. MIOLO does not require any special configuration, and users who have had some prior experience with this server will be able to configure it without major issues.
+Here is an example of an Apache Virtual Host:
 
 <VirtualHost *>
     ServerAdmin webmaster@localhost
@@ -168,29 +168,29 @@ Segue um exemplo de Virtual Host no Apache:
 </VirtualHost>
 
 
-3.6 - Apache Passo-a-Passo
+3.6 - Apache Step-by-Step
 ---------------------------
-A maneira mais fácil e simples é alterar a opção DocumentRoot para <MIOLO_DIR>/html no arquivo de configuração apache (veja abaixo). Desta maneira, o domínio http://localhost já aponta para o diretório do MIOLO. (Não esqueça de reiniciar o apache, após as alterações.
+The easiest and simplest way is to change the DocumentRoot option to <MIOLO_DIR>/html in the Apache configuration file (see below). This way, the http://localhost domain will already point to the MIOLO directory. (Do not forget to restart Apache after making changes.)
 
-Por questões práticas, é melhor criar um domínio próprio para o MIOLO. Não precisa ser miolo.seu_site.com.br, pode ser o que você quiser, como intranet.qualquercoisa.com.br 
-Esteja sempre atento ao parâmetro "ServerName"
+For practical reasons, it is better to create a dedicated domain for MIOLO. It does not have to be miolo.your_site.com.br; it can be whatever you want, such as intranet.anything.com.br
+Always pay attention to the "ServerName" parameter
 
 
-3.6.1 - Arquivos de Configuração
+3.6.1 - Configuration Files
 ---------------------------------
-Você vai alterar UM destes arquivos, conforme sua distribuição e versão do Apache:
+You will edit ONE of these files, depending on your distribution and Apache version:
 
-a) APACHE 1.3.x => /etc/httpd/conf/httpd.conf 
-b) APACHE 2.x => /etc/httpd/conf/httpd2.conf 
-c) APACHE 2.x => /etc/httpd/conf/vhosts/Vhosts.conf (Mandrake 9.1) 
+a) APACHE 1.3.x => /etc/httpd/conf/httpd.conf
+b) APACHE 2.x => /etc/httpd/conf/httpd2.conf
+c) APACHE 2.x => /etc/httpd/conf/vhosts/Vhosts.conf (Mandrake 9.1)
 
 
-3.6.2 - Exemplo 1 - um domínio comum:
+3.6.2 - Example 1 - a regular domain:
 --------------------------------------
-É necessário que miolo2.meudominio.com.br esteja cadastrado no seu servidor DNS (ou então, no arquivo /etc/hosts)
+It is necessary that miolo2.meudominio.com.br is registered in your DNS server (or alternatively, in the /etc/hosts file)
 
 
-#----- início configuração ------
+#----- begin configuration ------
 
 <VirtualHost *>
 
@@ -209,15 +209,15 @@ c) APACHE 2.x => /etc/httpd/conf/vhosts/Vhosts.conf (Mandrake 9.1)
 
 </VirtualHost>
 
-#----- final configuração ------
+#----- end configuration ------
 
 
-3.6.3 - Exemplo 2 - máquina de desenvolvimento, localhost é o MIOLO:
+3.6.3 - Example 2 - development machine, localhost is MIOLO:
 ---------------------------------------------------------------------
-Não é necessária nenhuma configuração de DNS
+No DNS configuration is necessary
 
 
-#----- início configuração ------
+#----- begin configuration ------
 
 <VirtualHost *>
 
@@ -236,17 +236,17 @@ Não é necessária nenhuma configuração de DNS
 
 </VirtualHost>
 
-#----- final configuração ------
+#----- end configuration ------
 
- 
-3.6.4 - Exemplo 3 - vários domínios sobre o mesmo IP
+
+3.6.4 - Example 3 - multiple domains on the same IP
 -----------------------------------------------------
-É necessário que miolo.meudominio.com.br esteja cadastrado no seu servidor DNS 
-Neste caso, vários domínios terão o mesmo IP mas com páginas diferentes 
-Considere que 200.200.200.213 é o IP de seu servidor Apache
+It is necessary that miolo.meudominio.com.br is registered in your DNS server
+In this case, multiple domains will share the same IP but with different pages
+Consider that 200.200.200.213 is the IP of your Apache server
 
 
-#----- início configuração ------
+#----- begin configuration ------
 
 NameVirtualHost 200.200.200.213:80
 
@@ -267,71 +267,71 @@ NameVirtualHost 200.200.200.213:80
 
 </VirtualHost>
 
-#----- final configuração ------
+#----- end configuration ------
 
 
-IMPORTANTE: o NameVirtualHost aparece uma vez só para o IP, não vá repetí-lo para cada domínio que tiver na máquina. 
-Para maiores detalhes verifique a documentação do Apache 
+IMPORTANT: NameVirtualHost appears only once for the IP; do not repeat it for each domain on the machine.
+For more details, refer to the Apache documentation
 
 
 
-3.6.5 - Reiniciar o Apache
+3.6.5 - Restarting Apache
 ---------------------------
-Feitas as alterações no arquivo de configuração do Apache, será necessário reiniciá-lo, para que as alterações tenham efeito.
+After making changes to the Apache configuration file, you will need to restart it for the changes to take effect.
 
-# service httpd restart 
-ou 
-#/etc/rc.d/init.d/httpd restart (dependendo de sua distribuição)
+# service httpd restart
+or
+#/etc/rc.d/init.d/httpd restart (depending on your distribution)
 
 
-3.7 - Erros Comuns
+3.7 - Common Errors
 -------------------
 
-- Erro: Warning: pg_connect() [function.pg-connect]: Unable to connect to PostgreSQL server: FATAL: No pg_hba.conf entry for host 127.0.0.1, user postgres, database ....
+- Error: Warning: pg_connect() [function.pg-connect]: Unable to connect to PostgreSQL server: FATAL: No pg_hba.conf entry for host 127.0.0.1, user postgres, database ....
 
-=> PROBLEMA: Seu usuário ("user postgres", no caso), não possue permissão para acessar o banco
-=> SOLUÇÃO: Altere o pg_hba.conf e lhe dê permissão
+=> PROBLEM: Your user ("user postgres", in this case) does not have permission to access the database
+=> SOLUTION: Edit pg_hba.conf and grant the appropriate permission
 
 
-4 - Por onde começar
+4 - Where to start
 =====================
-Feita a instalação e configuração do apache, abra o seu browser e digite o endereço conforme informado na configuração do apache, por exemplo: http://miolo2.localhost
+After completing the installation and Apache configuration, open your browser and enter the address as specified in the Apache configuration, for example: http://miolo2.localhost
 
-Para logar no sistema, utilize:
-Usuário: admin 
-Senha: admin
+To log in to the system, use:
+Username: admin
+Password: admin
 
-E agora?
-Agora é só "fuçar"... ;-)
+What now?
+Now just explore and experiment... ;-)
 
-Acesse, no "Menu Principal", as opções: Hello world, Tutorial, Hangman...
-E é claro, não deixe de olhar os fontes dos arquivos, principalmente do módulo tutorial (<MIOLO_DIR/modules/tutorial). Dê uma atenção especial aos Controls, onde você encontra exemplos dos controles (widgets) do MIOLO 2.
-Dê uma olhada também no diretório <MIOLO_DIR/docs
+In the "Main Menu", try the options: Hello world, Tutorial, Hangman...
+And of course, make sure to look at the source files, especially those in the tutorial module (<MIOLO_DIR/modules/tutorial). Pay special attention to the Controls, where you will find examples of MIOLO 2 controls (widgets).
+Also take a look at the <MIOLO_DIR/docs directory
 
-No mais, não se esqueça que esta ainda é uma versão beta e por isso algumas coisas poderão
-não funcionar corretamente... :-)
+Keep in mind that this is still a beta version, so some things may
+not work correctly... :-)
 
 
-5. Ajudando no projeto
+5. Contributing to the project
 =======================
 
-Com o passar do tempo, novas características e funcionalidades são agregadas ao projeto. Assim, muitas são as frentes de trabalho e certamente em alguma delas sempre haverá a necessidade de mais pessoas para trabalhar. Certamente enquanto você lê este arquivo, estamos precisando de ajuda, por isso, se você estiver seriamente interessado em auxiliar, entre em contato!!! :-)
+Over time, new features and functionalities are added to the project. As such, there are many areas of work, and certainly in some of them there will always be a need for more people to contribute. While you are reading this file, we are surely in need of help, so if you are seriously interested in contributing, please get in touch!!! :-)
 
 
-6 - Ajuda/Suporte
+6 - Help/Support
 ==================
 
-6.1 - Listas
+6.1 - Mailing lists
 -------------
-- Convidamos você a se inscrever na lista miolo-users, que é utilizada para auxiliar nas dúvidas, receber sugestões, dicas, contribuições, etc...
-- Para quem estiver interessado em contribuir no desenvolvimento do MIOLO, pode se inscrever na lista miolo-devel
-- Existe também a lista miolo-i18n que é voltada para os trabalhos de tradução.
+- We invite you to subscribe to the miolo-users mailing list, which is used for answering questions, receiving suggestions, tips, contributions, etc.
+- If you are interested in contributing to the development of MIOLO, you can subscribe to the miolo-devel mailing list
+- There is also the miolo-i18n mailing list, which is dedicated to translation work.
 
-As listas podem ser acessadas através do site, na opção "Listas de Discussão"
+The mailing lists can be accessed through the website, under the "Mailing Lists" option
 
 
-Vilson Cristiano Gärtner 
-Coordenador Projeto MIOLO
+Vilson Cristiano Gartner
+MIOLO Project Coordinator
 
 vilson@miolo.org.br
 http://www.miolo.org.br

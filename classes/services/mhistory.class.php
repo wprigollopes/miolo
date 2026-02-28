@@ -79,7 +79,7 @@ class MHistory extends MService
         $this->stackHistory = new MStackHistory('_stackAction');
         if ($this->stackContext->count() == 0)
         {
-            // Talvez não seja necessário um if para instanciar o MContext...
+            // Maybe an if is not necessary to instantiate MContext...
             $this->context = new MContext;
             $this->context->action = '';
         }

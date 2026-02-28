@@ -193,7 +193,7 @@ class MTabbedBaseGroup extends MBaseGroup
 
         $tempDiv = new MDiv($tab->id . 'Button', $tab->label);
 
-        //controla se é por ajax ou aba estatica, ou desabilita
+        //controls whether it is by ajax, static tab, or disabled
         if ( !$tab->disabled )
         {
             $tempDiv->setClass('mTab mTabIdle');

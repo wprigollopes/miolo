@@ -541,10 +541,10 @@ abstract class MControl extends MComponent
             $e = str_replace(':', '_', $eventTokens[0]);
 
             /*
-             * Em algumas situações, se não entrar em nenhum dos if's acima, $func pode não existir quando chegar
-             * nesse ponto e acaba gerando um notice. É necessário garantir que a variável exista e sem modificar
-             * o comportamento anterior.
-             * Nesse caso, como strtolower(null) === '', apenas define a variável com esse valor.
+             * In some situations, if none of the if's above are entered, $func may not exist when reaching
+             * this point, which ends up generating a notice. It is necessary to ensure the variable exists
+             * without modifying the previous behavior.
+             * In this case, since strtolower(null) === '', just define the variable with that value.
              */
             if (!isset($func))
             {

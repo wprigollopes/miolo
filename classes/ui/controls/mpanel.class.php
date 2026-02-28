@@ -36,9 +36,9 @@ class MBasePanel extends MContainer
     /*
      * Declaration of MBasePanel::insertControl($pos, $control, $width = '', $float = 'left', $class = '') should be
      * compatible with MContainerControl::insertControl($control, $pos = 0):
-     * A classe filha inverte a ordem dos dois primeiros parâmetros e nenhum é opcional. Qual a melhor solução
-     * nesse caso? Simplesmente coloquei $control como opcional, já que é colocado numa MDiv e esta suporta
-     * valores nulos.
+     * The child class reverses the order of the first two parameters and neither is optional. What is the best
+     * solution in this case? I simply made $control optional, since it is placed in an MDiv which supports
+     * null values.
      */
     public function insertControl($pos, $control = null, $width = '', $float = 'left', $class = '')
     {

@@ -20,22 +20,22 @@
 // +-----------------------------------------------------------------+
 
 /**
- * Classe para descompactar arquivos zip.
- * Esta classe e´ ser utilizada para descompactar arquivos .zip
+ * Class for decompressing zip files.
+ * This class is used to decompress .zip files.
  *
- * Requerer: extensao zip do php: http://pecl.php.net/packages/zip
- * Instalaçao:
- *             - download do arquivo do pacote
- *             - descompactar o arquivo
- *             $ phpize5 (dentro do diretorio criado)
+ * Requires: PHP zip extension: http://pecl.php.net/packages/zip
+ * Installation:
+ *             - download the package file
+ *             - decompress the file
+ *             $ phpize5 (inside the created directory)
  *             $ ./configure
  *             $ make
- *             $ make install (como usuario root)
- *             - adicionar ao php.ini:
+ *             $ make install (as root user)
+ *             - add to php.ini:
  *               extension=zip.so
- *             - reiniciar o apache
+ *             - restart apache
  *
- * Mais informaçoes, consulte: http://php.net/manual/en/install.pecl.phpize.php
+ * For more information, see: http://php.net/manual/en/install.pecl.phpize.php
  */
 class MZip
 {

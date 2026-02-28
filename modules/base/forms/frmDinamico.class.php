@@ -1,36 +1,36 @@
 <?php
 
 /**
- * Copyright 2005-2017 de Solis Soluções Livres Ltda.
+ * Copyright 2005-2017 Solis Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa SolisGE/Sagu.
+ * This file is part of the SolisGE/Sagu program.
  *
- * O SolisGE/Sagu é um software de propriedade da SOLIS, sendo desenvolvido
- * e mantido exclusivamente por esta empresa.
+ * SolisGE/Sagu is proprietary software of SOLIS, developed and maintained
+ * exclusively by this company.
  *
- * A licença de uso está disponível mediante aquisição exclusiva junto à
- * SOLIS. A licença é concedida sem caráter de exclusividade ao licenciado.
- * Os direitos de uso são perpétuos.
+ * The usage license is available through exclusive acquisition from SOLIS.
+ * The license is granted on a non-exclusive basis to the licensee.
+ * Usage rights are perpetual.
  *
- * Embora os códigos fontes sejam fornecidos, o software é de propriedade
- * da SOLIS, não sendo permitido ao adquirente da licença a sua revenda,
- * empréstimo ou cessão (onerosa ou não) à terceiros. Também não é permitido,
- * a qualquer título e tempo, promover no software qualquer tipo de alienação,
- * reprodução, distribuição, divulgação, registro, licenciamento, transferência
- * ou qualquer outro ato que prejudique ou comprometa os direitos de propriedade
- * de software, o nome e a imagem da sua proprietária e do próprio software,
- * além de configurar concorrência à SOLIS.
+ * Although source code is provided, the software is the property of SOLIS.
+ * The licensee is not permitted to resell, lend, or transfer (whether for
+ * payment or not) the license to third parties. It is also not permitted,
+ * at any time or for any reason, to perform any alienation, reproduction,
+ * distribution, disclosure, registration, licensing, transfer, or any other
+ * act that may harm or compromise the software property rights, the name
+ * and image of its owner and the software itself, or that constitutes
+ * competition with SOLIS.
  *
- * O licenciado, com o acesso ao código fonte do software, terá o direito de
- * promover mudanças no respectivo código. No entanto, nas situações em que ele
- * contar com o suporte oficial prestado pela SOLIS, não poderá promover mudanças
- * no código fonte, sob pena de perda do referido suporte.
+ * The licensee, with access to the software source code, shall have the
+ * right to make changes to the respective code. However, in situations
+ * where the licensee relies on official support provided by SOLIS, changes
+ * to the source code are not permitted, under penalty of losing said support.
  *
- * Para conhecer em detalhes o Termo de Licenciamento do Software SolisGE/Sagu
- * leia o arquivo “LICENCA.txt” disponível junto ao código deste software.
+ * For detailed information about the SolisGE/Sagu Software Licensing Terms,
+ * read the "LICENCA.txt" file included with this software.
  *
  *
- * Formulário dinâmico de cadastro
+ * Dynamic registration form
  *
  *
  */
@@ -39,9 +39,9 @@ $MIOLO->uses('tipos/cadastroDinamico.class.php', 'base');
 class frmDinamico extends bFormCadastro
 {
     /**
-     * Restringe colunas que não devem ser gerados os campos no formulário.
-     * 
-     * @var type 
+     * Restricts columns that should not have fields generated in the form.
+     *
+     * @var type
      */
     public $restrictColumns = array(
         "username", 
@@ -53,12 +53,12 @@ class frmDinamico extends bFormCadastro
     );
             
     /**
-     * @var array Vetor de objetos com as colunas da tabela.. 
+     * @var array Array of objects with the table columns.
      */
     protected $colunas = null;
     
     /**
-     * @var array Vetor com o nome dos campos em ordem. 
+     * @var array Array with the field names in order.
      */
     private $ordemDosCampos = null;
     
@@ -68,10 +68,10 @@ class frmDinamico extends bFormCadastro
     }
 
     /**
-     * Método reescrito para definir os campos dinâmicos.
-     * 
-     * @param boolean $montarCampos Verdadeiro caso seja necessário montar os campos dinâmicos.
-     * @param boolean $barraDeFerramentas Verdadeiro caso for necessário montar a barra de ferramentas.
+     * Overridden method to define dynamic fields.
+     *
+     * @param boolean $montarCampos True if dynamic fields need to be built.
+     * @param boolean $barraDeFerramentas True if the toolbar needs to be built.
      */
     public function definirCampos($montarCampos=TRUE, $barraDeFerramentas=TRUE)
     {
@@ -79,21 +79,21 @@ class frmDinamico extends bFormCadastro
         
         if ( $montarCampos )
         {
-            // Obtém os campos e validadores dor formulário.
+            // Gets the fields and validators for the form.
             $camposEValidadores = $this->gerarCampos();
 
             $campos = $camposEValidadores[0];
             
-            // Obtém as MSubDetail
+            // Gets the MSubDetail components
             $camposSubDetail = $this->gerarCamposSubDetail();
             
-            // Mescla os componentes MSubDetail com o restante dos campos.
+            // Merges the MSubDetail components with the remaining fields.
             if ( is_array($camposSubDetail) )
             {
                 $campos = array_merge($campos, $camposSubDetail);
             }
             
-            // Realiza a ordenação dos campos caso necessário.
+            // Performs field ordering if necessary.
             if ( $this->ordemDosCampos )
             {
                 $camposDesordenados = $campos;
@@ -111,13 +111,13 @@ class frmDinamico extends bFormCadastro
     }
     
     /**
-     * Gera os filtros e as colunas.
+     * Generates the filters and columns.
      *
-     * @return array Vetor com os filtros, a coluna da grid e as chaves a serem passadas ao form de edição.
+     * @return array Array with the filters, the grid column and the keys to be passed to the edit form.
      */
     protected function gerarCampos()
     {
-        // Obtém as colunas da tabela.
+        // Gets the table columns.
         $colunas = $this->tipo->obterEstruturaDaTabela();
         
         $campos = array();
@@ -127,7 +127,7 @@ class frmDinamico extends bFormCadastro
         {
             if ( !in_array($coluna->nome, $this->restrictColumns) )
             {
-                // Gera o campo e validador para a coluna.
+                // Generates the field and validator for the column.
                 list($campo, $validador) = $this->gerarCampo($coluna);
 
                 if ( $campo )
@@ -146,8 +146,8 @@ class frmDinamico extends bFormCadastro
     }
     
     /**
-     * Retorna os campos e validadores passados na lista na ordem.
-     * Metodo alternativo criado para evitar o problema de um campo ser adicionado no formulario automaticamente ao ser adicionado na base de dados, podendo causar bugs.
+     * Returns the fields and validators passed in the list in order.
+     * Alternative method created to avoid the problem of a field being automatically added to the form when added to the database, which could cause bugs.
      *
      * @return array
      */
@@ -173,10 +173,10 @@ class frmDinamico extends bFormCadastro
     }
 
     /**
-     * Gera objeto do campo do formulário.
+     * Generates the form field object.
      *
-     * @param bInfoColuna $coluna Objeto com os dados da coluna.
-     * @return array Vetor com o componente do campo criado de acordo com o tipo da coluna e validador.
+     * @param bInfoColuna $coluna Object with the column data.
+     * @return array Array with the field component created according to the column type and validator.
      */
     protected function gerarCampo(bInfoColuna $coluna)
     {
@@ -187,7 +187,7 @@ class frmDinamico extends bFormCadastro
         
         $atributosReservados = array_keys(get_object_vars($this));
         
-        // Caso o id do campo já estiver sendo usado no formulário, concatena '_' no final do id.
+        // If the field id is already being used in the form, concatenates '_' at the end of the id.
         if ( in_array($coluna->campo, $atributosReservados) )
         {
             $coluna->campo .= '_';
@@ -205,7 +205,7 @@ class frmDinamico extends bFormCadastro
             $validador = new MRequiredValidator($coluna->campo, $coluna->titulo, $coluna->tamanho);
         }
 
-        // Verifica se campo é chave estrangeira.
+        // Checks if field is a foreign key.
         if ( strlen($coluna->fkTabela) )
         {
             $campo = new bEscolha($coluna->campo, $coluna->fkTabela, $this->modulo, NULL, $coluna->titulo );
@@ -230,7 +230,7 @@ class frmDinamico extends bFormCadastro
                     break;
                 
                 case bInfoColuna::TIPO_TIMESTAMP:
-                    // FIXME: adicionar o componente MTimestampField após a resolução do #15440.
+                    // FIXME: add the MTimestampField component after resolution of #15440.
                     $campo = new MTimestampField($coluna->campo, NULL, $rotulo);
                     
                     break;
@@ -275,13 +275,13 @@ class frmDinamico extends bFormCadastro
     }
     
     /**
-     * Gera os componentes MSubDetail relacionadas ao formulário.
-     * 
-     * @return array Vetor com componentes MSubDetail.
+     * Generates the MSubDetail components related to the form.
+     *
+     * @return array Array with MSubDetail components.
      */
     protected function gerarCamposSubDetail()
     {
-        // Busca as tabelas relacionadas com o tipo dinâmico e seta no tipo.
+        // Searches for tables related to the dynamic type and sets them on the type.
         if ( cadastroDinamico::verificarIdentificador($this->modulo, MIOLO::_REQUEST('chave')) )
         {            
             $cadastroDinamico = bTipo::instanciarTipo('cadastroDinamico', 'base');
@@ -289,7 +289,7 @@ class frmDinamico extends bFormCadastro
             $this->tipo->definirTiposRelacionados( $cadastroDinamico->obterTabelasRelacionadas() );
         }
         
-        // Obtém o nome dos tipos que estão relacionados ao tipo principal.
+        // Gets the names of the types that are related to the main type.
         $tiposRelacionados = $this->tipo->obterTiposRelacionados();
         $chavesPrimarias = $this->tipo->obterChavesPrimarias();
         
@@ -319,21 +319,21 @@ class frmDinamico extends bFormCadastro
                             $campo instanceof bInfoColuna;
                             $chaveRelacionada = in_array($campo->nome, $chavesPrimarias);
 
-                            // Verifica se o campo tem mesmo id que a chave primária do formulário, caso seja, não monta o campo e coluna.
+                            // Checks if the field has the same id as the form's primary key, if so, does not build the field and column.
     //                        if ( !($campo->restricao == 'p' && substr($campo->valorPadrao, 0, 7) == 'nextval' ) )
 
                             if ( !$chaveRelacionada )
                             {
                                 list($campos[$campoId], $validadores[$campoId]) =  $this->gerarCampo($campo);
 
-                                // Esconde chave primaria na subdetail
+                                // Hides primary key in the subdetail
                                 if ( $campo->eChavePrimaria() )
                                 {
                                     $campos[$campoId] = new MTextField($campoId, $campos[$campoId]->value);
                                     $campos[$campoId]->addBoxStyle('display', 'none');
                                 }
 
-                                // Define o alinhamento da coluna da grid da subdetail.
+                                // Sets the alignment of the subdetail grid column.
                                 if ( in_array($campo->tipo, array(bInfoColuna::TIPO_BOOLEAN, bInfoColuna::TIPO_DATA, bInfoColuna::TIPO_TIMESTAMP)) )
                                 {
                                     $alinhamento = 'center';
@@ -351,7 +351,7 @@ class frmDinamico extends bFormCadastro
                                 {
                                     $colunas[$campoId] = new MGridColumn( $campo->titulo, $alinhamento, true, null, true, $campoId );
 
-                                    // Só precisa fazer quando é diferente de inserir
+                                    // Only needs to be done when not inserting
                                     $relacionamentos = $tipoObjeto->obterRelacionamentos(); 
 
                                     foreach( $relacionamentos as $relacionamento )
@@ -361,20 +361,20 @@ class frmDinamico extends bFormCadastro
                                             $tipoRelacionado = bTipo::instanciarTipo($relacionamento->tabela_ref);
                                             $chavesPKRelacionado = $tipoRelacionado->obterChavesPrimarias();
 
-                                            // Senão tiver PKs relacionadas, busca os valores para replace direto na coluna
+                                            // If there are no related PKs, fetches values for direct replacement in the column
                                             if ( !(count($chavesPKRelacionado) > 0) )
                                             {
                                                 $valores = $tipoRelacionado->obterArrayAssociativo();
                                                 $colunas[$campoId]->setReplace($campoId, $valores);
                                             }
 
-                                            // Se tiver esse atributo é montado um bescolha, e consequentemente criada
-                                            // uma nova coluna para esse valor
+                                            // If this attribute exists, a bEscolha is built, and consequently
+                                            // a new column is created for this value
                                             if ( strlen($campo->fkTabela) && 
                                                  count($chavesPKRelacionado) > 0 && 
                                                  strlen($tipoRelacionado->obterColunaDescritiva()) > 0 )
                                             {
-                                                // Somente buscar valores relacionados, não todos
+                                                // Only fetch related values, not all
                                                 $colunas[$campoId . 'Descricao'] = new MGridColumn( $campo->titulo, 'left', true, null, true, $campoId . 'Descricao');
 
     //                                          $colunas[$campoId]->setTitle("Código " . strtolower($colunas[$campoId]->getTitle()));
@@ -387,13 +387,13 @@ class frmDinamico extends bFormCadastro
                         }
                     }
                     
-                    // O setValidators precisa ser feito antes do setFields - ticket #41291
+                    // setValidators needs to be done before setFields - ticket #41291
                     $subDetail[$tipo] = $campoSubDetail = new MSubDetail($tipo, $tipoObjeto->obterComentarioDaTabela());
                     $campoSubDetail->setValidators( $validadores );
                     $campoSubDetail->setFields( $campos );
                     $campoSubDetail->setColumns($colunas);
                     
-                    // Limpa a subdetail.
+                    // Clears the subdetail.
                     if ( MUtil::isFirstAccessToForm() )
                     {
                         MSubDetail::clearData($tipo);
@@ -406,9 +406,9 @@ class frmDinamico extends bFormCadastro
     }
     
     /**
-     * Define a ordem que os vão aparecer no formulário.
-     * 
-     * @param array $ordemDosCampos Vetor com a ordem dos campos.
+     * Defines the order in which fields will appear in the form.
+     *
+     * @param array $ordemDosCampos Array with the field order.
      */
     protected function definirOrdemDosCampos(array $ordemDosCampos)
     {
@@ -416,9 +416,9 @@ class frmDinamico extends bFormCadastro
     }
     
     /**
-     * Obtém a ordem dos campos.
-     * 
-     * @return array Vetor com a ordem dos campos. 
+     * Gets the field order.
+     *
+     * @return array Array with the field order.
      */
     protected function obterOrdemDosCampos()
     {

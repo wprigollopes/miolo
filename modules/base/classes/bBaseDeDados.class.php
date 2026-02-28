@@ -1,26 +1,26 @@
 <?php
 
 /**
- * <--- Copyright 2012 de Solis - Cooperativa de Soluções Livres Ltda.
+ * <--- Copyright 2012 Solis - Cooperativa de Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa Base.
+ * This file is part of the Base program.
  *
- * O Base é um software livre; você pode redistribuí-lo e/ou modificá-lo
- * dentro dos termos da Licença Pública Geral GNU como publicada pela Fundação
- * do Software Livre (FSF); na versão 2 da Licença.
+ * Base is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation (FSF); version 2 of the License.
  *
- * Este programa é distribuído na esperança que possa ser útil, mas SEM
- * NENHUMA GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a qualquer MERCADO
- * ou APLICAÇÃO EM PARTICULAR. Veja a Licença Pública Geral GNU/GPL em
- * português para maiores detalhes.
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License/GPL
+ * for more details.
  *
- * Você deve ter recebido uma cópia da Licença Pública Geral GNU, sob o título
- * "LICENCA.txt", junto com este programa, se não, acesse o Portal do Software
- * Público Brasileiro no endereço www.softwarepublico.gov.br ou escreva para a
- * Fundação do Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
- * MA 02110-1301, USA --->
+ * You should have received a copy of the GNU General Public License, under
+ * the title "LICENCA.txt", along with this program. If not, visit the
+ * Brazilian Public Software Portal at www.softwarepublico.gov.br or write
+ * to the Free Software Foundation (FSF) Inc., 51 Franklin St, Fifth Floor,
+ * Boston, MA 02110-1301, USA --->
  *
- * Classe manipuladora da base de dados.
+ * Database handler class.
  *          
  * @author Jader Osvino Fiegenbaum [jader@solis.coop.br]
  * @author Eduardo Bonfandini [eduardo@solis.coop.br]
@@ -31,28 +31,28 @@
 class bBaseDeDados
 {
     /**
-     * @var MBusiness Instância do objeto MBusiness.
+     * @var MBusiness MBusiness object instance.
      */
     protected static $instancia = NULL;
     
     /**
-     * @var string Última instrução SQL executada no banco de dados. 
+     * @var string Last SQL statement executed in the database.
      */
     protected static $lastQuery;
 
     /**
-     * @var bool Verifica se já trocou o usuário no banco de dados.
+     * @var bool Checks if the database user has already been changed.
      */
     private static $changedDatabase = false;
 
     /**
-     * Método estático para obter a instância do objeto MBusiness.
-     * 
-     * @return MBusiness Instância do MBusiness.
+     * Static method to get the MBusiness object instance.
+     *
+     * @return MBusiness MBusiness instance.
      */
     public static function obterInstancia($base = DB_NAME)
     {
-        // Obtém a instância quando não tiver sido definido, ou quando a base definida é diferente da passada por parâmetro.
+        // Gets the instance when it has not been defined, or when the defined database differs from the parameter.
         if ( is_null(self::$instancia) || self::$instancia->_database != $base )
         {
             if ( $base == NULL )
@@ -62,7 +62,7 @@ class bBaseDeDados
             
             self::$instancia = new MBusiness($base);
             
-            // Define estilo de data para o formato brasileiro.
+            // Sets date style to Brazilian format.
             self::$instancia->execute("SET DateStyle TO 'SQL, DMY';");
         }
 
@@ -72,8 +72,8 @@ class bBaseDeDados
     }
 
     /**
-     * Altera o usuario de conexao da base de dados para o da miolo_user
-     * Utilizado para propositos como multiunidade, auditoria de registros.
+     * Changes the database connection user to the miolo_user
+     * Used for purposes such as multi-unit, record auditing.
      */
     public static function checkDatabaseUser()
     {
@@ -83,7 +83,7 @@ class bBaseDeDados
 
             $login = null;
 
-            // O usuário_console é setado quando está rodando o sync pelo terminal
+            // The console_user is set when running sync via terminal
             if ( !strlen($MIOLO->getConf('usuario_console')) > 0 )
             {
                 $login = $MIOLO->getLogin()->id;
@@ -101,7 +101,7 @@ class bBaseDeDados
     }
 
     /*
-     * Insere usuário no postgres
+     * Inserts user in postgres
      */
     public static function insertDbUser($login)
     {
@@ -120,10 +120,10 @@ class bBaseDeDados
         }
         catch ( Exception $e )
         {
-            //Não faz nada, apenas para controlar o erro
+            //Do nothing, just to handle the error
         }
 
-        // Limita o tempo de execução de queries para o usuário
+        // Limits the query execution time for the user
         $tempoMaximoParaQueries = SAGU::getParameter("BASIC","TEMPO_MAXIMO_PARA_QUERIES");
         $tempoCalculado = SAGU::calcNumber("{$tempoMaximoParaQueries}::int * 60000");
 
@@ -142,8 +142,8 @@ class bBaseDeDados
     }
 
     /**
-     * Altera o login de conexao do MIOLO
-     * Utilize este metodo com cuidado.
+     * Changes the MIOLO connection login.
+     * Use this method with caution.
      */
     public static function changeConnectionUser($user)
     {
@@ -157,7 +157,7 @@ class bBaseDeDados
     }
 
     /**
-     * Obtem a configuracao padrao de banco de dados
+     * Gets the default database configuration
      *
      * @return string
      */
@@ -167,41 +167,41 @@ class bBaseDeDados
     }
 
     /**
-     * Executa uma consulta SQL no banco.
+     * Executes a SQL query on the database.
      *
-     * @param MSQL $msql Objeto de consulta a ser executada na base de dados.
-     * @param array $parametros Parametros da consulta SQL.
-     * @param string $base Base de dados onde a consulta será executada.
-     * @return array de array Com resultado da consulta.
+     * @param MSQL $msql Query object to be executed on the database.
+     * @param array $parametros SQL query parameters.
+     * @param string $base Database where the query will be executed.
+     * @return array of array With the query result.
      */
     public static function consultar(MSQL $msql, $parametros = NULL, $base = NULL)
     {                
-        // Converte objeto MSQL em string de consulta SQL.
+        // Converts MSQL object into SQL query string.
         if ( strlen($msql->command) )
         {
-            // Obtém comando SQL em casos que for utilizado o comando createFrom.
+            // Gets the SQL command in cases where createFrom command was used.
             $sql = $msql->command;
         }
         else
         {
             $sql = $msql->select($parametros);
         }
-        // Não executa função caso não exista a instrução.
+        // Does not execute the function if no statement exists.
         if ( !$sql )
         {
             return FALSE;
         }
 
-        // Converte string da instrução SQL para codificação certa.
+        // Converts the SQL statement string to the correct encoding.
         $sql = BString::construct($sql)->__toString();
         
-        // Guarda última consultar para registro de erros.
+        // Stores the last query for error logging.
         self::$lastQuery = $sql;
        
-        // Executa a instrução na base de dados.
+        // Executes the statement on the database.
         $resultado = self::obterInstancia($base)->_db->query($sql);
 
-        // Mantém compatibilidade com MIOLO 2.
+        // Maintains compatibility with MIOLO 2.
         if ( $resultado instanceof PostgresQuery )
         {
             return $resultado->result;
@@ -213,29 +213,29 @@ class bBaseDeDados
     }
     
     /**
-     * Executa uma consulta SQL no banco.
+     * Executes a SQL query on the database.
      *
-     * @param array $sql Vetor de consultas a serem executada na base de dados.
-     * @return array de array Com resultado da consulta.
+     * @param array $sql Array of queries to be executed on the database.
+     * @return array of array With the query result.
      */
     public static function consultarBloco(array $sqls, $base = NULL)
     {
-        // Converte array de SQL's em uma string.
+        // Converts the array of SQLs into a string.
         if ( is_array($sql) )
         {
             $sql = implode(";\n", $sql);
         }
 
-        // Converte string da instrução SQL para codificação certa.
+        // Converts the SQL statement string to the correct encoding.
         $sql = BString::construct($sql)->__toString();
 
-        // Guarda última consulta para registro de erros.
+        // Stores the last query for error logging.
         self::$lastQuery = $sql;
 
-        // Executa a instrução na base de dados.
+        // Executes the statement on the database.
         $resultado = self::obterInstancia($base)->_db->query($sql);
 
-        // Mantém compatibilidade com MIOLO 2.
+        // Maintains compatibility with MIOLO 2.
         if ( $resultado instanceof PostgresQuery )
         {
             return $resultado->result;
@@ -247,20 +247,20 @@ class bBaseDeDados
     }
 
     /**
-     * Executa uma instrucao SQL no banco.
+     * Executes a SQL statement on the database.
      *
-     * @param string $sql Instrução SQL a ser executada.
-     * @return boolean Retorna positivo caso for executado com sucesso.
+     * @param string $sql SQL statement to be executed.
+     * @return boolean Returns true if executed successfully.
      */
     public static function executar($sql, $base = NULL)
     {
-        // Não executa método quando não existe SQL.
+        // Does not execute the method when no SQL exists.
         if ( !strlen($sql) )
         {
             return FALSE;
         }
         
-        // Converte string da instrução SQL para codificação certa.
+        // Converts the SQL statement string to the correct encoding.
         $sql = BString::construct($sql)->__toString();
         self::$lastQuery = $sql;
 
@@ -268,17 +268,17 @@ class bBaseDeDados
     }
     
     /**
-     * Executa um bloco de instruções SQL no banco.
+     * Executes a block of SQL statements on the database.
      *
-     * @param array $sql Vetor com instruções SQL a serem executadas.
-     * @return boolean Retorna positivo caso for executado com sucesso.
+     * @param array $sql Array with SQL statements to be executed.
+     * @return boolean Returns true if executed successfully.
      */
     public static function executarBloco(array $sqls, $base = NULL)
     {
-        // Converte array em string para converter.
+        // Converts array to string for conversion.
         //$sqls = implode("\n", $sqls);
         
-        // Converte string da instrução SQL para codificação certa.
+        // Converts the SQL statement string to the correct encoding.
         //$sqls = BString::construct($sqls)->__toString();
         //self::$lastQuery = $sql;
         
@@ -292,19 +292,19 @@ class bBaseDeDados
     }
     
     /**
-     * Método estático para efetuar inclusão na base de dados.
-     * 
-     * @param MSQL $msql Objeto MSQL com a inclusão SQL.
-     * @param array $valores Valores para inclusão SQL
-     * @param string Base de dados onde os valores serão inseridos.
-     * @return array Valores inseridos na base de dados.
+     * Static method to perform an insert on the database.
+     *
+     * @param MSQL $msql MSQL object with the SQL insert.
+     * @param array $valores Values for SQL insert.
+     * @param string Database where the values will be inserted.
+     * @return array Values inserted in the database.
      */
     public static function inserir( MSQL $msql, $valores, $base = NULL)
     {
-        // Converte objeto MSQL em string SQL.
+        // Converts MSQL object into SQL string.
         $sql = $msql->insert($valores) . ' RETURNING *';
 
-        // Converte string da instrução SQL para codificação certa.
+        // Converts the SQL statement string to the correct encoding.
         $sql = BString::construct($sql)->__toString();
         self::$lastQuery = $sql;
 
@@ -314,9 +314,9 @@ class bBaseDeDados
     }
 
     /**
-     * Obtem último erro de banco.
-     * 
-     * @return string Mensagem de erro. 
+     * Gets the last database error.
+     *
+     * @return string Error message.
      */
     public static function obterUltimoErro()
     {
@@ -324,9 +324,9 @@ class bBaseDeDados
     }
 
     /**
-     * Obtem último SQL realizado.
-     * 
-     * @return string Última instrução SQL executada no banco. 
+     * Gets the last SQL executed.
+     *
+     * @return string Last SQL statement executed on the database.
      */
     public static function obterUltimaInstrucao()
     {
@@ -334,7 +334,7 @@ class bBaseDeDados
     }
 
     /**
-     * Método estático para iniciar uma transação na base de dados.
+     * Static method to begin a database transaction.
      */
     public static function iniciarTransacao()
     {
@@ -342,7 +342,7 @@ class bBaseDeDados
     }
 
     /**
-     * Método estático para finalizar a transação atual na base de dados.
+     * Static method to commit the current database transaction.
      */
     public static function finalizarTransacao()
     {
@@ -350,7 +350,7 @@ class bBaseDeDados
     }
 
     /**
-     * Método estático para reverter a transação atual na base de dados.
+     * Static method to rollback the current database transaction.
      */
     public static function reverterTransacao()
     {
@@ -400,7 +400,7 @@ class bBaseDeDados
     }
     
     /**
-     * Obtem o ultimo ID inserido baseando-se no nome da tabela passado.
+     * Gets the last inserted ID based on the given table name.
      * 
      *
      * @param string $tableName
@@ -425,10 +425,10 @@ class bBaseDeDados
     }
     
     /**
-     * Retorna o nome da coluna chave primaria da tabela passada.
-     * 
-     * Suporta tabelas que usam schema especifico (ex.: bas.systemtask)
-     *  e com schema public padroes (ex.: acdschedule).
+     * Returns the primary key column name of the given table.
+     *
+     * Supports tables that use a specific schema (e.g.: bas.systemtask)
+     *  and tables with the default public schema (e.g.: acdschedule).
      *
      * @param string $tableName 
      * @return string Ex.: scheduleid

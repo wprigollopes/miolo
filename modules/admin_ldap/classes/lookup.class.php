@@ -483,7 +483,7 @@ class BusinessAdminLookup
 
         $columns = array
             (
-              //new DataGridColumn('sigla','Instituição','left',true,'100%',true)
+              //new DataGridColumn('sigla','Institution','left',true,'100%',true)
                new DataGridColumn('idinstituicao','Id','right', true, '5%',true),
                new DataGridColumn('instituicao','Sigla','left', true, '35%',true),
                new DataGridColumn('nome','Nome','left', true, '60%',true),

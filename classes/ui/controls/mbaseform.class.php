@@ -528,7 +528,7 @@ class MBaseForm extends MContainerControl
                 }
             }
             
-            // Não daria para sempre considerar apenas o $field->id?
+            // Wouldn't it be possible to always consider only the $field->id?
             $namefield = ($field->name == $field->id) ? $field->name : $field->id;
     	    if ($namefield)
             {
@@ -854,8 +854,8 @@ class MBaseForm extends MContainerControl
             foreach ( $this->errors as $field => $error )
             {
                 // Add the error message
-                $error = str_replace("\n", '\n', $error); //troca linha nova do php para javascript
-                $error = str_replace("'", "\'", $error); // retira ' para evitar erros de sintaxe js
+                $error = str_replace("\n", '\n', $error); //replace PHP newline with javascript newline
+                $error = str_replace("'", "\'", $error); // escape ' to avoid js syntax errors
                 $js .= "mvalidator.addErrorToField('$error', '$field');";
             }
         }

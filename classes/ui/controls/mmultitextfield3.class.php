@@ -72,7 +72,7 @@ class MMultiTextField3 extends MMultiTextField2
                         }
                     }
                 }
-                else // valor unico => apenas um field (na posicao 0)
+                else // single value => only one field (at position 0)
                 {
                     if ($this->fields[$i] instanceof MSelection)
                     {

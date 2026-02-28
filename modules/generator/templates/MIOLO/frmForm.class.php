@@ -1,6 +1,6 @@
 
 /**
- * Formulário para inserir, editar e remover registros da tabela %TABLE%.
+ * Form to insert, edit and remove records from the %TABLE% table.
  *
  * @author %AUTHOR%
  *
@@ -22,7 +22,7 @@
 class frm%TABLE_CLASS_NAME% extends MForm
 {
     /**
- * Construtor do formulário.
+ * Form constructor.
  */
     public function __construct()
     {
@@ -31,7 +31,7 @@ class frm%TABLE_CLASS_NAME% extends MForm
     }
 
     /**
- * Criar campos do formulário.
+ * Create form fields.
  */
     public function createFields()
     {
@@ -56,7 +56,7 @@ class frm%TABLE_CLASS_NAME% extends MForm
     }
 
     /**
- * Ação do botão editar.
+ * Edit button action.
  */
     public function acaoEditar_click()
     {
@@ -76,7 +76,7 @@ class frm%TABLE_CLASS_NAME% extends MForm
     }
 
     /**
- * Ação do botão salvar.
+ * Save button action.
  */
     public function botaoSalvar_click()
     {
@@ -113,7 +113,7 @@ class frm%TABLE_CLASS_NAME% extends MForm
     }
 
     /**
- * Ação do botão voltar.
+ * Back button action.
  */
     public function botaoVoltar_click()
     {

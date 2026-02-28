@@ -27,7 +27,7 @@ class MInputGrid extends MInputControl
     public $cols; // array of column definitions
     protected $numRows; // the number of rows
     public $numCols; // the number of cols
-    public $aValue; // array com os valores dos campos
+    public $aValue; // array with the field values
     /**
      *
      */

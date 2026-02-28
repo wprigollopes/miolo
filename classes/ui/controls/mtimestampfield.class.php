@@ -108,7 +108,7 @@ class MTimestampField extends MTextField
         $this->dateField->setValue($date);
         $this->timeField->setValue($time);
         $this->value = $value;
-        //Retirado para tratar o caso #52524
+        //Removed to handle case #52524
       /*  if ( MUtil::isAjaxEvent() )
         {
             $this->page->onload("setTimeout(function () { dijit.byId('{$this->dateField->name}').setJsValue('$date'); }, 0);");

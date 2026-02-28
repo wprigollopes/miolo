@@ -546,7 +546,7 @@ class MForm extends MBaseForm
     }
 
     /**
-     * Função criada para ser sobrescrita em classes filhas.
+     * Function created to be overridden in child classes.
      *
      * @param array $customFields
      * @return array
@@ -687,7 +687,7 @@ class MForm extends MBaseForm
             return NULL;
         }
 
-        // Se nao passar dados, pega o padrao getData()
+        // If no data is passed, use the default getData()
         if ( !$data )
         {
             $data = $this->getData();
@@ -762,7 +762,7 @@ class MForm extends MBaseForm
             }
         }
 
-        // Comentado para retornar todos dados de campos customizados na grid
+        // Commented out to return all custom field data in the grid
 //        if ( count($searchData) )
         {
             $values = MCustomValue26::searchFieldValues($identifier, $searchData);

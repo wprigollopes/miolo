@@ -1,68 +1,68 @@
 <?php
 
 /**
- * Copyright 2005-2017 de Solis Soluções Livres Ltda.
+ * Copyright 2005-2017 Solis Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa SolisGE/Sagu.
+ * This file is part of the SolisGE/Sagu program.
  *
- * O SolisGE/Sagu é um software de propriedade da SOLIS, sendo desenvolvido
- * e mantido exclusivamente por esta empresa.
+ * SolisGE/Sagu is proprietary software of SOLIS, developed and maintained
+ * exclusively by this company.
  *
- * A licença de uso está disponível mediante aquisição exclusiva junto à
- * SOLIS. A licença é concedida sem caráter de exclusividade ao licenciado.
- * Os direitos de uso são perpétuos.
+ * The usage license is available through exclusive acquisition from SOLIS.
+ * The license is granted on a non-exclusive basis to the licensee.
+ * Usage rights are perpetual.
  *
- * Embora os códigos fontes sejam fornecidos, o software é de propriedade
- * da SOLIS, não sendo permitido ao adquirente da licença a sua revenda,
- * empréstimo ou cessão (onerosa ou não) à terceiros. Também não é permitido,
- * a qualquer título e tempo, promover no software qualquer tipo de alienação,
- * reprodução, distribuição, divulgação, registro, licenciamento, transferência
- * ou qualquer outro ato que prejudique ou comprometa os direitos de propriedade
- * de software, o nome e a imagem da sua proprietária e do próprio software,
- * além de configurar concorrência à SOLIS.
+ * Although source code is provided, the software is the property of SOLIS.
+ * The licensee is not permitted to resell, lend, or transfer (whether for
+ * payment or not) the license to third parties. It is also not permitted,
+ * at any time or for any reason, to perform any alienation, reproduction,
+ * distribution, disclosure, registration, licensing, transfer, or any other
+ * act that may harm or compromise the software property rights, the name
+ * and image of its owner and the software itself, or that constitutes
+ * competition with SOLIS.
  *
- * O licenciado, com o acesso ao código fonte do software, terá o direito de
- * promover mudanças no respectivo código. No entanto, nas situações em que ele
- * contar com o suporte oficial prestado pela SOLIS, não poderá promover mudanças
- * no código fonte, sob pena de perda do referido suporte.
+ * The licensee, with access to the software source code, shall have the
+ * right to make changes to the respective code. However, in situations
+ * where the licensee relies on official support provided by SOLIS, changes
+ * to the source code are not permitted, under penalty of losing said support.
  *
- * Para conhecer em detalhes o Termo de Licenciamento do Software SolisGE/Sagu
- * leia o arquivo “LICENCA.txt” disponível junto ao código deste software.
+ * For detailed information about the SolisGE/Sagu Software Licensing Terms,
+ * read the "LICENCA.txt" file included with this software.
  *
  *
- * Manipulador de formulários
+ * Form handler
  *
  *
  */
 
-// Obtém a chave da ação.
+// Gets the action key.
 $chave = MIOLO::_REQUEST('chave');
 
-// Obtém instância do Miolo, módulo e ação.
+// Gets the Miolo instance, module and action.
 $MIOLO = MIOLO::getInstance();
 $modulo = MIOLO::getCurrentModule();
 $acao = MIOLO::getCurrentAction();
 
-// Faz a manipulação de formulários caso exista uma chave.
+// Handles forms if a key exists.
 if ( $chave )
 {
-    // Obtém o caminho completo para o formulário de gerênciamento padrão.
+    // Gets the full path to the default management form.
     /*$formulario = $this->manager->getModulePath($modulo, 'forms/frm' . ucfirst($chave) . '.class.php');
 
-    // Se nao existir formulário padrão, é passo-a-passo.
+    // If no default form exists, it is step-by-step.
     if ( !file_exists($formulario) )
     {
-        // Chama o handler que controla o passo-a-passo.
+        // Calls the handler that controls the step-by-step.
         $MIOLO->invokeHandler($modulo, $chave);
     }
     else
     {*/
-        // Faz a chamada dos formulários.
+        // Calls the forms.
         bManipular($chave);
     /*}*/
 }
 
-// Chama handler do lookup, logout ou login.
+// Calls the lookup, logout or login handler.
 if ( in_array($acao, array('lookup', 'logout', 'login') ) )
 {
     $MIOLO->invokeHandler($modulo, $acao);
@@ -94,9 +94,9 @@ function obterCaminhoForm($modulo, $nome)
 }
 
 /**
- * Função para manipular formulários.
- * 
- * @param string $chave Chave do formulário.
+ * Function to handle forms.
+ *
+ * @param string $chave Form key.
  */
 function bManipular($chave)
 {
@@ -106,7 +106,7 @@ function bManipular($chave)
     $funcao = MIOLO::_REQUEST('funcao');
     $ui = $MIOLO->getUI();
     
-    // Descrição da chave
+    // Key description
 //    $descricaoChave = ucfirst($chave);
     $descricaoChave = $chave;
     
@@ -117,7 +117,7 @@ function bManipular($chave)
     );
     
     $checked = false;
-    // FIXME: adicionar checkAccess.
+    // FIXME: add checkAccess.
     $theme = $MIOLO->getTheme();
     $theme->clearContent();
     
@@ -147,7 +147,7 @@ function bManipular($chave)
 //                $nomeFormulario = 'frm' . $descricaoChave;
                 $formularioCadastro = obterCaminhoForm($modulo, $descricaoChave);
 
-                // Verifica se o código do formulário existe.
+                // Checks if the form code exists.
                 if ( !$formularioCadastro )
                 {
                     $formularioCadastro = 'frmDinamico';
@@ -164,14 +164,14 @@ function bManipular($chave)
                 $caminho = $descricaoChave . 'Busca';
                 $formularioBusca = obterCaminhoForm($modulo, $caminho);
 
-                // Verifica se o código do formulário existe.
+                // Checks if the form code exists.
                 if ( !$formularioBusca )
                 {
                     $formularioBusca = 'frmDinamicoBusca';
                     $modulo = 'base';
                 }
                 $MIOLO->checkAccess($formularioBusca, $access, $deny);
-                // Instância formulário de busca dinâmica.
+                // Instantiates the dynamic search form.
                 $conteudo = $ui->getForm($modulo, $formularioBusca, $parametros);
 
                 break;
@@ -181,14 +181,14 @@ function bManipular($chave)
 }
 
 /**
- * Função para manipular formulários de passos.
- * 
- * @todo Implementar essa função.
- * 
- * @param string $chave Chave do formulário.
- * @param array $passos Nomes dos formulários.
- * @param array $passosDescricao Títulos dos formulários.
- * @param string Título do processo de passos.
+ * Function to handle step forms.
+ *
+ * @todo Implement this function.
+ *
+ * @param string $chave Form key.
+ * @param array $passos Form names.
+ * @param array $passosDescricao Form titles.
+ * @param string Title of the step process.
  */
 function bManipularPassos($chave, $passos, $passosDescricao, $titulo)
 {
@@ -198,7 +198,7 @@ function bManipularPassos($chave, $passos, $passosDescricao, $titulo)
     $funcao = MIOLO::_REQUEST('funcao');
     $ui = $MIOLO->getUI();
     
-    // Descrição da chave
+    // Key description
 //    $descricaoChave = ucfirst($chave);
     $descricaoChave = $chave;
     
@@ -225,7 +225,7 @@ function bManipularPassos($chave, $passos, $passosDescricao, $titulo)
         case FUNCAO_INSERIR:
         case FUNCAO_EDITAR:
             
-            // Adiciona a migalha.
+            // Adds the breadcrumb.
             $barraDeNavegacao = $theme->getElement('navigation');
             $barraDeNavegacao->addOption($titulo, $modulo, 'main');
             
@@ -238,7 +238,7 @@ function bManipularPassos($chave, $passos, $passosDescricao, $titulo)
             $action = $MIOLO->getActionURL($modulo, 'main', NULL, array( 'chave' => $chave ));
             $conteudo->controlButtons[MStepByStepForm::CANCEL_BUTTON_ID] = $conteudo->cancelButton($action);
                 
-            // Desativa validação via Javascript.
+            // Disables Javascript validation.
             $conteudo->setJsValidationEnabled(false);
             break;
         

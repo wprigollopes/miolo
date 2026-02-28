@@ -1,36 +1,36 @@
 <?php
 
 /**
- * Copyright 2005-2017 de Solis Soluções Livres Ltda.
+ * Copyright 2005-2017 Solis Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa SolisGE/Sagu.
+ * This file is part of the SolisGE/Sagu program.
  *
- * O SolisGE/Sagu é um software de propriedade da SOLIS, sendo desenvolvido
- * e mantido exclusivamente por esta empresa.
+ * SolisGE/Sagu is proprietary software of SOLIS, developed and maintained
+ * exclusively by this company.
  *
- * A licença de uso está disponível mediante aquisição exclusiva junto à
- * SOLIS. A licença é concedida sem caráter de exclusividade ao licenciado.
- * Os direitos de uso são perpétuos.
+ * The usage license is available through exclusive acquisition from SOLIS.
+ * The license is granted on a non-exclusive basis to the licensee.
+ * Usage rights are perpetual.
  *
- * Embora os códigos fontes sejam fornecidos, o software é de propriedade
- * da SOLIS, não sendo permitido ao adquirente da licença a sua revenda,
- * empréstimo ou cessão (onerosa ou não) à terceiros. Também não é permitido,
- * a qualquer título e tempo, promover no software qualquer tipo de alienação,
- * reprodução, distribuição, divulgação, registro, licenciamento, transferência
- * ou qualquer outro ato que prejudique ou comprometa os direitos de propriedade
- * de software, o nome e a imagem da sua proprietária e do próprio software,
- * além de configurar concorrência à SOLIS.
+ * Although source code is provided, the software is the property of SOLIS.
+ * The licensee is not permitted to resell, lend, or transfer (whether for
+ * payment or not) the license to third parties. It is also not permitted,
+ * at any time or for any reason, to perform any alienation, reproduction,
+ * distribution, disclosure, registration, licensing, transfer, or any other
+ * act that may harm or compromise the software property rights, the name
+ * and image of its owner and the software itself, or that constitutes
+ * competition with SOLIS.
  *
- * O licenciado, com o acesso ao código fonte do software, terá o direito de
- * promover mudanças no respectivo código. No entanto, nas situações em que ele
- * contar com o suporte oficial prestado pela SOLIS, não poderá promover mudanças
- * no código fonte, sob pena de perda do referido suporte.
+ * The licensee, with access to the software source code, shall have the
+ * right to make changes to the respective code. However, in situations
+ * where the licensee relies on official support provided by SOLIS, changes
+ * to the source code are not permitted, under penalty of losing said support.
  *
- * Para conhecer em detalhes o Termo de Licenciamento do Software SolisGE/Sagu
- * leia o arquivo “LICENCA.txt” disponível junto ao código deste software.
+ * For detailed information about the SolisGE/Sagu Software Licensing Terms,
+ * read the "LICENCA.txt" file included with this software.
  *
  *
- * Componente de menu principal.
+ * Main menu component.
  *
  *
  *
@@ -62,7 +62,7 @@ class bMainMenu extends MDiv
     private $navegacao;
     
     /**
-     * Indica se deve utilizar cache para o menu (util para debug)
+     * Indicates whether to use cache for the menu (useful for debug)
      * 
      * @var boolean
      */
@@ -103,7 +103,7 @@ class bMainMenu extends MDiv
     }
 
     /**
-     * Obtem URL de menu, fazendo tratamentos especificos quando necessários.
+     * Gets menu URL, applying specific treatments when necessary.
      *
      * @return string
      */
@@ -119,21 +119,21 @@ class bMainMenu extends MDiv
         }
         else
         {        
-            if ( bUtil::isMiolo2() ) // É versao antiga do miolo (2.0)
+            if ( bUtil::isMiolo2() ) // Is old miolo version (2.0)
             {
-                // Concatena o subpath na URL, caso exista
+                // Concatenates the subpath in the URL, if it exists
                 $dispatch = $confURL . ( $subPath ? '/' . $subPath : null );
             }
-            else // É versao do miolo > 2.0
+            else // Is miolo version > 2.0
             {
                 if ( strlen($subPath) > 0 )
                 {
-                    $dispatch = null; // Mantem a URL atual
+                    $dispatch = null; // Keeps the current URL
                 }
                 else
                 {
-                    // Corta o subpath da URL
-                    $dispatch = dirname($confURL) . '/index.php'; // URL sem o path
+                    // Cuts the subpath from the URL
+                    $dispatch = dirname($confURL) . '/index.php'; // URL without the path
                 }
             }
             
@@ -149,8 +149,8 @@ class bMainMenu extends MDiv
     }
 
     /**
-     * Popula o componente com os dados necessários para a criação do menu.
-     * Armazena os dados na sessão para evitar requisições a base de dados.
+     * Populates the component with the data necessary for menu creation.
+     * Stores data in the session to avoid database requests.
      */
     public function popular()
     {
@@ -164,12 +164,12 @@ class bMainMenu extends MDiv
         $filters = new stdClass();
         $filters->onlyWithPerms = true;
 
-        // Foi removido o cache devido a estar havendo problemas de as vezes nao refazer a consulta        
+        // Cache was removed because there were issues with sometimes not re-executing the query        
         $dados = AdmMioloTransaction::listRecords($filters);
         if ( $dados )
         {
 
-            // Gera botao de logout
+            // Generates logout button
             $actLogout = 'base|logout';
             $img = $MIOLO->getUI()->getImageTheme($MIOLO->theme->id, 'logout_-16x16.png');
             $dados[$actLogout] = current($dados);
@@ -177,10 +177,10 @@ class bMainMenu extends MDiv
             $dados[$actLogout]['temFilho'] = false;
             $dados[$actLogout]['descricao'] = "<img src=\"{$img}\"></img> ". _M('Sair', $module);
 
-            // Gera opções do acesso rápido
+            // Generates quick access options
             foreach ( $dados as $moduloAcao => $item )
             {
-                // Ações do acesso rápido não são geradas para sub-menus
+                // Quick access actions are not generated for sub-menus
                 if ( $item['temFilho'] )
                 {
                     continue;
@@ -227,9 +227,9 @@ class bMainMenu extends MDiv
     }
 
     /**
-     * Obtém o código JavaScript para a criação dos itens e sub-menus do menu principal.
+     * Gets the JavaScript code for creating main menu items and sub-menus.
      * 
-     * @return string Código JS.
+     * @return string JS code.
      */
     public function gerarItensJS()
     {
@@ -237,7 +237,7 @@ class bMainMenu extends MDiv
         $module = MIOLO::getCurrentModule();
         $sessao = $this->manager->getSession();
 
-        // Obtém da sessão para evitar processamento repetido
+        // Gets from session to avoid repeated processing
         //$itensJS = $sessao->getValue($this->id . self::ID_JS);
 
         if ( !$itensJS )
@@ -277,7 +277,7 @@ class bMainMenu extends MDiv
     }
 
     /**
-     * @return string Gera navegação via sub-menus.
+     * @return string Generates navigation via sub-menus.
      */
     public function gerarNavegacao()
     {
@@ -335,7 +335,7 @@ class bMainMenu extends MDiv
                 {
                     $acaoAtual = $this->dados["$modulo|main:$nivel"];
                 }
-                // Suporte a acoes com chave= no xml miolo_transaction
+                // Support for actions with chave= in the miolo_transaction xml
                 if ( !$acaoAtual )
                 {
                     $acaoAtual = $this->dados["$modulo|$nivel&chave=" . MIOLO::_REQUEST('chave')];
@@ -381,7 +381,7 @@ class bMainMenu extends MDiv
     }
 
     /**
-     * @return string Gera recurso de acesso rápido.
+     * @return string Generates quick access feature.
      */
     public function gerarAcessoRapido()
     {
@@ -459,7 +459,7 @@ class bMainMenu extends MDiv
     }
 
     /**
-     * @return string Gera o menu principal e seus recursos.
+     * @return string Generates the main menu and its features.
      */
     public function generate()
     {

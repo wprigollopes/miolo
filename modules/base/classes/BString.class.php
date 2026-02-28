@@ -1,32 +1,32 @@
 <?php
 /**
- * Copyright 2005-2017 de Solis Soluções Livres Ltda.
+ * Copyright 2005-2017 Solis Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa SolisGE/Sagu.
+ * This file is part of the SolisGE/Sagu program.
  *
- * O SolisGE/Sagu é um software de propriedade da SOLIS, sendo desenvolvido
- * e mantido exclusivamente por esta empresa.
+ * SolisGE/Sagu is proprietary software of SOLIS, developed and maintained
+ * exclusively by this company.
  *
- * A licença de uso está disponível mediante aquisição exclusiva junto à
- * SOLIS. A licença é concedida sem caráter de exclusividade ao licenciado.
- * Os direitos de uso são perpétuos.
+ * The usage license is available through exclusive acquisition from SOLIS.
+ * The license is granted on a non-exclusive basis to the licensee.
+ * Usage rights are perpetual.
  *
- * Embora os códigos fontes sejam fornecidos, o software é de propriedade
- * da SOLIS, não sendo permitido ao adquirente da licença a sua revenda,
- * empréstimo ou cessão (onerosa ou não) à terceiros. Também não é permitido,
- * a qualquer título e tempo, promover no software qualquer tipo de alienação,
- * reprodução, distribuição, divulgação, registro, licenciamento, transferência
- * ou qualquer outro ato que prejudique ou comprometa os direitos de propriedade
- * de software, o nome e a imagem da sua proprietária e do próprio software,
- * além de configurar concorrência à SOLIS.
+ * Although source code is provided, the software is the property of SOLIS.
+ * The licensee is not permitted to resell, lend, or transfer (whether for
+ * payment or not) the license to third parties. It is also not permitted,
+ * at any time or for any reason, to perform any alienation, reproduction,
+ * distribution, disclosure, registration, licensing, transfer, or any other
+ * act that may harm or compromise the software property rights, the name
+ * and image of its owner and the software itself, or that constitutes
+ * competition with SOLIS.
  *
- * O licenciado, com o acesso ao código fonte do software, terá o direito de
- * promover mudanças no respectivo código. No entanto, nas situações em que ele
- * contar com o suporte oficial prestado pela SOLIS, não poderá promover mudanças
- * no código fonte, sob pena de perda do referido suporte.
+ * The licensee, with access to the software source code, shall have the
+ * right to make changes to the respective code. However, in situations
+ * where the licensee relies on official support provided by SOLIS, changes
+ * to the source code are not permitted, under penalty of losing said support.
  *
- * Para conhecer em detalhes o Termo de Licenciamento do Software SolisGE/Sagu
- * leia o arquivo “LICENCA.txt” disponível junto ao código deste software. e
+ * For detailed information about the SolisGE/Sagu Software Licensing Terms,
+ * read the "LICENCA.txt" file included with this software. e
  * 
  * 
  *
@@ -41,20 +41,20 @@ class BString
     private $encoding = 'UTF-8';
     
     /**
-     * Constroi objeto
+     * Constructs the object
      *
-     * @param string $string Conteudo inicial
-     * @param string $encoding Codificacao
+     * @param string $string Initial content
+     * @param string $encoding Encoding
      */
     public function __construct($string = null, $encoding = null)
     {
-        // Caso nao tenha passado codificacao, obtem da constante
+        // If no encoding was passed, get it from the constant
         if ( $encoding == null && defined('BASE_ENCODING') )
         {
             $encoding = BASE_ENCODING;
         }
         
-        // Define a codificação somente se ela foi passada por parâmetro ou se está definida a constante BASE_ENCODING, caso contrário usa UTF-8.
+        // Set the encoding only if it was passed as parameter or if the BASE_ENCODING constant is defined, otherwise use UTF-8.
         if ( $encoding )
         {
             $this->setEncoding($encoding);
@@ -64,13 +64,13 @@ class BString
     }
 
     /**
-     * Contrutor estático usado para que possa se utilizar
-     * o construtor e chamar a função necessária na mesma linha.
+     * Static constructor used so that the constructor can be called
+     * and the needed function invoked on the same line.
      *
      * @param string $string
      * @return BString
      *
-     * @example BString::construct( $string )->generate() = retorna a string em formato de usuário
+     * @example BString::construct( $string )->generate() = returns the string in user format
      */
     public static function construct( $string, $encoding = null )
     {
@@ -79,8 +79,8 @@ class BString
 
     
     /**
-     * Define a string
-     * 
+     * Sets the string
+     *
      * @param $string
      */
     public function setString($string)
@@ -89,10 +89,10 @@ class BString
     }
 
     /**
-     * Retorna a string na codificação necessária
+     * Returns the string in the required encoding
      *
      * @param string $string
-     * @return string retorna a string na codificação necessária
+     * @return string the string in the required encoding
      */
     protected function _convert( $string )
     {
@@ -100,11 +100,11 @@ class BString
     }
 
     /**
-     * Adiciona algum texto a string.
+     * Appends text to the string.
      *
-     * Passa pela função de conversão para garantir a string esteja na codificação utilizada.
+     * Passes through the conversion function to ensure the string is in the correct encoding.
      *
-     * @param string $string texto a ser adicionado
+     * @param string $string text to be appended
      */
     public function append( $string )
     {
@@ -112,12 +112,12 @@ class BString
     }
 
     /**
-     * Troca um contéudo por outro, na string atual.
-     * Além disso retorna a nova string
+     * Replaces one content with another in the current string.
+     * Also returns the new string.
      *
-     * @param string $search conteúdo original, a buscar
-     * @param string $replace novo conteúdo a subistituir
-     * @param string retorna a nova string
+     * @param string $search original content to search for
+     * @param string $replace new content to substitute
+     * @param string returns the new string
      */
     public function replace( $search, $replace )
     {
@@ -127,7 +127,7 @@ class BString
     }
 
     /**
-     * Converte o texto para minusculas
+     * Converts the text to lowercase
      *
      * @return BString
      */
@@ -139,7 +139,7 @@ class BString
     }
 
     /**
-     * Converte o texto para maisculas
+     * Converts the text to uppercase
      *
      * @return BString
      */
@@ -151,10 +151,10 @@ class BString
     }
 
     /**
-     * Retorna o caracter solicitado pelo parametro index
+     * Returns the character at the given index position
      *
-     * @param integer $index indice do caracter a obter
-     * @return char retorna o caracter solicitado
+     * @param integer $index index of the character to get
+     * @return char the requested character
      */
     public function charAt($index)
     {
@@ -162,9 +162,9 @@ class BString
     }
    
     /**
-     * Obtém a string
-     * 
-     * @return dia
+     * Gets the string
+     *
+     * @return string
      */
     public function getString()
     {
@@ -172,7 +172,7 @@ class BString
     }
 
     /**
-     * Seta a codificação
+     * Sets the encoding
      *
      * @param $encoding
      */
@@ -182,9 +182,9 @@ class BString
     }
 
     /**
-     * Obtém a codificação
+     * Gets the encoding
      *
-     * @return dia
+     * @return string
      */
     public function getEncoding()
     {
@@ -192,9 +192,9 @@ class BString
     }
 
     /**
-     * Verifica se a string é UTF8
+     * Checks if the string is UTF8
      *
-     * @param string o texto a verificar
+     * @param string the text to check
      * @return boolean
      */
     public static function isUTF8( $string )
@@ -205,7 +205,7 @@ class BString
     }
 
     /**
-     * Verifica se a string é da codificação passada
+     * Checks if the string matches the given encoding
      *
      * @param string $string
      * @param string $enc
@@ -217,10 +217,10 @@ class BString
     }
 
     /**
-     * Retorna a codifificação da string
+     * Returns the encoding of the string
      *
      * @param string $string
-     * @return string retorna a codifificação da string
+     * @return string the encoding of the string
      */
     public static function detectEncoding($string)
     {
@@ -249,9 +249,9 @@ class BString
     }
 
     /**
-     * Retorna o tamnho da string
+     * Returns the length of the string
      *
-     * @return tamanho da string
+     * @return int length of the string
      */
     public function length()
     {
@@ -259,8 +259,8 @@ class BString
     }
 
     /**
-     * Remove os espaços no inicio e fim do texto
-     * 
+     * Removes whitespace from the beginning and end of the text
+     *
      * @return BString
      */
     public function trim()
@@ -270,14 +270,14 @@ class BString
     }
 
     /**
-     * Converte a string para caracteres ASCII.
-     * Retira acentos e outros caracteres especificos.
+     * Converts the string to ASCII characters.
+     * Removes accents and other specific characters.
      *
      * @return BString
      */
     public function toASCII()
     {
-        $this->trim(); //remove espaços
+        $this->trim(); //remove whitespace
         $content = $this->string;
         $content = preg_replace("/[ÁÀÂÃÄáàâãä]/i", "A", $content);
         $content = preg_replace("/[ÉÈÊËéèêë]/i",   "E", $content);
@@ -290,16 +290,16 @@ class BString
 
         $this->string = $content;
 
-        $this->toUpper(); //coloca tudo em maisculas
+        $this->toUpper(); //convert everything to uppercase
 
         return $this;
     }
 
     /**
-     * Corta a string de um ponto inicial, considerando ou não um tamanho
+     * Cuts the string from a starting point, optionally considering a length
      *
-     * @param integer $start posição inicial
-     * @param integer $length quantidade de caracteres até o corte / tamanho
+     * @param integer $start starting position
+     * @param integer $length number of characters to cut / length
      * @return BString
      */
     public function sub($start, $length)
@@ -310,10 +310,10 @@ class BString
     }
     
     /**
-     * Explode a string retornando um array
-     * 
-     * @param string $delimiter delimitador
-     * @return array array com a string explodida
+     * Explodes the string returning an array
+     *
+     * @param string $delimiter delimiter
+     * @return array array with the exploded string
      */
     public function explode( $delimiter )
     {
@@ -321,20 +321,20 @@ class BString
     }
          
     /**
-     * Função chamada automaticamente pelo PHP quando precisa converter objeto para String
-     * 
-     * @return a data no formato do usuário
+     * Function called automatically by PHP when it needs to convert the object to String
+     *
+     * @return string the data in user format
      */
     public function __toString()
     {
-        //$this->string colocado entre "" para garantir que a string é realmente uma string
+        //$this->string placed between "" to ensure the string is really a string
         return $this->string;
     }
     
     /**
-     * Função que o miolo chama automaticamente, convertendo o objeto para string
-     * 
-     * @return a data no formato do usuário
+     * Function that miolo calls automatically, converting the object to string
+     *
+     * @return string the data in user format
      */
     public function generate()
     {

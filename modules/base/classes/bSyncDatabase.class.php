@@ -1,33 +1,33 @@
 <?php
 
 /**
- * Copyright 2005-2017 de Solis Soluções Livres Ltda.
+ * Copyright 2005-2017 Solis Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa SolisGE/Sagu.
+ * This file is part of the SolisGE/Sagu program.
  *
- * O SolisGE/Sagu é um software de propriedade da SOLIS, sendo desenvolvido
- * e mantido exclusivamente por esta empresa.
+ * SolisGE/Sagu is proprietary software of SOLIS, developed and maintained
+ * exclusively by this company.
  *
- * A licença de uso está disponível mediante aquisição exclusiva junto à
- * SOLIS. A licença é concedida sem caráter de exclusividade ao licenciado.
- * Os direitos de uso são perpétuos.
+ * The usage license is available through exclusive acquisition from SOLIS.
+ * The license is granted on a non-exclusive basis to the licensee.
+ * Usage rights are perpetual.
  *
- * Embora os códigos fontes sejam fornecidos, o software é de propriedade
- * da SOLIS, não sendo permitido ao adquirente da licença a sua revenda,
- * empréstimo ou cessão (onerosa ou não) à terceiros. Também não é permitido,
- * a qualquer título e tempo, promover no software qualquer tipo de alienação,
- * reprodução, distribuição, divulgação, registro, licenciamento, transferência
- * ou qualquer outro ato que prejudique ou comprometa os direitos de propriedade
- * de software, o nome e a imagem da sua proprietária e do próprio software,
- * além de configurar concorrência à SOLIS.
+ * Although source code is provided, the software is the property of SOLIS.
+ * The licensee is not permitted to resell, lend, or transfer (whether for
+ * payment or not) the license to third parties. It is also not permitted,
+ * at any time or for any reason, to perform any alienation, reproduction,
+ * distribution, disclosure, registration, licensing, transfer, or any other
+ * act that may harm or compromise the software property rights, the name
+ * and image of its owner and the software itself, or that constitutes
+ * competition with SOLIS.
  *
- * O licenciado, com o acesso ao código fonte do software, terá o direito de
- * promover mudanças no respectivo código. No entanto, nas situações em que ele
- * contar com o suporte oficial prestado pela SOLIS, não poderá promover mudanças
- * no código fonte, sob pena de perda do referido suporte.
+ * The licensee, with access to the software source code, shall have the
+ * right to make changes to the respective code. However, in situations
+ * where the licensee relies on official support provided by SOLIS, changes
+ * to the source code are not permitted, under penalty of losing said support.
  *
- * Para conhecer em detalhes o Termo de Licenciamento do Software SolisGE/Sagu
- * leia o arquivo “LICENCA.txt” disponível junto ao código deste software. e
+ * For detailed information about the SolisGE/Sagu Software Licensing Terms,
+ * read the "LICENCA.txt" file included with this software. e
  * 
  * 
  *
@@ -39,7 +39,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
 {
 
     /**
-     * Define o modulo de acesso 
+     * Sets the access module 
      * 
      * @param string $module 
      */
@@ -49,8 +49,8 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Retorna modulo de acesso
-     * @return string modulo de acesso
+     * Returns access module
+     * @return string access module
      */
     public function getModule()
     {
@@ -58,7 +58,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Retorna um array com os arquivos de sincronização de base do módulo informado.
+     * Returns an array with the base synchronization files of the specified module.
      * 
      * @param string $module
      * @return array 
@@ -131,7 +131,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Retorna versão do XMI
+     * Returns the XMI version
      * 
      * @return string
      */
@@ -141,7 +141,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Retorna uma proprieda do XMI
+     * Returns a property of the XMI
      * 
      * @param string $propertyName
      * @return string 
@@ -163,7 +163,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Retora empresa que gerou o XMI
+     * Returns the company that generated the XMI
      * 
      * @return string
      */
@@ -173,7 +173,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Retorna o autor do XMI
+     * Returns the XMI author
      * 
      * @return string
      */
@@ -183,7 +183,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Retorna a descrição do XMI
+     * Returns the XMI description
      * 
      * @return string html
      */
@@ -193,7 +193,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Retorna um array de mensagens geradas pelo sistema
+     * Returns an array of messages generated by the system
      * 
      * @return array
      */
@@ -203,7 +203,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Adiciona uma mensagem ao sistema
+     * Adds a message to the system
      * 
      * @param string $msg 
      */
@@ -216,10 +216,10 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Sincroniza triggers contraints e chaves estrangeiras em um segundo momento.
-     * Normalmente após a criação de funções.
+     * Synchronizes triggers, constraints and foreign keys in a second pass.
+     * Usually after function creation.
      * 
-     * @param array $tablesByI vetor com tabelas ordenadas pelo id do vpp
+     * @param array $tablesByI array with tables ordered by the VPP id
      * 
      */
     public function syncronizeTriggersAndContraints($tablesById)
@@ -227,10 +227,10 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
         $MIOLO = MIOLO::getInstance();
         $uml = $this->children('uml', true);
 
-        //Inicializa l
+        //Initializes l
         $l = null;
 
-        //passa por todo o conteúdo UML
+        //iterates through all UML content
         foreach ( $uml as $line => $xmlElement )
         {
             $extension = $xmlElement->children('xmi', true);
@@ -249,13 +249,13 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
                 }
                 else if ( $xmiType == 'dbForeignKey' )
                 {
-                    //chaves estrangeiras
+                    //foreign keys
                     $this->parseForeignKey($db, $item, $tablesById);
                 }
             }
         }
 
-        //checks previamente montados
+        //previously built checks
         if ( is_array($tablesById) )
         {
             foreach ( $tablesById as $tableId => $tableInfo )
@@ -269,7 +269,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Efetua a sincronização
+     * Performs the synchronization
      */
     public function syncronize()
     {
@@ -287,10 +287,10 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
 
         $this->addMessage('Projeto: ' . $uml->getAttribute('name'));
 
-        //array de tabelas índexadas pelo id
+        //array of tables indexed by id
         $tablesById = array( );
 
-        //passa por todo o conteúdo UML
+        //iterates through all UML content
         foreach ( $uml as $line => $xmlElement )
         {
             $extension = $xmlElement->children('xmi', true);
@@ -304,7 +304,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
                 {
                     $xmiType = $item->getAttribute('xmi:type');
 
-                    if ( $xmiType == 'procedureContainer' ) //funções, gerenciado pelo functions.sql
+                    if ( $xmiType == 'procedureContainer' ) //functions, managed by functions.sql
                     {
                         
                     }
@@ -317,7 +317,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
                         $tableInfo = $this->parseTable($db, $item);
                         $tablesById[$tableInfo->id] = $tableInfo;
                     }
-                    else if ( $xmiType == 'dbForeignKey' ) // Lógica implementada em outra função.
+                    else if ( $xmiType == 'dbForeignKey' ) // Logic implemented in another function.
                     {
                         
                     }
@@ -333,10 +333,10 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Faz a sincronização dos trigres
+     * Synchronizes triggers
      * 
-     * @param Object $db object de execução de queries
-     * @param XMLElement $item object xml
+     * @param Object $db query execution object
+     * @param XMLElement $item xml object
      */
     public function parseTriggers($db, $item)
     {
@@ -346,8 +346,8 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
         {
             $triggerName = $trigger->getAttribute('name') . '';
 
-            //determina se é ou não para aplicar o tigre
-            //caso inicie com RI são as triggers do postgres, não é preciso mexer nelas
+            //determines whether or not to apply the trigger
+            //if it starts with RI, these are postgres triggers, no need to modify them
             $doIt = strpos($triggerName, 'RI') !== 0;
 
             if ( $doIt )
@@ -358,34 +358,34 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
                 $childs = $extension->children();
                 $createStatement = $childs->createStatement;
 
-                //obtem a string de criação da trigger
+                //gets the trigger creation string
                 $value = $createStatement->getAttribute('value') . '';
 
                 $posIni = stripos($value, ' on ');
                 $posEnd = stripos($value, ' for ');
 
-                //separa somente o nome da tabela determinando a posição de ON e FOR
+                //extracts only the table name by determining the position of ON and FOR
                 $table = trim(substr($value, $posIni + 3, $posEnd - $posIni - 3));
 
-                //não filtra por esquema porque não tem a mão nesse momento
+                //does not filter by schema because it is not available at this point
                 $triggers = bCatalogo::listarGatilhos(null, $triggerName, $table);
                 $trigre = $triggers[$triggerName];
 
-                //só remove se existir no banco
+                //only removes if it exists in the database
                 if ( $trigre )
                 {
-                    //drop a trigger
+                    //drops the trigger
                     bBaseDeDados::executar("DROP TRIGGER $triggerName ON $table;");
                 }
 
-                //cria a trigger
+                //creates the trigger
                 bBaseDeDados::executar($value);
             }
         }
     }
 
     /**
-     * Faz o que é necessário para sincronizar uma chave estrangeira
+     * Does what is necessary to synchronize a foreign key
      * 
      * @param XmlElement $xmlElement 
      */
@@ -478,39 +478,39 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Faz o que é necessário para a sincronização de uma tabela
+     * Does what is necessary for table synchronization
      * 
      * @param type $xmlElement 
      */
     protected function parseTable($db, $xmlElement)
     {
         $schema = $xmlElement->getAttribute('schema');
-        $schema = $schema ? $schema : 'public'; //esquema padrão
+        $schema = $schema ? $schema : 'public'; //default schema
         $tableName = $xmlElement->getAttribute('name') . '';
         $tableNameWithSchema = $schema . '.' . $tableName;
         $tableId = $xmlElement->getAttribute('xmi:id') . '';
 
-        //verifica se tabela existe
+        //checks if table exists
         $verificarExistenciaDaTabela = bCatalogo::verificarExistenciaDaTabela($schema, $tableName);
 
-        //caso não existe faz script básico de criação de tabela
+        //if it does not exist, creates basic table creation script
         if ( !$verificarExistenciaDaTabela )
         {
             bBaseDeDados::executar($this->mountCreateTableSql($xmlElement));
         }
 
-        $columsDb = bCatalogo::listarColunasDaTabela($tableName); //FIXME falta passar esquema
+        $columsDb = bCatalogo::listarColunasDaTabela($tableName); //FIXME missing schema parameter
         $columnDbData = bCatalogo::obterColunasDaTabela($schema, $tableName, null);
         $columns = $this->getColumns($xmlElement);
 
-        //monta um array com chaves primárias
+        //builds an array with primary keys
         $primaryKeysDb = null;
-        //array de colunas indexadas pelo seu id
+        //array of columns indexed by their id
         $indexedColumns = null;
-        //chaves estrangeiras dessa tabela
+        //foreign keys of this table
         $foreignKeys = null;
 
-        //comparando campo por campo
+        //comparing field by field
         foreach ( $columns as $line => $column )
         {
             $columnName = strtolower($column->getAttribute('name'));
@@ -518,19 +518,19 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
             $columnDb = $columnDbData[$columnName];
             $indexedColumns[$column->getAttribute('xmi:id') . ''] = strtolower($column->getAttribute('name') . '');
 
-            //caso seja um campo de chave primária no banco, adiciona ao array
+            //if it is a primary key field in the database, adds to the array
            // if ( MUtil::getBooleanValue($columnDb->primaryKey) == true )
             if ( $columnDb->restricao == 'p' )
             {
                 $primaryKeysDb[] = $this->reservedColumnNames($columnDb->name);
             }
 
-            //guarda informações para posterior criação de chaves estrangeiras
+            //stores information for later foreign key creation
             $foreignKeyConstraints = $column->foreignKeyConstraints->ownedMember;
 
             $foreignKeyId = $foreignKeyConstraints->getAttribute('foreignKey');
 
-            //só adiciona na relação caso tenha id
+            //only adds to the relation if it has an id
             if ( $foreignKeyId )
             {
                 $foreignKeyConstraints->columnName = $columnName;
@@ -540,10 +540,10 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
 
             if ( $verificarExistenciaDaTabela )
             {
-                //verifica se a coluna xml existe no banco
+                //checks if the xml column exists in the database
                 if ( array_search($columnName, $columsDb) !== false )
                 {
-                    //verificação de tipo
+                    //type verification
                     $typeXml = $this->xmlTypeToDB($this->getColumnType($column, false));
                     $typeDB = strtolower($columnDb->tipo);
                     $lengthXml = strtolower($column->getAttribute('length'));
@@ -551,7 +551,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
 
                     $doDiff = true;
 
-                    //-5 significa sem limite par esse select, dessa forma não precisa aplicar correção de tamanho.
+                    //-5 means no limit for this select, therefore no need to apply size correction.
                     if ( $lengthDB == '-5' && $typeXml == 'varchar' && $typeDB == 'varchar' )
                     {
                         $doDiff = false;
@@ -559,13 +559,13 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
 
                     if ( !$lengthXml )
                     {
-                        $lengthXml = 255; //valor padrão do Vpp
+                        $lengthXml = 255; //VPP default value
                     }
 
-                    //verifica necessiade de mudança de campo, só muda o tamanho se o do banco for menor
+                    //checks need for field change, only changes the size if the database one is smaller
                     if ( $doDiff && ( $typeDB != $typeXml || ( ( $lengthXml > $lengthDB ) && $typeXml == 'varchar' ) ) )
                     {
-                        //caso especial do varchar
+                        //special case for varchar
                         if ( $typeXml == 'varchar' )
                         {
                             $typeDB .='(' . $lengthDB . ')';
@@ -574,11 +574,11 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
 
                         $this->addMessage("{$tableNameWithSchema}.{$columnName}: alterando tipo de '$typeDB' para '$typeXml'.");
 
-                        //altera o tipo da coluna tentando forçar a conversão de tipo
+                        //changes the column type trying to force type conversion
                         bBaseDeDados::executar("ALTER TABLE $tableNameWithSchema ALTER $columnNameReserved TYPE $typeXml USING \"$columnName\"::$typeXml;");
                     }
                 }
-                else //caso campo não exista cria
+                else //if the field does not exist, creates it
                 {
                     $type = $this->getColumnType($column, true);
                     $this->addMessage("{$tableNameWithSchema}.{$columnName}: criando campo como '$type'.");
@@ -586,28 +586,28 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
                 }
             }
 
-            //a partir deste ponto presume que o campo existe
+            //from this point on, assumes the field exists
 
             $uniqueDb = $columnDb->restricao == 'u';
             $uniqueXmi = $column->getAttribute('unique') == 'true';
 
-            //são diferentes, precisa modificação na base, mas só se não for chave primária
+            //they are different, needs database modification, but only if it is not a primary key
             // if ( $uniqueDb != $uniqueXmi && MUtil::getBooleanValue($columnDb->primaryKey) == false )
             if ( $uniqueDb != $uniqueXmi && $columnDb->restricao != 'p' )
             {
-                //tem no banco, mas não no Xmi, dropa
+                //exists in database but not in XMI, drops it
                 if ( $uniqueDb && !$uniqueXmi )
                 {
                     $checkName = "{$tableName}_{$columnName}_key";
 
-                    //só dropa a constraint caso ela realmente exista
+                    //only drops the constraint if it actually exists
                     if ( bCatalogo::obterChecagens($schema, $tablename, $checkName) )
                     {
                         $this->addMessage("$tableNameWithSchema.$columnName: removendo unique.");
                         bBaseDeDados::executar("ALTER TABLE ONLY $tableNameWithSchema DROP CONSTRAINT $checkName;");
                     }
                 }
-                //tem no Xmi , mas não no banco, adiciona
+                //exists in XMI but not in database, adds it
                 else
                 {
                     $this->addMessage("$tableNameWithSchema.$columnName: adicionando unique.");
@@ -615,16 +615,16 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
                 }
             }
 
-            //VALOR padrão
+            //DEFAULT VALUE
             $defaultValue = $column->getAttribute('defaultValue') . '';
 
             $idGenerator = strtolower($column->getAttribute('idGenerator') . '');
             $idGeneratorKey = $column->getAttribute('idGeneratorKey') . '';
 
-            //da prioridade para sequência como valor padrão
+            //gives priority to sequence as default value
             if ( $idGenerator == 'sequence' )
             {
-                //caso não exista nome de sequência define o padrão
+                //if no sequence name exists, sets the default
                 if ( !$idGeneratorKey )
                 {
                     $idGeneratorKey = 'seq_' . $columnName;
@@ -636,7 +636,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
             }
             else if ( $defaultValue )
             {
-                //caso tenha um nextval no default value tentar obter o nome da sequencia e criar ela
+                //if there is a nextval in the default value, try to get the sequence name and create it
                 if ( stripos(trim($defaultValue), 'nextval') === 0 )
                 {
                     $sequence = explode("('", trim($defaultValue));
@@ -644,32 +644,32 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
 
                     bCatalogo::criarSequenciaQuandoPossivel($sequence);
                 }
-                //pode ser aplicado SEMPRE, para nossa alegria
+                //can ALWAYS be applied, fortunately
                 bBaseDeDados::executar("ALTER TABLE $tableNameWithSchema ALTER $columnNameReserved SET DEFAULT $defaultValue;");
             }
 
-            //verificação de possibilidade de valores nulos
+            //verification of null value possibility
             $notNullXml = $column->getAttribute('nullable') == 'true';
             $notNullDB = $columnDb->obrigatorio == DB_FALSE;
 
-            //verifica necessidade de tirar ou colocar not null
+            //checks need to remove or add not null
             if ( $notNullDB != $notNullXml )
             {
                 bBaseDeDados::executar($this->mountSqlNotNull($column, $tableNameWithSchema));
             }
 
-            //sempre atualiza comentário da coluna
+            //always updates column comment
             $columnComment = $this->getComment($column);
 
             bBaseDeDados::executar("COMMENT ON COLUMN $tableNameWithSchema.$columnName IS '$columnComment';\n");
         }
 
-        //a partir desse ponto pressume-se que a tabela esta criada e com os campos sincronizados
-        //constraints e check
-        //guarda para aplicar depois
+        //from this point on, it is assumed the table is created and fields are synchronized
+        //constraints and checks
+        //stores to apply later
         $sqlCheck = ($this->getTableConstraints($xmlElement, $schema, $tableName, $db));
 
-        //chaves primárias
+        //primary keys
         $sqlsPrimaryKeys = $this->getSqlPrimaryKey($xmlElement, $schema, $tableName, $primaryKeysDb);
 
         if ( is_array($sqlsPrimaryKeys) )
@@ -677,7 +677,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
             bBaseDeDados::executarBloco($sqlsPrimaryKeys);
         }
 
-        //indices
+        //indexes
         $sqlsIndices = $this->getSqlIndex($xmlElement, $schema, $tableName, $indexedColumns, $db);
 
         if ( is_array($sqlsIndices) )
@@ -685,7 +685,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
             bBaseDeDados::executarBloco($sqlsIndices);
         }
 
-        //comentário da tabela
+        //table comment
         $columnComment = $this->getComment($xmlElement) . '';
 
         if ( $columnComment )
@@ -731,7 +731,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
                 {
                     $this->addMessage("Adicionando herança '$tabelaXml' na tabela '$schema.$tableName'.");
 
-                    //FIXME tornar genérico
+                    //FIXME make generic
                     if ( $tabelaXml == 'baslog' )
                     {
                         bCatalogo::adicionarColuna($schema, $tableName, 'username', 'varchar(20)');
@@ -752,7 +752,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Lista os campos do xml
+     * Lists the xml fields
      * 
      * @param array $xmlTableElement 
      */
@@ -775,7 +775,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Retorna um array de stdClass de colunas
+     * Returns an array of column stdClass objects
      * 
      * @param XmlElement $xmlTableElement
      * @return XMlElement 
@@ -797,13 +797,13 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Aplica os índices do XMI no BD, caso necessário.
-     * Não apaga índices adicionais que existam no banco.
+     * Applies XMI indexes to the database, if necessary.
+     * Does not delete additional indexes that exist in the database.
      * 
      * @param XmlElement $xmlTableElement
-     * @param string $schema esquema
-     * @param string $table tabela
-     * @param bDatabase $db objeto para execucação de base de dados
+     * @param string $schema schema
+     * @param string $table table
+     * @param bDatabase $db database execution object
      * 
      * @return XMlElement 
      */
@@ -812,7 +812,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
         $childs = $xmlTableElement->children();
         $ownedMember = $childs[0]->ownedMember;
 
-        //separa somente os indices
+        //extracts only the indexes
         foreach ( $ownedMember as $line => $index )
         {
             if ( $index->getAttribute('xmi:type') == 'dbIndex' )
@@ -821,7 +821,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
             }
         }
 
-        //obtem os indices do banco (array indexado pelo nome do índice)
+        //gets the database indexes (array indexed by index name)
         $indexesDb = bCatalogo::obterIndices($schema, $table);
 
         if ( is_array($indexs) )
@@ -833,43 +833,43 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
 
                 $realColumnNames = null;
 
-                //procura pelos nomes reais das colunas, pois o vpp só guarda o seu id interno
+                //searches for the real column names, since VPP only stores its internal id
                 foreach ( $indexColumns as $line => $indexColumn )
                 {
                     $idRef = $indexColumn->getAttribute('xmi:idref') . '';
-                    //nome real as colunas
+                    //real column names
                     $realColumnNames[] = strtolower($indexedColumns[$idRef]);
                 }
 
-                //procura esse indice nos indices do banco
+                //searches for this index in the database indexes
                 $indexDb = $indexesDb[$indexName];
 
-                //por padrão não cria nem exclui os índices
+                //by default, does not create or delete indexes
                 $create = false;
                 $drop = false;
 
                 if ( $indexDb )
                 {
-                    //caso exista mas a relação de campos seja diferente, determina exclusão e criação
+                    //if it exists but the field relation is different, determines deletion and creation
                     if ( $realColumnNames != $indexDb->columns )
                     {
                         $drop = true;
                         $create = true;
                     }
                 }
-                else //caso o índice não existe determina a sua criação
+                else //if the index does not exist, determines its creation
                 {
                     $create = true;
                 }
 
-                //remoção
+                //removal
                 if ( $drop )
                 {
                     $this->addMessage("$schema.$table: removendo índice '$indexName'.");
                     $sql[] = "DROP INDEX $indexName;";
                 }
 
-                //criação
+                //creation
                 if ( $create )
                 {
                     $sql[] = "DROP INDEX IF EXISTS  $indexName;";
@@ -884,26 +884,26 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Aplica constraint a tabela
+     * Applies constraint to the table
      * 
-     * @param XmlElement $xmlTableElement elemento xml
-     * @param string $schema esquema
-     * @param string $tableName nome da tabela
-     * @param object $db objeto para execução das instruções, necessário para obter os checks do banco
+     * @param XmlElement $xmlTableElement xml element
+     * @param string $schema schema
+     * @param string $tableName table name
+     * @param object $db object for executing statements, needed to get the database checks
      * @return string 
      */
     public function getTableConstraints($xmlTableElement, $schema, $tableName, $db)
     {
-        //seleciona as constraints no xmi
+        //selects the constraints in the xmi
         $childs = $xmlTableElement->children();
         $constraints = $childs[1]->ownedMember;
 
-        //obtem os checks no banco
+        //gets the checks from the database
         $dbChecks = bCatalogo::obterChecagens($schema, $tableName);
 
         if ( is_array($constraints) )
         {
-            //passa pelas contraints verificando necessidade de inserção/atualização
+            //iterates through constraints checking need for insertion/update
             foreach ( $constraints as $line => $constraint )
             {
                 $cName = $constraint->getAttribute('name');
@@ -911,37 +911,37 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
                 $checkConstraint = $constraint->getAttribute('checkConstraint');
                 $type = $constraint->getAttribute('xmi:type');
 
-                //variáveis auxiliares
+                //auxiliary variables
                 $found = false;
                 $foundedCheck = '';
                 $drop = false;
 
-                //tenta localizar os checks do xmi no banco
+                //tries to locate the xmi checks in the database
                 if ( is_array($dbChecks) )
                 {
                     foreach ( $dbChecks as $line => $check )
                     {
-                        //caso já exista define que tem que aplicar o alter
+                        //if it already exists, determines that alter must be applied
                         if ( strtolower($check->name) == strtolower($cName) )
                         {
-                            //informa que achou e oque achou
+                            //reports that it found it and what it found
                             $found = true;
                             $foundedCheck = $check->check;
                         }
                     }
                 }
 
-                //caso tenha encontrado, tenta verificar se o check foi modificado
+                //if found, tries to verify if the check was modified
                 if ( $found && $foundedCheck != $checkConstraint )
                 {
                     $found = false;
                     $drop = true;
                 }
 
-                //só insere o check caso seja o tipo certo e ele não existir no banco
+                //only inserts the check if it is the right type and it does not exist in the database
                 if ( $type == 'dbCheckConstraint' && !$found )
                 {
-                    //caso seja diferente drop para poder inserir
+                    //if different, drops so it can be inserted
                     if ( $drop )
                     {
                         $sql[] = "ALTER TABLE $schema.$tableName DROP CONSTRAINT $cName;";
@@ -957,7 +957,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Obtem o sql para aplicação de chaves primárias
+     * Gets the SQL for primary key application
      * 
      * @param type $xmlTableElement 
      * @return string $sql
@@ -966,7 +966,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     {
         $columns = $this->getColumns($xmlTableElement);
 
-        //passa pelas colunas listando as que são chaves primárias
+        //iterates through columns listing the primary keys
         foreach ( $columns as $line => $column )
         {
             $xmiType = $column->getAttribute('xmi:type');
@@ -982,12 +982,12 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
         
         
 
-        //gera chave constraint primária
+        //generates primary key constraint
         if ( is_array($primaryKeys) && $primaryKeys != $primaryKeysDb )
         {
             $primaryKeyConstraintName = $xmlTableElement->getAttribute('primaryKeyConstraintName');
 
-            //caso não exista um nome definido, cria o padrão
+            //if no name is defined, creates the default
             if ( !$primaryKeyConstraintName )
             {
                 $primaryKeyConstraintName = "{$tableName}_pkey";
@@ -995,14 +995,14 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
 
             $primaryString = trim(implode(',', $primaryKeys));
 
-            //caso já exista no banco, precisa dropar
+            //if it already exists in the database, needs to be dropped
             if ( $primaryKeysDb )
             {
-                //pode ser cascade quando chegar nas outras tabelas vai criar as relações
+                //can be cascade; when it reaches the other tables it will create the relations
                 $sql[] = "ALTER TABLE ONLY $schema.$tableName DROP CONSTRAINT $primaryKeyConstraintName CASCADE;";
             }
 
-            //segurança
+            //safety check
             if ( $primaryString )
             {
                 $this->addMessage("$schema.$tableName: adicionando chave primária '$primaryKeyConstraintName'");
@@ -1014,7 +1014,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Monta sql de criação de tabela
+     * Builds table creation SQL
      * 
      * @param XmlElement $xmlElement
      * @return string
@@ -1023,7 +1023,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     {
         $tableName = $xmlTableElement->getAttribute('name');
         $schema = $xmlTableElement->getAttribute('schema');
-        $schema = $schema ? $schema : 'public'; //esquema padrão
+        $schema = $schema ? $schema : 'public'; //default schema
 
         $this->addMessage("$schema.$tableName: criando tabela.");
 
@@ -1039,14 +1039,14 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
             }
         }
 
-        //clausulas de criação de tabelas, utilizado. por exemplo, para heranças
+        //table creation clauses, used for example for inheritance
         $ddlClauses = $xmlTableElement->getAttribute('ddlClauses');
 
         return 'CREATE TABLE ' . $tableName . " ( \n" . implode(', ', $columnsSql) . " ) $ddlClauses;\n\n";
     }
 
     /**
-     * Obtém comentário de tabela ou coluna
+     * Gets table or column comment
      * 
      * @param XmlElement $xmlElement
      * @return string 
@@ -1066,23 +1066,23 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Obtem tipo da coluna.
+     * Gets the column type.
      * 
-     * O VPP tem duas colunas com o tipo o typeName e o type.
+     * VPP has two columns with the type: typeName and type.
      * 
-     * Type é o valor mais correto, mas é um integer, em função disso essa
-     * função foi criada, para escolher o tipo certo.
+     * Type is the most correct value, but it is an integer, therefore this
+     * function was created to choose the right type.
      * 
      * @param string $column 
      */
     public function getColumnType($column, $formated = false)
     {
-        //caso tenha tipo do usuário retorna ele e pronto
+        //if there is a user type, returns it and done
         $userType = $column->columnUserTypes->ownedMember->getAttribute('type') . '';
 
         if ( $userType != '' && strtolower($userType) != 'serial' )
         {
-            //caso não for formatado tira o tamanaho para o caso do varchar
+            //if not formatted, removes the size for the varchar case
             if ( $formated == false )
             {
                 $userType = explode('(', $userType);
@@ -1096,7 +1096,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
         $length = $column->getAttribute('length');
         $typeInt = $column->getAttribute('type');
 
-        //array que relaciona typeName com type
+        //array that maps typeName to type
         $types = array( );
         $types[1] = 'bool';
         $types[4] = 'float4';
@@ -1109,11 +1109,11 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
         $types[34] = 'text';
         $types[42] = 'char';
 
-        //condições especiais para o vpp
+        //special conditions for VPP
         $type = $types[$typeInt];
 
-        //caso não ache pelo código do tipo tenta obter pelo nome
-        //isso é feito assim pois algumas vezes o VPP gera o typeName errado
+        //if not found by type code, tries to get by name
+        //this is done because sometimes VPP generates the wrong typeName
         if ( !$type )
         {
             $type = $typeName;
@@ -1121,7 +1121,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
 
         if ( $type == 'varchar' && $formated )
         {
-            $length = $length ? $length : 255; //valor padrão do VPP
+            $length = $length ? $length : 255; //VPP default value
             $type .= '(' . $length . ')';
         }
 
@@ -1129,7 +1129,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Converte um tipo do xml para o banco de dados
+     * Converts a type from xml to the database
      * 
      * @param string $xmlType
      * 
@@ -1139,7 +1139,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     {
         $xmlType = strtolower($xmlType);
 
-        //array de - para
+        //from-to mapping array
         $dePara['integer'] = 'int4';
         $dePara['bigint'] = 'int8';
         $dePara['char'] = 'bpchar';
@@ -1157,10 +1157,10 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Monta sqls para adição/remoção de not null
+     * Builds SQLs for adding/removing not null
      * 
      * @param xmlElement $column
-     * @param string $name nome da tabela
+     * @param string $name table name
      * @return string sql
      */
     public function mountSqlNotNull($column, $tablename)
@@ -1175,7 +1175,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
         $value = false;
         $type = $this->getColumnType($column);
 
-        //evita erros na aplicação do not null
+        //avoids errors when applying not null
         if ( $type == 'varchar' || $type == 'text' )
         {
             $value = '';
@@ -1187,14 +1187,14 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
 
         $defaultValue = $column->getAttribute('defaultValue') . '';
 
-        //caso tenha um valor padrão, aplica-o
-        //não obtem valor padrão caso tenha um "nextval" nele
+        //if there is a default value, applies it
+        //does not get default value if it has a "nextval" in it
         if ( ($defaultValue || $defaultValue == '0' ) && stripos($defaultValue, 'nextval') === false )
         {
             $value = $defaultValue;
         }
 
-        //só adiciona o update caso precise, só quando definindo
+        //only adds the update when needed, only when setting
         if ( $value !== false && $nullableString == 'SET' )
         {
             $columnName = $this->reservedColumnNames($column->getAttribute('name'));
@@ -1208,10 +1208,10 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
     }
 
     /**
-     * Trata o nome de coluna para nomes reservados
+     * Handles column name for reserved names
      * 
-     * @param string $columName nome da coluna
-     * @return string nome da coluna tratado
+     * @param string $columName column name
+     * @return string treated column name
      */
     public function reservedColumnNames($columName)
     {

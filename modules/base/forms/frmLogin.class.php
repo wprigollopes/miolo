@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Formulário de autenticação.
+ * Authentication form.
  *
  * @author Daniel Hartmann [daniel@solis.coop.br]
  *
@@ -26,9 +26,9 @@ $MIOLO->uses('classes/prtUsuario.class.php', 'portal');
 
 
 /**
- * NÃO IMPLEMENTAR MAIS NESTE FORMULÁRIO.
- * UTILIZAR O miolo26/modules/portal/forms/frmLogin.class.php
- * MANTENDO ASSIM O VERSIONAMENTO DO SOLISGE E NÃO MIOLO, PARA O FORMULÁRIO DE LOGIN DO PORTAL.
+ * DO NOT IMPLEMENT ANYTHING ELSE IN THIS FORM.
+ * USE miolo26/modules/portal/forms/frmLogin.class.php
+ * THUS KEEPING THE SOLISGE VERSIONING AND NOT MIOLO, FOR THE PORTAL LOGIN FORM.
  */
 
 class frmLogin extends MForm
@@ -88,10 +88,10 @@ class frmLogin extends MForm
                  }
  
                 function cpf_mask(v){
-                     v=v.replace(/\D/g,"")                 //Remove tudo o que não é dígito
-                     v=v.replace(/(\d{3})(\d)/,"$1.$2")    //Coloca ponto entre o terceiro e o quarto dígitos
-                     v=v.replace(/(\d{3})(\d)/,"$1.$2")    //Coloca ponto entre o setimo e o oitava dígitos
-                     v=v.replace(/(\d{3})(\d)/,"$1-$2")   //Coloca ponto entre o decimoprimeiro e o decimosegundo dígitos
+                     v=v.replace(/\D/g,"")                 //Remove everything that is not a digit
+                     v=v.replace(/(\d{3})(\d)/,"$1.$2")    //Places a dot between the third and fourth digits
+                     v=v.replace(/(\d{3})(\d)/,"$1.$2")    //Places a dot between the seventh and eighth digits
+                     v=v.replace(/(\d{3})(\d)/,"$1-$2")   //Places a dash between the eleventh and twelfth digits
                      return v
                 }
 
@@ -207,9 +207,9 @@ class frmLogin extends MForm
                 }
 
                 /**
-                * Valida onBlur se o cpf é válido ou n?o, 
-                * caso seja digitado um.
-                * 
+                * Validates onBlur whether the CPF is valid or not,
+                * in case one is typed.
+                *
                 * param input element.
                 */
                function validateOnBlurCPF(element)
@@ -219,7 +219,7 @@ class frmLogin extends MForm
 
                    if ( len > 0 )
                    {
-                        if ( len == 11 ) // Sem máscara
+                        if ( len == 11 ) // Without mask
                         {
                             if ( parseInt(element.value) )
                             {
@@ -241,7 +241,7 @@ class frmLogin extends MForm
                                  element.value = "";
                             }
                         }
-                        else if ( len == 14 ) // Com máscara.
+                        else if ( len == 14 ) // With mask.
                         {
                             if ( cpf.replace("-", "") )
                             {
@@ -271,12 +271,12 @@ class frmLogin extends MForm
         $fields[] = $divErro = new MDiv('divErroConexao', '','mMessage mMessage Error');
         $divErro->addAttribute('style', 'display:none');
         
-        //Verifica se está habilitada preferência para verificar e bloqueiar o acesso caso navegador não seja homologado
+        // Checks if the preference is enabled to verify and block access if the browser is not approved
         $validaNavegador = SAGU::getParameter('BASIC', 'VALIDACAO_NAVEGADORES_HOMOLOGADOS');
         $alerta = SAGU::getParameter('BASIC', 'MENSAGEM_NAVEGADORES_NAO_HOMOLOGADOS');
-        
-        $browser = MUtil::getBrowser();  
-        
+
+        $browser = MUtil::getBrowser();
+
         if ( $browser != 'Firefox' && $browser != 'Google Chrome' && $browser != 'Android' && $browser != 'iPhone' && $validaNavegador == 2 )
         {
             $MIOLO->error(_M($alerta));
@@ -295,20 +295,20 @@ class frmLogin extends MForm
             $return_to_module = $this->manager->getConf('options.common');
             $return_to = $MIOLO->getActionURL($return_to_module, 'main');
         }
-        
+
         $fields[] = MMessage::getMessageContainer();
-        
+
         $imagemLoginPortal = SAGU::getUnitParameter('PORTAL', 'IMAGEM_LOGIN_DA_TELA_DO_PORTAL', SAGU::getParameter('BASIC', 'DEFAULT_UNIT_ID'));
 
         if(strlen($imagemLoginPortal))
         {
             $img = new MImage('imagemLoginPortal','', $imagemLoginPortal );
             $img->addStyle('max-width', '100%');
-            
+
             $fields['logo'] = new MDiv('', array('',$img));
             $fields['logo']->addStyle('width', '100%');
             $fields['logo']->addStyle('text-align', 'center');
-            
+
 //            if ( MIOLO::_REQUEST('return_to') == 'AVALIACAO' )
 //            {
 //                $fields['logo']->addStyle('padding-top', '8px');
@@ -318,7 +318,7 @@ class frmLogin extends MForm
 
         $label = new MLabel(_M('Usuário'));
         $label->setBold();
-        $inputs[] = $usuario = new MTextField('uid', $this->auth->login->iduser, $label, 20);        
+        $inputs[] = $usuario = new MTextField('uid', $this->auth->login->iduser, $label, 20);
 
         if ( MUtil::getBooleanValue(SAGU::getParameter('PORTAL', 'HABILITA_MASCARA_CPF_NO_LOGIN_PORTAL')) )
         {
@@ -327,26 +327,26 @@ class frmLogin extends MForm
             $usuario->addAttribute("onInput", "mascara(this, cpf_mask);");
             $usuario->setJsHint(_M('Digite apenas os números do CPF.'));
         }
-        
+
         $label = new MLabel(_M('Senha'));
         $label->setBold();
         $inputs[] = $senha = new PasswordField('pwd', '', $label, 20);
-        
+
         $usuario->addStyle('border', '1px solid');
         $usuario->addStyle('font-size', '16px');
         $usuario->addStyle('height', '26px');
         $usuario->addStyle('width', '100%');
-        
+
         $senha->addStyle('border', '1px solid');
         $senha->addStyle('font-size', '16px');
         $senha->addStyle('height', '26px');
         $senha->addStyle('width', '100%');
-        
+
         if ( sMultiUnidade::estaHabilitada() )
-        {   
+        {
             $unit = sMultiUnidade::obterCombo(null, false, true, 'm-caption-required', true);
             //$unit->setIsRequired(true);
-            $inputs[] = $unit;            
+            $inputs[] = $unit;
             $validators[] = new MRequiredValidator('unitId', _M("Unidade"));
         }
         $fields[] = $form = new MFormContainer('mioloFrmLogin', $inputs);
@@ -363,7 +363,7 @@ class frmLogin extends MForm
             $btnSenha->addStyle('height', '50px');
             $btnSenha->addStyle('padding', '2px 8px');
             $btnSenha->addStyle('float', 'center');
-            
+
             $buttons[] = $btnEntrar = new MButton('btnLogin', _M('Entrar', $module), null, $this->manager->getUI()->getImageTheme('modern', 'enviar_direita.png'));
             $btnEntrar->setClass('btnLogin');
             $btnEntrar->addStyle('height', '50px');
@@ -377,7 +377,7 @@ class frmLogin extends MForm
         }
 
         $fields[] = MUtil::centralizedDiv($buttons);
-        
+
         $this->setFields($fields);
         $this->setShowPostButton(FALSE);
 
@@ -394,15 +394,15 @@ class frmLogin extends MForm
         $event = MUtil::getAjaxAction('btnLogin_click', NULL);
         $this->page->onload("handleEnterLogin = dojo.connect(dojo.byId('mioloFrmLogin'), 'onkeypress', function (event) { if (event.keyCode==dojo.keys.ENTER) { event.preventDefault(); dojo.disconnect(handleEnterLogin); {$event}; }});");
         
-        // Validar hash de autenticação do webServicesBasic, função wsLogin
-        if ( SAGU::validarHashDeAutenticacao() ) 
+        // Validate authentication hash from webServicesBasic, wsLogin function
+        if ( SAGU::validarHashDeAutenticacao() )
         {
             $this->btnLogin_click();
         }
     }
-    
+
     public function novaSenha()
-    {   
+    {
         $cpfLabel = new MLabel( _M('CPF').':');
         $cpfLabel->setWidth(60);
         $cpf = new MTextField('cpf', null);
@@ -445,10 +445,10 @@ class frmLogin extends MForm
         
         if ( (strlen($args->cpf)>0) || (strlen($args->email)>0) )
         {
-            // Business pessoa física
+            // Physical person business
             $busPhysicalPerson = new BusinessBasicBusPhysicalPerson();
 
-            // Busca pela pessoa dos dados informados
+            // Searches for the person with the provided data
             $filters = new stdClass();
             $filters->content = $args->cpf;
             $filters->email = $args->email;
@@ -467,28 +467,28 @@ class frmLogin extends MForm
             
             $personId = $personData[0][0];
 
-            // Verifica se encontrou a pessoa
+            // Checks if the person was found
             if( !is_array($personData) )
             {
                 new MMessageError(_M('Não foi encontrado nenhum usuário para os dados informados.<br />Entre em contato com a secretaria acadêmica.'));
             }
             else
             {
-                // Pessoa
+                // Person
                 $person = $busPhysicalPerson->getPhysicalPerson($personId);
 
                 // Business user
                 $busUser = new BusinessAdminBusUser();
                 $mioloUser = $busUser->getUserByLogin($person->mioloUserName);
 
-                // Verifica se encontrou login
+                // Checks if login was found
                 if( !strlen($mioloUser->login)>0 )
                 {
                     new MMessageError(_M('Não foi encontrado nenhum login para este usuário.<br />Entre em contato com a secretaria acadêmica.'));
                 }
                 else
                 {
-                    // Insere hash na tabela basResetPassword
+                    // Inserts hash into the basResetPassword table
                     $basHashValidate = new BusinessBasicBusHashValidate();
 
                     $dataHashValidate = new stdClass();
@@ -503,7 +503,7 @@ class frmLogin extends MForm
                     $dataEmail = $busEmail->getEmail(SAGU::getParameter('basic','EMAIL_ID_CHANGE_PASSWORD'));
                     $dataCompany = $busCompany->getCompany(SAGU::getParameter('BASIC', 'DEFAULT_COMPANY_CONF'));
 
-                    // Pega url do joomla caso tenha
+                    // Gets joomla URL if it exists
                     $urlJoomla = urldecode(MIOLO::_REQUEST('parentUrl'));
                     if( $urlJoomla )
                     {
@@ -530,7 +530,7 @@ class frmLogin extends MForm
                         $data->linkChangePassword = $hostSagu.$changePassword.'&id='.$hash;
                     }
 
-                    // Verifica se a a pessoa tem e email e envia a notificação de troca de senha
+                    // Checks if the person has an email and sends the password change notification
                     if ( strlen($person->email) > 0 )
                     {
                         $tags = array( '$PERSONNAME' => $person->name,
@@ -608,7 +608,7 @@ class frmLogin extends MForm
         $pwd = $this->getFormValue('pwd');
         $unitId = $this->GetFormValue('unitId');
         
-        // Seta dados quando há um hash válido
+        // Sets data when there is a valid hash
         if ( SAGU::validarHashDeAutenticacao() )
         {
             $userInformation = SAGU::obterDadosDeLoginAPartirDoHash();
@@ -627,7 +627,7 @@ class frmLogin extends MForm
 
         $MIOLO->logMessage('[LOGIN] Validating login information: ' . $uid);
 
-        // Multiunidade
+        // Multi-unit
         if ( sMultiUnidade::estaHabilitada() && !sMultiUnidade::loginTemPermissao($uid, $unitId) && SAGU::allIsFilled($uid) )
         {
             if ( $urlErroLogin )
@@ -672,9 +672,9 @@ class frmLogin extends MForm
             $busGroup = $MIOLO->getBusiness('base', 'group');
             
             /**
-             * Como o ldap/ad não é case sensitive, o sistema deve conseguir encontrar no
-             * sistema o usuário se informado em minusculo, ou em maiúsculo. E então utilizar
-             * o encontrado no sistema para a setagem da sessão.
+             * Since ldap/ad is not case sensitive, the system should be able to find
+             * the user in the system whether entered in lowercase or uppercase. Then use
+             * the one found in the system for setting the session.
              */
             $dbuser = $this->manager->GetBusinessMAD('user');
             $dbuser->getByLogin($uid, 'ILIKE');
@@ -727,7 +727,7 @@ class frmLogin extends MForm
             $avisos = BasAviso::verificaExibicaoAvisos($MIOLO->getLogin()->idkey);
             $existeAvisos = count($avisos) > 0 ? DB_TRUE : DB_FALSE;
 
-            //Verifica se existe uma configuração para troca de senha e redireciona para tela de troca
+            // Checks if there is a password change configuration and redirects to the change screen
             if( (BusinessBasicBusConfiguracaoTrocaDeSenha::verificaTrocaDeSenha() == DB_TRUE) || ($existeAvisos == DB_TRUE) )
             {
                 $urlAviso = "";
@@ -737,7 +737,7 @@ class frmLogin extends MForm
                 }
                 $this->page->redirect($MIOLO->getActionURL('portal', 'main').$urlAviso);
             }
-            elseif (substr_count($url, 'module=avinst') > 0 ) // Para a avaliação, precisa ser via javascript. Ticket #45668
+            elseif (substr_count($url, 'module=avinst') > 0 ) // For the evaluation, it needs to be via javascript. Ticket #45668
             {
                 $url = html_entity_decode($url);
                 $this->page->onLoad(" window.location = '$url';");

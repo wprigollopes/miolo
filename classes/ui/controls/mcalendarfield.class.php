@@ -2,7 +2,7 @@
 
 /**
  * @deprecated since version 2.6
- * Utilizar MCalendarMobileField
+ * Use MCalendarMobileField
  */
 class MCalendarField extends MTextField
 {

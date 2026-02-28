@@ -44,7 +44,7 @@ class frmLoginMD5 extends MForm
         // Max login tryes
         $max_tries = 3;
         
-        // autenticar usuário e obter dados do login
+        // authenticate user and get login data
         $uid = $this->getFormValue('uid');
         $pwd = $this->getFormValue('pwd');
         $challenge = $this->getFieldValue('challenge');

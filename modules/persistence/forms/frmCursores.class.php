@@ -169,17 +169,17 @@ class frmCursores extends MForm
             $user3->login = uniqid();
             $user3->password = 'TESTE';
             $user3->save();
-// listando usuários do setor $sector->id
+// listing users of sector $sector->id
             $text .= "Lista de usuarios do setor {$sector->id}:<br>";
             $sector->retrieve();
             foreach($sector->users as $user)
             {
                 if (strlen($user->login) > 7) $text .= $user->login . '<br>';
             }
-// removendo a associaçao com o usuario $user2
+// removing the association with user $user2
             $text .= "Removendo a associaçao com o usuario " . $user2->login . ":<br>";
             $user2->deleteAssociation('sector', $sector);
-// listando usuários do setor $sector->id
+// listing users of sector $sector->id
             $text .= "<br>Listando novamente os usuarios do setor {$sector->id}:<br>";
             $sector->retrieve();
             foreach($sector->users as $user)
@@ -229,18 +229,18 @@ echo $text;
             $user3->login = uniqid();
             $user3->password = 'TESTE';
             $user3->save();
-// listando usuários do setor $sector->id
+// listing users of sector $sector->id
             $text .= "Lista de usuarios do setor {$sector->id}:<br>";
             $sector->retrieve();
             foreach($sector->users as $user)
             {
                 if (strlen($user->login) > 7) $text .= $user->login . '<br>';
             }
-// removendo a associaçao com o usuario $user2
+// removing the association with user $user2
             $text .= "Removendo a associaçao do setor {$sector->id} com os usuarios:<br>";
             $sector->deleteAssociation('users', $user1);
             $sector->deleteAssociation('users', $user3);
-// listando usuários do setor $sector->id
+// listing users of sector $sector->id
             $text .= "<br>Listando novamente os usuarios do setor {$sector->id}:<br>";
             $sector->retrieve();
             foreach($sector->users as $user)
@@ -284,21 +284,21 @@ echo $text;
             $user3->login = uniqid();
             $user3->password = 'TESTE';
             $user3->save();
-// colocando os 3 usuários no $group
+// adding the 3 users to $group
             $group->AddUser($user1);
             $group->AddUser($user2);
             $group->AddUser($user3);
             $group->save();
-// listando usuários do $group
+// listing users of $group
             $text .= "Lista de usuarios do grupo {$group->group}:<br>";
             $group->retrieveAssociation('users');
             for($i=0; $i<count($group->users);$i++) 
                $text .= "&nbsp;&nbsp;&nbsp;User login: ". $group->users[$i]->login . "<br>";
-// removendo a associaçao com os usuarios 
+// removing the association with the users
             $text .= "Removendo a associaçao do grupo {$group->group} com os usuarios:<br>";
             $group->deleteAssociation('users', $user1);
             $group->deleteAssociation('users', $user3);
-// listando novamente usuários do $group
+// listing users of $group again
             $text .= "Listando novamente usuarios do grupo {$group->group}:<br>";
             $group->retrieveAssociation('users');
             for($i=0; $i<count($group->users);$i++) 
@@ -342,7 +342,7 @@ echo $text;
             $user3->login = uniqid();
             $user3->password = 'TESTE';
             $user3->save();
-// listando usuários do setor $sector->id
+// listing users of sector $sector->id
             $text .= "Lista de usuarios do setor {$sector->id}:<br>";
             $sector->retrieve();
             if (is_array($sector->users))

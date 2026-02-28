@@ -35,7 +35,7 @@ class MLookup
         $this->module       = $_GET['lmodule'];
         $this->item         = $_GET['item'];
         $this->event        = $_GET['event'];
-        // Vale a pena (ou é necessário) fazer isso para todos os itens do GET?
+        // Is it worth (or necessary) to do this for all GET items?
         $this->lheight      = isset($_GET['lheight']) ? $_GET['lheight'] : null;
         $this->lwidth       = isset($_GET['lwidth']) ? $_GET['lwidth'] : null;
         $this->related      = $_GET['related'];
@@ -155,7 +155,7 @@ class MLookup
         $MIOLO = MIOLO::getInstance();
 
         $fileName = $MIOLO->getConf('namespace.business').'/lookup.class' . $MIOLO->php;
-        // Notice: $path não era definido, efetivamente passando null para o método.
+        // Notice: $path was not defined, effectively passing null to the method.
         $file = $MIOLO->getModulePath($this->module, null);
         if ( file_exists( $file ) )
         {

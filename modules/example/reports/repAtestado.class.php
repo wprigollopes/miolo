@@ -28,7 +28,7 @@
                                  . "\nThis class is designed to provide a <i>non-module</i>, non-commercial alternative to dynamically creating pdf documents from within PHP.\nObviously this will not be quite as quick as the module alternatives, but it is surprisingly fast, this demonstration page is almost a worst case due to the large number of fonts which are displayed.\nThere are a number of features which can be within a Pdf document that it is not at the moment possible to use with this class, but I feel that it is useful enough to be released.\nMesmo com acentuação no meio do texto, e até com õ, this document describes the possible useful calls to the class, the readme.php file (which will create this pdf) should be sufficient as an introduction.\n";
             }
 
-            // chama o construtor (com apenas um registro por página)
+            // call the constructor (with only one record per page)
             parent::__construct($data, $column, 1);
             $this->pdf->selectFont('verase.afm');
 

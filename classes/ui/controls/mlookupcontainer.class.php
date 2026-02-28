@@ -240,11 +240,11 @@ class MLookupContainer extends MContainer
             $span  = new MSpan( '', $this->label . ':', 'label' );
 
             /*
-             * A princípio, $this->attrs->items nunca foi um valor válido, o correto seria:
+             * In principle, $this->attrs->items was never a valid value, the correct would be:
              *     $this->attrs->attrs->items['required']
-             * ou
+             * or
              *     $this->attrs->getAttribute('required')
-             * Isso significa que a primeira parte da condicional nunca retorna true, sendo desnecessária:
+             * This means that the first part of the conditional never returns true, making it unnecessary:
              * $r = $this->attrs->items['required'] || ($this->lookupField->validator && $this->lookupField->validator->type == 'required');
              */
             $r = $this->lookupField->validator && $this->lookupField->validator->type == 'required';

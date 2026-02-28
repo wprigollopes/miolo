@@ -52,7 +52,7 @@ class frmCollapsible extends MForm
     }
     
     /**
-     * Exibe confirmação para sair do sistema. 
+     * Display confirmation to exit the system.
      */
     public function confirmarSair()
     {

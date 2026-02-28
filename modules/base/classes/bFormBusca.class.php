@@ -1,26 +1,26 @@
 <?php
 
 /**
- * <--- Copyright 2012 de Solis - Cooperativa de Soluções Livres Ltda.
+ * <--- Copyright 2012 Solis - Cooperativa de Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa Base.
+ * This file is part of the Base program.
  *
- * O Fermilab é um software livre; você pode redistribuí-lo e/ou modificá-lo
- * dentro dos termos da Licença Pública Geral GNU como publicada pela Fundação
- * do Software Livre (FSF); na versão 2 da Licença.
+ * Fermilab is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation (FSF); version 2 of the License.
  *
- * Este programa é distribuído na esperança que possa ser útil, mas SEM
- * NENHUMA GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a qualquer MERCADO
- * ou APLICAÇÃO EM PARTICULAR. Veja a Licença Pública Geral GNU/GPL em
- * português para maiores detalhes.
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License/GPL
+ * for more details.
  *
- * Você deve ter recebido uma cópia da Licença Pública Geral GNU, sob o título
- * "LICENCA.txt", junto com este programa, se não, acesse o Portal do Software
- * Público Brasileiro no endereço www.softwarepublico.gov.br ou escreva para a
- * Fundação do Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
- * MA 02110-1301, USA --->
+ * You should have received a copy of the GNU General Public License, under
+ * the title "LICENCA.txt", along with this program. If not, visit the
+ * Brazilian Public Software Portal at www.softwarepublico.gov.br or write
+ * to the Free Software Foundation (FSF) Inc., 51 Franklin St, Fifth Floor,
+ * Boston, MA 02110-1301, USA --->
  *
- * Formulário genérico de busca do Base.
+ * Generic search form for Base.
  *
  * @author Daniel Hartmann [daniel@solis.coop.br]
  * @author Jader Osvino Fiegenbaum [jader@solis.coop.br]
@@ -34,12 +34,12 @@ class bFormBusca extends bForm
     const FILTROS_ID = 'labSearch_filtros';
 
     /**
-     * @var MSpecialGrid Grid do formulário de busca.
+     * @var MSpecialGrid Search form grid.
      */
     protected $grid;
 
     /**
-     * @var MContextMenu Menu da grid.
+     * @var MContextMenu Grid menu.
      */
     protected $menu;
     
@@ -64,9 +64,9 @@ class bFormBusca extends bForm
     protected $botaoNovo = true;
 
     /**
-     * Método para criação de campos específicos dos formulários de busca.
+     * Method for creating fields specific to search forms.
      * 
-     * @param boolean $barraDeFerramentas Flag booleana para mostrar ou não a barra de ferramentas.
+     * @param boolean $barraDeFerramentas Boolean flag to show or hide the toolbar.
      */
     public function definirCampos($barraDeFerramentas=TRUE)
     {
@@ -93,14 +93,14 @@ class bFormBusca extends bForm
             }
         }
 
-        // Desconecta evento de verificação de alterações nos formulários labSaveForm
+        // Disconnects the change verification event on labSaveForm forms
         $this->page->onload('dojo.disconnect(window.labSaveFormVerificador);');
     }
 
     /**
-     * Obtém botões do formulário de busca.
+     * Gets search form buttons.
      * 
-     * @return MDiv Componente MDiv com os botões do formulário de busca. 
+     * @return MDiv MDiv component with the search form buttons. 
      */
     protected function obterBotoes()
     {
@@ -109,17 +109,17 @@ class bFormBusca extends bForm
         $imagem = $this->manager->getUI()->getImageTheme(NULL, 'toolbar-reset.png');
         $botoes[] = new MButton('botaoLimpar', _M('Limpar'), ':bfLimpar_click', $imagem);
         
-        // FIXME Avaliar o botão de busca, verificar o nome e imagem
+        // FIXME Evaluate the search button, check the name and image
         $imagem = $this->manager->getUI()->getImageTheme(NULL, 'toolbar-search.png');
         $botoes[] = new MButton('botaoBuscar', _M('Buscar'), ':botaoBuscar_click', $imagem);
        
-        // Adiciona botão buscar no formulário
+        // Adds search button to the form
         return MUtil::centralizedDiv($botoes);
     }
     /**
-     * Adicionar os filtros em um contêiner.
+     * Add filters in a container.
      *
-     * @param array $filtros Array com os filtros.
+     * @param array $filtros Array with filters.
      */
     protected function adicionarFiltros($filtros)
     {
@@ -132,9 +132,9 @@ class bFormBusca extends bForm
     }
 
     /**
-     * Cria a grid, definindo a sua consulta principal.
+     * Creates the grid, defining its main query.
      *
-     * @param array $colunas Array com instâncias da MGridColumn.
+     * @param array $colunas Array with MGridColumn instances.
      */
     protected function criarGrid($colunas, $mostrarCheckBoxes=TRUE)
     {
@@ -151,14 +151,14 @@ class bFormBusca extends bForm
         $this->grid = new MSpecialGrid(NULL, $colunas, 'labSearchGrid', 15, $mostrarCheckBoxes, $chaves);
         $this->grid->setQuery($this->tipo->obterConsulta($this->getData()), $this->modulo);
                 
-        // Cria o menu de contexto.
+        // Creates the context menu.
         $this->criarMenuDeContexto();
 
         parent::addField(new MDiv(self::GRID_DIV, array( $this->grid, $this->menu )));
     }
     
         /**
-     * Retorna um array associativo com os dados marcados nas checkboxs da grid.
+     * Returns an associative array with the data checked in the grid checkboxes.
      *
      * @return array
      */
@@ -173,7 +173,7 @@ class bFormBusca extends bForm
     }
     
     /**
-     * Retorna lista com os codigos (chave primaria) selecionados na grid.
+     * Returns list with the codes (primary key) selected in the grid.
      *
      * @return array
      */
@@ -193,11 +193,11 @@ class bFormBusca extends bForm
     }
     
     /**
-     * Retorna um id unico selecionado.
+     * Returns a single selected id.
      * 
-     * CUIDADO:
-     *  Utilize apenas esta funcao quando sua acao permite apenas que um registro seja selecionado.
-     *  Caso o usuario tenha selecionado mais de um registro na grid ou nenhum, uma excecao sera disparada.
+     * WARNING:
+     *  Only use this function when your action allows only one record to be selected.
+     *  If the user has selected more than one record in the grid or none, an exception will be thrown.
      * 
      * @return int 
      */
@@ -219,9 +219,9 @@ class bFormBusca extends bForm
     }
     
     /**
-     * Método protegido para criar o menu de contexto.
+     * Protected method to create the context menu.
      * 
-     * @return MContextMenu Menu de contexto. 
+     * @return MContextMenu Context menu. 
      */
     protected function criarMenuDeContexto()
     {
@@ -255,7 +255,7 @@ class bFormBusca extends bForm
             }
         }
                 
-        // Verifica se a tabela possui auditoria para montar a ação de consulta
+        // Checks if the table has auditing to build the query action
         if ( $this->verificaAuditoria() )
         {
             $this->menu->addCustomItem(_M('Auditorias'), $this->manager->getUI()->getAjax('bfAuditoria:click'), MContextMenu::ICON_AUDITORIA);
@@ -271,9 +271,9 @@ class bFormBusca extends bForm
     }
     
     /**
-     * Verifica se a tabela utilizada pela grid está recebendo auditoria e o 
-     * se usuário tem permissão para acessar o processo de auditoria
-     * e se o parâmetro de configuração da tabela de auditoria está preenchido
+     * Checks if the table used by the grid is being audited and
+     * if the user has permission to access the audit process
+     * and if the audit table configuration parameter is filled
      * 
      * @return boolean
      */
@@ -285,13 +285,13 @@ class bFormBusca extends bForm
         
         if ( $this->tipo->getTabela() )
         {
-            //Verifica se a tabela está recebendo auditoria(trigger)
+            //Checks if the table is being audited (trigger)
             $ok = auditoria::verificaAuditoria(auditoria::obtemSchemaDaTabela($this->tipo->getTabela()), $this->tipo->getTabela());
             
-            //Verifica se a auditoria está habilitada
+            //Checks if auditing is enabled
             $auditoria = SAGU::getParameter('BASIC', 'MIOLO_AUDIT_DATABASE');
             
-            //Verifica se a pessoa logada tem permissão na tela de auditoria
+            //Checks if the logged-in person has permission on the audit screen
             $permissao = $MIOLO->checkAccess('FrmAuditoria', A_ACCESS);
             
             if ( ($ok == DB_TRUE) && (strlen($auditoria) > 0) && ($permissao == DB_TRUE) )
@@ -304,26 +304,26 @@ class bFormBusca extends bForm
     }
 
     /**
-     * Método que atualiza o conteúdo da grid de acordo com os filtros informados.
+     * Method that updates the grid content according to the specified filters.
      */
     public function botaoBuscar_click()
     {
         $filtros = $this->getData();
         
-        // Sempre que buscar força para que fique na primeira página, pode ser que
-        // não venham registros e então estoura o OFFSET - #39640
+        // Whenever searching, force the first page, as there may be
+        // no records and then the OFFSET overflows - #39640
         $this->grid->pageNumber = 1;
         $this->page->setViewState('pn_page', 1, $this->grid->name);
         
         $this->grid->setQuery($this->tipo->obterConsulta($filtros), $this->modulo);
         
-        // Tira a checagem nos checkbox da grid.
+        // Unchecks the checkboxes in the grid.
         $this->page->onload("mspecialgrid.uncheckAll('bSearchGrid')");
         $this->setResponse(array( $this->grid, $this->menu ), self::GRID_DIV);
     }
 
     /**
-     * Método que redireciona o usuário para a tela de edição.
+     * Method that redirects the user to the edit screen.
      */
     public function bfEditar_click()
     {
@@ -356,7 +356,7 @@ class bFormBusca extends bForm
     }
     
     /**
-     * Método que redireciona o usuário para a tela de exploração.
+     * Method that redirects the user to the exploration screen.
      */
     public function bfExplorar_click()
     {
@@ -389,7 +389,7 @@ class bFormBusca extends bForm
     }
     
     /**
-     * Método que redireciona o usuário para a tela de consulta de auditorias.
+     * Method that redirects the user to the audit query screen.
      */
     public function bfAuditoria_click()
     {
@@ -428,7 +428,7 @@ class bFormBusca extends bForm
     }
     
     /**
-     * Método para limpar o formulário de busca.
+     * Method to clear the search form.
      */
     public function bfLimpar_click()
     {
@@ -442,7 +442,7 @@ class bFormBusca extends bForm
     }
 
     /**
-     * Método que exibe mensagem para confirmar a exclusão do registro.
+     * Method that displays a message to confirm record deletion.
      */
     public function bfRemover_click()
     {
@@ -469,7 +469,7 @@ class bFormBusca extends bForm
     }
 
     /**
-     * Método que exclui o regsitro selecionado. Chamado após a mensagem de confirmação.
+     * Method that deletes the selected record. Called after the confirmation message.
      */
     public function confirmarExclusao()
     {
@@ -486,7 +486,7 @@ class bFormBusca extends bForm
             $mensagem = _M('Registros removidos com sucesso.');
         }
 
-        // Inicia transação na base de dados.
+        // Begins a database transaction.
         bBaseDeDados::iniciarTransacao();
 
         $remocao = array();
@@ -498,24 +498,24 @@ class bFormBusca extends bForm
            $remocao[] = $this->tipo->excluir();
         }
 
-        // Testa se alguma das exclusões não funcionou.
+        // Tests if any of the deletions failed.
         if ( in_array(false, $remocao) )
         {
-            // Reverte a transação na base de dados.
+            // Rolls back the database transaction.
             bBaseDeDados::reverterTransacao();
         }
         else
         {
-            // Finaliza a transação atual na base de dados.
+            // Commits the current database transaction.
             bBaseDeDados::finalizarTransacao();
         }
 
-        // Remove o popup.
+        // Removes the popup.
         MPopup::remove();
 
         new MMessage($mensagem, MMessage::TYPE_SUCCESS);
 
-        // Faz a busca novamente.
+        // Performs the search again.
         $this->botaoBuscar_click();
     }
 }

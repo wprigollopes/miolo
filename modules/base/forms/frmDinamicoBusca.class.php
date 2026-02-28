@@ -1,36 +1,36 @@
 <?php
 
 /**
- * Copyright 2005-2017 de Solis Soluções Livres Ltda.
+ * Copyright 2005-2017 Solis Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa SolisGE/Sagu.
+ * This file is part of the SolisGE/Sagu program.
  *
- * O SolisGE/Sagu é um software de propriedade da SOLIS, sendo desenvolvido
- * e mantido exclusivamente por esta empresa.
+ * SolisGE/Sagu is proprietary software of SOLIS, developed and maintained
+ * exclusively by this company.
  *
- * A licença de uso está disponível mediante aquisição exclusiva junto à
- * SOLIS. A licença é concedida sem caráter de exclusividade ao licenciado.
- * Os direitos de uso são perpétuos.
+ * The usage license is available through exclusive acquisition from SOLIS.
+ * The license is granted on a non-exclusive basis to the licensee.
+ * Usage rights are perpetual.
  *
- * Embora os códigos fontes sejam fornecidos, o software é de propriedade
- * da SOLIS, não sendo permitido ao adquirente da licença a sua revenda,
- * empréstimo ou cessão (onerosa ou não) à terceiros. Também não é permitido,
- * a qualquer título e tempo, promover no software qualquer tipo de alienação,
- * reprodução, distribuição, divulgação, registro, licenciamento, transferência
- * ou qualquer outro ato que prejudique ou comprometa os direitos de propriedade
- * de software, o nome e a imagem da sua proprietária e do próprio software,
- * além de configurar concorrência à SOLIS.
+ * Although source code is provided, the software is the property of SOLIS.
+ * The licensee is not permitted to resell, lend, or transfer (whether for
+ * payment or not) the license to third parties. It is also not permitted,
+ * at any time or for any reason, to perform any alienation, reproduction,
+ * distribution, disclosure, registration, licensing, transfer, or any other
+ * act that may harm or compromise the software property rights, the name
+ * and image of its owner and the software itself, or that constitutes
+ * competition with SOLIS.
  *
- * O licenciado, com o acesso ao código fonte do software, terá o direito de
- * promover mudanças no respectivo código. No entanto, nas situações em que ele
- * contar com o suporte oficial prestado pela SOLIS, não poderá promover mudanças
- * no código fonte, sob pena de perda do referido suporte.
+ * The licensee, with access to the software source code, shall have the
+ * right to make changes to the respective code. However, in situations
+ * where the licensee relies on official support provided by SOLIS, changes
+ * to the source code are not permitted, under penalty of losing said support.
  *
- * Para conhecer em detalhes o Termo de Licenciamento do Software SolisGE/Sagu
- * leia o arquivo “LICENCA.txt” disponível junto ao código deste software.
+ * For detailed information about the SolisGE/Sagu Software Licensing Terms,
+ * read the "LICENCA.txt" file included with this software.
  *
  *
- * Formulário dinâmico de busca, a busca deve estar previamente cadastrada.
+ * Dynamic search form, the search must be previously registered.
  * 
  *
  */
@@ -38,7 +38,7 @@ $MIOLO->uses('tipos/cadastroDinamico.class.php', 'base');
 class frmDinamicoBusca extends bFormBusca
 {
     /**
-     * @var array Vetor de objetos com as colunas da busca. 
+     * @var array Array of objects with the search columns.
      */
     protected $colunas;
     
@@ -48,25 +48,25 @@ class frmDinamicoBusca extends bFormBusca
         $MIOLO = MIOLO::getInstance();
         $MIOLO->uses('tipos/buscaDinamica.class.php', 'base');
         
-        // Obtém as colunas da tabela.
+        // Gets the table columns.
         $this->colunas = buscaDinamica::buscarDadosDasColunas($parametros['modulo'], MIOLO::_REQUEST('chave'));
 
         parent::__construct(_M($titulo, MIOLO::getCurrentModule()), $parametros);
     }
 
     /**
-     * Método reescrito para definir os campos da busca dinâmica.
+     * Overridden method to define the dynamic search fields.
      */
     public function definirCampos($montarCampos=TRUE)
     {
         $jsCode = " function verificaCamposBuscaAvancada(event)
                     {
-                        // Se o evento for tab(9), verifica se os campos da busca avançada estão sendo exibidos
-                        // se não seta o foco para o botão de busca
+                        // If the event is tab(9), checks if the advanced search fields are being displayed
+                        // if not, sets the focus to the search button
                         if ( event.keyCode == 9 )
                         {
-                            // mExpandDivButton mExpandDivButtonCollapsed classe da div fechada
-                            // mExpandDivButton mExpandDivButtonExpanded classe da div aberta
+                            // mExpandDivButton mExpandDivButtonCollapsed class of the collapsed div
+                            // mExpandDivButton mExpandDivButtonExpanded class of the expanded div
                             
                             if ( document.getElementsByClassName('mExpandDivButton mExpandDivButtonCollapsed').length > 0 )
                             {
@@ -90,10 +90,10 @@ class frmDinamicoBusca extends bFormBusca
             $this->adicionarEventoEnter('generico');
         }
         
-        // Se tiver colunas definidas, monta o formulário dinamicamente.
+        // If there are defined columns, builds the form dynamically.
         if ( count($this->colunas) > 0 )
         {
-            // Busca as tabelas relacionadas com o tipo dinâmico e seta no tipo.
+            // Searches for tables related to the dynamic type and sets them on the type.
             if ( cadastroDinamico::verificarIdentificador($this->modulo, MIOLO::_REQUEST('chave')) )
             {
                 $cadastroDinamico = bTipo::instanciarTipo('cadastroDinamico', 'base');
@@ -101,10 +101,10 @@ class frmDinamicoBusca extends bFormBusca
                 $this->tipo->definirTiposRelacionados( $cadastroDinamico->obterTabelasRelacionadas() );
             }
 
-            // Obtém os campos, colunas e chaves da busca.
+            // Gets the fields, columns and keys of the search.
             list($camposBuscaDinamica, $colunas, $chaves) = $this->gerarFiltrosEColunas();
             
-            // Verifica se existe filtros configurados.
+            // Checks if there are configured filters.
             if ( count($camposBuscaDinamica) > 0 && $montarCampos )
             {
                 foreach( $camposBuscaDinamica as $campoBusca )
@@ -134,9 +134,9 @@ class frmDinamicoBusca extends bFormBusca
     }
     
     /**
-     * Gera os filtros e as colunas.
+     * Generates the filters and columns.
      *
-     * @return array Vetor com os filtros, a coluna da grid e as chaves a serem passadas ao form de edição.
+     * @return array Array with the filters, the grid column and the keys to be passed to the edit form.
      */
     public function gerarFiltrosEColunas()
     {
@@ -147,7 +147,7 @@ class frmDinamicoBusca extends bFormBusca
 
         foreach ( $this->colunas as $coluna )
         {
-            // Gera o filtro e a coluna.
+            // Generates the filter and the column.
             list($filtro, $colunaGrid) = $this->gerarFiltroEColuna($coluna);
 
             if ( $filtro )
@@ -157,7 +157,7 @@ class frmDinamicoBusca extends bFormBusca
 
             $colunasGrid[] = $colunaGrid;
             
-            // Se for chave primária, valor da coluna deve ser passado ao formulário de edição.
+            // If it is a primary key, the column value must be passed to the edit form.
             if ( $coluna->restricao == 'p' || $coluna->chave == DB_TRUE )
             {
                 $chaves[$coluna->nome] = "%$i%";
@@ -170,10 +170,10 @@ class frmDinamicoBusca extends bFormBusca
     }
 
     /**
-     * Gera objetos de filtro do formulário e coluna da grid.
+     * Generates form filter objects and grid column.
      *
-     * @param SInfoColuna $coluna Objeto com os dados da coluna.
-     * @return array Vetor com o componente de filtro criado de acordo com o tipo da coluna e uma instância de MGridColumn.
+     * @param SInfoColuna $coluna Object with the column data.
+     * @return array Array with the filter component created according to the column type and a MGridColumn instance.
      */
     public function gerarFiltroEColuna(bInfoColuna $coluna)
     {
@@ -213,19 +213,19 @@ class frmDinamicoBusca extends bFormBusca
 
                 case bInfoColuna::TIPO_LISTA:
                     
-                    // Verifica se existe valores possíveis, caso contrário, obtém da base.
+                    // Checks if possible values exist, otherwise gets them from the database.
                     if ( strlen($coluna->valoresPossiveis) )
                     {
                         $possibleValues = explode("\n", trim($coluna->valoresPossiveis));
 
-                        // Usa os valores como chaves
+                        // Uses the values as keys
                         $possibleValues = array_combine($possibleValues, $possibleValues);
                     }
                     else
                     {
                         $tipoChaveEstrangeira = bTipo::instanciarTipo($coluna->tabela, $this->modulo);
             
-                        // Monta um campo do tipo MSelection com os valores da tabela.
+                        // Builds a MSelection field with the table values.
                         if ( $tipoChaveEstrangeira instanceof bTipo )
                         {
                             $possibleValues = $tipoChaveEstrangeira->buscarParaSelection();
@@ -264,7 +264,7 @@ class frmDinamicoBusca extends bFormBusca
         
         $alinhamento = $this->obterAlinhamentoPadrao($coluna);
 
-        // Gera a coluna para Grid.
+        // Generates the column for the Grid.
         if ( $coluna->tipo == bInfoColuna::TIPO_BOOLEAN )
         {
             $colunaGrid = new MGridColumn($rotulo, $alinhamento, true, NULL, $coluna->exibirNaGrid == DB_TRUE, bBooleano::obterVetorSimNao(), TRUE);
@@ -283,7 +283,7 @@ class frmDinamicoBusca extends bFormBusca
 
     public function obterValorDoFiltro(bInfoColuna $coluna)
     {
-        // Verifica se não tem algum valor no REQUEST, para manter os filtros quando trocar de página - #56499
+        // Checks if there is a value in REQUEST, to maintain filters when changing pages - #56499
         $valor = $coluna->valorPadrao;
         $valorNoRequest = MIOLO::_REQUEST($coluna->campo);
 
@@ -291,7 +291,7 @@ class frmDinamicoBusca extends bFormBusca
         {
             $valor = $valorNoRequest;
 
-            // Senão estiver clicando em Buscar, faz um JS para os filtros ficarem abertos
+            // If not clicking on Search, adds JS to keep the filters open
             if (MIOLO::_REQUEST('__mainForm__EVENTTARGETVALUE') != 'botaoBuscar_click')
             {
                 $this->addJsCode('setTimeout(function() { $(".mExpandDivButton").click(); }, 500);');
@@ -320,7 +320,7 @@ class frmDinamicoBusca extends bFormBusca
     }
     
     /**
-     * Método reescrito para tratar a busca dinâmica.
+     * Overridden method to handle the dynamic search.
      */
     public function botaoBuscar_click()
     {
@@ -330,7 +330,7 @@ class frmDinamicoBusca extends bFormBusca
             
             $this->grid->setQuery($sqlConsulta, $this->modulo);
             
-            // Tira a checagem nos checkbox da grid.
+            // Unchecks the checkboxes in the grid.
             $this->page->onload("mspecialgrid.uncheckAll('bSearchGrid')");
         }
         
@@ -338,13 +338,13 @@ class frmDinamicoBusca extends bFormBusca
     }
     
     /**
-     * Método reescrito para definir o SQL de busca dinâmica.
+     * Overridden method to define the dynamic search SQL.
      *
-     * @param array $colunas Array com instâncias da MGridColumn.
+     * @param array $colunas Array with MGridColumn instances.
      */
     protected function criarGrid($colunas, $mostrarCheckBoxes=TRUE, $chaves)
     {
-        // Obtém SQL da busca.
+        // Gets the search SQL.
         $sqlConsulta = $this->obterObjetoConsulta();
         
         $this->grid = new MSpecialGrid(NULL, $colunas, 'bSearchGrid', 15, $mostrarCheckBoxes, $chaves);
@@ -353,7 +353,7 @@ class frmDinamicoBusca extends bFormBusca
         $this->grid->setQuery($sqlConsulta, $this->modulo);
         $this->grid->setRowMethod(__CLASS__, 'myRowMethod');
         
-        // Cria o menu de contexto.
+        // Creates the context menu.
         $this->criarMenuDeContexto();
 
         parent::addField(new MDiv(self::GRID_DIV, array( $this->grid, $this->menu )));
@@ -379,9 +379,9 @@ class frmDinamicoBusca extends bFormBusca
     }
     
     /**
-     * Método reescrito para não adicionar MBaseGroup nos filtros de busca.
-     * 
-     * @param array $filtros Vetor de campos de filtros.
+     * Overridden method to not add MBaseGroup to the search filters.
+     *
+     * @param array $filtros Array of filter fields.
      */
     protected function adicionarFiltros($filtros)
     {
@@ -392,7 +392,7 @@ class frmDinamicoBusca extends bFormBusca
     
     protected function adicionarEventoEnter($campo)
     {
-        // Buscar quando teclar 'Enter'
+        // Search when pressing 'Enter'
         $eventoBusca = MUtil::getAjaxAction('botaoBuscar_click');
         $this->page->onload("
         handleEnterSearch = 

@@ -82,13 +82,13 @@ class frmModule extends MForm
     {
         $MIOLO = MIOLO::getInstance();
 
-        $module = $this->getFieldValue('edtIdModule');  // inclusão ou edição?
+        $module = $this->getFieldValue('edtIdModule');  // insert or edit?
 
         if ($module != '')
         {
-            $this->objModule->getById($module); // se for edição, obtem os dados atuais do objeto
+            $this->objModule->getById($module); // if editing, get the current data of the object
         }
-        // seta os atributos do objeto com os valores dos campos do formulario
+        // set the object attributes with the form field values
         $this->objModule->setData( $this->getData() );
         //MIOLO::vd($this->objModule);
 
@@ -109,33 +109,33 @@ class frmModule extends MForm
         $action = MIOLO::getCurrentAction();
         $module = MIOLO::getCurrentModule();
 
-        // limpa o formulário
+        // clear the form
         $this->clearFields();
         $this->clearButtons();
         $this->defaultButton = false;
 
-        // define o campo para fazer o filtro
+        // define the field for filtering
         $fields = array( array( new MTextField('txtId'  , '' , _M('Module', 'admin'), 25),
                                 new MButton   ('btnList', _M('List', 'admin') )
                                )
                         );
         $this->setFields($fields);
 
-        // colunas do DataGrid
+        // DataGrid columns
         $columns = array( new MDataGridColumn('idmodule', _M('Id', 'admin')  , 'left', true, '40%', true),
                           new MDataGridColumn('name'    , _M('Name', 'admin'), 'left', true, '60%', true, NULL, true, true),
                          );
 
-        // link de referencia para o grid
+        // reference link for the grid
         $hrefDatagrid = $MIOLO->getActionURL($module, $action, '', Array('event'=>'btnList_click') );
 
-        // valor definido como filtro
+        // value defined as filter
         $id = MUtil::NVL($this->getFieldValue('txtId'), '');
 
-        // executa a query
+        // execute the query
         $query = $this->objModule->listById($id);
 
-        // instancia o datagrid
+        // instantiate the datagrid
         $datagrid = new MDataGrid($query, $columns, $hrefDatagrid, 20);
         $datagrid->setTitle( _('Modules Listing') );
         $datagrid->setClose($MIOLO->getActionURL($module,$action));
@@ -144,7 +144,7 @@ class frmModule extends MForm
         $href_dele = $MIOLO->getActionURL($module, $action, '%0%', Array('event'=>'btnDelete:click') );
         $datagrid->addActionUpdate($href_edit);
         $datagrid->addActionDelete($href_dele);
-        // coloca o datagrid no formulário
+        // place the datagrid in the form
         $this->addField($datagrid);
     }
 
@@ -153,15 +153,15 @@ class frmModule extends MForm
         global $item;
 
         $module = $this->getFieldValue('edtIdModule');
-        // verifica se está sendo executado através do evento do grid
+        // check if it is being executed through the grid event
         $item = ($module != '') ? $module : $item;
         $this->objModule->getById($item);
 
         if (true) //$this->objModule->name)
         {
-            // coloca os dados do objeto nos campos do formulário
+            // place the object data into the form fields
             $this->setData($this->objModule);
-            // exibe os campos
+            // display the fields
             $this->setFieldsVisible(true);
             $this->setFieldAttr('idModule', 'readonly', true);
             $this->addButton( new MButton('btnCancel' , _M('Cancel', 'admin'), $this->home) );
@@ -212,7 +212,7 @@ class frmModule extends MForm
 
         $objModule = $this->objModule;
         $modulo    = $this->getFieldValue('edtIdModule');
-        // verifica se está sendo executado através do evento do grid
+        // check if it is being executed through the grid event
         $item = ($key != '') ? $key : $item;
         $objModule->getById($item);
 

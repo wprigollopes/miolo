@@ -1,6 +1,6 @@
 
 /**
- * Formulário de busca da tabela %TABLE%.
+ * Search form for the %TABLE% table.
  *
  * @author %AUTHOR%
  *
@@ -27,7 +27,7 @@ class frmBusca%TABLE_CLASS_NAME% extends MForm
     public $grid;
 
     /**
- * Construtor do formulário.
+ * Form constructor.
  */
     public function __construct()
     {
@@ -36,7 +36,7 @@ class frmBusca%TABLE_CLASS_NAME% extends MForm
     }
 
     /**
- * Criar os campos do formulário.
+ * Create the form fields.
  */
     public function createFields()
     {
@@ -65,7 +65,7 @@ class frmBusca%TABLE_CLASS_NAME% extends MForm
     }
 
     /**
- * Ação do botão salvar.
+ * Save button action.
  */
     public function botaoPesquisar_click()
     {
@@ -79,7 +79,7 @@ class frmBusca%TABLE_CLASS_NAME% extends MForm
     }
 
     /**
- * Ação do botão limpar.
+ * Clear button action.
  */
     public function botaoLimpar_click()
     {

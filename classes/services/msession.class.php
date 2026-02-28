@@ -217,13 +217,13 @@ class MSession extends MService
      */
     public function setName($name = '')
     {
-        // Impressão ou o nome passado por parâmetro é ignorado completamente?
+        // Is the name passed by parameter being completely ignored?
         if ($name != '')
         {
             $name = ("" == $this->cookiename) ? 'MIOLOSESSID' : $this->cookiename;
             $name = (string) $name;
             
-            // Só seta o nome da sessão quando ela não estiver ativa.
+            // Only set the session name when it is not active.
             if (session_status() == PHP_SESSION_NONE) session_name ($name);
             
             $this->name = $name;

@@ -5,7 +5,7 @@ class MCurrencyField extends MTextField
 
     public function __construct( $name='', $value='', $label='', $size=10, $hint='' )
     {
-        // este campo vai usar validacao/formatacao javascript 
+        // this field will use javascript validation/formatting
         parent::__construct( $name, $value, $label, $size, $hint );
 
         $page = $this->page;

@@ -52,17 +52,17 @@ class MGridControl extends MGridColumn
         $this->control[$i] = clone $this->basecontrol; // clonning
         $name = $this->control[$i]->getName();
 
-        //se o nome não é um array acrescenta os colchetes para torná-lo um
+        //if the name is not an array, add brackets to make it one
         if (strpos($name, "[") === false && strpos($name, "]") === false)
         {
             $name .= "[$i]";
         }
         else
         {
-            //posição do caracter identificador, que será substituído
+            //position of the identifier character, which will be replaced
             $pos = strpos($name, '%');
 
-            //se o nome está de acordo com as regras de nomenclatura do grid. Numero da linha entre %'s
+            //if the name complies with the grid naming rules. Row number between %'s
             if (!$pos === false)
             {
                 $rowNumber = substr($name, $pos + 1, -2);
@@ -514,7 +514,7 @@ class MGrid extends MBaseGrid
         $this->handlerSelecteds();
         $this->page->addScript('m_grid.js');
         
-        // JS's referente ao cabeçalho fixo conforme rolagem
+        // JS's related to the fixed header on scroll
         $this->page->addScript('jquery.min.js');
         $this->page->addScript('fixed_table_header.js');
     }
@@ -1226,8 +1226,8 @@ class MGrid extends MBaseGrid
                 $tbl->setHeadClass($p+$k,'data');
             }
 
-            // Apesar de setColGroupCol() ter '' como valor padrão para o $attr, esse método enviava null quando
-            // não entrava no if ($col->width). Para não mudar esse comportamento, inicializa $attr com null.
+            // Although setColGroupCol() has '' as default value for $attr, this method sent null when
+            // it did not enter the if ($col->width). To not change this behavior, initialize $attr with null.
             $attr = null;
             if (($col->width))
             {
@@ -1680,8 +1680,7 @@ class MGrid extends MBaseGrid
     }
 
     /**
-     * Retorna a consulta sql com a busca pelos somatórios
-     * dos valores.
+     * Returns the SQL query with the search for value totals.
      *
      * @param $query
      * @return string
@@ -1704,10 +1703,9 @@ class MGrid extends MBaseGrid
     }
 
     /**
-     * Quando for necessário que o retorno dos dados seja em
-     * formato associativo, é necessário obter os nomes das
-     * colunas da consulta para que crie a array associativa
-     * referente.
+     * When the data return needs to be in associative format,
+     * it is necessary to obtain the column names from the query
+     * in order to create the corresponding associative array.
      *
      * @param $query
      * @return mixed
@@ -1728,8 +1726,8 @@ class MGrid extends MBaseGrid
     }
 
     /**
-     * Método tipa colunas que não foram tipadas, e seta alias
-     * para colunas que também não foram setadas.
+     * Method that types columns that were not typed, and sets alias
+     * for columns that were not set either.
      *
      * @param $sql
      * @param $dbconf
@@ -1748,10 +1746,10 @@ class MGrid extends MBaseGrid
             $columns = array();
             $count = 1;
 
-            // Seta alias para colunas sem alias
+            // Set alias for columns without alias
             foreach ($msql->getColumns() as $key => $column)
             {
-                // Controles para não ocorrerm erros de tipagem.
+                // Controls to prevent typing errors.
                 $auxColumn = ($column == 'null' || $column == 'NULL') ? 'NULL::TEXT' : $column;
                 $column = str_replace('null as', 'NULL::TEXT AS', $auxColumn);
                 $column = str_replace('NULL AS', 'NULL::TEXT AS', $column);
