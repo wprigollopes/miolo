@@ -351,7 +351,7 @@ class bTipo
                     // Instantiates the related types.
                     foreach ( $dados[$tipoRelacionado] as $valores )
                     {
-                        $tipo = self::instanciarTipo($tipoRelacionado);
+                        $tipo = self::instantiateType($tipoRelacionado);
                         $tipo->definir($valores);
                         $this->dadosTiposRelacionados[$tipoRelacionado][] = $tipo;
                     }
@@ -894,19 +894,19 @@ class bTipo
                 }
                 
                 // Gets an instance of the type to be able to search all related types.
-                $intanciaTipo = bTipo::instanciarTipo($tipo);
+                $intanciaTipo = bTipo::instantiateType($tipo);
                 $resultado = $intanciaTipo->buscar($filtro);
                 
                 if ( is_array($resultado) )
                 {
                     foreach ( $resultado as $valor )
                     {
-                        $tipoObjeto = bTipo::instanciarTipo($tipo);
+                        $tipoObjeto = bTipo::instantiateType($tipo);
                         
                         $relacionamentos = bCatalogo::obterRelacionamentos($tipo);
                         foreach($relacionamentos as $relacionamento)
                         {
-                            $tipoRelacionado = self::instanciarTipo($relacionamento->tabela_ref);
+                            $tipoRelacionado = self::instantiateType($relacionamento->tabela_ref);
                             
                             if ( strlen($tipoRelacionado->obterColunaDescritiva()) > 0 )
                             {
@@ -1024,7 +1024,7 @@ class bTipo
      * @param string $nomeDoTipo Name/key of the desired type.
      * @return bTipo Instance of the bTipo object.
      */
-    public static function instanciarTipo($nomeDoTipo, $modulo=NULL)
+    public static function instantiateType($nomeDoTipo, $modulo=NULL)
     {
         if ( !strlen($nomeDoTipo) )
         {

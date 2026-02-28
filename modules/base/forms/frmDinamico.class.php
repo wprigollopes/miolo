@@ -73,19 +73,19 @@ class frmDinamico extends bFormCadastro
      * @param boolean $montarCampos True if dynamic fields need to be built.
      * @param boolean $barraDeFerramentas True if the toolbar needs to be built.
      */
-    public function definirCampos($montarCampos=TRUE, $barraDeFerramentas=TRUE)
+    public function buildFields($montarCampos=TRUE, $barraDeFerramentas=TRUE)
     {
-        parent::definirCampos($barraDeFerramentas);
+        parent::buildFields($barraDeFerramentas);
         
         if ( $montarCampos )
         {
             // Gets the fields and validators for the form.
-            $fieldsAndValidators = $this->gerarCampos();
+            $fieldsAndValidators = $this->generateFields();
 
             $fields = $fieldsAndValidators[0];
 
             // Gets the MSubDetail components
-            $camposSubDetail = $this->gerarCamposSubDetail();
+            $camposSubDetail = $this->generateSubDetailFields();
 
             // Merges the MSubDetail components with the remaining fields.
             if ( is_array($camposSubDetail) )
@@ -115,7 +115,7 @@ class frmDinamico extends bFormCadastro
      *
      * @return array Array with the filters, the grid column and the keys to be passed to the edit form.
      */
-    protected function gerarCampos()
+    protected function generateFields()
     {
         // Gets the table columns.
         $colunas = $this->tipo->obterEstruturaDaTabela();
@@ -128,7 +128,7 @@ class frmDinamico extends bFormCadastro
             if ( !in_array($coluna->name, $this->restrictColumns) )
             {
                 // Generates the field and validator for the column.
-                list($field, $validador) = $this->gerarCampo($coluna);
+                list($field, $validador) = $this->generateField($coluna);
 
                 if ( $field )
                 {
@@ -151,11 +151,11 @@ class frmDinamico extends bFormCadastro
      *
      * @return array
      */
-    protected function gerarCamposEspecificos(array $lista)
+    protected function generateSpecificFields(array $lista)
     {
-        list($fields, $validadores) = $this->gerarCampos();
+        list($fields, $validadores) = $this->generateFields();
 
-        $fields = array_merge($fields, $this->gerarCamposSubDetail());
+        $fields = array_merge($fields, $this->generateSubDetailFields());
         $camposRet = array();
         $validadoresRet = array();
 
@@ -178,7 +178,7 @@ class frmDinamico extends bFormCadastro
      * @param bInfoColuna $coluna Object with the column data.
      * @return array Array with the field component created according to the column type and validator.
      */
-    protected function gerarCampo(bInfoColuna $coluna)
+    protected function generateField(bInfoColuna $coluna)
     {
         $field = NULL;
 
@@ -279,12 +279,12 @@ class frmDinamico extends bFormCadastro
      *
      * @return array Array with MSubDetail components.
      */
-    protected function gerarCamposSubDetail()
+    protected function generateSubDetailFields()
     {
         // Searches for tables related to the dynamic type and sets them on the type.
         if ( cadastroDinamico::verificarIdentificador($this->modulo, MIOLO::_REQUEST('chave')) )
         {            
-            $cadastroDinamico = bTipo::instanciarTipo('cadastroDinamico', 'base');
+            $cadastroDinamico = bTipo::instantiateType('cadastroDinamico', 'base');
             $cadastroDinamico->popularPorIdentificador($this->modulo, MIOLO::_REQUEST('chave'));
             $this->tipo->definirTiposRelacionados( $cadastroDinamico->obterTabelasRelacionadas() );
         }
@@ -303,7 +303,7 @@ class frmDinamico extends bFormCadastro
             
             foreach ( $tiposRelacionados as $tipo )
             {
-                $tipoObjeto = bTipo::instanciarTipo($tipo, $this->modulo);
+                $tipoObjeto = bTipo::instantiateType($tipo, $this->modulo);
                 $estruturaTabela = $tipoObjeto->obterEstruturaDaTabela();
 
                 if ( is_array($estruturaTabela) )
@@ -324,7 +324,7 @@ class frmDinamico extends bFormCadastro
 
                             if ( !$chaveRelacionada )
                             {
-                                list($fields[$campoId], $validadores[$campoId]) =  $this->gerarCampo($field);
+                                list($fields[$campoId], $validadores[$campoId]) =  $this->generateField($field);
 
                                 // Hides primary key in the subdetail
                                 if ( $field->eChavePrimaria() )
@@ -358,7 +358,7 @@ class frmDinamico extends bFormCadastro
                                     {
                                         if ( $campoId == $relacionamento->atributo )
                                         {
-                                            $tipoRelacionado = bTipo::instanciarTipo($relacionamento->tabela_ref);
+                                            $tipoRelacionado = bTipo::instantiateType($relacionamento->tabela_ref);
                                             $chavesPKRelacionado = $tipoRelacionado->obterChavesPrimarias();
 
                                             // If there are no related PKs, fetches values for direct replacement in the column
@@ -410,7 +410,7 @@ class frmDinamico extends bFormCadastro
      *
      * @param array $ordemDosCampos Array with the field order.
      */
-    protected function definirOrdemDosCampos(array $fieldOrder)
+    protected function setFieldOrder(array $fieldOrder)
     {
         $this->fieldOrder = $fieldOrder;
     }
@@ -420,7 +420,7 @@ class frmDinamico extends bFormCadastro
      *
      * @return array Array with the field order.
      */
-    protected function obterOrdemDosCampos()
+    protected function getFieldOrder()
     {
         return $this->fieldOrder;
     }    

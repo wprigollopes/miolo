@@ -57,7 +57,7 @@ class frmDinamicoBusca extends bFormBusca
     /**
      * Overridden method to define the dynamic search fields.
      */
-    public function definirCampos($montarCampos=TRUE)
+    public function buildFields($montarCampos=TRUE)
     {
         $jsCode = " function verificaCamposBuscaAvancada(event)
                     {
@@ -77,7 +77,7 @@ class frmDinamicoBusca extends bFormBusca
         
         $this->addJsCode($jsCode);
         
-        parent::definirCampos();
+        parent::buildFields();
         
         $campos = array();
         
@@ -96,13 +96,13 @@ class frmDinamicoBusca extends bFormBusca
             // Searches for tables related to the dynamic type and sets them on the type.
             if ( cadastroDinamico::verificarIdentificador($this->modulo, MIOLO::_REQUEST('chave')) )
             {
-                $cadastroDinamico = bTipo::instanciarTipo('cadastroDinamico', 'base');
+                $cadastroDinamico = bTipo::instantiateType('cadastroDinamico', 'base');
                 $cadastroDinamico->popularPorIdentificador($this->modulo, MIOLO::_REQUEST('chave'));
                 $this->tipo->definirTiposRelacionados( $cadastroDinamico->obterTabelasRelacionadas() );
             }
 
             // Gets the fields, columns and keys of the search.
-            list($camposBuscaDinamica, $columns, $keys) = $this->gerarFiltrosEColunas();
+            list($camposBuscaDinamica, $columns, $keys) = $this->generateFiltersAndColumns();
             
             // Checks if there are configured filters.
             if ( count($camposBuscaDinamica) > 0 && $montarCampos )
@@ -128,9 +128,9 @@ class frmDinamicoBusca extends bFormBusca
             throw new Exception(_M('Não foi encontrada uma busca dinâmica para este formulário'));
         }
         
-        $this->adicionarFiltros($campos);
+        $this->addFilters($campos);
 
-        $this->criarGrid($columns, TRUE, $keys);
+        $this->buildGrid($columns, TRUE, $keys);
     }
     
     /**
@@ -138,7 +138,7 @@ class frmDinamicoBusca extends bFormBusca
      *
      * @return array Array with the filters, the grid column and the keys to be passed to the edit form.
      */
-    public function gerarFiltrosEColunas()
+    public function generateFiltersAndColumns()
     {
         $filters = array();
         $gridColumns = array();
@@ -148,7 +148,7 @@ class frmDinamicoBusca extends bFormBusca
         foreach ( $this->colunas as $coluna )
         {
             // Generates the filter and the column.
-            list($filtro, $colunaGrid) = $this->gerarFiltroEColuna($coluna);
+            list($filtro, $colunaGrid) = $this->generateFilterAndColumn($coluna);
 
             if ( $filtro )
             {
@@ -175,11 +175,11 @@ class frmDinamicoBusca extends bFormBusca
      * @param SInfoColuna $coluna Object with the column data.
      * @return array Array with the filter component created according to the column type and a MGridColumn instance.
      */
-    public function gerarFiltroEColuna(bInfoColuna $coluna)
+    public function generateFilterAndColumn(bInfoColuna $coluna)
     {
         $filtro = NULL;
 
-        $valor = $this->obterValorDoFiltro($coluna);
+        $valor = $this->getFilterValue($coluna);
         $rotulo = _M($coluna->title);
 
         if ( $coluna->filterable == DB_TRUE )
@@ -223,7 +223,7 @@ class frmDinamicoBusca extends bFormBusca
                     }
                     else
                     {
-                        $tipoChaveEstrangeira = bTipo::instanciarTipo($coluna->table, $this->modulo);
+                        $tipoChaveEstrangeira = bTipo::instantiateType($coluna->table, $this->modulo);
             
                         // Builds a MSelection field with the table values.
                         if ( $tipoChaveEstrangeira instanceof bTipo )
@@ -262,7 +262,7 @@ class frmDinamicoBusca extends bFormBusca
             }
         }
         
-        $alinhamento = $this->obterAlinhamentoPadrao($coluna);
+        $alinhamento = $this->getDefaultAlignment($coluna);
 
         // Generates the column for the Grid.
         if ( $coluna->type == bInfoColuna::TYPE_BOOLEAN )
@@ -281,7 +281,7 @@ class frmDinamicoBusca extends bFormBusca
         return array( $filtro, $colunaGrid );
     }
 
-    public function obterValorDoFiltro(bInfoColuna $coluna)
+    public function getFilterValue(bInfoColuna $coluna)
     {
         // Checks if there is a value in REQUEST, to maintain filters when changing pages - #56499
         $valor = $coluna->defaultValue;
@@ -305,7 +305,7 @@ class frmDinamicoBusca extends bFormBusca
      *
      * @return string
      */
-    public function obterAlinhamentoPadrao(bInfoColuna $coluna)
+    public function getDefaultAlignment(bInfoColuna $coluna)
     {
         $alinhamentos = array(
             bInfoColuna::TYPE_BOOLEAN => 'center',
@@ -342,7 +342,7 @@ class frmDinamicoBusca extends bFormBusca
      *
      * @param array $colunas Array with MGridColumn instances.
      */
-    protected function criarGrid($columns, $mostrarCheckBoxes=TRUE, $keys)
+    protected function buildGrid($columns, $mostrarCheckBoxes=TRUE, $keys)
     {
         // Gets the search SQL.
         $sqlConsulta = $this->obterObjetoConsulta();
@@ -383,7 +383,7 @@ class frmDinamicoBusca extends bFormBusca
      *
      * @param array $filtros Array of filter fields.
      */
-    protected function adicionarFiltros($filters)
+    protected function addFilters($filters)
     {
         $filters[] = $this->obterBotoes();
 

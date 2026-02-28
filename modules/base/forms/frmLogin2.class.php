@@ -610,7 +610,7 @@ class frmLogin extends MForm
         
     }
     
-    public function gerarNovaSenha()
+    public function generateNewPassword()
     {
         $length = 8; 
         $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';

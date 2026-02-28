@@ -35,9 +35,9 @@ class bFormCadastro extends bForm
      * 
      * @param boolean $barraDeFerramentas Boolean flag to show or hide the toolbar.
      */
-    public function definirCampos($barraDeFerramentas=TRUE)
+    public function buildFields($barraDeFerramentas=TRUE)
     {
-        parent::definirCampos($barraDeFerramentas);
+        parent::buildFields($barraDeFerramentas);
 
         if ( $this->barraDeFerramentas )
         {

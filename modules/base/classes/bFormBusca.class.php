@@ -68,9 +68,9 @@ class bFormBusca extends bForm
      * 
      * @param boolean $barraDeFerramentas Boolean flag to show or hide the toolbar.
      */
-    public function definirCampos($barraDeFerramentas=TRUE)
+    public function buildFields($barraDeFerramentas=TRUE)
     {
-        parent::definirCampos($barraDeFerramentas);
+        parent::buildFields($barraDeFerramentas);
 
         if ( $this->barraDeFerramentas )
         {
@@ -121,7 +121,7 @@ class bFormBusca extends bForm
      *
      * @param array $filtros Array with filters.
      */
-    protected function adicionarFiltros($filtros)
+    protected function addFilters($filtros)
     {
         $filtros[] = $this->obterBotoes();
         
@@ -136,7 +136,7 @@ class bFormBusca extends bForm
      *
      * @param array $colunas Array with MGridColumn instances.
      */
-    protected function criarGrid($colunas, $mostrarCheckBoxes=TRUE)
+    protected function buildGrid($colunas, $mostrarCheckBoxes=TRUE)
     {
         $chaves = array();
 
@@ -166,7 +166,7 @@ class bFormBusca extends bForm
     {
         if ( !$this->grid )
         {
-            $this->definirCampos();
+            $this->buildFields();
         }
         
         return (array) $this->grid->getSelectedData();

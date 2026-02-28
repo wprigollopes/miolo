@@ -26,7 +26,7 @@ class BusinessBaseTransacao extends MBusiness implements ITransaction
         if ( $query )
         {
             $this->setData($query->getRowObject());
-            $this->setGrupos();
+            $this->setGroups();
         }
         return $this;
     }
@@ -38,7 +38,7 @@ class BusinessBaseTransacao extends MBusiness implements ITransaction
         if ( $query )
         {
             $this->setData($query->getRowObject());
-            $this->setGrupos();
+            $this->setGroups();
         }
         return $this;
     }
@@ -132,7 +132,7 @@ class BusinessBaseTransacao extends MBusiness implements ITransaction
         return $query;
     }
 
-    public function setGrupos()
+    public function setGroups()
     {
         $sql = new sql('a.idgrupo, a.direito', 'cm_acesso a, cm_grupoacesso g', '(a.idgrupo=g.idgrupo) and (idtrans = ?)', 'g.grupo');
         $query = $this->query($sql,$this->idtrans);

@@ -76,7 +76,7 @@ class bForm extends MForm
 
 	    if($parametros['tipo'])
 	    {
-            	$this->instanciarTipo($parametros['tipo']);
+            	$this->instantiateType($parametros['tipo']);
             
                 if ( strlen($titulo) == 0 )
         	{
@@ -107,7 +107,7 @@ class bForm extends MForm
         }
         catch ( MDatabaseException $e )
         {
-            $this->exibirErro($e->getMessage());
+            $this->displayError($e->getMessage());
         }
         catch ( MValidationException $e )
         {
@@ -132,7 +132,7 @@ class bForm extends MForm
         catch ( Exception $e )
         {
 //            MUtil::debug($e->getMessage());
-            $this->exibirErro($e->getMessage());
+            $this->displayError($e->getMessage());
         }
     }
 
@@ -161,7 +161,7 @@ class bForm extends MForm
         {
             try
             {
-                $this->definirCampos(false);
+                $this->buildFields(false);
             }
             catch (Exception $e)
             {
@@ -170,7 +170,7 @@ class bForm extends MForm
         }
     }
     
-    public function definirCampos($barraDeFerramentas)
+    public function buildFields($barraDeFerramentas)
     {
         $fields = array();
         
@@ -196,7 +196,7 @@ class bForm extends MForm
     {
         parent::addFields($campos);
         
-        $primeiroCampoVisivel = $this->obterPrimeiroCampoVisivel($campos);
+        $primeiroCampoVisivel = $this->getFirstVisibleField($campos);
 
         if ( $primeiroCampoVisivel && MUtil::isFirstAccessToForm() )
         { 
@@ -210,7 +210,7 @@ class bForm extends MForm
      * @param string $nomeDoTipo Type name.
      * @return labType Type instance.
      */
-    public function instanciarTipo($nomeDoTipo)
+    public function instantiateType($nomeDoTipo)
     {
         if ( !$nomeDoTipo )
         {
@@ -218,7 +218,7 @@ class bForm extends MForm
         }
                
         
-        $this->tipo = bTipo::instanciarTipo($nomeDoTipo, $this->modulo);
+        $this->tipo = bTipo::instantiateType($nomeDoTipo, $this->modulo);
     }
     
     /**
@@ -226,7 +226,7 @@ class bForm extends MForm
      * 
      * @param string $erro Error message.
      */
-    public function exibirErro( $erro )
+    public function displayError( $erro )
     {
         // First access to the page.
         if ( MUtil::isFirstAccessToPage() )
@@ -257,13 +257,13 @@ class bForm extends MForm
      * @return string Id of the first visible field.
      *
      */
-    public function obterPrimeiroCampoVisivel($campos)
+    public function getFirstVisibleField($campos)
     {
         foreach ( (array) $campos as $campo )
         {
             if ( $campo instanceof MContainer )
             {
-                $campoVisivel = $this->obterPrimeiroCampoVisivel($campo->getControls());
+                $campoVisivel = $this->getFirstVisibleField($campo->getControls());
                 
                 if ( $campoVisivel )
                 {
@@ -272,7 +272,7 @@ class bForm extends MForm
             }
             elseif ( $campo instanceof MDiv )
             {
-                $campoVisivel = $this->obterPrimeiroCampoVisivel($campo->getInner());
+                $campoVisivel = $this->getFirstVisibleField($campo->getInner());
                 
                 if ( $campoVisivel )
                 {
@@ -341,14 +341,14 @@ class bForm extends MForm
      * @param array $parametros List of attributes to override on the obtained field
      * @return Array List of field and validator
      */
-    public function obterCampoDeTabela($coluna, $tabela, $parametros = array())
+    public function getTableField($coluna, $tabela, $parametros = array())
     {
         $tabela = strtolower($tabela);
         $coluna = strtolower($coluna);
 
         try
         {
-            list( $field, $validator, $campoMensagem ) = SDicionarioDeCampos::obterCampoDeTabela($coluna, $tabela, $parametros);
+            list( $field, $validator, $campoMensagem ) = SDicionarioDeCampos::getTableField($coluna, $tabela, $parametros);
 
             if (!is_array($parametros['chavePrimaria']) && count($this->pkey) > 0)
             {

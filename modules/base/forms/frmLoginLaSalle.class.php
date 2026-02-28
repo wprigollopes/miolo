@@ -233,7 +233,7 @@ class frmLoginLaSalle extends MForm
         $campos[] = $divErro = new MDiv("divErroConexao", "","mMessage mMessage Error");
         $divErro->addAttribute("style", "display:none");
         
-        $this->verificarNavegador();
+        $this->checkBrowser();
 
         $campos[] = MMessage::getMessageContainer();
         
@@ -246,7 +246,7 @@ class frmLoginLaSalle extends MForm
             $campos["logo"] = new MDiv('', array($img));
         }
 
-        $inputs[] = $this->obterCampoUsuario();
+        $inputs[] = $this->getUserField();
         $inputs[] = $this->obterCampoSenha();
         
         if ( sMultiUnidade::estaHabilitada() )
@@ -257,7 +257,7 @@ class frmLoginLaSalle extends MForm
         
         $campos[] = new MDiv("divCamposAutenticacao", $inputs);
         
-        $campos[] = new HiddenField("return_to", $this->obterURLDeRetorno());
+        $campos[] = new HiddenField("return_to", $this->getReturnUrl());
         
         if ( !$this->isAuthenticated() )
         {
@@ -298,7 +298,7 @@ class frmLoginLaSalle extends MForm
         }
     }
     
-    private function verificarNavegador()
+    private function checkBrowser()
     {
         $MIOLO = MIOLO::getInstance();
         
@@ -320,7 +320,7 @@ class frmLoginLaSalle extends MForm
         
     }
     
-    private function obterURLDeRetorno()
+    private function getReturnUrl()
     {
         $return_to = $this->getFormValue('return_to', MIOLO::_Request('return_to'));
 
@@ -333,7 +333,7 @@ class frmLoginLaSalle extends MForm
         return $return_to;
     }
     
-    private function obterCampoUsuario()
+    private function getUserField()
     {
         $uid = new MTextField("uid", $this->auth->login->iduser, _M("Login"), 20);
         $uid->setAttribute("placeholder", _M("CPF"));

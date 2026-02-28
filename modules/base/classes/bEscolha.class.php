@@ -171,7 +171,7 @@ class bEscolha extends MRowContainer
 
         define(DB_NAME, $modulo);
         
-        $tipo = bTipo::instanciarTipo($chave, $modulo);
+        $tipo = bTipo::instantiateType($chave, $modulo);
 
         // Protection to avoid database error
         if ( $tipo->colunaTipoNumerico( $campoChave ) && !is_numeric($valor) )
@@ -228,7 +228,7 @@ class bEscolha extends MRowContainer
         // Gets the records.
         define(DB_NAME, $modulo);
 
-        $tipo = bTipo::instanciarTipo($chave, $modulo);
+        $tipo = bTipo::instantiateType($chave, $modulo);
         // TODO: Limit of 50 hardcoded. In the future make it an attribute.
         $resultado = $tipo->buscarParaEscolha($valor, $campos, 50);
 

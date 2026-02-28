@@ -55,20 +55,20 @@ class bEmail extends PHPMailer
     {
         parent::__construct();
         $this->setLanguage('br');
-        $this->definirCodificacao('UTF-8');
+        $this->setEncoding('UTF-8');
         
         // Defines that SMTP will be used.
         $this->isSMTP();
 
         // Sets the parameter values.
-        $this->definirHost($host);
-        $this->definirPorta($port);
-        $this->definirRemetente($senderAddress);
-        $this->definirNomeRemetente($senderName);
-        $this->definirNecessidadeAutenticacao($authRequired);
-        $this->definirUsuario($username);
-        $this->definirSenha($password);
-        $this->definirTipoConteudo($contentType);
+        $this->setHost($host);
+        $this->setPort($port);
+        $this->setSender($senderAddress);
+        $this->setSenderName($senderName);
+        $this->setAuthRequired($authRequired);
+        $this->setUsername($username);
+        $this->setPassword($password);
+        $this->setContentType($contentType);
         
         // Increases the connection timeout with the email service.
         $this->Timeout = 60; 
@@ -79,7 +79,7 @@ class bEmail extends PHPMailer
      *
      * @param string $encoding Email encoding.
      */
-    public function definirCodificacao( $encoding )
+    public function setEncoding( $encoding )
     {
         $this->CharSet = $encoding;
     }
@@ -89,7 +89,7 @@ class bEmail extends PHPMailer
      * 
      * @return string Encoding defined in the email.
      */
-    public function obterCodificacao( )
+    public function getEncoding( )
     {
         return $this->CharSet;
     }
@@ -97,7 +97,7 @@ class bEmail extends PHPMailer
     /**
      * Sets the full log path
      */
-    private function definirCaminhoCompletoLog()
+    private function setFullLogPath()
     {
         if ( strlen( $this->logFile ) )
         {
@@ -120,7 +120,7 @@ class bEmail extends PHPMailer
      *
      * @param string $address Recipients separated by comma.
      */
-    public function adicionarDestinatario($address)
+    public function addRecipient($address)
     {
         // If @ is not found, do not add,
         if ( !preg_match( "/@/", $address ) )
@@ -149,13 +149,13 @@ class bEmail extends PHPMailer
      *
      * @param string $address Recipient address.
      */
-    public function definirEndereco($address)
+    public function setAddress($address)
     {
         // Clears all previous recipients.
         $this->ClearAddresses();
         
         // Adds the recipient address.
-        $this->adicionarDestinatario($address);
+        $this->addRecipient($address);
     }
     
     /**
@@ -163,7 +163,7 @@ class bEmail extends PHPMailer
      *
      * @return array Array with email addresses.
      */
-    public function obterEnderecos()
+    public function getAddresses()
     {
         return array_keys( $this->all_recipients );
     }
@@ -173,7 +173,7 @@ class bEmail extends PHPMailer
      *
      * @param string Full path of the file(s).
      */
-    public function adicionarAnexo($fullFilePath)
+    public function attachFile($fullFilePath)
     {
         $fullFilePath = trim($fullFilePath);
 
@@ -201,7 +201,7 @@ class bEmail extends PHPMailer
      *
      * @return array Array with full paths of attached files.
      */
-    public function obterAnexos()
+    public function getAttachments()
     {
         return $this->attachment;
     }
@@ -211,7 +211,7 @@ class bEmail extends PHPMailer
      *
      * @param string $content Email content.
      */
-    public function definirConteudo($content)
+    public function setContent($content)
     {
         $this->Body = new BString($content);
     }
@@ -221,9 +221,9 @@ class bEmail extends PHPMailer
      *
      * @return string Email content.
      */
-    public function obterConteudo()
+    public function getContent()
     {
-        if ($this->obterEHtml())
+        if ($this->isHtml())
         {
             $this->Body->replace("\n", "<br>");
         }
@@ -236,7 +236,7 @@ class bEmail extends PHPMailer
      *
      * @param string $subject Email subject.
      */
-    public function definirAssunto($subject)
+    public function setSubject($subject)
     {
         $subject = str_replace('  ', ' ', $subject);
         $this->Subject = new BString($subject);
@@ -247,7 +247,7 @@ class bEmail extends PHPMailer
      *
      * @return string Email subject.
      */
-    public function obterAssunto()
+    public function getSubject()
     {
         return $this->Subject->getString();
     }
@@ -257,7 +257,7 @@ class bEmail extends PHPMailer
      *
      * @param string $username Authentication user.
      */
-    public function definirUsuario($username)
+    public function setUsername($username)
     {
         $username = new BString($username);
         $username->replace(array("\n", "\t", "\r"), "");
@@ -270,7 +270,7 @@ class bEmail extends PHPMailer
      *
      * @return string User used.
      */
-    public function obterUsuario()
+    public function getUsername()
     {
         return $this->Username->getString();
     }
@@ -280,7 +280,7 @@ class bEmail extends PHPMailer
      *
      * @param string $password Password required for authentication.
      */
-    public function definirSenha($password)
+    public function setPassword($password)
     {
         $this->Password = new BString($password);
     }
@@ -290,7 +290,7 @@ class bEmail extends PHPMailer
      *
      * @return string Authentication password.
      */
-    public function obterSenha()
+    public function getPassword()
     {
         return $this->Password->getString();
     }
@@ -300,7 +300,7 @@ class bEmail extends PHPMailer
      *
      * @param string $host Server address.
      */
-    public function definirHost($host)
+    public function setHost($host)
     {
         $this->Host = $host;
     }
@@ -310,7 +310,7 @@ class bEmail extends PHPMailer
      *
      * @return string Server address.
      */
-    public function obterHost()
+    public function getHost()
     {
         return $this->Host;
     }
@@ -320,7 +320,7 @@ class bEmail extends PHPMailer
      *
      * @param Integer $port Port number.
      */
-    public function definirPorta($port)
+    public function setPort($port)
     {
         $this->Port = $port;
     }
@@ -330,7 +330,7 @@ class bEmail extends PHPMailer
      *
      * @return Integer Port number.
      */
-    public function obterPorta()
+    public function getPort()
     {
         return $this->Port;
     }
@@ -340,7 +340,7 @@ class bEmail extends PHPMailer
      *
      * @param string $sender Email sender.
      */
-    public function definirRemetente($sender)
+    public function setSender($sender)
     {
         $sender = new BString($sender);
         $sender->replace(array("\n", "\t", "\r"), "");
@@ -353,7 +353,7 @@ class bEmail extends PHPMailer
      *
      * @return string Sender address.
      */
-    public function obterRemetente()
+    public function getSender()
     {
         return $this->From->getString();
     }
@@ -363,7 +363,7 @@ class bEmail extends PHPMailer
      *
      * @param string $senderName Sender name.
      */
-    public function definirNomeRemetente($senderName)
+    public function setSenderName($senderName)
     {
         $this->FromName = new BString($senderName);
     }
@@ -373,7 +373,7 @@ class bEmail extends PHPMailer
      *
      * @return string Sender name.
      */
-    public function obterNomeRemetente()
+    public function getSenderName()
     {
         return $this->FromName->getString();
     }
@@ -384,7 +384,7 @@ class bEmail extends PHPMailer
      *
      * @param boolean $authentication If true, uses authentication when sending email.
      */
-    public function definirNecessidadeAutenticacao($authentication)
+    public function setAuthRequired($authentication)
     {
         $this->SMTPAuth = $authentication;
     }
@@ -394,7 +394,7 @@ class bEmail extends PHPMailer
      *
      * @return boolean Returns true if authentication is required.
      */
-    public function obterNecessidadeAutenticacao()
+    public function getAuthRequired()
     {
         return $this->SMTPAuth;
     }
@@ -404,7 +404,7 @@ class bEmail extends PHPMailer
      *
      * @param boolean $html Defines whether email will be in HTML format.
      */
-    public function definirEmailFormatoHTML($html=TRUE)
+    public function setHtmlFormat($html=TRUE)
     {
         $this->IsHTML($html);
     }
@@ -414,7 +414,7 @@ class bEmail extends PHPMailer
      *
      * @return (Boolean)
      */
-    public function obterEHtml()
+    public function isHtml()
     {
         return $this->ContentType == 'text/html';
     }
@@ -424,12 +424,12 @@ class bEmail extends PHPMailer
      *
      * @param string $type Email content type.
      */
-    public function definirTipoConteudo($type = 'html')
+    public function setContentType($type = 'html')
     {
         switch ($type)
         {
             default:
-                $this->definirEmailFormatoHTML(TRUE);
+                $this->setHtmlFormat(TRUE);
         }
     }
 
@@ -438,7 +438,7 @@ class bEmail extends PHPMailer
      * 
      * @return Content type.
      */
-    public function obterTipoConteudo()
+    public function getContentType()
     {
         return $this->ContentType;
     }
@@ -448,10 +448,10 @@ class bEmail extends PHPMailer
      *
      * @return boolean Returns true if the email was sent.
      */
-    public function enviar()
+    public function send()
     {
         $sent = parent::send();
-        $this->gravarLog($sent);
+        $this->writeLog($sent);
         
         return $sent;
     }
@@ -461,9 +461,9 @@ class bEmail extends PHPMailer
      *
      * @param boolean Email sending result.
      */
-    private function gravarLog($result)
+    private function writeLog($result)
     {
-        $this->definirCaminhoCompletoLog();
+        $this->setFullLogPath();
 
         if(!strlen($this->logFile))
         {
@@ -474,17 +474,17 @@ class bEmail extends PHPMailer
 
         $content = new BString("\n{$recordSeparator}\n");
         $content.= ($result) ? "E-mail foi enviado com sucesso!\n" : "Não foi possível enviar o e-mail.\n";
-        $content.= "Destino: '". (!is_null($this->obterEnderecos()) ? implode(",\n\t", $this->obterEnderecos()) : "null") ."'\n";
+        $content.= "Destino: '". (!is_null($this->getAddresses()) ? implode(",\n\t", $this->getAddresses()) : "null") ."'\n";
         $content.= "Data/Hora: '". date("d/m/Y H:i:s") ."'\n";
         $content.= "ContentType: '". $this->ContentType ."'\n";
-        $content.= "Authenticate: '". $this->obterNecessidadeAutenticacao() ."'\n";
-        $content.= "Host: '". $this->obterHost() .":". $this->obterPorta() ."'\n";
-        $content.= "User: '". $this->obterUsuario() ."'\n";
-        $content.= "Password: '". $this->obterSenha() ."'\n";
-        $content.= "From: '". $this->obterRemetente() ."'\n";
-        $content.= "From Name: '". $this->obterNomeRemetente() ."'\n";
-        $content.= "Subject: '". $this->obterAssunto() ."'\n";
-        $content.= "Content: '". $this->obterConteudo() ."'\n";
+        $content.= "Authenticate: '". $this->getAuthRequired() ."'\n";
+        $content.= "Host: '". $this->getHost() .":". $this->getPort() ."'\n";
+        $content.= "User: '". $this->getUsername() ."'\n";
+        $content.= "Password: '". $this->getPassword() ."'\n";
+        $content.= "From: '". $this->getSender() ."'\n";
+        $content.= "From Name: '". $this->getSenderName() ."'\n";
+        $content.= "Subject: '". $this->getSubject() ."'\n";
+        $content.= "Content: '". $this->getContent() ."'\n";
         
         if(!$result)
         {
@@ -499,7 +499,7 @@ class bEmail extends PHPMailer
      * 
      * @param type $SMTPSecure
      */
-    public function definirSMTPSecure($SMTPSecure)
+    public function setSmtpSecure($SMTPSecure)
     {
         $this->SMTPSecure = $SMTPSecure;
     }

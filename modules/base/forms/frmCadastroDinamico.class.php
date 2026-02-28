@@ -42,9 +42,9 @@ class frmCadastroDinamico extends bFormCadastro
         parent::__construct(_M('Cadastro dinâmico', MIOLO::getCurrentModule()), $parametros);
     }
 
-    public function definirCampos()
+    public function buildFields()
     {
-        parent::definirCampos();
+        parent::buildFields();
         $this->setTitle($this->tipo->obterComentarioDaTabela());
         
         if ( MUtil::isFirstAccessToForm() )

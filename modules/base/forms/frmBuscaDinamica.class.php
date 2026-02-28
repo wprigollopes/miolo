@@ -42,14 +42,14 @@ class frmBuscaDinamica extends bFormCadastro
         parent::__construct(_M('Busca dinâmica', MIOLO::getCurrentModule()), $parametros);
     }
 
-    public function definirCampos()
+    public function buildFields()
     {
         if ( MUtil::isFirstAccessToForm() )
         {
             MSubDetail::clearData('campoBuscaDinamica');
         }
         
-        parent::definirCampos();
+        parent::buildFields();
         
         $campos = array();
         $campos[] = new MTextField('buscadinamicaid', NULL, _M('Código'), 10);

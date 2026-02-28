@@ -54,14 +54,14 @@ class frmCadastroDinamicoBusca extends bFormBusca
         $filtros[] = new MTextField('referencia', NULL, _M('Referência'), 50);
         $filtros[] = new MTextField('modulo_', NULL, _M('Módulo'), 20);
         
-        $this->adicionarFiltros($filtros);
+        $this->addFilters($filtros);
 
         $colunas[] = new MGridColumn(_M('Código', $this->modulo));
         $colunas[] = new MGridColumn(_M('Identificador', $this->modulo));
         $colunas[] = new MGridColumn(_M('Referência', $this->modulo));
         $colunas[] = new MGridColumn(_M('Módulo', $this->modulo));
         
-        $this->criarGrid($colunas);
+        $this->buildGrid($colunas);
     }
 }
 

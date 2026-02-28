@@ -41,9 +41,9 @@ class frmBuscaDinamicaBusca extends bFormBusca
         parent::__construct(_M('Busca de busca dinâmica', MIOLO::getCurrentModule()), $parametros);
     }
 
-    public function definirCampos()
+    public function buildFields()
     {
-        parent::definirCampos();
+        parent::buildFields();
 
         $filtros = array();
         $colunas = array();
@@ -52,13 +52,13 @@ class frmBuscaDinamicaBusca extends bFormBusca
         $filtros[] = new MTextField('identificador', NULL, _M('Identificador'), 50);
         $filtros[] = new MTextField('modulo_', NULL, _M('Módulo'), 20);
         
-        $this->adicionarFiltros($filtros);
+        $this->addFilters($filtros);
 
         $colunas[] = new MGridColumn(_M('Código', $this->modulo));
         $colunas[] = new MGridColumn(_M('Identificador', $this->modulo));
         $colunas[] = new MGridColumn(_M('Módulo', $this->modulo));
         
-        $this->criarGrid($colunas);
+        $this->buildGrid($colunas);
     }
 }
 
