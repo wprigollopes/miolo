@@ -150,7 +150,7 @@ function bManipular($chave)
                 // Checks if the form code exists.
                 if ( !$formularioCadastro )
                 {
-                    $formularioCadastro = 'frmDinamico';
+                    $formularioCadastro = 'frmDynamic';
                     $modulo = 'base';
                 }
 
@@ -167,7 +167,7 @@ function bManipular($chave)
                 // Checks if the form code exists.
                 if ( !$formularioBusca )
                 {
-                    $formularioBusca = 'frmDinamicoBusca';
+                    $formularioBusca = 'frmDynamicSearch';
                     $modulo = 'base';
                 }
                 $MIOLO->checkAccess($formularioBusca, $access, $deny);

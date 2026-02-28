@@ -122,7 +122,7 @@ class bCatalogo
 
         $resultado = bBaseDeDados::consultar($msql, $parametros);
 
-        $infoColuna = new bInfoColuna();
+        $infoColuna = new bColumnInfo();
         list(
                 $infoColuna->label,
                 $infoColuna->type,
@@ -284,7 +284,7 @@ class bCatalogo
         
         foreach ($resultado as $linha)
         {
-            $coluna = new bInfoColuna();
+            $coluna = new bColumnInfo();
             list(
                     $coluna->name,
                     $coluna->type,
@@ -1292,7 +1292,7 @@ class bCatalogo
 
         foreach ($resultado as $linha)
         {
-            $coluna = new bInfoColuna();
+            $coluna = new bColumnInfo();
             list(
                 $coluna->name,
                 $coluna->type,

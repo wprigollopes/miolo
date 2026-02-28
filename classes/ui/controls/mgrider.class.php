@@ -310,7 +310,7 @@ class MGrider extends MTableRaw
 
                 foreach ( $tmpControls as $item => $control )
                 {
-                    if ($tmpControls[$item] instanceOf bEscolha )
+                    if ($tmpControls[$item] instanceOf bChoice )
                     {
                         $innerControls = $tmpControls[$item]->getControls();
                         $innerControls[0]->id = $innerControls[0]->id.'['.$line.']';

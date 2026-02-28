@@ -28,7 +28,7 @@
  * @since
  * Class created on 27/06/2012
  */
-class bFormBusca extends bForm
+class bFormSearch extends bForm
 {
     const GRID_DIV = 'labSearchGridDiv';
     const FILTROS_ID = 'labSearch_filtros';

@@ -36,7 +36,7 @@
  */
 
 $MIOLO->uses('tipos/cadastroDinamico.class.php', 'base');
-class frmDinamico extends bFormCadastro
+class frmDynamic extends bFormRegistration
 {
     /**
      * Restricts columns that should not have fields generated in the form.
@@ -175,10 +175,10 @@ class frmDinamico extends bFormCadastro
     /**
      * Generates the form field object.
      *
-     * @param bInfoColuna $coluna Object with the column data.
+     * @param bColumnInfo $coluna Object with the column data.
      * @return array Array with the field component created according to the column type and validator.
      */
-    protected function generateField(bInfoColuna $coluna)
+    protected function generateField(bColumnInfo $coluna)
     {
         $field = NULL;
 
@@ -208,14 +208,14 @@ class frmDinamico extends bFormCadastro
         // Checks if field is a foreign key.
         if ( strlen($coluna->fkTable) )
         {
-            $field = new bEscolha($coluna->field, $coluna->fkTable, $this->modulo, NULL, $coluna->title );
+            $field = new bChoice($coluna->field, $coluna->fkTable, $this->modulo, NULL, $coluna->title );
         }
 
         if ( !$field )
         {
             switch ( $coluna->type )
             {
-                case bInfoColuna::TYPE_BOOLEAN:
+                case bColumnInfo::TYPE_BOOLEAN:
                     if ( $valor === NULL )
                     {
                         $valor = DB_FALSE;
@@ -225,26 +225,26 @@ class frmDinamico extends bFormCadastro
                     $validador = NULL;
                     break;
 
-                case bInfoColuna::TYPE_DATE:
+                case bColumnInfo::TYPE_DATE:
                     $field = new MCalendarField($coluna->field, $valor, $rotulo, T_DESCRICAO);
                     break;
 
-                case bInfoColuna::TYPE_TIMESTAMP:
+                case bColumnInfo::TYPE_TIMESTAMP:
                     // FIXME: add the MTimestampField component after resolution of #15440.
                     $field = new MTimestampField($coluna->field, NULL, $rotulo);
 
                     break;
 
-                case bInfoColuna::TYPE_DECIMAL:
+                case bColumnInfo::TYPE_DECIMAL:
                     $field = new MFloatField($coluna->field, $valor, $rotulo, T_DESCRICAO);
                     break;
 
-                case bInfoColuna::TYPE_NUMERIC:
+                case bColumnInfo::TYPE_NUMERIC:
                     $field = new MFloatField($coluna->field, $valor, $rotulo, T_DESCRICAO);
                     break;
 
-                case bInfoColuna::TYPE_INTEGER:
-                case bInfoColuna::TYPE_BIG_INTEGER:
+                case bColumnInfo::TYPE_INTEGER:
+                case bColumnInfo::TYPE_BIG_INTEGER:
                     $field = new MIntegerField($coluna->field, $valor, $rotulo, T_CODIGO);
                     $validador = new MIntegerValidator($coluna->field, $rotulo);
 
@@ -255,11 +255,11 @@ class frmDinamico extends bFormCadastro
 
                     break;
 
-                case bInfoColuna::TYPE_LONG_TEXT:
+                case bColumnInfo::TYPE_LONG_TEXT:
                     $field = new MMultiLineField($coluna->field, $valor, $rotulo, NULL, T_VERTICAL_TEXTO, T_HORIZONTAL_TEXTO);
                     break;
 
-                case bInfoColuna::TYPE_TEXT:
+                case bColumnInfo::TYPE_TEXT:
                 default:
                     $field = new MTextField($coluna->field, $valor, $rotulo, T_DESCRICAO);
                     break;
@@ -284,7 +284,7 @@ class frmDinamico extends bFormCadastro
         // Searches for tables related to the dynamic type and sets them on the type.
         if ( cadastroDinamico::verificarIdentificador($this->modulo, MIOLO::_REQUEST('chave')) )
         {            
-            $cadastroDinamico = bTipo::instantiateType('cadastroDinamico', 'base');
+            $cadastroDinamico = bType::instantiateType('cadastroDinamico', 'base');
             $cadastroDinamico->popularPorIdentificador($this->modulo, MIOLO::_REQUEST('chave'));
             $this->tipo->definirTiposRelacionados( $cadastroDinamico->obterTabelasRelacionadas() );
         }
@@ -303,7 +303,7 @@ class frmDinamico extends bFormCadastro
             
             foreach ( $tiposRelacionados as $tipo )
             {
-                $tipoObjeto = bTipo::instantiateType($tipo, $this->modulo);
+                $tipoObjeto = bType::instantiateType($tipo, $this->modulo);
                 $estruturaTabela = $tipoObjeto->obterEstruturaDaTabela();
 
                 if ( is_array($estruturaTabela) )
@@ -316,7 +316,7 @@ class frmDinamico extends bFormCadastro
                     {
                         if ( !in_array($field->name, $this->restrictColumns) )
                         {
-                            $field instanceof bInfoColuna;
+                            $field instanceof bColumnInfo;
                             $chaveRelacionada = in_array($field->name, $chavesPrimarias);
 
                             // Checks if the field has the same id as the form's primary key, if so, does not build the field and column.
@@ -334,11 +334,11 @@ class frmDinamico extends bFormCadastro
                                 }
 
                                 // Sets the alignment of the subdetail grid column.
-                                if ( in_array($field->type, array(bInfoColuna::TYPE_BOOLEAN, bInfoColuna::TYPE_DATE, bInfoColuna::TYPE_TIMESTAMP)) )
+                                if ( in_array($field->type, array(bColumnInfo::TYPE_BOOLEAN, bColumnInfo::TYPE_DATE, bColumnInfo::TYPE_TIMESTAMP)) )
                                 {
                                     $alinhamento = 'center';
                                 }
-                                elseif ( in_array($field->type, array(bInfoColuna::TYPE_LONG_TEXT, bInfoColuna::TYPE_TEXT, bInfoColuna::TYPE_INTEGER, bInfoColuna::TYPE_NUMERIC) ) )
+                                elseif ( in_array($field->type, array(bColumnInfo::TYPE_LONG_TEXT, bColumnInfo::TYPE_TEXT, bColumnInfo::TYPE_INTEGER, bColumnInfo::TYPE_NUMERIC) ) )
                                 {
                                     $alinhamento = 'right';
                                 }
@@ -358,7 +358,7 @@ class frmDinamico extends bFormCadastro
                                     {
                                         if ( $campoId == $relacionamento->atributo )
                                         {
-                                            $tipoRelacionado = bTipo::instantiateType($relacionamento->tabela_ref);
+                                            $tipoRelacionado = bType::instantiateType($relacionamento->tabela_ref);
                                             $chavesPKRelacionado = $tipoRelacionado->obterChavesPrimarias();
 
                                             // If there are no related PKs, fetches values for direct replacement in the column
@@ -368,7 +368,7 @@ class frmDinamico extends bFormCadastro
                                                 $colunas[$campoId]->setReplace($campoId, $valores);
                                             }
 
-                                            // If this attribute exists, a bEscolha is built, and consequently
+                                            // If this attribute exists, a bChoice is built, and consequently
                                             // a new column is created for this value
                                             if ( strlen($field->fkTable) &&
                                                  count($chavesPKRelacionado) > 0 &&

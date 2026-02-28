@@ -35,7 +35,7 @@
  *
  */
 $MIOLO->uses('tipos/cadastroDinamico.class.php', 'base');
-class frmDinamicoBusca extends bFormBusca
+class frmDynamicSearch extends bFormSearch
 {
     /**
      * @var array Array of objects with the search columns.
@@ -96,7 +96,7 @@ class frmDinamicoBusca extends bFormBusca
             // Searches for tables related to the dynamic type and sets them on the type.
             if ( cadastroDinamico::verificarIdentificador($this->modulo, MIOLO::_REQUEST('chave')) )
             {
-                $cadastroDinamico = bTipo::instantiateType('cadastroDinamico', 'base');
+                $cadastroDinamico = bType::instantiateType('cadastroDinamico', 'base');
                 $cadastroDinamico->popularPorIdentificador($this->modulo, MIOLO::_REQUEST('chave'));
                 $this->tipo->definirTiposRelacionados( $cadastroDinamico->obterTabelasRelacionadas() );
             }
@@ -175,7 +175,7 @@ class frmDinamicoBusca extends bFormBusca
      * @param SInfoColuna $coluna Object with the column data.
      * @return array Array with the filter component created according to the column type and a MGridColumn instance.
      */
-    public function generateFilterAndColumn(bInfoColuna $coluna)
+    public function generateFilterAndColumn(bColumnInfo $coluna)
     {
         $filtro = NULL;
 
@@ -186,32 +186,32 @@ class frmDinamicoBusca extends bFormBusca
         {
             switch ( $coluna->type )
             {
-                case bInfoColuna::TYPE_BOOLEAN:
+                case bColumnInfo::TYPE_BOOLEAN:
                     $filtro = new MSelection($coluna->field, $valor, $rotulo, bBooleano::obterVetorSimNao());
                     break;
 
-                case bInfoColuna::TYPE_DATE:
+                case bColumnInfo::TYPE_DATE:
                     $filtro = new MCalendarField($coluna->field, $valor, $rotulo, T_DESCRICAO);
                     break;
                 
-                case bInfoColuna::TYPE_TIMESTAMP:
+                case bColumnInfo::TYPE_TIMESTAMP:
                     $filtro = new MCalendarField($coluna->field, $valor, $rotulo, T_DESCRICAO);
                     break;
 
-                case bInfoColuna::TYPE_DECIMAL:
+                case bColumnInfo::TYPE_DECIMAL:
                     $filtro = new MFloatField($coluna->field, $valor, $rotulo, T_DESCRICAO);
                     break;
                 
-                case bInfoColuna::TYPE_NUMERIC:
+                case bColumnInfo::TYPE_NUMERIC:
                     $filtro = new MFloatField($coluna->field, $valor, $rotulo, T_DESCRICAO);
                     break;
 
-                case bInfoColuna::TYPE_INTEGER:
+                case bColumnInfo::TYPE_INTEGER:
                     $filtro = new MIntegerField($coluna->field, $valor, $rotulo, T_CODIGO);
                     $validator = new MIntegerValidator($coluna->field, $rotulo);
                     break;
 
-                case bInfoColuna::TYPE_LIST:
+                case bColumnInfo::TYPE_LIST:
                     
                     // Checks if possible values exist, otherwise gets them from the database.
                     if ( strlen($coluna->possibleValues) )
@@ -223,10 +223,10 @@ class frmDinamicoBusca extends bFormBusca
                     }
                     else
                     {
-                        $tipoChaveEstrangeira = bTipo::instantiateType($coluna->table, $this->modulo);
+                        $tipoChaveEstrangeira = bType::instantiateType($coluna->table, $this->modulo);
             
                         // Builds a MSelection field with the table values.
-                        if ( $tipoChaveEstrangeira instanceof bTipo )
+                        if ( $tipoChaveEstrangeira instanceof bType )
                         {
                             $possibleValues = $tipoChaveEstrangeira->buscarParaSelection();
                         }
@@ -235,8 +235,8 @@ class frmDinamicoBusca extends bFormBusca
                     $filtro = new MSelection($coluna->field, $valor, $rotulo, $possibleValues);
                     break;
 
-                case bInfoColuna::TYPE_LONG_TEXT:
-                case bInfoColuna::TYPE_TEXT:
+                case bColumnInfo::TYPE_LONG_TEXT:
+                case bColumnInfo::TYPE_TEXT:
                     $filtro = new MTextField($coluna->field, $valor, $rotulo, T_DESCRICAO);
                     break;
             }
@@ -265,11 +265,11 @@ class frmDinamicoBusca extends bFormBusca
         $alinhamento = $this->getDefaultAlignment($coluna);
 
         // Generates the column for the Grid.
-        if ( $coluna->type == bInfoColuna::TYPE_BOOLEAN )
+        if ( $coluna->type == bColumnInfo::TYPE_BOOLEAN )
         {
             $colunaGrid = new MGridColumn($rotulo, $alinhamento, true, NULL, $coluna->showInGrid == DB_TRUE, bBooleano::obterVetorSimNao(), TRUE);
         }
-        else if ( $coluna->type == bInfoColuna::TYPE_NUMERIC ) 
+        else if ( $coluna->type == bColumnInfo::TYPE_NUMERIC ) 
         {
             $colunaGrid = new MGridColumn($rotulo, $alinhamento, true, NULL, $coluna->showInGrid == DB_TRUE, NULL, TRUE, '', TRUE);
         }
@@ -281,7 +281,7 @@ class frmDinamicoBusca extends bFormBusca
         return array( $filtro, $colunaGrid );
     }
 
-    public function getFilterValue(bInfoColuna $coluna)
+    public function getFilterValue(bColumnInfo $coluna)
     {
         // Checks if there is a value in REQUEST, to maintain filters when changing pages - #56499
         $valor = $coluna->defaultValue;
@@ -305,15 +305,15 @@ class frmDinamicoBusca extends bFormBusca
      *
      * @return string
      */
-    public function getDefaultAlignment(bInfoColuna $coluna)
+    public function getDefaultAlignment(bColumnInfo $coluna)
     {
         $alinhamentos = array(
-            bInfoColuna::TYPE_BOOLEAN => 'center',
-            bInfoColuna::TYPE_DATE => 'center',
-            bInfoColuna::TYPE_TIMESTAMP => 'center',
-            bInfoColuna::TYPE_DECIMAL => 'right',
-            bInfoColuna::TYPE_NUMERIC => 'right',
-            bInfoColuna::TYPE_INTEGER => 'right',
+            bColumnInfo::TYPE_BOOLEAN => 'center',
+            bColumnInfo::TYPE_DATE => 'center',
+            bColumnInfo::TYPE_TIMESTAMP => 'center',
+            bColumnInfo::TYPE_DECIMAL => 'right',
+            bColumnInfo::TYPE_NUMERIC => 'right',
+            bColumnInfo::TYPE_INTEGER => 'right',
         );
         
         return MUtil::NVL($alinhamentos[$coluna->type], 'left');

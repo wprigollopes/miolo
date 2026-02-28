@@ -52,7 +52,7 @@ class bForm extends MForm
     protected $funcao;
     
     /**
-     * @var bTipo Type instance. 
+     * @var bType Type instance. 
      */
     protected $tipo;
     
@@ -218,7 +218,7 @@ class bForm extends MForm
         }
                
         
-        $this->tipo = bTipo::instantiateType($nomeDoTipo, $this->modulo);
+        $this->tipo = bType::instantiateType($nomeDoTipo, $this->modulo);
     }
     
     /**

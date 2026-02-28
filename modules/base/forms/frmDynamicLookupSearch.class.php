@@ -34,31 +34,28 @@
  *
  */
 
-class frmCadastroDinamicoBusca extends bFormBusca
+class frmDynamicLookupSearch extends bFormSearch
 {
     public function __construct($parametros)
     {
-        parent::__construct(_M('Busca de cadastro dinâmico', MIOLO::getCurrentModule()), $parametros);
+        parent::__construct(_M('Busca de busca dinâmica', MIOLO::getCurrentModule()), $parametros);
     }
 
-    public function createFields()
+    public function buildFields()
     {
-        
-        parent::createFields();
+        parent::buildFields();
 
         $filtros = array();
         $colunas = array();
 
-        $filtros[] = new MTextField('codigo', NULL, _M('Código'), 10);
+        $filtros[] = new MTextField('buscaDinamicaId', NULL, _M('Código'), 10);
         $filtros[] = new MTextField('identificador', NULL, _M('Identificador'), 50);
-        $filtros[] = new MTextField('referencia', NULL, _M('Referência'), 50);
         $filtros[] = new MTextField('modulo_', NULL, _M('Módulo'), 20);
         
         $this->addFilters($filtros);
 
         $colunas[] = new MGridColumn(_M('Código', $this->modulo));
         $colunas[] = new MGridColumn(_M('Identificador', $this->modulo));
-        $colunas[] = new MGridColumn(_M('Referência', $this->modulo));
         $colunas[] = new MGridColumn(_M('Módulo', $this->modulo));
         
         $this->buildGrid($colunas);

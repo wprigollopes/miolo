@@ -36,7 +36,7 @@
  *
  *
  */
-class cadastroDinamico extends bTipo
+class cadastroDinamico extends bType
 {
 
     public function __construct($chave)

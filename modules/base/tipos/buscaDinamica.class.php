@@ -36,7 +36,7 @@
  *
  *
  */
-class buscaDinamica extends bTipo
+class buscaDinamica extends bType
 {
     
     public function __construct($chave)
@@ -50,7 +50,7 @@ class buscaDinamica extends bTipo
      *
      * @param string $modulo Module.
      * @param string $identificador Identifier.
-     * @return array Array with bInfoColuna type objects.
+     * @return array Array with bColumnInfo type objects.
      */
     public static function buscarDadosDasColunas($modulo, $identificador)
     {
@@ -130,7 +130,7 @@ class buscaDinamica extends bTipo
         
         foreach ( $resultado as $linha )
         {
-            $coluna = new bInfoColuna();
+            $coluna = new bColumnInfo();
             list(
                 $coluna->name,
                 $coluna->type,

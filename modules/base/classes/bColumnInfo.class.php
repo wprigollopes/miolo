@@ -37,7 +37,7 @@
  *
  */
 
-class bInfoColuna
+class bColumnInfo
 {
     /**
      * @var string 

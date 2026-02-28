@@ -28,7 +28,7 @@
  * @since
  * Class created on 27/06/2012
  */
-class bFormCadastro extends bForm
+class bFormRegistration extends bForm
 {
     /**
      * Method for creating fields specific to edit and insert forms.

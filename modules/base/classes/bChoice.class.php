@@ -37,7 +37,7 @@
  *
  **/
  
-class bEscolha extends MRowContainer
+class bChoice extends MRowContainer
 {
     private $codigo;
     private $descricao;
@@ -74,12 +74,12 @@ class bEscolha extends MRowContainer
         $campos[] = $this->codigo = new MTextField($nome, $valor, $rotulo, 5, NULL, NULL, $somenteLeitura);
         $this->codigo->addAttribute('onchange', "miolo.doAjax('obterRegistro',this.id + '|' + this.value + '|' + '$chave' + '|' + '$modulo' + '|' + '$camposDaTabela','{$MIOLO->page->getFormId()}');");
         
-        $campos[] = $this->descricao = new bEscolhaTextField($nome . 'Descricao', NULL, NULL, 50, NULL, NULL, $somenteLeitura);
+        $campos[] = $this->descricao = new bChoiceTextField($nome . 'Descricao', NULL, NULL, 50, NULL, NULL, $somenteLeitura);
         $this->descricao->setChave($chave);
         $this->descricao->setModulo($modulo);
         $this->descricao->setCamposDaTabela($camposDaTabela);
-        $this->descricao->addAttribute('onkeydown', "return bEscolha.onkeyUpEscolha(event, this, this.id, '{$chave}', '{$modulo}', '{$camposDaTabela}')" );
-        $this->descricao->addAttribute('ondblclick',"return bEscolha.onDoubleClick(event, this.id, '{$chave}', '{$modulo}', '{$camposDaTabela}')");
+        $this->descricao->addAttribute('onkeydown', "return bChoice.onkeyUpEscolha(event, this, this.id, '{$chave}', '{$modulo}', '{$camposDaTabela}')" );
+        $this->descricao->addAttribute('ondblclick',"return bChoice.onDoubleClick(event, this.id, '{$chave}', '{$modulo}', '{$camposDaTabela}')");
         
         // Sets the validator on the code
         if ( !is_null($validator) )
@@ -88,7 +88,7 @@ class bEscolha extends MRowContainer
         }
         
         parent::__construct(NULL, $campos);
-        $this->page->addScript('bEscolha.js', 'base');
+        $this->page->addScript('bChoice.js', 'base');
         
         // Line necessary to fetch the description value when the field is read-only or when the form is in edit mode.
         $MIOLO->page->onload("var elem = dojo.byId('$nome'); if(elem != null){elem.onchange();}");
@@ -121,7 +121,7 @@ class bEscolha extends MRowContainer
         
         /**
          * We had to remove this because it was causing problems when the
-         * component had an event that overrides a default bEscolha event,
+         * component had an event that overrides a default bChoice event,
          * for example: "onChange".
          * 
          * We could not identify why this was done, but by
@@ -163,7 +163,7 @@ class bEscolha extends MRowContainer
         $campos = explode(',', $parametros[4]);
         $campoChave = $campos[0];
         
-        // To ensure proper functioning with dynamic bTipo, trim the column names.
+        // To ensure proper functioning with dynamic bType, trim the column names.
         foreach($campos as $key => $campo)
         {
             $campos[$key] = trim($campos[$key]);
@@ -171,7 +171,7 @@ class bEscolha extends MRowContainer
 
         define(DB_NAME, $modulo);
         
-        $tipo = bTipo::instantiateType($chave, $modulo);
+        $tipo = bType::instantiateType($chave, $modulo);
 
         // Protection to avoid database error
         if ( $tipo->colunaTipoNumerico( $campoChave ) && !is_numeric($valor) )
@@ -219,7 +219,7 @@ class bEscolha extends MRowContainer
         $chave = $parametros[2];
         $modulo = $parametros[3];
         $campos = explode(',', $parametros[4]);
-        // To ensure proper functioning with dynamic bTipo, trim the column names.
+        // To ensure proper functioning with dynamic bType, trim the column names.
         foreach($campos as $key => $campo)
         {
             $campos[$key] = trim($campos[$key]);
@@ -228,7 +228,7 @@ class bEscolha extends MRowContainer
         // Gets the records.
         define(DB_NAME, $modulo);
 
-        $tipo = bTipo::instantiateType($chave, $modulo);
+        $tipo = bType::instantiateType($chave, $modulo);
         // TODO: Limit of 50 hardcoded. In the future make it an attribute.
         $resultado = $tipo->buscarParaEscolha($valor, $campos, 50);
 
@@ -268,7 +268,7 @@ class bEscolha extends MRowContainer
                             dojo.byId(\''.$idDescricao.'\').dispatchEvent(new Event(\'change\'));
                             dojo.byId(\''.$idComponente.'\').dispatchEvent(new Event(\'change\'));';
                 
-                $onMouseOver = 'bEscolha.deselecionarItem(this);';
+                $onMouseOver = 'bChoice.deselecionarItem(this);';
                 
                 $table->setCellAttribute($i, 0, 'onClick', $onClick);
                 $table->setCellAttribute($i, 0, 'id', "{$idItem}{$i}");
@@ -376,7 +376,7 @@ class bEscolha extends MRowContainer
  *
  *
  **/
-class bEscolhaTextField extends MTextField
+class bChoiceTextField extends MTextField
 {
     
     private $chave;
@@ -448,7 +448,7 @@ $eventosPossiveis = array( 'obterRegistro', 'onkeyUpEscolha' );
 // Calls the ajax method.
 if ( in_array($evento, $eventosPossiveis) )
 {
-    bEscolha::$evento($args);
+    bChoice::$evento($args);
 }
 
 ?>

@@ -28,7 +28,7 @@
  * @since
  * Class created on 25/06/2012
  */
-class bTipo
+class bType
 {
     /**
      * For user log records.
@@ -422,7 +422,7 @@ class bTipo
             {
                 foreach ( $nomeTipo as $tipo )
                 {
-                    $tipo instanceof bTipo;
+                    $tipo instanceof bType;
                     
                     $dados = $tipo->obter();
 
@@ -781,17 +781,17 @@ class bTipo
                 {
                     switch ( $tipoColuna )
                     {
-                        case bInfoColuna::TYPE_LONG_TEXT:
+                        case bColumnInfo::TYPE_LONG_TEXT:
                             $sql->setWhere("unaccent(lower($idFiltro)) LIKE unaccent(lower(?))");
                             $parametros[] = '%' . $filtro . '%';
                             break;
 
-                        case bInfoColuna::TYPE_TEXT:
+                        case bColumnInfo::TYPE_TEXT:
                             $sql->setWhere("unaccent(lower($idFiltro)) LIKE unaccent(lower(?))");
                             $parametros[] = $filtro . '%';
                             break;
                         
-                        case bInfoColuna::TYPE_CHAR:
+                        case bColumnInfo::TYPE_CHAR:
                             $sql->setWhere("unaccent(lower($idFiltro)) LIKE unaccent(lower(?))");
                             $parametros[] = $filtro . '%';
                             break;
@@ -842,7 +842,7 @@ class bTipo
             $dadosDaColuna = bCatalogo::buscarDadosDaColuna($column, $this->tabela);
             
             // If the column is timestamp, applies the mask defined in the type.
-            if ( $dadosDaColuna->type == bInfoColuna::TYPE_TIMESTAMP )
+            if ( $dadosDaColuna->type == bColumnInfo::TYPE_TIMESTAMP )
             {
                 $columns[$key] = "to_char($column, '{$this->mascaraTimeStamp}') as $column";
             }
@@ -894,14 +894,14 @@ class bTipo
                 }
                 
                 // Gets an instance of the type to be able to search all related types.
-                $intanciaTipo = bTipo::instantiateType($tipo);
+                $intanciaTipo = bType::instantiateType($tipo);
                 $resultado = $intanciaTipo->buscar($filtro);
                 
                 if ( is_array($resultado) )
                 {
                     foreach ( $resultado as $valor )
                     {
-                        $tipoObjeto = bTipo::instantiateType($tipo);
+                        $tipoObjeto = bType::instantiateType($tipo);
                         
                         $relacionamentos = bCatalogo::obterRelacionamentos($tipo);
                         foreach($relacionamentos as $relacionamento)
@@ -1015,14 +1015,14 @@ class bTipo
      */
     public function colunaTipoNumerico($coluna)
     {
-        return in_array($this->obterTipoColuna($coluna), array(bInfoColuna::TYPE_INTEGER, bInfoColuna::TYPE_BIG_INTEGER, bInfoColuna::TYPE_NUMERIC));
+        return in_array($this->obterTipoColuna($coluna), array(bColumnInfo::TYPE_INTEGER, bColumnInfo::TYPE_BIG_INTEGER, bColumnInfo::TYPE_NUMERIC));
     }
     
     /**
-     * Public static method that instantiates a type or a bTipo object with data from the desired table.
+     * Public static method that instantiates a type or a bType object with data from the desired table.
      * 
      * @param string $nomeDoTipo Name/key of the desired type.
-     * @return bTipo Instance of the bTipo object.
+     * @return bType Instance of the bType object.
      */
     public static function instantiateType($nomeDoTipo, $modulo=NULL)
     {
@@ -1049,7 +1049,7 @@ class bTipo
         else
         {
             // Instantiates a type dynamically.
-            $tipo = new bTipo($nomeDoTipo);
+            $tipo = new bType($nomeDoTipo);
         }
 
         return $tipo;
@@ -1153,7 +1153,7 @@ class bTipo
             
             foreach ( $this->estruturaTabela as $campo => $estrutura )
             {
-                $estrutura instanceof bInfoColuna;
+                $estrutura instanceof bColumnInfo;
                 
                 if ( $this->chavesPrimarias['sequencial'] == $campo )
                 {
@@ -1208,7 +1208,7 @@ class bTipo
         // $chave is schema.table.column
         foreach ( $colunas as $chave => $coluna )
         {
-            $coluna instanceof bInfoColuna;
+            $coluna instanceof bColumnInfo;
             
             if ( $orderBy == NULL || strlen($orderBy) == 0 )
             {
@@ -1309,8 +1309,8 @@ class bTipo
             
             switch( $colunas[$chave]->type )
             {
-                case bInfoColuna::TYPE_TEXT:
-                case bInfoColuna::TYPE_LONG_TEXT:
+                case bColumnInfo::TYPE_TEXT:
+                case bColumnInfo::TYPE_LONG_TEXT:
                     
                     if ( strlen($valor) )
                     {
@@ -1327,7 +1327,7 @@ class bTipo
 
                     break;
                     
-                case bInfoColuna::TYPE_LIST:
+                case bColumnInfo::TYPE_LIST:
                     
                     if (strlen($valor) )
                     {
@@ -1347,10 +1347,10 @@ class bTipo
                     
                     break;
                     
-                case bInfoColuna::TYPE_INTEGER:
-                case bInfoColuna::TYPE_BIG_INTEGER:
-                case bInfoColuna::TYPE_NUMERIC:
-                case bInfoColuna::TYPE_DECIMAL:
+                case bColumnInfo::TYPE_INTEGER:
+                case bColumnInfo::TYPE_BIG_INTEGER:
+                case bColumnInfo::TYPE_NUMERIC:
+                case bColumnInfo::TYPE_DECIMAL:
                     
                     if ( strlen($valor) && is_numeric($valor) )
                     {

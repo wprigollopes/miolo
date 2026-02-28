@@ -58,19 +58,19 @@ $syncModule = MIOLO::_REQUEST('syncModule');
 $MIOLO->uses( 'classes/bBaseDeDados.class.php','base');
 $MIOLO->uses( 'classes/BString.class.php','base');
 $MIOLO->uses( 'classes/bCatalogo.class.php','base');
-$MIOLO->uses( 'classes/bInfoColuna.class.php','base');
+$MIOLO->uses( 'classes/bColumnInfo.class.php','base');
 
 if ( !$syncModule )
 {
     // Adds required classes.
     $MIOLO->uses( 'classes/bForm.class.php','base');
-    $MIOLO->uses( 'classes/bFormCadastro.class.php','base');
-    $MIOLO->uses( 'classes/bFormBusca.class.php','base');
-    $MIOLO->uses( 'classes/bTipo.class.php','base');
+    $MIOLO->uses( 'classes/bFormRegistration.class.php','base');
+    $MIOLO->uses( 'classes/bFormSearch.class.php','base');
+    $MIOLO->uses( 'classes/bType.class.php','base');
     $MIOLO->uses( 'classes/bBarraDeFerramentas.class.php','base');
     $MIOLO->uses( 'classes/bJavascript.class.php','base');
     $MIOLO->uses( 'classes/bBooleano.class.php','base');
-    $MIOLO->uses( 'classes/bEscolha.class.php','base');
+    $MIOLO->uses( 'classes/bChoice.class.php','base');
 
     // Adds the Base module javascript library.
     $MIOLO->page->addScript('base.js','base');

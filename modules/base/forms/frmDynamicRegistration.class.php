@@ -34,7 +34,7 @@
  *
  *
  */
-class frmCadastroDinamico extends bFormCadastro
+class frmDynamicRegistration extends bFormRegistration
 {
 
     public function __construct($parametros)
