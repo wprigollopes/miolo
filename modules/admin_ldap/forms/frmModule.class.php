@@ -23,9 +23,9 @@ class frmModule extends MForm
 	{  $MIOLO = MIOLO::getInstance();
 
        $fields = array(
-           new MTextField('edtIdModule','','MÃ³dulo',50),
+           new MTextField('edtIdModule','','Módulo',50),
            new MTextField('edtNome','','Nome',50),
-           new MMultiLineField( 'edtDescricao','','DescriÃ§Ã£o',30,5,30),
+           new MMultiLineField( 'edtDescricao','','Descrição',30,5,30),
        );
 	   $this->setFields($fields);
 
@@ -36,7 +36,7 @@ class frmModule extends MForm
            new MButton('btnEdit',   'Editar'),
 		   new MButton('btnNew',    'Incluir'),
            new MButton('btnDelete', 'Excluir'),
-	       new MButton('btnList',   'RelaÃ§Ã£o')
+	       new MButton('btnList',   'Relação')
        );
 	   $this->setButtons($buttons);
        var_dump(ok);
@@ -50,10 +50,10 @@ class frmModule extends MForm
     }
 
 /*
-    GetData: obtÃ©m os valores fornecidos no formulario e cria um objeto FormData
-             cujos attributos tÃªm o mesmo nome dos atributos do objeto que vai receber os valores.
-    A implementaÃ§Ã£o default do GetData cria um objeto FormData cujos atributos tÃªm
-    o mesmo nome dos campos do formulÃ¡rio.   
+    GetData: obtém os valores fornecidos no formulario e cria um objeto FormData
+             cujos attributos têm o mesmo nome dos atributos do objeto que vai receber os valores.
+    A implementação default do GetData cria um objeto FormData cujos atributos têm
+    o mesmo nome dos campos do formulário.   
 */
 	function getData()
 	{
@@ -65,10 +65,10 @@ class frmModule extends MForm
 	}
 
 /*
-    SetData: obtÃ©m os valores fornecidos atravÃ©s do parÃ¢metro $data (geralmente um
-             objeto de negÃ³cio) e preenche os campos do formulÃ¡rio.
-    A implementaÃ§Ã£o default do SetData assume que os atributos do objeto $data tÃªm
-    o mesmo nome dos campos do formulÃ¡rio.   
+    SetData: obtém os valores fornecidos através do parâmetro $data (geralmente um
+             objeto de negócio) e preenche os campos do formulário.
+    A implementação default do SetData assume que os atributos do objeto $data têm
+    o mesmo nome dos campos do formulário.   
 */
 	function setData($data)
 	{
@@ -81,11 +81,11 @@ class frmModule extends MForm
 	{
         $MIOLO = MIOLO::getInstance();
 
-        $module = $this->getFieldValue('edtIdModule');  // inclusÃ£o ou ediÃ§Ã£o?
+        $module = $this->getFieldValue('edtIdModule');  // inclusão ou edição?
         
         if ($module != '')
         {
-            $this->objModule->getById($module); // se for ediÃ§Ã£o, obtem os dados atuais do objeto
+            $this->objModule->getById($module); // se for edição, obtem os dados atuais do objeto
         }
         // seta os atributos do objeto com os valores dos campos do formulario
 		$this->objModule->setData($this->getData()); 
@@ -93,7 +93,7 @@ class frmModule extends MForm
         try
         {
             $this->objModule->save();
-            $MIOLO->information('MÃ³dulo atualizado com sucesso.', $this->home );
+            $MIOLO->information('Módulo atualizado com sucesso.', $this->home );
         }
         catch (EMioloException $e)
         {
@@ -107,7 +107,7 @@ class frmModule extends MForm
         $module = MIOLO::getCurrentModule();
         $action = MIOLO::getCurrentAction();
 
-        // limpa o formulÃ¡rio
+        // limpa o formulário
         $this->clearFields();
         $this->clearButtons();
         $this->defaultButton = false;
@@ -115,8 +115,8 @@ class frmModule extends MForm
         // define o campo para fazer o filtro
         $fields = array(
             array(
-               new MTextField('txtId'  ,'' ,'MÃ³dulo',25),
-               new MButton   ('btnList','RelaÃ§Ã£o')
+               new MTextField('txtId'  ,'' ,'Módulo',25),
+               new MButton   ('btnList','Relação')
             )
         );
         $this->setFields($fields);
@@ -138,14 +138,14 @@ class frmModule extends MForm
 
         // instancia o datagrid
         $datagrid = new MDataGrid($query, $columns, $hrefDatagrid, 20);
-        $datagrid->setTitle('RelaÃ§Ã£o de MÃ³dulos');
+        $datagrid->setTitle('Relação de Módulos');
         $datagrid->setClose($MIOLO->getActionURL($module,$action));
 
  	    $href_edit = $MIOLO->getActionURL($module,$action,'%0%',Array('event'=>'btnEdit:click'));
 	    $href_dele = $MIOLO->getActionURL($module,$action,'%0%',Array('event'=>'btnDelete:click'));
         $datagrid->addActionUpdate($href_edit);
 	    $datagrid->addActionDelete($href_dele);
-        // coloca o datagrid no formulÃ¡rio
+        // coloca o datagrid no formulário
 		$this->addField($datagrid);
 	}
 
@@ -154,13 +154,13 @@ class frmModule extends MForm
         global $item;
 
         $module = $this->getFieldValue('edtIdModule');
-        // verifica se estÃ¡ sendo executado atravÃ©s do evento do grid
+        // verifica se está sendo executado através do evento do grid
         $item = ($module != '') ? $module : $item;
         $this->objModule->getById($item);
         
         if ($this->objModule->nome)
         {
-            // coloca os dados do objeto nos campos do formulÃ¡rio
+            // coloca os dados do objeto nos campos do formulário
             $this->setData($this->objModule);
             // exibe os campos
             $this->setFieldsVisible(true);
@@ -172,7 +172,7 @@ class frmModule extends MForm
         }
         else
         {
-            $this->addError("MÃ³dulo [$module] nÃ£o encontrado!");
+            $this->addError("Módulo [$module] não encontrado!");
         }
 	}
 
@@ -198,7 +198,7 @@ class frmModule extends MForm
         }
         else
         {
-            $this->addError("Por favor, informe a identificaÃ§Ã£o para o novo mÃ³dulo!");
+            $this->addError("Por favor, informe a identificação para o novo módulo!");
         }
 	}
 
@@ -211,7 +211,7 @@ class frmModule extends MForm
 
         $objModule = $this->objModule;
         $modulo    = $this->getFieldValue('edtIdModule');
-        // verifica se estÃ¡ sendo executado atravÃ©s do evento do grid
+        // verifica se está sendo executado através do evento do grid
         $item = ($key != '') ? $key : $item;
         $objModule->getById($item);
         
@@ -223,7 +223,7 @@ class frmModule extends MForm
                 try
                 {
                      $objModule->delete();
-                     $MIOLO->prompt(Prompt::information("MÃ³dulo [$objModule->idModule] excluÃ­do com sucesso.",$this->home));
+                     $MIOLO->prompt(Prompt::information("Módulo [$objModule->idModule] excluído com sucesso.",$this->home));
                 }
                 catch (EMioloException $e)
                 {
@@ -232,18 +232,18 @@ class frmModule extends MForm
 	        }
 	        elseif ( $conf == 'nao')
             {
-	            $MIOLO->prompt(Prompt::information('ExclusÃ£o cancelada.',$this->home));
+	            $MIOLO->prompt(Prompt::information('Exclusão cancelada.',$this->home));
             }
 	        else
 	        {
 		        $action_sim = $MIOLO->getActionURL($module,$action,$objModule->idUser, array('event'=>'btnDelete:click','conf'=>'sim'));
 		        $action_nao = $MIOLO->getActionURL($module,$action,$objModule->idUser, array('event'=>'btnDelete:click','conf'=>'nao'));
-	            $MIOLO->prompt(Prompt::question("Confirma a exclusÃ£o do mÃ³dulo [$objModule->idModule]?", $action_sim, $action_nao));
+	            $MIOLO->prompt(Prompt::question("Confirma a exclusão do módulo [$objModule->idModule]?", $action_sim, $action_nao));
             }
         }
         else
         {
-            $this->addError("MÃ³dulo [$modulo] nÃ£o encontrado!");
+            $this->addError("Módulo [$modulo] não encontrado!");
         }
 	}
 

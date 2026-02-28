@@ -13,6 +13,16 @@ class MysqlConnection extends MConnection
         mysqli_select_db($this->id, $loginDB);
     }
 
+    protected function buildDsn($dbhost, $loginDB, $port = null)
+    {
+        $h = explode(':', $dbhost);
+        $host = $h[0];
+        if (!$port) {
+            $port = isset($h[1]) ? $h[1] : '3306';
+        }
+        return "mysql:host={$host};port={$port};dbname={$loginDB};charset=utf8";
+    }
+
     public function _close()
     {
         mysqli_close($this->id);

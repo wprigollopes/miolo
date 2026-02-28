@@ -1,5 +1,5 @@
 // +-----------------------------------------------------------------+
-// | MIOLO - Miolo Development Team - UNIVATES Centro UniversitÃ¡rio  |
+// | MIOLO - Miolo Development Team - UNIVATES Centro Universitário  |
 // +-----------------------------------------------------------------+
 // | CopyLeft (L) 2006  Solis - Cooperativa de Solucoes Livres       |
 // +-----------------------------------------------------------------+
@@ -11,7 +11,7 @@
 // +-----------------------------------------------------------------+
 // | Abstract: This file contains the javascript functions           |
 // |                                                                 |
-// | Created: 2006/07/30 Vilson Cristiano GÃ¤rtner [vg]               |
+// | Created: 2006/07/30 Vilson Cristiano Gärtner [vg]               |
 // +-----------------------------------------------------------------+
 
 var autoCompleteId;
@@ -54,12 +54,12 @@ function Deliver(id,text)
         // alert(text);
     }
     
-    // separar caminho da url dos parÃ¢metros
+    // separar caminho da url dos parâmetros
     var a = url.split('?');
     
     if ( a.length == 2 )
     {
-        // separar os parÃ¢metros
+        // separar os parâmetros
         var b = a[1].split('&');
         
         for ( i=0; i<b.length; i++ )

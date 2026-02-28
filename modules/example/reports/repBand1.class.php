@@ -8,7 +8,7 @@
     {
         public function __construct()
         {
-            // nÃºmero de linhas por pÃ¡gina
+            // número de linhas por página
             parent::__construct(NULL, NULL, 55);
 
             $this->titleReport = 'Exemplo MBandreport _ MultiLevel com Bands';
@@ -21,9 +21,9 @@
             $conta[2] = '0000002';
             $conta[3] = '0000003';
             $conta[4] = '0000004';
-            $tipo[1]  = 'DiÃ¡ria';
+            $tipo[1]  = 'Diária';
             $tipo[2]  = 'Passagem';
-            $tipo[3]  = 'VeÃ­culo';
+            $tipo[3]  = 'Veículo';
             for ($i = 1; $i < 4; $i++)     // level 1
             {
                 for ($j = 1; $j < 5; $j++) // level 2
@@ -51,17 +51,17 @@
 
             $this->addGroupHeader(0,'Setor: $');
             $this->addGroupHeader(1,'Conta: $');
-            $this->addGroupHeader(2,'Tipo de RequisiÃ§Ã£o: $');
+            $this->addGroupHeader(2,'Tipo de Requisição: $');
 
             // define as colunas da linha de detalhe
             // ReportColumn: name,title,align,nowrap,width,visible,options
             $columns = array(
-                new MPDFReportColumn('requisicao', '<b>RequisiÃ§Ã£o</b>', 'right', false, 10, true),
+                new MPDFReportColumn('requisicao', '<b>Requisição</b>', 'right', false, 10, true),
                 new MPDFReportColumn('datareq', '<b>Data</b>', 'center', false, 10, true),
                 new MPDFReportColumn('nome', '<b>Nome</b>', 'left', false, 25, true),
                 new MPDFReportColumn('empresa', '<b>Empresa</b>', 'left', false, 15, true),
                 new MPDFReportColumn('fatura', '<b>Fatura</b>', 'right', false, 15, true),
-                new MPDFReportColumn('previsao', '<b>PrevisÃ£o</b>', 'right', false, 10, true),
+                new MPDFReportColumn('previsao', '<b>Previsão</b>', 'right', false, 10, true),
                 new MPDFReportColumn('valor', '<b>Valor Real</b>', 'right', false, 15, true),
             );
 

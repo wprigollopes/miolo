@@ -126,7 +126,7 @@ class MMultiSelectionField extends MListControl
         $field->formMode = 2;
         $select = $field;
 
-        // fields - cada field Ã© um selection
+        // fields - cada field é um selection
         $fields = array();
 
         $n = 1;

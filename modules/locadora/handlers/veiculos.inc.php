@@ -1,7 +1,7 @@
 <?php
 
     // adds an option to the navigation bar
-    $navbar->addOption( 'VeÃ­culos', $module, $action );
+    $navbar->addOption( 'Veículos', $module, $action );
 
     // get access to the User Interface
     $ui = $MIOLO->getUI();

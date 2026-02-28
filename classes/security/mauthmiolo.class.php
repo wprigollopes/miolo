@@ -15,24 +15,27 @@ class MAuthMIOLO extends MAuth
     {
         $MIOLO  = $this->manager;
         $db = $MIOLO->getDatabase('admin');
-        $result = $db->query('SELECT name, groups FROM cmn_users WHERE login = \''.$user.'\' AND password = \''.md5($pass).'\'');
+        $result = $db->queryParams('SELECT name, groups, password FROM cmn_users WHERE login = ?', [$user]);
 
-        $groups = array();
-        foreach(explode(',',$result[0][1]) as $group)
-        {
-            $groups[] = $group;
+        if (sizeof($result) > 0 && password_verify($pass, $result[0][2])) {
+            $groups = array();
+            foreach(explode(',',$result[0][1]) as $group)
+            {
+                $groups[] = $group;
+            }
+
+            if($log)
+            {
+                $login = new MLogin($user,
+                                    $pass,
+                                    $result[0][0],
+                                    0);
+                $login->setGroups($groups);
+                $this->setLogin($login);
+            }
+            return true;
         }
-        
-        if($log && sizeof($result) > 0)
-        {
-            $login = new MLogin($user,
-                                $pass,
-                                $result[0][0],
-                                0);
-            $login->setGroups($groups);
-            $this->setLogin($login);
-        }
-        return sizeof($result) > 0;
+        return false;
     }
 }
 ?>

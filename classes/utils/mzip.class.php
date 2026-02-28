@@ -1,6 +1,6 @@
 <?php
 // +-----------------------------------------------------------------+
-// | MIOLO - Miolo Development Team - UNIVATES Centro UniversitÃ¡rio  |
+// | MIOLO - Miolo Development Team - UNIVATES Centro Universitário  |
 // +-----------------------------------------------------------------+
 // | Copyleft (l) 2001 UNIVATES, Lajeado/RS - Brasil                 |
 // +-----------------------------------------------------------------+
@@ -14,17 +14,17 @@
 // | Abstract: This file contains utils functions                    |
 // |                                                                 |
 // | Created: 2001/08/14 Thomas Spriestersbach                       |
-// |                     Vilson Cristiano GÃ¤rtner,                   |
+// |                     Vilson Cristiano Gärtner,                   |
 // |                                                                 |
 // | History: Initial Revision                                       |
 // +-----------------------------------------------------------------+
 
 /**
  * Classe para descompactar arquivos zip.
- * Esta classe eÂ´ ser utilizada para descompactar arquivos .zip
+ * Esta classe e´ ser utilizada para descompactar arquivos .zip
  *
  * Requerer: extensao zip do php: http://pecl.php.net/packages/zip
- * InstalaÃ§ao:
+ * Instalaçao:
  *             - download do arquivo do pacote
  *             - descompactar o arquivo
  *             $ phpize5 (dentro do diretorio criado)
@@ -35,7 +35,7 @@
  *               extension=zip.so
  *             - reiniciar o apache
  *
- * Mais informaÃ§oes, consulte: http://php.net/manual/en/install.pecl.phpize.php
+ * Mais informaçoes, consulte: http://php.net/manual/en/install.pecl.phpize.php
  */
 class MZip
 {

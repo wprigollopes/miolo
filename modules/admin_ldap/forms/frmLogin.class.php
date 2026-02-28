@@ -59,13 +59,13 @@ class frmLogin extends Form
         // Max login tryes
         $max_tries = 3;
         
-        // autenticar usuÃ¡rio e obter dados do login
+        // autenticar usuário e obter dados do login
         $uid = $this->getFormValue('uid');
         $pwd = $this->getFormValue('pwd');
 
         if ( !$this->loginPermitted($uid) )
         {
-           $err = 'Acesso nÃ£o permitido.';
+           $err = 'Acesso não permitido.';
         }
         else
         {
@@ -88,11 +88,11 @@ class frmLogin extends Form
                $tries = $this->getFormValue('tries');
                if ( $tries >= $max_tries )
                {
-                  $MIOLO->error('Erro na identificaÃ§Ã£o do usuÃ¡rio!');
+                  $MIOLO->error('Erro na identificação do usuário!');
                }
                else
                {
-                  $err = 'Erro na identificaÃ§Ã£o do usuÃ¡rio!' . ' - Restam ' . ( $max_tries - $tries) . 
+                  $err = 'Erro na identificação do usuário!' . ' - Restam ' . ( $max_tries - $tries) . 
                          ' ' . 'tentativa(s).';
                   $tries++;
                   $this->setFieldValue('tries',$tries);

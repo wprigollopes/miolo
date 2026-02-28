@@ -1,14 +1,14 @@
 <?php
 $perms->checkAccess('admin_ldap',A_ACCESS,true);
 
-$navbar->addOption('AdministraÃ§Ã£o',$module,'main:admin');
+$navbar->addOption('Administração',$module,'main:admin');
 $ui = $MIOLO->getUI();
 
 
 $close = $MIOLO->getActionURL('admin_ldap','main');
-$cmPanel = new ActionPanel('pnlCommon','AdministraÃ§Ã£o de permissÃµes LDAP','', $close, $ui->getImage($module,'tools1.png'));
+$cmPanel = new ActionPanel('pnlCommon','Administração de permissões LDAP','', $close, $ui->getImage($module,'tools1.png'));
 //$cmPanel->addAction( 'Modules', $ui->getImage($module,'system.png'), $module, 'main:modules');
-$cmPanel->addAction( 'UsuÃ¡rios', $ui->getImage($module,'user.png'), $module, 'main:users');
+$cmPanel->addAction( 'Usuários', $ui->getImage($module,'user.png'), $module, 'main:users');
 $cmPanel->addAction( 'Grupos', $ui->getImage($module,'groups.png'), $module, 'main:groups');
 
 $handled = $MIOLO->invokeHandler($module, $context->shiftAction());

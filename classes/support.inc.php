@@ -1,7 +1,7 @@
 <?php
 
 global $MIOLO;
-if ( !$MIOLO->getConf('options.debug') )
+if ( !isset($MIOLO) || !$MIOLO || !$MIOLO->getConf('options.debug') )
 {
     error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
     ini_set("log_errors","on");
@@ -47,7 +47,7 @@ function setDomainLocale($domain)
     
 }
 
-if (function_exists('_'))
+if (function_exists('_') && class_exists('MIOLO', false) && MIOLO::getInstance() !== null)
 {
     setDomainLocale('miolo');
 }
@@ -80,7 +80,7 @@ function _M($msg, $dom = 'miolo', $p1 = null, $p2 = null, $p3 = null)
     // Faz desta forma para tratar as mensagens vindas do miolo20 com acentuação #49910
     if ( mb_detect_encoding($msg.'x', 'UTF-8, ISO-8859-1') == 'ISO-8859-1' )
     {
-        $msg = utf8_encode($msg);
+        $msg = mb_convert_encoding($msg, 'UTF-8', 'ISO-8859-1');
     }
 
     if (function_exists('_'))
@@ -173,12 +173,7 @@ function miolo_autoload($className)
   if(ucfirst(substr($className,0,1)) == substr($className,0,1))
   $MIOLO->setConf('tempvar', $className);
 
-    if (defined('DOMPDF_DIR'))
-    {
-        $fileName = DOMPDF_autoload($className);
-        if (file_exists($fileName))
-           $autoload->setFile($className, $fileName);
-    }
+    // DOMPDF autoloading now handled by Composer (dompdf/dompdf ^2.0)
     
     $className = strtolower($className);
 
@@ -217,7 +212,10 @@ function miolo_autoload($className)
      }
 }
 
-spl_autoload_register('miolo_autoload');
+// Only register Miolo's autoloader when Composer's ClassLoader is not present
+if (!class_exists('Composer\\Autoload\\ClassLoader', false)) {
+    spl_autoload_register('miolo_autoload');
+}
 
 $error_types = (int)ini_get("error_reporting");
 

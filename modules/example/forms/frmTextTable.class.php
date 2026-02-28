@@ -57,7 +57,7 @@ class frmTextTable extends MForm
                 // cols : colunas (elementos TD) da linha selecionada
 //          "   var cols = xGetElementsByTagName('TD',row); ".
                 "   var cols = dojo.query('TD',row); " .
-                // url : url que serÃ¡ chamada
+                // url : url que será chamada
                 "   url = '{$selectAluno}'; " .
                 // troca o %0% pelo valor da coluna 1 (idAaluno)
 //          "   url = url.replace( '%0%', cols[1].firstChild.nodeValue); ".

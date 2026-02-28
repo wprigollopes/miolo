@@ -298,7 +298,7 @@ class frmConf extends MForm
             $confArray['login.auto'  ] = $login->getElementsByTagName('auto'  )->item(0)->nodeValue;
         }
 
-        $session = $conf->getElementsByTagName('session')->item(1); //acesso o 2Âº item pois senÃ£o pega o <session> o <mad>
+        $session = $conf->getElementsByTagName('session')->item(1); //acesso o 2º item pois senão pega o <session> o <mad>
         if( $session )
         {
             $confArray['session.handler'] = $session->getElementsByTagName('handler')->item(0)->nodeValue;

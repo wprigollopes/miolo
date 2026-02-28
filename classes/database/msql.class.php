@@ -34,6 +34,8 @@ class MSQL
 
     public $stmt;
 
+    public $preparedParams = [];
+
     public $setOperation;
 
 	public $limit;
@@ -85,7 +87,7 @@ class MSQL
 
         for ($i = 0; $i < $l; $i++)
         {
-            $c = $source{$i};
+            $c = $source[$i];
 
             if (!$can)
             {
@@ -511,68 +513,27 @@ public function setLimit($limit)
             $parameters = array($parameters);
         }
 
-        $i = 0;
-        $pos = 0;
-        while (($pos = strpos($this->command, '?', $pos + 1)) !== false)
-        {
-            $pos_array[$i++] = $pos;
-        }
+        // Count placeholders
+        $placeholderCount = substr_count($this->command, '?');
 
-        $MIOLO->assert($i == count($parameters), "SQL PREPARE: " . _M('Invalid parameters!') . "SQL: {$this->command}");
+        $MIOLO->assert($placeholderCount == count($parameters), "SQL PREPARE: " . _M('Invalid parameters!') . "SQL: {$this->command}");
 
-        if ($i > 0)
-        {
-            $sqlText = '';
-            $p = 0; 
-            foreach ($pos_array as $i => $pos)
-            {
-                $param = $parameters[$i];
-
-                // If the parameter starts with a ':', it is used as it is, without adding any quotation marks
-                // "Notice: Uninitialized string offset: 0" Acontece quando usa-se $param{0} uma string vazia,
-                // mas não acontece quando for null, int ou qualquer outra coisa.
-                if ( is_string($param) && strlen($param) > 0 && $param{0} == ':' ) 
-                {
-                    $param = substr($param, 1);
+        // Store parameters for PDO binding instead of interpolating into SQL
+        $this->preparedParams = array();
+        foreach ($parameters as $param) {
+            if (is_string($param) && strlen($param) > 0 && $param[0] == ':') {
+                // Literal SQL expression -- replace placeholder with the expression
+                $param = substr($param, 1);
+                $pos = strpos($this->command, '?');
+                if ($pos !== false) {
+                    $this->command = substr($this->command, 0, $pos) . $param . substr($this->command, $pos + 1);
                 }
-                elseif ( ($param === '') || (is_null($param)) )
-                {
-                    $param = 'null';
-                }
-                else
-                {
-                    /*
-                     * Códigos que utilizam essa classe sem usar ->setDb() não tem os parâmetros escapados
-                     * corretamente e não estão seguros.
-                     */
-                    $dbSystem = isset($this->db->system) ? $this->db->system : '';
-                    
-                    switch ($dbSystem)
-                    {
-                        case 'postgres':
-                            $param = "'" . pg_escape_string($param) . "'";
-                            break;
-
-                        case 'mysql':
-                            $param = "'" . mysql_real_escape_string($param) . "'";
-                            break;
-
-                        case 'sqlite':
-                            $param = "'" . sqlite_escape_string($param) . "'";
-                            break;
-
-                        default:
-                            $param = "'" . addslashes($param) . "'";
-                            break;
-                    }
-                }
-
-                $sqlText .= substr( $this->command, $p, $pos-$p) . $param;
-                $p = $pos + 1;
+            } elseif (($param === '') || (is_null($param))) {
+                $this->preparedParams[] = null;
+            } else {
+                $this->preparedParams[] = $param;
             }
-            $sqlText .= substr( $this->command, $p);
-            $this->command = $sqlText;
-       }
+        }
 
         return $this->command;
     }

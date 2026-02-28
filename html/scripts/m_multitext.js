@@ -1,5 +1,5 @@
 // +-----------------------------------------------------------------+
-// | MIOLO - Miolo Development Team - UNIVATES Centro UniversitÃ¡rio  |
+// | MIOLO - Miolo Development Team - UNIVATES Centro Universitário  |
 // +-----------------------------------------------------------------+
 // | CopyLeft (L) 2001,2002  UNIVATES, Lajeado/RS - Brasil           |
 // +-----------------------------------------------------------------+
@@ -12,7 +12,7 @@
 // +-----------------------------------------------------------------+
 // | Abstract: This file contains the javascript functions           |
 // |                                                                 |
-// | Created: 2001/08/14 Vilson Cristiano GÃ¤rtner [vg]               |
+// | Created: 2001/08/14 Vilson Cristiano Gärtner [vg]               |
 // |                     Thomas Spriestersbach    [ts]               |
 // |                                                                 |
 // | History: Initial Revision                                       |
@@ -23,8 +23,8 @@
  * MULTITEXTFIELD
  */
 /**
- * FunÃ§Ã£o que simplesmente seleciona todos os itens, para que
- * serÃ£o incluidos ao enviar o formulÃ¡rio
+ * Função que simplesmente seleciona todos os itens, para que
+ * serão incluidos ao enviar o formulário
  */
 function _MIOLO_MultiTextField_onSubmit(frmName,mtfName)
 {
@@ -42,8 +42,8 @@ function _MIOLO_MultiTextField_onSubmit(frmName,mtfName)
 }
 
 /**
- * FunÃ§Ã£o que intercepta a tecla Enter, para que o conteÃºdo do
- * campo de texto Ã© adicionado a lista.
+ * Função que intercepta a tecla Enter, para que o conteúdo do
+ * campo de texto é adicionado a lista.
  */
 function _MIOLO_MultiTextField_onKeyDown(source,frmObj,mtfName,event)
 {
@@ -72,7 +72,7 @@ function _MIOLO_MultiTextField_onKeyDown(source,frmObj,mtfName,event)
 }
 
 /**
- * FuncÃ§Ã£o que adiciona o conteÃºdo do campo de texto a lista.
+ * Funcção que adiciona o conteúdo do campo de texto a lista.
  */
 function _MIOLO_MultiTextField_add(frmObj,mtfName)
 {
@@ -91,7 +91,7 @@ function _MIOLO_MultiTextField_add(frmObj,mtfName)
 }
 
 /**
- * FuncÃ§Ã£o que exclui o item atualmente selecionado
+ * Funcção que exclui o item atualmente selecionado
  */
 function _MIOLO_MultiTextField_remove(frmObj,mtfName)
 {
@@ -336,7 +336,7 @@ function _MIOLO_MultiSelectionField_add(frmObj,msfName,n)
     }
 	if (achou)
 	{
-		alert('Item jÃ¡ estÃ¡ na lista!');
+		alert('Item já está na lista!');
 	} 
 	else
 	{
@@ -346,7 +346,7 @@ function _MIOLO_MultiSelectionField_add(frmObj,msfName,n)
 }
 
 /**
- * FuncÃ§Ã£o que exclui o item atualmente selecionado
+ * Funcção que exclui o item atualmente selecionado
  */
 function _MIOLO_MultiTextField2_remove(frmObj,mtfName,numFields)
 {
@@ -368,7 +368,7 @@ function _MIOLO_MultiTextField2_modify(frmObj,mtfName,numFields)
 	}
     else
     {
-        alert('Ã preciso selecionar o item a ser modificado!');
+        alert('É preciso selecionar o item a ser modificado!');
     }
 }
 
@@ -399,7 +399,7 @@ function _MIOLO_MultiTextField2_moveUp(frmObj,mtfName,numFields)
     
     else
     {
-        alert('Ã preciso selecionar o item a ser modificado!');
+        alert('É preciso selecionar o item a ser modificado!');
     }
 }
 
@@ -430,6 +430,6 @@ function _MIOLO_MultiTextField2_moveDown(frmObj,mtfName,numFields)
     
     else
     {
-        alert('Ã preciso selecionar o item a ser modificado!');
+        alert('É preciso selecionar o item a ser modificado!');
     }
 }

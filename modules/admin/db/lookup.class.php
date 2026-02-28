@@ -50,7 +50,7 @@ class BusinessAdminLookup
         {
             $filter = $lookup->getFilterValue();
         }
-        $lookup->addFilterField( new MTextField( 'filter', $filter, 'TransaÃ§Ã£o', 20 ) );
+        $lookup->addFilterField( new MTextField( 'filter', $filter, 'Transação', 20 ) );
         $columns = array( 
                 new DataGridColumn( 'idtransaction', 'Id', 'right', true, '5%', true ), 
                 new DataGridColumn( 'm_transaction', 'Transaction', 'left', true, '95%', true ) 

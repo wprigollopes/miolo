@@ -42,9 +42,9 @@ class OperandValue extends PersistentOperand
     public function getSql()
     {
         $value = $this->operand; 
-        if ($value{0} != '?')
+        if ($value[0] != '?')
         {
-            if ($value{0} == ':')
+            if ($value[0] == ':')
             {
                 $value = substr($value,1);
             }
@@ -52,7 +52,7 @@ class OperandValue extends PersistentOperand
             {
                 $value = 'null';
             }
-            elseif ($value{0} != "'")
+            elseif ($value[0] != "'")
             {
                 $value = "'".addslashes($value)."'";
             }

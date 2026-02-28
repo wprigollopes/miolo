@@ -124,7 +124,7 @@ if ( ! $handled)
 
 function getModName($modpkg)
 {
-    $modpkgName = split ('/',$modpkg);
+    $modpkgName = explode('/', $modpkg);
     $n = count($modpkgName)-1;
     $aux = $modpkgName[$n];
     return (substr($aux,0,-4));

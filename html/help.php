@@ -36,16 +36,16 @@ function parseXMLFile($file, $module, $lang, $theme_image_dir, $MIOLO)
         //$xml = new SimpleXMLElement($data);
         $xml = simplexml_load_file($file);
 
-        $header = '<p class="m-tableraw-row"><b>' . _M( utf8_decode($xml->name), $module) . ':</b> ' .
-                  replaceImage( utf8_decode($xml->description), $MIOLO) . '</p>';
+        $header = '<p class="m-tableraw-row"><b>' . _M( mb_convert_encoding($xml->name, 'ISO-8859-1', 'UTF-8'), $module) . ':</b> ' .
+                  replaceImage( mb_convert_encoding($xml->description, 'ISO-8859-1', 'UTF-8'), $MIOLO) . '</p>';
 
         if ( count($xml->attributes->attribute) > 0 )
         {
             foreach ( $xml->attributes->attribute as $attribute )
             {
-                $label = _M( utf8_decode($attribute->label), $module);
-                $type  = _M( utf8_decode($attribute->type) , $module);
-                $descr = _M(utf8_decode( $attribute->description), $module );
+                $label = _M( mb_convert_encoding($attribute->label, 'ISO-8859-1', 'UTF-8'), $module);
+                $type  = _M( mb_convert_encoding($attribute->type, 'ISO-8859-1', 'UTF-8') , $module);
+                $descr = _M(mb_convert_encoding( $attribute->description, 'ISO-8859-1', 'UTF-8'), $module );
                 $descr = replaceImage( $descr, $MIOLO);
 
                 $fieldsArray = array("$label", "$type" , "$descr");

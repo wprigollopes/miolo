@@ -321,7 +321,7 @@ class MXMLTree
          static $depth = 0;
          while ($childDomNode) {
              if ($childDomNode->nodeType == XML_TEXT_NODE) {
-                 $this->_characterData(utf8_decode(trim($childDomNode->nodeValue)));
+                 $this->_characterData(mb_convert_encoding(trim($childDomNode->nodeValue), 'ISO-8859-1', 'UTF-8'));
              } elseif ($childDomNode->nodeType == XML_ELEMENT_NODE) {
                  $hasTag = 1;
                  $attrs = array();
@@ -331,14 +331,14 @@ class MXMLTree
                          $attrs[$domAttribute->name] = $domAttribute->value;
                      }
                  }
-                 $this->_startElement(utf8_decode($childDomNode->nodeName), $attrs);
+                 $this->_startElement(mb_convert_encoding($childDomNode->nodeName, 'ISO-8859-1', 'UTF-8'), $attrs);
 
                  if ($childDomNode->hasChildNodes()) {
                      $depth++;
                      $this->parse($childDomNode);
                      $depth--;
                  }
-                 $this->_endElement(utf8_decode($childDomNode->nodeName));
+                 $this->_endElement(mb_convert_encoding($childDomNode->nodeName, 'ISO-8859-1', 'UTF-8'));
              }
              $childDomNode = $childDomNode->nextSibling;
          }

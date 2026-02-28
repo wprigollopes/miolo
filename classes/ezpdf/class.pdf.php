@@ -1917,7 +1917,7 @@ class Cpdf
         {
             $this->addMessage('openFont: php file exists ' . $dir . 'php_' . $name . '.afm');
             $tmp = file($dir . 'php_' . $name . '.afm');
-            $this->fonts[$font] = unserialize($tmp[0]);
+            $this->fonts[$font] = unserialize($tmp[0], ['allowed_classes' => false]);
 
             if (!isset($this->fonts[$font]['_version_']) || $this->fonts[$font]['_version_'] < 1)
             {

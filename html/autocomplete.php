@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../vendor/autoload.php';
+
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # @title
 #   Autocomplete features
@@ -42,6 +44,11 @@ $item    = $_GET['item']    = $_REQUEST['item'];
 $related = $_GET['related'] = $_REQUEST['related'];
 $value   = $_GET['value'] = $_REQUEST['value'];
 
+if (!preg_match('/^[a-zA-Z0-9_]+$/', $module)) {
+    http_response_code(400);
+    die('Invalid module name');
+}
+
 require_once '../classes/miolo.class.php';
 
 $MIOLO = MIOLO::getInstance();
@@ -82,7 +89,12 @@ $MIOLO->assert($ok,_M('File modules/@1/db/lookup.class.php not found!<br>'.
                       'which must have a method called Lookup@2.',
                       'miolo',$module, $item));
 
-eval("\$object = new Business{$module}Lookup();");
+$className = 'Business' . $module . 'Lookup';
+if (!preg_match('/^[a-zA-Z0-9_]+$/', $module) || !class_exists($className)) {
+    http_response_code(400);
+    die('Invalid module');
+}
+$object = new $className();
 
 //$context = new MContext();
 
@@ -91,7 +103,12 @@ eval("\$object = new Business{$module}Lookup();");
 
 $autoCompleteObj = new MAutoComplete($module,$item, $value,$related);
 //var_dump($autoCompleteObj);
-eval("\$rs = \$object->autoComplete$item(\$autoCompleteObj);");
+$method = 'autoComplete' . $item;
+if (!preg_match('/^[a-zA-Z0-9_]+$/', $item) || !method_exists($object, $method)) {
+    http_response_code(400);
+    die('Invalid item');
+}
+$rs = $object->$method($autoCompleteObj);
 
 $info = $autoCompleteObj->getResult();
 

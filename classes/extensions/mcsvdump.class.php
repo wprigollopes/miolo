@@ -7,7 +7,7 @@
 
  /**
  *  IAM_CSVDump A class form performing a query dump and sending it to the browser or setting it or download.
- *  @author     IvÃ¡n Ariel Melgrati <phpclasses@imelgrat.mailshell.com>
+ *  @author     Iván Ariel Melgrati <phpclasses@imelgrat.mailshell.com>
  *  @package    iam_csvdump
  *  @version 1.0
  *

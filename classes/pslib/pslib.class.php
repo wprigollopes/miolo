@@ -211,7 +211,7 @@ class postscript
         return (1);
     }
 
-    // Use ISOLatin1 Encoding = AcentuaÃ§Ã£o, caracteres grÃ¡ficos
+    // Use ISOLatin1 Encoding = Acentuação, caracteres gráficos
     public function encode_ISOLatin1($var = true)
     {
         $this->ISOLatin1 = $var;
@@ -289,7 +289,7 @@ class postscript
     }
 
     // Insert a PS file/image (remember to delete the information in the top of the file (source))
-    // Insere um arquivo/imagem PS (lembre-se de remover a informaÃ§ao no inicio daquele arquivo)
+    // Insere um arquivo/imagem PS (lembre-se de remover a informaçao no inicio daquele arquivo)
     public function open_ps($ps_file = "")
     {
         if (!$ps_file)
@@ -498,14 +498,15 @@ class postscript
         return (1);
     }
 
-    // Evaluate the text and show it at the current coordinates
+    // Show text at the current coordinates
     // Processa o texto e o escreve na posicao atual
     public function show_eval($text)
     {
         if (!$text)
             return (0);
 
-        eval ("\$text = \"$text\";");
+        // Variable interpolation removed for security.
+        // Pass already-interpolated strings directly.
         $this->string .= '(' . $text . ") s \n";
 
         return (1);

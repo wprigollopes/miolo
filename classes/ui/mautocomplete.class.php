@@ -25,8 +25,17 @@
                     && $MIOLO->uses('/db/lookup.class',$module) )
                 || $MIOLO->uses('/classes/lookup.class',$module) )
             {
-                eval("\$object = new Business{$module}Lookup();");
-                eval("\$info   = \$object->autoComplete{$item}(\$this,\$defaults);");
+                $className = 'Business' . $module . 'Lookup';
+                if (!preg_match('/^[a-zA-Z0-9_]+$/', $module) || !class_exists($className)) {
+                    return;
+                }
+                $object = new $className();
+
+                $method = 'autoComplete' . $item;
+                if (!preg_match('/^[a-zA-Z0-9_]+$/', $item) || !method_exists($object, $method)) {
+                    return;
+                }
+                $info = $object->$method($this, $defaults);
                 parent::__construct($this->module);
 
                 if($info)

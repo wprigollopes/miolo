@@ -84,8 +84,17 @@ class MioloAdmin
         }
 
         $xml = simplexml_load_file($confFile);
-        $configVars = str_replace('.', '->', $config);
-        eval("\$xml->$configVars = '$value';");
+        $configParts = explode('.', $config);
+        $node = $xml;
+        for ($i = 0; $i < count($configParts) - 1; $i++) {
+            $part = $configParts[$i];
+            if (!isset($node->$part)) {
+                $node->addChild($part);
+            }
+            $node = $node->$part;
+        }
+        $lastPart = $configParts[count($configParts) - 1];
+        $node->$lastPart = $value;
 
         $this->writeContentToFile($xml->asXML(), $confFile);
     }
@@ -130,8 +139,17 @@ class MioloAdmin
         }
 
         $xml = simplexml_load_file($confFile);
-        $configVars = str_replace('.', '->', $config);
-        eval("unset(\$xml->$configVars);");
+        $configParts = explode('.', $config);
+        $node = $xml;
+        for ($i = 0; $i < count($configParts) - 1; $i++) {
+            $part = $configParts[$i];
+            if (!isset($node->$part)) {
+                break;
+            }
+            $node = $node->$part;
+        }
+        $lastPart = $configParts[count($configParts) - 1];
+        unset($node->$lastPart);
 
         $this->writeContentToFile($xml->asXML(), $confFile);
     }

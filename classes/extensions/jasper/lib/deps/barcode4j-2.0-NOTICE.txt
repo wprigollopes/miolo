@@ -4,8 +4,8 @@
 =========================================================================
 
 Barcode4J
-Copyright 2002-2008 Jeremias Märki
-Copyright 2005-2006 Dietmar Bürkle
+Copyright 2002-2008 Jeremias MÃ¤rki
+Copyright 2005-2006 Dietmar BÃ¼rkle
 
 Portions of this software were contributed under section 5 of the 
 Apache License. Contributors are listed under:

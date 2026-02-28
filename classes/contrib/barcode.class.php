@@ -37,22 +37,22 @@
 #---------------------------------------------------------------------
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Rotina para a geraÃ§Ã£o de CÃ³digo de Barra
-# no padrÃ£o Interleved 2 of 5 (Intercalado 2 de 5)
-# utilizado para os documentos bancÃ¡rios conforme
-# padrÃ£o FEBRABAN.
+# Rotina para a geração de Código de Barra
+# no padrão Interleved 2 of 5 (Intercalado 2 de 5)
+# utilizado para os documentos bancários conforme
+# padrão FEBRABAN.
 # UNILASALLE
 #---------------------------------------------------------------------
 class BarcodeI25
 {
     //Public properties
-    public $codigo;       //SET: CÃ³digo a converter em cÃ³digo de barras
-    public $ebf;          //SET: Espessura da barra fina: usar 1 atÃ© 2.
+    public $codigo;       //SET: Código a converter em código de barras
+    public $ebf;          //SET: Espessura da barra fina: usar 1 até 2.
     public $ebg;          //SET: Espessura da barra grossa: usar 2x a 3x da esp_barra_fn.
-    public $altb;         //SET: altura do cÃ³digo de barras
-    public $ipp;          //SET: EndereÃ§o completo da imagem do ponto PRETO p/compor o cÃ³digo de barras
-    public $ipb;          //SET: EndereÃ§o completo da imagem do ponto BRANCO p/compor o cÃ³digo de barras
-    public $tamanhoTotal; //Propriedade de RETORNO do tamanho total da imagem do cÃ³digo de barras
+    public $altb;         //SET: altura do código de barras
+    public $ipp;          //SET: Endereço completo da imagem do ponto PRETO p/compor o código de barras
+    public $ipb;          //SET: Endereço completo da imagem do ponto BRANCO p/compor o código de barras
+    public $tamanhoTotal; //Propriedade de RETORNO do tamanho total da imagem do código de barras
 
     //Private properties
     public $mixed_code;
@@ -83,9 +83,9 @@ class BarcodeI25
     {
         $MIOLO = MIOLO::getInstance();
 
-        $MIOLO->assert(strlen($code) > 0, "CÃ³digo de Barras nÃ£o informado. (Barcode Undefined)");
+        $MIOLO->assert(strlen($code) > 0, "Código de Barras não informado. (Barcode Undefined)");
 
-        $MIOLO->assert(!(strlen($code) % 2), "Tamanho invÃ¡lido de cÃ³digo. Deve ser mÃºltiplo de 2.");
+        $MIOLO->assert(!(strlen($code) % 2), "Tamanho inválido de código. Deve ser múltiplo de 2.");
 
         $this->codigo = $code;
     }
@@ -127,7 +127,7 @@ class BarcodeI25
 
         $lbc = strlen($this->bc_string) - 1;
 
-        //Gera o cÃ³digo com os patterns
+        //Gera o código com os patterns
         for ($xi = 0; $xi <= $lbc; $xi++)
         {
             $k = (int)substr($this->bc_string, $xi, 1);
@@ -136,7 +136,7 @@ class BarcodeI25
 
         $this->bc_string = $new_string;
 
-        //Faz a mixagem do CÃ³digo
+        //Faz a mixagem do Código
         $this->mixCode();
 
         $this->bc_string = $this->bc[10] . $this->bc_string . $this->bc[11]; //Adding Start and Stop Pattern
@@ -171,8 +171,8 @@ class BarcodeI25
 
     public function mixCode()
     {
-        //Faz a mixagem do valor a ser codificado pelo CÃ³digo de Barras I25
-        //DeclaraÃ§Ã£o de Variaveis
+        //Faz a mixagem do valor a ser codificado pelo Código de Barras I25
+        //Declaração de Variaveis
         $i = 0;
         $l = 0;
         $k = 0;  //inteiro, inteiro, longo
@@ -182,7 +182,7 @@ class BarcodeI25
 
         if (($l % 5) != 0 || ($l % 2) != 0)
         {
-            $this->barra_html = "<b> CÃ³digo nÃ£o pode ser intercalado: Comprimento invÃ¡lido (mix).</b>";
+            $this->barra_html = "<b> Código não pode ser intercalado: Comprimento inválido (mix).</b>";
         }
         else
         {

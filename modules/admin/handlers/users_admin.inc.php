@@ -2,7 +2,7 @@
 
     $home = 'main:admin';
     
-    $navbar->addOption('UsuÃ¡rios',$module,$self);
+    $navbar->addOption('Usuários',$module,$self);
     
     $ui = $MIOLO->getUI();
     

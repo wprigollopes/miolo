@@ -11,11 +11,11 @@ class FrmVeiculos extends MForm
     public function __construct()
     {
         // construtor da classe
-        parent::__construct('Cadastro de VeÃ­culos');
+        parent::__construct('Cadastro de Veículos');
 
         // define array of buttons
         $buttons = Array( new FormButton( 'btnPost', _M('Gravar') ),
-                          new FormButton( 'btnListar', _M('Listar VeÃ­culos') )
+                          new FormButton( 'btnListar', _M('Listar Veículos') )
                          );
 
         // add the buttons to the form
@@ -31,12 +31,12 @@ class FrmVeiculos extends MForm
      */
     public function createFields()
     {
-        $this->addField( new MTextField( 'placa', Form::getFormValue('placa'), 'Placa', 10 , 'Informe a placa do veÃ­culo' ) );
-        $this->placa->setJsHint( 'Informe a placa do veÃ­culo' );
+        $this->addField( new MTextField( 'placa', Form::getFormValue('placa'), 'Placa', 10 , 'Informe a placa do veículo' ) );
+        $this->placa->setJsHint( 'Informe a placa do veículo' );
         $this->page->onLoad('document.'.$this->name.'.placa.focus();');
 
-        $this->addField( new MTextField( 'modelo', Form::getFormValue('modelo'), 'Modelo/Marca',  40, 'Informe o modelo/marca do veÃ­culo') );
-        $this->modelo->setJsHint( 'Informe o modelo/marca do veÃ­culo' );
+        $this->addField( new MTextField( 'modelo', Form::getFormValue('modelo'), 'Modelo/Marca',  40, 'Informe o modelo/marca do veículo') );
+        $this->modelo->setJsHint( 'Informe o modelo/marca do veículo' );
     }
 
     /**
@@ -59,12 +59,12 @@ class FrmVeiculos extends MForm
         {
             $msg  = 'Dados gravados.';
             $goto = $MIOLO->getActionURL( $module, $action );
-            $caption = 'InformaÃ§Ã£o';
+            $caption = 'Informação';
             $MIOLO->information( $msg, $goto );
         }
         else
         {
-            $msg  = 'NÃ£o foi possÃ­vel Gravar os dados.';
+            $msg  = 'Não foi possível Gravar os dados.';
             $goto = $MIOLO->getActionURL( $module, $action );
             $caption = 'ERRO';
             $MIOLO->error( $msg, $goto, $caption );

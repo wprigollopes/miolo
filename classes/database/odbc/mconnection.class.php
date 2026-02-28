@@ -19,6 +19,11 @@ class ODBCConnection extends MConnection
         }
     }
 
+    protected function buildDsn($dbhost, $loginDB, $port = null)
+    {
+        return "odbc:{$loginDB}";
+    }
+
     public function _close()
     {
         odbc_close($this->id);

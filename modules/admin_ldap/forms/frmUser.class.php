@@ -18,7 +18,7 @@ class frmUser extends MForm
         $this->objModule= $MIOLO->getBusiness($module,'module');
         $this->objUser  = $MIOLO->getBusiness($module,'user');
         $this->schema = $this->objUser->schema;
-		parent::__construct('UsuÃ¡rios');
+		parent::__construct('Usuários');
         $this->setWidth('65%');
         $this->setIcon($MIOLO->getUI()->getImage('admin','user1.png'));
         $this->setClose($MIOLO->getActionURL('admin','main'));
@@ -33,17 +33,17 @@ class frmUser extends MForm
         $mtFieldGrp = array(array('mtgrupo' ,'Grupos','',$grupos));
         $modulos    = $this->objModule->listAll(false);
         $permissoes = $this->objModule->listAllAccess(false);
-        $mtFieldAcs = array(array('mtmodule','MÃ³dulo','',$modulos), array('mtaccess','PermissÃ£o','',$permissoes));
+        $mtFieldAcs = array(array('mtmodule','Módulo','',$modulos), array('mtaccess','Permissão','',$permissoes));
         
         $fields = array(
             new MHiddenField('key',''),
             new MTextField('txtLogin','','Login',20),
             new MTextField('edtNome','','Nome',40),
-            new MTextField('codAluno','','CÃ³digo de aluno',10),
+            new MTextField('codAluno','','Código de aluno',10),
             new MTextField('edtEmail','','Email',40),
             new MPasswordField('edtPassword','','Senha',20),
             new MMultiTextField2('mtfGrupos',NULL,'Grupos',$mtFieldGrp,300,true,'vertical'),
-            new MMultiTextField2('mtfAccess',NULL,'PermissÃµes',$mtFieldAcs,300,true,'vertical'),
+            new MMultiTextField2('mtfAccess',NULL,'Permissões',$mtFieldAcs,300,true,'vertical'),
         );
         $this->setFields($fields);
 
@@ -53,7 +53,7 @@ class frmUser extends MForm
             new MButton('btnEdit',   'Editar'),
             //new MButton('btnNew',    'Incluir'),
             //new MButton('btnDelete', 'Excluir'),
-            new MButton('btnList',   'RelaÃ§Ã£o')
+            new MButton('btnList',   'Relação')
         );
         $this->setButtons($buttons);
     }
@@ -76,10 +76,10 @@ class frmUser extends MForm
     }
 
 /*
-    GetData: obtÃ©m os valores fornecidos no formulario e cria um objeto FormData
-             cujos attributos tÃªm o mesmo nome dos atributos do objeto que vai receber os valores.
-    A implementaÃ§Ã£o default do GetData cria um objeto FormData cujos atributos tÃªm
-    o mesmo nome dos campos do formulÃ¡rio.   
+    GetData: obtém os valores fornecidos no formulario e cria um objeto FormData
+             cujos attributos têm o mesmo nome dos atributos do objeto que vai receber os valores.
+    A implementação default do GetData cria um objeto FormData cujos atributos têm
+    o mesmo nome dos campos do formulário.   
 */
 	function getData()
 	{
@@ -95,10 +95,10 @@ class frmUser extends MForm
 	}
 
 /*
-    SetData: obtÃ©m os valores fornecidos atravÃ©s do parÃ¢metro $data (geralmente um
-             objeto de negÃ³cio) e preenche os campos do formulÃ¡rio.
-    A implementaÃ§Ã£o default do SetData assume que os atributos do objeto $data tÃªm
-    o mesmo nome dos campos do formulÃ¡rio.   
+    SetData: obtém os valores fornecidos através do parâmetro $data (geralmente um
+             objeto de negócio) e preenche os campos do formulário.
+    A implementação default do SetData assume que os atributos do objeto $data têm
+    o mesmo nome dos campos do formulário.   
 */
 	function setData($data)
 	{
@@ -109,7 +109,7 @@ class frmUser extends MForm
 		$this->setFieldValue('edtNome'    , $data->nome);
 		$this->setFieldValue('codAluno'   , $data->codAluno);
 		$this->setFieldValue('edtEmail'   , $data->email);
-        // $data->grupos Ã© um array de objetos; GetAttribute percorre este array e obtem um array com 
+        // $data->grupos é um array de objetos; GetAttribute percorre este array e obtem um array com 
         // o atributo IdGrupo
         $grupos = $data->groups; //$this->getAttribute($data->groups,'idGroup');//,'group'));
         $this->getField('mtfGrupos')->setCodeValue($grupos);
@@ -129,11 +129,11 @@ class frmUser extends MForm
 	{
 		$MIOLO = MIOLO::getInstance();
 
-        $key = $this->getFieldValue('key');  // inclusÃ£o ou ediÃ§Ã£o?
+        $key = $this->getFieldValue('key');  // inclusão ou edição?
         $objUser = $this->objUser;     // apenas um shortcut
         if ($key != '')
         {
-            $objUser->getById($key); // se for ediÃ§Ã£o, obtem os dados atuais do objeto
+            $objUser->getById($key); // se for edição, obtem os dados atuais do objeto
         }
         // seta os atributos do objeto com os valores dos campos do formulario
 		$objUser->setData($this->getData()); 
@@ -141,7 +141,7 @@ class frmUser extends MForm
         $grupos = $this->getField('mtfGrupos')->getCodeValue();
         foreach($grupos as $g)
         {
-            $data->grupos[] = $g[0]; // obtÃ©m o idGrupo
+            $data->grupos[] = $g[0]; // obtém o idGrupo
         }
 		$objUser->setArrayGroups($data->grupos);
         $objUser->setArrayRights($this->getField('mtfAccess')->getCodeValue());
@@ -149,7 +149,7 @@ class frmUser extends MForm
         try
         {
             $objUser->save();
-            $MIOLO->information('UsuÃ¡rio atualizado com sucesso.', $this->home );
+            $MIOLO->information('Usuário atualizado com sucesso.', $this->home );
         }
         catch (EMioloException $e)
         {
@@ -163,7 +163,7 @@ class frmUser extends MForm
 		$module = MIOLO::getCurrentModule();
 		$action = MIOLO::getCurrentAction();
 
-        // limpa o formulÃ¡rio
+        // limpa o formulário
         //$this->clearFields();
         $this->clearButtons();
         $this->defaultButton = false;
@@ -173,8 +173,8 @@ class frmUser extends MForm
             array(
                new MTextField('txtLogin','','Login',25),
                new MTextField('edtNome','','Nome',40),
-               new MTextField('codAluno','','CÃ³digo de aluno',10),
-               new MButton('btnList','RelaÃ§Ã£o')
+               new MTextField('codAluno','','Código de aluno',10),
+               new MButton('btnList','Relação')
             )
         );
         $this->setFields($fields);
@@ -199,14 +199,14 @@ class frmUser extends MForm
 
         // instancia o datagrid
         $datagrid = new MGrid($query, $columns, $hrefDatagrid, 20);
-        $datagrid->setTitle('RelaÃ§Ã£o de UsuÃ¡rios');
+        $datagrid->setTitle('Relação de Usuários');
         $datagrid->setClose($MIOLO->getActionURL($module,$action));
 
  	    $href_edit = $MIOLO->getActionURL($module,$action,'%0%',Array('event'=>'btnEdit:click'));
 	    //$href_dele = $MIOLO->getActionURL($module,$action,'%0%',Array('event'=>'btnDelete:click'));
         $datagrid->addActionUpdate($href_edit);
 	    //$datagrid->addActionDelete($href_dele);
-        // coloca o datagrid no formulÃ¡rio
+        // coloca o datagrid no formulário
 		$this->addField($datagrid);
 	}
 
@@ -218,7 +218,7 @@ class frmUser extends MForm
 
         $login = $this->getFieldValue('txtLogin');
         if(!$login) $login = $this->getFieldValue('codAluno');
-        // verifica se estÃ¡ sendo executado atravÃ©s do evento do grid
+        // verifica se está sendo executado através do evento do grid
         if($item)
         {
             $this->objUser->getById($item);
@@ -230,7 +230,7 @@ class frmUser extends MForm
 
         if ($this->objUser->idUser)
         {
-            // coloca os dados do objeto nos campos do formulÃ¡rio
+            // coloca os dados do objeto nos campos do formulário
             $this->setData($this->objUser);
             // exibe os campos
             $this->setFieldsVisible(true);
@@ -244,7 +244,7 @@ class frmUser extends MForm
         }
         else
         {
-            $this->addError("UsuÃ¡rio [$login] nÃ£o encontrado!");
+            $this->addError("Usuário [$login] não encontrado!");
         }
 	}
 
@@ -272,7 +272,7 @@ class frmUser extends MForm
         }
         else
         {
-        //    $this->addError("Por favor, informe o login para novo usuÃ¡rio!");
+        //    $this->addError("Por favor, informe o login para novo usuário!");
         }
 	}
 
@@ -286,7 +286,7 @@ class frmUser extends MForm
 
         $objUser = $this->objUser;
         $login = $this->getFieldValue('txtLogin');
-        // verifica se estÃ¡ sendo executado atravÃ©s do evento do grid
+        // verifica se está sendo executado através do evento do grid
         $item = ($key != '') ? $key : $item;
         if ($item != '')
         {
@@ -304,7 +304,7 @@ class frmUser extends MForm
                 try
                 {
                      $objUser->delete();
-                     $MIOLO->prompt(Prompt::information("UsuÃ¡rio [$objUser->login] excluÃ­do com sucesso.",$this->home));
+                     $MIOLO->prompt(Prompt::information("Usuário [$objUser->login] excluído com sucesso.",$this->home));
                 }
                 catch (EMioloException $e)
                 {
@@ -313,18 +313,18 @@ class frmUser extends MForm
 	        }
 	        elseif ( $conf == 'nao')
             {
-	            $MIOLO->prompt(Prompt::information('ExclusÃ£o cancelada.',$this->home));
+	            $MIOLO->prompt(Prompt::information('Exclusão cancelada.',$this->home));
             }
 	        else
 	        {
 		        $action_sim = $MIOLO->getActionURL($module,$action,$objUser->idUser, array('event'=>'btnDelete:click','conf'=>'sim'));
 		        $action_nao = $MIOLO->getActionURL($module,$action,$objUser->idUser, array('event'=>'btnDelete:click','conf'=>'nao'));
-	            $MIOLO->prompt(Prompt::question("Confirma a exclusÃ£o do usuÃ¡rio [$objUser->login]?", $action_sim, $action_nao));
+	            $MIOLO->prompt(Prompt::question("Confirma a exclusão do usuário [$objUser->login]?", $action_sim, $action_nao));
             }
         }
         else
         {
-            $this->addError("UsuÃ¡rio [$login] nÃ£o encontrado!");
+            $this->addError("Usuário [$login] não encontrado!");
         }
 	}
 

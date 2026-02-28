@@ -16,7 +16,7 @@ class frmWinCurso extends MFormAjax
 
         // define the URLs and create instances of MWindow objects
         $urlSala = $this->manager->getActionURL('example','windows:modal_ajax','form2'); 
-        $winSala = new MWindow('winSala',array('url'=>$urlSala,'title'=>'InclusÃ£o de Nova Sala'));
+        $winSala = new MWindow('winSala',array('url'=>$urlSala,'title'=>'Inclusão de Nova Sala'));
 
         // In this sample, dialogs are called from button clicks
         // $dialog->getLink() return the javascript link to create dialogs

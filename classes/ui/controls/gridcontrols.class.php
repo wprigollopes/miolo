@@ -52,17 +52,17 @@ class MGridControl extends MGridColumn
         $this->control[$i] = clone $this->basecontrol; // clonning
         $name = $this->control[$i]->getName();
 
-        //se o nome nÃ£o Ã© um array acrescenta os colchetes para tornÃ¡-lo um
+        //se o nome não é um array acrescenta os colchetes para torná-lo um
         if (strpos($name, "[") === false && strpos($name, "]") === false)
         {
             $name .= "[$i]";
         }
         else
         {
-            //posiÃ§Ã£o do caracter identificador, que serÃ¡ substituÃ­do
+            //posição do caracter identificador, que será substituído
             $pos = strpos($name, '%');
 
-            //se o nome estÃ¡ de acordo com as regras de nomenclatura do grid. Numero da linha entre %'s
+            //se o nome está de acordo com as regras de nomenclatura do grid. Numero da linha entre %'s
             if (!$pos === false)
             {
                 $rowNumber = substr($name, $pos + 1, -2);
@@ -913,19 +913,21 @@ class MGrid extends MBaseGrid
                 }
             }
 
-            $order = $this->order == 'DESC' ? 'SORT_DESC' : 'SORT_ASC';
+            $order = $this->order == 'DESC' ? SORT_DESC : SORT_ASC;
 
-            $sortcols = "\$arr[$p], $order";
-
+            // Build args array for array_multisort safely
+            $args = [];
+            $args[] = &$arr[$p];
+            $args[] = $order;
             for ($i = 0; $i < $n; $i++)
             {
                 if ($i != $p)
                 {
-                    $sortcols .= ",\$arr[$i], $order";
+                    $args[] = &$arr[$i];
+                    $args[] = $order;
                 }
             }
-
-            eval("array_multisort($sortcols);");
+            array_multisort(...$args);
 
             $this->data = array();
 

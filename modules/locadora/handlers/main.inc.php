@@ -15,8 +15,8 @@ $locPanel = new MActionPanel( 'pnlLocadora', 'Locadora', '', $close );
 $ui = $MIOLO->getUI();
 
 // add actions to the panel
-$locPanel->addAction( _M('VeÃ­culos'), $ui->getImage( $module, 'car.png' ), $module, 'main:veiculos' );
-$locPanel->addAction( _M('LocaÃ§Ãµes'), $ui->getImage( $module, 'document.png' ), $module, 'main:locacoes' );
+$locPanel->addAction( _M('Veículos'), $ui->getImage( $module, 'car.png' ), $module, 'main:veiculos' );
+$locPanel->addAction( _M('Locações'), $ui->getImage( $module, 'document.png' ), $module, 'main:locacoes' );
 
 // append the content into the theme content
 $theme->appendContent( $locPanel );
@@ -26,7 +26,7 @@ $MIOLO->getSession()->setValue( 'num_mainmenu', 0 );
 $locMenu  = $theme->getMenu('locadora');
 $locMenu->setTitle( _M('Locadora') );
 $locMenu->addOption( _M('Veiculos'), $module, 'main:veiculos');
-$locMenu->addOption( _M('LocaÃ§Ãµes'), $module, 'main:locacoes');
+$locMenu->addOption( _M('Locações'), $module, 'main:locacoes');
 
 $MIOLO->uses('ui/controls/viewsource.class', 'tutorial');
 

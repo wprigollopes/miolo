@@ -836,7 +836,8 @@ class MBaseForm extends MContainerControl
 
         foreach ( $this->validations as $validator )
         {
-            eval("\$value = \$data->{$validator->field};");
+            $field = $validator->field;
+            $value = $data->$field;
 
             if ( !$validator->validate($value) )
             {

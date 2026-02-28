@@ -93,20 +93,19 @@ class BusinessAdminUser extends MBusiness implements IUser
     {
         $MIOLO = MIOLO::getInstance();
         $db = $MIOLO->getDatabase( 'admin' );
-        $this->hash = md5( $this->password );
+        $this->hash = password_hash( $this->password, PASSWORD_BCRYPT );
 
-        $sql = "INSERT INTO miolo_user VALUES (
-            '$this->idUser', 
-            '$this->login',
-            '$this->fullname',
-            '$this->nickname',
-            '$this->password',
-            '$this->hash',
-            '',
-            '$this->idModule'
-        )";
+        $sql = "INSERT INTO miolo_user VALUES (?, ?, ?, ?, ?, ?, '', ?)";
 
-        return $db->execute( $sql );
+        return $db->executeParams($sql, [
+            $this->idUser,
+            $this->login,
+            $this->fullname,
+            $this->nickname,
+            $this->password,
+            $this->hash,
+            $this->idModule
+        ]);
     }
 
     /**
@@ -117,31 +116,39 @@ class BusinessAdminUser extends MBusiness implements IUser
     {
         $MIOLO = MIOLO::getInstance();
         $db = $MIOLO->getDatabase( 'admin' );
-        $this->hash = md5( $this->password );
+        $this->hash = password_hash( $this->password, PASSWORD_BCRYPT );
 
-        $sql = "UPDATE miolo_user 
-                   SET login = '$this->login',
-                       name = '$this->fullname',
-                       nickname = '$this->nickname',
-                       m_password = '$this->password',
-                       confirm_hash = '$this->hash',
-                       idmodule = '$this->idModule'
-                 WHERE iduser = '$this->idUser'";
+        $sql = "UPDATE miolo_user
+                   SET login = ?,
+                       name = ?,
+                       nickname = ?,
+                       m_password = ?,
+                       confirm_hash = ?,
+                       idmodule = ?
+                 WHERE iduser = ?";
 
-        return $db->execute( $sql );
+        return $db->executeParams($sql, [
+            $this->login,
+            $this->fullname,
+            $this->nickname,
+            $this->password,
+            $this->hash,
+            $this->idModule,
+            $this->idUser
+        ]);
     }
 
     public function save()
     {
-        $this->hash = md5( $this->password );
-        
+        $this->hash = password_hash( $this->password, PASSWORD_BCRYPT );
+
         parent::save();
     }
 
     public function updatePassword($password)
     {
         $this->password = $password;
-        $this->hash = md5( $this->password );
+        $this->hash = password_hash( $this->password, PASSWORD_BCRYPT );
         $this->save();
     }
 
@@ -318,7 +325,7 @@ class BusinessAdminUser extends MBusiness implements IUser
      */
     public function validatePasswordMD5($password, $response=NULL)
     {
-        if ( md5($password) != $this->password )
+        if ( !password_verify($password, $this->password) )
         {
             throw new ESecurityException(_M('Password doesn\'t match'));
         }
@@ -396,20 +403,23 @@ class BusinessAdminUser extends MBusiness implements IUser
         $ret = $db->query($sql);
         $iduser = $ret[0][0];
 
-        $sql= "INSERT INTO miolo_user ( iduser,
-                                        login,
-                                        name,
-                                        nickname,
-                                        m_password,
-                                        confirm_hash )
-                    VALUES ( '{$iduser}',
-                             '{$data->admLogin}',
-                             '{$data->username}',
-                             '{$data->nickname}',
-                             MD5('{$data->admPassword}'),
-                             MD5('{$data->admPassword}') )";
+        $hashedPassword = password_hash($data->admPassword, PASSWORD_BCRYPT);
+        $sql = "INSERT INTO miolo_user ( iduser,
+                                         login,
+                                         name,
+                                         nickname,
+                                         m_password,
+                                         confirm_hash )
+                     VALUES (?, ?, ?, ?, ?, ?)";
 
-        $result = $db->execute($sql);
+        $result = $db->executeParams($sql, [
+            $iduser,
+            $data->admLogin,
+            $data->username,
+            $data->nickname,
+            $hashedPassword,
+            $hashedPassword
+        ]);
 
         /*if ( $result )
         {

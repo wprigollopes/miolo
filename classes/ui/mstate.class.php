@@ -44,7 +44,12 @@ class MState
         if ($this->viewState)
         {
             $s = base64_decode($this->viewState);
-            $this->stateVars = unserialize($s);
+            $data = json_decode($s, true);
+            if ($data === null && $s !== 'null') {
+                // Fallback for old serialized data
+                $data = @unserialize($s, ['allowed_classes' => false]);
+            }
+            $this->stateVars = $data;
         }
     }
 
@@ -52,7 +57,7 @@ class MState
     {
         if ($this->stateVars)
         {
-            $s = serialize($this->stateVars);
+            $s = json_encode($this->stateVars);
             $this->viewState = base64_encode($s);
         }
     }

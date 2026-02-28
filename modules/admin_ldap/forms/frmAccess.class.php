@@ -14,7 +14,7 @@ class frmAccess extends MForm
 
         if ( $lastAccess = $login->lastAccess )
         {
-           $msgAccess = "Seu Ãºltimo acesso ocorreu em $lastAccess[0] Ã s $lastAccess[1] ($lastAccess[2]).";
+           $msgAccess = "Seu último acesso ocorreu em $lastAccess[0] às $lastAccess[1] ($lastAccess[2]).";
         }
 
         $img    = new MImageFormLabel( 'imgLogo', '', $ui->getImage( '', 'logo_miolo_new.png' ) );

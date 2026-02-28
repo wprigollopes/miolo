@@ -1,5 +1,5 @@
 // +-----------------------------------------------------------------+
-// | MIOLO - Miolo Development Team - UNIVATES Centro UniversitÃ¡rio  |
+// | MIOLO - Miolo Development Team - UNIVATES Centro Universitário  |
 // +-----------------------------------------------------------------+
 // | Copyleft (l) 2001 UNIVATES, Lajeado/RS - Brasil                 |
 // +-----------------------------------------------------------------+

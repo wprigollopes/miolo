@@ -1,6 +1,6 @@
 <?php
 // +-----------------------------------------------------------------+
-// | MIOLO - Miolo Development Team - UNIVATES Centro UniversitÃ¡rio  |
+// | MIOLO - Miolo Development Team - UNIVATES Centro Universitário  |
 // +-----------------------------------------------------------------+
 // | CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil            |
 // +-----------------------------------------------------------------+
@@ -14,7 +14,7 @@
 // | Abstract: This file contains the navigation elements definitions|
 // |                                                                 |
 // | Created: 2001/08/14 Thomas Spriestersbach,                      |
-// |                     Vilson Cristiano GÃ¤rtner                    |
+// |                     Vilson Cristiano Gärtner                    |
 // |                                                                 |
 // | History: Initial Revision                                       |
 // +-----------------------------------------------------------------+
@@ -22,7 +22,7 @@
 define('PN_PAGE', 'pn_page');
 
 /**
- * Uma implementaÃ§Ã£o de uma barra de navagaÃ§Ã£o de pÃ¡ginas para resultados
+ * Uma implementação de uma barra de navagação de páginas para resultados
  * de consultas
  */
 /**
@@ -348,13 +348,13 @@ class PageNavigator
                     {
                         $this->pageLinks
                             .= "<a href=\"$this->action&" . PN_PAGE
-                                   . "=$o\" class=\"pageNavigatorLink\" onMouseOver=\"top.status='PÃ¡gina $p'\">$p</a>";
+                                   . "=$o\" class=\"pageNavigatorLink\" onMouseOver=\"top.status='Página $p'\">$p</a>";
                     }
                     else
                     {
                         $action = "$this->action&" . PN_PAGE . "=$o";
                         $this->pageLinks
-                            .= "<a href=\"javascript:_MIOLO_LinkButton(document.forms[0].name,'{$action}','')\" class=\"pageNavigatorLink\" onMouseOver=\"top.status='PÃ¡gina $p'\">$p</a>";
+                            .= "<a href=\"javascript:_MIOLO_LinkButton(document.forms[0].name,'{$action}','')\" class=\"pageNavigatorLink\" onMouseOver=\"top.status='Página $p'\">$p</a>";
                     }
                 }
                 else

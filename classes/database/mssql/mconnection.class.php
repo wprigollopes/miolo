@@ -21,6 +21,16 @@ class MSSQLConnection extends MConnection
         }
     }
 
+    protected function buildDsn($dbhost, $loginDB, $port = null)
+    {
+        $h = explode(':', $dbhost);
+        $host = $h[0];
+        if (!$port) {
+            $port = isset($h[1]) ? $h[1] : '1433';
+        }
+        return "sqlsrv:Server={$host},{$port};Database={$loginDB}";
+    }
+
     public function _close()
     {
         mssql_close($this->id);

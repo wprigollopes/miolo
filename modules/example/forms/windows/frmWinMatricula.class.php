@@ -13,7 +13,7 @@ class frmWinMatricula extends MFormAJAX
 
         // define the URLs and create instances of MWindow objects
         $urlCurso = $this->manager->getActionURL('example','windows:modal_ajax','form1'); 
-        $winCurso = new MWindow('winCurso',array('url'=>$urlCurso,'title'=>'InclusÃ£o de Novo Curso'));
+        $winCurso = new MWindow('winCurso',array('url'=>$urlCurso,'title'=>'Inclusão de Novo Curso'));
 
         $img = $this->manager->getUI()->getImage('','button_refresh.png');
        

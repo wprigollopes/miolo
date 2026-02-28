@@ -1,6 +1,6 @@
 <?php
 // +-----------------------------------------------------------------+
-// | MIOLO - Miolo Development Team - UNIVATES Centro UniversitÃ¡rio  |
+// | MIOLO - Miolo Development Team - UNIVATES Centro Universitário  |
 // +-----------------------------------------------------------------+
 // | CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil            |
 // +-----------------------------------------------------------------+
@@ -14,7 +14,7 @@
 // | Abstract:                                                       |
 // |                                                                 |
 // | Created: 2001/08/14 Thomas Spriestersbach                       |
-// |                     Vilson Cristiano GÃ¤rtner,                   |
+// |                     Vilson Cristiano Gärtner,                   |
 // |                                                                 |
 // | History: Initial Revision                                       |
 // +-----------------------------------------------------------------+

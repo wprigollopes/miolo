@@ -61,14 +61,14 @@ class repTransacaoBreakReport extends PDFReport
             $this->img = $ui->getImageSrc('logonet.png','tutorial');
             $columns = array
                 (
-                new PDFReportColumn('transaction', '<b><i>TransaÃ§Ã£o</i></b>', 'left', true, 35, true),
+                new PDFReportColumn('transaction', '<b><i>Transação</i></b>', 'left', true, 35, true),
                 new PDFReportColumn('rights', '<b><i>Direitos</i></b>', 'left', true, 35, true),
                 );
             parent::__construct($data, $columns, 25);
             $this->setColumnAttr('transacao', 'index', 0);
             $this->setColumnAttr('direitos', 'index', 1);
             $this->setIndex(0);
-            $this->setTitle('RelaÃ§Ã£o de TransaÃ§Ãµes - PageBreak by Group');
+            $this->setTitle('Relação de Transações - PageBreak by Group');
             $this->setOption('showTableTitle', 1);
         $this->setRowMethod('repTransacaoBreakReport','MyRowMethod');
         $this->timestamp = date('d/m/Y G:i');
@@ -87,9 +87,9 @@ class repTransacaoBreakReport extends PDFReport
         $h = $this->pdf->getFontHeight(12);
         $this->pdf->ezImage($this->img,5,50,'none','left');
         $this->pdf->addText(90,800,12,'UFJF - Universidade Federal de Juiz de Fora');
-        $this->pdf->addText(520,800,12,'PÃ¡gina: ' . $this->pn->pageNumber . '/' . $this->pn->pageCount);
-        $this->pdf->addText(90,800-$h,12,'CGCO - Centro de GestÃ£o do Conhecimento Organizacional');
-        $this->pdf->addText(90,800-$h-$h,12,'SIGA - Sistema Integrado de GestÃ£o AcadÃªmica');
+        $this->pdf->addText(520,800,12,'Página: ' . $this->pn->pageNumber . '/' . $this->pn->pageCount);
+        $this->pdf->addText(90,800-$h,12,'CGCO - Centro de Gestão do Conhecimento Organizacional');
+        $this->pdf->addText(90,800-$h-$h,12,'SIGA - Sistema Integrado de Gestão Acadêmica');
         $this->pdf->addText(90,800-$h-$h-$h,12,"<b>Grupo: " . $this->grupo . "</b>");
         $this->pdf->ezSetY(800-$h-$h-$h-$h);
     }

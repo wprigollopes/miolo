@@ -18,12 +18,12 @@ class frmCSSForm extends MCSSForm
         parent::__construct(_M('Relative CSS Form Sample', $module));
 //        $this->setTitle('Exemplo de Relative CSS Form');
 //  SetField($row, $col, $width, $field, $style)
-//      $row = nÃºmero da linha no formulÃ¡rio, comeÃ§ando em 0; as linhas sÃ£o renderizadas em ordem crescente
-//      $col = nÃºmero da coluna (dentro da linha), comeÃ§ando em 0
+//      $row = número da linha no formulário, começando em 0; as linhas são renderizadas em ordem crescente
+//      $col = número da coluna (dentro da linha), começando em 0
 //      $width = valor (em %) para a largura da coluna
-//      $field = campo a ser registrado no formulÃ¡rio (com $form->addField)
+//      $field = campo a ser registrado no formulário (com $form->addField)
 //      $style = array: chave=atributo css, valor=valor do atributo; renderizado como style
-//  HiddenFields sÃ£o adicionados diretamente com AddField
+//  HiddenFields são adicionados diretamente com AddField
         $this->addField(new MHiddenField('hidden1', '1'));
         $this->addField(new MHiddenField('hidden2', '2'));
         $this->addField(new MHiddenField('hidden3', '3'));

@@ -121,6 +121,56 @@ class MDatabase
         $this->conn->bind($sql, $parameters);
     }
 
+    /**
+     * Execute a parameterized SQL statement via PDO.
+     *
+     * @param string $sql SQL with ? placeholders.
+     * @param array $params Parameters to bind.
+     * @return PDOStatement The executed statement.
+     */
+    public function executeParams($sql, array $params = [])
+    {
+        $this->_miolo->profileEnter('Database::executeParams');
+
+        try
+        {
+            $result = $this->conn->executeParams($sql, $params);
+        }
+        catch (Exception $e)
+        {
+            $this->_miolo->profileExit('Database::executeParams');
+            throw new EDatabaseException($this->conf, $e->getMessage());
+        }
+
+        $this->_miolo->profileExit('Database::executeParams');
+        return $result;
+    }
+
+    /**
+     * Execute a parameterized query and return all rows.
+     *
+     * @param string $sql SQL with ? placeholders.
+     * @param array $params Parameters to bind.
+     * @return array Result rows (numeric indexed).
+     */
+    public function queryParams($sql, array $params = [])
+    {
+        $this->_miolo->profileEnter('Database::queryParams');
+
+        try
+        {
+            $result = $this->conn->queryParams($sql, $params);
+        }
+        catch (Exception $e)
+        {
+            $this->_miolo->profileExit('Database::queryParams');
+            throw new EDatabaseException($this->conf, $e->getMessage());
+        }
+
+        $this->_miolo->profileExit('Database::queryParams');
+        return $result;
+    }
+
     public function execute($sql)
     {
         $this->_miolo->profileEnter('Database::execute');

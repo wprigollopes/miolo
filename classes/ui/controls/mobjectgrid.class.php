@@ -83,7 +83,8 @@ class MObjectGrid extends MGrid
         {
             foreach ($this->columns as $k => $col)
             {
-                eval("\$v = \$row->{$col->attribute};");
+                $attr = $col->attribute;
+                $v = $row->$attr;
                 $this->data[$i][$k] = $v;
             }
         }

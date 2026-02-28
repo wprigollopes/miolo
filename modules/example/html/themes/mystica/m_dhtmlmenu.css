@@ -166,12 +166,12 @@ SERTAOGGI
 ***********************************/
 
 /**********************************
-SERTAOGGI - MAIN MENU (PARÃMETROS ESPECIAIS)
+SERTAOGGI - MAIN MENU (PARÂMETROS ESPECIAIS)
 ***********************************/
 /*
  widht, height: tamanho dos itens
- block_top, block_left: deslocamento do bloco de menu com relaÃ§Ã£o Ã  origem
- top, left: deslocamento entre itens de um mesmo nÃ­vel
+ block_top, block_left: deslocamento do bloco de menu com relação à origem
+ top, left: deslocamento entre itens de um mesmo nível
 */
 /* &&&
 0;width: 120;height: 16;top: 0;left: 5;hide_delay: 200;expd_delay: -200

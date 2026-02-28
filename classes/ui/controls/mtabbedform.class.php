@@ -1,7 +1,7 @@
 <?php
 class MTabbedFormPage extends MControl
 {
-    public $tabbedform; // em qual tabbedform esta pÃ¡gina estÃ¡ inserida
+    public $tabbedform; // em qual tabbedform esta página está inserida
     public $form; // form a ser renderizado na pagina
     public $index; // indice desta pagina dentro do tabbedform (0-based)
     public $title; // titulo da pagina
@@ -19,8 +19,8 @@ class MTabbedFormPage extends MControl
 
 class MTabbedForm extends MForm
 {
-    static  $order = 0; // nÃºmero de ordem do form
-    public $nOrder; // nÃºmero de ordem do form
+    static  $order = 0; // número de ordem do form
+    public $nOrder; // número de ordem do form
     public $pages; // array de TabbedFormPages
     public $activepage; // referencia a TabbedFormPage sendo mostrada
     public $currentpage; // id do form da TabbedFormPage sendo exibida 

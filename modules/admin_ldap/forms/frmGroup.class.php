@@ -35,13 +35,13 @@ class frmGroup extends MForm
 
         $modulos    = $this->objModule->listAll(false);
         $permissoes = $this->objModule->listAllAccess(false);
-        $mtFieldAcs = array(array('mtmodule','MÃ³dulo','',$modulos), array('mtaccess','PermissÃ£o','',$permissoes));
+        $mtFieldAcs = array(array('mtmodule','Módulo','',$modulos), array('mtaccess','Permissão','',$permissoes));
        
         $fields = array(
             new MHiddenField('key',''),
             new MTextField('txtIdGroup','', _M('Id', 'basic'), 10),
-		    new MTextField('txtGroup','','DescriÃ§Ã£o do grupo',20),
-            new MMultiTextField2('mtfAccess',NULL,'PermissÃµes',$mtFieldAcs,300,true,'vertical'),
+		    new MTextField('txtGroup','','Descrição do grupo',20),
+            new MMultiTextField2('mtfAccess',NULL,'Permissões',$mtFieldAcs,300,true,'vertical'),
         );
 	    $this->setFields($fields);
 
@@ -97,11 +97,11 @@ class frmGroup extends MForm
 	{
         $MIOLO = MIOLO::getInstance();
 
-        $key = $this->getFieldValue('key');  // inclusÃ£o ou ediÃ§Ã£o?
+        $key = $this->getFieldValue('key');  // inclusão ou edição?
         $objGroup = $this->objGroup;     // apenas um shortcut
         if ($key != '')
         {
-            $objGroup->getById($key); // se for ediÃ§Ã£o, obtem os dados atuais do objeto
+            $objGroup->getById($key); // se for edição, obtem os dados atuais do objeto
         }
         // seta os atributos do objeto com os valores dos campos do formulario
 		$objGroup->setData($this->getData()); 
@@ -132,7 +132,7 @@ class frmGroup extends MForm
         $fields = array(
             array(
                new MTextField('txtGroup','','Grupo',25),
-               new MButton('btnList','RelaÃ§Ã£o')
+               new MButton('btnList','Relação')
             )
         );
         $this->setFields($fields);
@@ -146,7 +146,7 @@ class frmGroup extends MForm
 		$href_datagrid = $MIOLO->getActionURL($module,$self,'', Array('event'=>'btnList_click'));
         
         $datagrid = new mGrid($query, $columns, $href_datagrid,20);
-        $datagrid->setTitle('RelaÃ§Ã£o de Grupos de Acesso');
+        $datagrid->setTitle('Relação de Grupos de Acesso');
  	    $href_edit = $MIOLO->getActionURL($module,$self,'%0%',Array('event'=>'btnEdit:click'));
 	    $href_dele = $MIOLO->getActionURL($module,$self,'%0%',Array('event'=>'btnDelete:click'));
         $datagrid->addActionUpdate($href_edit);
@@ -162,7 +162,7 @@ class frmGroup extends MForm
         if( ! $item )
             $item  = $this->getFieldValue('txtIdGroup');
         $group = $this->getFieldValue('txtGroup');
-        // verifica se estÃ¡ sendo executado atravÃ©s do evento do grid
+        // verifica se está sendo executado através do evento do grid
 
         if ($item != '')
         {
@@ -175,7 +175,7 @@ class frmGroup extends MForm
 
         if ($this->objGroup->idGroup)
         {
-            // coloca os dados do objeto nos campos do formulÃ¡rio
+            // coloca os dados do objeto nos campos do formulário
             $this->setData($this->objGroup->getData());
             // exibe os campos
             $this->setFieldsVisible(true);
@@ -191,7 +191,7 @@ class frmGroup extends MForm
         }
         else
         {
-            $this->addError("Group [$group] nÃ£o encontrado!");
+            $this->addError("Group [$group] não encontrado!");
         }
 	}
 
@@ -228,7 +228,7 @@ class frmGroup extends MForm
         $action = MIOLO::getCurrentAction();
 
         $idgroup = isset($item) ? $item : $this->getFieldValue('key'); // $item (get) ou $this->key (post)
-        $MIOLO->assert( isset($idgroup), 'Group nÃ£o foi informado!', $action);
+        $MIOLO->assert( isset($idgroup), 'Group não foi informado!', $action);
         $objGroup = &$this->objGroup;
         $objGroup->getById($idgroup);
         $conf = $this->getFormValue('conf');
@@ -236,7 +236,7 @@ class frmGroup extends MForm
 	    {
             if ( $objGroup->delete() )
 	        {
-			   $MIOLO->prompt(Prompt::information("Group [$objGroup->group] excluÃ­do com sucesso.",$this->listURL));
+			   $MIOLO->prompt(Prompt::information("Group [$objGroup->group] excluído com sucesso.",$this->listURL));
 	        }
 	        else
 	        {
@@ -245,13 +245,13 @@ class frmGroup extends MForm
 	    }
 	    elseif ( $conf == 'nao')
         {
-	       $MIOLO->prompt(Prompt::information('ExclusÃ£o cancelada.',$this->listURL));
+	       $MIOLO->prompt(Prompt::information('Exclusão cancelada.',$this->listURL));
         }
 	    else
 	    {
 		    $action_sim = $MIOLO->getActionURL($module,$self,$idgroup, array('event'=>'btnDelete:click','conf'=>'sim'));
 		    $action_nao = $MIOLO->getActionURL($module,$self,$idgroup, array('event'=>'btnDelete:click','conf'=>'nao'));
-	        $MIOLO->prompt(Prompt::question("Confirma a exclusÃ£o do group [$objGroup->group]?", 
+	        $MIOLO->prompt(Prompt::question("Confirma a exclusão do group [$objGroup->group]?", 
 				$action_sim, $action_nao));
 	    }
 	}

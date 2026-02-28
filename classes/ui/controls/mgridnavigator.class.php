@@ -1,7 +1,7 @@
 <?php
 define('PN_PAGE', 'pn_page');
 /**
- * Uma implementaÃ§Ã£o de controles de navagaÃ§Ã£o de pÃ¡ginas para grids
+ * Uma implementação de controles de navagação de páginas para grids
  */
 class MGridNavigator extends MControl
 {
@@ -150,7 +150,7 @@ class MGridNavigator extends MControl
                 {
                     $pageLinks[$p] = new MLinkButton('', $pg, "$this->action&" . PN_PAGE . "=" . $o . "&gridName=". urlencode($this->grid->name).'&m_pagenavigating=1');
                     $pageLinks[$p++]->setClass('mGridNavigatorLink');
-//                    $pageLinks[$p++]->addEvent('mouseover', "top.status='PÃ¡gina $pg'");
+//                    $pageLinks[$p++]->addEvent('mouseover', "top.status='Página $pg'");
                 }
                 else
                 {

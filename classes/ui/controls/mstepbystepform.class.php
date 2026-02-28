@@ -106,7 +106,7 @@ class MStepByStepForm extends MForm
             $this->cleanStepData();
         }
 
-        $this->step = $this->step ? $this->step : self::getCurrentStep() ? self::getCurrentStep() : 1;
+        $this->step = $this->step ? $this->step : (self::getCurrentStep() ? self::getCurrentStep() : 1);
         $this->nextStep = $this->nextStep ? $this->nextStep : $this->step+1;
 
         $stepImageUrl = $MIOLO->getUI()->getImageTheme($MIOLO->getTheme()->getId(), 'button_steps.png');
@@ -391,7 +391,7 @@ class MStepByStepForm extends MForm
     {
         // serializes the data and saves it
         $MIOLO = MIOLO::getInstance();
-        $MIOLO->getSession()->setValue($this->getStepName(), serialize($stepData));
+        $MIOLO->getSession()->setValue($this->getStepName(), json_encode($stepData));
     }
 
     /**
@@ -402,7 +402,12 @@ class MStepByStepForm extends MForm
     public function getAllStepData()
     {
         $MIOLO = MIOLO::getInstance();
-        $data = unserialize($MIOLO->getSession()->getValue($this->getStepName()));
+        $s = $MIOLO->getSession()->getValue($this->getStepName());
+        $data = json_decode($s, true);
+        if ($data === null && $s !== 'null') {
+            // Fallback for old serialized data
+            $data = @unserialize($s, ['allowed_classes' => false]);
+        }
         return $data;
     }
 

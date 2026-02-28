@@ -81,7 +81,7 @@ class frmDatabase extends MForm
         $query = $db->getQuery($sql);
         $n = $query->getRowCount();
         $text = '#records: ' . $n . '<br><br>';
-        $text .= '#rec - transaÃ§Ã£o' . '<br>';
+        $text .= '#rec - transação' . '<br>';
         $result = $query->result;
         for ( $i = 0; $i < $n; $i++ )
         {
@@ -98,7 +98,7 @@ class frmDatabase extends MForm
         $query = $db->getQuery($sql);
         $n = $query->getRowCount();
         $text = 'idtransaction = 2   -  #records: ' . $n . '<br><br>';
-        $text .= '#rec - transaÃ§Ã£o' . '<br>';
+        $text .= '#rec - transação' . '<br>';
         $result = $query->result;
         for ( $i = 0; $i < $n; $i++ )
         {
@@ -117,7 +117,7 @@ class frmDatabase extends MForm
         $query = $db->getQuery($sql);
         $n = $query->getRowCount();
         $text = '(idtransaction < 100) and (m_transaction LIKE A%)  -  #records: ' . $n . '<br><br>';
-        $text .= '#rec - transaÃ§Ã£o' . '<br>';
+        $text .= '#rec - transação' . '<br>';
         $result = $query->result;
         for ( $i = 0; $i < $n; $i++ )
         {
@@ -308,10 +308,10 @@ class frmDatabase extends MForm
         for ( $page = 1; $page <= $totalpages; $page++ )
         {
             $range = new QueryRange($page, 5);
-            $result = $db->queryRange($sql->select(), &$range)->result;
+            $result = $db->queryRange($sql->select(), $range)->result;
             $n = $range->total;
             $text .= "Page: $page  [$n records]: <br>";
-            $text .= '          #rec - transaÃ§Ã£o' . '<br>';
+            $text .= '          #rec - transação' . '<br>';
             for ( $i = 0; $i < $n; $i++ )
             {
                 $text .= "         #$i - " . $result[$i][1] . '<br>';
@@ -335,7 +335,7 @@ class frmDatabase extends MForm
             $result = $query->result;
             $n = $query->getRowCount();
             $text .= "Page: $page  [$n records]: <br>";
-            $text .= '          #rec - transaÃ§Ã£o' . '<br>';
+            $text .= '          #rec - transação' . '<br>';
             for ( $i = 0; $i < $n; $i++ )
             {
                 $text .= "         #$i - " . $result[$i][1] . '<br>';
@@ -359,7 +359,7 @@ class frmDatabase extends MForm
             $result = $query->getPage($page);
             $m = count($result);
             $text .= "Page: $page  [$m records]: <br>";
-            $text .= '          #rec - transaÃ§Ã£o' . '<br>';
+            $text .= '          #rec - transação' . '<br>';
             for ( $i = 0; $i < $m; $i++ )
             {
                 $text .= "         #$i - " . $result[$i][1] . '<br>';

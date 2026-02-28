@@ -5,25 +5,25 @@ class MContainer extends MContainerControl
     public $disposition;
 
 //    public $separator;
-//    public $spaceHeight; // espaÃ§amento em pixels entre os campos no disposition=vertical
-//    public $spaceWidth='&nbsp;&nbsp;'; //espaÃ§amento em pixels entre os campos no disposition=horizontal
+//    public $spaceHeight; // espaçamento em pixels entre os campos no disposition=vertical
+//    public $spaceWidth='&nbsp;&nbsp;'; //espaçamento em pixels entre os campos no disposition=horizontal
 
     /* How the labels are showed */
     public $formMode;
     
     /*  se label deve ser exibido junto com os campos
-     *  Esse atributo foi modificado para private para forÃ§ar a 
-     *  utilizaÃ§Ã o do mÃ©todo setShowLabel. Esta modificaÃ§Ã£o foi
-     *  necessÃ¡ria para os casos em que o programador necessite
-     *  que os labels dos conteÃºdos fossem exibidos
+     *  Esse atributo foi modificado para private para forçar a 
+     *  utilizaçào do método setShowLabel. Esta modificação foi
+     *  necessária para os casos em que o programador necessite
+     *  que os labels dos conteúdos fossem exibidos
      */
     public $showLabel;
 
-    /*   esta propriedade controla a exibiÃ§Ã£o ou nÃ£o do label dos
-     *   conteÃºdos de um container. Ã necessÃ¡rio utilizar o mÃ©todo
+    /*   esta propriedade controla a exibição ou não do label dos
+     *   conteúdos de um container. É necessário utilizar o método
      *   setShowChildLabel para modificar esta propriedade.
      */
-    public $showChildLabel = true; //se o label dos conteiner conteÃºdos deste serÃ£o exibidos
+    public $showChildLabel = true; //se o label dos conteiner conteúdos deste serão exibidos
 
     public function __construct($name = NULL, $controls = NULL, $disposition = 'none', $formMode = MFormControl::FORM_MODE_SHOW_ABOVE)
     {

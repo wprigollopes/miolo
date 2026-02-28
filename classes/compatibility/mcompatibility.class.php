@@ -44,7 +44,7 @@ class MCompatibility
                 if(!$ok)
                 {
                     $this->notFound["m{$className}"] = $className;
-                    eval("class $className extends m{$className} {};");
+                    class_alias("m{$className}", $className);
                 }
             }
             else

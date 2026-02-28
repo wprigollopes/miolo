@@ -156,7 +156,7 @@ class frmSetupModuleBD extends MForm
         $sqlFile = $MIOLO->getConf('home.modules') . "/" . $modName . '/sql/'.$modName.'.sql';
         
         $fd = file_get_contents($sqlFile);        
-        $sql = split(";",$fd);
+        $sql = explode(";", $fd);
         
         foreach ($sql as $s)
         {        

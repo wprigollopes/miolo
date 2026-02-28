@@ -108,7 +108,7 @@ class MActionControl extends MInputControl
             $goto = substr($action, 3);
             $onclick = "miolo.doHandler('$goto','{$this->formId}');";
         }
-        elseif ( $action{0} == ':' )
+        elseif ( $action[0] == ':' )
         {
             $event = substr($action, 1);
             $onclick = $this->manager->getUI()->getAjax($event);

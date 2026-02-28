@@ -2,19 +2,19 @@
 <help>
   <action>main:register:period</action>
   <name>Period</name>
-  <description>Cadastro de perÃ­odos. Clique no botÃ£o THEME_IMAGE/save-20x20.png para gravar o perÃ­odo.</description>
+  <description>Cadastro de períodos. Clique no botão THEME_IMAGE/save-20x20.png para gravar o período.</description>
   <attributes>
     <attribute>
      <name>periodId</name>
       <label>Period id</label>
       <type>varchar(10)</type>
-      <description>Campo utilizado para THEME_IMAGE/save-20x20.png definir o cÃ³digo do perÃ­odo.</description>
+      <description>Campo utilizado para THEME_IMAGE/save-20x20.png definir o código do período.</description>
     </attribute>
     <attribute>
       <name>description</name>
       <label>Description</label>
       <type>text</type>
-      <description>Campo utilizado para informar uma descriÃ§Ã£o para o perÃ­odo.</description>
+      <description>Campo utilizado para informar uma descrição para o período.</description>
     </attribute>
   </attributes>
   <image>main_register_period.png</image>

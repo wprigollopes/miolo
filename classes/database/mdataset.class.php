@@ -427,12 +427,19 @@ class MDataSet
                 foreach ($node as $n)
                     $aNode[] = $row[$n];
 
-                $s = '';
-
+                // Build nested tree using references instead of eval
+                $ref = &$tree;
                 foreach ($group as $g)
-                    $s .= '[$row[' . $g . ']]';
-
-                eval ("\$tree$s" . "[] = \$aNode;");
+                {
+                    $key = $row[$g];
+                    if (!isset($ref[$key]))
+                    {
+                        $ref[$key] = array();
+                    }
+                    $ref = &$ref[$key];
+                }
+                $ref[] = $aNode;
+                unset($ref);
             }
         }
 

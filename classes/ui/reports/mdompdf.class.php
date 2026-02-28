@@ -1,27 +1,24 @@
 <?php
+use Dompdf\Dompdf;
+
 class MDOMPDF extends MReport
 {
     public $dompdf;
 
     public function __construct($paper = 'a4', $orientation = 'portrait')
     {
-        $MIOLO = MIOLO::getInstance();
-
-        $conf = $MIOLO->getAbsolutePath( 'classes/extensions/dompdf/dompdf_config.inc.php');
-        require_once($conf);
-
         $old_limit = ini_set("memory_limit", "80M");
-    
+
         if ($paper=='')
         {
-            $paper = DOMPDF_DEFAULT_PAPER_SIZE;
+            $paper = 'a4';
         }
         if ($orientation=='')
         {
             $orientation = "portrait";
         }
-        $this->dompdf = new DOMPDF();
-        $this->dompdf->set_paper($paper, $orientation);
+        $this->dompdf = new Dompdf();
+        $this->dompdf->setPaper($paper, $orientation);
     }
 
     public function setInput($str,$params=NULL)
@@ -33,12 +30,12 @@ class MDOMPDF extends MReport
         }
 
         if ( $str != '') {
-          $this->dompdf->load_html($str);
-        } else 
-          $this->dompdf->load_html_file($file);
-        
+          $this->dompdf->loadHtml($str);
+        } else
+          $this->dompdf->loadHtmlFile($file);
+
         if ( isset($base_path) ) {
-          $this->dompdf->set_base_path($base_path);
+          $this->dompdf->setBasePath($base_path);
         }
     }
 
@@ -51,8 +48,6 @@ class MDOMPDF extends MReport
         $this->dompdf->render();
 
         $pdfcode = $this->dompdf->output();
-        if ( strtolower(DOMPDF_PDF_BACKEND) == "gd" ) 
-            $outfile = str_replace(".pdf", ".png", $outfile);
     
         $fname = substr(uniqid(md5(uniqid(""))), 0, 10) . '.pdf';
         $this->fileexp = $MIOLO->getConf('home.reports') . '/' . $fname;

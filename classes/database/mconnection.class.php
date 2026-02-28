@@ -13,6 +13,11 @@ abstract class MConnection
     public $id;
 
     /**
+     * @var PDO|null PDO connection for parameterized queries.
+     */
+    public ?PDO $pdo = null;
+
+    /**
      * @var array A list of connection errors.
      */
     public $traceback = array();
@@ -40,6 +45,20 @@ abstract class MConnection
     }
 
     abstract public function _connect($dbhost, $loginDB, $loginUID, $loginPWD, $persistent=TRUE, $parameters=NULL);
+
+    /**
+     * Build a PDO DSN string for the database driver.
+     * Override in driver subclasses.
+     *
+     * @param string $dbhost Database host.
+     * @param string $loginDB Database name.
+     * @param integer|null $port Port number.
+     * @return string DSN string.
+     */
+    protected function buildDsn($dbhost, $loginDB, $port = null)
+    {
+        return ''; // Override in driver subclasses
+    }
 
     abstract public function _close();
 
@@ -104,6 +123,20 @@ abstract class MConnection
         {
             $this->traceback[] = _M("Unable to estabilish database connection to host:") ." $dbhost, DB: $loginDB, Type: {$this->db->system}";
         }
+
+        // Create PDO connection for parameterized queries
+        try {
+            $dsn = $this->buildDsn($dbhost, $loginDB, $port);
+            if ($dsn) {
+                $this->pdo = new PDO($dsn, $loginUID, $loginPWD, [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_EMULATE_PREPARES => false,
+                ]);
+            }
+        } catch (PDOException $e) {
+            $this->traceback[] = "PDO connection failed: " . $e->getMessage();
+        }
+
         return $this->id;
     }
 
@@ -114,6 +147,7 @@ abstract class MConnection
             $this->_close($this->id);
             $this->id = 0;
         }
+        $this->pdo = null;
     }
 
     public function getError()
@@ -172,6 +206,39 @@ abstract class MConnection
         }
 
         return $success;
+    }
+
+    /**
+     * Execute a parameterized SQL statement via PDO.
+     *
+     * @param string $sql SQL with ? placeholders.
+     * @param array $params Parameters to bind.
+     * @return PDOStatement The executed statement.
+     * @throws EDatabaseException If PDO is not available.
+     */
+    public function executeParams($sql, array $params = [])
+    {
+        if (!$this->pdo) {
+            throw new EDatabaseException($this->db->conf, 'PDO connection not available');
+        }
+        $this->_miolo->logSQL($sql, false, $this->db->conf);
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        $this->affectedrows = $stmt->rowCount();
+        return $stmt;
+    }
+
+    /**
+     * Execute a parameterized query and return all rows.
+     *
+     * @param string $sql SQL with ? placeholders.
+     * @param array $params Parameters to bind.
+     * @return array Result rows (numeric indexed).
+     */
+    public function queryParams($sql, array $params = [])
+    {
+        $stmt = $this->executeParams($sql, $params);
+        return $stmt->fetchAll(PDO::FETCH_NUM);
     }
 
     public function parse($sql)

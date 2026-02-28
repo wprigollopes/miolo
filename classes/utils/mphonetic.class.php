@@ -90,11 +90,11 @@ class MPhonetic
 
         if ($len == 3)
         {
-            if (($fonaux{0}== 'a') || ($fonaux{0}== 'i') || ($fonaux{0}== 'o'))
+            if (($fonaux[0]== 'a') || ($fonaux[0]== 'i') || ($fonaux[0]== 'o'))
             {
-                if (($fonaux{1}== 'a') || ($fonaux{1}== 'i') || ($fonaux{1}== 'o'))
+                if (($fonaux[1]== 'a') || ($fonaux[1]== 'i') || ($fonaux[1]== 'o'))
                 {
-                    if (($fonaux{2}== 'a') || ($fonaux{2}== 'i') || ($fonaux{2}== 'o'))
+                    if (($fonaux[2]== 'a') || ($fonaux[2]== 'i') || ($fonaux[2]== 'o'))
                         return $fonaux;
                 }
             }

@@ -10,9 +10,9 @@ else
 {
    $ok = $MIOLO->uses('/classes/lookup.class',$lookup->module);
 }
-$MIOLO->assert($ok,_M('Arquivo modules/@1/classes/lookup.class nÃ£o encontrado.<br>'.
+$MIOLO->assert($ok,_M('Arquivo modules/@1/classes/lookup.class não encontrado.<br>'.
                       'Este arquivo deve implementar a classe Business@1Lookup '.
-                      'contendo a funÃ§Ã£o Lookup@2.', 
+                      'contendo a função Lookup@2.', 
                       'miolo',$lookup->module, $lookup->item));
 $page->addScript('m_lookup.js');
 $page->setTitle('Janela de Pesquisa');

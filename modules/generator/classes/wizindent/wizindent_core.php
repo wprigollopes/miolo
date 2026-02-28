@@ -573,7 +573,7 @@ function wizindent_indent_php($source) {
                         $result.=$this->wizindent_put_spaces();
 
                         if (substr($text, 0, 2) == '/'.'*' && substr($text, -2) == '*'.'/' && !$this->in_unbreakable_line) {
-                            $result.=join("\n".$this->wizindent_put_spaces(), split("\n", $text))."\n";
+                            $result.=join("\n".$this->wizindent_put_spaces(), explode("\n", $text))."\n";
                         } else {
                             $result.=$text;
                         }
@@ -683,7 +683,7 @@ function wizindent_indent_html($input, $doCompress=false) {
 
     for ($offset=0; $offset <= $len; ++$offset) {
         $lastChar=$char;
-        $char=$input{$offset};
+        $char=$input[$offset];
         $buffer=$char;
         $doAppend=false;
 
@@ -702,13 +702,13 @@ function wizindent_indent_html($input, $doCompress=false) {
                     $doIndentIn=false;
                     $doIndentOut=false;
 
-                    if ($input{$offset+1} == '/') {
+                    if ($input[$offset+1] == '/') {
                         ++$offset;
                         $closingTag=true;
                         $tmpC='/';
-                    } elseif ($input{$offset+1}.$input{$offset+2}.$input{$offset+3} == '!--') {
-                        for (++$offset; @substr($tag, @strlen($tag)-2, 2).$input{$offset} != '-->'; ++$offset) {
-                            $tag.=$input{$offset};
+                    } elseif ($input[$offset+1].$input[$offset+2].$input[$offset+3] == '!--') {
+                        for (++$offset; @substr($tag, @strlen($tag)-2, 2).$input[$offset] != '-->'; ++$offset) {
+                            $tag.=$input[$offset];
                         }
 
                         $buffer.=$tag;
@@ -718,8 +718,8 @@ function wizindent_indent_html($input, $doCompress=false) {
                         break;
                     }
 
-                    for (++$offset; !in_array($input{$offset}, $tagEndChars); ++$offset) {
-                        $tag.=$input{$offset};
+                    for (++$offset; !in_array($input[$offset], $tagEndChars); ++$offset) {
+                        $tag.=$input[$offset];
                     }
 
                     --$offset;
@@ -761,7 +761,7 @@ function wizindent_indent_html($input, $doCompress=false) {
                         }
                     }
 
-                    if ($input{$offset+1} == ' ') {
+                    if ($input[$offset+1] == ' ') {
                         $postC=' ';
                     }
 

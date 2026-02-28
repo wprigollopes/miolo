@@ -9,7 +9,7 @@ dojo.declare("Miolo.editMask", null, {
         if (this.element != null)
         {
             this.mask = mask;
-            this.errMsg = errMsg != '' ? errMsg : "Caracter invÃ¡lido!";
+            this.errMsg = errMsg != '' ? errMsg : "Caracter inválido!";
             this.optional = optional;
             var value = this.element.value ? this.filterStrip(this.element.value) : '';
             this.element.value = this.fillMask(value);

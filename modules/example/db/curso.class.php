@@ -23,7 +23,7 @@ class BusinessExampleCurso extends MBusiness
 	{
 		$data = new stdClass();
 		$data->idCurso = $this->idCurso;
-		$data->nome = utf8_encode($this->nome);
+		$data->nome = mb_convert_encoding($this->nome, 'UTF-8', 'ISO-8859-1');
 		$data->idSala = $this->idSala;
 		$data->sala = $this->sala->descricao;
 		return $data;

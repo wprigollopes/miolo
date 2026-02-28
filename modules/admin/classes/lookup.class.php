@@ -7,7 +7,7 @@ class BusinessAdminLookup
         if (!$filter) 
            $filter = $lookup->getFilterValue();
         $lookup->addFilterField( new TextField('filter',
-         $filter,'TransaÃ§Ã£o', 20));
+         $filter,'Transação', 20));
         $columns = array(
            new DataGridColumn('transacao','Transacao','left', true,
             '60%',true),
@@ -24,7 +24,7 @@ class BusinessAdminLookup
             $sql->where .= " and ( upper(t.transacao)
              like upper('{$filter}%') )";
         }
-        $lookup->setGrid('Admin',$sql,$columns, 'Pesquisa TransaÃ§Ãµes',15,0);
+        $lookup->setGrid('Admin',$sql,$columns, 'Pesquisa Transações',15,0);
     }
 
     public function lookupSistemaTransacao(&$lookup)
@@ -41,7 +41,7 @@ class BusinessAdminLookup
         $objQuery = $objSistema->listAll();
 
         $lookup->addFilterField( new Selection('filter0', $fSistema,'Sistema', $objQuery->result));
-        $lookup->addFilterField( new TextField('filter1', $filter,'TransaÃ§Ã£o', 20));
+        $lookup->addFilterField( new TextField('filter1', $filter,'Transação', 20));
         $columns = array(
            new DataGridColumn('transacao','Transacao','left', true, '60%',true),
            new DataGridColumn('idtrans','Id','right', true, '10%',true),
@@ -56,7 +56,7 @@ class BusinessAdminLookup
             $sql->where .= " and ( upper(t.transacao) like upper('{$filter}%') )";
         }
         $sql->where .= " and ( t.idsistema = '{$fSistema}' )";
-        $lookup->setGrid('Admin',$sql,$columns,'Pesquisa TransaÃ§Ãµes',15,0);
+        $lookup->setGrid('Admin',$sql,$columns,'Pesquisa Transações',15,0);
     }
 
     public function lookupAgencia(&$lookup)
@@ -87,7 +87,7 @@ class BusinessAdminLookup
         }
 
 
-    $lookup->setGrid('Admin',$sql,$columns,'Pesquisa por AgÃªncias ou Bancos ',15,0);
+    $lookup->setGrid('Admin',$sql,$columns,'Pesquisa por Agências ou Bancos ',15,0);
     }
     
     public function lookupCadAgencia(&$lookup)
@@ -149,7 +149,7 @@ class BusinessAdminLookup
         $objQuery = $objBanco->listAll();
 
         $lookup->addFilterField( new Selection('filter0', $fBanco,'Banco', $objQuery->result));
-        $lookup->addFilterField( new TextField('filter1', $filter,'AgÃªncia', 8));
+        $lookup->addFilterField( new TextField('filter1', $filter,'Agência', 8));
         $lookup->addFilterField( new TextField('filter2', $fNomeAgencia,'Nome', 10));
     
         $columns = array(
@@ -174,7 +174,7 @@ class BusinessAdminLookup
             $sql->where .= " and ( t.nome like upper('{$fNomeAgencia}%') )";
         }
         
-        $lookup->setGrid('Admin',$sql,$columns,'Pesquisa AgÃªncias',15,0);
+        $lookup->setGrid('Admin',$sql,$columns,'Pesquisa Agências',15,0);
     }
 
    
@@ -241,7 +241,7 @@ class BusinessAdminLookup
         $filterCod = $lookup->getFilterValue('filter1');
         
         $lookup->addFilterField( new TextField('filter0',$filter,'Nome',30) );
-        $lookup->addFilterField( new TextField('filter1',$filterCod,'CÃ³digo',10) );
+        $lookup->addFilterField( new TextField('filter1',$filterCod,'Código',10) );
 
         $columns = array(
             new DataGridColumn('idbanco','Id','left',true,'10%',true),
@@ -272,7 +272,7 @@ class BusinessAdminLookup
         $filterNome = $lookup->getFilterValue('filterNome');
         if (!$filterNome)
            if (!$filterLogin)
-              $filterNome = 'NÃO INFORMADO';
+              $filterNome = 'NÃO INFORMADO';
         $clause = $lookup->getFilterValue('clause');
 
         $lookup->addFilterField( new TextField('filterLogin',
@@ -318,7 +318,7 @@ class BusinessAdminLookup
 //      $lookup->setGrid($dbconf,$sql,$columns,$title,
 //$pageLength,$indexColumn)
         $lookup->setGrid('Admin',$sql,$columns,
-        'Pesquisa UsuÃ¡rios',10,0);
+        'Pesquisa Usuários',10,0);
     }
     public function lookupPessoa(&$lookup)
     {   
@@ -455,7 +455,7 @@ class BusinessAdminLookup
            true, '10%',true),
            new DataGridColumn('sigla','Sigla','left',
            true, '20%',true),
-           new DataGridColumn('descricao','DescriÃ§Ã£o','left',
+           new DataGridColumn('descricao','Descrição','left',
            true, '70%',true),
         );
         $sql = new sql('idtipoorganograma, sigla, descricao', 'cm_tipoorganograma','','sigla');
@@ -478,11 +478,11 @@ class BusinessAdminLookup
         if (!$filterNome)
             $filterNome = 'NAO INFORMADO';
 
-        $lookup->addFilterField( new TextField('filterNome', $filterNome, 'Nome da InstituiÃ§Ã£o',20));
+        $lookup->addFilterField( new TextField('filterNome', $filterNome, 'Nome da Instituição',20));
 
         $columns = array
             (
-              //new DataGridColumn('sigla','InstituiÃ§Ã£o','left',true,'100%',true)
+              //new DataGridColumn('sigla','Instituição','left',true,'100%',true)
                new DataGridColumn('idinstituicao','Id','right', true, '5%',true),
                new DataGridColumn('instituicao','Sigla','left', true, '35%',true),
                new DataGridColumn('nome','Nome','left', true, '60%',true),
@@ -497,7 +497,7 @@ class BusinessAdminLookup
             $sql->where .= " upper(instituicao) like upper('$filterNome%')";
         }
 
-        $lookup->setGrid('Admin',$sql,$columns,'Pesquisa de InstituiÃ§Ã£o',10,0);
+        $lookup->setGrid('Admin',$sql,$columns,'Pesquisa de Instituição',10,0);
 
     }
     

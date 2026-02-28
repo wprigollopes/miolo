@@ -13,7 +13,7 @@ class ConverterFactory
         $MIOLO = MIOLO::getInstance();
 
         $MIOLO->uses("persistence/converter/" . strtolower($className) . ".class.php");
-        eval("\$converter = new {$className}();");
+        $converter = new $className();
         $converter->init($properties);
         return $converter;
     }

@@ -44,7 +44,7 @@ class PHPConfigLoader
             $MIOLO->assert(class_exists(strtolower($classMapName)),
                            'PHPConfigLoader::getMap() ' . _M('Error') . ": $classMapName - " . _M('Class not found'));
 
-            eval("\$map = new {$classMapName}();");
+            $map = new $classMapName();
             $this->maps[$class] = &$map;
         }
 

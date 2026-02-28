@@ -9,15 +9,15 @@ class BusinessLocadoraVeiculos extends Business
     private $modelo;
 
     /**
-     * Override do mÃ©todo GetDatabase, para facilitar a chamada 
+     * Override do método GetDatabase, para facilitar a chamada 
      * ao GetDatabase
      */
     public function getDatabase()
     {
         $MIOLO = MIOLO::getInstance();
 
-        // obter conexÃ£o com a base 'locadora'
-        // a base 'locadora' Ã© definida no arquivo locadora.conf
+        // obter conexão com a base 'locadora'
+        // a base 'locadora' é definida no arquivo locadora.conf
         return $MIOLO->getDatabase( 'locadora' );
     }
 
@@ -35,7 +35,7 @@ class BusinessLocadoraVeiculos extends Business
      */
      public function insertVehicle( $objVehicle )
     {
-        // sql para inclusÃ£o do veiculo.
+        // sql para inclusão do veiculo.
         $sql = "insert into lcd_veiculos " .
                "       ( placa, modelo ) " .
                "values " .
@@ -45,7 +45,7 @@ class BusinessLocadoraVeiculos extends Business
                        $objVehicle->modelo
                       );
 
-        // executa a instruÃ§Ã£o $sql e retorna true ou false
+        // executa a instrução $sql e retorna true ou false
         $rs = $db->query( $db->prepare( $sql, $obj ) );
 
         $this->checkError( $db );
@@ -61,7 +61,7 @@ class BusinessLocadoraVeiculos extends Business
                "   from lcd_veiculos ".
                "  order by modelo";
 
-        // abre conexÃ£o com a base 'locadora'
+        // abre conexão com a base 'locadora'
         $db = $this->getDatabase( 'locadora' );
 
         // executa a consulta $sql
@@ -70,12 +70,12 @@ class BusinessLocadoraVeiculos extends Business
         // verifica erros na query e adiciona ao objeto
         $this->checkError( $db );
 
-        // retorna os veÃ­culos
+        // retorna os veículos
         return $data;
     }
 
     /**
-     * @param $placa (string) Placa do veÃ­culo
+     * @param $placa (string) Placa do veículo
      */
     public function getVehicle( $placa )
     {
@@ -84,7 +84,7 @@ class BusinessLocadoraVeiculos extends Business
                "   from lcd_veiculos ".
                "  where placa = ?";
 
-        // abre conexÃ£o com a base 'locadora'
+        // abre conexão com a base 'locadora'
         $db = $this->getDatabase();
 
         // executa a consulta $sql

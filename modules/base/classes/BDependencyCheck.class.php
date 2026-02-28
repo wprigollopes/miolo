@@ -222,14 +222,8 @@ abstract class BDependencyCheck
 
     public function magicQuotesGpc()
     {
-        $magicQuotes = get_magic_quotes_gpc();
-
-        if ( !$magicQuotes )
-        {
-            $this->setMessage(new BString(_M("Magic quotes deve ser ativada, isto é uma questão de segurança.", 'base')));
-        }
-
-        return $magicQuotes;
+        // magic_quotes_gpc removed in PHP 5.4; always returns true for compatibility
+        return true;
     }
 
     public function magicQuotesSybase()

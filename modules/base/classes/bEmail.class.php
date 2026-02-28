@@ -35,7 +35,8 @@
  *
  *
  **/
-$MIOLO->uses( "/classes//phpmailer/class.phpmailer.php", 'base');
+use PHPMailer\PHPMailer\PHPMailer;
+
 $MIOLO->uses( "/classes/BString.class.php", 'base');
 
 class bEmail extends PHPMailer
@@ -53,11 +54,11 @@ class bEmail extends PHPMailer
     function __construct($host, $porta, $enderecoRemetente, $nomeRemetente, $necessidadeDeAutenticacao, $usuario, $senha, $tipoDeConteudo)
     {
         parent::__construct();
-        $this->SetLanguage('br');
+        $this->setLanguage('br');
         $this->definirCodificacao('UTF-8');
         
         // Define que será usado smtp.
-        $this->IsSMTP();
+        $this->isSMTP();
 
         // Define os vaores dos parâmetros.
         $this->definirHost($host);

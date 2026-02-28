@@ -1,5 +1,5 @@
 // +-----------------------------------------------------------------+
-// | MIOLO - Miolo Development Team - UNIVATES Centro UniversitÃ¡rio  |
+// | MIOLO - Miolo Development Team - UNIVATES Centro Universitário  |
 // +-----------------------------------------------------------------+
 // | CopyLeft (L) 2001,2002  UNIVATES, Lajeado/RS - Brasil           |
 // +-----------------------------------------------------------------+
@@ -12,7 +12,7 @@
 // +-----------------------------------------------------------------+
 // | Abstract: This file contains the javascript functions           |
 // |                                                                 |
-// | Created: 2001/08/14 Vilson Cristiano GÃ¤rtner [vg]               |
+// | Created: 2001/08/14 Vilson Cristiano Gärtner [vg]               |
 // |                     Thomas Spriestersbach    [ts]               |
 // |                                                                 |
 // | History: Initial Revision                                       |
@@ -143,7 +143,7 @@ function _doPrintForm(url)
 
 function _doPrintFile()
 {
-    var ok = confirm("Aguarde a geraÃ§Ã£o do relatÃ³rio.\nO resultado serÃ¡ exibido em uma nova janela.");
+    var ok = confirm("Aguarde a geração do relatório.\nO resultado será exibido em uma nova janela.");
     if (ok)
     {
         var tg = window.name;
@@ -162,7 +162,7 @@ function _doPrintFile()
 
 function _doShowPDF()
 {
-    var ok = confirm("Aguarde a geraÃ§Ã£o do arquivo PDF.\nO resultado serÃ¡ exibido em uma nova janela.");
+    var ok = confirm("Aguarde a geração do arquivo PDF.\nO resultado será exibido em uma nova janela.");
     if (ok)
     {
         var tg = window.name;

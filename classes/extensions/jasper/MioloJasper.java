@@ -105,13 +105,13 @@ public class MioloJasper {
                 }
                 
             }
-			System.out.println("Par‚metros preparados.");
+			System.out.println("Par√¢metros preparados.");
 
 			String jr = fileName;
 			System.out.println(jr);
 			/*
 			JasperPrint jp = JasperFillManager.fillReport(jr,parametros,conn);
-			System.out.println("RelatÛrio preenchido.");
+			System.out.println("Relat√≥rio preenchido.");
 			
 			
 			JasperExportManager.exportReportToPdfFile(jp,fileOut);
@@ -121,7 +121,7 @@ public class MioloJasper {
 			JasperPrint impressao = JasperManager.fillReport(relatorio, parametros, conn);
             JasperManager.printReportToPdfFile(impressao, fileOut);
 
-			System.out.println("RelatÛrio exportado p/ PDF.");
+			System.out.println("Relat√≥rio exportado p/ PDF.");
 			
 		} catch (SQLException ex) {
             ex.printStackTrace();

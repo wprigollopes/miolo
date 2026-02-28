@@ -19,6 +19,11 @@ class SQLiteConnection extends MConnection
         }
     }
 
+    protected function buildDsn($dbhost, $loginDB, $port = null)
+    {
+        return "sqlite:{$loginDB}";
+    }
+
     public function _close()
     {
         sqlite_close ($this->id);

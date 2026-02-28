@@ -303,7 +303,7 @@ class MTheme extends MContainerControl
         {
             $arquivo_css = $path . $CSSFileName;
         }
-        $fp = fopen ($arquivo_css, "r") or die($CSSFileName . " Arquivo nÃ£o encontrado");
+        $fp = fopen ($arquivo_css, "r") or die($CSSFileName . " Arquivo não encontrado");
         $conteudo = fread($fp, filesize ($arquivo_css));
         fclose($fp);
         return $conteudo;

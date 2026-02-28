@@ -24,6 +24,16 @@ class FirebirdConnection extends MConnection
         }
     }
 
+    protected function buildDsn($dbhost, $loginDB, $port = null)
+    {
+        $h = explode(':', $dbhost);
+        $host = $h[0];
+        if (!$port) {
+            $port = isset($h[1]) ? $h[1] : '3050';
+        }
+        return "firebird:dbname={$host}/{$port}:{$loginDB}";
+    }
+
     public function _close()
     {
         ibase_close ($this->id);

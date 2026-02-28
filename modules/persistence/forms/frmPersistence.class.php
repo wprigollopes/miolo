@@ -32,9 +32,9 @@ class frmPersistence extends MForm
                  new MLinkButton('btnPost6','[Group]',$action),
                  new MLinkButton('btnPost7','[ListAll Group]',$action),
                  new MLinkButton('btnPost8','[ListByName Group]',$action),
-                 new MLinkButton('btnPost9','[ListByName-ParÃ¢metros Group]',$action),
+                 new MLinkButton('btnPost9','[ListByName-Parâmetros Group]',$action),
                  new MLinkButton('btnPost10','[CursorByName Group]',$action),
-                 new MLinkButton('btnPost11','[Student - heranÃ§a]',$action)
+                 new MLinkButton('btnPost11','[Student - herança]',$action)
         );
         $group1 = new MBaseGroup('lbGrp1','Using Objects',$array,'vertical');
         $group1->setShowLabel(false);
@@ -64,7 +64,7 @@ class frmPersistence extends MForm
         $array = array(
                  new MLinkButton('btnPost12','[New Group - manyToMany]',$action),
                  new MLinkButton('btnPost13','[New User - oneToOne]',$action),
-                 new MLinkButton('btnPost14','[New Student - heranÃ§a]',$action),
+                 new MLinkButton('btnPost14','[New Student - herança]',$action),
         ); 
         $group3 = new MBaseGroup('lbGrp3','Insert',$array,'vertical');
         $group3->setShowLabel(false);
@@ -193,7 +193,7 @@ class frmPersistence extends MForm
     public function btnPost9_click()
     {
         $query = $this->group->listByNamePar('E');
-        $this->divRight->setControls(array(new MTableRaw('[ListByName-ParÃ¢metros Group]', $query->result)));
+        $this->divRight->setControls(array(new MTableRaw('[ListByName-Parâmetros Group]', $query->result)));
     }
 
     public function btnPost10_click()
@@ -216,7 +216,7 @@ class frmPersistence extends MForm
         $text .= "Situation: {$this->student->situation}<br>";
         $text .= "Idperson: {$this->student->idperson}<br>";
         $text .= "Name: " . $this->student->name ."<br>";
-        $this->divRight->setControls(array(new MThemeBox('[Student - heranÃ§a]', $text)));
+        $this->divRight->setControls(array(new MThemeBox('[Student - herança]', $text)));
     }
 
     public function btnPost12_click()
@@ -570,17 +570,17 @@ class frmPersistence extends MForm
             $user3->login = uniqid();
             $user3->password = 'TESTE';
             $user3->save();
-// listando usuÃ¡rios do setor $sector->id
+// listando usuários do setor $sector->id
             $text .= "Lista de usuarios do setor {$sector->id}:<br>";
             $sector->retrieve();
             foreach($sector->users as $user)
             {
                 if (strlen($user->login) > 7) $text .= $user->login . '<br>';
             }
-// removendo a associaÃ§ao com o usuario $user2
-            $text .= "Removendo a associaÃ§ao com o usuario " . $user2->login . ":<br>";
+// removendo a associaçao com o usuario $user2
+            $text .= "Removendo a associaçao com o usuario " . $user2->login . ":<br>";
             $user2->deleteAssociation('sector', $sector);
-// listando usuÃ¡rios do setor $sector->id
+// listando usuários do setor $sector->id
             $text .= "<br>Listando novamente os usuarios do setor {$sector->id}:<br>";
             $sector->retrieve();
             foreach($sector->users as $user)
@@ -630,18 +630,18 @@ echo $text;
             $user3->login = uniqid();
             $user3->password = 'TESTE';
             $user3->save();
-// listando usuÃ¡rios do setor $sector->id
+// listando usuários do setor $sector->id
             $text .= "Lista de usuarios do setor {$sector->id}:<br>";
             $sector->retrieve();
             foreach($sector->users as $user)
             {
                 if (strlen($user->login) > 7) $text .= $user->login . '<br>';
             }
-// removendo a associaÃ§ao com o usuario $user2
-            $text .= "Removendo a associaÃ§ao do setor {$sector->id} com os usuarios:<br> {$user1->login} and {$user3->login}";
+// removendo a associaçao com o usuario $user2
+            $text .= "Removendo a associaçao do setor {$sector->id} com os usuarios:<br> {$user1->login} and {$user3->login}";
             $sector->deleteAssociation('users', $user1);
             $sector->deleteAssociation('users', $user3);
-// listando usuÃ¡rios do setor $sector->id
+// listando usuários do setor $sector->id
             $text .= "<br>Listando novamente os usuarios do setor {$sector->id}:<br>";
             $sector->retrieve();
             foreach($sector->users as $user)
@@ -685,21 +685,21 @@ echo $text;
             $user3->login = uniqid();
             $user3->password = 'TESTE';
             $user3->save();
-// colocando os 3 usuÃ¡rios no $group
+// colocando os 3 usuários no $group
             $group->addUser($user1);
             $group->addUser($user2);
             $group->addUser($user3);
             $group->save();
-// listando usuÃ¡rios do $group
+// listando usuários do $group
             $text .= "Lista de usuarios do grupo {$group->group}:<br>";
             $group->retrieveAssociation('users');
             for($i=0; $i<count($group->users);$i++) 
                $text .= "&nbsp;&nbsp;&nbsp;User login: ". $group->users[$i]->login . "<br>";
-// removendo a associaÃ§ao com os usuarios 
-            $text .= "Removendo a associaÃ§ao do grupo {$group->group} com os usuarios:<br> {$user1->login} and {$user3->login}";
+// removendo a associaçao com os usuarios 
+            $text .= "Removendo a associaçao do grupo {$group->group} com os usuarios:<br> {$user1->login} and {$user3->login}";
             $group->deleteAssociation('users', $user1);
             $group->deleteAssociation('users', $user3);
-// listando novamente usuÃ¡rios do $group
+// listando novamente usuários do $group
             $text .= "Listando novamente usuarios do grupo {$group->group}:<br>";
             $group->retrieveAssociation('users');
             for($i=0; $i<count($group->users);$i++) 
@@ -743,7 +743,7 @@ echo $text;
             $user3->login = uniqid();
             $user3->password = 'TESTE';
             $user3->save();
-// listando usuÃ¡rios do setor $sector->id
+// listando usuários do setor $sector->id
             $text .= "Lista de usuarios do setor {$sector->id}:<br>";
             $sector->retrieve();
             if (is_array($sector->users))
@@ -756,9 +756,9 @@ echo $text;
             $sector->addUser($user1);
             $sector->addUser($user2);
             $sector->addUser($user3);
-            $text .= "Salvando a associaÃ§Ã£o...<br>";
+            $text .= "Salvando a associação...<br>";
             $sector->saveAssociation('users');
-            $text .= "Lista de usuarios do setor {$sector->id}, apÃ³s salvar a associaÃ§Ã£o:<br>";
+            $text .= "Lista de usuarios do setor {$sector->id}, após salvar a associação:<br>";
             $sector->retrieve();
             if (is_array($sector->users))
                 foreach($sector->users as $user)

@@ -182,8 +182,8 @@ class MMultiTextField2 extends MTextField
             $ref .= $f[0];
             $labelF = htmlspecialchars( $f[1] ) . ( $f[2] ? ' - ' . htmlspecialchars( $f[2]) : '' );
 
-            // caso tenhamos opÃ§Ãµes para este campo ($f[3] Ã© o array de opÃ§Ãµes)
-            // utilizamos um selection caso contrÃ¡rio um simples text field
+            // caso tenhamos opções para este campo ($f[3] é o array de opções)
+            // utilizamos um selection caso contrário um simples text field
             if ( $options = $f[3] )
             {
                 $content = array();

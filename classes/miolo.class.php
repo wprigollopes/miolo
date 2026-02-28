@@ -264,7 +264,7 @@ class MIOLO
                 $msg = _M('Fatal error') . ": [$msg]";
                 if ( $this->getConf('options.message.error') && $e->getCode() === 0 )
                 {
-                    $msg = utf8_encode($this->getConf('options.message.error'));
+                    $msg = mb_convert_encoding($this->getConf('options.message.error'), 'UTF-8', 'ISO-8859-1');
                 }
                 echo $msg;
             }
@@ -543,7 +543,7 @@ mdump($this->getConf("options.fileextension"));
                 else
                 {
                     $action = $this->context->getAction();
-                    $handler = (strlen($action) > 0 && $action{0} == '_') ? substr($action,1) : 'main';
+                    $handler = (strlen($action) > 0 && $action[0] == '_') ? substr($action,1) : 'main';
                     $this->invokeHandler($this->startup, $handler);
                 }
 			}
@@ -560,7 +560,7 @@ mdump($this->getConf("options.fileextension"));
             $msg = $e->getMessage();
             if ( $this->getConf('options.message.error') && $e->getCode() === 0 )
             {
-                $msg = utf8_encode($this->getConf('options.message.error'));
+                $msg = mb_convert_encoding($this->getConf('options.message.error'), 'UTF-8', 'ISO-8859-1');
             }
             
 //          $msg .= $e->getFile() . $e->getLine() . $e->getTraceAsString();
@@ -914,7 +914,7 @@ mdump($this->getConf("options.fileextension"));
     /**
      * @todo TRANSLATE
      *
-     * CompÃµe um link (URL).
+     * Compõe um link (URL).
      * Este metodo compoe um link para uma URL no sistema.
      * <br>
      * @example
@@ -1246,24 +1246,24 @@ mdump($this->getConf("options.fileextension"));
     /**
      * @todo TRANSLATION
      * Retorna
-     * O metodo _REQUEST provÃª uma forma simples e rÃ¡pida para se ter acesso Ã s 
-     * variÃ¡veis, alÃ©m de garantir a compatibilidade com versÃµes futuras do PHP.
-     * Utilizando comandos PHP, seria necessÃ¡rio utilizar $_REQUEST, $_GET, $_POST 
-     * ou global ao passo este mÃ©todo possibilita, alÃ©m da busca num, a busca em
+     * O metodo _REQUEST provê uma forma simples e rápida para se ter acesso às 
+     * variáveis, além de garantir a compatibilidade com versões futuras do PHP.
+     * Utilizando comandos PHP, seria necessário utilizar $_REQUEST, $_GET, $_POST 
+     * ou global ao passo este método possibilita, além da busca num, a busca em
      * todas as informacoes.
-     * Caso vocÃª queira obter apenas o valor da variÃ¡veis provenientes de
+     * Caso você queira obter apenas o valor da variáveis provenientes de
      * uma dessas opcoes, por exemplo GET, passe essa palavra como segundo
-     * parÃ¢metro.
+     * parâmetro.
      *
-     * @param (mixed) $vars String ou array: variÃ¡veis das quais se deseja obter o valor
+     * @param (mixed) $vars String ou array: variáveis das quais se deseja obter o valor
      * @param (string) $from De onde obter os dados. Pode ser 'GET', 'POST',
-     *                       'SESSION', 'REQUEST' alÃ©m do padrÃ£o 'ALL' que 
+     *                       'SESSION', 'REQUEST' além do padrão 'ALL' que 
      *                       retorna todos os dados.
-     * @param (string) $order Onde pesquisar primeiro POST ou GET. Por padrÃ£o a 
-     *                        pesquisa Ã© feita de acordo com a configuraÃ§Ã£o do php.ini .
-     *                        Para forÃ§ar a ordem, informe "PG" ou "GP" (P=post, G=get)
+     * @param (string) $order Onde pesquisar primeiro POST ou GET. Por padrão a 
+     *                        pesquisa é feita de acordo com a configuração do php.ini .
+     *                        Para forçar a ordem, informe "PG" ou "GP" (P=post, G=get)
      *
-     * @return (array) Os valores das variÃ¡veis solicitadas
+     * @return (array) Os valores das variáveis solicitadas
      */
     public static function _REQUEST( $vars, $from = 'ALL', $order='' )
     {
@@ -1463,15 +1463,15 @@ mdump($this->getConf("options.fileextension"));
     //     GetTheme
     //
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    # Este mÃ©todo Ã© utilizado para criar uma conexÃ£o com a base de dados
-    # especificada no parÃ¢metro <code>$conf</code>.
-    # A configuraÃ§Ã£o da base deve ter sido previamente criada no arquivo
-    # de configuraÃ§Ã£o do MIOLO: miolo.conf
+    # Este método é utilizado para criar uma conexão com a base de dados
+    # especificada no parâmetro <code>$conf</code>.
+    # A configuração da base deve ter sido previamente criada no arquivo
+    # de configuração do MIOLO: miolo.conf
     #
-    # @param $conf (string) Nome da configuraÃ§Ã£o, definida no miolo.conf
-    # @param $user (string) (optional) Nome do usuÃ¡rio para conectar Ã  base
+    # @param $conf (string) Nome da configuração, definida no miolo.conf
+    # @param $user (string) (optional) Nome do usuário para conectar à base
     #        de dados
-    # @param $pass (string) (optional) Senha para acesso Ã  base.
+    # @param $pass (string) (optional) Senha para acesso à base.
     #
     # @see #MIOLO::getBusiness, miolo/database.class.php
     #---------------------------------------------------------------------
@@ -1563,17 +1563,17 @@ mdump($this->getConf("options.fileextension"));
     #      miolo/ui/form.class#Form::getData
     #---------------------------------------------------------------------
     /**
-     * MÃ©todo para acessar funÃ§Ãµes do banco de dados
-     * Como o MIOLO Ã© capaz de abrigar mÃ³dulos diferentes, era preciso
-     * adotar um esquema para evitar possÃ­veis colisÃµes de nomes de classes.
+     * Método para acessar funções do banco de dados
+     * Como o MIOLO é capaz de abrigar módulos diferentes, era preciso
+     * adotar um esquema para evitar possíveis colisões de nomes de classes.
      * Teoricamente dois modulos poderiam definir uma classe, por exemplo,
      * 'Guestbook' que, utilizada simultaneamente, causaria problemas.
      * <br><br>
      * O MIOLO espera que classes do tipo 'Business' tenham o seu nome composto
      * de 'Business' + 'nome do module' + 'nome da classe'. Mas para evitar
-     * redundÃ¢ncias adotou-se o padrÃ£o de somente usar o nome bÃ¡sico da classe
-     * para definir o nome do arquivo, jÃ¡ que o mesmo se encontra dentro da estrutura
-     * de diretÃ³rios do mÃ³dulo em questÃ£o.
+     * redundâncias adotou-se o padrão de somente usar o nome básico da classe
+     * para definir o nome do arquivo, já que o mesmo se encontra dentro da estrutura
+     * de diretórios do módulo em questão.
      *
      * @example
      * <i> in file: ../modules/foo/db/guestbook.class.php </i>
@@ -1596,7 +1596,7 @@ mdump($this->getConf("options.fileextension"));
      * ?&gt;
      *
      *
-     * @param $module (string) nome do mÃ³dulo
+     * @param $module (string) nome do módulo
      * @param $namemain' (tipo) desc
      * @param $data= (tipo) desc
      *

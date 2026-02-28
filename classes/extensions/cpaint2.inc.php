@@ -854,7 +854,7 @@
 
       } elseif ($encoding == 'ISO-8859-1') {
         // for ISO-8859-1 we can use utf8-encode()
-        $return_value = utf8_encode($data);
+        $return_value = mb_convert_encoding($data, 'UTF-8', 'ISO-8859-1');
 
       } else {
         // give up. if UTF-8 data was supplied everything is fine!
@@ -893,7 +893,7 @@
 
         } elseif ($encoding == 'ISO-8859-1') {
           // for ISO-8859-1 we can use utf8-decode()
-          $return_value = utf8_decode($data);
+          $return_value = mb_convert_encoding($data, 'ISO-8859-1', 'UTF-8');
 
         } else {
           // give up. if data was supplied in the correct format everything is fine!

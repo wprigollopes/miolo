@@ -34,22 +34,22 @@ class repAlunoBreak extends MPDFReport
         $n = count($t->tree);
         foreach($t->tree as $k=>$node)
         {
-            // para cada nÃ³s (nome do curso), cria um novo report passando o array de dados
+            // para cada nós (nome do curso), cria um novo report passando o array de dados
             // e o nome do curso
             $rep = new repAlunoBreakReport($node, $k);
-            // define que o objeto PDF do subreport Ã© o mesmo deste report 
+            // define que o objeto PDF do subreport é o mesmo deste report 
             $rep->setPDF($this->getPDF());
             // gera o subreport
             $rep->generate();
-            // nova pÃ¡gina, apÃ³s gerar o subreport
+            // nova página, após gerar o subreport
             if ($k != $n) $this->getPDF()->newPage();
         }
  	}
 
     public function generate()
     {
-        // este mÃ©todo sobreescreve o da classe pai, apenas para evitar a geraÃ§Ã£o deste report
-        // jÃ¡ que este report nÃ£o tem dados...ele atua apenas como um container para os subreports
+        // este método sobreescreve o da classe pai, apenas para evitar a geração deste report
+        // já que este report não tem dados...ele atua apenas como um container para os subreports
         $this->setOutput();
         $this->execute();
     }
@@ -69,7 +69,7 @@ class repAlunoBreakReport extends MPDFReport
         $action = MIOLO::getCurrentAction();
         $page = $MIOLO->getPage();
 
-        // este subreport Ã© um report como outro qualquer....
+        // este subreport é um report como outro qualquer....
         $this->nomeCurso = strtoupper($nomeCurso);
         $ui = $MIOLO->getUI();
         $this->img = $ui->getImageSrc('logonet.png','tutorial');
@@ -80,7 +80,7 @@ class repAlunoBreakReport extends MPDFReport
         parent::__construct($data, $columns, 45);
         $this->setColumnAttr('nome', 'index', 0);
         $this->setColumnAttr('telefone', 'index', 1);
-        $this->setTitle('RelaÃ§Ã£o de Alunos do Curso');
+        $this->setTitle('Relação de Alunos do Curso');
         $this->setOption('showTableTitle', 1);
         $this->timestamp = date('d/m/Y G:i');
 	}
@@ -90,9 +90,9 @@ class repAlunoBreakReport extends MPDFReport
         $h = $this->pdf->getFontHeight(12);
         $this->pdf->ezImage($this->img,5,50,'none','left');
         $this->pdf->addText(90,800,12,'UFJF - Universidade Federal de Juiz de Fora');
-        $this->pdf->addText(520,800,12,'PÃ¡gina: ' . $this->pn->pageNumber . '/' . $this->pn->pageCount);
-        $this->pdf->addText(90,800-$h,12,'CGCO - Centro de GestÃ£o do Conhecimento Organizacional');
-        $this->pdf->addText(90,800-$h-$h,12,'SIGA - Sistema Integrado de GestÃ£o AcadÃªmica');
+        $this->pdf->addText(520,800,12,'Página: ' . $this->pn->pageNumber . '/' . $this->pn->pageCount);
+        $this->pdf->addText(90,800-$h,12,'CGCO - Centro de Gestão do Conhecimento Organizacional');
+        $this->pdf->addText(90,800-$h-$h,12,'SIGA - Sistema Integrado de Gestão Acadêmica');
         $this->pdf->addText(90,800-$h-$h-$h,12,"<b>Curso: " . $this->nomeCurso . "</b>");
         $this->pdf->ezSetY(800-$h-$h-$h-$h);
     }

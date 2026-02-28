@@ -15,9 +15,9 @@ class frmMain extends Form
     public function createFields()
     {
         $options = array(
-           new RadioButton('level','1','',true,'FÃ¡cil. VocÃª pode errar 10 vezes.'),
-           new RadioButton('level','2','',false,'MÃ©dio. VocÃª pode errar 5 vezes.'),
-           new RadioButton('level','3','',false,'DifÃ­cil. VocÃª pode errar 3 vezes.')
+           new RadioButton('level','1','',true,'Fácil. Você pode errar 10 vezes.'),
+           new RadioButton('level','2','',false,'Médio. Você pode errar 5 vezes.'),
+           new RadioButton('level','3','',false,'Difícil. Você pode errar 3 vezes.')
         );
         $link = $this->manager->getCurrentURL();
         $guesses = $this->getGuessLetters();
@@ -44,20 +44,20 @@ class frmMain extends Form
            new LinkButton('giveUp','Desistir?',$link)
         );
         $lose = array(
-           new TextHeader('lose','1','VocÃª perdeu!'),
+           new TextHeader('lose','1','Você perdeu!'),
            new Text('word',''),
            new Spacer('20px'),
            new LinkButton('again','Jogar novamente?',$link)
         );
         $win = array(
-           new TextHeader('win','1','ParÃ¡bens, vocÃª ganhou!', 'blue'),
+           new TextHeader('win','1','Parábens, você ganhou!', 'blue'),
            new Text('word',''),
            new Spacer('20px'),
            new LinkButton('again','Jogar novamente?',$link)
         );
         $fields = array(
-           new Label('VocÃª deve descobrir a palavra, escolhendo uma letra de cada vez. Se vocÃª errar acima do limite, vocÃª perde!'),
-           new BaseGroup('choiceGroup','Escolha o nÃ­vel', $level, 'vertical','css'),
+           new Label('Você deve descobrir a palavra, escolhendo uma letra de cada vez. Se você errar acima do limite, você perde!'),
+           new BaseGroup('choiceGroup','Escolha o nível', $level, 'vertical','css'),
            new BaseGroup('guessGroup','', $guess, 'vertical','css'),
            new BaseGroup('loseGroup','', $lose, 'vertical','css'),
            new BaseGroup('winGroup','', $win, 'vertical','css')
@@ -130,7 +130,7 @@ class frmMain extends Form
     public function setGuessWord($guessWord)
     {
         $this->page->setViewState('guessword', $guessWord);
-        for($i = 0, $w = ''; $i < strlen($guessWord); $w .= $guessWord{$i} . '&nbsp;', $i++);
+        for($i = 0, $w = ''; $i < strlen($guessWord); $w .= $guessWord[$i] . '&nbsp;', $i++);
 		$this->setFieldValue('guessWord', $w);
     }
 
@@ -151,7 +151,7 @@ class frmMain extends Form
 
     public function setGuessErrors()
     {
-        $this->setFieldValue('guessErrors','VocÃª tem ' . $this->getErrors() . ' erros em um mÃ¡ximo de ' . $this->getLevel() . '.');
+        $this->setFieldValue('guessErrors','Você tem ' . $this->getErrors() . ' erros em um máximo de ' . $this->getLevel() . '.');
     }
  
     public function onBtnPlayClick($sender)
@@ -187,7 +187,7 @@ class frmMain extends Form
 		$success = false;
 		while (($pos = strpos($word,$letter,$pos)) !== false)
 		{
-			$guessWord{$pos} = $letter;
+			$guessWord[$pos] = $letter;
 			$success = true;
 			$pos++;
 		}

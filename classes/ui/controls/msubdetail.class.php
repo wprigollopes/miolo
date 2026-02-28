@@ -422,7 +422,7 @@ class MSubDetail extends MBaseGroup
                     }
 
                     $fields = self::getSessionValue('fields', $this->item);
-                    $fields[$field->name] = serialize($newField); // foi serializado e encodado em função de enviar para a sessão, qualquer outra forma não funciona (não monta devolta no getFiels)
+                    $fields[$field->name] = json_encode($newField); // foi serializado e encodado em função de enviar para a sessão, qualquer outra forma não funciona (não monta devolta no getFiels)
 
 
                     self::setSessionValue('fields', $fields, $this->item);
@@ -489,7 +489,12 @@ class MSubDetail extends MBaseGroup
         {
             foreach ( $fields as $line => $info )
             {
-                $field = unserialize($info);
+                $data = json_decode($info, true);
+                if ($data === null && $info !== 'null') {
+                    // Fallback for old serialized data
+                    $data = @unserialize($info, ['allowed_classes' => false]);
+                }
+                $field = (object) $data;
 
                 $result[$field->id] = $field;
 
@@ -1468,7 +1473,7 @@ class MSubDetail extends MBaseGroup
 
     public static function forceAddToTable($args)
     {
-        unset($args->arrayItemTemp{$args->mSubDetail});
+        unset($args->arrayItemTemp[$args->mSubDetail]);
         self::addToTable($args);
     }
 
@@ -1653,7 +1658,7 @@ class MSubDetail extends MBaseGroup
 
         if ( !$nivel )
         {
-            $nivel = $data->arrayItemTemp{$args->mSubDetail};
+            $nivel = $data->arrayItemTemp[$args->mSubDetail];
         }
         if ( $nivel != 0 )
         {
@@ -1674,7 +1679,7 @@ class MSubDetail extends MBaseGroup
 
         if ( !$nivel )
         {
-            $nivel = $data->arrayItemTemp{$args->mSubDetail};
+            $nivel = $data->arrayItemTemp[$args->mSubDetail];
         }
 
         $item = self::getData($object, false);

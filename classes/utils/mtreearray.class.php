@@ -38,9 +38,20 @@ class MTreeArray
             {
                 $aNode = array();
                 foreach ( $node as $n ) $aNode[] = $row[$n];
-                $s = '';
-                foreach ( $group as $g ) $s .= '[$row[' . $g . ']]';
-                eval("\$this->tree$s" . "[] = \$aNode;");
+
+                // Build nested tree using references instead of eval
+                $ref = &$this->tree;
+                foreach ( $group as $g )
+                {
+                    $key = $row[$g];
+                    if (!isset($ref[$key]))
+                    {
+                        $ref[$key] = array();
+                    }
+                    $ref = &$ref[$key];
+                }
+                $ref[] = $aNode;
+                unset($ref);
             }
         }
     }

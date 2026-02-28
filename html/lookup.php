@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../vendor/autoload.php';
 
 header ("Cache-Control: no-cache, must-revalidate");  // HTTP/1.1
 header ("Pragma: no-cache");                          // HTTP/1.0
@@ -29,6 +30,11 @@ $MIOLO->uses("ui/controls/datagrid.class");
 
 $lookup = new Lookup();
 
+if (!preg_match('/^[a-zA-Z0-9_]+$/', $lookup->module)) {
+    http_response_code(400);
+    die('Invalid module name');
+}
+
 $ok = $MIOLO->uses('/classes/lookup.class.php',$lookup->module);
 
 $MIOLO->assert($ok,_M('File modules/@1/db/lookup.class.php not found!<br>'.
@@ -49,8 +55,19 @@ $page->setTitle('Janela de Pesquisa');
 //   $lookup->filterValue = $fvalue;
 //}
 
-eval("\$object = new Business{$lookup->module}Lookup();");
-eval("\$object->lookup{$lookup->item}(\$lookup);");
+$className = 'Business' . $lookup->module . 'Lookup';
+if (!preg_match('/^[a-zA-Z0-9_]+$/', $lookup->module) || !class_exists($className)) {
+    http_response_code(400);
+    die('Invalid module');
+}
+$object = new $className();
+
+$method = 'lookup' . $lookup->item;
+if (!preg_match('/^[a-zA-Z0-9_]+$/', $lookup->item) || !method_exists($object, $method)) {
+    http_response_code(400);
+    die('Invalid item');
+}
+$object->$method($lookup);
 
 //$filterForm = & $lookup->getForm();
 

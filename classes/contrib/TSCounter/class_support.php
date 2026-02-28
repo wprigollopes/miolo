@@ -442,8 +442,7 @@ class SupportFunctions
         {
             # Server might run under Windows.
 
-            $filesys = preg_replace("/\//", "\\", $file);
-            $delete = system("del $filesys");
+            $delete = unlink($file);
 
             clearstatcache();
 
@@ -453,7 +452,6 @@ class SupportFunctions
                 # Set the file access permission explicitly.
                 $delete = chmod($file, 0775);
                 $delete = unlink($file);
-                $delete = system("del $filesys");
             }
         }
     }

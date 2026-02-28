@@ -44,7 +44,7 @@ class frmLoginMD5 extends MForm
         // Max login tryes
         $max_tries = 3;
         
-        // autenticar usuÃ¡rio e obter dados do login
+        // autenticar usuário e obter dados do login
         $uid = $this->getFormValue('uid');
         $pwd = $this->getFormValue('pwd');
         $challenge = $this->getFieldValue('challenge');
@@ -71,7 +71,7 @@ class frmLoginMD5 extends MForm
                $tries = $this->getFormValue('tries');
                if ( $tries < $max_tries )
                {
-                  $err = 'Erro na identificaÃ§Ã£o do usuÃ¡rio!' . ' - Restam ' . ( $max_tries - $tries) . 
+                  $err = 'Erro na identificação do usuário!' . ' - Restam ' . ( $max_tries - $tries) . 
                          ' ' . 'tentativa(s).';
                   $this->setFormValue('tries',$tries++);
                   $pwd = null;
@@ -79,7 +79,7 @@ class frmLoginMD5 extends MForm
                }
                else
                {
-                   throw new ELoginException('Erro na identificaÃ§Ã£o do usuÃ¡rio!');
+                   throw new ELoginException('Erro na identificação do usuário!');
                } 
             }
         }

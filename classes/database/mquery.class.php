@@ -139,14 +139,19 @@ abstract class MQuery extends MDataSet
                 $arr[$i][$key] = $row[$i];
         }
 
-        foreach ($p as $i => $o)
-            $sortcols .= ($i > 0 ? ",\$arr[$o]" : "\$arr[$o]");
+        // Build args array for array_multisort safely
+        $args = [];
+        foreach ($p as $o) {
+            $args[] = &$arr[$o];
+        }
+        $args[] = SORT_ASC;
+        for ($i = 0; $i < $n; $i++) {
+            if (!in_array($i, $p)) {
+                $args[] = &$arr[$i];
+            }
+        }
+        array_multisort(...$args);
 
-        for ($i = 0; $i < $n; $i++)
-            if (!in_array($i, $p))
-                $sortcols .= ",\$arr[$i]";
-
-        eval ("array_multisort({$sortcols}, SORT_ASC);");
         $this->result = array();
 
         for ($i = 0; $i < $n; $i++)

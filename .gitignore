@@ -1,0 +1,11 @@
+/vendor/
+composer.lock
+var/log/
+var/cache/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~

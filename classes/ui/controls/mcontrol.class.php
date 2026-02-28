@@ -568,7 +568,7 @@ abstract class MControl extends MComponent
 
     public function addEvent($event, $handler, $preventDefault = true)
     {
-        if ( $handler{0} == ':' )
+        if ( $handler[0] == ':' )
         {
             $handler = $this->manager->getUI()->getAjax($handler);
         }

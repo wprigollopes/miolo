@@ -65,16 +65,16 @@ class MAuthLdap extends MAuth
         $l         = $MIOLO->getConf('login.ldap.login');
         $idPerson  = $MIOLO->getConf('login.ldap.idperson');
         $vars   = array(
-                        '%domain%'  =>$_SERVER['HOST_NAME'], 
-                        '%login%'   =>$user, 
-                        '%password%'=>md5($pass),
+                        '%domain%'  =>$_SERVER['HOST_NAME'],
+                        '%login%'   =>$user,
+                        '%password%'=>password_hash($pass, PASSWORD_BCRYPT),
                         'AND('      =>'&(',
                         'OR('       =>'|(',
                     );
         switch($schema)
         {
             case 'miolo':
-                $search = '(&(login='.$user.')(password='.md5($pass).'))';
+                $search = '(&(login='.$user.')(password='.password_hash($pass, PASSWORD_BCRYPT).'))';
                 $login  = false;
                 break;
             case 'system':
@@ -118,7 +118,7 @@ class MAuthLdap extends MAuth
                         $passwordColumn = 'userpassword';
                     }
 
-                    $exists = $info[$i][$passwordColumn][0] == md5($pass);
+                    $exists = password_verify($pass, $info[$i][$passwordColumn][0]);
                     
                     if ( !$exists )
                     {
@@ -191,7 +191,7 @@ class MAuthLdap extends MAuth
         
         for ( $i = 0; $i < $len; $i++ )
         {
-            $newpw .= "{$pw{$i}}\000";
+            $newpw .= "{$pw[$i]}\000";
         }
         
         return base64_encode($newpw);

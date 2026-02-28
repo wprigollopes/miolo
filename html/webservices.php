@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../vendor/autoload.php';
 
 /**
  * Handle webservices requests.
@@ -32,6 +33,16 @@
 // Get the requested info
 $currentModule = $_GET['module'] = $_REQUEST['module'];
 $class  = $_GET['class']  = $_REQUEST['class'];
+
+if (!preg_match('/^[a-zA-Z0-9_]+$/', $currentModule)) {
+    http_response_code(400);
+    die('Invalid module name');
+}
+if (!preg_match('/^[a-zA-Z0-9_]+$/', $class)) {
+    http_response_code(400);
+    die('Invalid class name');
+}
+
 $client = $_SERVER['REMOTE_ADDR'] . '-' . $_SERVER['REMOTE_HOST'];
 $time = date('d/m/Y-G:i:s');
 

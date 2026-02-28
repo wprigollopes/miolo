@@ -1,6 +1,6 @@
 <?
 	/**
-	 *	 limpa o conteÃºdo da pÃ¡gina
+	 *	 limpa o conteúdo da página
 	 */
     $theme->clearContent();
 	
@@ -10,17 +10,17 @@
     $ui = $MIOLO->getUI();
     
 	/**
-	 * adicionando link ao barra de navegaÃ§Ã£o
+	 * adicionando link ao barra de navegação
 	 */
     $navbar->addOption('Save', $module, $self);
 
 	/**
-	 * cria o formulÃ¡rio, definido no arquivo example/forms/FrmSession.class
+	 * cria o formulário, definido no arquivo example/forms/FrmSession.class
 	 */
     $formSave = $ui->getForm($module,'frmSave');
 
 	/**
-	 * coloca o conteÃºdo da pÃ¡gina (primeiro o menubar, depois o $page)
+	 * coloca o conteúdo da página (primeiro o menubar, depois o $page)
 	 */
 	if ($theme->getContent()  == '')
 	{

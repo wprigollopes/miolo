@@ -37,6 +37,16 @@ class PostgresConnection extends MConnection
         pg_query($this->id, "SET CLIENT_ENCODING TO '{$encoding}'");
     }
 
+    protected function buildDsn($dbhost, $loginDB, $port = null)
+    {
+        $h = explode(':', $dbhost);
+        $host = $h[0];
+        if (!$port) {
+            $port = isset($h[1]) ? $h[1] : '5432';
+        }
+        return "pgsql:host={$host};port={$port};dbname={$loginDB}";
+    }
+
     public function _close()
     {
         pg_close($this->id);

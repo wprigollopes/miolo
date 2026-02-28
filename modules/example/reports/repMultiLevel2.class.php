@@ -22,7 +22,7 @@
             $ui = $MIOLO->getUI();
             $this->img = $ui->getImageSrc('logonet.png','tutorial');
             $this->timestamp = date('d/m/Y G:i');
-            $this->pdf->ezStartPageNumbers(520, 800, 12, 'rigth', 'PÃ¡gina: {PAGENUM}');
+            $this->pdf->ezStartPageNumbers(520, 800, 12, 'rigth', 'Página: {PAGENUM}');
             $this->pdf->ezSetMargins(100, 30, 30, 30);
             $this->generatePageHeader();
             $this->generatePageFooter();
@@ -173,8 +173,8 @@
             $this->pdf->saveState();
             $this->pdf->addPngFromFile($this->img, $x0, 770, 50, 50);
             $this->pdf->addText($x0 + 60, 800, 12, 'UFJF - Universidade Federal de Juiz de Fora');
-            $this->pdf->addText($x0 + 60, 800 - $h, 12, 'CGCO - Centro de GestÃ£o do Conhecimento Organizacional');
-            $this->pdf->addText($x0 + 60, 800 - $h - $h, 12, 'SIGA - Sistema Integrado de GestÃ£o AcadÃªmica');
+            $this->pdf->addText($x0 + 60, 800 - $h, 12, 'CGCO - Centro de Gestão do Conhecimento Organizacional');
+            $this->pdf->addText($x0 + 60, 800 - $h - $h, 12, 'SIGA - Sistema Integrado de Gestão Acadêmica');
             $y = 800 - $h - $h - 5;
             $this->pdf->setColor(0.1,0.1,0.1);
             $this->pdf->filledRectangle($x0, $y-20, $x1-30, 16 );

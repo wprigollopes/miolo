@@ -53,14 +53,14 @@ class BusinessAdminUser extends MBusiness implements IUser
 
     public function save()
     {
-        $this->hash = md5($this->password);
+        $this->hash = password_hash($this->password, PASSWORD_BCRYPT);
         parent::save();
     }
     
     public function updatePassword($password)
     {
         $this->password = $password;
-        $this->hash = md5($this->password);
+        $this->hash = password_hash($this->password, PASSWORD_BCRYPT);
         $this->save();
     }
 
@@ -183,14 +183,13 @@ class BusinessAdminUser extends MBusiness implements IUser
        return true;     
     }
 
-    public function validatePasswordMD5($challenge,$response)
+    public function validatePasswordMD5($password, $response=NULL)
     {
-       $hash_pass = md5(trim($this->login) . ':' . trim($this->hash) . ":" . $challenge);
-       if ($hash_pass == $response)
+       if ( !password_verify($password, $this->password) )
        {
            throw new ESecurityException('Passwords dont matches');
        }
-       return true;     
+       return true;
     }
 
     public function isMemberOf($group)

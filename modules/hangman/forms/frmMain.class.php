@@ -183,7 +183,7 @@ class frmMain extends MForm
     {
         $this->page->setViewState( 'guessword', $guessWord );
 
-        for( $i = 0, $w = ''; $i < strlen( $guessWord ); $w .= $guessWord{$i} . '&nbsp;', $i++ );
+        for( $i = 0, $w = ''; $i < strlen( $guessWord ); $w .= $guessWord[$i] . '&nbsp;', $i++ );
 
         $this->setFieldValue( 'guessWord', $w );
     }
@@ -281,7 +281,7 @@ class frmMain extends MForm
         // see if the player discovered the word
         while ( ( $pos = strpos( $word, $letter, $pos ) ) !== false )
         {
-            $guessWord{$pos} = $letter;
+            $guessWord[$pos] = $letter;
             $success = true;
             $pos++;
         }

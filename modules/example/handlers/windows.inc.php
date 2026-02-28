@@ -14,7 +14,7 @@ $icon = $ui->getImage('','button_edit.png');
 $frmPanel = new MActionPanel('pnlWindows','Windows','',$close, $icon);
 
 //
-// Acessando um formulÃ¡rio em uma window modal
+// Acessando um formulário em uma window modal
 //
 $urlWindow = $MIOLO->getActionURL('example','main:windows:window'); 
 $win = new MWindow('winWindow',array('url'=>$urlWindow));

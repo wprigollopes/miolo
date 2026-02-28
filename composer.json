@@ -1,0 +1,31 @@
+{
+    "name": "miolo/miolo",
+    "description": "Miolo PHP Framework",
+    "type": "library",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": ">=8.1",
+        "ext-pdo": "*",
+        "ext-mbstring": "*",
+        "phpmailer/phpmailer": "^6.9",
+        "dompdf/dompdf": "^2.0"
+    },
+    "autoload": {
+        "classmap": [
+            "classes/",
+            "modules/"
+        ],
+        "files": [
+            "classes/support.inc.php"
+        ],
+        "exclude-from-classmap": [
+            "classes/extensions/dompdf/",
+            "classes/extensions/json.php",
+            "modules/base/classes/phpmailer/"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    }
+}

@@ -1,5 +1,5 @@
 <?php
-//mmcache_cache_page($SERVER['PHP_SELF'].'?GET='.serialize($_GET),300);
+require_once __DIR__ . '/../vendor/autoload.php';
 
 // FIXME: use this only when debugging
 // ensure no caching
@@ -12,10 +12,7 @@ header("X-Robots-Tag: noindex, nofollow", true); //Dissalow index
 
 //var_dump($_POST);
 
-ini_set("session.bug_compat_42","off");
-ini_set("session.bug_compat_warn","off");
-
-ini_set('display_errors', '1'); 
+ini_set('display_errors', '1');
 
 require_once '../classes/miolo.class.php';
 $MIOLO = MIOLO::getInstance();

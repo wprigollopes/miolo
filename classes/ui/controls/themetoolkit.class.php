@@ -1,6 +1,6 @@
 <?php
 // +-----------------------------------------------------------------+
-// | MIOLO - Miolo Development Team - UNIVATES Centro UniversitÃ¡rio  |
+// | MIOLO - Miolo Development Team - UNIVATES Centro Universitário  |
 // +-----------------------------------------------------------------+
 // | CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil            |
 // +-----------------------------------------------------------------+
@@ -13,7 +13,7 @@
 // +-----------------------------------------------------------------+
 // | Abstract: This file contains the toolkit elements definitions   |
 // |                                                                 |
-// | Created: 2001/08/14 Vilson Cristiano GÃ¤rtner,                   |
+// | Created: 2001/08/14 Vilson Cristiano Gärtner,                   |
 // |                     Thomas Spriestersbach                       |
 // |                                                                 |
 // | History: Initial Revision                                       |

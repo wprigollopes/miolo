@@ -190,14 +190,12 @@ class MUI extends MService
 
         if ( $data )
         {
-            $stmt = "\$listing = new $class(\$data);";
+            $listing = new $class($data);
         }
         else
         {
-            $stmt = "\$listing = new $class();";
+            $listing = new $class();
         }
-
-        eval( $stmt );
 
         return $listing;
     }
@@ -313,7 +311,7 @@ class MUI extends MService
 
     public function getAjax($action)
     {
-        if ( $action{0} == ':' )
+        if ( $action[0] == ':' )
         {
             $action = substr($action, 1);
         }

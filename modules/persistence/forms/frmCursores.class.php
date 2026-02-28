@@ -169,17 +169,17 @@ class frmCursores extends MForm
             $user3->login = uniqid();
             $user3->password = 'TESTE';
             $user3->save();
-// listando usuÃ¡rios do setor $sector->id
+// listando usuários do setor $sector->id
             $text .= "Lista de usuarios do setor {$sector->id}:<br>";
             $sector->retrieve();
             foreach($sector->users as $user)
             {
                 if (strlen($user->login) > 7) $text .= $user->login . '<br>';
             }
-// removendo a associaÃ§ao com o usuario $user2
-            $text .= "Removendo a associaÃ§ao com o usuario " . $user2->login . ":<br>";
+// removendo a associaçao com o usuario $user2
+            $text .= "Removendo a associaçao com o usuario " . $user2->login . ":<br>";
             $user2->deleteAssociation('sector', $sector);
-// listando usuÃ¡rios do setor $sector->id
+// listando usuários do setor $sector->id
             $text .= "<br>Listando novamente os usuarios do setor {$sector->id}:<br>";
             $sector->retrieve();
             foreach($sector->users as $user)
@@ -229,18 +229,18 @@ echo $text;
             $user3->login = uniqid();
             $user3->password = 'TESTE';
             $user3->save();
-// listando usuÃ¡rios do setor $sector->id
+// listando usuários do setor $sector->id
             $text .= "Lista de usuarios do setor {$sector->id}:<br>";
             $sector->retrieve();
             foreach($sector->users as $user)
             {
                 if (strlen($user->login) > 7) $text .= $user->login . '<br>';
             }
-// removendo a associaÃ§ao com o usuario $user2
-            $text .= "Removendo a associaÃ§ao do setor {$sector->id} com os usuarios:<br>";
+// removendo a associaçao com o usuario $user2
+            $text .= "Removendo a associaçao do setor {$sector->id} com os usuarios:<br>";
             $sector->deleteAssociation('users', $user1);
             $sector->deleteAssociation('users', $user3);
-// listando usuÃ¡rios do setor $sector->id
+// listando usuários do setor $sector->id
             $text .= "<br>Listando novamente os usuarios do setor {$sector->id}:<br>";
             $sector->retrieve();
             foreach($sector->users as $user)
@@ -284,21 +284,21 @@ echo $text;
             $user3->login = uniqid();
             $user3->password = 'TESTE';
             $user3->save();
-// colocando os 3 usuÃ¡rios no $group
+// colocando os 3 usuários no $group
             $group->AddUser($user1);
             $group->AddUser($user2);
             $group->AddUser($user3);
             $group->save();
-// listando usuÃ¡rios do $group
+// listando usuários do $group
             $text .= "Lista de usuarios do grupo {$group->group}:<br>";
             $group->retrieveAssociation('users');
             for($i=0; $i<count($group->users);$i++) 
                $text .= "&nbsp;&nbsp;&nbsp;User login: ". $group->users[$i]->login . "<br>";
-// removendo a associaÃ§ao com os usuarios 
-            $text .= "Removendo a associaÃ§ao do grupo {$group->group} com os usuarios:<br>";
+// removendo a associaçao com os usuarios 
+            $text .= "Removendo a associaçao do grupo {$group->group} com os usuarios:<br>";
             $group->deleteAssociation('users', $user1);
             $group->deleteAssociation('users', $user3);
-// listando novamente usuÃ¡rios do $group
+// listando novamente usuários do $group
             $text .= "Listando novamente usuarios do grupo {$group->group}:<br>";
             $group->retrieveAssociation('users');
             for($i=0; $i<count($group->users);$i++) 
@@ -342,7 +342,7 @@ echo $text;
             $user3->login = uniqid();
             $user3->password = 'TESTE';
             $user3->save();
-// listando usuÃ¡rios do setor $sector->id
+// listando usuários do setor $sector->id
             $text .= "Lista de usuarios do setor {$sector->id}:<br>";
             $sector->retrieve();
             if (is_array($sector->users))
@@ -355,9 +355,9 @@ echo $text;
             $sector->AddUser($user1);
             $sector->AddUser($user2);
             $sector->AddUser($user3);
-            $text .= "Salvando a associaÃ§Ã£o...<br>";
+            $text .= "Salvando a associação...<br>";
             $sector->saveAssociation('users');
-            $text .= "Lista de usuarios do setor {$sector->id}, apÃ³s salvar a associaÃ§Ã£o:<br>";
+            $text .= "Lista de usuarios do setor {$sector->id}, após salvar a associação:<br>";
             $sector->retrieve();
             if (is_array($sector->users))
                 foreach($sector->users as $user)

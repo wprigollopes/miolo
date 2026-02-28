@@ -77,9 +77,9 @@ class MPermsMiolo extends MPerms
         $rights = $objLogin->rights[$transaction];
         if ( !$rights )
         {
-            $sql = "SELECT t.m_transaction, a.rights FROM miolo_user u, miolo_groupuser g, miolo_access a, miolo_transaction t WHERE u.iduser = g.iduser AND g.idgroup = a.idgroup AND a.idtransaction = t.idtransaction AND u.login = '$login'";
+            $sql = "SELECT t.m_transaction, a.rights FROM miolo_user u, miolo_groupuser g, miolo_access a, miolo_transaction t WHERE u.iduser = g.iduser AND g.idgroup = a.idgroup AND a.idtransaction = t.idtransaction AND u.login = ?";
 
-            $result = $db->query($sql)->result;
+            $result = $db->queryParams($sql, [$login]);
 
             $allRights = array();
             if ( is_array($result) )
@@ -108,9 +108,9 @@ class MPermsMiolo extends MPerms
         $this->manager->loadMADConf();
 
         $db  = $this->manager->getDatabase('admin');
-        $sql = "select distinct u.login from miolo_user u, miolo_groupuser g, miolo_access a, miolo_transaction t where u.iduser = g.iduser and g.idgroup = a.idgroup and a.idtransaction = t.idtransaction and lower(t.m_transaction) = '" . strtolower($transaction) ."' and a.rights='$perm'";
+        $sql = "select distinct u.login from miolo_user u, miolo_groupuser g, miolo_access a, miolo_transaction t where u.iduser = g.iduser and g.idgroup = a.idgroup and a.idtransaction = t.idtransaction and lower(t.m_transaction) = ? and a.rights = ?";
 
-        $result = $db->query($sql)->result;
+        $result = $db->queryParams($sql, [strtolower($transaction), $perm]);
         $users  = array();
 
         if ( $result )
@@ -129,9 +129,9 @@ class MPermsMiolo extends MPerms
         $this->manager->loadMADConf();
 
         $db  = $this->manager->getDatabase('admin');
-        $sql = "select g.m_group from miolo_group g, miolo_access a, miolo_transaction t where g.idgroup = a.idgroup and a.idtransaction = t.idtransaction and lower(t.m_transaction) = '" . strtolower($transaction) ."' and a.rights='$perm'";
+        $sql = "select g.m_group from miolo_group g, miolo_access a, miolo_transaction t where g.idgroup = a.idgroup and a.idtransaction = t.idtransaction and lower(t.m_transaction) = ? and a.rights = ?";
 
-        $result = $db->query($sql)->result;
+        $result = $db->queryParams($sql, [strtolower($transaction), $perm]);
         $groups = array();
 
         if ( $result )
