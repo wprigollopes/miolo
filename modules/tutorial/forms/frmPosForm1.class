@@ -1,0 +1,36 @@
+<?
+class frmPosForm1 extends MForm
+{
+
+    function __construct()
+    {   
+		parent::__construct('CSS Positioning Form (relative)');
+        $this->defaultButton = false;
+        $this->EventHandler();
+        $this->manager->SetConf('options.mainmenu',1);
+    }
+
+    function CreateFields()
+    {
+        $this->SetFormCSS(220,0,0,0,0,'relative');
+        $fields = array(
+             new MHiddenField('key','123456'),
+             new MText('text', 'Texto posicionado relativamente no form'),
+             new MTextField('myname','Change me','FieldLabel',30),
+             new MButton('btnPost', 'Click me')
+        );
+        $this->SetFields($fields);
+        $this->SetFieldCSS('text',30,10,300); 
+        $this->SetFieldCSS('myname',80,30); 
+        $this->SetFieldCSS('btnPost',120,80); 
+	}
+
+    function btnPost_click()
+    {
+        $this->AddField(new Text('thename', 'The name is: ' . $this->myname->value));
+        $this->thename->SetColor('green');
+        $this->SetFieldCSS('thename',60,180); 
+    }
+}
+
+?>

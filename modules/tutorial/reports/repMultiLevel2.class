@@ -1,0 +1,207 @@
+<?
+    class repMultiLevel2 extends PDFReport
+    {
+        var $timestamp;
+        var $img;
+        var $level = array();
+
+        function __construct()
+        {
+            global $MIOLO, $module, $page, $context, $self, $action, $perms;
+
+            parent::__construct(NULL, NULL, 55);
+            $ui = $MIOLO->GetUI();
+            $this->img = $ui->GetImageSrc('logonet.png');
+            //        $this->SetPDF(new ezPDFReport('2'));
+            $this->timestamp = date('d/m/Y G:i');
+            //        $this->SetTrigger('AfterNewPage','repMultiLevel2','AfterNewPage', $this);
+            $this->pdf->ezStartPageNumbers(520, 800, 12, 'rigth', 'Página: {PAGENUM}');
+            $this->pdf->ezSetMargins(100, 30, 30, 30);
+            $this->GeneratePageHeader();
+            $this->GeneratePageFooter();
+
+            // simula multiplos niveis de quebra
+            for ($i = 0; $i < 2; $i++)     // level 1
+            {
+                for ($j = 0; $j < 3; $j++) // level 2
+                {
+                    $soma2 = 0;
+
+                    for ($k = 0; $k < 5; $k++) // level 3
+                    {
+                        $r = rand(1, 15);
+                        $soma3 = 0;
+
+                        for ($l = 0; $l < $r; $l++) // data
+                        {
+                            $x = rand(1, 15);
+                            $data[] = array
+                                (
+                                $i,
+                                $j,
+                                $k,
+                                $l,
+                                'a',
+                                'b',
+                                'c',
+                                $x
+                                );
+
+                            $soma3 += $x;
+                        }
+
+                        $summary3[] = array(array("<b>Soma Level3:</b>", "<b>$soma3</b>"));
+                        $soma2 += $soma3;
+                    }
+
+                    $summary2[] = array(array("<b>Soma Level2:</b>", "<b>$soma2</b>"));
+                }
+            }
+
+            // define as colunas
+            $columns = array
+                (
+                new PDFReportColumn('level4', '<b><i>Level 4</i></b>', 'right', false, 30, true),
+                new PDFReportColumn('det1', '<b><i>right</i></b>', 'right', false, 15, true),
+                new PDFReportColumn('det2', '<b><i>left</i></b>', 'left', false, 15, true),
+                new PDFReportColumn('det3', '<b><i>center</i></b>', 'center', false, 20, true),
+                new PDFReportColumn('det4', '<b><i>det4</i></b>', 'right', false, 20, true)
+                );
+
+            $sum3 = array
+                (
+                new PDFReportColumn('texto', 'texto', 'right', false, 80, true),
+                new PDFReportColumn('valor', 'valor', 'right', false, 20, true)
+                );
+
+            $sum2 = array
+                (
+                new PDFReportColumn('texto', 'texto', 'right', false, 80, true),
+                new PDFReportColumn('valor', 'valor', 'right', false, 20, true)
+                );
+
+            // Largura do report, em %
+            $this->SetWidth(100);
+
+            // cria a arvore
+            $t = new TreeArray($data, '0,1,2', '3,4,5,6,7');
+
+            // registra as colunas de detalhes e summary
+            $this->SetColumns($columns);
+            $colDetail = $this->columns;
+            $this->SetColumns($sum3);
+            $colSum3 = $this->columns;
+            $this->SetColumns($sum2);
+            $colSum2 = $this->columns;
+
+            // gera o report
+            foreach ($t->tree as $this->level[1] => $node1)
+            {
+                $i = 0;
+
+                foreach ($node1 as $this->level[2] => $node2)
+                {
+                    $this->SetOption('showHeadings', 1);
+                    $this->GenerateGroupHeader(2, $this->level);
+                    $j = 0;
+
+                    foreach ($node2 as $this->level[3] => $node3)
+                    {
+                        $this->SetOption('showHeadings', 1);
+                        $this->SetOption('showLines', 0);
+                        $this->columns = $colDetail;
+                        $this->GenerateGroupHeader(3, $this->level);
+                        $this->GenerateData($node3);
+                        $this->SetOption('showHeadings', 0);
+                        $this->SetOption('showLines', 1);
+                        $this->columns = $colSum3;
+                        $this->GenerateData($summary3[$j++]);
+                    }
+
+                    $this->SetOption('showHeadings', 0);
+                    $this->SetOption('showLines', 1);
+                    $this->columns = $colSum2;
+                    $this->GenerateData($summary2[$i++]);
+                    $this->pdf->ezNewPage();
+                }
+            }
+        }
+
+        function GenerateGroupHeader($level, $array)
+        {
+            $this->pdf->SetStrokeColor(0, 0, 0);
+            $x0 = $this->pdf->left;
+
+            if ($level == 1)
+            {
+            }
+            elseif ($level == 2)
+            {
+                $this->pdf->ezSetDy(-32, 'makeSpace');
+                $y = $this->pdf->y;
+                $this->pdf->addText($x0, $y + 19, 12, 'Level 1: ' . $array[1]);
+                $this->pdf->line($x0, $y + 15, 200, $y + 15);
+                $this->pdf->addText($x0, $y + 2, 12, '    Level 2: ' . $array[2]);
+                $this->pdf->line($x0, $y, 300, $y);
+            }
+            elseif ($level == 3)
+            {
+                $this->pdf->ezSetDy(-50, 'makeSpace');
+                $y = $this->pdf->y;
+                $this->pdf->addText($x0, $y + 34, 12, '         Level 3: ' . $array[3]);
+                $this->pdf->line($x0, $y + 31, 300, $y + 31);
+                $this->pdf->ezSetY($y + 30);
+            }
+        }
+
+        function GeneratePageHeader()
+        {
+            $x0 = $this->pdf->left;
+            $x1 = $this->pdf->right;
+            $h = $this->pdf->getFontHeight(12);
+            //echo $this->img . '<br>';
+            $header = $this->pdf->openObject();
+            $this->pdf->saveState();
+            $this->pdf->addPngFromFile($this->img, $x0, 770, 50, 50);
+            $this->pdf->addText($x0 + 60, 800, 12, 'UFJF - Universidade Federal de Juiz de Fora');
+            $this->pdf->addText($x0 + 60, 800 - $h, 12, 'CGCO - Centro de Gestão do Conhecimento Organizacional');
+            $this->pdf->addText($x0 + 60, 800 - $h - $h, 12, 'SIGA - Sistema Integrado de Gestão Acadêmica');
+            $this->pdf->SetStrokeColor(0, 0, 0);
+            $y = 800 - $h - $h - 5;
+            $this->pdf->line($x0, $y, $x1, $y);
+            $this->pdf->addText($x0, $y - 13, 14, 'REPORT MULTILEVEL 2');
+            $this->pdf->line($x0, $y - 15, $x1, $y - 15);
+            $this->pdf->restoreState();
+            $this->pdf->closeObject();
+            $this->pdf->addObject($header, 'all');
+        }
+
+        function GeneratePageFooter()
+        {
+            $x0 = $this->pdf->left;
+            $x1 = $this->pdf->right;
+            $footer = $this->pdf->openObject();
+            $this->pdf->saveState();
+            $this->pdf->SetStrokeColor(0, 0, 0);
+            $this->pdf->line($x0, 28, $x1, 28);
+            $this->pdf->addText($x0, 19, 9, $this->timestamp . ' - CGCO/DSI');
+            $this->pdf->restoreState();
+            $this->pdf->closeObject();
+            $this->pdf->addObject($footer, 'all');
+        }
+
+        function GenerateData($data)
+        {
+            $this->pdf->ezSetDy(-5);
+            $this->SetData($data);
+            $this->rawdata = $this->GenerateTableData();
+            $this->GenerateBody($this->rawdata);
+        }
+
+        function Generate()
+        {
+            $this->SetOutput();
+            $this->Execute();
+        }
+    }
+?>

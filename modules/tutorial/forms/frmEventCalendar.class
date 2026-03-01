@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * MEventCalendar sample form
+ *
+ * @author Daniel Hartmann [daniel@solis.coop.br]
+ *
+ * \b Maintainers: \n
+ * Armando Taffarel Neto [taffarel@solis.coop.br]
+ * Daniel Hartmann [daniel@solis.coop.br]
+ *
+ * @since
+ * Class created on 2011/03/09
+ *
+ * \b Organization: \n
+ * SOLIS - Cooperativa de Soluções Livres \n
+ *
+ * \b CopyRight: \n
+ * Copyright (c) 2011 SOLIS - Cooperativa de Soluções Livres \n
+ *
+ * \b License: \n
+ * Licensed under GPLv2 (for further details read the COPYING file or http://www.gnu.org/licenses/gpl.html)
+ * 
+ */
+
+class frmEventCalendar extends MForm
+{
+    public function __construct()
+    {
+        $module = MIOLO::getCurrentModule();
+        parent::__construct(_M('Event Calendar', $module));
+        $this->eventHandler();
+    }
+
+    public function createFields()
+    {
+        $MIOLO = MIOLO::getInstance();
+        $module = MIOLO::getCurrentModule();
+
+        parent::createFields();
+
+        // Simple calendar
+        $fields['sc'] = new MEventCalendar('simpleCalendar');
+        $fields['sc']->defineEvent(20110320, _M('The task'));
+
+        // Alot of configurations ;-)
+        $fields['c'] = new MEventCalendar('calendar', _M('My Tasks'));
+        $fields['c']->setLinkNewWindow(true);
+        $fields['c']->setDateLinkNewWindow(true);
+        $fields['c']->defineDateLink(20110301, 'http://mysite.verizon.net/kilsen/calendar/');
+        $fields['c']->defineEvent(20110309, _M('Create MEventCalendar'), 'http://mysite.verizon.net/kilsen/calendar/');
+        $fields['c']->defineEvent(20110310, _M('Test MEventCalendar'));
+
+        // Calendar with date limits
+        $fields['lc'] = new MEventCalendar('limitedCalendar', NULL, 201001, 201012);
+        $fields['lc']->defineEvent(20100715, _M('Some task'));
+        $fields['lc']->setInitialDate(201007);
+
+        $this->addFields($fields);
+    }
+}
+
+?>

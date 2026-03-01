@@ -1,0 +1,69 @@
+<?php
+
+class frmValidators extends MForm
+{
+    public function __construct()
+    {
+        $module = MIOLO::getCurrentModule();
+        parent::__construct(_M('Validators Sample', $module));
+    }
+
+    public function createFields()
+    {
+        $fields[] = new MTextField('tfRequired', 'value', 'Required', 20);
+        $valids[] = new MRequiredValidator('tfRequired');
+
+        $fields[] = new MTextField('tfMask', '12ab34cd', 'Mask', 20, 'mask: 99aa99aa');
+        $valids[] = new MMaskValidator('tfMask', '', '99aa99aa', 'required');
+
+        $fields[] = new MTextField('tfEmail', 'á@miolo.ufjf.br', 'Email', 50);
+        $valids[] = new MEmailValidator('tfEmail', '', 'required');
+
+        $fields[] = new MTextField('tfCep', '36100-000', 'CEP', 15);
+        $valids[] = new MCepValidator('tfCep', '', 'required');
+
+        $fields[] = new MTextField('tfPhone', '333-3333', 'Phone', 15);
+        $valids[] = new MPhoneValidator('tfPhone', '', 'required');
+
+        $fields[] = new MTextField('tfTime', '12:12', 'Time', 15);
+        $valids[] = new MTimeValidator('tfTime', '', 'required');
+
+        $fields[] = new MTextField('tfCPF', '', 'CPF', 20);
+        $valids[] = new MCPFValidator('tfCPF', '', 'optional');
+
+        $fields[] = new MTextField('tfCNPJ', '', 'CNPJ', 20);
+        $valids[] = new MCNPJValidator('tfCNPJ', '', 'optional');
+
+        $fields[] = new MTextField('tfDateDMY', '12/07/2003', 'Date DMY', 20);
+        $valids[] = new MDateDMYValidator('tfDateDMY', '', 'required');
+
+        $fields[] = new MTextField('tfDateYMD', '2003/07/31', 'Date YMD', 20);
+        $valids[] = new MDateYMDValidator('tfDateYMD', '', 'required');
+
+        $fields[] = new MTextField('tfCompare', '5', 'Compare', 5, ' >= 10');
+        $valids[] = new MCompareValidator('tfCompare', '', '>=', '10', 'i', 'required');
+
+        $fields[] = new MTextField('tfRange1', '5', 'Range Int', 5, '[3..10]');
+        $valids[] = new MRangeValidator('tfRange1', '', '3', '10', 'i', 'required');
+
+        $fields[] = new MTextField('tfRange2', 'cor', 'Range Str', 20, '[a..f]');
+        $valids[] = new MRangeValidator('tfRange2', '', 'a', 'f', 's', 'required');
+
+        $fields[] = new MTextField('tfRange3', '12/07/2003', 'Range Date', 20, '[10/03/2003..05/10/2003]');
+        $valids[] = new MRangeValidator('tfRange3', '', '10/03/2003', '05/10/2003', 'd', 'required');
+
+        $fields[] = new MTextField('tfInteger', '', 'Integer', 20, 'regexp: (^-?[0-9][0-9]*$)');
+        $valids[] = new MRegExpValidator('tfInteger', '', '(^-?[0-9][0-9]*$)');
+
+        $fields[] = new MTextField('tfInteger1', '0', 'Integer', 20);
+        $valids[] = new MIntegerValidator('tfInteger1', '', 'required');
+
+        $fields[] = new MTextField('regexp', '', _M('Regular Expression', $module), 20, 'regexp: [A-Z]{1}[a-z]+');
+        $valids[] = new MRegExpValidator('regexp', '', '[A-Z]{1}[a-z]+');
+
+        $this->setFields($fields);
+        $this->setValidators($valids);
+    }
+}
+
+?>

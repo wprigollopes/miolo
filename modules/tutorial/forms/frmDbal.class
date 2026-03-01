@@ -1,0 +1,29 @@
+<?php
+
+class frmDbal extends MForm
+{
+    public function __construct()
+    {
+        $module = MIOLO::getCurrentModule();
+        parent::__construct('MDbal');
+        $this->eventHandler();
+    }
+
+    public function createFields()
+    {
+        $MIOLO = MIOLO::getInstance();
+        $module = MIOLO::getCurrentModule();
+
+        parent::createFields();
+
+        $db = MDbal::createConnection('example');
+
+        $data = $db->fetchAssoc('SELECT * FROM example');
+
+        $fields[] = new MLabel(_M('Table data', $module));
+        $fields[] = new MLabel('<pre>'.print_r($data, 1).'</pre>');
+
+        $this->setFields($fields);
+    }
+}
+?>

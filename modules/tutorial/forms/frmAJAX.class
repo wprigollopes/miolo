@@ -1,0 +1,134 @@
+<?
+MIOLO::Import('extensions::cpaint.inc.php','cpaint'); 
+
+class frmAJAX extends MForm
+{
+    function __construct()
+    {   
+		parent::__construct('AJAX Sample');
+        if (($f = $this->page->request('cpaint_function')) != "") 
+        {
+            $this->manager->getTheme()->clearContent();
+            $this->$f($this->page->request('cpaint_argument'));
+            $this->page->generateMethod = 'generateAJAX';
+        }
+        else 
+        {
+            $this->defineFields();
+            $this->defaultButton = false;
+            $this->manager->getTheme()->InsertContent($this);
+	    }
+	}
+
+	function defineFields()
+	{  
+        $group = $this->manager->GetBusinessMAD('group');
+
+        $query = $group->listAll();
+        $arrayA = array("1","2","3");
+        $path = $this->manager->getConf('home.modules') . '/tutorial' . $this->manager->getConf('home.module.images') .'/';
+        $files = array_merge(array('0'=>'--Selecione--'),$this->manager->listFiles($path,'f'));
+
+        $fields = array(
+           array(
+              new MSelection("sel","","Selection",$arrayA),
+              new MButton('btnSel','[Select]','doSelection();'),
+           ),
+           new MDIV('sel2',''),
+           array(
+              new MSelection("selGroup","","Groups",$query->chunkResult()),
+              new MButton('btnGroup','[Group Selection]','doGroupSelection();'),
+           ),
+           new MDiv('sel3',''),
+           array(
+              new MSelection("selImage","","Images", $files),
+              new MDiv('sel4',''),
+           ),
+        );
+        $this->SetFields($fields);
+        $this->selImage->addAttribute('onChange','doImage();');
+        $this->page->addScript('x/x_core.js');
+        $this->page->addScript('cpaint/cpaint.inc.js');
+        $url = str_replace('&amp;', '&',$this->manager->getCurrentURL());
+        $pageName = $this->page->name;
+        $code = 
+<<< HERE
+
+function doSelection() 
+{
+    MIOLO_ajaxCall("{$url}", "POST", "ajax_btnSel", xGetElementById("sel").value, updateSel2, "TEXT");
+//    cpaint_call("{$url}", "POST", "ajax_btnSel", xGetElementById("sel").value, updateSel2, "TEXT");
+}	
+
+function updateSel2(result)
+{
+    xGetElementById('sel2').innerHTML = result;
+}
+
+function doGroupSelection() 
+{
+    cpaint_call("{$url}", "POST", "ajax_btnGroup", xGetElementById("selGroup").value, showAccess, "XML");
+}	
+
+function showAccess(xmlDocument) 
+{
+    xGetElementById('sel3').innerHTML = 'Transação => Direito<br>';
+    for (var cnt=0; cnt < xmlDocument.getElementsByTagName("DIREITO").length; cnt++) 
+    {
+        xGetElementById('sel3').innerHTML = xGetElementById('sel3').innerHTML +        xmlDocument.getElementsByTagName("TRANSACAO")[cnt].firstChild.nodeValue +" => " + xmlDocument.getElementsByTagName("DIREITO")[cnt].firstChild.nodeValue + "<br>";
+    }
+}
+
+function doImage() 
+{
+    cpaint_call("{$url}", "POST", "ajax_selImage", xGetElementById("selImage").value, showImage, "TEXT");
+}	
+
+function showImage(result) 
+{
+    xGetElementById('sel4').innerHTML = result;
+}
+
+HERE;
+
+        $this->page->AddJsCode($code); 
+	}
+
+    function ajax_btnSel($args)
+    {
+        $opcao = $args[0];
+        $array['0'] = array("11","12","13");
+        $array['1'] = array("21","22","23");
+        $array['2'] = array("31","32","33");
+        $sel2 = new MSelection("selection2","","Seleção 2",$array[$opcao]);
+        $this->manager->getTheme()->setContent($sel2);
+    }
+
+    function ajax_btnGroup($args)
+    {
+        $idGroup = $args[0];
+        $cpaint = new cpaint; 
+        $group = $this->manager->GetBusinessMAD('group');
+        $query = $group->listAcessoByIdGrupo($idGroup);
+        while (!$query->eof)
+        {
+            $cpaint->cpaint_xml_open_result($query->fields("idTrans"));
+            $cpaint->cpaint_xml_add_data("transacao",'',$query->fields("transacao"));
+            $cpaint->cpaint_xml_add_data("direito",'',$query->fields("direito"));
+            $cpaint->cpaint_xml_close_result();
+            $query->moveNext();
+        }
+        $xml = new MRawText($cpaint->cpaint_xml_return_data());
+        $this->manager->getTheme()->setContent($xml);
+    }
+
+    function ajax_selImage($args)
+    {
+        $image = $args[0];
+        $file = $this->manager->getActionURL( 'tutorial', "html:images:$image" );
+        $sel4 = new MImage('imgAJAX',NULL, $file);
+        $this->manager->getTheme()->setContent($sel4);
+    }
+
+}
+?>

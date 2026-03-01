@@ -1,0 +1,235 @@
+<?php
+
+class MContainer extends MFormControl
+{
+    public $disposition;
+    public $separator;
+    public $spaceHeight; // espaçamento em pixels entre os campos no disposition=vertical
+    public $spaceWidth = '&nbsp;&nbsp;'; //espaçamento em pixels entre os campos no disposition=horizontal
+    public $formMode;
+
+    /* se label deve ser exibido junto com os campos
+     *  Esse atributo foi modificado para private para forçar a 
+     *  utilizaçào do método setShowLabel. Esta modificação foi
+     *  necessária para os casos em que o programador necessite
+     *  que os labels dos conteúdos fossem exibidos
+     */
+    public $showLabel;
+
+    /*  esta propriedade controla a exibição ou não do label dos
+     *   conteúdos de um container. É necessário utilizar o método
+     *   setShowChildLabel para modificar esta propriedade.
+     */
+    public $showChildLabel = true; //se o label dos conteiner conteúdos deste serão exibidos
+
+    /**
+     * @var boolean Set if the label must be printed as required
+     */
+    public $showRequiredLabel;
+
+    public function __construct($name=NULL, $controls=NULL, $disposition='none', $formMode=self::FORM_MODE_SHOW_ABOVE)
+    {
+        parent::__construct($name);
+        $this->formMode = $formMode;
+        $controls = (($controls != '') && is_array($controls)) ? $controls : array();
+        $this->showLabel = false;
+        $this->spaceHeight = '5px';
+        $this->SetControls($controls);
+        $this->SetDisposition($disposition);
+    }
+
+    public function setClass($cssClass)
+    {
+        $this->SetBoxClass($cssClass);
+    }
+
+    public function setSpaceHeight($value)
+    {
+        $this->spaceHeight = $value;
+    }
+
+    public function setSpaceWidth($value)
+    {
+        $this->spaceWidth = $value;
+    }
+
+    public function setDisposition($disposition)
+    {
+        $this->disposition = ($disposition == 'none') ? 'horizontal' : $disposition;
+
+        switch ( $this->disposition )
+        {
+            case 'vertical':
+                $div = new MSpacer($this->spaceHeight);
+                break;
+
+            case 'horizontal':
+                $div = new MDiv('', $this->spaceWidth);
+                break;
+
+            default:
+                $div = NULL;
+                break;
+        }
+
+        $this->separator = $div;
+    }
+
+    public function isShowLabel()
+    {
+        return $this->showLabel;
+    }
+
+    public function isShowChildLabel()
+    {
+        return $this->showChildLabel;
+    }
+
+    public function setShowChildLabel($visible=true, $recursive=true)
+    {
+        $this->showChildLabel = $visible;
+
+        $controls = $this->GetControls();
+        $this->setControls($controls, $recursive);
+    }
+
+    public function setShowLabel($visible=true, $recursive=true)
+    {
+        $this->showLabel = $visible;
+
+        if ( $recursive )
+        {
+            $this->setShowChildLabel($visible, $recursive);
+        }
+    }
+
+    public function setControls($controls, $recursive=false)
+    {
+        $this->clearControls();
+
+        foreach ( $controls as $c )
+        {
+            if ( $recursive && ($c instanceof MContainer) )
+            {
+                $c->setShowChildLabel($this->showChildLabel, true);
+            }
+            if ( is_object($c) )
+            {
+                $c->showLabel = $this->showChildLabel;
+                $this->addControl($c);
+            }
+        }
+    }
+
+    public function GenerateInner()
+    {
+        $float = false;
+        $t = array();
+
+        $controls = $this->GetControls();
+
+        foreach ( $controls as $control )
+        {
+            $c = clone $control;
+            if ( $c instanceof MFormControl )
+            {
+                $c->SetAutoPostBack($this->autoPostBack || $c->autoPostBack);
+            }
+            if ( $c->showLabel )
+            {
+                $c->formMode = $this->formMode;
+            }
+
+            if ( $this->disposition == 'horizontal' )
+            {
+                $c->float = $this->separator->float = 'left';
+                $float = true;
+            }
+            else
+            {
+                if ( $this->formMode == self::FORM_MODE_SHOW_SIDE )
+                {
+                    $hidden = NULL;
+                    $c = MForm::generateLayoutField($c, $hidden);
+                }
+                else
+                {
+                    $c = new MDiv('', $c);
+                }
+            }
+
+            $t[] = HtmlPainter::GenerateToString($c);
+            $t[] = $this->separator;
+        }
+
+        if ( $float )
+        {
+            $t[] = new Spacer();
+        }
+
+        $this->inner = $t;
+        $this->getBox()->setAttributes($this->getAttributes());
+    }
+}
+
+class MVContainer extends MContainer
+{
+    public function __construct($name=NULL, $controls=NULL)
+    {
+        parent::__construct($name, $controls, 'vertical', self::FORM_MODE_SHOW_ABOVE);
+    }
+}
+
+class MHContainer extends MContainer
+{
+    public function __construct($name=NULL, $controls=NULL, $formMode=self::FORM_MODE_SHOW_ABOVE, $showRequiredLabel=false)
+    {
+        parent::__construct($name, $controls, 'horizontal', $formMode);
+
+        $this->showRequiredLabel = $showRequiredLabel;
+        if ( $formMode == self::FORM_MODE_SHOW_SIDE )
+        {
+            $this->label = $this->getFirstControlLabel($controls);
+        }
+    }
+
+    /**
+     * Get the label of the first visible control of the given array
+     *
+     * @param array $controls Array of MIOLO components.
+     * @return string The label of the first control.
+     */
+    private function getFirstControlLabel($controls)
+    {
+        $label = '';
+
+        foreach ( $controls as $control )
+        {
+            if ( !($control instanceof MControl) ||
+                 ($control instanceof MHiddenField) ||
+                 ($control->getBox()->style->get('display') == 'none') ||
+                 (!strlen($control->label)) )
+            {
+                continue;
+            }
+
+            $label = $control->label;
+            break;
+        }
+
+        return $label;
+    }
+}
+
+/**
+ * Container to let fields aligned as if they were in a form.
+ */
+class MFormContainer extends MContainer
+{
+    public function __construct($name=NULL, $controls=NULL)
+    {
+        parent::__construct($name, $controls, 'vertical', self::FORM_MODE_SHOW_SIDE);
+    }
+}
+
+?>

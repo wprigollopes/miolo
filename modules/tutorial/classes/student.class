@@ -1,0 +1,24 @@
+<?php
+global $MIOLO;
+
+$MIOLO->UsesBusiness('Tutorial','person');
+
+class BusinessTutorialStudent extends BusinessTutorialPerson
+{
+    var $number;
+    var $situation;
+	var $person;
+
+    function __construct($data=NULL)
+    {
+       $this->Business('persistence',$data);
+    }
+
+    function GetById($number)
+    {
+       $this->number = $number;
+       $this->retrieve();
+       return $this;
+    }
+}
+?>

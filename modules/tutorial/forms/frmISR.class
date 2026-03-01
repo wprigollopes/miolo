@@ -1,0 +1,73 @@
+<?
+class frmISR extends Form
+{
+    var $box;
+
+    function frmISR()
+    {   
+		global $page;
+		$this->Form('ISR Sample');
+        $this->defaultButton = false;
+        $this->EventHandler();
+	}
+
+	function CreateFields()
+	{   global $action;
+        $array_linkbutton0 = array(
+             new MButton('btnRetrieve','[Simple retrieve]'),
+//             new LinkButton('btnIndex','[Insert_Index]',$action),
+//             new LinkButton('btnDelete','[Delete]',$action),
+        );
+        $fields = array(
+             array(
+                new MLabel('Pesquisa em CM_PESSOA: '),
+                new MTextField('edtValue','','',25),
+                new MCheckBox('chkFono','fono','',false,'Fonética'),
+             ),
+             $array_linkbutton0
+        );
+        $this->SetFields($fields);
+	}
+
+    function btnRetrieve_click()
+    {  global $MIOLO;
+ 
+       $db = $MIOLO->GetDatabase('common');
+       $isr = $db->GetISR();
+       $value = $this->GetFieldValue('edtValue'); 
+       $fono = $this->chkFono->checked;
+       $query = $isr->retrieve('cm_pessoa','nome',$value,'idpessoa','idpessoa,nome,sexo', $fono);
+       $result = $query->result;
+       $t = new TableRaw("Retrieve de '$value' em cm_pessoa::nome",$result);
+       $this->AddField($t);
+    }
+
+    function btnIndex_click()
+    {  global $MIOLO;
+ 
+       $db = $MIOLO->GetDatabase('admin');
+       $isr = $db->GetISR();
+       $pessoa = $MIOLO->GetBusiness('admin','pessoa',1);
+       $value = $this->GetFieldValue('edtValue'); 
+       $pessoa->nome = strtoupper($value);
+       $pessoa->idbanco = '001';
+       $pessoa->idagenc = "0000001"; 
+       $pessoa->Insert();
+       $isr->indexer('cm_pessoa','nome',$pessoa->idpessoa,$pessoa->nome);
+       $query = $isr->retrieve('cm_pessoa','nome',$value,'idpessoa','idpessoa,nome,sexo');
+       $result = $query->result;
+       $t = new TableRaw("Retrieve de '$value' em cm_pessoa::nome",$result);
+       $this->AddField($t);
+    }
+
+    function btnDelete_click()
+    {  global $MIOLO;
+ 
+       $db = $MIOLO->GetDatabase('admin');
+       $isr = $db->GetISR();
+       $value = $this->GetFieldValue('edtValue'); 
+       $isr->delete('cm_pessoa','nome',$value);
+    }
+
+}
+?>

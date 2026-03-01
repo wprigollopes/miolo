@@ -1,0 +1,37 @@
+<?
+$MIOLO->import('modules::tutorial::controls::viewsource');
+
+class frmSession extends Form
+{
+
+    function frmSession() 
+    {   
+        $this->Form('Exemplo do uso de sessão');
+    }
+    
+    function CreateFields()
+    {   
+        global $MIOLO, $counter;
+
+        $session = $MIOLO->session;
+
+// se já estiver na sessão, pega o valor, senão inicializa
+        $counter = $session->IsRegistered("counter") ? $session->GetValue("counter") : 0;
+// atribuir ao campo
+        $this->AddField(new TextLabel('cnt', $counter,'Global'));
+// incrementa para o próximo round-trip
+        $counter++;
+// variáveis globais tem seu valor automaticamente atribuido a $_SESSION
+        $session->register("counter");
+
+        $char = (string)$session->IsRegistered("sessionchar") ? $session->GetValue("sessionchar") : 'A';
+        $this->AddField(new TextLabel('ch', $char,'Local'));
+        $char .= 'A';
+// variáveis locais tem seu valor setado através de SetValue
+        $session->SetValue('sessionchar',$char);
+
+        $this->AddField(new ViewSource(__FILE__));
+
+    }
+}
+?>

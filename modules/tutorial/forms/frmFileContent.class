@@ -1,0 +1,18 @@
+<?
+    class FrmFileContent extends Form
+    {
+        function FrmFileContent()
+        {
+            $this->Form('FileContent');
+        }
+
+        function CreateFields()
+        {
+            global $MIOLO;
+            $filename = $MIOLO->GetModulePath('tutorial', '/forms/frmFileContent.class');
+            $fields = Array(new FileContent($filename, true));
+            $this->SetFields($fields);
+            $this->defaultButton = False;
+        }
+    }
+?>

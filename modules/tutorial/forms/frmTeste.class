@@ -1,0 +1,822 @@
+<?
+class frmTeste extends Form
+{
+    var $group;
+    var $user; 
+    var $sector;
+    var $person;
+    var $student;
+ 
+    function __construct()
+    {   global $MIOLO;
+		parent::__construct('Persistence Sample');
+        $this->group = $MIOLO->GetBusiness('tutorial','group');
+        $this->user = $MIOLO->GetBusiness('tutorial','user');
+        $this->sector = $MIOLO->GetBusiness('tutorial','sector');
+        $this->person = $MIOLO->GetBusiness('tutorial','person');
+        $this->student = $MIOLO->GetBusiness('tutorial','student');
+        $this->defaultButton = false;
+        $this->EventHandler();
+	}
+
+	function CreateFields()
+    {
+        $action = $this->manager->GetCurrentURL();
+        $array = array(
+                 new LinkButton('btnPost1','[User id=1]',$action),
+                 new LinkButton('btnPost2','[User as Proxy]',$action),
+                 new LinkButton('btnPost3','[List User as proxyQuery]',$action),
+                 new LinkButton('btnPost4','[List User as proxyCursor]',$action),
+                 new LinkButton('btnPost5','[Sector]',$action),
+                 new LinkButton('btnPost6','[Group]',$action),
+                 new LinkButton('btnPost7','[ListAll Group]',$action),
+                 new LinkButton('btnPost8','[ListByName Group]',$action),
+                 new LinkButton('btnPost9','[ListByName-Parâmetros Group]',$action),
+                 new LinkButton('btnPost10','[CursorByName Group]',$action),
+                 new LinkButton('btnPost11','[Student - herança]',$action)
+        );
+        $group1 = new BaseGroup('lbGrp1','Using Objects',$array,'vertical');
+        $array = array(
+                 new LinkButton('btnPost19','[List Group]',$action),
+                 new LinkButton('btnPost20','[List Group - order]',$action),
+                 new LinkButton('btnPost21','[List Group - filter]',$action),
+                 new LinkButton('btnPost42','[List Group - range]',$action),
+                 new LinkButton('btnPost22','[List User/Sector - join oneToOne]',$action),
+                 new LinkButton('btnPost23','[List User/Sector - join oneToOne - columns - filter]',$action),
+                 new LinkButton('btnPost43','[List User/Person - join automatic]',$action),
+                 new LinkButton('btnPost24','[List User/Group - join manyToMany]',$action),
+                 new LinkButton('btnPost25','[List Group - join + groupby]',$action),
+                 new LinkButton('btnPost26','[List Group - join + groupby + having]',$action),
+                 new LinkButton('btnPost27','[List Group - in]',$action),
+                 new LinkButton('btnPost28','[List Group - alias]',$action),
+                 new LinkButton('btnPost29','[List Group - association join alias]',$action),
+                 new LinkButton('btnPost30','[List Sector - forced join alias]',$action),
+                 new LinkButton('btnPost31','[List Sector - auto-relation]',$action),
+                 new LinkButton('btnPost32','[List Group - subquery]',$action),
+                 new LinkButton('btnPost33','[List Group - subquery - reference]',$action),
+                 new LinkButton('btnPost34','[List Group - triple association join]',$action),
+                 new LinkButton('btnPost35','[List Group - outer join]',$action),
+                 new LinkButton('btnPost36','[List Student - inheritance]',$action),
+                 new LinkButton('btnPost37','[List Group - compound filter]',$action)
+        ); 
+        $group2 = new BaseGroup('lbGrp2','Using Criteria',$array,'vertical');
+        $array = array(
+                 new LinkButton('btnPost12','[New Group - manyToMany]',$action),
+                 new LinkButton('btnPost13','[New User - oneToOne]',$action),
+                 new LinkButton('btnPost14','[New Student - herança]',$action),
+        ); 
+        $group3 = new BaseGroup('lbGrp3','Insert',$array,'vertical');
+        $array = array(
+                 new LinkButton('btnPost15','[Delete Group]',$action),
+                 new LinkButton('btnPost16','[Delete Sector]',$action),
+                 new LinkButton('btnPost38','[User: Delete Association with Sector - 1:1]',$action),
+                 new LinkButton('btnPost39','[Sector: Delete Association with User - 1:N]',$action),
+                 new LinkButton('btnPost40','[Group: Delete Association with User  - N:N]',$action),
+        ); 
+        $group4 = new BaseGroup('lbGrp4','Delete',$array,'vertical');
+        $array = array(
+                 new LinkButton('btnPost17','[Update Group]',$action),
+        ); 
+        $group5 = new BaseGroup('lbGrp5','Update',$array,'vertical');
+        $array = array(
+                 new LinkButton('btnPost41','[Sector: Save Association with User]',$action),
+        ); 
+        $group6 = new BaseGroup('lbGrp6','Save',$array,'vertical');
+//        $fields = array($group1, $group2, $group3, $group4, $group5, $group6);
+
+        $array = array(
+               array(0,'Samples','','root'),
+               array(1,'Using Objects','',0),
+               array(2,'Using Criteria','',0),
+               array(6,'[User Id=1]','',1),
+               array(7,'[User Proxy]','',1),
+               array(8,'[List Group]','',2),
+               array(9,'[List Group - order]','',2)
+        );
+
+        $tree = new MTreeMenu('treeSamples');
+        $tree->SetItemsFromArray($array);
+        $tree->SetEventHandler('onTreeClick');
+        $tree->height = '390px';
+
+ 
+        $panel = new MPanel('pnlPersistence', 'Samples', '', '');
+        $panel->addBoxStyle('width','40%');
+        $panel->addControl($tree,'100%');
+        $result = new MPanel('pnlResult', 'Results', '', '');
+        $result->addBoxStyle('width','58%');
+        $fields = array(
+            array($panel,$result)
+        );
+
+        $this->SetFields($fields);
+	}
+
+    function onTreeClick($sender, $option)
+    {
+        $items = $sender->getItems();
+        $this->pnlResult->AddControl(new Label('<b>'.$items[$option][1].'</b>'),'','clear');
+        $this->GetText($option);
+    }
+
+    function getText($option)
+    {
+        switch ($option)
+        {
+            case '6':
+                 $this->user->GetById(1);
+                 $text = "Login: {$this->user->login}<br>";
+                 $text .= "Password: {$this->user->password}<br>";
+                 $text .= "Nick: {$this->user->nick}<br>";
+                 $text .= "Name: " . $this->user->person->name ."<br>";
+                 $text .= "IdSetor: ".$this->user->idsector."<br>"; 
+                 $text .= "Grupos:<br>";
+                 $this->user->retrieveAssociation('groups');
+                 for($i=0;$i<count($this->user->groups);$i++) 
+                   $text .= "&nbsp;&nbsp;&nbsp;Grupo: ". $this->user->groups[$i]->group . "<br>";
+                 break;
+            case '7':
+                 $this->user->GetProxyById(1);
+                 $text = "Login: {$this->user->login}<br>";
+                 $text .= "Password: {$this->user->password}<br>";
+                 $text .= "Nick: {$this->user->nick}<br>";
+                 $text .= "Name: " . $this->user->person->name ."<br>";
+                 $text .= "Setor: ".$this->user->sector->nick."<br>"; 
+                 break;
+        }
+        $this->pnlResult->AddControl(new ThemeBox('', $text),'','clear');
+    }
+
+    function btnPost1_click()
+    {
+        $this->user->GetById(1);
+        $text = "Login: {$this->user->login}<br>";
+        $text .= "Password: {$this->user->password}<br>";
+        $text .= "Nick: {$this->user->nick}<br>";
+        $text .= "Name: " . $this->user->person->name ."<br>";
+        $text .= "IdSetor: ".$this->user->idsector."<br>"; 
+        $text .= "Grupos:<br>";
+        $this->user->retrieveAssociation('groups');
+        for($i=0;$i<count($this->user->groups);$i++) 
+          $text .= "&nbsp;&nbsp;&nbsp;Grupo: ". $this->user->groups[$i]->group . "<br>";
+        $this->AddField(new ThemeBox('[User]', $text));
+    }
+
+    function btnPost2_click()
+    {
+        $this->user->GetProxyById(1);
+        $text = "Login: {$this->user->login}<br>";
+        $text .= "Password: {$this->user->password}<br>";
+        $text .= "Nick: {$this->user->nick}<br>";
+        $text .= "Name: " . $this->user->person->name ."<br>";
+        $text .= "Setor: ".$this->user->sector->nick."<br>"; 
+        $this->AddField(new ThemeBox('[User as Proxy]', $text));
+    }
+
+    function btnPost3_click()
+    {
+        $query = $this->user->ProxyByLogin('%a%');
+        foreach($query->result as $row) 
+        {
+           $text .= "<br>IdUser: " . $row[0];
+           $text .= "<br>Login: " . $row[1] . "<br>";
+        }
+        $this->AddField(new ThemeBox('[List User as proxyQuery]', $text));
+    }
+
+    function btnPost4_click()
+    {
+        $cursor = $this->user->ProxyCursorByLogin('%a%');
+        while ($obj = $cursor->getObject()) 
+        {
+           $text .= "<br>Idperson: " . $obj->idperson;
+           $text .= "<br>Iduser: " . $obj->iduser;
+           $text .= "<br>Login: " . $obj->login . "<br>";
+        }
+        $this->AddField(new ThemeBox('[List User as proxyCursor]', $text));
+    }
+
+    function btnPost5_click()
+    {
+        $this->sector->GetById(2);
+        $text = "IdSector: {$this->sector->id}<br>";
+        $text .= "Nick: {$this->sector->nick}<br>";
+        $text .= "Name: {$this->sector->name}<br>";
+        $text .= "Usuarios:<br>";
+        for($i=0;$i<count($this->sector->users);$i++) 
+          $text .= "&nbsp;&nbsp;&nbsp;User login: ". $this->sector->users[$i]->login . "<br>";
+        $this->AddField(new ThemeBox('[Sector]', $text));
+    }
+
+    function btnPost6_click()
+    {
+        $this->group->GetById(1);
+        $text = "IdGroup: {$this->group->idgroup}<br>";
+        $text .= "Group: {$this->group->group}<br>";
+        $text .= "Usuarios:<br>";
+        $this->group->retrieveAssociation('users');
+        for($i=0;$i<count($this->group->users);$i++) 
+          $text .= "&nbsp;&nbsp;&nbsp;User login: ". $this->group->users[$i]->login . "<br>";
+        $this->AddField(new ThemeBox('[Group]', $text));
+    }
+
+    function btnPost7_click()
+    {
+        $query = $this->group->ListAll();
+        $this->AddField(new TableRaw('[ListAll Group]', $query->result));
+    }
+
+    function btnPost8_click()
+    {
+        $query = $this->group->ListByName('p%');
+        $this->AddField(new TableRaw('[ListByName Group]', $query->result));
+    }
+
+    function btnPost9_click()
+    {
+        $query = $this->group->ListByNamePar('E');
+        $this->AddField(new TableRaw('[ListByName-Parâmetros Group]', $query->result));
+    }
+
+    function btnPost10_click()
+    {
+        $cursor = $this->group->CursorByName('P');
+        while ($obj = $cursor->getObject()) 
+        {
+           $text .= "<br>Group: " . $obj->group . "<br>";
+           $obj->retrieveAssociation('users');
+           for($i=0;$i<count($obj->users);$i++) 
+              $text .= "&nbsp;&nbsp;-&nbsp;User Login: " . $obj->users[$i]->login . "<br>";
+        }
+        $this->AddField(new ThemeBox('[CursorByName Group]', $text));
+    }
+
+    function btnPost11_click()
+    {
+        $this->student->GetById('20051256');
+        $text = "Number: {$this->student->number}<br>";
+        $text .= "Situation: {$this->student->situation}<br>";
+        $text .= "Idperson: {$this->student->idperson}<br>";
+        $text .= "Name: " . $this->student->name ."<br>";
+        $this->AddField(new ThemeBox('[Student - herança]', $text));
+    }
+
+    function btnPost12_click()
+    {   global $MIOLO;
+        $this->group->group = 'PERSISTENCE';
+        $user1 = $MIOLO->GetBusiness('tutorial','user');
+        $user1->GetById(1);
+        $user2 = $MIOLO->GetBusiness('tutorial','user');
+        $user2->GetById(3);
+        $user3 = $MIOLO->GetBusiness('tutorial','user');
+        $user3->GetById(7);
+        $this->group->AddUser($user1);
+        $this->group->AddUser($user2);
+        $this->group->AddUser($user3);
+        $this->group->save();
+        $text = "IdGroup: {$this->group->idgroup}<br>";
+        $text .= "Group: {$this->group->group}<br>";
+        $text .= "Usuarios:<br>";
+        $this->group->retrieveAssociation('users');
+        for($i=0;$i<count($this->group->users);$i++) 
+          $text .= "&nbsp;&nbsp;&nbsp;User login: ". $this->group->users[$i]->login . "<br>";
+        $this->AddField(new ThemeBox('[New Group]', $text));
+    }
+
+    function btnPost13_click()
+    {   global $MIOLO;
+        $this->user->person = $this->person->GetById(1);
+        $this->user->idsector = 1;
+        $this->user->login = 'PERSISTENCE';
+        $this->user->nick = 'PTC';
+        $this->user->password = 'PERSISTENCE';
+        $this->user->save();
+        $text = "IdUser: {$this->user->iduser}<br>";
+        $text .= "Login: {$this->user->login}<br>";
+        $text .= "Password: {$this->user->password}<br>";
+        $text .= "Nick: {$this->user->nick}<br>";
+        $text .= "Name: " . $this->user->person->name ."<br>";
+        $text .= "IdSetor: ".$this->user->idsector."<br>"; 
+        $this->AddField(new ThemeBox('[New User]', $text));
+    }
+
+    function btnPost14_click()
+    {   global $MIOLO;
+        $this->student->number = '199924005';
+        $this->student->situation = 'Matriculado';
+        $this->student->name = 'Persistence Silva';
+        $this->student->save(); 
+        $this->student->GetById('199924005');
+        $text = "Number: {$this->student->number}<br>";
+        $text .= "Situation: {$this->student->situation}<br>";
+        $text .= "Idperson: {$this->student->idperson}<br>";
+        $text .= "Name: " . $this->student->name ."<br>";
+        $this->AddField(new ThemeBox('[New Student]', $text));
+    }
+
+    function btnPost15_click()
+    {   global $MIOLO;
+        $this->group->GetById(52);
+        $this->group->delete();
+        $this->AddField(new ThemeBox('[Delete Group]', $text));
+    }
+
+    function btnPost16_click()
+    {   global $MIOLO;
+        $this->sector->GetById(1);
+        $this->sector->delete();
+        $this->AddField(new ThemeBox('[Delete Sector]', $text));
+    }
+
+    function btnPost17_click()
+    {   global $MIOLO;
+        $this->group->getById(60);
+        $this->group->group = 'PERSISTENCE59';
+        $this->group->retrieveAssociation('users');
+        $this->group->users[1] = NULL;
+        $this->group->save();
+        $text = "IdGroup: {$this->group->idgroup}<br>";
+        $text .= "Group: {$this->group->group}<br>";
+        $text .= "Usuarios:<br>";
+        $this->group->retrieveAssociation('users');
+        for($i=0;$i<count($this->group->users);$i++) 
+          $text .= "&nbsp;&nbsp;&nbsp;User login: ". $this->group->users[$i]->login . "<br>";
+        $this->AddField(new ThemeBox('[Update Group]', $text));
+    }
+
+    function btnPost19_click()
+    {
+        $criteria = $this->group->getCriteria();
+        $criteria->setDistinct(true);
+        $criteria->addCriteria('group','LIKE',"'P%'");
+        $query = $criteria->retrieveAsQuery();
+        $this->AddField(new ThemeBox('SQL', '<br>'. $query->sql . '<br>'));
+        $this->AddField(new TableRaw('[List Group]', $query->result));
+    }
+
+    function btnPost20_click()
+    {
+        $criteria = $this->group->getCriteria();
+        $criteria->addOrderAttribute('group');
+        $query = $criteria->retrieveAsQuery();
+        $this->AddField(new ThemeBox('SQL', '<br>'. $query->sql . '<br>'));
+        $this->AddField(new TableRaw('[List Group - Order]', $query->result));
+    }
+
+    function btnPost21_click()
+    {
+        $criteria = $this->group->getCriteria();
+        $cc = new CriteriaCondition;
+        $cc->addCriteria($criteria->getCriteria('group','LIKE',"?"));
+        $cc->addOrCriteria($criteria->getCriteria('group','LIKE',"'C%'"));
+        $criteria->addCriteria('group','LIKE',"'F%'");
+        $criteria->addOrCriteria($cc);
+        $query = $criteria->retrieveAsQuery("A%");
+        $this->AddField(new ThemeBox('SQL', '<br>'. $query->sql . '<br>'));
+        $this->AddField(new TableRaw('[List Group - Filter]', $query->result));
+    }
+
+    function btnPost42_click()
+    {
+        $criteria = $this->group->getCriteria();
+        $criteria->SetRange(new MQueryRange(1,3));
+        $query = $criteria->retrieveAsQuery();
+        $this->AddField(new ThemeBox('SQL', '<br>'. $query->sql . '<br>'));
+        $this->AddField(new TableRaw('[List Group - Range]', $query->result));
+    }
+
+    function btnPost22_click()
+    {
+        $criteria = $this->user->getCriteria();
+        $criteria->addCriteria('sector.nick','LIKE',"'A%'");
+        $query = $criteria->retrieveAsProxyQuery();
+        $this->AddField(new ThemeBox('SQL', '<br>'. $query->sql . '<br>'));
+        $this->AddField(new TableRaw('[List User/Sector - join oneToOne]', $query->result));
+    }
+
+    function btnPost23_click()
+    {
+        $criteria = $this->user->getCriteria();
+        $criteria->addCriteria('sector.nick','LIKE',"'A%'");
+        $criteria->addColumnAttribute('login');
+        $criteria->addColumnAttribute('sector.nick','Sigla');
+        $query = $criteria->retrieveAsProxyQuery();
+        $this->AddField(new ThemeBox('SQL', '<br>'. $query->sql . '<br>'));
+        $this->AddField(new TableRaw('[List User/Sector - join oneToOne - columns]', $query->result, $query->GetColumnNames()));
+    }
+
+    function btnPost43_click()
+    {
+        $criteria = $this->user->getCriteria();
+        $query = $criteria->retrieveAsQuery();
+        $this->AddField(new ThemeBox('SQL', '<br>'. $query->sql . '<br>'));
+        $this->AddField(new TableRaw('[List User/Person - join automatic]', $query->result));
+    }
+
+    function btnPost24_click()
+    {
+        $criteria = $this->user->getCriteria();
+        $criteria->addCriteria('groups.group','LIKE',"'P%'");
+        $query = $criteria->retrieveAsProxyQuery();
+        $this->AddField(new ThemeBox('SQL', '<br>'. $query->sql . '<br>'));
+        $this->AddField(new TableRaw('[List User/Group - join manyToMany]', $query->result, $query->GetColumnNames()));
+    }
+
+    function btnPost25_click()
+    {
+        $criteria = $this->group->getCriteria();
+        $criteria->addColumnAttribute('group');
+        $criteria->addColumnAttribute('count(users.iduser)');
+        $criteria->addGroupAttribute('group');
+        $query = $criteria->retrieveAsQuery();
+        $this->AddField(new ThemeBox('SQL', '<br>'. $query->sql . '<br>'));
+        $this->AddField(new TableRaw('[List Group - join + groupby]', $query->result));
+    }
+
+    function btnPost26_click()
+    {
+        $criteria = $this->group->getCriteria();
+        $criteria->addColumnAttribute('group');
+        $criteria->addColumnAttribute('count(users.iduser)');
+        $criteria->addGroupAttribute('group');
+        $criteria->addHavingCriteria('count(users.iduser)','>','50');
+        $query = $criteria->retrieveAsQuery();
+        $this->AddField(new ThemeBox('SQL', '<br>'. $query->sql . '<br>'));
+        $this->AddField(new TableRaw('[List Group - join + groupby + having]', $query->result));
+    }
+
+    function btnPost27_click()
+    {
+        $criteria = $this->group->getCriteria();
+        $values = array('OO','PHP');
+        $criteria->addCriteria('group','IN', $values);
+        $query = $criteria->retrieveAsQuery();
+        $this->AddField(new ThemeBox('SQL', '<br>'. $query->sql . '<br>'));
+        $this->AddField(new TableRaw('[List Group - in]', $query->result));
+    }
+
+    function btnPost28_click()
+    {
+        $criteria = $this->group->getCriteria();
+        $criteria->setAlias('G');
+        $criteria->addColumnAttribute('G.idgroup');
+        $criteria->addColumnAttribute('G.group');
+        $criteria->addCriteria('group','LIKE', "'P%'");
+        $query = $criteria->retrieveAsQuery();
+        $this->AddField(new ThemeBox('SQL', '<br>'. $query->sql . '<br>'));
+        $this->AddField(new TableRaw('[List Group - alias]', $query->result));
+    }
+
+    function btnPost29_click()
+    {
+        $criteria = $this->group->getCriteria();
+        $criteria->setAlias('G');
+        $criteria->setAssociationAlias('users','U');
+        $criteria->addColumnAttribute('G.idgroup');
+        $criteria->addColumnAttribute('G.group');
+        $criteria->addColumnAttribute('U.iduser');
+        $criteria->addCriteria('group','=', "'PHP'");
+        $query = $criteria->retrieveAsQuery();
+        $this->AddField(new ThemeBox('SQL', '<br>'. $query->sql . '<br>'));
+        $this->AddField(new TableRaw('[List Group - association join alias]', $query->result));
+    }
+
+    function btnPost30_click()
+    {
+        $criteria = $this->sector->getCriteria();
+        $criteria->setAlias('S');
+        $criteria->addCriteria('S.nick','=', "'ADM'");
+        $criteria2 = $this->person->getCriteria();
+        $criteria2->setAlias('P');
+        $criteria2->addColumnAttribute('S.nick');
+        $criteria2->addColumnAttribute('P.name');
+        $criteria2->addJoinCriteria($criteria);
+        $criteria2->addCriteria('S.id', '=', 'P.idperson');
+        $query = $criteria2->retrieveAsQuery();
+        $this->AddField(new ThemeBox('SQL', '<br>'. $query->sql . '<br>'));
+        $this->AddField(new TableRaw('[List Group - forced join alias]', $query->result));
+    }
+
+    function btnPost31_click()
+    {
+        $criteria = $this->sector->getCriteria();
+        $criteria->setAutoAssociationAlias('S1','S2');
+        $criteria->addColumnAttribute('S1.nick','parent');
+        $criteria->addColumnAttribute('S2.nick','child');
+        $criteria->addCriteria('S1.id', '=', 'S2.parent');
+        $query = $criteria->retrieveAsQuery();
+        $this->AddField(new ThemeBox('SQL', '<br>'. $query->sql . '<br>'));
+        $this->AddField(new TableRaw('[List Group - auto-relation]', $query->result, $query->GetColumnNames()));
+    }
+
+    function btnPost32_click()
+    {
+        $subCriteria = $this->user->getCriteria();
+        $subCriteria->addCriteria('sector.nick','LIKE',"'A%'");
+        $subCriteria->addColumnAttribute('iduser');
+        $criteria = $this->user->getCriteria();
+        $criteria->addCriteria('iduser','IN', $subCriteria);
+        $query = $criteria->retrieveAsQuery();
+        $this->AddField(new ThemeBox('SQL', '<br>'. $query->sql . '<br>'));
+        $this->AddField(new TableRaw('[List Group - subquery]', $query->result));
+    }
+
+    function btnPost33_click()
+    {
+        $subCriteria = $this->user->getCriteria();
+        $subCriteria->setReferenceAlias('S');
+        $subCriteria->addColumnAttribute('count(iduser)');
+        $subCriteria->addCriteria('idsector','=',"S.idsector");
+        $criteria = $this->sector->getCriteria();
+        $criteria->setAlias('S');
+        $criteria->addCriteria($subCriteria, '>', '150');
+        $query = $criteria->retrieveAsQuery();
+        $this->AddField(new ThemeBox('SQL', '<br>'. $query->sql . '<br>'));
+        $this->AddField(new TableRaw('[List Group - subquery - reference]', $query->result));
+    }
+
+    function btnPost34_click()
+    {
+        $criteria = $this->group->getCriteria();
+        $criteria->addColumnAttribute('group');
+        $criteria->addColumnAttribute('users.login');
+        $criteria->addColumnAttribute('users.sector.nick');
+        $criteria->addCriteria('users.sector.nick','=',"'ADM'");
+        $query = $criteria->retrieveAsQuery();
+        $this->AddField(new ThemeBox('SQL', '<br>'. $query->sql . '<br>'));
+        $this->AddField(new TableRaw('[List Group - triple association join]', $query->result));
+    }
+
+    function btnPost35_click()
+    {
+        $criteria = $this->sector->getCriteria();
+        $criteria->addColumnAttribute('nick');
+        $criteria->addColumnAttribute('count(users.iduser)');
+        $criteria->addCriteria('nick','LIKE',"'PRO%'");
+        $criteria->addGroupAttribute('nick');
+        $criteria->addHavingCriteria('count(users.iduser)','=','0');
+        $criteria->setAssociationType('users','right');
+        $query = $criteria->retrieveAsQuery();
+        $this->AddField(new ThemeBox('SQL', '<br>'. $query->sql . '<br>'));
+        $this->AddField(new TableRaw('[List Group - outer join]', $query->result));
+    }
+
+    function btnPost36_click()
+    {
+        $criteria = $this->student->getCriteria();
+        $criteria->addColumnAttribute('number');
+        $criteria->addColumnAttribute('name');
+        $criteria->addCriteria('name','LIKE',"'ZEEV%'");
+        $query = $criteria->retrieveAsQuery();
+        $this->AddField(new ThemeBox('SQL', '<br>'. $query->sql . '<br>'));
+        $this->AddField(new TableRaw('[List Student - inheritance]', $query->result));
+    }
+
+    function btnPost37_click()
+    {
+        $criteria = $this->group->getCriteria();
+        $cc = new CriteriaCondition;
+        $cc->addCriteria($criteria->getCriteria('group','LIKE',"'%A%'"));
+        $cc->addOrCriteria($criteria->getCriteria('group','LIKE',"'%E%'"));
+        $criteria->addCriteria('group','LIKE',"'C%'");
+        $criteria->addCriteria($cc);
+        $query = $criteria->retrieveAsQuery();
+        $this->AddField(new ThemeBox('SQL', '<br>'. $query->sql . '<br>'));
+        $this->AddField(new TableRaw('[List Group - Compound Filter]', $query->result));
+    }
+
+    function btnPost38_click()
+    {   global $MIOLO;
+ 
+        try 
+        {
+// criando/recuperando setor 9999
+            $sector = $MIOLO->GetBusiness('tutorial','sector');
+            $sector->GetById(9999);
+            if ($sector->name == '')
+            { 
+               $sector->nick = 'A definir';
+               $sector->name = 'Setor para Teste';
+               $sector->save();
+            }
+// criando 3 usuarios no setor $sector->id
+            $user1 = $MIOLO->GetBusiness('tutorial','user');
+            $user1->person = $this->person->GetById(1);
+            $user1->idsector = $sector->id;
+            $user1->login = uniqid();
+            $user1->password = 'TESTE';
+            $user1->save();
+            $user2 = $MIOLO->GetBusiness('tutorial','user');
+            $user2->person = $this->person->GetById(1);
+            $user2->idsector = $sector->id;
+            $user2->login = uniqid();
+            $user2->password = 'TESTE';
+            $user2->save();
+            $user3 = $MIOLO->GetBusiness('tutorial','user');
+            $user3->person = $this->person->GetById(1);
+            $user3->idsector = $sector->id;
+            $user3->login = uniqid();
+            $user3->password = 'TESTE';
+            $user3->save();
+// listando usuários do setor $sector->id
+            $text .= "Lista de usuarios do setor {$sector->id}:<br>";
+            $sector->retrieve();
+            foreach($sector->users as $user)
+            {
+                if (strlen($user->login) > 7) $text .= $user->login . '<br>';
+            }
+// removendo a associaçao com o usuario $user2
+            $text .= "Removendo a associaçao com o usuario " . $user2->login . ":<br>";
+            $user2->deleteAssociation('sector', $sector);
+// listando usuários do setor $sector->id
+            $text .= "<br>Listando novamente os usuarios do setor {$sector->id}:<br>";
+            $sector->retrieve();
+            foreach($sector->users as $user)
+            {
+                if (strlen($user->login) > 7) $text .= $user->login . '<br>';
+            }
+        }
+        catch (Exception $e)
+        {
+            $text = $e->getMessage();
+echo $text;
+        }
+        $this->AddField(new ThemeBox('[User: Delete Association with Sector - 1:1]', $text));
+    }
+
+    function btnPost39_click()
+    {   global $MIOLO;
+ 
+        try 
+        {
+// criando/recuperando setor 9999
+            $sector = $MIOLO->GetBusiness('tutorial','sector');
+            $sector->GetById(9999);
+            if ($sector->name == '')
+            { 
+               $sector->nick = 'A definir';
+               $sector->name = 'Setor para Teste';
+               $sector->save();
+            }
+// criando 3 usuarios no setor $sector->id
+            $user1 = $MIOLO->GetBusiness('tutorial','user');
+            $user1->person = $this->person->GetById(1);
+            $user1->idsector = $sector->id;
+            $user1->login = uniqid();
+            $user1->password = 'TESTE';
+            $user1->save();
+            $user2 = $MIOLO->GetBusiness('tutorial','user');
+            $user2->person = $this->person->GetById(1);
+            $user2->idsector = $sector->id;
+            $user2->login = uniqid();
+            $user2->password = 'TESTE';
+            $user2->save();
+            $user3 = $MIOLO->GetBusiness('tutorial','user');
+            $user3->person = $this->person->GetById(1);
+            $user3->idsector = $sector->id;
+            $user3->login = uniqid();
+            $user3->password = 'TESTE';
+            $user3->save();
+// listando usuários do setor $sector->id
+            $text .= "Lista de usuarios do setor {$sector->id}:<br>";
+            $sector->retrieve();
+            foreach($sector->users as $user)
+            {
+                if (strlen($user->login) > 7) $text .= $user->login . '<br>';
+            }
+// removendo a associaçao com o usuario $user2
+            $text .= "Removendo a associaçao do setor {$sector->id} com os usuarios:<br>";
+            $sector->deleteAssociation('users', $user1);
+            $sector->deleteAssociation('users', $user3);
+// listando usuários do setor $sector->id
+            $text .= "<br>Listando novamente os usuarios do setor {$sector->id}:<br>";
+            $sector->retrieve();
+            foreach($sector->users as $user)
+            {
+                if (strlen($user->login) > 7) $text .= $user->login . '<br>';
+            }
+        }
+        catch (Exception $e)
+        {
+            $text = $e->getMessage();
+        }
+        $this->AddField(new ThemeBox('[Sector: Delete Association with User - 1:N]', $text));
+    }
+
+    function btnPost40_click()
+    {   global $MIOLO;
+ 
+        try 
+        {
+// criando novo grupo
+            $group = $MIOLO->GetBusiness('tutorial','group');
+            $group->group = 'Grupo para Teste';
+            $group->save();
+// criando 3 usuarios 
+            $user1 = $MIOLO->GetBusiness('tutorial','user');
+            $user1->person = $this->person->GetById(1);
+            $user1->idsector = 1;
+            $user1->login = uniqid();
+            $user1->password = 'TESTE';
+            $user1->save();
+            $user2 = $MIOLO->GetBusiness('tutorial','user');
+            $user2->person = $this->person->GetById(1);
+            $user2->idsector = 1;
+            $user2->login = uniqid();
+            $user2->password = 'TESTE';
+            $user2->save();
+            $user3 = $MIOLO->GetBusiness('tutorial','user');
+            $user3->person = $this->person->GetById(1);
+            $user3->idsector = 1;
+            $user3->login = uniqid();
+            $user3->password = 'TESTE';
+            $user3->save();
+// colocando os 3 usuários no $group
+            $group->AddUser($user1);
+            $group->AddUser($user2);
+            $group->AddUser($user3);
+            $group->save();
+// listando usuários do $group
+            $text .= "Lista de usuarios do grupo {$group->group}:<br>";
+            $group->retrieveAssociation('users');
+            for($i=0; $i<count($group->users);$i++) 
+               $text .= "&nbsp;&nbsp;&nbsp;User login: ". $group->users[$i]->login . "<br>";
+// removendo a associaçao com os usuarios 
+            $text .= "Removendo a associaçao do grupo {$group->group} com os usuarios:<br>";
+            $group->deleteAssociation('users', $user1);
+            $group->deleteAssociation('users', $user3);
+// listando novamente usuários do $group
+            $text .= "Listando novamente usuarios do grupo {$group->group}:<br>";
+            $group->retrieveAssociation('users');
+            for($i=0; $i<count($group->users);$i++) 
+               $text .= "&nbsp;&nbsp;&nbsp;User login: ". $group->users[$i]->login . "<br>";
+        }
+        catch (Exception $e)
+        {
+            $text = $e->getMessage();
+        }
+        $this->AddField(new ThemeBox('[Group: Delete Association with User  - N:N]', $text));
+    }
+
+    function btnPost41_click()
+    {   global $MIOLO;
+ 
+        try 
+        {
+// criando/recuperando setor 9999
+            $sector = $MIOLO->GetBusiness('tutorial','sector');
+            $sector->GetById(9999);
+            if ($sector->name == '')
+            { 
+               $sector->nick = 'A definir';
+               $sector->name = 'Setor para Teste';
+               $sector->save();
+            }
+// criando 3 usuarios 
+            $user1 = $MIOLO->GetBusiness('tutorial','user');
+            $user1->person = $this->person->GetById(1);
+            $user1->login = uniqid();
+            $user1->password = 'TESTE';
+            $user1->save();
+            $user2 = $MIOLO->GetBusiness('tutorial','user');
+            $user2->person = $this->person->GetById(1);
+            $user2->login = uniqid();
+            $user2->password = 'TESTE';
+            $user2->save();
+            $user3 = $MIOLO->GetBusiness('tutorial','user');
+            $user3->person = $this->person->GetById(1);
+            $user3->login = uniqid();
+            $user3->password = 'TESTE';
+            $user3->save();
+// listando usuários do setor $sector->id
+            $text .= "Lista de usuarios do setor {$sector->id}:<br>";
+            $sector->retrieve();
+            if (is_array($sector->users))
+                foreach($sector->users as $user)
+                {
+                    if (strlen($user->login) > 7) $text .= $user->login . '<br>';
+                }
+// colocando os usuario no setor $sector->id
+            $text .= "Adicionando usuarios ao setor {$sector->id} e salvando ...<br>";
+            $sector->AddUser($user1);
+            $sector->AddUser($user2);
+            $sector->AddUser($user3);
+            $text .= "Salvando a associação...<br>";
+            $sector->saveAssociation('users');
+            $text .= "Lista de usuarios do setor {$sector->id}, após salvar a associação:<br>";
+            $sector->retrieve();
+            if (is_array($sector->users))
+                foreach($sector->users as $user)
+                {
+                    if (strlen($user->login) > 7) $text .= $user->login . '<br>';
+                }
+        }
+        catch (Exception $e)
+        {
+            $text = $e->getMessage();
+        }
+        $this->AddField(new ThemeBox('[Sector: Save Association with User]', $text));
+    }
+
+}
+?>

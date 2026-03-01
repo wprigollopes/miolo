@@ -1,0 +1,49 @@
+<?php
+
+/**
+ *
+ */
+class gridList1 extends MGrid
+{
+    /**
+     *
+     */
+    public function __construct()
+    {
+        // returns an instance of MIOLO
+        $MIOLO = MIOLO::getInstance();
+        // get the url of the current page
+        $listURL = $MIOLO->getCurrentURL();
+        // creates an connection to the admin module's db. see modules/admin/db/transaction.class
+        $objTransaction = $MIOLO->getBusiness( 'admin', 'transaction', '5');
+        // get the permissions
+        $rights  = $MIOLO->getPerms()->perms;
+        // define the grid columns
+        $columns = array( new MGridColumn( 'IdGroup', 'right', true, '10%', true, null, false, true ),
+                          new MGridColumn( 'Group', 'left', true, '70%', true, null, false, true),
+                          new MGridColumn( 'Rights', 'left', true, '20%', true, $rights, false, true )
+                         );
+
+        // call the parent's constructor
+        parent::__construct(NULL, $columns, $listURL, 1);
+
+        $sql = "SELECT miolo_access.idgroup,
+                       miolo_group.m_group,
+                       miolo_access.rights 
+                  FROM miolo_transaction 
+            INNER JOIN miolo_access 
+                    ON (miolo_transaction.idtransaction = miolo_access.idtransaction)
+            INNER JOIN miolo_group 
+                    ON (miolo_access.idgroup = miolo_group.idgroup)
+                 WHERE (miolo_transaction.idtransaction = '5') 
+            ORDER BY miolo_access.idgroup ASC";
+
+        // Pass the query to the grid to let it control the pagination via LIMIT and OFFSET
+        $this->setQuery($sql, 'admin');
+
+        // set the grid title
+        $this->SetTitle( 'Rights of Transaction: ' . $objTransaction->transaction . ' [Simple array grid]' );
+    }
+}
+
+?>

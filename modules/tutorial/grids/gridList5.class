@@ -1,0 +1,76 @@
+<?php
+
+/**
+ *
+ */
+class gridList5 extends MGrid
+{
+    /**
+     *
+     */
+    public function __construct( $name = 'fullGrid' )
+    {
+        global $state;
+
+        // get an MIOLO instance
+        $MIOLO = MIOLO::getInstance();
+
+        // inside grid column controls
+        $selRights = new MSelection( 'selRights', '', '', $MIOLO->getPerms()->perms );
+
+        // create the query to obtain the data
+        // creates an connection to the admin module's db. see modules/admin/db/transaction.class
+        $objTransaction = $MIOLO->getBusiness( 'admin', 'transaction' );
+        // compose the select criteria
+        $criteria =  $objTransaction->getCriteria();
+        $criteria->addColumnAttribute( 'idTransaction' );
+        $criteria->addColumnAttribute( 'transaction' );
+        $criteria->addColumnAttribute( 'access.idGroup' );
+        $criteria->addColumnAttribute( 'access.group.group' );
+        $criteria->addColumnAttribute( 'access.rights' );
+        $criteria->addOrderAttribute( 'transaction' );
+        $criteria->addOrderAttribute( 'access.group.group' );
+        // retirve the data
+        $query = $criteria->retrieveAsQuery();
+
+        $txtConstant = new MLabel( '' );
+
+        // define the grid's columns
+        $columns = array( new MGridColumn( 'Id', 'right', true, '5%', false ),
+                          new MGridHyperlink( 'Transaction-OrderBy', $href_trans, '25%', true, null, true ),
+                          new MGridControl( $txtConstant, 'A constant', 'ControlColumn', false, '15%' ),
+                          new MGridColumn( 'Group', 'left', true, '30%', true, null, false, true ),
+                          new MGridControl( $selRights, 'Rights - Control', 'ControlColumn', false, '25%' ),
+                         );
+
+        // define a action
+        $href_grid = $MIOLO->getActionURL('tutorial','controls:grid5');
+
+        // call the parent's constructor
+        parent::__construct($query->result, $columns, $href_grid,5,0,$name,true,true);
+
+        // Change the column attribute
+        // Ex: the attribute 'index' indicates wich column of the dataarray 
+        // corresponds to the grid's column
+        $this->setColumnAttr(2,'index',null);
+
+        // wich column is the grid index?
+        $this->setIndex(0);
+
+        // box title
+        $this->setTitle($name);
+
+        // create actions for the grid
+        $href_edit = $MIOLO->getActionURL('admin','main:transaction','%0%', array('event'=>'btnEdit:click'));
+        $href_dele = $MIOLO->getActionURL('admin','main:transaction','%0%', array('event'=>'btnDelete:click'));
+        $this->addActionUpdate($href_edit);
+        $this->addActionDelete($href_dele);
+        $this->addActionText('alt','Editar',$href_edit);
+        $this->addActionSelect();
+
+        // invoke the eventHandler method
+        $this->eventHandler();
+    }
+}
+
+?>

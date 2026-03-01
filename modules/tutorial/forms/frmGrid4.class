@@ -1,0 +1,105 @@
+<?
+$MIOLO->Import('modules::tutorial::controls::viewsource');
+
+class frmGrid4 extends MForm
+{
+    var $ag;
+     
+    function __construct() 
+    {   
+		parent::__construct('Exemplo ActiveGrid');
+    	if($this->page->IsPostBack())
+		{
+			$this->EventHandler();
+		}
+        $this->AddField(new MSeparator);
+        $this->AddField(new ViewSource(__FILE__));
+	}
+    
+    function CreateFields()
+    {   
+        $this->ag = $this->manager->GetUI()->GetGrid('tutorial','gridList4');
+        $fields = array(
+            new MLabel('Click on column heading to sort by that column'),
+            new MLabel('Drag columns separator to resize columns'),
+            $this->ag,
+            array(
+               new MButton('btnAlternate','Alternate row colors','AlternateRowColors();'),
+               new MButton('btnBlockBg','Block row colors','BlockRowColors();')
+            ),
+            array(
+               new MButton('btnColLightOn','Highlight Column 1 - on','HighLightCol1On();'),
+               new MButton('btnColLightOff','Highlight Column 1 - off','HighLightCol1Off();'),
+            ),
+            new MButton('btnCellColor','Change cell color','ChangeCellColor();'),
+            new MButton('btnRefresh','Refresh','RefreshGrid();')
+        );
+		$this->SetFields($fields);
+        $this->AddJavascriptCode();
+        $this->defaultButton = false;
+    }
+
+    function AddJavascriptCode()
+    {
+        $name = $this->ag->GetName();
+        $code = 
+<<< HERE
+
+function AlternateRowColors() {
+    var alternate = function(){
+      return this.getProperty("row/order") % 2 ? "threedface" : "white";
+    }
+    var rowAlternate = $name.getRowTemplate();
+    rowAlternate.setStyle("background", alternate);
+    $name.refresh();
+}
+
+function BlockRowColors() {
+    var row = $name.getRowTemplate();
+    row.setStyle("background", "white");
+    $name.refresh();
+}
+
+function HighLightCol1On() {
+    var column = new Active.Templates.Text;
+    column.setStyle("color", "#000099");
+    column.setStyle("background", "#ffffcc");
+    column.setStyle("text-align", "right");
+    column.setStyle("font-weight", "bold");
+
+    $name.setTemplate("column", column, 1);
+    $name.refresh();
+}
+
+function HighLightCol1Off() {
+    var column = new Active.Templates.Text;
+    column.setStyle("color", "black");
+    column.setStyle("background", "white");
+    column.setStyle("text-align", "left");
+    column.setStyle("font-weight", "normal");
+
+    $name.setTemplate("column", column, 1);
+    $name.refresh();
+}
+
+function ChangeCellColor() {
+	var myColor = function(){
+		var value = this.getItemProperty("value");
+		return (TrimString(value.toUpperCase()) == 'ADMIN') ? "red" : "blue";
+	}
+
+	$name.getColumnTemplate(2).setStyle("color", myColor);
+    $name.refresh();
+}
+
+function RefreshGrid() {
+    $name.refresh();
+}
+
+HERE;
+
+        $this->page->AddJsCode($code); 
+    }
+
+}
+?>

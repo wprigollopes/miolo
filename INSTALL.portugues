@@ -1,0 +1,346 @@
+
+INSTALA��O MIOLO - Vers�o 2.0 - RC 1
+====================================
+
+1 - Requisitos
+ 1.1 - PHP
+  1.1.1 - Vers�o
+  1.1.2 - Mem�ria
+  1.1.3 - Seguran�a
+  1.1.4 - Extens�es
+  1.1.5 - Mac OS X
+
+ 1.2 - Apache
+  1.2.1 - Configura��o/acesso www
+
+2 - Instalando apartir do SVN
+ 2.1 - Requisitos
+ 2.2 - Baixando
+ 2.3 - Instalando
+
+3 - Instala��o e Configura��o utilizando arquivo
+ 3.1 - Baixando
+ 3.2 - Instala��o
+ 3.3 - Base de Dados
+ 3.4 - Configura��es
+ 3.5 - Apache
+ 3.6 - Apache Passo-a-Passo
+  3.6.1 - Arquivos de Configura��o
+  3.6.2 - Exemplo 1
+  3.6.3 - Exemplo 2
+  3.6.4 - Exemplo 3
+  3.6.5 - Reiniciando o Apache
+
+4 - Por onde come�ar
+
+5 - Ajudando no projeto
+
+6 - Ajuda/Suporte
+ 6.1 - Listas
+
+7 - Instala��o de novos modulos
+ 7.1 - Pre-requisitos
+ 7.2 - Ver programas disponiveis
+ 7.3 - Instala��o manual
+ 7.4 - Instala��o On-line
+ 7.5 - 
+
+
+1. Requisitos
+==============
+
+1.1 - PHP
+---------
+
+1.1.1
+----- 
+Vers�o: o MIOLO 2 foi desenvolvido para ser utilizado com o PHP 5.
+
+1.1.2
+-----
+Mem�ria: Em testes preliminares realizados, o limite de mem�ria do PHP deve ser maior que os 8 MB padr�o. Altere isso no php.ini
+
+1.1.3
+-----
+Seguran�a: aconselhamos a seguir as normas do PHP quanto � seguran�a:
+    - Register Globals = off
+    - Magic Quotes = on
+    - Safe Mode = on
+
+1.1.4
+-----
+� imprescind�vel que a extens�o do SQLite esteja habilitada no PHP.
+
+1.1.5
+-----
+Para usu�rios do Sistema Operacional Mac OS X, � aconselh�vel que modifiquem a seguinte linha no arquivo php.init
+variables_order = "GPCS"
+
+Foi constatado que o instalador n�o funciona corretamente quando a op��o estiver como "EGPCS"
+Percebeu-se tamb�m que utilizando Mampstack (vers�o 5.5) funcionou prontamente, o que n�o aconteceu quando se estava utilizando Mamp (1.41-intel).
+
+Contribui��o: Henrique B. Gravina
+
+
+1.2 - Apache
+------------
+
+1.2.1 - Configura��o/acesso www
+-------------------------------
+Observe que apenas o diret�rio html do MIOLO dever� ser vis�vel na web, ou seja, n�o instale todo o diret�rio miolo2 numa pasta vis�vel via web.
+
+
+2 - Instalando apartir do SVN
+==============================
+2.1 - Requisitos
+-----------------
+Para baixar o MIOLO diretamente apartir do SVN, o �nico requisito necess�rio � um cliente SVN.
+
+Para windows, oc� pode utilizar um cliente como o TortoiseSVN (http://tortoisesvn.tigris.org)
+
+Voc� pode obter mais informa��es em http://subversion.tigris.org
+
+
+2.2 - Baixando
+---------------
+Por padr�o, no Linux, o MIOLO 2 � instalado no diret�rio /usr/local/miolo2 enquanto que no 
+windows � instalado em C:\miolo2
+Abordaremos aqui a instala��o no Linux e para windows basta fazer as devidas modifica��es
+
+- mude para um diret�rio vis�vel no via www no seu apache: cd /var/www (este diret�rio pode ser outro, dependendo da sua distribui��o)
+
+- agora, baixe os arquivos do miolo2:
+  svn export http://svn.example.org/svn/miolo2/trunk miolo2
+
+2.3 - Instalando
+----------------
+Proceda conforme indicado no item 3.2
+
+
+3 - Instala��o e Configura��o utilizando arquivo
+================================================
+
+3.1 - Baixando
+---------------
+O MIOLO 2 pode ser baixado atrav�s do site (http://www.miolo.org.br) no link "Releases do MIOLO" localizado na caixa "Downloads".
+Copie o arquivo baixado para uma pasta vis�vel (via www) no seu Apache, por exemplo, /var/www. Observe que esse local depender� muito do seu sistema operacional, distribui��o Linux,...
+Agora, descompacte o arquivo. Voc� perceber� que foi criado a pasta miolo2
+
+3.2 - Instala��o
+-----------------
+Abra o seu browser (navegador) e acesse o endere�o que lhe dar� acesso � pasta miolo2 criada acima. Geralmente, o endere�o � http://localhost , mas observe que isso depender� de sua instala��o do Apache
+Agora acesse o diret�rio onde est� o diret�rio miolo2, por exemplo http://localhost/miolo2 e voc� ver� o programa de instala��o
+Agora, basta seguir os passos para fazer a instala��o do Miolo. 
+No final do processo, o instalador criar� automaticamente o arquivo de configura��o (miolo.conf), refletindo suas op��es de instala��o.
+Observe que conclu�da a instala��o voc� dever� criar um VirtualHost para o Apache, conforme sugest�o apresentada pelo instalador e tamb�m dever� atualizar a informa��o no arquivo hosts
+Para alterar a configura��o do seu sistema, efetue login e acesse a administra��o. Usu�rio e Senha: admin e admin
+
+Importante
+----------
+- No processo de instala��o, n�o escolha a pasta de destino como sendo a mesma da origem
+- Instale o Miolo FORA da pasta vis�vel via www do Apache (/var/www , por exemplo)
+- Observe que o �nico diret�rio que ser� vis�vel (via www) na nova instala��o do Miolo ser� a pasta html.
+
+3.3 - Base de Dados
+--------------------
+Diferente do que acontecia na vers�o 1, o MIOLO agora utiliza o sqlite como padr�o para armazenar usu�rios e senhas.
+Voc� encontrar� o arquivo da base no diret�rio <MIOLO_DIR>/modules/admin/sql/admin.sqlite
+
+O usu�rio padr�o para acessar o MIOLO (login):
+Usu�rio: admin
+Senha: admin
+
+3.4 - Configura��es
+---------------------
+A partir desta vers�o, o arquivo de configura��o do MIOLO est� localizado em <MIOLO_DIR>/etc/miolo.conf e n�o mais em /etc/miolo/miolo.conf.
+Observe que agora � utilizado xml.
+
+3.5 - Apache
+-------------
+Um dos problemas mais comuns enfrentados por usu�rios novos do MIOLO � a configura��o do Apache. O MIOLO n�o precisa de nenhuma configura��o especial e usu�rios que j� tiveram algum contato com esse servidor conseguir�o configurar sem maiores problemas.
+Segue um exemplo de Virtual Host no Apache:
+
+<VirtualHost *>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /usr/local/miolo2/html
+    ServerName nome.servidor
+    ErrorLog logs/nome.servidor.error_log
+    CustomLog logs/nome.servidor.access_log common
+
+    <Directory "/usr/local/miolo2/html">
+        Options FollowSymLinks
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+</VirtualHost>
+
+
+3.6 - Apache Passo-a-Passo
+---------------------------
+A maneira mais f�cil e simples � alterar a op��o DocumentRoot para <MIOLO_DIR>/html no arquivo de configura��o apache (veja abaixo). Desta maneira, o dom�nio http://localhost j� aponta para o diret�rio do MIOLO. (N�o esque�a de reiniciar o apache, ap�s as altera��es.
+
+Por quest�es pr�ticas, � melhor criar um dom�nio pr�prio para o MIOLO. N�o precisa ser miolo.seu_site.com.br, pode ser o que voc� quiser, como intranet.qualquercoisa.com.br 
+Esteja sempre atento ao par�metro "ServerName"
+
+
+3.6.1 - Arquivos de Configura��o
+---------------------------------
+Voc� vai alterar UM destes arquivos, conforme sua distribui��o e vers�o do Apache:
+
+a) APACHE 1.3.x => /etc/httpd/conf/httpd.conf 
+b) APACHE 2.x => /etc/httpd/conf/httpd2.conf 
+c) APACHE 2.x => /etc/httpd/conf/vhosts/Vhosts.conf (Mandrake 9.1) 
+
+
+3.6.2 - Exemplo 1 - um dom�nio comum:
+--------------------------------------
+� necess�rio que miolo2.meudominio.com.br esteja cadastrado no seu servidor DNS (ou ent�o, no arquivo /etc/hosts)
+
+
+#----- in�cio configura��o ------
+
+<VirtualHost *>
+
+    ServerAdmin webmaster@localhost
+    DocumentRoot /usr/local/miolo2/html
+    ServerName miolo2.meudominio.com.br
+    ErrorLog logs/miolo2.develop.error_log
+    CustomLog logs/miolo2.develop.access_log common
+
+    <Directory "/usr/local/miolo2/html">
+        Options FollowSymLinks
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+</VirtualHost>
+
+#----- final configura��o ------
+
+
+3.6.3 - Exemplo 2 - m�quina de desenvolvimento, localhost � o MIOLO:
+---------------------------------------------------------------------
+N�o � necess�ria nenhuma configura��o de DNS
+
+
+#----- in�cio configura��o ------
+
+<VirtualHost *>
+
+    ServerAdmin webmaster@localhost
+    DocumentRoot /usr/local/miolo2/html
+    ServerName localhost
+    ErrorLog logs/miolo2.develop.error_log
+    CustomLog logs/miolo2.develop.access_log common
+
+    <Directory "/usr/local/miolo2/html">
+        Options FollowSymLinks
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+</VirtualHost>
+
+#----- final configura��o ------
+
+ 
+3.6.4 - Exemplo 3 - v�rios dom�nios sobre o mesmo IP
+-----------------------------------------------------
+� necess�rio que miolo.meudominio.com.br esteja cadastrado no seu servidor DNS 
+Neste caso, v�rios dom�nios ter�o o mesmo IP mas com p�ginas diferentes 
+Considere que 200.200.200.213 � o IP de seu servidor Apache
+
+
+#----- in�cio configura��o ------
+
+NameVirtualHost 200.200.200.213:80
+
+<VirtualHost 200.200.200.213:80>
+
+    ServerAdmin webmaster@localhost
+    DocumentRoot /usr/local/miolo2/html
+    ServerName miolo2.meudominio.com.br
+    ErrorLog logs/miolo2.develop.error_log
+    CustomLog logs/miolo2.develop.access_log common
+
+    <Directory "/usr/local/miolo2/html">
+        Options FollowSymLinks
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+</VirtualHost>
+
+#----- final configura��o ------
+
+
+IMPORTANTE: o NameVirtualHost aparece uma vez s� para o IP, n�o v� repet�-lo para cada dom�nio que tiver na m�quina. 
+Para maiores detalhes verifique a documenta��o do Apache 
+
+
+
+3.6.5 - Reiniciar o Apache
+---------------------------
+Feitas as altera��es no arquivo de configura��o do Apache, ser� necess�rio reinici�-lo, para que as altera��es tenham efeito.
+
+# service httpd restart 
+ou 
+#/etc/rc.d/init.d/httpd restart (dependendo de sua distribui��o)
+
+
+3.7 - Erros Comuns
+-------------------
+
+- Erro: Warning: pg_connect() [function.pg-connect]: Unable to connect to PostgreSQL server: FATAL: No pg_hba.conf entry for host 127.0.0.1, user postgres, database ....
+
+=> PROBLEMA: Seu usu�rio ("user postgres", no caso), n�o possue permiss�o para acessar o banco
+=> SOLU��O: Altere o pg_hba.conf e lhe d� permiss�o
+
+
+4 - Por onde come�ar
+=====================
+Feita a instala��o e configura��o do apache, abra o seu browser e digite o endere�o conforme informado na configura��o do apache, por exemplo: http://miolo2.localhost
+
+Para logar no sistema, utilize:
+Usu�rio: admin 
+Senha: admin
+
+E agora?
+Agora � s� "fu�ar"... ;-)
+
+Acesse, no "Menu Principal", as op��es: Hello world, Tutorial, Hangman...
+E � claro, n�o deixe de olhar os fontes dos arquivos, principalmente do m�dulo tutorial (<MIOLO_DIR/modules/tutorial). D� uma aten��o especial aos Controls, onde voc� encontra exemplos dos controles (widgets) do MIOLO 2.
+D� uma olhada tamb�m no diret�rio <MIOLO_DIR/docs
+
+No mais, n�o se esque�a que esta ainda � uma vers�o beta e por isso algumas coisas poder�o
+n�o funcionar corretamente... :-)
+
+
+5. Ajudando no projeto
+=======================
+
+Com o passar do tempo, novas caracter�sticas e funcionalidades s�o agregadas ao projeto. Assim, muitas s�o as frentes de trabalho e certamente em alguma delas sempre haver� a necessidade de mais pessoas para trabalhar. Certamente enquanto voc� l� este arquivo, estamos precisando de ajuda, por isso, se voc� estiver seriamente interessado em auxiliar, entre em contato!!! :-)
+
+
+6 - Ajuda/Suporte
+==================
+
+6.1 - Listas
+-------------
+- Convidamos voc� a se inscrever na lista miolo-users, que � utilizada para auxiliar nas d�vidas, receber sugest�es, dicas, contribui��es, etc...
+- Para quem estiver interessado em contribuir no desenvolvimento do MIOLO, pode se inscrever na lista miolo-devel
+- Existe tamb�m a lista miolo-i18n que � voltada para os trabalhos de tradu��o.
+
+As listas podem ser acessadas atrav�s do site, na op��o "Listas de Discuss�o"
+
+
+Vilson Cristiano G�rtner 
+Coordenador Projeto MIOLO
+
+vilson@miolo.org.br
+http://www.miolo.org.br

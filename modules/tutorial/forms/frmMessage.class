@@ -1,0 +1,81 @@
+<?php
+
+/**
+ * MMessage sample form.
+ *
+ * @author Daniel Hartmann [daniel@solis.coop.br]
+ *
+ * \b Maintainers: \n
+ * Armando Taffarel Neto [taffarel@solis.coop.br]
+ * Daniel Hartmann [daniel@solis.coop.br]
+ *
+ * @since
+ * Class created on 2011/01/10
+ *
+ * \b Organization: \n
+ * SOLIS - Cooperativa de Soluções Livres \n
+ *
+ * \b Copyright: \n
+ * Copyright (c) 2011 SOLIS - Cooperativa de Soluções Livres \n
+ *
+ * \b License: \n
+ * Licensed under GPLv2 (for further details read the COPYING file or http://www.gnu.org/licenses/gpl.html)
+ */
+
+class frmMessage extends MForm
+{
+    public function __construct()
+    {
+        parent::__construct(_M('Message Demo', MIOLO::getCurrentModule()));
+        $this->eventHandler();
+    }
+
+    public function createFields()
+    {
+        $module = MIOLO::getCurrentModule();
+
+        $fields[] = MMessage::getMessageContainer();
+        $fields[] = new MTextField('tf1', '', _M('Input field', $module), 20);
+
+        $buttons[] = new MButton('successMessage', _M('Success', $module));
+        $buttons[] = new MButton('informationMessage', _M('Information', $module));
+        $buttons[] = new MButton('warningMessage', _M('Warning', $module));
+        $buttons[] = new MButton('errorMessage', _M('Error', $module));
+
+        $static = MMessage::getStaticMessage(NULL, _M('Static message', $module), MMessage::TYPE_INFORMATION);
+        $static->setWidth('30%');
+        $fields[] = $static;
+
+        $fields[] = new MHContainer('container', $buttons);
+
+        $this->setFields($fields);
+    }
+
+    public function successMessage_click()
+    {
+        $msg = array( 
+            _M('You clicked the Success button.', MIOLO::getCurrentModule()),
+            _M('Field value', MIOLO::getCurrentModule()) .': '. MForm::getFormvalue('tf1') );
+        new MMessage($msg, MMessage::TYPE_SUCCESS, true, MMessage::MSG_CONTAINER_ID, false);
+    }
+
+    public function informationMessage_click()
+    {
+        new MMessageInformation(_M('You clicked the Information button', MIOLO::getCurrentModule()));
+    }
+
+    public function warningMessage_click()
+    {
+        $msg = array(
+            _M('You clicked the Warning button.', MIOLO::getCurrentModule()),
+            _M('Field value', MIOLO::getCurrentModule()) .': '. MForm::getFormvalue('tf1')
+        );
+        new MMessageWarning($msg);
+    }
+
+    public function errorMessage_click()
+    {
+        new MMessage(_M('You clicked the Error button, which in this case puts the message at session.', MIOLO::getCurrentModule()), MMessage::TYPE_ERROR, false);
+    }
+}
+?>

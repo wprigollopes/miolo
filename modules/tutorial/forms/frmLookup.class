@@ -1,0 +1,75 @@
+<?php
+
+class FrmLookup extends MForm
+{
+    public function FrmLookup()
+    {
+        global $MIOLO, $self, $module, $page, $action;
+
+        parent::__construct('Lookup Sample');
+        $objTransaction = $MIOLO->GetBusiness('admin', 'transaction');
+        $objQuery = $objTransaction->listByTransaction('T');
+
+        $fields[] = new MTextField('transactionName', 'ADMIN', _M('Transaction name', $module));
+        $filters['lkpTransactionId'] = 'lkpTransactionId';
+        $filters['transactionName'] = 'transactionName';
+        $fields[] = $lookupContainer = new MLookupContainer('lkpTransactionId', 'lkpTransactionDescription', '', _M('Transaction'), '', 'admin', 'transaction', $filters);
+        $lookupContainer->getLookupField()->value = array(1, 'ADMIN');
+        $lookupContainer->getDescriptionField()->hint = _M('This lookup field uses more than one filter');
+
+        $fields[] = array(new MSeparator(), new MHR(), new MSeparator());
+
+        $fields[] = $lookupContainer2 = new MLookupContainer('lkpTransactionId2', 'lkpTransactionDescription2', '5', _M('Transaction'), '', 'admin', 'transaction');
+        $lookupContainer2->getDescriptionField()->hint = _M('This lookup field uses only one filter');
+
+        $fields[] = array(new MSeparator(), new MHR(), new MSeparator());
+
+        $fields[] = new MHiddenField('key', '');
+        $fields[] = new MSeparator('LookupField, with 2 fields for lookup');
+        $fields[] = array(
+            new MSelection('selField', '', 'Selection - Transaction', $objQuery->result),
+            new MTextField('txtField', '', 'TextField - Group', 45),
+            new MLookupField('lkpField', '&nbsp;', '&nbsp;')
+        );
+        $fields[] = new MSpacer('15px');
+        $fields[] = new MSeparator('LookupTextField with filler');
+        $fields[] = new MLookupTextField('lkpTransaction', '', 'Transaction', 45);
+        $fields[] = new MSpacer('15px');
+        $fields[] = new MSeparator('LookupTextField with event');
+        $fields[] = new MLookupTextField('lkpTransaction1', '', 'Transaction', 45);
+        $fields[] = new MText('lblIdTrans', '');
+
+        $this->SetFields($fields);
+        $this->SetFieldAttr('lkpField', 'module', 'admin');
+        $this->SetFieldAttr('lkpField', 'item', 'transactiongroup');
+        $this->SetFieldAttr('lkpField', 'event', 'filler');
+        $this->SetFieldAttr('lkpField', 'related', 'key,txtField,none,selField');
+        $this->SetFieldAttr('lkpField', 'filter', 'selField,txtField');
+        $this->SetFieldAttr('selField', 'options', $objQuery->result);
+        $this->SetFieldAttr('lkpTransaction', 'module', 'admin');
+        $this->SetFieldAttr('lkpTransaction', 'item', 'transaction');
+        $this->SetFieldAttr('lkpTransaction', 'event', 'filler');
+        $this->SetFieldAttr('lkpTransaction', 'related', 'key,lkpTransaction');
+        $this->SetFieldAttr('lkpTransaction1', 'module', 'admin');
+        $this->SetFieldAttr('lkpTransaction1', 'item', 'transaction');
+        $this->SetFieldAttr('lkpTransaction1', 'event', 'btnShow:click');
+        $this->SetFieldAttr('lblIdTrans', 'visible', false);
+        $buttons = array(
+            new MButton('btnPost', 'Enviar'),
+        );
+        $this->SetButtons($buttons);
+        if ( $page->IsPostBack() )
+        {
+            $this->GetData();
+            $this->EventHandler();
+        }
+    }
+
+    public function btnShow_click($sender=NULL, $key='')
+    {
+        $this->SetFieldAttr('lblIdTrans', 'visible', true);
+        $this->SetFieldAttr('lblIdTrans', 'value', "Id Transação = $key");
+    }
+}
+
+?>

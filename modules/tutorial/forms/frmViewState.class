@@ -1,0 +1,32 @@
+<?
+class FrmViewState extends Form
+{
+    function FrmViewState()
+    {   
+		global $page, $state;
+
+		$this->Form('ViewState');
+		if ($page->IsPostBack())
+		{
+            $state->set('a', $state->get('a') + 1);
+			$this->SetFieldValue('msg', "PostBack:  [a = ". $state->get('a') .']');
+		}
+        else
+        {
+			$this->SetFieldValue('msg', 'First time! Setting [a = 1]');
+            $state->set('a',1);
+        }
+
+	}
+
+	function CreateFields()
+	{
+		$fields = array(
+           new TextLabel('msg','','Mensagem'),
+        );
+        $this->SetFields($fields);
+	}
+
+}
+
+?>

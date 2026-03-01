@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?> 
+<map>
+   <moduleName>tutorial</moduleName>
+   <className>sector</className>
+   <tableName>cm_setor</tableName>
+   <databaseName>persistence</databaseName>
+   <attribute>
+      <attributeName>id</attributeName>
+	  <columnName>idsetor</columnName>
+	  <key>primary</key>
+	  <idgenerator>seq_cm_setor</idgenerator>
+   </attribute>
+   <attribute>
+      <attributeName>nick</attributeName>
+	  <columnName>siglasetor</columnName>
+   </attribute>
+   <attribute>
+      <attributeName>name</attributeName>
+	  <columnName>nomesetor</columnName>
+   </attribute>
+   <attribute>
+      <attributeName>type</attributeName>
+	  <columnName>tiposetor</columnName>
+   </attribute>
+   <attribute>
+      <attributeName>users</attributeName>
+   </attribute>
+
+   <association>
+      <toClassModule>tutorial</toClassModule>
+      <toClassName>user</toClassName>
+      <cardinality>oneToMany</cardinality>
+      <target>users</target>
+	  <retrieveAutomatic>true</retrieveAutomatic>
+	  <saveAutomatic>false</saveAutomatic>
+	  <deleteAutomatic>true</deleteAutomatic>
+	  <inverse>true</inverse> 
+	  <entry>
+	     <fromAttribute>idsector</fromAttribute>
+	     <toAttribute>id</toAttribute>
+      </entry>
+   </association>
+
+</map>

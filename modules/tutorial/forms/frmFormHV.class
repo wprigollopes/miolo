@@ -1,0 +1,68 @@
+<?
+class frmFormHV extends Form
+{
+	function __construct()
+	{
+		parent::__construct("Exemplo de Form");
+        $this->EventHandler(); 
+	}
+
+	function CreateFields()
+	{
+		$fields = array(
+            new MSeparator('Campos com layout horizontal/vertical, usando arrays'),
+            new MSeparator('Campos com layout vertical'),
+			new MTextField('v0','','V0'),
+			new MTextField('v1','','V1'),
+			new MTextField('v2','v2',''),  // no label       
+			new MTextField('v3','','V3'),
+            new MSeparator('Campos com layout horizontal usando arrays'),
+            array(
+                new MCheckBox('h2Visible','visible','&nbsp;',null,' H2 Visible'),
+    			new MTextField('h0','','h0'),
+	    		new MTextField('h1','','h1'),
+		    	new MTextField('h2','','h2'),
+			    new MTextField('h3','','h3'),
+            ),
+            new MSeparator('Campos com layout vertical'),
+			new MTextField('v4','','V4'),
+			new MTextField('v5','','V5'),
+			new MTextField('v6','v6',''),  // no label       
+			new MTextField('v7','formMode:3','V7:',20),
+            new MSeparator('Campos com layout horizontal usando arrays'),
+            array(
+    			new MTextField('h4','','h4'),
+	    		new MTextField('h5','','h5'),
+		    	new MTextField('h6','','h6'),
+			    new MTextField('h7','','h7'),
+            ),
+            new MSeparator('Campos com layout vertical'),
+			new MTextField('v8','formMode:2','V8',20),
+			new MTextField('v9','formMode:2','V9',20),
+			new MTextField('v10','v10',''),  // no label       
+			new MTextField('v11','','V11'),
+		);
+
+		$this->SetFields($fields);
+        $this->SetFieldAttr('h2Visible', 'autoPostBack', true);
+        $this->SetFieldAttr('v7', 'formMode', 3);
+        $this->SetFieldAttr('v8', 'formMode', 2);
+        $this->SetFieldAttr('v9', 'formMode', 2);
+
+		$buttons = Array(
+           new MButton('btnPost', 'Enviar'),
+		   new MButton('btnNew', 'Novo'),
+           new MButton('btnDelete', 'Excluir'),
+	       new MButton('btnList', 'Relação'),
+	       new MButton('btnReport', 'Relatórios'),
+       );
+	   $this->SetButtons($buttons);
+	}
+
+    function h2Visible_click($sender)
+    {
+        $this->h2->SetVisibility($sender->checked); 
+    }
+
+}
+?>

@@ -1,0 +1,85 @@
+<?php
+
+/**
+ * Input controls sample form.
+ *
+ * @author Daniel Hartmann [daniel@solis.coop.br]
+ *
+ * \b Maintainers: \n
+ * Armando Taffarel Neto [taffarel@solis.coop.br]
+ * Daniel Hartmann [daniel@solis.coop.br]
+ *
+ * @since
+ * Class created on 2011/10/18
+ *
+ * \b Organization: \n
+ * SOLIS - Cooperativa de Soluções Livres \n
+ *
+ * \b Copyright: \n
+ * Copyright (c) 2011 SOLIS - Cooperativa de Soluções Livres \n
+ *
+ * \b License: \n
+ * Licensed under GPLv2 (for further details read the COPYING file or http://www.gnu.org/licenses/gpl.html)
+ *
+ */
+class frmInput extends MForm
+{
+
+    public function __construct()
+    {
+        $module = MIOLO::getCurrentModule();
+        parent::__construct(_M('Input Controls', $module));
+        $this->eventHandler();
+    }
+
+    public function createFields()
+    {
+        $MIOLO = MIOLO::getInstance();
+        $module = MIOLO::getCurrentModule();
+
+        parent::createFields();
+
+        $fields[] = new MFloatField('float', '12303.05', _M('Float Field', $module));
+
+        // text input with a javascript hint
+        $fields[] = $txtField = new MTextField('txtField', 'Initial value', _M('Text Field (with hint)', $module), 20);
+        $txtField->setJsHint(_M('This is a javascript hint'));
+
+        // readonly input field
+        $fields[] = $roField = new MTextField('roField', _M('This is readonly'), _M('Read Only Text Field', $module), 15);
+        $roField->setReadOnly(true);
+
+        // password field
+        $fields[] = $passField = new MPasswordField('passField', 'value', _M('Password Field', $module), 15);
+        // this is only to demonstrate the use of setClass to set the CSS class
+        $passField->setClass('m-link');
+
+        // hidden field
+        $fields[] = array(
+            new MLabel(_M('Hidden Field', $module)), 
+            new MHiddenField('hidField', 'value')
+        );
+
+        // text input
+        $fields[] = new MMultilineField('multiField', "This is the initial \nvalue for this \nfield... :-)", _M('MultiLineField', $module), 25, 5, 20);
+
+        // send file field
+        $fields[] = new MFileField('fileField', 'value', _M('File Field', $module), 30);
+
+        // input with a calendar selector
+        $fields[] = $calField = new MCalendarField('calField', '', _M('Calendar Field', $module));
+        $calField->setJsHint(_M('Click the image to open the calendar'));
+
+        $fields[] = new MCurrencyField('curField', '', _M('Currency Field', $module));
+
+        $this->addFields($fields);
+    }
+
+    public function submit_button_click()
+    {
+        $data = $this->getData();
+        MIOLO::vd($data);
+    }
+}
+
+?>

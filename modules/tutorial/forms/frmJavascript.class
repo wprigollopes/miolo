@@ -1,0 +1,58 @@
+<?
+class frmJavascript extends MForm
+{
+
+	function __construct()
+    {   
+		parent::__construct('Using Javascript');
+		if($this->page->IsPostBack())
+		{
+			$this->EventHandler();
+		}
+        $this->AddField(new MSeparator()); 
+        $this->AddField(new ViewSource(__FILE__));
+	}
+
+	function CreateFields()
+	{
+        for($i=0; $i < 10; $i++)
+        {
+            $c = new MTextField("edtMoney$i",'0','Valor');
+            $c->AddAttribute('onBlur',"RefreshSoma($i);");
+            $control[] = $c; 
+        }
+        $this->AddField(new MText("txt",'Soma atualizada a cada valor digitado'));
+        $this->AddField(new MSeparator()); 
+        $this->AddField(new MIndexedControl('ixcontrol', 'Label', $control));
+        $this->AddField(new MTextField("edtSoma",'0','Soma'));
+        $this->txt->SetBold();
+        $buttons = array(
+			new MButton('btnPost','Enviar')
+		);
+		$this->SetButtons($buttons);
+        $this->page->AddScript('x/x_core.js');
+        $pageName = $this->page->name;
+        $code = 
+<<< HERE
+
+function RefreshSoma(i) {
+   var auxObject = xGetElementById("ixcontrol["+i+"]"); 	
+   var somaObject = xGetElementById("edtSoma"); 	
+   if (isNaN(Number(auxObject.value)))
+   {
+      alert('Não é um valor válido!');
+      auxObject.focus();
+   }
+   else
+   {   	
+      somaObject.value = Number(somaObject.value) + Number(auxObject.value);
+   }
+}
+
+HERE;
+
+        $this->page->AddJsCode($code); 
+	}
+
+}
+?>

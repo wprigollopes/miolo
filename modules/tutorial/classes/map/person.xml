@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?> 
+<map>
+   <moduleName>tutorial</moduleName>
+   <className>person</className>
+   <tableName>cm_pessoa</tableName>
+   <databaseName>persistence</databaseName>
+   <attribute>
+      <attributeName>idperson</attributeName>
+	  <columnName>idpessoa</columnName>
+	  <key>primary</key>
+	  <idgenerator>seq_cm_pessoa</idgenerator>
+   </attribute>
+   <attribute>
+      <attributeName>name</attributeName>
+	  <columnName>nome</columnName>
+	  <converter>
+	      <converterName>CaseConverter</converterName>
+		  <parameter>
+		      <parameterName>case</parameterName>
+		      <parameterValue>upper</parameterValue>
+          </parameter>
+      </converter>
+   </attribute>
+
+</map>

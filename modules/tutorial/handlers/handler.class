@@ -1,0 +1,14 @@
+<?php
+
+class HandlerTutorial extends MHandler
+{
+    function init()
+    {
+        parent::init();
+
+        $this->manager->Trace('HandlerTutorial:init');
+        $this->manager->theme->SetElement('module',new MModuleHeader('MIOLO','Tutorial'));
+    }
+
+}
+?>

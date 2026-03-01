@@ -1,0 +1,34 @@
+<?
+
+MIOLO::Import('extensions::spaw::spaw_control','M_SPAW_Wysiwyg'); 
+
+class frmExtensions extends Form
+{
+	function __construct()
+    {   
+		$this->Form('Extensions');
+	}
+
+    function CreateFields()
+	{
+       $fields = array(
+           new M_SPAW_Wysiwyg(
+              $control_name='spaweditor', // control's name
+              $value='',                  // initial value
+              $lang='',                   // language
+              $mode = '',                 // toolbar mode
+              $theme='',                  // theme (skin)
+              $width='100%',              // width
+              $height='300px',            // height
+              $css_stylesheet='',         // css stylesheet file for content
+              $dropdown_data=''           // data for dropdowns (style, font, etc.)
+            )
+       );
+	   $this->SetFields($fields);
+       $buttons = array(
+           new FormButton('btnPost', 'Enviar')
+       );
+	   $this->SetButtons($buttons);
+	}
+}
+?>

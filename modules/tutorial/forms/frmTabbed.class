@@ -1,0 +1,191 @@
+<?
+class frmTabbed extends MTabbedForm
+{
+    function __construct()
+    {   
+		parent::__construct('Title: TabbedForm Tutorial');
+        $this->SetPainterMethod('javascript'); 
+//        $this->SetPainterMethod('html'); 
+        $form0 = new FrmTabbedZero();
+        $form1 = new FrmTabbedOne();
+        $form2 = new FrmTabbedTwo();
+        $form3 = new FrmTabbedThree();
+        $form4 = new FrmTabbedFour();
+
+        $this->AddPage($form0);
+        $this->AddPage($form1);
+        $this->AddPage($form2);
+        $this->AddPage($form3);
+        $this->AddPage($form4);
+
+        $this->header = "(header) in: [pagecount: $this->pagecount] [currentpage: $this->currentpage] [Page 2 disable]";
+        $this->pages[2]->enabled = false;
+        if ($this->page->IsPostBack())
+		{
+            if ($this->GetCurrentPage() == 4)
+            {
+               $fields = $this->GetFieldList();
+               $s = '';
+               foreach($fields as $f)
+               {
+                   $s .= $f->name . ' = [' . Form::GetFormValue($f->name) . ']<br>';
+               }
+               $form4->SetFieldValue('tabfields',$s);
+            }
+
+            $this->EventHandler();
+		}
+        else
+        {
+            $this->SetCurrentPage(3);
+        }
+        $this->footer = "(footer) out: [pagecount: $this->pagecount] [currentpage: $this->currentpage]";
+	}
+    
+}
+
+class FrmTabbedZero extends MForm
+{
+    function __construct()
+    {
+       parent::__construct('Tabbed Zero');
+    }
+
+    function CreateFields()
+    {
+        $fields1 = array(
+			new MTextField('field0','','Campo 0',20),
+            new MText('alert0','Button Post submited: header alterado')
+        );
+        $this->SetFields($fields1); 
+        $this->SetFieldAttr('alert0','visible',false);
+        $buttons = Array(
+           new MButton('btnPost', 'Page Zero'),
+           new MButton('btnGoOne', 'Goto Page One >>',"_MIOLO_TabbedForm_GotoPage('{$this->page->GetName()}', '1')")
+        );
+	    $this->SetButtons($buttons);
+    }
+
+    function btnPost_click()
+    {
+//        $this->tabbedform->header .= '[OnClick em btnPost da pagina 0]';
+        $this->SetFieldAttr('alert0','visible',true);
+    }
+}
+
+class FrmTabbedOne extends MForm
+{
+    function __construct()
+    {
+       parent::__construct('Tabbed One');
+    }
+
+    function CreateFields()
+    {
+        $options = array('Common','Tutorial','SGA');
+        $selection = new MSelection('selModule','','Module',$options);
+        $selection->SetAutoPostBack(true);
+
+        $fields1 = array(
+			$selection,
+			new MTextField('field1','','Campo 1',20),
+        );
+        $this->SetFields($fields1); 
+        $buttons = Array(
+           new MButton('btnPost', 'Page One'),
+        );
+	    $this->SetButtons($buttons);
+    }
+
+    function btnPost_click()
+    {
+        $tab = $this->tabbedform;
+        $tab->header .= '[OnClick em btnPost da pagina 1]';
+    }
+}
+
+
+class FrmTabbedTwo extends Form
+{
+    function __construct()
+    {
+       parent::__construct('Tabbed Two');
+    }
+
+    function CreateFields()
+    {
+        $options = array('Common','Tutorial','SGA');
+        $selection = new MSelection('selModule','','Module',$options);
+        $selection->SetAutoPostBack(true);
+
+        $fields2 = array(
+			new MTextField('field2','','Campo 2',20),
+			new MTextField('field2a','','Campo 2a',20)
+        );
+        $this->SetFields($fields2); 
+        $buttons = Array(
+           new MButton('btnPost', 'Page Two'),
+        );
+	    $this->SetButtons($buttons);
+        $validators = array(
+           new MRequiredValidator('field2')
+        );
+        $this->SetValidators($validators);
+    }
+
+    function btnPost_click()
+    {
+        $this->tabbedform->header .= '[OnClick em btnPost da pagina 2]';
+    }
+}
+
+class FrmTabbedThree extends Form
+{
+    function __construct()
+    {
+       parent::__construct('Tabbed Three');
+       $chk = $this->GetFieldAttr('chkBox','checked');
+       $this->SetFieldAttr('field3a','visible',$chk);
+    }
+
+    function CreateFields()
+    {
+        $options = array('Common','Tutorial','SGA');
+        $selection = new Selection('selModule','','Module',$options);
+        $selection->SetAutoPostBack(true);
+
+        $fields3 = array(
+			new MTextField('field3','','Campo 3',20),
+            new MCheckBox('chkBox','value','Choice',true,'Campo 3a visible'),
+			new MTextField('field3a','','Campo 3a',20),
+            new MHContainer('', array(
+               new Text('tx','Equipe composta por:'),
+               new TextField('eqp','','',5),
+               new Text('tx2','programadores'))
+            )
+        );
+        $this->SetFields($fields3); 
+        $buttons = Array(
+           new MButton('btnPost3', 'Page Three'),
+        );
+	    $this->SetButtons($buttons);
+    }
+}
+
+class FrmTabbedFour extends Form
+{
+    function __construct()
+    {
+       parent::__construct('Tabbed Four');
+    }
+
+    function CreateFields()
+    {
+        $fields4 = array(
+            new MTextLabel('tabfields','','Fields')
+		);
+
+        $this->SetFields($fields4); 
+    }
+}
+?>

@@ -1,0 +1,132 @@
+<?
+class frmEzPDF extends Form
+{
+    function frmEzPDF()
+    {   
+		global $page;
+		$this->Form('Using EzPDF Reports');
+		if ($page->IsPostBack())
+		{
+            $this->EventHandler();
+		}
+	}
+
+	function CreateFields()
+	{
+		$fields = array(
+           new FormButton('btnRep1','Gerar Linhas','PDF'),
+           new FormButton('btnRep2','Gerar Tabela','PDF'),
+           new FormButton('btnRep3','Gerar Coordenadas','PDF'),
+           new FormButton('btnRep4','Gerar Report','PDF'),
+           new FormButton('btnRep5','Gerar Page','PDF'),
+           new FormButton('btnRep6','Gerar Report - Page Break','PDF'),
+           new FormButton('btnRep7','Gerar Report - MultiLevel - without break','PDF'),
+           new FormButton('btnRep8','Gerar Report - MultiLevel - groups','PDF')
+        );
+        $this->SetFields($fields);
+	}
+
+    function btnRep1_click()
+    {
+        $report = new ezPDFReport('2');
+        $pdf = &$report->GetPdf(); 
+        $pdf->selectFont('tahoma.afm');
+        for($i=0;$i<100;$i++)
+        {
+          $r = $i / 100;
+          $g = $i / 200;
+          $b = (100 - $i) / 100;
+          $pdf->setColor($r,$g,$b);
+          $pdf->ezText('Linha = ' . $i . '[ y = ' . $pdf->y . ' ] ' );
+        }
+        $report->Execute();
+    }
+
+    function btnRep2_click()
+    {   global $MIOLO;
+        $report = new ezPDFReport('2');
+        $data = array();
+        $transacao = $MIOLO->GetBusiness('admin','transacao');
+        $query = $transacao->ListAll();
+        $options['textCol'] = array(0,0,0);
+        $options['shaded'] = 1;
+        $report->pdf->ezTable($query->result,null,'Transações',$options);
+        $report->Execute();
+    }
+
+    function btnRep3_click()
+    {
+        $report = new ezPDFReport('2');
+        $pdf = &$report->GetPdf(); 
+        $pdf->selectFont('tahoma.afm');
+        $h = $pdf->getFontHeight(12);
+        $y = $pdf->y;
+        $x = 30;
+        for($i=0;$i<50;$i++)
+        {
+          $pdf->addText($x,$y,12,'Linha = ' . $i . ' [ y = ' . $y . ' ] ' . '[ x = ' . $x . ' ] ');
+          $x += 5;
+          $y -= $h;
+        }
+        $pdf->ezNewPage();
+        $y = $pdf->y;
+        $pdf->addText(10,$y,12,'A4 = 595.4 x 842     -  letter = 612 x 792');
+        $y -= $h;
+        for($x=0;$x<600;$x+=10)
+        {
+          if ($x % 50 == 0)
+             $pdf->line($x,$y,$x, $y-10);
+          else
+             $pdf->line($x,$y,$x, $y-5);
+        }
+        $y -= (2 * $h);
+        for($x=0;$x<600;$x+=10)
+        {
+          if ($x % 50 == 0)
+            $pdf->addText($x,$y,12,$x);
+        }
+        $report->Execute();
+    }
+
+    function btnRep4_click()
+    {   global $MIOLO;
+
+        $ui = $MIOLO->GetUI();
+        $report = $ui->GetReport('tutorial','repTransacao');
+        $report->Generate();
+    }
+
+    function btnRep5_click()
+    {   global $MIOLO;
+
+        $ui = $MIOLO->GetUI();
+        $report = $ui->GetReport('tutorial','repAtestado');
+        $report->Generate();
+    }
+
+    function btnRep6_click()
+    {   global $MIOLO;
+
+        $ui = $MIOLO->GetUI();
+        $report = $ui->GetReport('tutorial','repTransacaoBreak');
+        $report->Generate();
+    }
+
+    function btnRep7_click()
+    {   global $MIOLO;
+
+        $ui = $MIOLO->GetUI();
+        $report = $ui->GetReport('tutorial','repMultiLevel1');
+        $report->Generate();
+    }
+
+    function btnRep8_click()
+    {   global $MIOLO;
+
+        $ui = $MIOLO->GetUI();
+        $report = $ui->GetReport('tutorial','repMultiLevel2');
+        $report->Generate();
+    }
+}
+
+?>

@@ -1,0 +1,555 @@
+<?
+class frmDatabase extends Form
+{
+    var $box;
+
+    function frmDatabase()
+    {   
+		global $page;
+		$this->Form('Database Sample');
+        $this->defaultButton = false;
+        $this->EventHandler();
+	}
+
+	function CreateFields()
+	{   
+        $action = $this->manager->getCurrentURL();
+        $array_linkbutton0 = array(
+             new LinkButton('btnSimple','[Simple query]',$action),
+             new LinkButton('btnWhere','[Where]',$action),
+             new LinkButton('btnWhereMult','[Multiple Where]',$action),
+             new LinkButton('btnParam','[Parameter]',$action),
+             new LinkButton('btnParam2','[Parameters]',$action),
+             new LinkButton('btnUpdate','[Update]',$action),
+        );
+        $array_linkbutton1 = array(
+             new LinkButton('btnOrder','[Order By clause]',$action),
+             new LinkButton('btnJoin','[Inner Join]',$action),
+             new LinkButton('btnJoinGroup','[Multiple Join]',$action),
+             new LinkButton('btnHaving','[Having clause]',$action),
+        );
+        $array_linkbutton2 = array(
+             new LinkButton('btnSubquery','[Subquery]',$action),
+             new LinkButton('btnGetRow','[GetRowValues]',$action),
+             new LinkButton('btnNav','[Navigation]',$action),
+             new LinkButton('btnRaw','[RawData]',$action)
+        );
+        $array_linkbutton3 = array(
+             new LinkButton('btnCount','[Count]',$action),
+             new LinkButton('btnRange','[ListRange]',$action),
+             new LinkButton('btnSqlRange','[SQLRange]',$action),
+             new LinkButton('btnPag','[Pagination]',$action),
+             new LinkButton('btnSequence','[Sequence]',$action),
+             new LinkButton('btnTrans','[Transactions]',$action)
+        );
+        $array_linkbutton4 = array(
+             new LinkButton('btnOrderRs','[Order Result]',$action),
+             new LinkButton('btnFilterRs','[Filter Result]',$action),
+             new LinkButton('btnFilterReRs','[Filter RegEx Result]',$action),
+             new LinkButton('btnBind','[Bind]',$action),
+        );
+        $array_linkbutton5 = array(
+             new LinkButton('btnExceptionQuery','[EDatabaseException - Query]',$action),
+             new LinkButton('btnExceptionExec','[EDatabaseException - Exec]',$action),
+             new LinkButton('btnCheckError','[CheckError]',$action),
+             new LinkButton('btnDirectSQL','[DirectSQL]',$action),
+        );
+	   $fields = array(
+           new TextLabel('label1','cm_transacao, cm_sistema','Tabelas'),
+           new TextLabel('label2','seq_cm_transacao','Sequence'),
+           new LinkButtonGroup('lbGrp0','',$array_linkbutton0,'horizontal'),
+           new LinkButtonGroup('lbGrp1','',$array_linkbutton1,'horizontal'),
+           new LinkButtonGroup('lbGrp2','',$array_linkbutton2,'horizontal'),
+           new LinkButtonGroup('lbGrp3','',$array_linkbutton3,'horizontal'),
+           new LinkButtonGroup('lbGrp4','',$array_linkbutton4,'horizontal'),
+           new LinkButtonGroup('lbGrp5','',$array_linkbutton5,'horizontal')
+       );
+       $this->SetFields($fields);
+	}
+
+    function btnSimple_click()
+    {  global $MIOLO;
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('*','cm_transacao');
+       $query = $db->GetQuery($sql);
+       $n = $query->GetRowCount();
+       $text = '#records: ' . $n . '<br><br>';
+       $text .= '#rec - transação' . '<br>';
+       $result = $query->result;
+       for ($i=0; $i < $n; $i++)
+       {
+          $text .= "#$i - " . $result[$i][1] . '<br>';
+       }
+       $this->AddField(new ThemeBox('Results - Simple query', $text));
+    }
+
+    function btnWhere_click()
+    {  global $MIOLO;
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('*','cm_transacao','idtrans=100');
+       $query = $db->GetQuery($sql);
+       $n = $query->GetRowCount();
+       $text = 'IdTrans = 100   -  #records: ' . $n . '<br><br>';
+       $text .= '#rec - transação' . '<br>';
+       $result = $query->result;
+       for ($i=0; $i < $n; $i++)
+       {
+          $text .= "#$i - " . $result[$i][1] . '<br>';
+       }
+       $this->AddField(new ThemeBox('Results - Where clause', $text));
+    }
+
+    function btnWhereMult_click()
+    {  global $MIOLO;
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('*','cm_transacao');
+       $sql->SetWhere('idtrans < 100');
+       $sql->SetWhereAnd("transacao LIKE 'A%'"); 
+       $query = $db->GetQuery($sql);
+       $n = $query->GetRowCount();
+       $text = '(IdTrans < 100) and (transacao LIKE A%)  -  #records: ' . $n . '<br><br>';
+       $text .= '#rec - transação' . '<br>';
+       $result = $query->result;
+       for ($i=0; $i < $n; $i++)
+       {
+          $text .= "#$i - " . $result[$i][1] . '<br>';
+       }
+       $this->AddField(new ThemeBox('Results - Multiple Where', $text));
+    }
+
+    function btnParam_click()
+    {  global $MIOLO;
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('*','cm_transacao','idtrans=?');
+       $sql->SetParameters(3);
+       $query = $db->GetQuery($sql);
+//       $query = $db->objQuery($sql->Select(3));
+       $n = $query->GetRowCount();
+       $text = 'IdTrans = 4   -  #records: ' . $n . '<br><br>';
+       $row = $query->GetRowValues();
+       foreach($row as $f)
+       {
+          $text .= $f . '<br>';
+       }
+       $this->AddField(new ThemeBox('Results - Parameter', $text));
+    }
+
+    function btnParam2_click()
+    {  global $MIOLO;
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('*','cm_transacao',"(idtrans < ?) AND (transacao LIKE ?)");
+//       $sql->SetParameters(100,'A%');
+       $sql->SetParameters(array(100,'A%'));
+       $query = $db->GetQuery($sql);
+       $n = $query->GetRowCount();
+       $text = '(IdTrans < 100) and (transacao LIKE A%)  -  #records: ' . $n . '<br><br>';
+       for ($i=0; $i < $n; $i++)
+       {
+          $text .= "#$i - " . $query->result[$i][1] . '<br>';
+       }
+       $this->AddField(new ThemeBox('Results - Parameters', $text));
+    }
+
+    function btnUpdate_click()
+    {  global $MIOLO;
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('fone,fax','cm_setor',"(idsetor=1)");
+       $sql->SetParameters(array('333-3333',':NULL'));
+       try
+       {
+           $db->Execute($sql->Update());
+           $text = 'Update ok! : ' . $sql->command; 
+       }
+       catch (EDatabaseException $e)
+       { 
+          $text = $e->getMessage();
+       }
+       $this->AddField(new ThemeBox('Results - Update', $text));
+    }
+
+    function btnOrder_click()
+    {  global $MIOLO;
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('*','cm_transacao','','transacao');
+       $query = $db->GetQuery($sql);
+       $table = new TableRaw('select * from cm_transacao', $query->result);
+       $this->AddField(new ThemeBox('Results - RawData', $table));
+    }
+
+    function btnJoin_click()
+    {  global $MIOLO;
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('s.sistema, t.transacao','','','s.sistema,t.transacao');
+       $sql->SetJoin('cm_sistema s','cm_transacao t','(s.idsistema=t.idsistema)');
+       $query = $db->GetQuery($sql);
+       $table = new TableRaw('Join cm_sistema * cm_transacao', $query->result);
+       $this->AddField(new ThemeBox('Results - Join', $table));
+    }
+
+    function btnJoinGroup_click()
+    {  global $MIOLO;
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('s.sistema, t.transacao, count(a.idgrupo)','','','s.sistema,t.transacao','s.sistema,t.transacao');
+       $sql->SetLeftJoin('cm_sistema s','cm_transacao t','(s.idsistema=t.idsistema)');
+       $sql->SetLeftJoin('cm_transacao t','cm_acesso a','(t.idtrans=a.idtrans)');
+       $query = $db->GetQuery($sql);
+       $table = new TableRaw('Left Join cm_sistema * cm_transacao * cm_acesso', $query->result);
+       $this->AddField(new ThemeBox('Results - Multiple Join', $table));
+    }
+
+    function btnHaving_click()
+    {  global $MIOLO;
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('s.sistema, count(t.idtrans)','','','s.sistema','s.sistema','(count(t.idtrans) > 3)');
+       $sql->SetLeftJoin('cm_sistema s','cm_transacao t','(s.idsistema=t.idsistema)');
+       $query = $db->GetQuery($sql);
+       $table = new TableRaw('Clausula having', $query->result);
+       $this->AddField(new ThemeBox('Results - Having', $table));
+    }
+
+    function btnSubquery_click()
+    {  global $MIOLO;
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('a.idgrupo','cm_acesso a');
+       $sql->SetWhere('a.idtrans IN ?');
+       $sqlx = new sql('t.idtrans','cm_transacao t','(t.idsistema = 1)');
+       $sql->SetParameters(':(' . $sqlx->Select() . ')');
+       $query = $db->GetQuery($sql);
+       $table = new TableRaw('Subquery: ' . $query->sql, $query->result);
+       $this->AddField(new ThemeBox('Results - Subquery', $table));
+    }
+
+    function btnGetRow_click()
+    {  global $MIOLO;
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('*','cm_transacao');
+       $query = $db->GetQuery($sql);
+       $n = $query->GetRowCount();
+       $query->MoveTo(4);
+       $text = 'Row = 4   -  #records: ' . $n . '<br><br>';
+       $row = $query->GetRowValues();
+       foreach($row as $f)
+       {
+          $text .= $f . '<br>';
+       }
+       $this->AddField(new ThemeBox('Results - GetRowValues', $text));
+    }
+
+    function btnNav_click()
+    {  global $MIOLO;
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('*','cm_transacao');
+       $query = $db->GetQuery($sql);
+       $text = 'Move to First: <br>';
+       $query->MoveFirst();
+       $row = $query->GetRowValues();
+       foreach($row as $f)
+       {
+          $text .= $f . ' - ';
+       }
+       $text .= '<br><br>';
+       $text .= 'Move to Last: <br>';
+       $query->MoveLast();
+       $row = $query->GetRowValues();
+       foreach($row as $f)
+       {
+          $text .= $f . ' - ';
+       }
+       $text .= '<br><br>';
+       $text .= 'Transverse: <br>';
+       $query->MoveFirst();
+       while (!$query->eof)
+       {
+          $text .= $query->Fields('transacao') . '<br>';
+          $query->MoveNext();
+       }
+       $this->AddField(new ThemeBox('Results - Navigation', $text));
+    }
+
+    function btnRaw_click()
+    {  global $MIOLO;
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('*','cm_transacao');
+       $query = $db->GetQuery($sql);
+       $table = new TableRaw('select * from cm_transacao', $query->result);
+       $this->AddField(new ThemeBox('Results - RawData', $table));
+    }
+
+    function btnCount_click()
+    {  global $MIOLO;
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('*','cm_transacao');
+       $n = $db->Count($sql);
+       $command = $sql->Select();
+       $text = "$command => #records: " . $n . '<br><br>';
+       $sql = new sql('*','cm_transacao','(idtrans > 100)');
+       $n = $db->Count($sql);
+       $command = $sql->Select();
+       $text .= "$command => #records: " . $n . '<br><br>';
+       $this->AddField(new ThemeBox('Results - Count', $text));
+    }
+
+    function btnRange_click()
+    {  global $MIOLO;
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('*','cm_transacao');
+       $n = $db->Count($sql);
+       $totalpages = (int) $n / 5;
+       for($page=1; $page <= $totalpages; $page++)
+       {
+         $range = new QueryRange($page,5);
+         $result = $db->QueryRange($sql->Select(), &$range);
+         $n = $range->total;
+         $text .= "Page: $page  [$n records]: <br>";
+         $text .= '          #rec - transação' . '<br>';
+         for ($i=0; $i < $n; $i++)
+         {
+            $text .= "         #$i - " . $result[$i][1] . '<br>';
+         }
+         $text .= "<br>";
+       } 
+       $this->AddField(new ThemeBox('Results - List Range', $text));
+    }
+
+    function btnSqlRange_click()
+    {  global $MIOLO;
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('*','cm_transacao');
+       $n = $db->Count($sql);
+       $totalpages = (int) $n / 5;
+       for($page=1; $page <= $totalpages; $page++)
+       {
+         $sql->SetRange($page,5);
+         $query = $db->GetQuery($sql);
+         $result = $query->result;
+         $n = $query->GetRowCount();
+         $text .= "Page: $page  [$n records]: <br>";
+         $text .= '          #rec - transação' . '<br>';
+         for ($i=0; $i < $n; $i++)
+         {
+            $text .= "         #$i - " . $result[$i][1] . '<br>';
+         }
+         $text .= "<br>";
+       } 
+       $this->AddField(new ThemeBox('Results - List Range', $text));
+    }
+
+    function btnPag_click()
+    {  global $MIOLO;
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('*','cm_transacao');
+       $query = $db->GetQuery($sql);
+       $query->SetPageLength(10);
+       $n = $query->GetPageCount();
+       $text = "<b>$n pages</b><br><br>";
+       for($page=1; $page <= $n; $page++)
+       {
+           $result = $query->GetPage($page); 
+           $m = count($result);
+           $text .= "Page: $page  [$m records]: <br>";
+           $text .= '          #rec - transação' . '<br>';
+           for ($i=0; $i < $m; $i++)
+           {
+              $text .= "         #$i - " . $result[$i][1] . '<br>';
+           }
+           $text .= "<br>";
+       } 
+       $this->AddField(new ThemeBox('Results - Pagination', $text));
+    }
+
+    function btnSequence_click()
+    {  global $MIOLO;
+       $db = $MIOLO->GetDatabase('admin');
+       for($i=0; $i <= 5; $i++)
+       {
+           $id = $db->GetNewId('seq_cm_log');
+           $text .= "id = $id <br>";
+       } 
+       $this->AddField(new ThemeBox('Results - Sequence', $text));
+    }
+
+    function btnTrans_click()
+    {  global $MIOLO;
+       
+       $db = $MIOLO->GetDatabase('admin');
+// Exemplo com Commit
+       $id = $db->GetNewId('seq_cm_transacao');
+       $sql = new sql('idtrans, transacao, idsistema','cm_transacao');
+       $args = array($id,'Teste',1);
+       $cmd = array();
+       $cmd[] = $sql->Insert($args);
+       $sql->sql('idtrans, idgrupo, direito','cm_acesso');
+       $cmd[] = $sql->Insert(array($id, 1, 1));
+       $cmd[] = $sql->Insert(array($id, 2, 1));
+       $cmd[] = $sql->Insert(array($id, 3, 1));
+       $cmd[] = $sql->Insert(array($id, 4, 1));
+       $text =  "id = $id <br>";
+       try
+       {
+          $db->Execute($cmd);
+          $text .= "Transaction Ok";
+       }
+       catch (EDatabaseException $e)
+       { 
+          $text .=  "Transaction Fail: " . $e->GetMessage();
+       }
+       $text .= '<br>';
+// Exemplo com RollBack
+       $id = $db->GetNewId('seq_cm_transacao');
+       $sql = new sql('idtrans, transacao, idsistema','cm_transacao');
+       $args = array($id,'Teste2',1);
+       $cmd = array();
+       $cmd[] = $sql->Insert($args);
+       $sql->sql('idtrans, idgrupo, direito','cm_acesso');
+       $cmd[] = $sql->Insert(array($id, 1, 1));
+       $cmd[] = $sql->Insert(array($id, 2, 1));
+       $cmd[] = $sql->Insert(array('aaa', 3, 1)); // este comando gera erro!
+       $cmd[] = $sql->Insert(array($id, 4, 1));
+       $text .=  "id = $id <br>";
+       try
+       {
+          $db->Execute($cmd);
+          $text .= "Transaction Ok";
+       }
+       catch (EDatabaseException $e)
+       { 
+          $text .=  "Transaction Fail: " . $e->GetMessage();
+       }
+       $this->AddField(new ThemeBox('Results - Transaction', $text));
+    }
+
+    function btnOrderRs_click()
+    {  global $MIOLO;
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('*','cm_transacao',"transacao like 'A%'");
+       $query = $db->GetQuery($sql);
+       $table = new TableRaw('ResultSet before order', $query->result);
+       $this->AddField(new ThemeBox('Results - before order', $table));
+       $query->SetOrder('transacao');
+       $table = new TableRaw('ResultSet after order', $query->result);
+       $this->AddField(new ThemeBox('Results - after order', $table));
+    }
+
+    function btnFilterRs_click()
+    {  global $MIOLO;
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('*','cm_sistema');
+       $query = $db->GetQuery($sql);
+       $table = new TableRaw('ResultSet without filter', $query->result);
+       $this->AddField(new ThemeBox('Results - without filter', $table));
+       $query->AddFilter('sistema','like','C%');
+       $query->ApplyFilter();
+       $table = new TableRaw('ResultSet with filter', $query->result);
+       $this->AddField(new ThemeBox('Results - with filter', $table));
+    }
+
+    function btnFilterReRs_click()
+    {  global $MIOLO;
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('*','cm_sistema');
+       $query = $db->GetQuery($sql);
+       $table = new TableRaw('ResultSet without filter', $query->result);
+       $this->AddField(new ThemeBox('Results - without filter', $table));
+       $query->AddFilter('sistema','regex','^(.*?)A(.*)');
+       $query->ApplyFilter();
+       $table = new TableRaw('ResultSet with filter - RegEx: [^(.*?)A(.*)]', $query->result);
+       $this->AddField(new ThemeBox('Results - with filter', $table));
+    }
+
+    function btnBind_click()
+    {  global $MIOLO;
+
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('*','cm_transacao','idtrans=:idtrans');
+       for($i = 1; $i < 6; $i++)
+       { 
+           $sql->Bind(array(':idtrans'=>$i));
+           $query = $db->GetQuery($sql);
+           $n = $query->GetRowCount();
+           $row = $query->GetRowValues();
+           foreach($row as $f)
+           {
+              $text .= $f . '<br>';
+           }
+       }
+       $query->Close();
+       $this->AddField(new ThemeBox('Results - Parameter', $text));
+    }
+
+    function btnExceptionQuery_click()
+    {  global $MIOLO;
+
+       $text = '';
+       $db = $MIOLO->GetDatabase('admin');
+       try
+       {
+           $sql = new sql('*','cm_transacao',"transacao like 'A%'");
+           $query = $db->GetQuery($sql);
+           $text .= "- Comando: " . $sql->command . " : OK <br>";
+           $sql = new sql('*','cm_transaca',"transacao like 'A%'"); // gera erro !
+           $query = $db->GetQuery($sql);
+           $text .= "- Comando: " . $sql->command . " : OK<br>";
+       }
+       catch (EDatabaseException $e)
+       { 
+           $text .= "- Comando: " . $sql->command . " : Fail : " . $e->GetMessage();
+       }
+       $this->AddField(new ThemeBox('Results - Exception', $text));
+    }
+
+    function btnExceptionExec_click()
+    {  global $MIOLO;
+
+       $text = '';
+       $db = $MIOLO->GetDatabase('admin');
+       try
+       {
+           $id = $db->GetNewId('seq_cm_transacao');
+           $sql = new sql('idtrans, transacao, idsistema','cm_transacao');
+           $args = array($id,'Teste1 Tutorial',1);
+           $db->Execute($sql->Insert($args));
+           $text .= "- Comando: " . $sql->command . " : OK <br>";
+           $id = $db->GetNewId('seq_cm_transacao');
+           $sql = new sql('idtran, transacao, idsistema','cm_transacao'); // gera erro!
+           $args = array($id,'Teste2 Tutorial',1);
+           $db->Execute($sql->Insert($args));
+           $text .= "- Comando: " . $sql->command . " : OK <br>";
+       }
+       catch (EDatabaseException $e)
+       { 
+           $text .= "- Comando: " . $sql->command . " : Fail : " . $e->GetMessage();
+       }
+       $this->AddField(new ThemeBox('Results - Exception', $text));
+    }
+
+    function btnCheckError_click()
+    {  global $MIOLO;
+
+       $text = '';
+       $db = $MIOLO->GetDatabase('admin');
+       $sql = new sql('idtran, transacao, idsistema','cm_transacao'); // gera erro!
+       $args = array($id,'Teste2 Tutorial',1);
+       $db->Execute($sql->Insert($args));
+       if ($db->getError())
+       { 
+           $text .= "- Comando: " . $sql->command . " : Fail : " . explode(',',$db->getErrors());
+       }
+       else
+       { 
+           $text .= "- Comando: " . $sql->command . " : OK ";
+       }
+       $this->AddField(new ThemeBox('Results - CheckError', $text));
+    }
+
+    function btnDirectSQL_click()
+    {  global $MIOLO;
+
+       $text = '';
+       $db = $MIOLO->GetDatabase('admin');
+       $result = $db->query('SELECT g.m_group, t.m_transaction, a.rights FROM miolo_transaction t, miolo_group g, miolo_access a WHERE (a.idtransaction=t.idtransaction) AND (a.idgroup = g.idgroup) ORDER BY m_group,m_transaction'); 
+       $table = new TableRaw('ResultSet', $result);
+       $this->AddField(new ThemeBox('Results - DirectSQL', $table));
+    }
+
+}
+?>

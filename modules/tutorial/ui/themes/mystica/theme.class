@@ -1,0 +1,122 @@
+<?php
+    class Theme extends MTheme
+    {
+        function __construct()
+        {
+            parent::__construct('mystica');
+        }
+
+        function Init()
+        {
+            $ui = $this->manager->GetUI();
+            $logo = $ui->GetImageTheme($this->id, 'logonet.gif');
+            // top
+            $aTop1 = array
+                (
+                new TextHeader('', '1', 'Universidade Federal de Juiz de Fora'),
+                new TextHeader('', '2', 'SIGA - Sistema Integrado de Gestão Acadêmica')
+                );
+
+            $img = new ImageButton('', 'Home', $this->manager->GetConf('home.url'), $logo);
+            $img->image->AddAttribute('width', '40px');
+            $img->image->AddAttribute('height', '40px');
+            $top = array
+                (
+                new Div('', $img, 'logo'),
+                new Div('', $aTop1, 'text')
+                );
+
+            $this->SetElement('top', $top, 'm-container-top');
+            // navigation
+            $this->SetElement('navigation', new NavigationBar(), 'm-container-topmenu');
+        }
+
+        function Generate()
+        {
+            $method = "Generate" . $this->layout;
+            return $this->$method();
+        }
+
+        function GenerateDefault()
+        {
+            // bottom
+            $this->SetElement('bottom', new MStatusBar(), 'm-container-bottom');
+            // module
+            $this->SetElementId('module', 'm-container-module');
+            // menus
+            $idMenu = ($this->manager->GetConf('options.mainmenu') == 2) ? 'm-container-dhtmlmenu' : 'm-container-menu';
+            $this->SetElementId('menus', $idMenu);
+            // content
+            $idContent = ($this->manager->GetConf('options.mainmenu') == 2) ? 'm-container-content-full' : 'm-container-content';
+            $this->SetElementId('content', $idContent);
+
+            $html = $this->GenerateElement('top');
+
+            if ($this->HasMenuOptions())
+            {
+                $html .= $this->GenerateElement('menus');
+            }
+
+            if ($this->GetElement('module') != NULL)
+            {
+                $html .= $this->GenerateElement('module');
+            }
+
+            if ($this->GetElement('navigation')->HasOptions())
+            {
+                $html .= $this->GenerateElement('navigation');
+            }
+
+            $html .= $this->GenerateElement('content');
+            $html .= $this->GenerateElement('bottom');
+            return $this->painter->div(new Div('m-container', $html));
+        }
+
+        function GenerateLookup()
+        {
+            $html = $this->GenerateElement('content');
+            $div = new Div('', $html, 'm-container');
+            $div->AddStyle('width', '100%');
+            return $this->painter->GenerateToString($div);
+        }
+
+        function GenerateHtmlArea()
+        {
+            // module
+            $this->SetElementId('module', 'm-container-module');
+            // content
+            $this->SetElementId('content', 'm-htmlarea');
+            // bottom
+            $this->SetElement('bottom', new StatusBar(), 'm-container-bottom');
+
+            $html = $this->GenerateElement('top');
+
+            if ($this->GetElement('module') != NULL)
+            {
+                $html .= $this->GenerateElement('module');
+            }
+
+            if ($this->GetElement('navigation')->HasOptions())
+            {
+                $html .= $this->GenerateElement('navigation');
+            }
+
+            $html .= $this->GenerateElement('content');
+            $html .= $this->GenerateElement('bottom');
+            return $this->painter->div(new Div('m-container', $html));
+        }
+
+        function GeneratePopup()
+        {
+            $html = $this->GenerateElement('content');
+            $div = new Div('', $html, 'm-container');
+            $div->AddStyle('width', '100%');
+            return $this->painter->GenerateToString($div);
+        }
+
+        function GeneratePrint()
+        {
+            $this->GenerateDefault();
+        }
+    }
+?>

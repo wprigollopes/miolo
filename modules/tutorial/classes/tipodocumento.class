@@ -1,0 +1,86 @@
+<?
+class BusinessTutorialTipodocumento
+  extends Business {
+  var $codigo;
+  var $descricao;
+
+  function BusinessTutorialTipodocumento($data = null) {
+    $this->Business('admin', $data);
+  }
+
+  function SetData($data) {
+var_dump($data);
+    $this->codigo = $data->codigo;
+    $this->descricao = $data->descricao;
+  }
+
+  function &sqlAllFields() {
+    return new sql("codigo, descricao", "tipodocumento");
+  }
+
+  function &sqlUpdateAllFields() {
+    return new sql("codigo, descricao", "tipodocumento");
+  }
+
+  function GetById($codigo) {
+    $sql = $this->sqlAllFields();
+    $sql->SetWhere('codigo = ?');
+    $query = $this->Query($sql, $codigo);
+
+    if (!$query->eof()) {
+      $this->SetData($query->GetRowObject());
+    }
+
+    return $this;
+  }
+
+  function Insert() {
+    $sql = $this->sqlAllFields();
+
+    $args = array(
+      $this->codigo,
+      $this->descricao
+    );
+
+    $ok = $this->Execute($sql->Insert($args));
+
+    return $ok;
+  }
+
+  function Update() {
+    $sql = $this->sqlUpdateAllFields();
+    $sql->SetWhere('codigo = ?');
+    $args = array(
+      $this->codigo,
+      $this->descricao,
+      $this->codigo
+    );
+    $ok = $this->Execute($sql->Update($args));
+
+    return $ok;
+  }
+
+  function Delete() {
+    $sql = new sql('', 'tipodocumento', 'codigo = ?');
+    $ok = $this->Execute($sql->Delete($this->codigo));
+
+    if ($ok) {
+      $this->Log(OP_DEL, "codigo = $this->codigo; descricao = $this->descricao ");
+    }
+
+    return $ok;
+  }
+
+  function ListRange($range = NULL) {
+    $sql = $this->sqlAllFields();
+
+    $sql->SetRange($range);
+    $query = $this->Query($sql);
+
+    return $query;
+  }
+  function ListAll() {
+    return $this->ListRange();
+  }
+}
+?>

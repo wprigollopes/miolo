@@ -1,0 +1,57 @@
+<?
+    class repAtestado extends PDFReport
+    {
+        var $img;
+        var $timestamp;
+
+        function __construct()
+        {
+            global $MIOLO, $module, $page, $context, $self, $action, $perms;
+
+            $ui = $MIOLO->GetUI();
+            $this->img = $ui->GetImageSrc('logonet.png');
+            $oSistema = $MIOLO->GetBusiness('admin', 'sistema');
+            $query = $oSistema->ListAll();
+            $rsSistema = $query->result;
+            $column = new PDFReportColumn('text', 'Text', 'full', true, 80);
+
+            foreach ($rsSistema as $row)
+            {
+                $data[][0] = "Sistema: " . $row[1]
+                                 . "\nThis class is designed to provide a <b>non-module</b>, non-commercial alternative to dynamically creating pdf documents from within PHP.\nObviously this will not be quite as quick as the module alternatives, but it is surprisingly fast, this demonstration page is almost a worst case due to the large number of fonts which are displayed.\nThere are a number of features which can be within a Pdf document that it is not at the moment possible to use with this class, but I feel that it is useful enough to be released.\nMesmo com acentuação no meio do texto, e até com õ, this document describes the possible useful calls to the class, the readme.php file (which will create this pdf) should be sufficient as an introduction.\nNote that this document was generated using the demo script 'readme.php' which came with this package.";
+            }
+
+            parent::__construct($data, $column, 1);
+            $this->SetOption('showHeadings', 0);
+            $this->SetOption('showTableTitle', 0);
+            $this->timestamp = date('d/m/Y G:i');
+        }
+
+        function GeneratePageHeader()
+        {
+            $h = $this->pdf->getFontHeight(12);
+            $this->pdf->ezImage($this->img, 5, 50, 'none', 'left');
+            $this->pdf->addText(90, 800, 12, 'UFJF - Universidade Federal de Juiz de Fora');
+            $this->pdf->addText(90, 800 - $h, 12, 'CGCO - Centro de Gestão do Conhecimento Organizacional');
+            $this->pdf->addText(90, 800 - $h - $h, 12, 'SIGA - Sistema Integrado de Gestão Acadêmica');
+            $this->pdf->ezSetY(800 - $h - $h - $h);
+        }
+
+        function GeneratePageTitle()
+        {
+            $this->pdf->ezSetDy(-20);
+            $this->pdf->ezText("<b>Atestado de Uso EzPDF</b>", 14, array('justification' => 'center'));
+            $this->pdf->ezText("<b>Ano: 2004</b>", 12, array('justification' => 'center'));
+            $this->pdf->ezSetDy(-100);
+        }
+
+        function GeneratePageFooter()
+        {
+            $this->pdf->SetStrokeColor(0, 0, 0);
+            $this->pdf->ezSetDy(-100);
+            $this->pdf->line(300, $this->pdf->y, 500, $this->pdf->y);
+            $this->pdf->ezSetDy(-15);
+            $this->pdf->addTextWrap(300, $this->pdf->y, 200, 10, 'Nome do Responsável', 'center');
+        }
+    }
+?>

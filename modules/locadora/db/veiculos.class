@@ -1,0 +1,125 @@
+<?php
+
+/**
+ *
+ */
+class BusinessLocadoraVeiculos extends Business
+{
+    private $placa;
+    private $modelo;
+
+    /**
+     * Override do método GetDatabase, para facilitar a chamada 
+     * ao GetDatabase
+     */
+    public function getDatabase()
+    {
+        $MIOLO = MIOLO::getInstance();
+
+        // obter conexão com a base 'locadora'
+        // a base 'locadora' é definida no arquivo locadora.conf
+        return $MIOLO->getDatabase( 'locadora' );
+    }
+
+    /**
+     * @param $data (array) Database query result
+     */
+    public function setData( $data = null )
+    {
+        $this->placa  = $data[0][0];
+        $this->modelo = $data[0][1];
+    }
+
+    /**
+     *
+     */
+     public function insertVehicle( $objVehicle )
+    {
+        // sql para inclusão do veiculo.
+        $sql = "insert into lcd_veiculos " .
+               "       ( placa, modelo ) " .
+               "values " .
+               "       ( ?, ? ) ";
+
+        $args = array( $objVehicle->placa,
+                       $objVehicle->modelo
+                      );
+
+        // executa a instrução $sql e retorna true ou false
+        $rs = $db->query( $db->prepare( $sql, $obj ) );
+
+        $this->checkError( $db );
+    }
+
+    /**
+     *
+     */
+    public function getVehicles()
+    {
+        // consulta sql
+        $sql = " select placa, textcat(textcat(placa,' '),modelo)" .
+               "   from lcd_veiculos ".
+               "  order by modelo";
+
+        // abre conexão com a base 'locadora'
+        $db = $this->getDatabase( 'locadora' );
+
+        // executa a consulta $sql
+        $data = $db->query( $sql );
+
+        // verifica erros na query e adiciona ao objeto
+        $this->checkError( $db );
+
+        // retorna os veículos
+        return $data;
+    }
+
+    /**
+     * @param $placa (string) Placa do veículo
+     */
+    public function getVehicle( $placa )
+    {
+        // consulta sql
+        $sql = " select placa, modelo".
+               "   from lcd_veiculos ".
+               "  where placa = ?";
+
+        // abre conexão com a base 'locadora'
+        $db = $this->getDatabase();
+
+        // executa a consulta $sql
+        $data = $db->query( $db->Prepare( $sql, $placa ) );
+
+        // se a consulta retornou dados, 
+        // setar nos atributos
+        if ( $data )
+        {
+            $this->setData( $data );
+        }
+
+        // verifica erros na query e adiciona ao objeto
+        $this->checkError( $db );
+    }
+
+    /**
+     *
+     */
+    public function updateVehicle()
+    {
+        $sql = "update lcd_veiculos ".
+                "   set modelo = ?" .
+                " where placa  = ?";
+
+        $args = array( $this->modelo,
+                       $this->placa
+                      );
+        $ok = $db->Execute( $db->Prepare($sql, $args) );
+
+        $this->checkError( $db );
+
+        return $ok;
+    }
+
+}
+
+?>

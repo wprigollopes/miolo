@@ -1,0 +1,90 @@
+<?php
+
+/**
+ * Custom fields sample form.
+ *
+ * @author Daniel Hartmann [daniel@solis.coop.br]
+ *
+ * \b Maintainers: \n
+ * Armando Taffarel Neto [taffarel@solis.coop.br]
+ * Daniel Hartmann [daniel@solis.coop.br]
+ *
+ * @since
+ * Class created on 2011/11/16
+ *
+ * \b Organization: \n
+ * SOLIS - Cooperativa de Soluções Livres \n
+ *
+ * \b Copyright: \n
+ * Copyright (c) 2011 SOLIS - Cooperativa de Soluções Livres \n
+ *
+ * \b License: \n
+ * Licensed under GPLv2 (for further details read the COPYING file or http://www.gnu.org/licenses/gpl.html)
+ *
+ */
+class frmCustomFieldExample extends MForm
+{
+    public function __construct()
+    {
+        $module = MIOLO::getCurrentModule();
+        parent::__construct(_M('Custom Fields', $module));
+        $this->eventHandler();
+    }
+
+    public function createFields()
+    {
+        $MIOLO = MIOLO::getInstance();
+        $module = MIOLO::getCurrentModule();
+
+        parent::createFields();
+
+        $editAction = false;
+
+        $fields[] = MMessage::getMessageContainer();
+
+        // This is used as customizedId manually on submit_button_click method
+        $fields[] = $personField = new MTextField('personId', '', _M('Person id', $module));
+        $this->addFields($fields);
+
+        // __CLASS__ is the custom fields identifier
+
+        // Check somehow if it's an edit action
+        if ( $editAction )
+        {
+            $personId = 1;
+
+            $personField->setReadOnly(true);
+            $personField->setValue($personId);
+
+            // For edit action, inform the customizedId as second parameter
+            $this->addCustomFields(__CLASS__, $personId);
+        }
+        else
+        {
+            $this->addCustomFields(__CLASS__);
+        }
+    }
+
+    public function submit_button_click()
+    {
+        $module = MIOLO::getCurrentModule();
+        $data = $this->getData();
+
+        $customizedId = $data->personId;
+
+        /*
+         * The save method will insert or update the registers based on the addCustomFields call at createFields.
+         * If the second parameter was informed, then it will update the registers, otherwise insert them.
+         */
+        if ( $this->saveCustomFields($customizedId) )
+        {
+            new MMessageSuccess(_M('Saved successfully', $module));
+        }
+        else
+        {
+            new MMessageWarning(_M('Failed saving', $module));
+        }
+    }
+}
+
+?>

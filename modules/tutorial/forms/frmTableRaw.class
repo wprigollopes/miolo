@@ -1,0 +1,34 @@
+<?php
+
+class frmTableRaw extends MForm
+{
+    public function __construct()
+    {
+        parent::__construct('TableRaw');
+    }
+
+    public function createFields()
+    {
+        $array = array(
+            array( 'PHP', 'Tobias Gerken', '2002' ),
+            array( 'PHP/XML', 'Juliano Nier', '2001' ),
+            array( 'XML', 'Otavio Decio', '2001' ),
+            array( 'Flash - The Bible', 'Robert Reinhardt', '2002' ),
+            array( 'Javascript', 'Damiani', '2002' )
+        );
+        $colTitle = array( 'Título', 'Autor', 'Ano Publicação' );
+        $tblZebra = new MTableRaw('', $array);
+        $tblZebra->setAlternate(true);
+        $fields = array(
+            new MSeparator('Com títulos para a tabela e para as colunas'),
+            new MTableRaw('Relação de Títulos Publicados', $array, $colTitle),
+            new MSeparator('Sem títulos para a tabela e para as colunas'),
+            new MTableRaw('', $array),
+            new MSeparator('Alternate true'),
+            $tblZebra
+        );
+        $this->setFields($fields);
+        $this->defaultButton = false;
+    }
+}
+?>

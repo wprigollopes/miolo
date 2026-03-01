@@ -1,0 +1,27 @@
+<?php
+
+class ThemeBoxTutorial extends ThemeElement
+{
+    var $title;
+    var $content;
+    var $width = '95%';
+    
+    function __construct($title, $content)
+    {
+        parent::__construct();
+        $this->classpainter = &$this;
+        $this->painter = 'GenerateHtml';
+        $this->title   = $title;
+        $this->content = $content;
+    }
+
+    function GenerateHtml($box)
+    {
+       echo "<div class=\"boxTitle\" style=\"width:{$box->width}; color:#ffffff; background-color:#00007f;  border:1px solid #00007f; padding:2px;font-weight:bold; text-align:center;\">ThemeBoxTutorial - {$box->title}</div>";
+       echo "<div class=\"boxContent\" style=\"width:{$box->width}; padding:2px; border:1px solid #00007f;\">";
+       echo "Componente definido em modules/tutorial/classes/ui/component.class<br> " . $box->content;
+       echo "</div>";
+    }
+}
+
+?>

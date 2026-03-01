@@ -1,0 +1,83 @@
+<?
+class frmScrollableDiv extends MForm
+{
+
+    function __construct()
+    {   
+		parent::__construct('Scrollable Div');
+        $this->EventHandler();
+        $this->AddField(new ViewSource(__FILE__));
+    }
+
+    function CreateFields()
+    {
+        for($i=0; $i<15; $i++)
+        { 
+           $aOptionsControl[] = new MCheckBox("chkBox$i","value$i","Label$i",false,"chk$i");
+        }
+        $aText[] = new MTextHeader('','3','Criar uma abertura inspiradora');
+        $aText[] = new MTextHeader('','4','- Cite um exemplo de trabalho em equipe.');
+        $aText[] = new MTextHeader('','4','- Use citações.');
+        $aText[] = new MTextHeader('','4','- Dê uma evidência pessoal.');
+        $aText[] = new MTextHeader('','4','- Leia um depoimento.');
+        $aText[] = new MTextHeader('','3','Apreciar relatórios sobre realizações');
+        $aText[] = new MTextHeader('','4','- Cumprimente os que ganharam prêmios.');
+        $aText[] = new MTextHeader('','4','- Comente sobre as áreas de crescimento.');
+        $aText[] = new MTextHeader('','4','- Peça depoimentos espontâneossobre o sucesso.');
+        $aText[] = new MTextHeader('','3','Abordar o desafio das vendas');
+        $aText[] = new MTextHeader('','4','- Identifique a necessidade ou a oportunidade.');
+        $aText[] = new MTextHeader('','3','Conduzir uma sessão inteligente e criativa');
+        $aText[] = new MTextHeader('','4','- Pergunte:  De que maneira podemos…?');
+        $aText[] = new MTextHeader('','4','-- Avalie a situação. Vá aos fatos.');
+        $aText[] = new MTextHeader('','4','-- Obtenha soluções criativas, mantendo a mente aberta e sem preconceitos.');
+        $aText[] = new MTextHeader('','4','-- Escolha a melhor solução.');
+        $aText[] = new MTextHeader('','3','Definir metas INTELIGENTES');
+        $aText[] = new MTextHeader('','4','- Conduza um treinamento de metas INTELIGENTES.');
+        $aText[] = new MTextHeader('','4','- Defina  metas para a equipe');
+        $aText[] = new MTextHeader('','4','- Defina metas individuais');
+        $aText[] = new MTextHeader('','3','Identificar as habilidades necessárias para atingir as metas');
+        $aText[] = new MTextHeader('','4','- Obter relacionamento pessoal.');
+        $aText[] = new MTextHeader('','4','- Habilidade ao telefone.');
+        $aText[] = new MTextHeader('','4','- Prospectar possíveis clientes.');
+        $aText[] = new MTextHeader('','4','- Fazer perguntas.');
+        $aText[] = new MTextHeader('','4','- Usar evidências.');
+        $aText[] = new MTextHeader('','4','- Lidar com objeções.');
+        $aText[] = new MTextHeader('','3','Obter compromisso');
+        $aText[] = new MTextHeader('','4','- Compromissos da equipe.');
+        $aText[] = new MTextHeader('','4','- Compromissos individuais.');
+        $aText[] = new MTextHeader('','3','Fechamento');
+        $aText[] = new MTextHeader('','4','- Faça um fechamento criativo.');
+
+        $fields = array(
+            new MText('txt1','Scrollable Divs são usados em GroupControls para reduzir a ocupação de espaço no form'),
+            new MCheckBoxGroup('chkGroup','Label do Campo',$aOptionsControl,'','vertical'),
+            new MText('txt2','Apresentação de blocos de texto'),
+            new MBaseGroup('chkGroupText','Motivar uma equipe',$aText,'vertical')
+        );
+        $this->SetFields($fields);
+        $this->txt1->SetBold(); 
+        $this->txt2->SetBold(); 
+        $this->chkGroupText->SetScrollHeight('120px');
+        $buttons = Array(
+           new FormButton('btnPost', 'Enviar'),
+        );
+	    $this->SetButtons($buttons);
+	}
+
+    function btnPost_click()
+    {
+        for($i=0; $i<15; $i++)
+        { 
+             $field = $this->GetField("chkBox$i");
+             if ($field->checked)
+             {
+                 $value = $this->GetFieldValue("chkBox$i");
+                 $this->AddField(new Text('',"Opção $i checked - value = $value"));
+             }   
+        }
+
+    }
+
+}
+
+?>

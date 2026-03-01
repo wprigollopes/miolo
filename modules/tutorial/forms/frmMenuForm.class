@@ -1,0 +1,52 @@
+<?
+class frmMenuForm extends MForm
+{
+
+    function __construct()
+    {   
+		global $MIOLO, $self, $theme, $module, $page, $action;
+
+        $menu = new MMenu('Example');
+        $href = $MIOLO->GetActionURL('tutorial','main:menus:menu','link');
+        $hyperlink = new MLink('hlink', 'Hyperlink',$href);
+        $linkbutton = new MLink('linkButton', 'Link Button', $href);
+        $menu->AddOption('Option 1','tutorial','main:menus:menu','1');
+        $menu->AddOption('Option 2','tutorial','main:menus:menu','2');
+        $menu->AddOption('Option 3','tutorial','main:menus:menu','3');
+        $menu->AddOption('Option 4','tutorial','main:menus:menu','4');
+        $menu->AddSeparator();
+        $menu->AddLink('Link',$href);
+        $menu->AddHyperLink($hyperlink);
+        $menu->AddLinkButton($linkbutton);
+        $menu->AddSeparator();
+        $menu->AddText('A simple text');
+        $menu->AddSeparator();
+        $subMenu = new MMenu('SubMenu Example');
+        $subMenu->AddOption('Sub Option 1','tutorial','main:menus:menu','1');
+        $subMenu->AddOption('Sub Option 2','tutorial','main:menus:menu','2');
+        $menu->AddMenu($subMenu);
+        $menu->AddSeparator();
+        $menu->AddText('A clean subMenu');
+        $subMenuClean = new MMenu('');
+        $subMenuClean->AddOption('Sub Clean Option 1','tutorial','main:menus:menu','1');
+        $subMenuClean->AddOption('Sub Clean Option 2','tutorial','main:menus:menu','2');
+        $menu->AddMenu($subMenuClean);
+        $div = new MDiv('m-container-menu',$menu); 
+        parent::__construct('Menu Sample');
+        $fields = array(
+            $div
+		);
+		$this->SetFields($fields);
+        $buttons = Array(
+           new MButton('btnPost', 'Enviar'),
+        );
+	    $this->SetButtons($buttons);
+		if ($page->IsPostBack())
+		{
+            $this->EventHandler();
+		}
+
+	}
+
+}
+?>

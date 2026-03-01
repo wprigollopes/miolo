@@ -1,0 +1,25 @@
+<?
+class gridList4 extends MActiveGrid
+{
+	function __construct()
+    {   
+        $MIOLO = MIOLO::getInstance(); 
+        $listURL = $MIOLO->GetCurrentURL();
+        $objTransaction = $MIOLO->GetBusiness('admin','transaction');
+        $query = $objTransaction->listAll();
+        $columns = array(
+           new MGridColumn('Id', 'right', true, '10%',true,null,false,true),
+           new MGridColumn('Transaction', 'left', true, '90%',true,null,false,true),
+        );
+        parent::__construct($query->result, $columns, $listURL,15,0);
+        $this->SetTitle('Grid of Transactions [ActiveGrid]');
+ 	    $href_edit = $MIOLO->GetActionURL('admin','main:transaction','%0%', array('event'=>'btnEdit:click'));
+	    $href_dele = $MIOLO->GetActionURL('admin','main:transaction','%0%', array('event'=>'btnDelete:click'));
+        $this->AddActionUpdate($href_edit);
+	    $this->AddActionDelete($href_dele);
+        $this->AddActionIcon('ID','select.gif',$action);
+        $this->AddActionText('alt','Editar',$href_edit);
+	}
+}
+
+?>

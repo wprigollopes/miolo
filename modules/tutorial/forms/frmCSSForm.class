@@ -1,0 +1,83 @@
+<?
+class frmCSSForm extends MCSSForm
+{
+
+    function __construct()
+    {   
+		global $MIOLO, $self, $module, $page, $action;
+
+        $colors = array('red'=>'red','blue'=>'blue','green'=>'green');        
+		parent::__construct('Exemplo de Relative CSS Form');
+//        $this->SetTitle('Exemplo de Relative CSS Form');
+
+//  SetField($row, $col, $width, $field, $style)
+//      $row = número da linha no formulário, começando em 0; as linhas são renderizadas em ordem crescente
+//      $col = número da coluna (dentro da linha), começando em 0
+//      $width = valor (em %) para a largura da coluna
+//      $field = campo a ser registrado no formulário (com $form->AddField)
+//      $style = array: chave=atributo css, valor=valor do atributo; renderizado como style
+
+//  HiddenFields são adicionados diretamente com AddField
+        $this->AddField(new HiddenField('hidden1','1'));
+        $this->AddField(new HiddenField('hidden2','2'));
+        $this->AddField(new HiddenField('hidden3','3'));
+
+// Campos
+// Texto simples
+        $this->SetField(0,0,15,new Text("", "[0,0]15"));
+        $this->SetField(0,1,85,new Text("", "[0,1]85"));
+        $this->SetField(1,0,15,new Text("", "[1,0]15"));
+// Styles
+        $this->SetField(1,1,15,new Text("", "[1,1]15"),array("text-align"=>"right","background-color"=>"#999999"));
+        $this->SetField(1,2,70,new Text("", "[1,2]70"),array("background-color"=>"#0000FF"));
+        $this->SetField(2,0,100,new Text("", "[2,0]100"));
+// Inputs
+        $this->SetField(3,0,25,new Text("", "Input Field:"),array("text-align"=>'right'));
+        $this->SetField(3,1,30,new TextField("edtText", '','',25));
+        $this->SetField(3,2,45,new Selection("selColor", '','',$colors));
+// Simples
+        $this->SetField(4,0,50,new Text("", "[4,1]50"));
+        $this->SetField(4,1,25,new Text("", "[4,1]25"));
+        $this->SetField(4,2,25,new Text("", "[4,2]20"));
+// Uma linha em branco
+        $this->SetField(5,0,100,new Label("&nbsp;"));
+// Outra uma linha...
+        $this->SetField(6,0,100,new Text("", "[6,0]100"));
+// Mais de um controle 
+        $fields = array(
+            new TextField('edtField1','array','',15),
+            new TextField('edtField2','de campos','',15),
+            new Selection("selColor2", '','',$colors)
+        );
+        $this->SetField(7,0,60,$fields);
+// Input
+        $this->SetField(8,0,100,new CheckBox('chkBox','value','Label',true,'Alternate Colors'));
+        $buttons = Array(
+           new FormButton('btnPost', 'Enviar'),
+        );
+	    $this->SetButtons($buttons);
+        $this->SetAlternate(true);
+		if ($page->IsPostBack())
+		{
+            $this->EventHandler();
+		}
+	}
+
+    function btnPost_click()
+    {
+        $texto = 'Input Field = ' . $this->GetFieldValue('edtText') . ' (this color was set at above line...)';
+        $cor = $this->GetFieldValue('selColor');
+        $cor2 = $this->GetFieldValue('selColor2');
+// acrescentando dados a uma linha existente
+        $this->SetField(7,1,40,new Text("", $cor2));
+// colocando dados na linha em branco
+        $this->SetField(5,0,100,new Text("", $texto),array("color"=>$cor));
+        if ($this->chkBox->checked)
+        {
+// SetAlternate: formulario "zebrado"
+             $this->SetAlternate(true);
+        }
+    }
+
+}
+?>

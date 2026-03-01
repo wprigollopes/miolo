@@ -1,0 +1,38 @@
+<?
+class frmModalForm extends ModalForm
+{
+
+    function frmModalForm()
+    {   
+		global $MIOLO, $self, $module, $page, $action;
+
+		$this->ModalForm('Modal Form Sample');
+        $fields = array(
+             new HiddenField('key','123456'),
+             new Text('titletext', 'Text: Controle para escrever um texto na página'),
+             new TextLabel('textlabel', 'Value do textlabel','TextLabel'),
+             new Separator('Separator'),
+             new FormButton('btnButton','Button', $action),
+             new LinkButton('btnLink','LinkButton', $action),
+		);
+		$this->SetFields($fields);
+        $this->titletext->SetColor('blue');
+        $this->textlabel->SetColor('red');
+        $buttons = Array(
+           new FormButton('btnPost', 'Enviar'),
+        );
+	    $this->SetButtons($buttons);
+		if ($page->IsPostBack())
+		{
+			$this->GetData();
+            $this->EventHandler();
+		}
+
+	}
+
+    function btnLink_click()
+    {
+       $this->SetFieldAttr('btnLink','label','LinkButton pressed!');
+    }
+}
+?>

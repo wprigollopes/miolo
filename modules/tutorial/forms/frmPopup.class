@@ -1,0 +1,88 @@
+<?php
+MIOLO::Import('extensions::cpaint.inc.php', 'cpaint');
+
+class frmPopup extends MForm
+{
+    public function __construct()
+    {   
+        parent::__construct(_M('Popup'));
+
+        if ( ($f = $this->page->request('cpaint_function')) != "" )
+        {
+            $this->manager->getTheme()->clearContent();
+            $this->$f($this->page->request('cpaint_argument'));
+            $this->page->generateMethod = 'generateAJAX';
+        }
+        else
+        {
+            $this->defineFields();
+            $this->defaultButton = NULL;
+            $this->manager->getTheme()->insertContent($this);
+        }
+    }
+
+    public function defineFields()
+    {
+        $MIOLO = MIOLO::getInstance();
+        $module = $MIOLO->getCurrentModule();
+
+        $fields[] = MMessage::getMessageContainer();
+        $fields[] = MPopup::getPopupContainer();
+
+        $fields[] = new MLabel(_M('An alert popup example must be opened on loading the page', $module));
+        $fields[] = new MPopupAlert(_M('Hello!', $module), _M('Prompt Popup', $module));
+
+        $url = str_replace('&amp;', '&', $this->manager->getCurrentURL());
+        $buttons[] = new MButton('btnShow', _M('Default', $module), "mpopup.doAjax('$url', 'show');");
+        $buttons[] = new MButton('btnConfirm', _M('Confirm', $module), "mpopup.doAjax('$url', 'confirm');");
+        $buttons[] = new MButton('btnPrompt', _M('Prompt', $module), "mpopup.doAjax('$url', 'prompt');");
+        $fields[] = new MHContainer('popupButtons', $buttons);
+
+        $this->setFields($fields);
+
+        $this->page->addScript('cpaint/cpaint.inc.js');
+        MCalendarField::loadDeps();
+    }
+
+    public function show()
+    {
+        $MIOLO = MIOLO::getInstance();
+        $module = $MIOLO->getCurrentModule();
+
+        $fields[] = new MTextField('textField1', NULL, _M('Text Field', $module).'1');
+        $fields[] = new MTextField('textField2', NULL, _M('Text Field', $module).'2');
+        $fields[] = new MLookupTextField('lookupField1', '', _M('Lookup Field', $module), 10, '', NULL, NULL, 'admin', 'transactiongroup', 'filler', NULL, true);
+        $fields[] = new MLookupContainer('lkpTransactionId', 'lkpTransactionDescription', '', _M('Transaction', $module), '', 'admin', 'transaction');
+        $fields[] = new MSelection('selField', '', _M('Selection', $module));
+        $fields[] = new MCalendarField('calendar1', NULL, _M('Calendar 1', $module));
+        $fields[] = new MCalendarField('calendar2', NULL, _M('Calendar 2', $module));
+
+        $this->setFields($fields);
+        $this->generateValidators($this->layout);
+
+        MPopup::show('dynamicPopup', $fields, _M('A popup with some fields', $module));
+        
+        $this->generateAJAXValidators();
+    }
+
+    public function confirm()
+    {
+        $module = MIOLO::getCurrentModule();
+        $action = 'alert';
+        MPopup::confirm(_M('Do you want to continue?', $module), _M('Confirm Popup', $module), $action);
+    }
+
+    public function prompt()
+    {
+        $module = MIOLO::getCurrentModule();
+        MPopup::prompt(_M('This will close when clicking the OK button', $module), _M('Prompt Popup', $module), 'mpopup.remove();');
+    }
+
+    public function confirmAction()
+    {
+        $module = MIOLO::getCurrentModule();
+        MPopup::remove();
+        new MMessage(_M('You have confirmed', $module));
+    }
+}
+?>

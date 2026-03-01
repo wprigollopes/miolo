@@ -1,0 +1,10 @@
+<?php
+class HandlerAdmin_ldap extends Handler
+{
+    function init()
+    {
+        parent::init();
+        $this->manager->Trace(__METHOD__);
+    }
+}
+?>

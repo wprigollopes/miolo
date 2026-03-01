@@ -1,0 +1,81 @@
+<?php
+
+/**
+ * MChart sample form.
+ *
+ * @author Daniel Hartmann [daniel@solis.coop.br]
+ *
+ * \b Maintainers: \n
+ * Armando Taffarel Neto [taffarel@solis.coop.br]
+ * Daniel Hartmann [daniel@solis.coop.br]
+ *
+ * @since
+ * Class created on 2012/07/05
+ *
+ * \b Organization: \n
+ * SOLIS - Cooperativa de Soluções Livres \n
+ *
+ * \b Copyright: \n
+ * Copyright (c) 2012 SOLIS - Cooperativa de Soluções Livres \n
+ *
+ * \b License: \n
+ * Licensed under GPLv2 (for further details read the COPYING file or http://www.gnu.org/licenses/gpl.html)
+ * 
+ */
+
+class frmChart extends MForm
+{
+    public function __construct()
+    {
+        parent::__construct(_M('Chart', MIOLO::getCurrentModule()));
+        $this->eventHandler();
+    }
+
+    public function createFields()
+    {
+        $module = MIOLO::getCurrentModule();
+
+        parent::createFields();
+
+        $data = array(
+            array( 1, 2 ),
+            array( 3, 5.12 ),
+            array( 5, 13.1 ),
+            array( 7, 33.6 ),
+            array( 9, 85.9 ),
+            array( 11, 219.9 )
+        );
+
+        $areaData1 = array(
+            11, 9, 5, 12, 14,
+        );
+        $areaData2 = array(
+            8, 7, 4, 8, 9,
+        );
+
+        $pieData = array(
+            array( 'Fechados', 9.85 ),
+            array( 'Abertos', 80.15 ),
+            array( 'Inválidos', 4.5 ),
+            array( 'Aguardando resposta', 5.5 ),
+        );
+
+
+        $fields[] = new MChart('simpleChart', $data, _M('Line chart', $module));
+        $fields[] = new MChart('pieChart', $pieData, NULL, MChart::TYPE_PIE);
+        $fields[] = new MChart('donutChart', $pieData, _M('Títulos abertos e fechados no mês atual', $module), MChart::TYPE_DONUT);
+
+        $fields[] = $barChart = new MChart('barChart', NULL, _M('Bar chart', $module), MChart::TYPE_BAR);
+        $barChart->setMultipleData(array(
+            array( 2, 6, 7, 10 ),
+            array( 7, 5, 3, 2 ),
+        ));
+
+        $fields[] = $areaChart = new MChart('areaChart', $areaData1, _M('Area chart', $module), MChart::TYPE_AREA);
+        $areaChart->addData($areaData2);
+
+        $this->addFields($fields);
+    }
+}
+
+?>

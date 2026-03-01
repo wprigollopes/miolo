@@ -1,0 +1,221 @@
+<?
+class frmMain extends Form
+{
+	const FACIL=10;
+	const MEDIO=5;
+	const DIFICIL=3;
+
+    function __construct()
+    {   
+        parent::__construct('Hangman Game!'); 
+        $this->SetFormCSS(0,470,0,0,0,'relative');
+        $this->EventHandler();
+	}
+
+    function CreateFields()
+    {
+        $options = array(
+           new RadioButton('level','1','',true,'Fácil. Você pode errar 10 vezes.'),
+           new RadioButton('level','2','',false,'Médio. Você pode errar 5 vezes.'),
+           new RadioButton('level','3','',false,'Difícil. Você pode errar 3 vezes.')
+        );
+        $link = $this->manager->GetCurrentURL();
+        $guesses = $this->GetGuessLetters();
+ 		for($letter=65;$letter<=90;++$letter)
+		{
+            $char = chr($letter);
+		    $letters[] = $button = new LinkButton("guess$char", $char, $link);
+            $button->AttachEventHandler('click','OnLetterClick',$char); 
+            if (strpos($guesses,$char,$pos) !== false)
+            {
+                $button->color = 'gray';
+            }
+		}
+        $level = array(
+            new RadioButtonGroup('levelGroup','', $options,'1', 'vertical','none'),
+            new MButton('btnPlay', 'Jogar!')
+        );
+        $guess = array(
+           new TextHeader('choice','1','Escolha uma letra:'),
+           new Text('guessWord',''),
+           new Spacer('20px'),
+           new Text('guessErrors',''),
+           new LinkButtonGroup('letters','',$letters,'horizontal','none'),
+           new LinkButton('giveUp','Desistir?',$link)
+        );
+        $lose = array(
+           new TextHeader('lose','1','Você perdeu!'),
+           new Text('word',''),
+           new Spacer('20px'),
+           new LinkButton('again','Jogar novamente?',$link)
+        );
+        $win = array(
+           new TextHeader('win','1','Parábens, você ganhou!', 'blue'),
+           new Text('word',''),
+           new Spacer('20px'),
+           new LinkButton('again','Jogar novamente?',$link)
+        );
+        $fields = array(
+           new Label('Você deve descobrir a palavra, escolhendo uma letra de cada vez. Se você errar acima do limite, você perde!'),
+           new BaseGroup('choiceGroup','Escolha o nível', $level, 'vertical','css'),
+           new BaseGroup('guessGroup','', $guess, 'vertical','css'),
+           new BaseGroup('loseGroup','', $lose, 'vertical','css'),
+           new BaseGroup('winGroup','', $win, 'vertical','css')
+        );
+        $this->SetFields($fields);
+        $this->btnPlay->attachEventHandler('click','OnBtnPlayClick');
+        $this->giveUp->attachEventHandler('click','OnGiveUp');
+        $this->SetStatus('level');
+        $this->defaultButton = false;
+    } 
+
+    function SetLevel($level)
+    {
+        switch ($level)
+        {
+            case '1': $this->page->SetViewState('level',self::FACIL); break;
+            case '2': $this->page->SetViewState('level',self::MEDIO); break;
+            case '3': $this->page->SetViewState('level',self::DIFICIL); break;
+        }
+    }
+
+    function GetLevel()
+    {
+        return $this->page->GetViewState('level');
+    }
+
+    function SetErrors($errors)
+    {
+        $this->page->SetViewState('errors', $errors);
+    }
+
+    function GetErrors()
+    {
+        return $this->page->GetViewState('errors');
+    }
+
+    function SetStatus($status)
+    {
+        if ($status == 'level')
+        {
+           $this->SetFieldAttr('guessGroup','visible',false); 
+           $this->SetFieldAttr('loseGroup','visible',false); 
+        }
+        elseif  ($status == 'play')
+        {
+           $this->SetFieldAttr('choiceGroup','visible',false); 
+           $this->SetFieldAttr('btnPlay','visible',false); 
+           $this->SetFieldAttr('loseGroup','visible',false); 
+           $this->SetFieldAttr('guessGroup','visible',true); 
+        }
+        elseif  ($status == 'lose')
+        {
+           $this->SetFieldAttr('choiceGroup','visible',false); 
+           $this->SetFieldAttr('btnPlay','visible',false); 
+           $this->SetFieldAttr('guessGroup','visible',false); 
+           $this->SetFieldAttr('loseGroup','visible',true); 
+        }
+    }
+
+    function SetWord($word)
+    {
+        $this->page->SetViewState('word', $word);
+    }
+
+    function GetWord()
+    {
+        return $this->page->GetViewState('word');
+    }
+
+    function SetGuessWord($guessWord)
+    {
+        $this->page->SetViewState('guessword', $guessWord);
+        for($i = 0, $w = ''; $i < strlen($guessWord); $w .= $guessWord{$i} . '&nbsp;', $i++);
+		$this->SetFieldValue('guessWord', $w);
+    }
+
+    function GetGuessWord()
+    {
+        return $this->page->GetViewState('guessword');
+    }
+
+    function SetGuessLetters($guessLetters)
+    {
+        $this->page->SetViewState('guessletters', $guessLetters);
+    }
+
+    function GetGuessLetters()
+    {
+        return $this->page->GetViewState('guessletters');
+    }
+
+    function SetGuessErrors()
+    {
+        $this->SetFieldValue('guessErrors','Você tem ' . $this->GetErrors() . ' erros em um máximo de ' . $this->GetLevel() . '.');
+    }
+ 
+    function OnBtnPlayClick($sender)
+    {
+        $level = $this->levelGroup->GetValue();
+		$this->setLevel($level);
+        $file = $this->manager->GetModulePath('hangman','etc/words.txt');
+		$words = preg_split("/[\s,]+/",file_get_contents($file));
+		do
+		{
+			$i = rand(0,count($words)-1);
+			$word = $words[$i];
+		} while(strlen($word)<5 || !preg_match('/^[a-z]*$/i',$word));
+		$word=strtoupper($word);
+
+        $guessWord = str_repeat('_',strlen($word));
+        $this->SetGuessWord($guessWord);
+        $this->SetErrors(0);
+		$this->SetWord($word);
+        $this->SetGuessErrors();
+        $this->SetGuessLetters('');
+        $this->SetStatus('play');
+    }
+
+    function OnLetterClick($sender, $param)
+    {
+        $sender->color = 'blue';
+		$letter = $param;
+		$word = $this->GetWord();
+		$guessWord = $this->GetGuessWord();
+        $this->SetStatus('play');
+		$pos = 0;
+		$success = false;
+		while (($pos = strpos($word,$letter,$pos)) !== false)
+		{
+			$guessWord{$pos} = $letter;
+			$success = true;
+			$pos++;
+		}
+  		$this->SetGuessWord($guessWord);
+		if ($success)
+		{
+			if ($guessWord === $word)
+			{
+               $this->SetStatus('win');
+			}
+		}
+		else
+		{
+			$errors = $this->GetErrors() + 1;
+			$this->SetErrors($errors);
+			if ($errors >= $this->GetLevel())
+				$this->OnGiveUp(null,null);
+		}
+        $this->SetGuessLetters($this->GetGuessLetters() . $letter);
+        $this->SetGuessErrors();
+    }
+
+    function OnGiveUp($sender, $param)
+    {
+        $this->SetGuessLetters('');
+		$this->SetFieldValue('word', 'A palavra era: ' . $this->GetWord());
+        $this->SetStatus('lose');
+    }
+
+}
+?>

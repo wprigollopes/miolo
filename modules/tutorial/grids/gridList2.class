@@ -1,0 +1,47 @@
+<?php
+
+/**
+ *
+ */
+class gridList2 extends MGrid
+{
+    /**
+     *
+     */
+    public function __construct()
+    {
+        // get an instance of MIOLO
+        $MIOLO = MIOLO::getInstance();
+
+        // get the url of the current page
+        $listURL = $MIOLO->getCurrentURL();
+
+        // creates an connection to the admin module's db. see modules/admin/db/transaction.class
+        $objTransaction = $MIOLO->getBusiness('admin', 'transaction');
+
+        // execute the listAll method located in transaction.class
+        $query = $objTransaction->listAll();
+
+        // define columns for the grid
+        $columns = array( new MGridColumn( 'Id', 'right', true, '10%', true, null, false, true ),
+                          new MGridColumn( _M('Transaction'), 'left', true, '90%', true, null, false, true ),
+                         );
+
+        // execute the parent's constructor
+        parent::__construct( $query->result, $columns, $listURL, 15, 0 );
+
+        // set the grid's title
+        $this->setTitle( _M('Grid of Transactions [Array grid]') );
+
+        // define actions
+        $href_edit = $MIOLO->getActionURL( 'admin', 'main:transaction', '%0%', array('event'=>'btnEdit:click') );
+        $href_dele = $MIOLO->getActionURL( 'admin', 'main:transaction', '%0%', array('event'=>'btnDelete:click') );
+
+        // add actions to the grid
+        $this->addActionUpdate( $href_edit );
+        $this->addActionDelete( $href_dele );
+        $this->addActionIcon( 'ID','select.gif',$action );
+        $this->addActionText( 'alt','Editar',$href_edit );
+    }
+}
+?>

@@ -1,0 +1,113 @@
+<?
+    class frmComplex extends MForm
+    {
+        function __construct()
+        {
+            parent::__construct("Complex Layout using Containers - width:500px");
+            $this->SetWidth('500px');
+        }
+
+        function CreateFields()
+        {
+            $medidas = array('Milimetros','Polegadas','Pontos');
+
+            $medida = new MSelection('medida', '', '', $medidas);
+            $lblMedida = new MLabel('Medidas em:');
+            $lblMedida->width = '100px';
+            $lblMedida->box->textAlign = 'right';
+
+            $regua = new MSelection('regua', '', '', $medidas);
+            $lblRegua = new MLabel('Régua vertical em:');
+            $lblRegua->width = '100px';
+            $lblRegua->box->textAlign = 'right';
+
+            $pontos = new MTextField('pontos','','', 3);
+            $lblPontos = new MLabel('pontos'); 
+
+            $lblFalhas = new MLabel('Falhas no layout:');
+            $lblFalhas->width = '100px';
+            $lblFalhas->box->textAlign = 'right';
+
+            $chk1 = new MCheckBox('chk1','c1','', false,'Exibir linhas próximas');
+            $chk2 = new MCheckBox('chk2','c2','', false,'Exibir violações dos parágrafos');
+
+            $grpFalhas = new MCheckBoxGroup('grpFalhas','',array($chk1,$chk2),'','vertical','none'); 
+            $grpFalhas->width = '200px'; 
+
+            $lblGraficos = new MLabel('Exibição de gráficos:');
+            $lblGraficos->width = '100px';
+            $lblGraficos->box->textAlign = 'right';
+
+            $rb1 = array(
+                new MOption('opt1','o1','Simulado', false),
+                new MOption('opt2','o2','Padrão', false),
+                new MOption('opt3','o3','Alta resolução', false),
+            );
+
+            $grpGraficos = new MRadioButtonGroup('grpGraficos','', $rb1,'o2');
+            $grpGraficos->width = '200px'; 
+ 
+
+            $cMedida = new MHContainer('',array($lblMedida,$medida));
+            $cRegua = new MHContainer('',array($lblRegua,$regua,$pontos,$lblPontos));
+            $cFalhas = new MHContainer('',array($lblFalhas,$grpFalhas));
+            $cGraficos = new MHContainer('',array($lblGraficos,$grpGraficos));
+
+            $btnOk = new MButton('btnOk', 'OK');
+            $btnOk->width = '90px';
+            $btnCancel = new MButton('btnCancel', 'Cancelar');
+            $btnCancel->width = '90px';
+
+            $spacer = new MSpacer('5px');
+
+            $h1v1 = new MVContainer('',array($cMedida, $spacer,$cRegua, $spacer, $cFalhas, $spacer, $cGraficos));
+            $h1v1->width = '380px';
+            $h1v2 = new MVContainer('',array($btnOk, $spacer, $btnCancel));
+            $h1v2->width = '100px';
+
+            $h1 = new MHContainer('',array($h1v1, $h1v2));
+
+            $lblAjusteH = new MLabel('Ajuste horizontal:');
+            $lblAjusteH->width = '100px';
+            $lblAjusteH->box->textAlign = 'right';
+            $txtAjusteH = new MTextField('txtAjusteH','1','',3);
+            $selAjusteH = new MSelection('selAjusteH', '', '', $medidas);
+
+            $cAjusteH = new MHContainer('',array($lblAjusteH,$txtAjusteH,$selAjusteH));
+
+            $lblAjusteV = new MLabel('Ajuste vertical:');
+            $lblAjusteV->width = '100px';
+            $lblAjusteV->box->textAlign = 'right';
+            $txtAjusteV = new MTextField('txtAjusteV','1','',3);
+            $selAjusteV = new MSelection('selAjusteV', '', '', $medidas);
+
+            $cAjusteV = new MHContainer('',array($lblAjusteV,$txtAjusteV,$selAjusteV));
+
+            $chk3 = new MCheckBox('chk3','c3','', false,'Aderir à limitações');
+
+            $painel = new BaseGroup('painel','Painel de Controle',array($spacer,$cAjusteH, $cAjusteV, $chk3),'vertical','css'); 
+            $painel->width = '250px';
+
+            $rb2 = array(
+                new MOption('opt1','o1','Mais rápido', false),
+                new MOption('opt2','o2','Menor', false)
+            );
+
+            $salvar = new MRadioButtonGroup('rbtSalvar','Opções de salvar:',$rb2,false, '','vertical','css');
+            $salvar->width = '120px';
+            
+            $h2 = new MHContainer('',array($painel, $salvar));
+
+
+
+            $fields = array
+                (
+                   $h1, $h2
+                );
+
+            $this->SetFields($fields);
+            $this->defaultButton = false;
+        }
+
+    }
+?>

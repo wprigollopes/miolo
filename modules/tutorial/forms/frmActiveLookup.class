@@ -1,0 +1,33 @@
+<?
+class frmActiveLookup extends MForm
+{
+    function __construct()
+    {   
+		parent::__construct('ActiveLookup Sample');
+        $objSistema = $this->manager->GetBusiness('admin','sistema');
+        $objQuery = $objSistema->ListAll();
+
+        $fields = Array(
+           new MHiddenField('idtrans',''),
+           new MTextField('sistema','','Sistema'),
+           new MActiveLookup('lkpTransacao','','Transacao', 45),
+           new MTextField('idsistema','','IdSistema')
+ 		);
+        $this->SetFields($fields);
+	   $this->SetFieldAttr('lkpTransacao','module','admin');
+	   $this->SetFieldAttr('lkpTransacao','item','transacao');
+	   $this->SetFieldAttr('lkpTransacao','event','filler');
+	   $this->SetFieldAttr('lkpTransacao','related','idtrans,lkpTransacao,none,idsistema,sistema');
+	   $this->SetFieldAttr('lkpTransacao','lwidth','400');
+	   $this->SetFieldAttr('lkpTransacao','lheight','215');
+        $buttons = Array(
+           new MButton('btnPost', 'Enviar')
+        );
+	    $this->SetButtons($buttons);
+		if ($this->page->IsPostBack())
+		{
+            $this->EventHandler();
+		}
+	}
+}
+?>

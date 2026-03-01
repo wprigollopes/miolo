@@ -1,0 +1,23 @@
+<?
+class frmIFrame extends MForm
+{
+		function __construct() 
+		{
+			parent::__construct('IFrame Sample');
+            $this->AddField(new ViewSource(__FILE__));
+		}
+
+		function CreateFields()
+		{
+            $src = "http://www.miolo.org.br";
+            $fields = array(
+               new MIFrame('frame', $src)
+            );
+            $this->SetFields($fields);
+            $this->frame->AddAttribute('frameborder','1');
+            $this->frame->AddAttribute('width','95%');
+            $this->frame->AddAttribute('height','250px');
+            $this->defaultButton = false;
+		}
+}
+?>

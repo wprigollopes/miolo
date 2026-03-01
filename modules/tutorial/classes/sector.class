@@ -1,0 +1,29 @@
+<?php
+class BusinessTutorialSector extends Business
+{
+    var $id;
+    var $nick;
+    var $name;
+    var $parent;
+    var $type;
+    var $users;
+
+    function __construct($data=NULL)
+    {
+       $this->Business('persistence',$data);
+    }
+
+    function GetById($id)
+    {
+       $this->id = $id;
+       $this->retrieve();
+       return $this;
+    }
+
+    function AddUser($user)
+    {
+       $this->users[] = $user;
+    }
+
+}
+?>

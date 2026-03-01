@@ -1,0 +1,127 @@
+<?php
+
+class frmAutoReport extends MForm
+{
+    public $reportDiv;
+    public $parameters;
+
+    public function __construct()
+    {
+        /*
+         * IMPORTANT: This code must stay here.
+         * This was added to avoid irrecoverable errors, such as the use of reserved ids.
+         */
+        $MIOLO = MIOLO::getInstance();
+        if ( !$MIOLO->page->isPostBack() )
+        {
+            $MIOLO->getSession()->setValue('reportFile', NULL);
+        }
+
+        parent::__construct(_M('Automatic Report Generation', MIOLO::getCurrentModule()));
+
+        if ( $this->page->isPostBack() )
+        {
+            $this->eventHandler();
+        }
+    }
+
+    public function createFields()
+    {
+        $module = MIOLO::getCurrentModule();
+        $report = $this->manager->getSession()->getValue('reportFile');
+
+        if ( $report )
+        {
+            $fData = pathinfo($report);
+            $reportName = $fData['filename'];
+        }
+        
+        $fields[] = $t = new MTextField('currentReport', $reportName, _M('Current report', $module));
+        $t->setReadOnly(true);
+        
+        $fields[] = new MFileField('report', '', _M('Report', $module));
+
+        $action = "document.forms[0].onsubmit=function(event){return showLoading();}; return _doPostBack('readFile:click','', '_self');";
+        $fields[] = $b = new MButton('readFile', _M('Read file', $module), $action);
+        $b->type = 'submit';
+
+        $fields[] = new MSeparator();
+
+        if ( $report )
+        {
+            list($this->parameters, $innerFields, $validators) = MJasperReport::getParameterFields($report);
+            $inner = new MFormContainer(NULL, $innerFields);
+        }
+
+        $controls[] = $this->reportDiv = new MDiv('divReportStuff', $inner);
+        $this->reportDiv->setWidth('100%');
+        $fields[] = new MBaseGroup(NULL, _M('Parameters', $module), $controls);
+
+        $fields[] = new MSeparator();
+
+        $formats = array(
+            'PDF' => 'PDF',
+            'HTML' => 'HTML',
+            'ODT' => 'ODT',
+            'CSV' => 'CSV'
+        );
+        $fields[] = new MSelection('format', 'PDF', _M('Format', $module), $formats);
+
+        $this->addFields($fields);
+    }
+
+    public function readFile_click()
+    {
+        $file = $this->manager->getSession()->getValue('reportFile');
+
+        if ( !$report || $_FILES['report']['tmp_name'] )
+        {
+            $report = $_FILES['report']['tmp_name'];
+            $file = $this->manager->getConf('home.miolo') . '/var/files/' . $this->report->getFileName();
+
+            // Copy the file somewhere
+            $this->report->copyFile($file);
+            $this->manager->getSession()->setValue('reportFile', $file);
+            
+            $fData = pathinfo($file);
+            $reportName = $fData['filename'];
+            $this->currentReport->value = $reportName;
+        }
+
+        list($this->parameters, $fields, $validators) = MJasperReport::getParameterFields($file);
+
+        foreach ( $validators as $validator )
+        {
+            $this->addValidator($validator);
+        }
+
+        $this->reportDiv->inner = new MFormContainer(NULL, $fields);
+    }
+
+    public function submit_button_click()
+    {
+        $module = MIOLO::getCurrentModule();
+
+        $data = $this->getData();
+        $file = $this->manager->getSession()->getValue('reportFile');
+        $fileInfo = pathinfo($file);
+        $reportName = $fileInfo['filename'];
+
+        $parameters = MJasperReport::getParameterValues($this->parameters, $data);
+
+        // Instance of MJasperReport
+        $jasperReport = new MJasperReport();
+
+        // Execute report
+        $result = $jasperReport->executeJRXML($file, $parameters, $data->format);
+
+        if ( !$result )
+        {
+            $this->addError(_M('No registers found.', $module));
+        }
+    }
+
+    
+}
+
+?>

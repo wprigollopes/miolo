@@ -1,0 +1,59 @@
+<?php
+
+// form definition
+class frmMain extends MForm
+{
+    function __construct()
+    {
+        $MIOLO = MIOLO::getInstance();
+        $module = MIOLO::getCurrentModule();
+
+        // call the parent constructor
+        parent::__construct(_M('Hello World!', $module));
+
+        // set form width
+        $this->setWidth( '470px' );
+
+        // sets the form icon
+        $this->setIcon( $this->manager->getUI()->getImage( 'helloworld', 'helloworld-16x16.png' ) );
+
+        // array of fields
+        $fields  = array( new MTextField( 'myMsg', '', _M('Message', $module), 30, _M('Your message to the world', $module) ),
+                          new MTextField( 'myName', '', _M('Name', $module), 20, _M('Your name', $module) )
+                        );
+        // define buttons
+        $url = $MIOLO->getActionURL( $MIOLO->getConf('options.common'), 'main');
+
+        $buttons = array( new MButton( 'btnHello', _M('Click Me!', $module) ),
+                          new MButton( 'btnReset', _M('Reset', $module) ),
+                          new MLinkButton( 'btnBack', _M('Go Back!', $module), $url )
+                        );
+
+        // insert the components on the form
+        $this->setFields( $fields );
+        $this->setButtons( $buttons );
+
+        // connect onBtnHelloClick method to the button
+        $this->btnHello->attachEventHandler( 'click', 'OnBtnHelloClick' );
+
+        // call the event's handler
+        $this->eventHandler();
+    }
+
+    // this method is called when the form is submitted
+    function onBtnHelloClick( $sender )
+    {
+        // set the visible attribute of the fields to false
+        $this->setFieldAttr( 'myMsg', 'visible', false );
+        $this->setFieldAttr( 'myName', 'visible', false );
+        $this->setFieldAttr( 'btnHello', 'visible', false );
+
+        // add fields (labels) to the form
+        $this->addField( new MLabel( _M('Hello World!', MIOLO::getCurrentModule()) ) );
+        // this labels contains the text entered in the input fields
+        $this->addField( new MLabel( $this->myMsg->GetValue() ) );
+        $this->addField( new MLabel( $this->GetFieldValue('myName') ) );
+    }
+}
+
+?>

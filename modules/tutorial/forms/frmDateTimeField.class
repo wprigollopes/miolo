@@ -1,0 +1,33 @@
+<?php
+
+class frmDateTimeField extends MForm
+{
+    public function __construct()
+    {   
+        parent::__construct(_M('Date and time', MIOLO::getCurrentModule()));
+        $this->eventHandler();
+    }
+
+    public function createFields()
+    {
+        $MIOLO = MIOLO::getInstance();
+        $module = MIOLO::getCurrentModule();
+
+        $fields[] = MMessage::getMessageContainer();
+        $fields[] = new MDateTimeField('dateandtime', '24/01/1980 24:59', _M('Date and time', $module));
+
+        $this->setFields($fields);
+        
+        $valids[] = new MRequiredValidator('dateandtime');
+        $this->setValidators($valids);
+    }
+
+    public function submit_button_click()
+    {
+        $module = MIOLO::getCurrentModule();
+        $data = $this->getData();
+        $message = _M('Date and time', $module) . ": $data->dateandtime";
+        new MMessage($message, MMessage::TYPE_INFORMATION);
+    }
+}
+?>

@@ -1,0 +1,202 @@
+<?php
+
+/**
+ *
+ */
+class gridList3 extends MGrid
+{
+    var $transactions;
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        global $state;
+
+        // get an MIOLO instance
+        $MIOLO = MIOLO::getInstance();
+
+        // footer controls
+        $selPerms = new MSelection( 'selPerms', 'Choose a Permission:', 'Rights', $MIOLO->getPerms()->perms );
+        $ctlArray = array( new MButton( 'btnFilter', _M('Filter On/Off') ),
+                           new MButton( 'btnShow', _M('Show Only Selected') ),
+                           $selPerms
+                          );
+
+        // create the query to obtain the data
+        // creates an connection to the admin module's db. see modules/admin/db/transaction.class
+        $objTransaction = $MIOLO->getBusiness( 'admin', 'transaction' );
+        // compose the select criteria
+        $criteria =  $objTransaction->getCriteria();
+        $criteria->addColumnAttribute( 'idTransaction' );
+        $criteria->addColumnAttribute( 'transaction' );
+        $criteria->addColumnAttribute( 'access.idGroup' );
+        $criteria->addColumnAttribute( 'access.group.group' );
+        $criteria->addColumnAttribute( 'access.rights' );
+        $criteria->addOrderAttribute( 'transaction' );
+        $criteria->addOrderAttribute( 'access.group.group' );
+        // retrieve data
+        $query = $criteria->retrieveAsQuery();
+
+        $txtConstant = new MLabel('');
+
+        // inside grid column link
+        $href_trans = $MIOLO->getActionURL( 'admin', 'main:transaction', '#0#', array( 'event' => 'btnEdit:click' ) );
+
+        // inside grid column control
+        $selRights = new MSelection( 'selRights', '', '', $MIOLO->getPerms()->perms );
+
+        // define the grid's columns
+        $columns = array( new MGridColumn( 'Id','right', true, '5%',false),
+                          new MGridHyperlink( 'Transaction-OrderBy', $href_trans, '25%', true, null, true ),
+                          new MGridControl( $txtConstant, 'First Letter', 'ControlColumn', false, '15%' ),
+                          new MGridColumn( 'Group', 'left', true, '30%', true, null, false, true ),
+                          new MGridControl( $selRights, 'Rights - Control', 'ControlColumn', false, '25%' ),
+                         );
+
+        // add a filter field
+        // the first element indicates the index of the filter field
+        $this->addFilterText( 1, 'Transaction:', '' );
+
+        // define a action
+        $href_grid = $MIOLO->getActionURL( 'tutorial', 'controls:grid3' );
+        // set the data
+        $this->transactions = $query->result;
+        // call the parent's constructor
+        parent::__construct( $this->transactions, $columns, $href_grid, 5, 0, 'fullGrid', true, true );
+
+        // Change the column attribute
+        // Ex: the attribute 'index' indicates wich column of the dataarray 
+        // corresponds to the grid's column
+        $this->setColumnAttr( 2, 'index', null );
+
+        // indicates if the filter field should appear or not
+        if ( ( $f = $state->get('filtro') ) === NULL )
+        {
+            $f = TRUE;
+        }
+
+        // set the grid's filter field
+        $this->setFilter( $f );
+        $state->set( 'filtro', $f );
+
+        // wich column is the grid index?
+        $this->setIndex( 0 );
+
+        // box title
+        $this->setTitle( 'Grid of Transactions/Groups/Rights [A full array grid]' );
+
+        // Method to be executed before each line renderization
+        $this->setRowMethod( 'gridList3', 'MyRowMethod' );
+
+        // create grid actions
+        $href_edit = $MIOLO->getActionURL( 'admin', 'main:transaction', '%0%', array( 'event' => 'btnEdit:click' ) );
+        $href_dele = $MIOLO->getActionURL( 'admin', 'main:transaction', '%0%', array( 'event' => 'btnDelete:click' ) );
+        $this->addActionUpdate( $href_edit );
+        $this->addActionDelete( $href_dele );
+        $this->addActionText( 'alt', _M('Edit'), $href_edit );
+        $this->addActionSelect();
+
+        // set the controls in the grid
+        $this->setControls( $ctlArray );
+
+        // define header links
+        $this->headerLink( 'new', 'HeaderLink - New Record',
+                           $MIOLO->getActionURL( 'admin', 'main:transaction', '', array( 'event' => 'btnInsert:click' ) )
+                          );
+
+        if ( $item == 'detalhes' )
+        {
+            $this->setColumnAttr( 0, 'visible', true );
+            $this->headerLink( 'det', 'HeaderLink - Summary', $MIOLO->getActionURL( $module, $self, 'sumario' ) );
+        }
+        else
+        {
+            $this->setColumnAttr( 0, 'visible', false );
+            $this->headerLink( 'det', 'HeaderLink - Details', $MIOLO->getActionURL( $module, $self, 'detalhes' ) );
+        }
+
+        // call the eventHandler method
+        $this->eventHandler();
+    }
+
+
+    /**
+     * Executed before line renderization. 
+     * Method to be executed before each line renderization.
+     * @param $i - line index
+     * @param $row - array containing the row data - initial index = 0
+     * @param $actions - array containing the action's data
+     * @param $columns - array containing the column's data
+     */
+    public function myRowMethod( $i, $row, $actions, $columns )
+    {
+       // example:
+       // if there exist 'RW' in the group, disable delete action, enable edit e renderiza in red background in red
+       // else enable the delete action, disable edit and renderiza in azul
+       if ( strpos( $row[3],'RW' ) > 0 )
+       {
+          $actions[1]->enabled = false;
+          $actions[2]->enabled = true;
+          $columns[3]->control[$i]->_addStyle( 'background-color', 'red' );
+       }
+       else
+       {
+          $actions[1]->enabled = true;
+          $actions[2]->enabled = false;
+          $columns[3]->control[$i]->addStyle( 'color', 'blue' );
+       } 
+
+       // example:
+       // fill the 2nd column with the initial letter of the 1st column's value
+       $columns[2]->control[$i]->setValue( substr( $row[1], 0, 1 ) );
+    }
+
+    /**
+     * Filter button method
+     */
+    public function btnFilter_click()
+    {
+        global $state;
+
+        $f = ! $state->get( 'filtro' );
+        $this->setFilter( $f );
+        $state->set( 'filtro', $f );
+    }
+
+    /**
+     *
+     */
+    public function btnShow_click()
+    {
+       if ( count( $this->selecteds ) )
+       {
+          $show[] = new MLabel( "line => {position} - {value}" );
+          $select = $this->page->request( 'select' . $this->name );
+
+          foreach( $this->allSelecteds as $pageNum => $p )
+          {
+              $show[] = new MLabel( "Page: $pageNum" );
+
+              foreach( $p as $lineNum )
+              {
+                 $pos    = ( ( $pageNum - 1 ) * $this->getPageLength() ) + $lineNum;
+                 $value  = $this->transactions[$pos][1];
+                 $show[] = new MLabel( "$lineNum => $pos - {$value}" );
+              }
+          }
+       }
+       else
+       {
+          $show[] = new MLabel( "No lines selecteds<br>" );
+       }
+
+       $show[]    = new MSpacer( '20px' );
+       $container = new MVContainer( 'container', $show );
+       $this->manager->getTheme()->insertContent( $container );
+    }
+
+}
+
+?>

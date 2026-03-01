@@ -1,0 +1,21 @@
+<?
+class FrmContent extends Form
+{
+	function FrmContent()
+    {   
+		$this->Form('Content');
+	}
+
+    function CreateFields()
+	{
+       $fields = Array(
+           new Text('','Conteudo do arquivo: tutorial/html/files/miolo.txt'),
+		   new Content('tutorial', '/html/files/miolo.txt')
+       );
+	   $this->SetFields($fields);
+	   $this->defaultButton = False;
+	}
+
+}
+
+?>

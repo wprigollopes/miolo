@@ -1,0 +1,136 @@
+<?php
+
+class frmLogin extends MForm
+{
+    protected $auth;
+
+    public function __construct()
+    {
+        parent::__construct( _M('Login') );
+
+        $this->setWidth('60%');
+        $this->setIcon( $this->manager->getUI()->getImage('admin','login-16x16.png') );
+
+        if ( $this->page->isPostBack() )
+        {
+           $this->eventHandler();
+        }
+    }
+
+    public function createFields()
+    {
+        $MIOLO = $this->manager;
+        $action = MIOLO::getCurrentAction();
+        $module = MIOLO::getCurrentModule();
+
+        $ui = $MIOLO->getUI();
+
+        $this->auth = $this->manager->auth;
+        $return_to = $this->getFormValue('return_to',MIOLO::_Request('return_to'));
+
+        $imgLogin = new MImage( 'imgLogin', _M('Inform the username and password'), $ui->GetImage($module, 'attention.png') );
+
+        $fields = array(
+           new MTextField('uid',$this->auth->login->iduser,'Login',20),
+           new PasswordField('pwd','','Password',20),
+           new TextLabel('username',$this->auth->login->user,'Nome',40),
+           new HyperLink('mail','Email para contato', 'mailto:'.$this->manager->GetConf('theme.email'), 'Contact e-mail'),
+           new HiddenField('tries', ''),
+           new HiddenField('return_to', $return_to)
+        );
+
+        $this->setFields($fields);
+
+        $this->AddButton(new FormButton('btnLogin', _M('Login', $module) ) );
+        $this->AddButton(new FormButton('btnLogout', _M('Logout', $module) ) );
+        //$help = $MIOLO->GetActionURL('admin','loginhelp',null,null,'popup.php');
+        $helpMsg = _M('You must inform a valid username and password in order to log in.');
+        $this->AddButton(new FormButton('btnHelp', _M('Help', $module), "alert('$helpMsg')"));
+
+        $this->SetButtonAttr('btnLogin' , 'visible' , ! $this->isAuthenticated() );
+        $this->SetButtonAttr('btnLogout', 'visible' ,   $this->isAuthenticated() );
+        $this->SetFieldAttr('uid'       , 'readonly',   $this->isAuthenticated() );
+        $this->SetFieldAttr('pwd'       , 'visible' , ! $this->isAuthenticated() );
+        $this->getField('uid')->setClass('m-text-user-field');
+        $this->getField('pwd')->setClass('m-text-passwd-field');
+
+        $this->SetFieldAttr('username'  ,'visible'  ,$this->isAuthenticated());
+
+        $this->page->onLoad('document.' . $this->name . '.uid.focus();');
+    }
+
+    protected function btnLogin_click()
+    {
+        $MIOLO = $this->manager;
+
+        $this->getData();
+
+        // Max login tryes
+        $max_tries = 3;
+
+        // autenticar usuário e obter dados do login
+        $uid = $this->getFormValue('uid');
+        $pwd = $this->getFormValue('pwd');
+
+        $MIOLO->LogMessage('[LOGIN] Validating login information: ' . $uid);
+
+        if ( ! $this->loginPermitted($uid) )
+        {
+           $err = 'Acesso não permitido.';
+        }
+        else
+        {
+           if ( $this->auth->authenticate($uid, $pwd) )
+           {
+               $return_to = $this->getFormValue('return_to');
+
+               if ( $return_to )
+               {
+                    $url = $return_to;
+               }
+               else
+               {
+                    $url = $MIOLO->getActionURL( $MIOLO->getConf('options.startup'), 'main');
+               }
+
+               $this->page->redirect($url);
+            }
+            else
+            {
+                $tries = $this->getFormValue('tries');
+
+                if ( $tries < $max_tries )
+                {
+                    $err = 'Erro na identificação do usuário!' . ' - Restam: ' . ( $max_tries - $tries) .
+                            ' ' . 'tentativa(s).';
+                    $tries++;
+                    $this->setFormValue('tries',$tries);
+                    $pwd = null;
+
+                    $this->addError($err);
+               }
+               else
+               {
+                   throw new ELoginException('Erro na identificação do usuário!');
+               }
+            }
+        }
+    }
+
+    protected function btnLogout_click()
+    {
+        $this->page->Redirect($this->manager->getActionURL($module,'logout'));
+    }
+
+    protected function LoginPermitted($uid)
+    {
+       return true;
+    }
+
+    protected function isAuthenticated()
+    {
+        return $this->auth->isLogged();
+    }
+
+}
+?>

@@ -1,0 +1,61 @@
+<?
+class FrmState extends Form
+{
+    function FrmState() 
+    {   global $page;
+		$this->Form('State - only 1 page');
+		if ($page->IsPostBack())
+		{
+			$choice = $this->GetFieldValue('select1');
+			$choiceopt = $this->GetFieldAttr('select1','options',$choice);
+		    $this->SetFieldAttr('select1','readonly',true);
+			if ($choice == 0)
+			{
+               $choice2 =  $this->GetFieldValue('select1a');  
+  			   if ($choice2 <> '')
+			   {
+			      $choice2opt = $this->GetFieldAttr('select1a','options',$choice2);
+		          $this->SetFieldAttr('select1a','readonly',true);
+				  $this->SetFieldValue('finaltext',$choiceopt . " = " . $choice2opt);
+		          $this->SetFieldAttr('finaltext','readonly',true);
+		          $this->SetFieldAttr('finaltext','visible',true);
+			   }
+	           $this->SetFieldAttr('select1a','visible',true);
+            } 
+			else
+			{
+               $choice2 =  $this->GetFieldValue('select1b');  
+  			   if ($choice2 <> '')
+			   {
+			      $choice2opt = $this->GetFieldAttr('select1b','options',$choice2);
+		          $this->SetFieldAttr('select1b','readonly',true);
+				  $this->SetFieldValue('finaltext',$choiceopt . " = " . $choice2opt);
+		          $this->SetFieldAttr('finaltext','readonly',true);
+		          $this->SetFieldAttr('finaltext','visible',true);
+			   }
+	           $this->SetFieldAttr('select1b','visible',true);
+            } 
+
+		}
+    }
+
+    function CreateFields()
+	{
+		$fields = array(
+           new Selection('select1','','Seleção 1',array('vogais','consoantes')),
+           new Selection('select1a','','Seleção vogais',array('a','e','i','o','u')),
+           new Selection('select1b','','Seleção consoantes',array('b','c','d','f','g')),
+           new TextField('finaltext','value','Final')
+        );
+        $this->SetFields($fields);
+		$this->SetFieldAttr('select1','readonly',false);
+		$this->SetFieldAttr('select1a','readonly',false);
+		$this->SetFieldAttr('select1b','readonly',false);
+		$this->SetFieldAttr('select1a','visible',false);
+		$this->SetFieldAttr('select1b','visible',false);
+		$this->SetFieldAttr('finaltext','visible',false);
+	}
+
+}
+
+?>

@@ -1,0 +1,87 @@
+<?
+class repTransacaoBreak  extends PDFReport
+{
+	function __construct()
+    {   global $MIOLO, $module, $page, $context, $self, $action, $perms;
+
+        parent::__construct(NULL,NULL);
+        $this->SetPDF(new ezPDFReport('2'));
+        $oTransacao = $MIOLO->GetBusiness('admin','transacao');
+        $query = $oTransacao->ListAll();
+        $query->SetOrder('sistema,transacao');
+        for ($i=0; $i<5; $i++)
+           foreach($query->result as $row) $data[] = $row;
+        $t = new TreeArray($data,2,'0,1');
+        $n = count($t->tree);
+        foreach($t->tree as $k=>$node)
+        {
+            $rep = new repTransacaoBreakReport($node, $k);
+            $rep->SetPDF($this->ezpdf);
+            $rep->Generate();
+            if ($k != $n) $this->pdf->ezNewPage();
+        }
+ 	}
+
+    function Generate()
+    {
+        $this->SetOutput();
+        $this->Execute();
+    }
+}
+
+class repTransacaoBreakReport extends PDFReport
+{
+    var $img;
+    var $timestamp;
+    var $sistema;
+
+	function __construct($data, $sistema)
+    {   global $MIOLO, $module, $page, $context, $self, $action, $perms;
+
+        $ui = $MIOLO->GetUI();
+        $this->img = $ui->GetImageSrc('logonet.png'); 
+        $oSistema = $MIOLO->GetBusiness('admin','sistema');
+        $query = $oSistema->ListAll();
+        $aSistema = $query->chunkResult();
+        $this->sistema = $aSistema[$sistema];
+        $columns = array(
+           new PDFReportColumn('id','<b><i>ID</i></b>','right', true, 8,true),
+           new PDFReportColumn('t.transacao','<b><i>TRANSAÇÃO</i></b>','left',true,50,true,null,true)
+        );
+        parent::__construct($data,$columns,35);
+        $this->SetColumnAttr('s.sistema','index',2);
+        $this->SetColumnAttr('t.transacao','index',1);
+        $this->SetIndex(0);
+        $this->SetTitle('Relação de Transações');
+        $this->SetOption('showTableTitle',1);
+        $this->SetRowMethod('repTransacaoBreakReport','MyRowMethod');
+        $this->timestamp = date('d/m/Y G:i');
+	}
+
+    function MyRowMethod($row,$columns,$slot,$obj)
+    {
+       if (substr($row[1],0,1) == 'S')
+       {
+          $row[1] .= '*';
+       }
+    }
+
+    function GeneratePageHeader()
+    {   
+        $h = $this->pdf->getFontHeight(12);
+//echo $this->img . '<br>';
+        $this->pdf->ezImage($this->img,5,50,'none','left');
+        $this->pdf->addText(90,800,12,'UFJF - Universidade Federal de Juiz de Fora');
+        $this->pdf->addText(520,800,12,'Página: ' . $this->pn->pageNumber . '/' . $this->pn->pageCount);
+        $this->pdf->addText(90,800-$h,12,'CGCO - Centro de Gestão do Conhecimento Organizacional');
+        $this->pdf->addText(90,800-$h-$h,12,'SIGA - Sistema Integrado de Gestão Acadêmica');
+        $this->pdf->addText(90,800-$h-$h-$h,12,"Sistema: " . $this->sistema);
+        $this->pdf->ezSetY(800-$h-$h-$h-$h);
+    }
+   
+    function GeneratePageFooter()
+    {   
+        $this->pdf->ezText($this->timestamp,9,array('justification'=>'right'));
+    }
+}
+?>

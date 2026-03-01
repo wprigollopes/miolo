@@ -1,0 +1,105 @@
+<?
+    class repMultiLevel1 extends PDFReport
+    {
+        var $img;
+        var $timestamp;
+
+        function __construct()
+        {
+            global $MIOLO, $module, $page, $context, $self, $action, $perms;
+
+            parent::__construct(NULL, NULL);
+            $this->SetPDF(new ezPDFReport('2'));
+
+            // simula multiplos niveis de quebra
+            for ($i = 0; $i < 2; $i++)             // level 1
+            {
+                for ($j = 0; $j < 3; $j++)         // level 2
+                {
+                    for ($k = 0; $k < 5; $k++)     // level 3
+                    {
+                        for ($l = 0; $l < 9; $l++) // data
+                        {
+                            $data[] = array
+                                (
+                                $i,
+                                $j,
+                                $k,
+                                $l
+                                );
+                        }
+                    }
+                }
+            }
+
+            $ui = $MIOLO->GetUI();
+            $this->img = $ui->GetImageSrc('logonet.png');
+            $columns = array
+                (
+                new PDFReportColumn('level1', '<b><i>Level 1</i></b>', 'right', true, 0, true),
+                new PDFReportColumn('level2', '<b><i>Level 2</i></b>', 'right', true, 0, true),
+                new PDFReportColumn('level3', '<b><i>Level 3</i></b>', 'right', true, 0, true),
+                new PDFReportColumn('level4', '<b><i>Level 4</i></b>', 'right', true, 0, true)
+                );
+
+            parent::__construct($data, $columns, 40);
+            $this->SetTitle('Exemplo Report MultiLevel Without Break');
+            $this->SetOption('showTableTitle', 1);
+            $this->SetRowMethod('repMultiLevel1', 'MyRowMethod');
+            $this->timestamp = date('d/m/Y G:i');
+        }
+
+        function MyRowMethod($row, $columns, $slot, $obj)
+        {
+            if ($row[0] === $slot['level1'])
+            {
+                $row[0] = '';
+            }
+            else
+            {
+                $slot['level1'] = $row[0];
+            }
+
+            if ($row[1] === $slot['level2'])
+            {
+                $row[1] = '';
+            }
+            else
+            {
+                $slot['level2'] = $row[1];
+            }
+
+            if ($row[2] === $slot['level3'])
+            {
+                $row[2] = '';
+            }
+            else
+            {
+                $slot['level3'] = $row[2];
+            }
+        }
+
+        function GeneratePageHeader()
+        {
+            $h = $this->pdf->getFontHeight(12);
+            //echo $this->img . '<br>';
+            $this->pdf->ezImage($this->img, 5, 50, 'none', 'left');
+            $this->pdf->addText(90, 800, 12, 'UFJF - Universidade Federal de Juiz de Fora');
+            $this->pdf->addText(520, 800, 12, 'Página: ' . $this->pn->pageNumber . '/' . $this->pn->pageCount);
+            $this->pdf->addText(90, 800 - $h, 12, 'CGCO - Centro de Gestão do Conhecimento Organizacional');
+            $this->pdf->addText(90, 800 - $h - $h, 12, 'SIGA - Sistema Integrado de Gestão Acadêmica');
+            $this->pdf->ezSetY(800 - $h - $h - $h - $h);
+        }
+
+        function GeneratePageFooter()
+        {
+            $this->pdf->ezText($this->timestamp, 9, array('justification' => 'right'));
+        }
+    /*
+        function Generate()
+        {
+            $this->GenerateReport();
+        }
+    */
+    }
+?>

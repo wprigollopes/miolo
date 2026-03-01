@@ -1,0 +1,12 @@
+<?php
+
+class ViewSource extends OpenWindow
+{
+    function __construct($file)
+    { 
+        parent::__construct('','View Source');
+        $this->SetHREF($this->manager->GetActionURL('tutorial','doc', $file));
+    }
+}
+
+?>

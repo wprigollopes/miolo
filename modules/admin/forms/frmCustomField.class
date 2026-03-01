@@ -1,0 +1,211 @@
+<?php
+
+/**
+ * Class to create or edit customized fields.
+ *
+ * @author Daniel Hartmann [daniel@solis.coop.br]
+ *
+ * \b Maintainers: \n
+ * Armando Taffarel Neto [taffarel@solis.coop.br]
+ * Daniel Hartmann [daniel@solis.coop.br]
+ *
+ * @since
+ * Creation date 2011/11/16
+ *
+ * \b Organization: \n
+ * SOLIS - Cooperativa de Soluções Livres \n
+ *
+ * \b Copyright: \n
+ * Copyright (c) 2011 SOLIS - Cooperativa de Soluções Livres \n
+ *
+ * \b License: \n
+ * Licensed under GPLv2 (for further details read the COPYING file or http://www.gnu.org/licenses/gpl.html)
+ *
+ */
+class frmCustomField extends MForm
+{
+    public function __construct()
+    {
+        parent::__construct(_M('Custom Fields', MIOLO::getCurrentModule()));
+        $this->eventHandler();
+
+        // If is the first access to form, clear subdetail session data
+        if ( !$this->page->isPostBack() && !MIOLO::_REQUEST('cpaint_function') )
+        {
+            MSubDetail::clearData('customFields');
+        }
+    }
+
+    public function createFields()
+    {
+        $MIOLO = MIOLO::getInstance();
+        $module = MIOLO::getCurrentModule();
+
+        $fields[] = $toolbar = new MToolbar();
+        $buttons = $toolbar->getToolBarButtons();
+        unset($buttons[MToolBar::BUTTON_DELETE]);
+        unset($buttons[MToolBar::BUTTON_PRINT]);
+        unset($buttons[MToolBar::BUTTON_RESET]);
+        unset($buttons[MToolBar::BUTTON_BACK]);
+
+        $buttons[MToolBar::BUTTON_NEW]->disable();
+
+        $toolbar->setToolBarButtons($buttons);
+
+        $fields[] = MMessage::getMessageContainer();
+
+        $customFields = NULL;
+
+        if ( MIOLO::_REQUEST('function') == 'edit' )
+        {
+            $identifier = MIOLO::_REQUEST('item');
+
+            if ( $this->isSubDetailEditMode() )
+            {
+                $customFields = MCustomField::listByIdentifier($identifier);
+            }
+        }
+
+        $fieldFormats = MCustomField::listFormatFields();
+        $listNoYes = array(
+            'f' => _M('No'),
+            't' => _M('Yes'),
+        );
+
+        $fields[] = new MTextField('identifier', $identifier, _M('Identifier', $module));
+
+        $sFields[] = $sid = new MTextField('sId', NULL);
+        $sid->addBoxStyle('display', 'none');
+
+        $sFields[] = new MTextField('sName', NULL, _M('Name', $module));
+
+        $sFields[] = $ff = new MSelection('fieldFormat', NULL, _M('Field format', $module), array());
+        $ff->options = $fieldFormats;
+
+        $sFields[] = new MMultilineField('possibleValues', NULL, _M('Possible values', $module), 25, 5, 20);
+        $sFields[] = new MTextField('regexp', NULL, _M('Regular expression', $module));
+        $sFields[] = new MTextField('minLength', NULL, _M('Minimum length', $module));
+        $sFields[] = new MTextField('maxLength', NULL, _M('Maximum length', $module));
+        $sFields[] = $r = new MSelection('required', NULL, _M('Required', $module), array());
+        $sFields[] = new MTextField('position', '0', _M('Position', $module));
+        $sFields[] = new MTextField('defaultValue', NULL, _M('Default value', $module));
+        $sFields[] = $e = new MSelection('editable', 't', _M('Editable', $module), array());
+        $sFields[] = $v = new MSelection('sVisible', 't', _M('Visible', $module), array());
+
+        $r->options = $listNoYes;
+        $e->options = $listNoYes;
+        $v->options = $listNoYes;
+
+        $columns[] = new MGridColumn(_M('Id', $module), 'left', true, NULL, false, 'sId');
+        $columns[] = new MGridColumn(_M('Name', $module), 'left', true, NULL, true, 'sName');
+        $columns[] = new MGridColumn(_M('Field format', $module), 'left', true, NULL, true, 'fieldFormat');
+        $columns[] = new MGridColumn(_M('Possible values', $module), 'left', true, NULL, false, 'possibleValues');
+        $columns[] = new MGridColumn(_M('Regular expression', $module), 'left', true, NULL, false, 'regexp');
+        $columns[] = new MGridColumn(_M('Minimum length', $module), 'left', true, NULL, false, 'minLength');
+        $columns[] = new MGridColumn(_M('Maximum length', $module), 'left', true, NULL, false, 'maxLength');
+        $columns[] = new MGridColumn(_M('Required', $module), 'left', true, NULL, true, 'required');
+        $columns[] = new MGridColumn(_M('Position', $module), 'left', true, NULL, true, 'position');
+        $columns[] = new MGridColumn(_M('Default value', $module), 'left', true, NULL, true, 'defaultValue');
+        $columns[] = new MGridColumn(_M('Editable', $module), 'left', true, NULL, true, 'editable');
+        $columns[] = new MGridColumn(_M('Visible', $module), 'left', true, NULL, true, 'sVisible');
+
+        $fields[] = $sd = new MSubDetail('customFields', _M('Fields', $module), $columns, $sFields, array('edit', 'duplicate', 'remove'));
+
+        $sValids[] = new MRequiredValidator('sName', _M('Name', $module));
+        $sValids[] = new MRequiredValidator('fieldFormat', _M('Field format', $module));
+        $sValids[] = new MIntegerValidator('minLength', _M('Minimum length', $module));
+        $sValids[] = new MIntegerValidator('maxLength', _M('Maximum length', $module));
+        $sValids[] = new MIntegerValidator('position', _M('Position', $module));
+        $sd->setValidators($sValids);
+
+        if ( $customFields )
+        {
+            $sd->setData($customFields);
+        }
+
+        $fields[] = new MSeparator();
+        $this->setFields($fields);
+        $this->setShowPostButton(false);
+
+        $valids[] = new MRequiredValidator('identifier');
+        $this->setValidators($valids);
+    }
+
+    public function tbBtnSave_click()
+    {
+        $module = MIOLO::getCurrentModule();
+
+        $formData = $this->getData();
+        $sData = MSubDetail::getData('customFields');
+
+        if ( count($sData) == 0 )
+        {
+            new MMessageWarning(_M('At least one field must be informed', $module));
+            return;
+        }
+
+        foreach ( $sData as $data )
+        {
+            $data->id = $data->sId;
+            $data->name = $data->sName;
+            $data->visible = $data->sVisible;
+
+            if ( !isset($data->position) )
+            {
+                $data->position = 0;
+            }
+
+            $customField = new MCustomField($data);
+            $customField->identifier = $formData->identifier;
+
+            if ( $data->removeData )
+            {
+                if ( $customField->delete() )
+                {
+                    new MMessage(_M('Updated successfully', $module), MMessage::TYPE_SUCCESS, false);
+                }
+            }
+            else
+            {
+                if ( MIOLO::_REQUEST('function') == 'edit' )
+                {
+                    if ( isset($customField->id) )
+                    {
+                        if ( $customField->update() )
+                        {
+                            new MMessage(_M('Updated successfully', $module), MMessage::TYPE_SUCCESS, false);
+                        }
+                    }
+                    else
+                    {
+                        if ( $customField->insert() )
+                        {
+                            new MMessage(_M('Updated successfully', $module), MMessage::TYPE_SUCCESS, false);
+                        }
+                    }
+                }
+                elseif ( $customField->insert() )
+                {
+                    new MMessage(_M('Inserted successfully', $module), MMessage::TYPE_SUCCESS, false);
+                }
+            }
+        }
+
+        // Redirect to the search form
+        $action = MIOLO::getCurrentAction();
+        $args = array( 'function' => 'search' );
+        $url = $this->manager->getActionURL($module, $action, NULL, $args);
+        $this->page->redirect($url);
+    }
+
+    public function isSubDetailEditMode()
+    {
+        $isPostBack = $this->page->isPostBack();
+        $hasCpaintFunction = strlen(MIOLO::_REQUEST('cpaint_function')) > 0;
+        $eventIsSave = MIOLO::_REQUEST('event') == 'tbBtnSave:click';
+
+        return ( ( !$isPostBack && !$hasCpaintFunction ) || !$eventIsSave );
+    }
+}
+
+?>

@@ -1,0 +1,30 @@
+<?
+class frmPForm extends CSSPForm
+{
+
+    function frmPForm()
+    {   
+		global $MIOLO, $self, $module, $page, $action;
+
+		$this->CSSPForm('CSS Positioning Form');
+        $this->SetHeight(500);
+//        $this->SetOrigin(120,180);
+        for($x=0;$x < 700;$x+=60)
+           for($y=0;$y < 500;$y+=30)
+           {
+              $this->AddField(new Text("pos$x$y", "[$x,$y]"));
+              $this->SetFieldPos("pos$x$y",$x,$y); 
+           }
+        $buttons = Array(
+           new FormButton('btnPost', 'Enviar'),
+        );
+	    $this->SetButtons($buttons);
+		if ($page->IsPostBack())
+		{
+            $this->EventHandler();
+		}
+
+	}
+}
+
+?>

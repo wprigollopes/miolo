@@ -1,0 +1,106 @@
+<?php
+MIOLO::Import('extensions::cpaint.inc.php', 'cpaint');
+
+class frmAJAXValidation extends MForm
+{
+    public function __construct()
+    {
+        parent::__construct(_M('AJAX Validation Sample', MIOLO::getCurrentModule()));
+
+        $this->page->addScript('m_validate.js');
+
+        if ( ($f = $this->page->request('cpaint_function')) != "" )
+        {
+            $this->manager->getTheme()->clearContent();
+            $this->$f($this->page->request('cpaint_argument'));
+            $this->page->generateMethod = 'generateAJAX';
+        }
+        else
+        {
+            $this->defineFields();
+            $this->manager->getTheme()->insertContent($this);
+        }
+    }
+
+    public function defineFields()
+    {
+        $module = MIOLO::getCurrentModule();
+        $moto = array(
+            'custom' => _M('Custom'),
+            'street' => _M('Street'),
+            'cafe' => _M('Café Racer')
+        );
+
+        $fields[] = new MTextField('brand', '', _M('Brand', $module), 15);
+        $fields[][] = new MSelection('motorcycleStyle', NULL, _M('Motorcycle Style', $module), $moto);
+        $fields[] = new MDiv('responseDiv', '');
+
+        $this->setFields($fields);
+        $this->motorcycleStyle->addAttribute('onChange', 'getStyleFields();');
+
+        $validators[] = new MRequiredValidator('brand');
+        $validators[] = new MRequiredValidator('motorcycleStyle');
+        $this->setValidators($validators);
+
+        $this->page->addScript('cpaint/cpaint.inc.js');
+
+        $url = str_replace('&amp;', '&', $this->manager->getCurrentURL());
+        $code = <<<JS
+function getStyleFields()
+{
+    var value = '';
+    if ( MIOLO_GetElementById("motorcycleStyle").value )
+    {
+        value = MIOLO_GetElementById("motorcycleStyle").value;
+    }
+
+    MIOLO_ajaxCall("{$url}", "POST", "ajax_btnSel", value, updateInfoFields, "TEXT");
+}	
+
+function updateInfoFields(result)
+{
+    MIOLO_GetElementById('responseDiv').innerHTML = result;
+    MIOLO_UpdateAJAXValidators('responseDiv');
+}
+
+JS;
+
+        $this->page->addJsCode($code);
+    }
+
+    public function ajax_btnSel($args)
+    {
+        $module = MIOLO::getCurrentModule();
+
+        switch ( $args[0] )
+        {
+            case 'custom':
+                $fields[] = new MTextField('cc', '', _M('CC', $module), 4);
+                $validators[] = new MRequiredValidator('cc', _M('CC', $module));
+                break;
+
+            case 'street':
+                $fields[] = new MTextField('color', '', _M('Color', $module), 4);
+                $fields[] = new MTextField('acceleration', '', _M('Acceleration (0-100 Km/h in seconds)', $module), 4);
+
+                $validators[] = new MRequiredValidator('acceleration', _M('Acceleration (0-100 Km/h in seconds)', $module));
+                break;
+
+            case 'cafe':
+                $fields[] = new MTextField('year', '', _M('Year', $module), 4);
+                $validators[] = new MRequiredValidator('year', _M('Year', $module));
+                break;
+        }
+
+        $container = new MHContainer('container', $fields);
+
+        $this->manager->getTheme()->setContent($container);
+
+        $validators[] = new MRequiredValidator('brand', _M('Brand', $module));
+        $validators[] = new MRequiredValidator('motorcycleStyle', _M('Motorcycle Style', $module));
+        $this->setValidators($validators);
+
+        $this->generateAJAXValidators();
+    }
+}
+?>

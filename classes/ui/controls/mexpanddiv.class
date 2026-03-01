@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * MExpandDiv
+ *
+ * @author Jonas Guilherme Dahmer [jonas@solis.coop.br]
+ *
+ * @version $id$
+ *
+ * \b Maintainers: \n
+ * Armando Taffarel Neto [taffarel@solis.coop.br]
+ * Daniel Hartmann [daniel@solis.coop.br]
+ *
+ * @since
+ * Creation date 2011/06/06
+ *
+ * \b Organization: \n
+ * SOLIS - Cooperativa de Soluções Livres \n
+ *
+ * \b CopyRight: \n
+ * Copyright (c) 2011 SOLIS - Cooperativa de Soluções Livres \n
+ *
+ * \b License: \n
+ * Licensed under GPLv2 (for further details read the COPYING file or http://www.gnu.org/licenses/gpl.html)
+ *
+ * \b History: \n
+ * See history in CVS repository: http://www.miolo.org.br
+ *
+ */
+$MIOLO = MIOLO::getInstance();
+$MIOLO->page->addScript('m_expanddiv.js');
+
+class MExpandDiv extends MDiv 
+{
+    public function __construct($name, $content, $class = NULL, $attributes = NULL)
+    {
+        // Removes line breaks from the beginning and the end of the content
+        // and then change them to <br />
+        $content = nl2br( trim( (string) $content ) );
+
+        $id = $name ? "{$name}box" : 'box' . rand();
+
+        // Button to expand the div
+        $expandButton = new MDiv("{$id}Button", '', 'm-expand-div-button m-expand-div-button-collapsed');
+        $expandButton->setBoxAttributes(array(
+            'onclick' => "mexpanddiv.expand('{$id}');"
+        ));
+
+        // Div with the content
+        $box = new MDiv($id, $content, 'm-expand-div-text-collapsed');
+
+        $div[] = new MDiv("{$id}Div", array( $expandButton, $box ));
+
+        parent::__construct($name, $div, $class, $attributes);
+    }
+}
+?>

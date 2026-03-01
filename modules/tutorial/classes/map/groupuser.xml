@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?> 
+<map>
+   <moduleName>tutorial</moduleName>
+   <className>groupuser</className>
+   <tableName>cm_grpusuario</tableName>
+   <databaseName>persistence</databaseName>
+   <attribute>
+      <attributeName>iduser</attributeName>
+	  <columnName>idusuario</columnName>
+   </attribute>
+   <attribute>
+      <attributeName>idgroup</attributeName>
+	  <columnName>idgrupo</columnName>
+   </attribute>
+
+   <association>
+      <toClassModule>tutorial</toClassModule>
+      <toClassName>user</toClassName>
+      <cardinality>oneToOne</cardinality>
+      <target>users</target>
+	  <retrieveAutomatic>true</retrieveAutomatic>
+	  <saveAutomatic>true</saveAutomatic>
+	  <entry>
+	     <fromAttribute>iduser</fromAttribute>
+	     <toAttribute>iduser</toAttribute>
+      </entry>
+   </association>
+
+   <association>
+      <toClassModule>tutorial</toClassModule>
+      <toClassName>group</toClassName>
+      <cardinality>oneToOne</cardinality>
+      <target>groups</target>
+	  <retrieveAutomatic>true</retrieveAutomatic>
+	  <saveAutomatic>true</saveAutomatic>
+	  <entry>
+	     <fromAttribute>idgroup</fromAttribute>
+	     <toAttribute>idgroup</toAttribute>
+      </entry>
+   </association>
+
+</map>

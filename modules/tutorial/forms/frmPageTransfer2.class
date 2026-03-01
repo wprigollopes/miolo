@@ -1,0 +1,25 @@
+<?
+class FrmPageTransfer2 extends Form
+{
+
+    function FrmPageTransfer2()
+    {   
+		global $MIOLO, $page, $state;
+		$this->Form('Page Transfer - page 2');
+        $MIOLO->UsesBusiness('admin','transacao');
+        $myTrans = $state->get('myTrans');
+        if (!$page->IsPostBack)
+        {
+           $this->SetFieldValue('msg','Page 2 - myTrans = ' . $myTrans->transacao);
+        }
+	}
+    
+    function CreateFields()
+    {   
+		$this->AddField(new TextLabel('msg','','Mensagem'));
+    }
+
+
+}
+
+?>

@@ -1,0 +1,157 @@
+<?php
+    class Theme extends MTheme
+    {
+        function __construct()
+        {
+            parent::__construct('miolo2');
+        }
+
+        function Init()
+        {
+            $ui = $this->manager->getUI();
+            $logo = $ui->getImageTheme($this->id, 'banner_miolo.png');
+            $img = new MImageButton('', 'Home', $this->manager->getConf('home.url'), $logo);
+            $img->image->addAttribute('width', '750px');	    
+            $img->image->addAttribute('height', '60px');
+
+            $top = array
+                (
+                new MDiv('', $img, 'logo'),
+                );
+
+            $this->setElement('top', $top, 'm-container-top');
+            $this->setElement('navigation', new MNavigationBar(), 'm-container-topmenu');
+        }
+
+        function generate()
+        {
+            $method = "Generate" . $this->layout;
+            return $this->$method();
+        }
+
+        function generateDefault()
+        {
+            // bottom
+            $this->setElement('bottom', new MStatusBar(), 'm-container-bottom');
+            
+            // menus	    
+            if ( $this->manager->getConf('options.mainmenu') == 2 )
+            {
+                $idModule = 'm-container-module';
+                $idMenu = 'm-container-dhtmlmenu';
+            }
+            else if ( $this->manager->GetConf('options.mainmenu') == 3 )
+            {
+                $idModule = 'm-container-module2';
+                $needTable = true;
+            }
+            else
+            {
+                $idMenu = 'm-container-menu';
+            }
+
+            // module
+            $this->SetElementId('module', $idModule);
+
+            $this->SetElementId('menus', $idMenu);
+
+            // content
+            $idContent = ( ($this->manager->GetConf('options.mainmenu') == 2) || ($this->manager->GetConf('options.mainmenu') == 3) )
+                       ? 'm-container-content-full' : 'm-container-content';
+            $this->SetElementId('content', $idContent);
+
+            $html = $this->GenerateElement('top');
+
+            // TODO: generate a less general window id
+            $html .= <<<JS
+<input type="hidden" name="MIOLO_WINDOW_ID" id="MIOLO_WINDOW_ID">
+<script type="text/javascript">
+if ( window.name == '' )
+{
+    var tabs = MIOLO_readCookie('MIOLO_windows');
+
+    if ( !tabs )
+    {
+        tabs = 0;
+    }
+
+    window.name = tabs;
+
+    tabs++;
+
+    MIOLO_createCookie('MIOLO_windows', tabs, 1);
+}
+
+document.getElementById('MIOLO_WINDOW_ID').value = window.name;
+</script>
+JS;
+
+            $html .= '<div id="m-loading-message-bg"></div><div id="m-loading-message"><div id="m-loading-message-image"><div id="m-loading-message-text">' . _M('Loading') . '...</div></div></div>';
+
+            if ($this->HasMenuOptions())
+            {
+                $html .= ($needTable == true) ? '<div><table id="m-container-dhtmlmenu2" collspacing=0 cellpadding=0 cellspacing=1 border=0><tr>' : '';
+                $html .= $this->GenerateElement('menus');
+                $html .= ($needTable == true) ? '</tr></table></div>' : '';
+            }
+
+                $html .= $this->GenerateElement('module');
+
+            if ($this->GetElement('navigation')->HasOptions())
+            {
+                $html .= $this->GenerateElement('navigation');
+            }
+
+            $html .= $this->GenerateElement('content');
+            $html .= $this->GenerateElement('bottom');
+            return $this->painter->div(new MDiv('m-container', $html));
+        }
+
+        function GenerateLookup()
+        {
+            $html = $this->GenerateElement('content');
+            $div = new MDiv('', $html, 'm-container');
+            $div->AddStyle('width', '100%');
+            return $this->painter->GenerateToString($div);
+        }
+
+        function GenerateHtmlArea()
+        {
+            // module
+            $this->SetElementId('module', 'm-container-module');
+            // content
+            $this->SetElementId('content', 'm-htmlarea');
+            // bottom
+            $this->SetElement('bottom', new StatusBar(), 'm-container-bottom');
+
+            $html = $this->GenerateElement('top');
+
+            if ($this->GetElement('module') != NULL)
+            {
+                $html .= $this->GenerateElement('module');
+            }
+
+            if ($this->GetElement('navigation')->HasOptions())
+            {
+                $html .= $this->GenerateElement('navigation');
+            }
+
+            $html .= $this->GenerateElement('content');
+            $html .= $this->GenerateElement('bottom');
+            return $this->painter->div(new MDiv('m-container', $html));
+        }
+
+        function GeneratePopup()
+        {
+            $html = $this->GenerateElement('content');
+            $div = new MDiv('', $html, 'm-container');
+            $div->AddStyle('width', '100%');
+            return $this->painter->GenerateToString($div);
+        }
+
+        function GeneratePrint()
+        {
+            $this->GenerateDefault();
+        }
+    }
+?>

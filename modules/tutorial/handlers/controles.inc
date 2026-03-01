@@ -1,0 +1,50 @@
+<?
+$MIOLO->Import('modules::tutorial::controls::viewsource');
+$ui = $MIOLO->GetUI();
+$navbar->AddOption('Controles', 'tutorial', 'main:controles');
+$theme->ClearContent();
+$close = $MIOLO->GetActionURL('tutorial','main');
+$icon = $ui->GetImage('','button_edit.png');
+
+$ctlPanel = new ActionPanel('pnlControles','Controles','',$close, $icon);
+$ctlPanel->SetIconType('small');
+$ctlPanel->AddAction('Block Controls',$ui->GetImage('','button_edit.png'),'tutorial','controles:blockcontrols');
+$ctlPanel->AddAction('Panel Controls',$ui->GetImage('','button_edit.png'),'tutorial','controles:panels');
+$ctlPanel->AddAction('Link Controls',$ui->GetImage('','button_edit.png'),'tutorial','controles:link');
+$ctlPanel->AddAction('Image Controls',$ui->GetImage('','button_edit.png'),'tutorial','controles:image');
+$ctlPanel->AddAction('Label Controls',$ui->GetImage('','button_edit.png'),'tutorial','controles:labels');
+$ctlPanel->AddAction('Button Controls',$ui->GetImage('','button_edit.png'),'tutorial','controles:buttons');
+$ctlPanel->AddAction('Input Controls',$ui->GetImage('','button_edit.png'),'tutorial','controles:input');
+$ctlPanel->AddAction('Currency Field',$ui->GetImage('','button_edit.png'),'tutorial','controles:currency');
+$ctlPanel->AddAction('Choice Controls',$ui->GetImage('','button_edit.png'),'tutorial','controles:choices');
+$ctlPanel->AddAction('List Controls',$ui->GetImage('','button_edit.png'),'tutorial','controles:lists');
+$ctlPanel->AddAction('Group Controls',$ui->GetImage('','button_edit.png'),'tutorial','controles:groups');
+$ctlPanel->AddAction('Indexed Control',$ui->GetImage('','button_edit.png'),'tutorial','controles:indexed');
+$ctlPanel->AddAction('InputGrid Control',$ui->GetImage('','button_edit.png'),'tutorial','controles:inputgrid');
+$ctlPanel->AddAction('Box',$ui->GetImage('','button_edit.png'),'tutorial','controles:box');
+$ctlPanel->AddAction('Simple Array Grid',$ui->GetImage('','button_edit.png'),'tutorial','controles:grid1');
+$ctlPanel->AddAction('Array Grid',$ui->GetImage('','button_edit.png'),'tutorial','controles:grid2');
+$ctlPanel->AddAction('Full Array Grid',$ui->GetImage('','button_edit.png'),'tutorial','controles:grid3');
+$ctlPanel->AddAction('MultiText2',$ui->GetImage('','button_edit.png'),'tutorial','controles:multitext2');
+$ctlPanel->AddAction('MultiText3',$ui->GetImage('','button_edit.png'),'tutorial','controles:multitext3');
+$ctlPanel->AddAction('Lookup',$ui->GetImage('','button_edit.png'),'tutorial','controles:lookup');
+$ctlPanel->AddAction('MultiSelection',$ui->GetImage('','button_edit.png'),'tutorial','controles:multiselectionfield');
+$ctlPanel->AddAction('Container',$ui->GetImage('','button_edit.png'),'tutorial','controles:container');
+$ctlPanel->AddAction('Content',$ui->GetImage('','button_edit.png'),'tutorial','controles:content');
+$ctlPanel->AddAction('FileContent',$ui->GetImage('','button_edit.png'),'tutorial','controles:filecontent');
+$ctlPanel->AddAction('Prompt',$ui->GetImage('','button_edit.png'),'tutorial','controles:prompt');
+$ctlPanel->AddAction('ThemeBox',$ui->GetImage('','button_edit.png'),'tutorial','controles:themebox');
+$ctlPanel->AddAction('SimpleTable',$ui->GetImage('','button_edit.png'),'tutorial','controles:simpletable');
+$ctlPanel->AddAction('TableRaw',$ui->GetImage('','button_edit.png'),'tutorial','controles:tableraw');
+$ctlPanel->AddAction('Scrollable Div',$ui->GetImage('','button_edit.png'),'tutorial','controles:scrollablediv');
+$ctlPanel->AddAction('Tips (hints)',$ui->GetImage('','button_edit.png'),'tutorial','controles:hint');
+$ctlPanel->AddAction('Javascript',$ui->GetImage('','button_edit.png'),'tutorial','controles:javascript');
+$ctlPanel->AddAction('TreeMenu',$ui->GetImage('','button_edit.png'),'tutorial','controles:treemenu');
+$ctlPanel->AddAction('HtmlArea',$ui->GetImage('','button_edit.png'),'tutorial','controles:htmlarea');
+$ctlPanel->AddAction('IFrame',$ui->GetImage('','button_edit.png'),'tutorial','controles:iframe');
+$ctlPanel->AddAction('ActiveGrid',$ui->GetImage('','button_edit.png'),'tutorial','controles:grid4');
+$ctlPanel->AddAction('ActiveLookup',$ui->GetImage('','button_edit.png'),'tutorial','controles:activelookup');
+
+$theme->AppendContent($ctlPanel);
+$handled = $MIOLO->InvokeHandler('tutorial', 'controls/' . $context->ShiftAction());
+?>

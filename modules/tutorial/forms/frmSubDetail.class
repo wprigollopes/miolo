@@ -1,0 +1,120 @@
+<?php
+
+/**
+ * MSubDetail sample form
+ *
+ * @author Daniel Hartmann [daniel@solis.coop.br]
+ *
+ * @version $id$
+ *
+ * \b Maintainers: \n
+ * Armando Taffarel Neto [taffarel@solis.coop.br]
+ * Daniel Hartmann [daniel@solis.coop.br]
+ *
+ * @since
+ * Class created on 2010/10/25
+ *
+ * \b Organization: \n
+ * SOLIS - Cooperativa de Soluções Livres \n
+ *
+ * \b CopyRight: \n
+ * Copyright (c) 2010 SOLIS - Cooperativa de Soluções Livres \n
+ *
+ * \b License: \n
+ * Licensed under GPLv2 (for further details read the COPYING file or http://www.gnu.org/licenses/gpl.html)
+ */
+class frmSubDetail extends MForm
+{
+    public function __construct()
+    {
+        $module = MIOLO::getCurrentModule();
+        parent::__construct(_M('SubDetail', $module));
+
+        $this->eventHandler();
+
+        // If is the first access to form, clear subdetail session data
+        if ( !$this->page->isPostBack() )
+        {
+            $this->pData->clearData();
+        }
+    }
+
+    public function createFields()
+    {
+        $MIOLO = MIOLO::getInstance();
+        $module = MIOLO::getCurrentModule();
+
+        parent::createFields();
+
+        $genderOptions = array(
+            'f' => _M('Female', $module),
+            'm' => _M('Male', $module)
+        );
+
+        $titleOptions = array(
+            'b' => _M('Bachelor', $module),
+            'm' => _M('Master', $module),
+            'd' => _M('PhD', $module)
+        );
+
+        $sFields[] = new MTextField('fullName', NULL, _M('Name', $module), 20);
+        $sFields[] = new MTextField('occupation', NULL, _M('Occupation', $module), 20);
+        $sFields[] = new MTextField('comment', NULL, _M('Comment', $module), 20);
+        $sFields[] = new MCalendarField('birthday', NULL, _M('Birthday', $module));
+        $sFields[] = new MCheckBox('fullTime', 't', _M('Full time', $module));
+        $sFields[] = new MSelection('gender', '', _M('Gender'), $genderOptions);
+
+        $titles[] = new MSelection('title', '', _M('Title', $module), $titleOptions);
+        $titles[] = new MTextField('area', '', _M('Area', $module), 20);
+        $titles[] = new MTextField('university', '', _M('University', $module), 20);
+        $sFields[] = new MMultiTextField('titles', NULL, _M('Titles', $module), $titles, 200, true, 'vertical');
+
+        $columns[] = new MGridColumn(_M('Name', $module), 'left', true, NULL, true, 'fullName');
+        $columns[] = new MGridColumn(_M('Occupation', $module), 'left', true, NULL, true, 'occupation');
+        $columns[] = new MGridColumn(_M('Comment', $module), 'left', true, NULL, true, 'comment');
+        $columns[] = new MGridColumn(_M('Birthday', $module), 'left', true, NULL, true, 'birthday');
+        $columns[] = new MGridColumn(_M('Full time', $module), 'left', true, NULL, true, 'fullTime', NULL, array('t' => _M('Yes'), '' => _M('No')));
+        $columns[] = new MGridColumn(_M('Gender', $module), 'left', true, NULL, true, 'gender', NULL, $genderOptions);
+        $columns[] = new MGridColumn(_M('Titles', $module), 'left', true, NULL, true, 'titles');
+
+        $this->pData = new MSubDetail('personellData', _M('Personell Data', $module), $columns, $sFields, array('edit', 'duplicate', 'remove'));
+
+        // If you want to add a custom routine BEFORE subdetail add or edit actions,
+        // you can use the addActionEvent method. Commented samples on the next lines.
+        //$this->pData->addActionEvent(MSubDetail::EVENT_ADD, 'preAddFunction', 'frmSubDetail');
+        //$this->pData->addActionEvent(MSubDetail::EVENT_EDIT, 'preEditFunction', 'frmSubDetail');
+
+        $validators[] = new MRequiredValidator('fullName', _M('Name', $module));
+        $validators[] = new MRequiredValidator('occupation', _M('Occupation', $module));
+        $validators[] = new MDATEDMYValidator('birthday', _M('Birthday', $module));
+        $this->pData->setValidators($validators);
+
+        $fields[] = $this->pData;
+
+        $this->addFields($fields);
+    }
+
+    /**
+     * Sample method for using before subdetail add or edit actions
+     *
+     * @param stdClass $data Form data
+     * @return stdClass Data which will be sent to subdetail
+     */
+    /*public static function preAddFunction($data)
+    {
+        $data->fullName = "TESTE";
+        return $data;
+    }*/
+
+    public function submit_button_click()
+    {
+        // Two ways of getting MSubDetail data :-)
+
+        //$personellData = MSubDetail::getData('personellData');
+        //MIOLO::vd(MSubDetail::parseMultiTextValue($personellData[0]->titles));
+
+        $data = $this->getData();
+        //MIOLO::vd($data->personellData[0]);
+    }
+}
+?>

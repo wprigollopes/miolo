@@ -1,0 +1,32 @@
+<?
+class FrmThemeSkin extends Form
+{
+		function FrmThemeSkin() 
+		{
+			$this->Form('Theme Skin Sample');
+			if($this->page->IsPostBack())
+			{
+				$this->EventHandler();
+			}
+		}
+
+		function CreateFields()
+		{
+            $options = array('red'=>'ppg - blossom', 'blue'=>'ppg - bubbles', 'green'=>'ppg - buttercup');
+            $fields = array(
+               new Selection('skin','','Choose',$options)
+            );
+            $this->SetFields($fields);
+			$buttons = array(
+				new FormButton('btnPost','Definir Skin'),
+			);
+			$this->SetButtons($buttons);
+		}
+
+		function btnPost_click()
+		{
+            $skin = $this->GetFieldValue('skin') . '.tpl';
+            $this->page->SetStyles($skin);
+		}
+}
+?>

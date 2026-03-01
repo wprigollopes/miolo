@@ -1,0 +1,256 @@
+<?
+/*
+As seguintes variáveis são definidas como globais, sendo disponibilizadas para todos os módulos chamados via $MIOLO->InvokeHandler
+
+$MIOLO: acesso a instancia da classe principal do framework
+
+$auth: acesso ao objeto auth
+$context: acesso ao objeto context
+$page: acesso ao objeto page
+$perms: acesso ao objeto perms
+$session: acesso ao objeto session (sessão atual)
+$state: acesso ao objeto state (variáveis de estado)
+$theme: acesso ao objeto theme
+
+$log: acesso ao objeto log (módulo admin)
+$menu: acesso ao objeto menu (menu esquerdo)
+$navbar: acesso ao objeto navbar (barra de navegacao)
+
+$action: url completa do handler em execução
+$event: evento
+$item: campo item da url atual 
+$module: nome do módulo do handler em execução
+$self: path do handler em execução
+
+global $MIOLO, 
+  $auth, $context, $page, $perms, $session, $state, $theme, 
+  $action, $event, $item, $module $self
+*/
+class frmTipoDocumento extends Form {
+
+  function frmTipoDocumento() {
+    global $MIOLO, $auth,   $context, $page, $perms, $session, $state, $theme, 
+      $log, $menu, $navbar, $action, $event, $item,  $module, $self;
+
+    //echo 'frmTipoDocumento<br>';
+    
+    //echo '[module : '.$module.']<br>';
+    //echo '[action : '.$action.']<br>';
+    //echo '[item : '.$item.']<br>';
+    //echo '[event : '.$event.']<br>';
+    //echo '[self : '.$self.']<br>';
+    
+    $this->Form('Tipos de Documentos');
+    $this->EventHandler();
+    $tipodocumento = $MIOLO->GetBusiness($module,'tipodocumento');
+  }
+
+  function CreateFields() {
+    global $MIOLO, $auth, $context, $page, $perms, $session, $state, $theme, $action, $event, $item, $module, $self;
+
+    //echo 'CreateFields<br>';
+
+    if (!$event or $event == 'btnList:click') {
+      $tipodocumento = $MIOLO->GetBusiness($module, 'tipodocumento');
+
+      $href_datagrid = $MIOLO->GetActionURL($module, $self, '', Array('event' => 'btnList:click'));
+      $page->action = $href_datagrid;
+
+      $columns = array(
+        new DataGridColumn('codigo', 'Código', 'left', true, '50%', true, null, true, true),
+        new DataGridColumn('descricao', 'Descrição', 'left', true, '', true, null, true, true)
+      );
+
+      $query = $tipodocumento->ListAll();
+      $datagrid = new DataGrid2($query, $columns, $href_datagrid, 10);
+
+      $datagrid->AddFilterText('codigo', 'Código', '');
+      $datagrid->AddFilterText('descricao', 'Descrição', '');
+      $datagrid->SetFilter(true);
+
+      $datagrid->SetTitle('Tipos de Documentos');
+      $datagrid->SetLinkType('linkbutton');
+      $href_edit = $MIOLO->GetActionURL($module, $self, '%0%', Array('event' => 'btnEdit:click'));
+      $href_dele = $MIOLO->GetActionURL($module, $self, '%0%', Array('event' => 'btnDelete:click'));
+      $datagrid->AddActionIcon('Editar', 'update.gif', $href_edit);
+      $datagrid->AddActionIcon('Excluir', 'delete.gif', $href_dele);
+      $datagrid->HeaderLink('1', 'Atualizar',
+                            $MIOLO->GetActionURL($module, $self, '', Array('event' => 'btnList:click')));
+      $datagrid->HeaderLink('2', 'Inserir',
+                            $MIOLO->GetActionURL($module, $self, '', Array('event' => 'btnInsert:click')));
+
+      $buttonsgrid = Array(
+        new FormButton('btnList', 'Atualizar'),
+        new TextField('codigo', '', 'Código', 20),
+        new FormButton('btnInsert', 'Inserir',
+          $MIOLO->GetActionURL($module, $self, '', Array('event' => 'btnInsert:click')))
+      );
+
+      $datagrid->SetControls($buttonsgrid);
+
+      $fields = Array(
+        &$datagrid,
+        new Separator(),
+        new FormButton('btnList', 'Atualizar'),                                                      
+        new FormButton('btnInsert', 'Inserir',
+          $MIOLO->GetActionURL($module, $self, '', Array('event' => 'btnInsert:click')))
+      );
+
+      $this->SetFields($fields);
+
+      $buttons = Array(
+        new FormButton('btnList', 'Atualizar'),
+        new FormButton('btnInsert', 'Inserir',
+          $MIOLO->GetActionURL($module, $self, '', Array('event' => 'btnInsert:click')))
+      );
+      $this->SetButtons($buttons);
+    } else {
+      $fields = Array(
+        new HiddenField('eventevent'),
+        new TextField('codigo', '', 'Código', 20),
+        new TextField('descricao', '', 'Descrição', 60),
+      );
+      $this->SetFields($fields);
+
+      $this->SetFieldValue('eventevent', $event);
+
+      $buttons = Array(
+        new FormButton('btnPost', 'OK'),
+//        new FormButton('btnPost', 'OK',
+//          $MIOLO->GetActionURL($module, $self, '', Array('event' => 'btnPost:click', 'eventevent' => $event))),
+        new FormButton('btnList', 'Cancelar')
+      );
+      $this->SetButtons($buttons);
+    }
+  }
+
+  function GetData() {
+    global $page;
+
+    //echo 'GetData<br>';
+
+    $data = new FormData();
+    //$data->codigo = $this->GetFieldValue('codigo');
+    //$data->descricao = $this->GetFieldValue('descricao');
+    $data->codigo = $page->Request('codigo');
+    $data->descricao = $page->Request('descricao');
+/*
+foreach($_COOKIE as $a=>$b) {
+  echo 'COOKIE '.$a.' => '.$b.'<br>';
+}
+//foreach($_ENV as $a=>$b) {
+//  echo 'ENV '.$a.' => '.$b.'<br>';
+//}
+//foreach($_FILES as $a=>$b) {
+//  echo 'FILES '.$a.' => '.$b.'<br>';
+//}
+foreach($_GET as $a=>$b) {
+  echo 'GET '.$a.' => '.$b.'<br>';
+}
+foreach($_POST as $a=>$b) {
+  echo 'POST '.$a.' => '.$b.'<br>';
+}
+foreach($_REQUEST as $a=>$b) {
+  echo 'REQUEST '.$a.' => '.$b.'<br>';
+}
+//foreach($_SERVER as $a=>$b) {
+//  echo 'SERVER '.$a.' => '.$b.'<br>';
+//}
+foreach($_SESSION as $a=>$b) {
+  echo 'SESSION '.$a.' => '.$b.'<br>';
+}
+*/
+    return $data;
+  }
+
+  function SetData($data) {
+    //echo 'SetData<br>';
+
+    $this->SetFieldValue('codigo', $data->codigo);
+    $this->SetFieldValue('descricao', $data->descricao);
+  }
+
+  function btnPost_click() {
+    global $MIOLO, $auth, $context, $page, $perms, $session, $state, $theme, $action, $event, $item, $module, $self;
+
+    //echo 'btnPost_Click<br>';
+
+    $tipodocumento = $MIOLO->GetBusiness($module, 'tipodocumento');
+    if ($tipodocumento) {
+      $data = $this->GetData();
+      $tipodocumento->SetData($data);
+
+      if ($page->Request('eventevent') == 'btnEdit:click') {
+        $ok = $tipodocumento->Update();
+        $mensagem = ' alterados ';
+      } else if ($page->Request('eventevent') == 'btnInsert:click') {
+        $ok = $tipodocumento->Insert();
+        $mensagem = ' inseridos ';
+      }
+
+      if ($ok) {
+        $MIOLO->Information('Registros '.$mensagem.' com sucesso.',
+           $MIOLO->GetActionURL($module, $self, '', Array('event' => 'btnList:click')));
+        return true;
+      }
+      $this->AddError($tipodocumento->GetErrors());
+    }
+  }
+
+  function btnList_click() {
+    global $MIOLO, $auth, $context, $page, $perms, $session, $state, $theme, $action, $event, $item, $module, $self;
+
+    //echo 'btnList_Click<br>';
+  }
+
+  function btnEdit_click() {
+    global $MIOLO, $auth, $context, $page, $perms, $session, $state, $theme, $action, $event, $item, $module, $self;
+
+    //echo 'btnEdit_Click<br>';
+
+    $tipodocumento = $MIOLO->GetBusiness($module, 'tipodocumento');
+    if ($tipodocumento) {
+      $this->SetData($tipodocumento->GetById($item));
+      $this->SetFieldAttr('codigo', 'readonly', true);
+      $this->AddError($tipodocumento->GetErrors());
+    }
+  }
+
+  function btnInsert_click() {
+    global $MIOLO, $auth, $context, $page, $perms, $session, $state, $theme, $action, $event, $item, $module, $self;
+
+    //echo 'btnInsert_Click<br>';
+  }
+
+  function btnDelete_click() {
+    global $MIOLO, $auth, $context, $page, $perms, $session, $state, $theme, $action, $event, $item, $module, $self;
+
+    //echo 'btnDelete_Click<br>';
+
+    $codigo = isset($item) ? $item : $this->GetFieldValue('key'); // $item (get) ou $this->key (post)
+    $MIOLO->Assert(isset($codigo), 'Tipo de Documento não foi informado !', $action);
+
+    $tipodocumento = $MIOLO->GetBusiness($module, 'tipodocumento');
+
+    $tipodocumento->GetById($codigo);
+    $conf = $this->GetFormValue('conf');
+
+    if ($conf == 'sim') {
+      if ($tipodocumento->Delete()) {
+        $MIOLO->Prompt(
+          Prompt::Information("Tipo de Documento [$tipodocumento->codigo] excluído com sucesso.", $this->listURL));
+      } else {
+        $MIOLO->Prompt(Prompt::Information($tipodocumento->GetErrors(), $action));
+      }
+    } elseif ($conf == 'nao') {
+      $MIOLO->Prompt(Prompt::Information('Exclusão cancelada.', $this->listURL));
+    } else {
+      $action_sim = $MIOLO->GetActionURL($module, $self, $codigo, array('event' => 'btnDelete:click', 'conf' => 'sim'));
+      $action_nao = $MIOLO->GetActionURL($module, $self, $codigo, array('event' => 'btnDelete:click', 'conf' => 'nao'));
+      $MIOLO->Prompt(
+        Prompt::Question("Confirma a exclusão de Tipo de Documento [$tipodocumento->codigo] ?", $action_sim,
+                         $action_nao));
+    }
+  }
+}
+?>

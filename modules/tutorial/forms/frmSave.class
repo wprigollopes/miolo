@@ -1,0 +1,27 @@
+<?
+class FrmSave extends Form
+{
+		function FrmSave() 
+		{
+			$this->Form('Save file ¨html/files/exampleFile.txt¨');
+			if($this->page->IsPostBack())
+			{
+				$this->EventHandler();
+			}
+		}
+
+		function CreateFields()
+		{
+			$buttons = array(
+				new FormButton('btnSave','Save exampleFile.txt')
+			);
+			$this->SetButtons($buttons);
+		}
+
+		function btnSave_click()
+		{
+			global $MIOLO;
+			$MIOLO->SaveFile('tutorial','exampleFile.txt');
+		}
+}
+?>

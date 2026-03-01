@@ -1,0 +1,84 @@
+<?php
+
+class frmMultiText extends MForm
+{
+    public function __construct()
+    {
+        $module = MIOLO::getCurrentModule();
+        parent::__construct(_M('@1 Example', $module, 'MultiTextField'));
+
+        // define array for combobox
+        $options_arr1 = array( 'op1' => 'Option 1',
+            'op2' => 'Option 2',
+            'op3' => 'Option 3',
+            'op4' => 'Option 4',
+            'op5' => 'Option 5'
+        );
+        // options for combobox
+        $options_arr2 = array( 'Dog', 'Cat', 'Bird', 'Car', 'Plane' );
+
+        // array for mt fields
+        $f = array( array( 'id', 'Label', 'Name' ) );
+
+        // define array to be used as fields of multitextfieds
+        $f1 = array( array( 'ida', 'Label A', 'Name A', $options_arr1 ),
+            array( 'idb', 'Label B', 'Name B' ),
+            array( 'idc', 'Label C', 'Name C', $options_arr2 ),
+            array( 'idd', 'Label D', 'Name D' ),
+            array( 'ide', 'Label E', 'Name E', $options_arr1 )
+        );
+
+        // define array of fields
+        $fields = array( new MLabel('Example 1: Horizontal Layout ; 1 field'),
+            new MMultiTextField2('mt', null, 'Example 1', $f, 200, true, 'horizontal'),
+            new MLabel('Example 2:Horizontal Layout ; 5 fields'),
+            new MMultiTextField2('mt1', null, '', $f1, 200, true, 'horizontal'),
+            new MLabel('Example 3: Vertical Layout  I'),
+            new MMultiTextField2('mt2', null, '', $f1, 300, true, 'vertical'),
+            new MLabel('Example 4: Vertical Layout II'),
+            new MMultiTextField2('mt3', null, '', $f1, 300, true, 'vertical2')
+        );
+
+        // set the fields into the form
+        $this->setFields($fields);
+        // set some fields attributes
+        $this->setFieldAttr('mt', 'info', 'Object info');
+        $this->setFieldAttr('mt2', 'info', 'Object info');
+        $this->setFieldAttr('text', 'color', 'blue');
+        // define array of buttons
+        $buttons = array( new MButton('btnPost', _M('Send')) );
+        // set the buttons on the form
+        $this->setButtons($buttons);
+
+        // verify if the page was send
+        if ( $this->page->isPostBack() )
+        {
+            // call the eventHandler
+            $this->eventHandler();
+        }
+    }
+
+    /**
+     *
+     */
+    public function btnPost_click()
+    {
+        // create a tableraw field to display the value of the $mt object
+        $value = $this->mt->getCodeValue();
+        $this->addField(new MTableRaw('Field mt value:', $value));
+
+        // create a tableraw field to display the value of the $mt1 object
+        $value = $this->mt1->getCodeValue();
+        $this->addField(new MTableRaw('Field mt1 value:', $value));
+
+        // create a tableraw field to display the value of the $mt2 object
+        $value = $this->mt2->getCodeValue();
+        $this->addField(new MTableRaw('Field mt2 value:', $value));
+
+        // create a tableraw field to display the value of the $mt3 object
+        $value = $this->mt3->getCodeValue();
+        $this->addField(new MTableRaw('Field mt3 value:', $value));
+    }
+}
+
+?>

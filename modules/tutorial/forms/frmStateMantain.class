@@ -1,0 +1,35 @@
+<?
+class FrmStateMantain extends Form
+{
+    function FrmStateMantain()
+    {   
+		global $page;
+
+		$this->Form('Mantain State');
+
+		if ($page->IsPostBack())
+		{
+			$this->GetData();
+			$choice = Form::GetFormValue('select1');
+			$choiceopt = $this->GetFieldAttr('select1','options',$choice);
+			$labelold = Form::GetFormValue('new');
+			$this->SetFieldValue('old', $labelold);
+			$this->SetFieldValue('new', $labelold . " + " . $choiceopt);
+		}
+
+	}
+
+	function CreateFields()
+	{
+		$fields = array(
+           new Selection('select1','','Seleção 1',array('php','miolo','ufjf')),
+           new TextLabel('old','','Old'),
+           new TextLabel('new','','New')
+        );
+        $this->SetFields($fields);
+		$this->SetFieldAttr('new','mantainstate',true);
+	}
+
+}
+
+?>

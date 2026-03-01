@@ -1,0 +1,100 @@
+<?
+class frmComplexCSS extends MCSSForm
+{
+
+    function __construct()
+    {   
+		parent::__construct('Complex Layout using CSS - width:500px');
+        $this->SetWidth('500px');
+    }
+
+    function CreateFields()
+    {
+        $medidas = array('Milimetros','Polegadas','Pontos');
+
+        $medida = new MSelection('medida', '', '', $medidas);
+        $lblMedida = new MLabel('Medidas em:');
+        $lblMedida->width = '100%';
+        $lblMedida->box->textAlign = 'right';
+
+        $regua = new MSelection('regua', '', '', $medidas);
+        $lblRegua = new MLabel('Régua vertical em:');
+        $lblRegua->width = '100%';
+        $lblRegua->box->textAlign = 'right';
+
+        $pontos = new MTextField('pontos','','', 3);
+        $lblPontos = new MLabel('pontos'); 
+
+        $lblFalhas = new MLabel('Falhas no layout:');
+        $lblFalhas->width = '100%';
+        $lblFalhas->box->textAlign = 'right';
+
+        $chk1 = new MCheckBox('chk1','c1','', false,'Exibir linhas próximas');
+        $chk2 = new MCheckBox('chk2','c2','', false,'Exibir violações dos parágrafos');
+
+        $grpFalhas = new MCheckBoxGroup('grpFalhas','',array($chk1,$chk2),'','vertical','none'); 
+
+        $lblGraficos = new MLabel('Exibição de gráficos:');
+        $lblGraficos->width = '100%';
+        $lblGraficos->box->textAlign = 'right';
+
+        $rb1 = array(
+            new MOption('opt1','o1','Simulado', false),
+            new MOption('opt2','o2','Padrão', false),
+            new MOption('opt3','o3','Alta resolução', false),
+        );
+
+        $grpGraficos = new MRadioButtonGroup('grpGraficos','', $rb1,'o2');
+
+        $btnOk = new MButton('btnOk', 'OK');
+        $btnOk->width = '90px';
+        $btnCancel = new MButton('btnCancel', 'Cancelar');
+        $btnCancel->width = '90px';
+
+        $spacer = new MSpacer('5px');
+
+        $lblAjusteH = new MLabel('Ajuste horizontal:');
+        $lblAjusteH->width = '100px';
+        $lblAjusteH->box->textAlign = 'right';
+        $txtAjusteH = new MTextField('txtAjusteH','1','',3);
+        $selAjusteH = new MSelection('selAjusteH', '', '', $medidas);
+
+        $cAjusteH = new MHContainer('',array($lblAjusteH,$txtAjusteH,$selAjusteH));
+
+        $lblAjusteV = new MLabel('Ajuste vertical:');
+        $lblAjusteV->width = '100px';
+        $lblAjusteV->box->textAlign = 'right';
+        $txtAjusteV = new MTextField('txtAjusteV','1','',3);
+        $selAjusteV = new MSelection('selAjusteV', '', '', $medidas);
+
+        $cAjusteV = new MHContainer('',array($lblAjusteV,$txtAjusteV,$selAjusteV));
+
+        $chk3 = new MCheckBox('chk3','c3','', false,'Aderir à limitações');
+
+        $painel = new BaseGroup('painel','Painel de Controle',array($spacer,$cAjusteH, $cAjusteV, $chk3),'vertical','css'); 
+        $painel->width = '250px';
+
+        $rb2 = array(
+            new MOption('opt1','o1','Mais rápido', false),
+            new MOption('opt2','o2','Menor', false)
+        );
+
+        $salvar = new MRadioButtonGroup('rbtSalvar','Opções de salvar:',$rb2,false, '','vertical','css');
+            
+        $this->SetField(0,0,25,$lblMedida);
+        $this->SetField(0,1,55,$medida);
+        $this->SetField(0,2,20,$btnOk);
+        $this->SetField(1,0,25,$lblRegua);
+        $this->SetField(1,1,55,$regua);
+        $this->SetField(1,2,20,$btnCancel);
+        $this->SetField(2,0,25,$lblFalhas);
+        $this->SetField(2,1,75,$grpFalhas);
+        $this->SetField(3,0,25,$lblGraficos);
+        $this->SetField(3,1,75,$grpGraficos);
+        $this->SetField(4,0,55,$painel);
+        $this->SetField(4,1,40,$salvar);
+
+        $this->defaultButton = false;
+    }
+}
+?>

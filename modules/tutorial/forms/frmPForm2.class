@@ -1,0 +1,38 @@
+<?
+class frmPForm2 extends CSSPForm
+{
+
+    function frmPForm2()
+    {   
+		global $MIOLO, $self, $module, $page, $action;
+
+		$this->CSSPForm('CSS Positioning Form');
+        $this->SetHeight(100);
+        $fields = array(
+             new HiddenField('key','123456'),
+             new Text('text', 'Texto posicionado relativamente no form'),
+             new Text('label','Name:'),
+             new TextField('myname','Change me','',30),
+             new FormButton('btnPost', 'Click me')
+        );
+        $this->SetFields($fields);
+        $this->SetFieldPos('text',120,15); 
+        $this->SetFieldPos('label',60,30,10); 
+        $this->SetFieldPos('myname',100,30); 
+        $this->SetFieldPos('btnPost',120,60); 
+        $this->defaultButton = false;
+		if ($page->IsPostBack())
+		{
+           $this->EventHandler();
+		}
+	}
+
+    function btnPost_click()
+    {
+        $this->AddField(new Text('thename', 'The name is: ' . $this->myname->value));
+        $this->thename->SetColor('green');
+        $this->SetFieldPos('thename',180,60); 
+    }
+}
+
+?>

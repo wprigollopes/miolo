@@ -1,0 +1,35 @@
+<?
+class frmHtmlArea extends MForm
+{
+
+    function __construct()
+    {   
+		parent::__construct('Exemplo de HtmlArea');
+        $fields = array(
+             new MHtmlArea('htmlarea','','HtmlArea',150,30,40),
+             new MButton('btnPost', 'Enviar'),
+		);
+		$this->SetFields($fields);
+        $this->defaultButton = false;
+        if ( $this->page->IsPostBack() )
+		{
+           $this->EventHandler();
+		}
+	}
+
+    function btnPost_click()
+    {
+        $value = $this->GetFieldValue('htmlarea');
+        $value = str_replace('<','&lt;',$value);
+        $value = str_replace('>','&gt;',$value);
+        $container = new MAreaContainer('container');
+        $container->AddElement($value,'left');
+		$this->SetFields($container);
+        $buttons = Array(
+           new MButton('btnBack', 'Voltar', $this->manager->GetCurrentURL()),
+        );
+	    $this->SetButtons($buttons);
+    }
+}
+
+?>

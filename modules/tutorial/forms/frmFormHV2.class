@@ -1,0 +1,70 @@
+<?
+class frmFormHV2 extends Form
+{
+	function __construct()
+	{
+		parent::__construct("Exemplo de Form");
+	}
+
+	function CreateFields()
+	{
+        $options = Array('op1','op2','op3','op4','op5');
+        $selection = new MSelection('selDummy','','Opções',$options);
+
+        $v0 = array(
+ 			new MTextField('v0','','V0'),
+			new MTextField('v1','','V1'),
+			new MTextField('v2','v2',''),  // no label       
+			$selection
+        );
+        $v0Cont = new MVContainer('',$v0);
+        $v0Cont->backgroundColor = '#CCF';
+        $v0Cont->width = '100px';
+        $v0Cont->showLabel = true;
+        $h0 = array(
+    			new MTextField('h0','','h0'),
+	    		$selection,
+		    	new MTextField('h2','','h2'),
+			    new MTextField('h3','','h3'),
+                new MLookupTextField('h4', 'azul', 'h4',20),
+        );
+        $h0Cont = new MHContainer('',$h0);
+        $h0Cont->backgroundColor = '#9FF';
+        $h0Cont->width = '450px';
+        $h0Cont->showLabel = true;
+        $h1Cont = new MHContainer('',array($v0Cont,$h0Cont));
+        $v1Cont = new MVContainer('',array($h0Cont,$h0Cont,$h0Cont));
+        $v1Cont->backgroundColor = '#0E0';
+        $v1Cont->width = '300px';
+        $h2Cont = new MHContainer('',array($v0Cont,$v1Cont,$v0Cont));
+
+		$fields = array(
+            new MSeparator('Campos com layout horizontal/vertical, usando Containers'),
+            new MSeparator('Container vertical - width=100px'),
+            $v0Cont,
+            new MSeparator('Container horizontal - width=300px'),
+            $h0Cont,
+            new MSeparator('Container horizontal composto por vertical+horizontal'),
+            $h1Cont,
+            new MSeparator('Container horizontal composto por 3 vertical'),
+            $h2Cont,
+		);
+
+		$this->SetFields($fields);
+
+        $this->SetFieldAttr('h4', 'module', 'common');
+        $this->SetFieldAttr('h4', 'item', 'transacao');
+        $this->SetFieldAttr('h4', 'event', 'btnEdit:click');
+
+		$buttons = Array(
+           new FormButton('btnPost', 'Enviar'),
+		   new FormButton('btnNew', 'Novo'),
+           new FormButton('btnDelete', 'Excluir'),
+	       new FormButton('btnList', 'Relação'),
+	       new FormButton('btnReport', 'Relatórios'),
+       );
+	   $this->SetButtons($buttons);
+		
+	}
+}
+?>

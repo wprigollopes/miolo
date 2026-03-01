@@ -1,0 +1,72 @@
+<?
+class frmPrompt extends MForm
+{
+
+    function __construct()
+    {   
+		parent::__construct('Prompt Examples');
+    	$this->EventHandler();
+	}
+    
+	function CreateFields()
+	{
+		$fields = array(
+           new MTextLabel('lblText','','Texto'),
+           new MButton('btnError','Error'),
+           new MButton('btnInfo','Information'),
+           new MButton('btnConf','Confirmation'),
+           new MButton('btnQuestion','Question')
+        );
+        $this->SetFields($fields);
+        $this->defaultButton = false;
+	}
+
+    function btnError_click()
+    {
+        global $MIOLO, $module, $self;
+        $msg = 'message error';
+        $goto = $MIOLO->GetActionURL($module,$self);
+        $caption = 'error caption';
+        $event = "promptHandler;error";
+        $MIOLO->Error($msg, $goto, $caption, $event);
+    }
+
+    function btnInfo_click()
+    {
+        global $MIOLO, $module, $self;
+        $msg = 'message information';
+        $goto = $MIOLO->GetActionURL($module,$self);
+        $event = "promptHandler;information";
+        $MIOLO->Information($msg, $goto, $event);
+    }
+
+    function btnConf_click()
+    {
+        global $MIOLO, $module, $self;
+        $msg = 'message confirmation';
+        $gotoOk = $MIOLO->GetActionURL($module,$self);
+        $gotoCancel = $MIOLO->GetActionURL($module,$self);
+        $eventOk = "promptHandler;Confirmation_Ok";
+        $eventCancel = "promptHandler;Confirmation_Cancel";
+        $MIOLO->Confirmation($msg, $gotoOk, $gotoCancel, $eventOk, $eventCancel);
+    }
+
+    function btnQuestion_click()
+    {
+        global $MIOLO, $module, $self;
+        $msg = 'message question';
+        $gotoYes = $MIOLO->GetActionURL($module,$self);
+        $gotoNo = $MIOLO->GetActionURL($module,$self);
+        $eventYes = "promptHandler;Question_Yes";
+        $eventNo = "promptHandler;Question_No";
+        $MIOLO->Question($msg, $gotoYes, $gotoNo, $eventYes, $eventNo);
+    }
+
+    function promptHandler($sender=NULL,$text='')
+    {
+        $this->SetFieldValue('lblText',$text);
+    }
+
+}
+
+?>

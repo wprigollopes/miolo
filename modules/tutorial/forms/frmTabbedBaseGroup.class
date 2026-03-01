@@ -1,0 +1,71 @@
+<?php
+
+class frmTabbedBaseGroup extends MForm
+{
+    public function __construct()
+    {
+        parent::__construct(_M('Tabbed Base Group', MIOLO::getCurrentModule()));
+        $this->eventHandler();
+        // creates a link to view the source
+        $this->addField(new ViewSource(__FILE__));
+    }
+
+    public function createFields()
+    {
+        $MIOLO = MIOLO::getInstance();
+        $module = MIOLO::getCurrentModule();
+
+        $tabAFields[] = new MTextField('fieldA', null, _M('Field @1', $module, 'A'));
+        $tabAFields[] = new MTextField('fieldB', null, _M('Field @1', $module, 'B'));
+        $tabAFields[] = new MTextField('fieldC', null, _M('Field @1', $module, 'C'));
+        $tabAFields[] = new MSelection('fieldD', null, _M('Field @1', $module, 'D'));
+
+        $tabBFields[] = new MTextField('fieldE', null, _M('Field @1', $module, 'E'));
+        $tabBFields[] = new MTextField('fieldF', null, _M('Field @1', $module, 'F'));
+
+        $tabCFields[] = new MTextField('fieldX', null, _M('Field @1', $module, 'X'));
+        $tabCFields[] = new MTextField('fieldY', null, _M('Field @1', $module, 'Y'));
+        $tabCFields[] = new MTextField('fieldZ', null, _M('Field @1', $module, 'Z'));
+
+        $testeTab = new MTabbedBaseGroup('testTab');
+        $testeTab->createTab('tabA', _M('Tab @1', $module, 'A'), $tabAFields);
+        $testeTab->createTab('tabB', _M('Tab @1', $module, 'B'), $tabBFields);
+        $testeTab->createTab('tabC', _M('Tab @1', $module, 'C'), $tabCFields);
+        $testeTab->createTab('tabD', _M('Tab @1', $module, 'D'), null);
+        //$testeTab->disableTab('tabD');
+        $testeTab->getTab('tabB')->setDisabled();
+        //$testeTab->removeTab('tabC');
+
+        $fields[] = $testeTab;
+
+        /*$buttons[] = new MButton('disableTabB', _M('Disable Tab B', $module));
+        $buttons[] = new MButton('enableTabB', _M('Enable Tab B', $module));
+        $buttons[] = new MButton('removeTabC', _M('Remove Tab C', $module));
+        $buttons[] = new MButton('addTabExtra', _M('Add Tab', $module));
+        $fields[] = new MHContainer('buttonContainer', $buttons);*/
+
+        $this->addFields($fields);
+    }
+
+    public function disableTabB_click()
+    {
+        MTabbedBaseGroup::disableTab('tabB', 'testTab');
+    }
+
+    public function enableTabB_click()
+    {
+        MTabbedBaseGroup::enableTab('tabB', 'testTab');
+    }
+
+    public function removeTabC_click()
+    {
+        MTabbedBaseGroup::removeTab('tabC', 'testTab');
+    }
+
+    public function addTabExtra_click()
+    {
+        $controls[] = new MTextField('test' . rand(), null, _M('Test', MIOLO::getCurrentModule()) . rand(0, 100));
+        MTabbedBaseGroup::createStaticTab('testTab', 'tabExtra' . rand(), ' Extra' . rand(0, 100), $controls);
+    }
+}
+?>

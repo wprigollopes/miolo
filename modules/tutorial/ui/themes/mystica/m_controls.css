@@ -1,0 +1,528 @@
+/******************************************************************************
+ * KENOBI - theme.css
+ ******************************************************************************/
+
+/******************************************************************************
+ * hr
+ ******************************************************************************/
+.m-hr { 
+    width: 100%; 
+    height: 0px; 
+    border-bottom: 1px solid #CCC; 
+	line-height: 0px; 
+    font-size: 0px; 
+	margin: 0px;
+} 
+
+/******************************************************************************
+ * separator
+ ******************************************************************************/
+.m-separator { 
+    width: 95%;
+    font-size:        11px;
+    padding:          2px;
+	margin:           0px 0px 2px 0px;
+    font-weight:      normal;
+} 
+
+/******************************************************************************
+ * htmlArea
+ ******************************************************************************/
+#m-htmlarea { 
+    margin: 15px;
+    width:90%;   
+} 
+
+.m-hint
+{
+  background-color: #FEFBD8;
+  font-size:        9px;
+  border:           solid #c0c0c0 1px;
+  color:            #990000;
+}
+
+.m-readonly
+{
+  color:            #000000;
+  font-size:        11px;
+  font-weight:      bold;
+}
+
+.formBaseLabel
+{
+   height: 15px;
+}
+
+.m-label
+{
+  color:            #000000;
+  font-size:        11px;
+  font-weight:      normal;
+}
+
+.m-caption
+{
+  color:            #000000;
+  font-size:        11px;
+  font-weight:      normal;
+}
+
+.m-label-text
+{
+  color:            #000000;
+  font-size:        11px;
+  font-weight:      bold;
+}
+
+.m-text
+{
+  font-size:        11px;
+  font-weight: normal; 
+}
+
+.m-text-field
+{
+  font-size:        11px;
+  font-weight: normal; 
+}
+
+.m-button {  
+	font-size: 11px; 
+	font-weight: normal; 
+	background-color: #EDEDED;
+    border-bottom: 1px solid #333333;
+    border-right: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+    border-top: 1px solid #CCCCCC;
+	height: 19px;
+}
+
+.m-button-find {  
+    background-image: url(/images/button_select.png);
+    background-repeat: no-repeat; 
+	background-color: #ededed;
+    border-bottom: 1px solid #333333;
+    border-right: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+    border-top: 1px solid #CCCCCC;
+	width: 17px;
+	height: 17px;
+	text-align: middle;
+	vertical-align: top;
+}
+
+.formField {  
+	font-size: 11px; 
+	font-weight: normal; 
+	border: 1px #CCCCCC solid;
+    border-bottom: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    border-left: 1px solid #333333;
+    border-top: 1px solid #333333;
+	vertical-align: top;
+}
+
+.m-multiline-field {  
+	font-size: 11px; 
+	font-weight: normal; 
+	border: 1px #CCCCCC solid;
+    border-bottom: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    border-left: 1px solid #333333;
+    border-top: 1px solid #333333;
+	vertical-align: top;
+}
+
+.formFieldErr {  
+    color: #FF0000;
+	font-size: 11px; 
+	font-weight: normal; 
+	border: 1px #CCCCCC solid;
+    border-bottom: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    border-left: 1px solid #333333;
+    border-top: 1px solid #333333;
+}
+
+.m-combo {  
+	font-size: 11px; 
+	font-weight: normal; 
+	background-color: #EDEDED; 
+	border: 1px #CCCCCC solid;
+    border-bottom: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    border-left: 1px solid #333333;
+    border-top: 1px solid #333333;
+}
+
+.m-radiobutton-group {  
+  color:            #000000;
+  font-size:        11px;
+  font-weight: normal; 
+  margin-top:       1px;
+  margin-bottom:    1px;
+  vertical-align:20%;
+}
+
+.m-checkbox-group {  
+  color:            black;
+  font-size:        11px;
+  font-weight:      normal; 
+  margin-top:       2px;
+  margin-bottom:    1px;
+  vertical-align:20%;
+}
+
+.formErrors
+{
+  background-color: #990000;
+  border:           1px solid #000000;
+  padding:          6px;
+  color:            #ffffff;
+}
+
+.m-scrollable-label
+{
+  color:            #000000;
+  font-size:        11px;
+  font-weight:      normal;
+}
+
+.m-scrollable-field
+{
+  background-color: #EDEDED; 
+  border:           solid #c0c0c0 1px;
+  overflow:auto;
+}
+
+
+.m-multitext-field
+{
+/*   position:relative;*/
+}    
+
+.m-multitext-field .select
+{  
+	font-size: 11px; 
+	font-weight: normal; 
+	border: 1px #CCCCCC solid;
+    border-bottom: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    border-left: 1px solid #333333;
+    border-top: 1px solid #333333;
+	height:80px;
+	margin-bottom: 5px;
+    width: 180px; 
+}
+
+.m-multitext-field .label
+{
+  color:            #000000;
+  font-size:        9px;
+  margin-top:       1px;
+  margin-bottom:    1px;
+  vertical-align:   top;
+}
+
+.m-multitext-field .textfield 
+{  
+	font-size: 11px; 
+	font-weight: normal; 
+	border: 1px #CCCCCC solid;
+    border-bottom: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    border-left: 1px solid #333333;
+    border-top: 1px solid #333333;
+	margin-bottom: 10px;
+	width: 180px; 
+}
+
+.m-multitext-field .combo
+{  
+	font-size: 11px; 
+	font-weight: normal; 
+	background-color: #EDEDED; 
+	border: 1px #CCCCCC solid;
+    border-bottom: 1px solid #333333;
+    border-right: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+    border-top: 1px solid #CCCCCC;
+	margin-bottom: 10px;
+}
+
+.m-multitext-field .button {  
+	font-size: 11px; 
+	font-weight: normal; 
+	background-color: #EDEDED;
+    border: 1px solid #CCCCCC;
+    border-bottom: 1px solid #333333;
+    border-right: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+    border-top: 1px solid #CCCCCC;
+    margin: 0px 5px 5px 0px;
+	width: 70px;
+	text-align: center;
+	vertical-align:top;
+}
+
+.m-multitext-field .buttonPosH
+{  
+    float:left;
+	width: 85px;
+}
+
+.m-multitext-field .fieldPosH
+{  
+    float:left;
+	width: 200px;
+}
+
+.m-multitext-field .selectPosH
+{  
+    float:left;
+}
+
+.m-multitext-field .selection
+{  
+    float:left;
+	width: 280px;
+}
+
+.m-multitext-field fieldset
+{  
+    padding: 10px;
+	border: 1px solid #CCC;
+}
+
+/******************************************************************************
+ * TableRaw
+ ******************************************************************************/
+
+.m-tableraw
+{
+  background-color: #359;
+  padding:          4px;
+}
+
+.m-tableraw-title
+{ 
+  background-color: #FFF;
+  color:           #359;
+  font-weight:     bold;
+  font-size:       12px;
+  text-decoration: none;
+  text-align:      center;
+}
+
+.m-tableraw-column-title
+{ 
+  background-color: #FFF;
+  color:           #000;
+  font-weight:     bold;
+  font-size:       11px;
+  text-decoration: none
+  text-align:      left;
+}
+
+.m-tableraw-row
+{
+  background-color: #FFF;
+  color:           #000;
+  font-weight:     normal;
+  font-size:       11px;
+  text-decoration: none
+}
+
+.m-tableraw-row-0
+{
+  background-color: #FFF;
+  color:           #000;
+  font-weight:     normal;
+  font-size:       11px;
+  text-decoration: none
+}
+
+.m-tableraw-row-1
+{
+  background-color: #DDD;
+  color:           #000;
+  font-weight:     normal;
+  font-size:       11px;
+  text-decoration: none
+}
+
+.m-tableraw-cell
+{
+}
+
+
+/******************************************************************************
+ * pageNavigator
+ ******************************************************************************/
+
+.m-pagenavigator
+{
+  background-color: #c0c0c0;
+  border:           1px solid #c0c0c0;
+  padding:          2px;
+}
+    
+.m-pagenavigator-text
+{ 	
+  color:           #000000;
+  font-weight:     normal;
+  font-size:       11px;
+  vertical-align: top;
+}
+    
+.m-pagenavigator-range
+{ color:           #000000;
+  font-weight:     normal;
+  font-size:       11px;
+}
+
+.m-pagenavigator-image
+{
+	border: 0;
+    vertical-align: middle;
+	width: 17px; 
+	display:inline;
+}
+
+.m-pagenavigator-selected
+{ color:           #900;
+  font-weight:     bold;
+  font-size:       11px;
+  text-decoration: none;
+  margin-left: 5px;
+  vertical-align: top;
+}
+
+.m-pagenavigator-link
+{ color:           #000000;
+  font-weight:     normal;
+  font-size:       11px;
+  text-decoration: underline;
+  vertical-align:   middle;
+  margin-left: 5px;
+  vertical-align: top;
+}
+    
+.m-pagenavigator-link:link, .m-pagenavigator-link:visited
+{ color:           #000000;
+  font-weight:     normal;
+  text-decoration: underline;
+}
+
+.m-pagenavigator-link:active, .m-pagenavigator-link:hover
+{
+  color:           #990000;
+  font-weight:     normal;
+  text-decoration: underline;
+}
+
+/******************************************************************************
+ * Hyperlink
+ ******************************************************************************/
+
+.m-link
+{ color:           #000000;
+  font-weight:     bold;
+  font-size:       11px;
+  text-decoration: underline;
+}
+
+.m-link:link
+{ color:           #000000;
+  font-weight:     bold;
+  text-decoration: underline;
+}
+
+.m-link:visited
+{
+  color:           #000000;
+  font-weight:     bold;
+  text-decoration: underline;
+}
+
+.m-link:hover
+{
+  color:           #990000;
+  font-weight:     bold;
+  text-decoration: underline;
+}
+
+.m-link:active
+{
+  color:           #990000;
+  font-weight:     bold;
+  text-decoration: underline;
+}
+/******************************************************************************
+ * Images
+ ******************************************************************************/
+.m-image-centered
+{
+    text-align:center;
+    margin-top:0px;
+    margin-bottom:0px;
+    padding:0px;
+}
+
+.m-image-icon
+{
+    vertical-align:middle;
+    margin: 2px;
+    padding:0px;
+	width: 16px;
+	height: 16px;
+	border: none;
+}
+
+.m-image-link
+{ 
+  text-decoration: none;
+}
+
+.m-image-label
+{
+  color:            #000000;
+  font-size:        10px;
+  text-align:       center;
+  margin: 3px 3px 3px 3px;
+  display:block;
+}
+
+.m-image-link-label
+{ color:           #000000;
+  font-weight:     normal;
+  font-size:       11px;
+  text-decoration: underline;
+}
+
+.m-image-link-label:link
+{ color:           #000000;
+  font-weight:     normal;
+  text-decoration: underline;
+}
+
+.m-image-link-label:visited
+{
+  color:           #000000;
+  font-weight:     normal;
+  text-decoration: underline;
+}
+
+.m-image-link-label:hover
+{
+  color:           #990000;
+  font-weight:     normal;
+  text-decoration: underline;
+}
+
+.m-image-link-label:active
+{
+  color:           #990000;
+  font-weight:     normal;
+  text-decoration: underline;
+}

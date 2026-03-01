@@ -1,0 +1,25 @@
+<?
+class FrmContainer extends Form
+{
+	function FrmContainer()
+    {   global $theme;
+		$this->Form('Container');
+	}
+
+    function CreateFields()
+	{
+       $fields = Array(
+		   new Container('cntTutorial')
+       );
+	   $this->SetFields($fields);
+       $this->cntTutorial->AddElement(new Text('','Top'), 'top');
+       $this->cntTutorial->AddElement(new Text('','Left'), 'left');
+       $this->cntTutorial->AddElement(new Text('','Center'), 'center');
+       $this->cntTutorial->AddElement(new Text('','Right'), 'right');
+       $this->cntTutorial->AddElement(new Text('','Bottom'), 'bottom');
+	   $this->defaultButton = False;
+	}
+
+}
+
+?>

@@ -1,0 +1,26 @@
+<?php
+
+class frmStepByStep1 extends MStepByStepForm
+{
+
+    public function __construct($steps=null)
+    {
+        $title = _M('First Step', MIOLO::getCurrentModule());
+        parent::__construct($title, $steps, 1, 2);
+    }
+
+    public function createFields()
+    {
+        $MIOLO = MIOLO::getInstance();
+        $module = MIOLO::getCurrentModule();
+
+        parent::createFields();
+
+        $fields[] = new MTextField('carBrand', $this->data->carBrand, _M('Car Brand', $module), 50);
+        $fields[] = new MTextField('carModel', $this->data->carModel, _M('Car Model', $module), 20);
+
+        $this->addFields($fields);
+    }
+
+}
+?>

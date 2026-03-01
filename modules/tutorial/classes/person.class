@@ -1,0 +1,20 @@
+<?php
+
+class BusinessTutorialPerson extends Business
+{
+    var $idperson;
+    var $name;
+
+    function __construct($data=NULL)
+    {
+       $this->Business('persistence',$data);
+    }
+
+    function GetById($id)
+    {
+       $this->idperson = $id;
+       $this->retrieve();
+       return $this;
+    }
+}
+?>

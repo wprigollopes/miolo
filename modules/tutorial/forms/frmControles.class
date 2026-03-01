@@ -1,0 +1,85 @@
+<?
+class FrmLookup extends MForm
+{
+
+    function FrmLookup()
+    {   
+        global $MIOLO, $self, $module, $page, $action;
+
+        $this->Form('Lookup Sample');
+        $optA = new Option('valora', 'a','ValorA', false);
+        $optB = new Option('valorb', 'b','ValorB', true);
+        $optC = new Option('valorc', 'c','ValorC', false);
+        $options = array($optA, $optB, $optC);
+        $optiongroup1 = new OptionGroup('optg11','Grupo 1',$options);
+        $optiongroup2 = new OptionGroup('optg12','Grupo 2',$options);
+        $optiongroup3 = new OptionGroup('optg13','Grupo 3',$options);
+        $options_sel = Array('a'=>'ValorA','b'=>'ValorB','c'=>'ValorC');
+        $options_multisel = Array('a'=>'ValorA','b'=>'ValorB','c'=>'ValorC','d'=>'ValorD','e'=>'ValorE');
+        $array_linkbutton = array(
+           new LinkButton('btnLink1','LinkButton1', $action),
+           new LinkButton('btnLink2','LinkButton2', $action),
+           new LinkButton('btnLink3','LinkButton3', $action),
+           new LinkButton('btnLink4','LinkButton4', $action),
+           new LinkButton('btnLink5','LinkButton5', $action)
+        );
+        $fields = array(
+             new HiddenField('key','123456'),
+             new Text('titletext', 'Text: Controle para escrever um texto na página'),
+             new TextLabel('textlabel', 'Value do textlabel','TextLabel'),
+             new Separator('Separator'),
+             new FormButton('btnButton','Button', $action),
+             new LinkButton('btnLink','LinkButton', $action),
+             new LinkButtonGroup('lbGrpH','LinkButtonGroup<br>Horizontal',$array_linkbutton,'horizontal'),
+             new LinkButtonGroup('lbGrpV','LinkButtonGroup<br>Vertival',$array_linkbutton,'vertical'),
+             new HyperLink('hyperLink','HyperLink',$MIOLO->GetActionURL($module, $self)),
+             new TextField('textfield','value','TextFieldLabel',40,'Exemplo de hint'),
+             new PasswordField('password','value','PasswordLabel',40),
+             new MultiLineField('multiline','value','MultiLine',40,3,50),
+             new CheckBox('chkBox','value','CheckBox',true,'Text'),
+             new RadioButton('radioButton','value','RadioButton',true,'Text'),
+             new CheckBoxGroup('chkGrp','CheckBox<br>Group',$options),
+             new RadioButtonGroup('radioGrp','RadioButton<br>Group',$options,'b','','vertical'),
+             new ComboBox('combo','','ComboBox',$options_sel,false,'',10),
+             new Selection('select1','b','Select',$options_sel,false),
+             new Selection('select2','c','Select - values',$options_sel,true),
+             new Selection('select3','','Select - Group',array($optiongroup1,$optiongroup2,$optiongroup3)),
+             new Selection('select4','','Select - Options',$options),
+             new MultiSelection('multiselect1',array('b','d'),'MultiSelection',$options_multisel),
+             new CalendarField('cal','','Data'),
+             new Spacer('25px'),
+             new Separator('Layout horizontal'),
+             Array(
+               new TextField('tf1','value1','TextField1',20,'hint'),
+               new TextField('tf2','value2','TextField2',20),
+               new TextField('tf3','value3','TextField3',20)
+             ),
+             Array(
+               new Text('tx','Equipe composta por:'),
+               new TextField('eqp','','',5,'hhh'),
+               new Text('tx2','programadores')
+             )
+        );
+        $this->SetFields($fields);
+        $this->titletext->SetColor('blue');
+        $this->textlabel->SetColor('red');
+        $buttons = Array(
+           new FormButton('btnPost', 'Enviar'),
+        );
+        $this->SetButtons($buttons);
+        if ($page->IsPostBack())
+        {
+            $this->GetData();
+            $this->EventHandler();
+        }
+
+    }
+
+    function btnLink_click()
+    {
+       $this->SetFieldAttr('btnLink','label','LinkButton pressed!');
+    }
+
+}
+
+?>

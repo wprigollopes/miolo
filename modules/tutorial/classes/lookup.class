@@ -1,0 +1,86 @@
+<?
+// +-----------------------------------------------------------------+
+// | GCO - GCO Development Team - UFJF                               |
+// +-----------------------------------------------------------------+
+// | CopyLeft (L) 2002 UFJF, Juiz de Fora/MG - Brasil                |
+// +-----------------------------------------------------------------+
+// | Licensed under GPL: see COPYING.TXT or FSF at www.fsf.org for   |
+// |                     further details                             |
+// |                                                                 |
+// | Site: http://gco.ufjf.br                                        |
+// | E-mail: gco@ufjf.br                                             |
+// +-----------------------------------------------------------------+
+// | Abstract: classe Lookup                                         |
+// | Created: 26/1/2003                                              |
+// | Authors: Ely Edison Matos                                       |
+// | Id: lookup.class                                                |
+// +-----------------------------------------------------------------+
+
+// Para se usar o lookup deve ser definida uma classe 'lookup'
+// no diretório db do módulo (modules/<modulo>/db/lookup.class)
+// Este arquivo deve implementar a classe Business<module>Lookup
+// que contém as funções Lookup<item>
+// onde o <item> foi definido na criação do field Lookup
+
+class BusinessTutorialLookup
+{
+
+// função Lookup<item>: chamada pelo lookup.php para completar/setar os atributos da classe lookup
+// com os dados específicos para esta pesquisa
+
+	function LookupFrmAluno_Dados(&$lookup)
+    {
+        $filterAluno = $lookup->GetFilterValue('filterAluno');
+        $filterNome  = $lookup->GetFilterValue('filterNome');
+        $filterEmail = $lookup->GetFilterValue('filterEmail');
+        $clause      = $lookup->GetFilterValue('clause');
+
+        $lookup->AddFilterField( new TextField('Aluno', 'filterAluno' ,$filterAluno,30));
+        $lookup->AddFilterField( new TextField('Nome',  'filterNome', $filterNome,30));
+        $lookup->AddFilterField( new TextField('E-Mail','filterEmail',$filterEmail,30));
+        $lookup->AddFilterField( new Selection('Comparação','clause',null,
+                                               array(' AND ' => '- e -',
+                                                     ' OR '  => '- ou -' ) ));
+        
+        $lookup->SetListingTitle('Alunos encontrados na pesquisa');
+        $lookup->SetLabels( array( new ListingColumn(null),
+									new ListingColumn('Aluno'),
+                                   new ListingColumn('Nome'),
+                                   new ListingColumn('Email') ));
+        $lookup->SetPageLength(5); // default 20 if not specified
+        
+        $sql = "select idaluno, idaluno as key, nome, fone, email, datanasc from aluno";
+        
+        if ( $filterAluno )
+        {
+            $where .= "$clause ( upper(idaluno) like upper('{$filterAluno}%') )";
+        }
+        
+        if ( $filterNome )
+        {
+            $where .= "$clause ( upper(nome) like upper('%{$filterNome}%') )";
+        }
+        
+        if ( $filterEmail )
+        {
+            $where .= "$clause ( upper(email) like upper('{$filterEmail}%') )";
+        }
+        
+        if ( $where )
+        {
+            $sql .= " where " . substr($where,strlen($clause)+1);
+        }
+        
+        $sql .= " order by nome";
+
+		echo $sql;
+        
+        $lookup->SetDatabase('tutorial');
+        $lookup->SetQuery($sql);
+        
+    }
+
+
+}
+
+?>

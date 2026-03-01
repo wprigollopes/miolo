@@ -1,0 +1,331 @@
+<?php
+
+/**
+ * form definition
+ */
+class frmMain extends MForm
+{
+    // tries
+    const EASY      = 10;
+    const MEDIUM    = 5;
+    const DIFFICULT = 3;
+
+    function __construct()
+    {
+        // call the parent constructor
+        parent::__construct( _M('Hangman Game!', MIOLO::getCurrentModule()) );
+
+        // sets the form icon
+        $this->setIcon( $this->manager->getUI()->getImage( 'hangman', 'hangman-16x16.png' ) );
+
+//        $this->setFormCSS(0,470,0,0,0,'relative');
+        // set the form width
+        $this->setWidth('470px');
+        // call the events handler
+        $this->eventHandler();
+    }
+
+
+    /**
+     * this method is automatically called by MIOLO
+     * and is intended to create the form fields
+     */
+    function createFields()
+    {
+        $module = MIOLO::getCurrentModule();
+
+        // array of Radio Buttons for the choices
+        $options = array( new MRadioButton( 'level', '1', '', true,  _M("Easy. You'll have 10 tries to discover the word.", $module) ),
+                          new MRadioButton( 'level', '2', '', false, _M("Medium. You'll have 5 tries to discover the word.", $module) ),
+                          new MRadioButton( 'level', '3', '', false, _M("Difficult. You must discover the word with only 3 tries.", $module) )
+                        );
+
+        // Add the options inside a MRadioButtonGroup with a button to start
+        $level = array( new MRadioButtonGroup( 'levelGroup', '', $options,'1', 'vertical' ),
+                        new MButton( 'btnPlay', _M('Play!', $module) )
+                      );
+
+        // define the link for the form action
+        $link    = $this->manager->getCurrentURL();
+
+        // this string stores the guessed words
+        $guesses = $this->getGuessLetters();
+
+        // create a event for each letter
+        for ( $letter = 65; $letter <= 90; ++$letter )
+        {
+            $char = chr( $letter );
+            // define the action of the letter
+
+            // lets see if the current letter already was tried
+            if ( strpos( $guesses, $char, $pos ) !== false )
+            {
+                // if been tried, show a label
+                $letters[] = $button = new MLabel( $char );
+            }
+            else
+            {
+                // otherwise (not tried), whe show a LinkButton for it
+                $letters[] = $button = new MLinkButton( "guess$char", $char, $link );
+                // connect a event to the button
+                $button->attachEventHandler( 'click', 'onLetterClick', $char );
+            }
+        }
+
+        // Elements of the play form
+        $guess = array( new MTextHeader( 'choice', '1', _M('Choose a Letter:', $module) ), // text
+                        new MText( 'guessWord', '' ), // this text will show the correct letters of the word
+                        new MSpacer( '20px' ), // line spacing
+                        new MText( 'guessErrors',''), // this label will show how many error the player did
+                        new MLinkButtonGroup( 'letters', '', $letters, 'horizontal', 'none' ), //LinkButtons of letters
+                        new MLinkButton( 'giveUp', _M('Give Up!', $module), $link ) // button to give up.
+                      );
+
+        // this elements will be showed if the word was discovered
+        $finished = array( new MTextHeader( 'finished', '1', '' ),
+                           new MText( 'word', '' ),
+                           new MSpacer( '20px' ),
+                           new MLinkButton( 'again', _M('Play Again!', $module), $link ),
+                           new MLink( 'bye', _M('Let me out of this!', $module), $this->manager->getConf('home.url') ),
+                         );
+
+        // main form elements
+        $fields   = array( new MLabel(_M("You must choose a letter and try to discover the word. You'll lose if you have more errors than the limit!", $module)),
+                           new MBaseGroup( 'choiceGroup', _M('Choose the Level:', $module), $level, 'vertical', 'css' ),
+                           new MBaseGroup( 'guessGroup', '', $guess, 'vertical','css' ),
+                           new MBaseGroup( 'finishedGroup', '', $finished, 'vertical', 'css' )
+                         );
+
+        // put the fileds on the form
+        $this->setFields($fields);
+        // set the actions of the buttons
+        $this->btnPlay->attachEventHandler( 'click', 'OnBtnPlayClick' );
+        $this->giveUp->attachEventHandler( 'click', 'OnFinished', 'lose' );
+        // current status
+        $this->setStatus( 'level' );
+        // show the default "Send" button ?
+        $this->defaultButton = false;
+    }
+
+
+    /**
+     * set the level of the game
+     */
+    function setLevel( $level )
+    {
+        switch ( $level )
+        {
+            case '1': $this->page->setViewState( 'level', self::EASY ); break;
+            case '2': $this->page->setViewState( 'level', self::MEDIUM ); break;
+            case '3': $this->page->setViewState( 'level', self::DIFFICULT ); break;
+        }
+    }
+
+
+    /**
+     * get the game leve
+     */
+    function getLevel()
+    {
+        return $this->page->getViewState( 'level' );
+    }
+
+
+    /**
+     * set the error count
+     */
+    function setErrorCount( $errors )
+    {
+        $this->page->setViewState( 'errors', $errors );
+    }
+
+
+    /**
+     * get the number of errors
+     */
+    function getErrorCounts()
+    {
+        return $this->page->getViewState( 'errors' );
+    }
+
+
+    /**
+     * set the visibility of the components
+     */
+    function setStatus( $status )
+    {
+        $this->setFieldAttr( 'choiceGroup', 'visible', ( $status == 'level' ) );
+        $this->setFieldAttr( 'guessGroup', 'visible', ( $status == 'play') );
+        $this->setFieldAttr( 'finishedGroup', 'visible', ( $status == 'finished' ) );
+    }
+
+
+    /**
+     * set the game's word
+     */
+    function setWord( $word )
+    {
+        $this->page->setViewState( 'secretword', $word );
+    }
+
+
+    /**
+     * get the game's word
+     */
+    function getWord()
+    {
+        return $this->page->getViewState( 'secretword' );
+    }
+
+
+    /**
+     * set the guess word
+     */
+    function setGuessWord( $guessWord )
+    {
+        $this->page->setViewState( 'guessword', $guessWord );
+
+        for( $i = 0, $w = ''; $i < strlen( $guessWord ); $w .= $guessWord{$i} . '&nbsp;', $i++ );
+
+        $this->setFieldValue( 'guessWord', $w );
+    }
+
+
+    /**
+     * get the guess word
+     */
+    function getGuessWord()
+    {
+        return $this->page->getViewState('guessword');
+    }
+
+
+    /**
+     * set the guessed letters
+     */
+    function setGuessLetters( $guessLetters )
+    {
+        $this->page->setViewState( 'guessletters', $guessLetters );
+    }
+
+
+    /**
+     * get the guessed letters
+     */
+    function getGuessLetters()
+    {
+        return $this->page->getViewState( 'guessletters' );
+    }
+
+
+    /**
+     * update the errors message
+     */
+    function setGuessErrors()
+    {
+        $this->setFieldValue( 'guessErrors', 'You have ' . $this->getErrorCounts() . ' errors of ' . $this->getLevel() . ' allowed.');
+    }
+
+
+    /**
+     * this method is invoked by the start button
+     */
+    function onBtnPlayClick( $sender )
+    {
+        // set the game level
+        $level = $this->levelGroup->getValue();
+        $this->setLevel($level);
+
+        //file wich contains the words
+        $file = $this->manager->getModulePath('hangman','etc/words.txt');
+
+        // define the word of the game
+        $words = preg_split( "/[\s,]+/", file_get_contents($file) );
+        do
+        {
+            $i = rand( 0, count($words) - 1 );
+            $word = $words[$i];
+        } while( strlen( $word ) < 5 || ! preg_match( '/^[a-z]*$/i', $word ) );
+
+        $word = strtoupper( $word );
+        // initial word'll be _ _ _ _ _
+        $guessWord = str_repeat( '_', strlen($word) );
+        // set the guess word
+        $this->setGuessWord( $guessWord );
+        // set the error count
+        $this->setErrorCount( 0 );
+        // set the word
+        $this->setWord( $word );
+        // show the errors
+        $this->setGuessErrors();
+        // set the guesses letters
+        $this->setGuessLetters( '' );
+        // status of the game
+        $this->setStatus( 'play' );
+    }
+
+    /**
+     * this method is called by each letter click event.
+     * the $param is the char
+     */
+    function onLetterClick( $sender, $param )
+    {
+        // show the letter in blue
+        $sender->color = 'blue';
+        $letter = $param;
+
+        $this->setGuessLetters( $this->getGuessLetters() . $letter );
+        // get the game's word
+        $word = $this->getWord();
+        // guessed word
+        $guessWord = $this->getGuessWord();
+        // game status
+        $this->setStatus( 'play' );
+        $pos = 0;
+        $success = false;
+
+        // see if the player discovered the word
+        while ( ( $pos = strpos( $word, $letter, $pos ) ) !== false )
+        {
+            $guessWord{$pos} = $letter;
+            $success = true;
+            $pos++;
+        }
+
+        $this->setGuessWord( $guessWord );
+        // success?
+        if ( $success )
+        {
+            if ( $guessWord === $word )
+            {
+                $this->onFinished( null, 'win' );
+            }
+        }
+        else
+        {
+            $errors = $this->getErrorCounts() + 1;
+            $this->setErrorCount( $errors );
+
+            // if the user tried more than allowed, loser!! ;-)
+            if ( $errors >= $this->getLevel() )
+            {
+                $this->onFinished( null, 'lose' );
+            }
+        }
+
+        $this->setGuessErrors();
+    }
+
+
+    /**
+     * end of the game
+     */
+    function onFinished($sender, $param)
+    {
+        $this->setGuessLetters( '' );
+        $this->setFieldValue( 'word', 'The word was: ' . $this->getWord() );
+        $this->setFieldValue( 'finished', ( $param == 'lose' ) ? 'You Lose!' : 'You Win!' );
+        $this->setStatus( 'finished' );
+    }
+}
+?>

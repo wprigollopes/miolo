@@ -1,0 +1,26 @@
+<?php
+class Theme extends MTheme
+{
+    function __construct()
+    {
+       parent::__construct('clean');
+    }
+
+    function Init()
+    { 
+    }
+
+    function Generate()
+    {   
+        return $this->GenerateDefault();
+    }
+
+    function GenerateDefault()
+    {
+       $this->SetElementId('content','contentContainer');
+       $html = $this->GenerateElement('content'); 
+       return $this->painter->div(new Div('container',$html));
+    }
+
+}
+?>

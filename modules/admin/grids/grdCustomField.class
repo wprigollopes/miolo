@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * Class to manage customized fields grid.
+ *
+ * @author Daniel Hartmann [daniel@solis.coop.br]
+ *
+ * \b Maintainers: \n
+ * Armando Taffarel Neto [taffarel@solis.coop.br]
+ * Daniel Hartmann [daniel@solis.coop.br]
+ *
+ * @since
+ * Creation date 2011/11/16
+ *
+ * \b Organization: \n
+ * SOLIS - Cooperativa de Soluções Livres \n
+ *
+ * \b Copyright: \n
+ * Copyright (c) 2011 SOLIS - Cooperativa de Soluções Livres \n
+ *
+ * \b License: \n
+ * Licensed under GPLv2 (for further details read the COPYING file or http://www.gnu.org/licenses/gpl.html)
+ *
+ */
+class grdCustomField extends MGrid
+{
+    public function __construct()
+    {
+        $MIOLO = MIOLO::getInstance();
+        $module = MIOLO::getCurrentModule();
+        $action = MIOLO::getCurrentAction();
+        $customField = new MCustomField();
+
+        $fieldFormats = MCustomField::listFormatFields();
+        $listNoYes = array(
+            'f' => _M('No'),
+            't' => _M('Yes'),
+        );
+
+        $columns[] = new MGridColumn(_M('Id', $module), 'right', null, '15%', false, null, true);
+        $columns[] = new MGridColumn(_M('Identifier', $module), 'center', null, '15%', true, null, true);
+        $columns[] = new MGridColumn(_M('Name', $module), 'right', null, '15%', true, null, true);
+        $columns[] = new MGridColumn(_M('Field format', $module), 'right', null, '20%', true, $fieldFormats, true);
+        $columns[] = new MGridColumn(_M('Possible values', $module), 'right', null, '20%', true, null, true);
+        $columns[] = new MGridColumn(_M('Required', $module), 'left', null, NULL, true, $listNoYes, true);
+
+        $data = MCustomField::listForGrid();
+
+        parent::__construct($data, $columns, $MIOLO->getCurrentURL(), '20');
+
+        $args = array(
+            'event' => 'btnEdit:click',
+            'function' => 'edit'
+        );
+        $editAction = $MIOLO->getActionURL($module, $action, '%1%', $args);
+        $deleteAction = $MIOLO->getActionURL($module, $action, '%0%', array('event' => 'confirmDelete:click'));
+        $this->addActionUpdate($editAction);
+        $this->addActionDelete($deleteAction);
+    }
+}
+
+?>

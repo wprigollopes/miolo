@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?> 
+<map>
+   <moduleName>tutorial</moduleName>
+   <className>student</className>
+   <tableName>cm_aluno</tableName>
+   <databaseName>persistence</databaseName>
+   <extends>
+       <moduleName>tutorial</moduleName>
+       <className>person</className>
+   </extends>
+   <attribute>
+      <attributeName>number</attributeName>
+	  <columnName>matricula</columnName>
+	  <key>primary</key>
+   </attribute>
+   <attribute>
+      <attributeName>situation</attributeName>
+	  <columnName>situacao</columnName>
+   </attribute>
+   <attribute>
+      <attributeName>idperson</attributeName>
+	  <columnName>idpessoa</columnName>
+	  <reference>idperson</reference> 
+   </attribute>
+
+</map>

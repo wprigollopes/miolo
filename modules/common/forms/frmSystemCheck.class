@@ -1,0 +1,146 @@
+<?php
+
+/**
+ * Unit tests checking form.
+ *
+ * @author Daniel Hartmann [daniel@solis.coop.br]
+ *
+ * \b Maintainers: \n
+ * Armando Taffarel Neto [taffarel@solis.coop.br]
+ * Daniel Hartmann [daniel@solis.coop.br]
+ *
+ * @since
+ * Class created on 2011/06/07
+ *
+ * \b Organization: \n
+ * SOLIS - Cooperativa de Soluções Livres \n
+ *
+ * \b CopyRight: \n
+ * Copyright (c) 2011 SOLIS - Cooperativa de Soluções Livres \n
+ *
+ * \b License: \n
+ * Licensed under GPLv2 (for further details read the COPYING file or http://www.gnu.org/licenses/gpl.html)
+ */
+
+class frmSystemCheck extends MForm
+{
+    public $checkTable;
+
+    public function __construct()
+    {   
+        parent::__construct(_M('System Check'));
+
+        $this->eventHandler();
+        $this->defaultButton = NULL;
+    }
+
+    public function createFields()
+    {
+        $MIOLO = MIOLO::getInstance();
+        $module = MIOLO::getCurrentModule();
+
+        $fields[] = MMessage::getMessageContainer();
+
+        $modulesDir = scandir($MIOLO->getConf('home.modules'));
+        $modules = array();
+        foreach ( $modulesDir as $dir )
+        {
+            if ( !is_dir($MIOLO->getConf('home.modules') . "/$dir") ||
+                 $dir == '.' || $dir == '..' || $dir == '.svn' )
+            {
+                continue;
+            }
+            $modules[$dir] = $dir;
+        }
+
+        $fields[] = new MSelection('scModule', NULL, _M('Module'), $modules);
+        $fields[] = new MButton('doCheck', _M('Check'));
+
+        $columns = array(_M('Test'), _M('Result'));
+        $fields[] = $this->checkTable = new MTableRaw(_M('Check Procedures'), NULL, $columns);
+
+        $this->setFields($fields);
+    }
+
+    public function doCheck_click()
+    {
+        $MIOLO = MIOLO::getInstance();
+
+        if ( !$this->scModule->value )
+        {
+            new MMessageWarning(_M('Inform a module'));
+            return;
+        }
+
+        $module = $this->scModule->value;
+        $testsDir = $MIOLO->getConf('home.modules') . "/$module/tests";
+        $testsSearch = "$testsDir/[Tt]st*class";
+        $testsList = glob($testsSearch);
+
+        if ( !is_array($testsList) || count($testsList) == 0 )
+        {
+            new MMessageWarning(_M('There are no test files in this module'));
+            return;
+        }
+
+        $data = array();
+        foreach ( $testsList as $testFile )
+        {
+            $fileName = end(explode('/', $testFile));
+            $test = str_replace('.class', '', substr($fileName, 3));
+
+            list($result, $output) = $this->executeUnitTest($fileName, $testsDir);
+            $outputStr = implode('<br/>', $output);
+
+            // change result colors
+            if ( substr($result, 0, 2) == 'OK' )
+            {
+                // create ok image
+                $image = new MImage('okImage', NULL, 'images/ok.png');
+
+                $result = str_replace('OK', '<b><font color="green">OK</font></b>', $result);
+            }
+            else
+            {
+                // create failure image
+                $image = new MImage('errorImage', NULL, 'images/fail.png');
+
+                $outputStr = str_replace('FAILURES!','<b><font color="red">FAILURES!</font></b>', $outputStr);
+                $outputStr = str_replace('FAIL', '<b><font color="red">FAIL</font></b>', $outputStr);
+            }
+
+            $outputStr = str_replace('OK', '<b><font color="green">OK</font></b>', $outputStr);
+
+            $image->_addStyle('float', 'left');
+            $image->_addStyle('margin-right', '4px');
+
+            $div = new MExpandDiv("detailsDiv$test", $image->generate() . " $result<br/><pre>$outputStr</pre>");
+
+            $data[] = array(
+                $test,
+                $div->generate()
+            );
+        }
+        $this->checkTable->array = $data;
+    }
+
+    public function executeUnitTest($file, $dir)
+    {
+        $output = array();
+        $result = exec("cd $dir; phpunit $file", $output);
+        return array($result, $output);
+    }
+
+    public function btnDetails_click()
+    {
+        $MIOLO = MIOLO::getInstance();
+        $module = $MIOLO->getCurrentModule();
+
+        $details = MIOLO::_REQUEST('details');
+        $div = new MDiv('divDetails', $details);
+
+        $this->addField($div);
+    }
+}
+
+?>

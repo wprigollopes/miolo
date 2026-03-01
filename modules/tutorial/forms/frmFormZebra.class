@@ -1,0 +1,78 @@
+<?
+    class frmFormZebra extends MForm
+    {
+        function __construct()
+        {
+            parent::__construct("Exemplo de FormZebra");
+            $this->EventHandler();
+        }
+
+        function CreateFields()
+        {
+            $sistema = $this->manager->GetBusiness('admin', 'sistema');
+            $qrySistema = $sistema->ListAll();
+
+            $rYes = new MRadioButton('rYes','yes','',false,'Yes!');
+            $rNo = new MRadioButton('rNo','no','',false,'No!');
+            $rMaybe = new MRadioButton('rMaybe','maybe','',false,'Maybe...');
+
+            $fields = array
+                (
+                new MTextField('idtrans', 'default', 'Id',15,'autoPostBack'),
+                new MLookupTextField('transacao', 'default', 'Transação'),
+                new MCalendarField('cal', '01/01/2005', "Calendar Field"),
+                new MSelection('idsistema', 'admin', 'Sistema', $qrySistema->ChunkResult(),false,'autoPostBack'),
+                new MTextField('idtrans1', 'default', 'Id'),
+                new MRadioButtonGroup('rGroup','A hard choice with autoPostBack:',array($rYes,$rNo,$rMaybe),'','autoPostBack'),
+                new MLookupTextField('transacao1', 'default', 'Transação'),
+                new MCheckBox('chk','default','A check',true,'A text','autoPostBack'),
+                new MSelection('idsistema1', 'default', 'Sistema', $qrySistema->ChunkResult()),
+                );
+
+            $this->SetFields($fields);
+            $this->SetFieldAttr('transacao', 'module', 'admin');
+            $this->SetFieldAttr('transacao', 'item', 'transacao');
+            $this->SetFieldAttr('transacao', 'event', 'btnEdit:click');
+
+            $this->SetFieldAttr('idtrans', 'autoPostBack', true);
+            $this->SetFieldAttr('idsistema', 'autoPostBack', true);
+            $this->SetFieldAttr('rGroup', 'autoPostBack', true);
+            $this->SetFieldAttr('chk', 'autoPostBack', true);
+
+            $buttons = Array
+                (
+                new FormButton('btnPost', 'Enviar'),
+                new FormButton('btnNew', 'Novo'),
+                new FormButton('btnDelete', 'Excluir'),
+                new FormButton('btnList', 'Relação'),
+                new FormButton('btnReport', 'Relatórios'),
+                );
+
+            $this->SetButtons($buttons);
+            $this->SetLabelWidth('20');
+            $this->SetAlternate('#fff','#eee');
+            $this->SetBackgroundColor('#FFF');
+
+        }
+
+        function btnPost_click()
+        {
+        }
+
+        function btnEdit_click()
+        {
+        }
+
+        function btnList_click()
+        {
+        }
+
+        function btnDelete_click()
+        {
+        }
+
+        function btnNew_click()
+        {
+        }
+    }
+?>

@@ -1,0 +1,71 @@
+<?
+class frmTreemenu extends MForm
+{
+		function __construct() 
+		{
+			parent::__construct('TreeMenu Sample');
+			if($this->page->IsPostBack())
+			{
+				$this->EventHandler();
+			}
+            $this->AddField(new ViewSource(__FILE__));
+		}
+
+		function CreateFields()
+		{
+            $array = array(
+               array(0,'BaseControl','','root'),
+               array(1,'Control1','',0),
+               array(2,'Control2','',0),
+               array(3,'Control3','',0),
+               array(4,'Control4','',0),
+               array(5,'Control5','',0),
+               array(6,'Control11','',1),
+               array(7,'Control21','',2),
+               array(8,'Control22','',2),
+               array(9,'Control23','',2),
+               array(10,'Control41','',4),
+               array(11,'Control111','',6),
+               array(12,'Control112','',6),
+               array(13,'Control113','',6),
+               array(14,'Control12','',1),
+               array(15,'Control121','',14),
+               array(16,'Control122','',14),
+               array(17,'Control123','',14)
+            );
+
+            $transacao = $this->manager->GetBusiness('admin','transacao');
+            $query = $transacao->ListByTransaction('C%');
+			$action = $this->manager->GetActionURL('admin','admin:transaction','#',array('event'=>'btnEdit:click'));
+
+            $fields = array(
+    	       new MSeparator('<b>Javascript Event - click on leaf node</b>'),
+               new MTreeMenu('tree1'),
+               array(
+    	           new MTextField('leaf0','','Selected'),
+    	           new MTextField('leaf0id','','Id'),
+               ),
+	           new MSeparator(''),
+	           new MSeparator('<b>Miolo Event - submit on click on leaf node</b>'),
+               new MTreeMenu('tree2'),
+               new MText('itemid',''),
+	           new MSeparator(''),
+	           new MSeparator('<b>Tree from Query</b>'),
+               new MTreeMenu('tree3',1, $action,'_self'),
+            );
+            $this->SetFields($fields);
+            $this->tree1->SetItemsFromArray($array);
+            $this->tree1->SetSelectEvent("get_element(\"leaf0\").value = trees[0].a_index[n_id].a_config[0]; get_element(\"leaf0id\").value = item_id;");
+            $this->tree2->SetItemsFromArray($array);
+            $this->tree2->SetEventHandler('OnTree2Click');
+            $this->tree3->SetItemsFromResult($query->result,'Transações (C%)','3','0,1');
+       }
+
+       function OnTree2Click($sender,$itemId)
+       {
+            $name = $sender->GetName();
+            $this->SetFieldValue('itemid',"<b>Tree: $name  -  Item Id: $itemId</b>");
+       }
+
+}
+?>

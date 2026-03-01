@@ -1,0 +1,109 @@
+<?
+class FrmTables extends Form
+{
+    function FrmTables()
+    {   
+		global $page;
+		$this->Form('Using Tables');
+		if ($page->IsPostBack())
+		{
+            $this->EventHandler();
+		}
+	}
+
+	function CreateFields()
+	{
+        $tbl = new Table('tblExemplo',4,5,'95%','','','','1');
+        $tbl->SetCellContent(0,0, 'Célula 0x0');
+        $tbl->SetCellContent(1,1, 'Célula 1x1');
+        $tbl->SetCellContent(1,2, 'Célula 1x2');
+        $tbl->SetCellContent(1,3, 'Célula 1x3');
+        $tbl->SetCellContent(2,3, 'Célula 2x3');
+        $tbl->SetCellContent(3,1, 'Célula 3x1');
+        $tbl->SetCellContent(3,2, 'Célula 3x2');
+        $tbl->SetCellContent(3,3, 'Célula 3x3');
+        $tbl->SetCellContent(3,4, 'Célula 3x4');
+        $tbl->SetCellContent(2,2, 'Teste');
+        $edtNome = new TextField('edtNome','','',10);
+        $tbl->SetCellContent(1,4,$edtNome);
+	    $options_sel = Array('a'=>'ValorA','b'=>'ValorB','c'=>'ValorC');
+        $sel = new Selection('sel','b','',$options_sel,false);
+        $tbl->SetCellContent(2,1,$sel);
+
+		$fields = array(
+           new Separator('Tables: rows, cols and contents is 0-based'),
+           array(
+             new TextField('edtCont','php','',20),
+             new FormButton('btnFill','Inserir na célula 1x2')
+           ),
+           array(
+             new TextField('edtCont1','php','',20),
+             new FormButton('btnFill1','Adicionar na célula 1x2')
+           ),
+           new FormButton('btnDel','Remover a célula 1x1'),
+           array(
+             new TextField('edtColor','#0000FF','Cor (ex. #000000)',10),
+             new FormButton('btnChg','Trocar bgcolor da célula 2x3')
+           ),
+           new FormButton('btnNewRow','Inserir Nova Linha'),
+           new FormButton('btnChgObj','Trocar o atributo value do objeto TextField em 1x4'),
+           new FormButton('btnColSpan','Join 3x1 e 3x2'),
+           new FormButton('btnRowSpan','Join 2x3 e 3x3'),
+           new Separator('Table ' . $tbl->nrows . ' linhas - ' . $tbl->ncols . ' colunas'),
+           $tbl
+        );
+        $this->SetFields($fields);
+	}
+
+    function btnFill_click()
+    {
+       $this->tblExemplo->SetCellContent(1,2,$this->GetFieldValue('edtCont'));
+    }
+
+    function btnFill1_click()
+    {
+       $this->tblExemplo->AddCellContent(1,2,$this->GetFieldValue('edtCont1'));
+    }
+
+    function btnDel_click()
+    {
+       $this->tblExemplo->RemoveCell(1,1);
+    }
+
+    function btnChg_click()
+    {
+       $this->tblExemplo->SetCellAttribute(2,3,'bgcolor',$this->GetFieldValue('edtColor'));
+    }
+
+    function btnChgObj_click()
+    {
+       $edtTemp = &$this->tblExemplo->GetCellContent(1,4);
+       $edtTemp->value = 'Changed'; 
+    }
+
+    function btnNewRow_click()
+    {
+       $this->tblExemplo->AddRow();
+       $this->tblExemplo->SetCellContent(4,1,'Célula 4x1');
+       $this->tblExemplo->AddCellContent(4,1,'AddCellContent');
+       $edtTexto = new TextField('edtTexto','','',10);
+       $this->tblExemplo->AddCellContent(4,2,$edtTexto);
+    }
+
+    function btnColSpan_click()
+    {
+       $this->tblExemplo->SetCellAttribute(3,1,'colspan','2');
+       $this->tblExemplo->JoinCell(3,1,3,2);
+       $this->tblExemplo->AddCellContent(3,2,'3x2 pos-join');
+       $this->tblExemplo->AddCellContent(3,3,'3x3 pos-join');
+    }
+
+    function btnRowSpan_click()
+    {
+       $this->tblExemplo->SetCellAttribute(2,3,'rowspan','2');
+       $this->tblExemplo->JoinCell(2,3,3,3);
+       $this->tblExemplo->AddCellContent(3,3,'3x3 pos-join');
+    }
+}
+
+?>

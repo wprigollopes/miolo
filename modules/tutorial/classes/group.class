@@ -1,0 +1,58 @@
+<?php
+
+class BusinessTutorialGroup extends Business
+{
+    var $idgroup;
+    var $group;
+    var $users = array();
+
+    function __construct($data=NULL)
+    {
+       $this->Business('persistence',$data);
+    }
+
+    function GetById($idgroup)
+    {
+       $this->idgroup = $idgroup;
+       $this->retrieve();
+       return $this;
+    }
+
+    function ListAll()
+    {
+        $criteria = $this->getCriteria();
+        $query = $criteria->retrieveAsQuery();
+        return $query;
+    }
+
+    function ListByName($name)
+    {
+        $criteria = $this->getCriteria();
+        $criteria->addCriteria('group','LIKE',"'$name%'");
+        $query = $criteria->retrieveAsQuery();
+        return $query;
+    }
+
+    function ListByNamePar($name)
+    {
+        $criteria = $this->getCriteria();
+        $criteria->addCriteria('group','LIKE',"?");
+        $criteria->addOrCriteria('group','LIKE',"'P%'");
+        $query = $criteria->retrieveAsQuery("$name%");
+        return $query;
+    }
+
+    function CursorByName($name)
+    {
+        $criteria = $this->getCriteria();
+        $criteria->addCriteria('group','LIKE',"'$name%'");
+        $cursor = $criteria->retrieveAsCursor();
+        return $cursor;
+    }
+
+    function AddUser($user)
+    {
+       $this->users[] = $user;
+    }
+}
+?>

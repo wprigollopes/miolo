@@ -1,0 +1,64 @@
+<?php
+
+class FrmIndexed extends MForm
+{
+
+    public function __construct()
+    {
+        parent::__construct( _M( 'Indexed Controls' ) );
+
+        // verify if the form was submitted
+        if( $this->page->isPostBack() )
+        {
+            // call the form method: btnPost_click()
+            $this->eventHandler();
+        }
+
+        // add fields to the form
+        // separator
+        $this->addField( new MSeparator );
+        // this creates a link to open the source
+        $this->addField( new ViewSource( __FILE__ ) );
+    }
+
+
+    /**
+     * this method is automatically called by MIOLO
+     * and is intended to create the form fields
+     */
+    public function createFields()
+    {
+        // array of fields
+        $control[] = new MTextField( 'edtMoney1', '', _M('Value 1') );
+        $control[] = new MTextField( 'edtMoney2', '', _M('Value 2') );
+        $control[] = new MTextField( 'edtMoney3', '', _M('Value 3') );
+
+        // creates an indexed control of the fields
+        $ixControl = new MIndexedControl( 'ixcontrol', 'Label', $control );
+
+        // array of buttons
+        $buttons = array( new MButton( 'btnPost', _M('Send') ) );
+
+        // add the fields and buttons 
+        $this->addField( $ixControl );
+        $this->setButtons( $buttons );
+    }
+
+
+    /**
+     * this method handles the button click (submit) and
+     * is called by the constructor (eventHandler)
+     */
+    protected function btnPost_click()
+    {
+        // gets the indexed control
+        $indexed = $this->getFieldValue( 'ixcontrol' );
+
+        // add fields to the form, based on the field index
+        $this->AddField( new MLabel( 'Index 0: ' . $indexed[0] ) );
+        $this->AddField( new MLabel( 'Index 1: ' . $indexed[1] ) );
+        $this->AddField( new MLabel( 'Index 2: ' . $indexed[2] ) );
+    }
+}
+
+?>

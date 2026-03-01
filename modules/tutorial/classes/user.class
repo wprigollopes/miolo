@@ -1,0 +1,61 @@
+<?php
+
+class BusinessTutorialUser extends Business
+{
+    var $iduser;
+    var $idperson;
+	var $person;
+    var $login;
+    var $password;
+    var $nick;
+    var $groups;
+    var $idsector;
+    var $sector;
+
+    function __construct($data=NULL)
+    {
+       $this->Business('persistence',$data);
+    }
+
+    function GetById($id)
+    {
+       $this->iduser = $id;
+       $this->retrieve();
+       return $this;
+    }
+
+    function GetProxyById($id)
+    {
+       $this->iduser = $id;
+       $this->retrieveAsProxy();
+    }
+
+    function ProxyByLogin($login)
+    {
+        $criteria = $this->getCriteria();
+        $criteria->addCriteria('login','LIKE',"'$login%'");
+        $query = $criteria->retrieveAsProxyQuery();
+        return $query;
+    }
+
+    function ProxyCursorByLogin($login)
+    {
+        $criteria = $this->getCriteria();
+        $criteria->addCriteria('login','LIKE',"'$login%'");
+        $cursor = $criteria->retrieveAsProxyCursor();
+        return $cursor;
+    }
+
+    function save_ok()
+    {
+        $this->save();
+    }
+
+    function save_error()
+    {
+        // force an error
+        throw new EDatabaseTransactionException('Transaction Error  Sample');
+    }
+
+}
+?>

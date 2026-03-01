@@ -1,0 +1,40 @@
+<?
+class frmPosForm0 extends MForm
+{
+
+    function __construct()
+    {   
+		parent::__construct('CSS Positioning Form (absolutely positioned)');
+        $this->defaultButton = false;
+		if ($this->page->IsPostBack())
+		{
+           $this->EventHandler();
+		}
+    }
+
+    function CreateFields()
+    {
+        $this->SetFormCSS(220,500,130,170,0);
+        $fields = array(
+             new MHiddenField('key','123456'),
+             new MText('text', 'Texto posicionado relativamente no form'),
+             new MText('label','Name:'),
+             new MTextField('myname','Change me','',30),
+             new MButton('btnPost', 'Click me')
+        );
+        $this->SetFields($fields);
+        $this->SetFieldCSS('text',30,10,300); 
+        $this->SetFieldCSS('label',50,20,25); 
+        $this->SetFieldCSS('myname',80,30); 
+        $this->SetFieldCSS('btnPost',120,80); 
+	}
+
+    function btnPost_click()
+    {
+        $this->AddField(new MText('thename', 'The name is: ' . $this->myname->value));
+        $this->thename->SetColor('green');
+        $this->SetFieldCSS('thename',60,180); 
+    }
+}
+
+?>

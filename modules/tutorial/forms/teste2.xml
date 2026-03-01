@@ -1,0 +1,871 @@
+<?xml version = "1.0" encoding = "ISO-8859-1" standalone = "yes"?>
+    <form>
+        <class>
+            form</class>
+
+        <name>
+            frmXForm</name>
+
+        <painter>
+            form</painter>
+
+        <title>Exemplo de XForm</title>
+
+        <width>
+            100%</width>
+
+        <defaultButton>
+            true</defaultButton>
+
+        <pagecomment>
+            <name>
+                cmtComment</name>
+
+            <value>
+                Text de comentário</value>
+        </pagecomment>
+
+        <separator>
+            <name></name>
+
+            <value>
+                Texto do separador</value>
+        </separator>
+
+        <text>
+            <name>
+                txtNome</name>
+
+            <value>
+                Texto</value>
+        </text>
+
+        <textLabel>
+            <name>
+                txtLabel</name>
+
+            <value>
+                Texto com Label</value>
+
+            <label>Label</label>
+        </textLabel>
+
+        <hyperlink>
+            <name>
+                lnkLink</name>
+
+            <href>
+                href</href>
+
+            <text>
+                Texto Hyperlink</text>
+        </hyperlink>
+
+        <imgSample>
+            <class>
+                imageform</class>
+
+            <label>Image Sample</label>
+
+            <name>
+                imgSample</name>
+
+            <location>
+                $ui->GetImage('','attention2.gif')</location>
+        </imgSample>
+
+        <btnSample>
+            <class>
+                formbutton</class>
+
+            <name>
+                btnSample</name>
+
+            <label>Sample</label>
+
+            <action>
+                submit</action>
+        </btnSample>
+
+        <btnLink>
+            <class>
+                linkbutton</class>
+
+            <name>
+                btnLink</name>
+
+            <label>LinkButton</label>
+
+            <action>
+                submit</action>
+        </btnLink>
+
+        <btnImage>
+            <class>
+                imagebutton</class>
+
+            <name>
+                btnLink</name>
+
+            <label>ImageButton</label>
+
+            <location>
+                $ui->GetImage('','button_edit.png')</location>
+
+            <action>
+                submit</action>
+        </btnImage>
+
+        <edtNome>
+            <class>
+                textfield</class>
+
+            <name>
+                edtNome</name>
+
+            <value>
+                $this->title</value>
+
+            <label>Nome</label>
+
+            <size>
+                30</size>
+        </edtNome>
+
+        <edtIdade>
+            <class>
+                textfield</class>
+
+            <name>
+                edtIdade</name>
+
+            <value>
+                10</value>
+
+            <label>Idade</label>
+
+            <size>
+                5</size>
+        </edtIdade>
+
+        <edtPass>
+            <class>
+                passwordfield</class>
+
+            <name>
+                edtPass</name>
+
+            <value></value>
+
+            <label>Password</label>
+
+            <size>
+                25</size>
+        </edtPass>
+
+        <hidId>
+            <class>
+                hiddenfield</class>
+
+            <name>
+                hidId</name>
+
+            <value>
+                Hidden</value>
+        </hidId>
+
+        <edtMulti>
+            <class>
+                multilinefield</class>
+
+            <name>
+                edtMulti</name>
+
+            <value></value>
+
+            <label>MultiLine</label>
+
+            <size>
+                15</size>
+
+            <rows>
+                4</rows>
+
+            <cols>
+                25</cols>
+        </edtMulti>
+
+        <lkpTransacao>
+            <class>
+                lookuptextfield</class>
+
+            <name>
+                lkpTransacao</name>
+
+            <value></value>
+
+            <label>Lookup</label>
+
+            <size>
+                25</size>
+
+            <module>
+                admin</module>
+
+            <item>
+                transacao</item>
+
+            <event>
+                btEdit:click</event>
+        </lkpTransacao>
+
+        <fileUp>
+            <class>
+                filefield</class>
+
+            <name>
+                fileUp</name>
+
+            <value></value>
+
+            <label>FileField</label>
+
+            <size>
+                25</size>
+        </fileUp>
+
+        <chkField>
+            <class>
+                checkbox</class>
+
+            <name>
+                chkField</name>
+
+            <value></value>
+
+            <label>CheckBox</label>
+
+            <checked>
+                true</checked>
+
+            <text>
+                Texto</text>
+        </chkField>
+
+        <rbtField>
+            <class>
+                radiobutton</class>
+
+            <name>
+                rbtField</name>
+
+            <value></value>
+
+            <label>RadioButton</label>
+
+            <checked>
+                true</checked>
+
+            <text>
+                Texto</text>
+        </rbtField>
+
+        <chkgrpField>
+            <class>
+                checkboxgroup</class>
+
+            <name>
+                chkgrpField</name>
+
+            <label>CheckBoxGroup</label>
+
+            <options>
+                <type>
+                    controls</type>
+
+                <controls>
+                    <option><class>
+                        option</class>
+
+                    <name>
+                        um</name>
+
+                    <value>
+                        1</value>
+
+                    <label>um</label>
+
+                    <checked>
+                        0</checked> </option>
+
+                    <option><class>
+                        option</class>
+
+                    <name>
+                        dois</name>
+
+                    <value>
+                        2</value>
+
+                    <label>dois</label>
+
+                    <checked>
+                        1</checked> </option>
+
+                    <option><class>
+                        option</class>
+
+                    <name>
+                        tres</name>
+
+                    <value>
+                        3</value>
+
+                    <label>tres</label>
+
+                    <checked>
+                        0</checked> </option>
+                </controls>
+            </options>
+        </chkgrpField>
+
+        <rbtgrpField>
+            <class>
+                radiobuttongroup</class>
+
+            <name>
+                rbtgrpField</name>
+
+            <label>RadioButtonGroup</label>
+
+            <options>
+                <type>
+                    items</type>
+
+                <items>
+                    <item>
+                        zero</item>
+
+                    <item>
+                        um</item>
+
+                    <item>
+                        dois</item>
+
+                    <item>
+                        tres</item>
+                </items>
+            </options>
+
+            <layout>
+                vertical></layout>
+        </rbtgrpField>
+
+        <lnkgrpField>
+            <class>
+                linkbuttongroup</class>
+
+            <name>
+                lnkgrpField</name>
+
+            <label>LinkButtonGroup</label>
+
+            <options>
+                <type>
+                    controls</type>
+
+                <controls>
+                    <linkbutton>
+                        <class>
+                            linkbutton</class>
+
+                        <name>
+                            btnLink</name>
+
+                        <label>LinkButton</label>
+
+                        <action>
+                            submit</action>
+                    </linkbutton>
+
+                    <linkbutton>
+                        <class>
+                            linkbutton</class>
+
+                        <name>
+                            btnLink</name>
+
+                        <label>LinkButton</label>
+
+                        <action>
+                            submit</action>
+                    </linkbutton>
+
+                    <linkbutton>
+                        <class>
+                            linkbutton</class>
+
+                        <name>
+                            btnLink</name>
+
+                        <label>LinkButton</label>
+
+                        <action>
+                            submit</action>
+                    </linkbutton>
+
+                    <linkbutton>
+                        <class>
+                            linkbutton</class>
+
+                        <name>
+                            btnLink</name>
+
+                        <label>LinkButton</label>
+
+                        <action>
+                            submit</action>
+                    </linkbutton>
+                </controls>
+            </options>
+
+            <layout>
+                vertical></layout>
+        </lnkgrpField>
+
+        <selItem>
+            <class>
+                selection</class>
+
+            <name>
+                selItem</name>
+
+            <label>Selection_item</label>
+
+            <options>
+                <type>
+                    items</type>
+
+                <items>
+                    <item>
+                        -zero-</item>
+
+                    <item>
+                        -um-</item>
+
+                    <item>
+                        -dois-</item>
+
+                    <item>
+                        -tres-</item>
+                </items>
+            </options>
+
+            <showValues>
+                0</showValues>
+        </selItem>
+
+        <selAssoc>
+            <class>
+                selection</class>
+
+            <name>
+                selAssoc</name>
+
+            <label>Selection_assoc</label>
+
+            <options>
+                <type>
+                    associative</type>
+
+                <associative>
+                    <zero>
+                        -zero-</zero>
+
+                    <um>
+                        -um-</um>
+
+                    <dois>
+                        -dois-</dois>
+
+                    <tres>
+                        -tres-</tres>
+                </associative>
+            </options>
+
+            <showValues>
+                0</showValues>
+        </selAssoc>
+
+        <selOption>
+            <class>
+                selection</class>
+
+            <name>
+                selOption</name>
+
+            <label>Selection_option</label>
+
+            <options>
+                <type>
+                    controls</type>
+
+                <controls>
+                    <option><class>
+                        option</class>
+
+                    <name>
+                        um</name>
+
+                    <value>
+                        1</value>
+
+                    <label>um</label>
+
+                    <checked>
+                        0</checked> </option>
+
+                    <option><class>
+                        option</class>
+
+                    <name>
+                        dois</name>
+
+                    <value>
+                        2</value>
+
+                    <label>dois</label>
+
+                    <checked>
+                        1</checked> </option>
+
+                    <option><class>
+                        option</class>
+
+                    <name>
+                        tres</name>
+
+                    <value>
+                        3</value>
+
+                    <label>tres</label>
+
+                    <checked>
+                        0</checked> </option>
+                </controls>
+            </options>
+
+            <showValues>
+                0</showValues>
+        </selOption>
+
+        <selOptionGroup>
+            <class>
+                selection</class>
+
+            <name>
+                selOptionGroup</name>
+
+            <label>Selection_group</label>
+
+            <options>
+                <type>
+                    controls</type>
+
+                <controls>
+                    <option><class>
+                        option</class>
+
+                    <name>
+                        choice</name>
+
+                    <value>
+                        0</value>
+
+                    <label>--Escolha--</label>
+
+                    <checked>
+                        0</checked> </option>
+
+                    <optiongroup>
+                        <class>
+                            optiongroup</class>
+
+                        <label>Grupo 1</label>
+
+                        <name>
+                            Grupo 1</name>
+
+                        <options>
+                            <type>
+                                controls</type>
+
+                            <controls>
+                                <option><class>
+                                    option</class>
+
+                                <name>
+                                    um</name>
+
+                                <value>
+                                    1</value>
+
+                                <label>um</label>
+
+                                <checked>
+                                    0</checked> </option>
+
+                                <option><class>
+                                    option</class>
+
+                                <name>
+                                    dois</name>
+
+                                <value>
+                                    2</value>
+
+                                <label>dois</label>
+
+                                <checked>
+                                    1</checked> </option>
+
+                                <option><class>
+                                    option</class>
+
+                                <name>
+                                    tres</name>
+
+                                <value>
+                                    3</value>
+
+                                <label>tres</label>
+
+                                <checked>
+                                    0</checked> </option>
+                            </controls>
+                        </options>
+                    </optiongroup>
+
+                    <optiongroup>
+                        <class>
+                            optiongroup</class>
+
+                        <label>Grupo 2</label>
+
+                        <name>
+                            Grupo 2</name>
+
+                        <options>
+                            <type>
+                                controls</type>
+
+                            <controls>
+                                <option><class>
+                                    option</class>
+
+                                <name>
+                                    a</name>
+
+                                <value>
+                                    aaa</value>
+
+                                <label>Letra a</label>
+
+                                <checked>
+                                    0</checked> </option>
+
+                                <option><class>
+                                    option</class>
+
+                                <name>
+                                    b</name>
+
+                                <value>
+                                    bbb</value>
+
+                                <label>Letra b</label>
+
+                                <checked>
+                                    0</checked> </option>
+
+                                <option><class>
+                                    option</class>
+
+                                <name>
+                                    c</name>
+
+                                <value>
+                                    ccc</value>
+
+                                <label>Letra c</label>
+
+                                <checked>
+                                    0</checked> </option>
+                            </controls>
+                        </options>
+                    </optiongroup>
+                </controls>
+            </options>
+
+            <showValues>
+                0</showValues>
+        </selOptionGroup>
+
+        <selMulti>
+            <class>
+                multiselection</class>
+
+            <name>
+                selMulti</name>
+
+            <label>MultiSelection</label>
+
+            <values></values>
+
+            <options>
+                <type>
+                    associative</type>
+
+                <associative>
+                    <zero>
+                        -zero-</zero>
+
+                    <um>
+                        -um-</um>
+
+                    <dois>
+                        -dois-</dois>
+
+                    <tres>
+                        -tres-</tres>
+
+                    <quatro>
+                        -quatro-</quatro>
+
+                    <cinco>
+                        -cinco-</cinco>
+
+                    <seis>
+                        -seis-</seis>
+                </associative>
+            </options>
+
+            <showValues>
+                false</showValues>
+        </selMulti>
+
+        <cbxSample>
+            <class>
+                combobox</class>
+
+            <name>
+                cbxSample</name>
+
+            <label>ComboBox</label>
+
+            <options>
+                <type>
+                    items</type>
+
+                <items>
+                    <item>
+                        zero</item>
+
+                    <item>
+                        um</item>
+
+                    <item>
+                        dois</item>
+
+                    <item>
+                        tres</item>
+                </items>
+            </options>
+        </cbxSample>
+
+        <pnlPanel>
+            <class>
+                panel</class>
+
+            <label>Panel</label>
+
+            <controls>
+                <type>
+                    controls</type>
+
+                <controls>
+                    <lnkLink1>
+                        <class>
+                            hyperlink</class>
+
+                        <name>
+                            lnkLink1</name>
+
+                        <href>
+                            href</href>
+
+                        <text>
+                            Texto Hyperlink</text>
+                    </lnkLink1>
+
+                    <edtNome1>
+                        <class>
+                            textfield</class>
+
+                        <name>
+                            edtNome1</name>
+
+                        <value>
+                            $this->title</value>
+
+                        <label>Nome</label>
+
+                        <size>
+                            30</size>
+                    </edtNome1>
+
+                    <edtIdade1>
+                        <class>
+                            textfield</class>
+
+                        <name>
+                            edtIdade1</name>
+
+                        <value>
+                            10</value>
+
+                        <label>Idade</label>
+
+                        <size>
+                            5</size>
+                    </edtIdade1>
+                </controls>
+            </controls>
+        </pnlPanel>
+
+        <btnPost>
+            <class>
+                formbutton</class>
+
+            <name>
+                btnPost</name>
+
+            <label>Enviar</label>
+
+            <action>
+                submit</action>
+        </btnPost>
+
+        <btnCancel>
+            <class>
+                formbutton</class>
+
+            <name>
+                btnCancel</name>
+
+            <label>Cancelar</label>
+
+            <action>
+                reset</action>
+        </btnCancel>
+    </form>

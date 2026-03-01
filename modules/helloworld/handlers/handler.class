@@ -1,0 +1,9 @@
+<?php
+
+// this class is called by getHandler (in miolo.class)
+// this file/class must exist, otherwise you'll get a error
+class HandlerHelloWorld extends Handler
+{
+}
+
+?>

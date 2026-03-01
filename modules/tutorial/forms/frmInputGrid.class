@@ -1,0 +1,91 @@
+<?php
+
+// access to the view source class
+$MIOLO->import( 'modules::tutorial::controls::viewsource' );
+
+class frmInputGrid extends MForm
+{
+    public function __construct()
+    {
+        parent::__construct( _M( 'InputGrid Example' ) );
+
+        // verify if the form was submitted
+        if( $this->page->isPostBack() )
+        {
+            // call events (in this case btnPost_click)
+            $this->eventHandler();
+        }
+
+        // add separator
+        $this->addField( new MSeparator );
+        // add link to view the source
+        $this->addField( new ViewSource( __FILE__ ) );
+    }
+
+
+    /**
+     * this method is automatically called by MIOLO
+     * and is intended to create the form fields
+     */
+    public function createFields()
+    {
+        // creates a new Input Grid
+        $ig = new MInputGrid( 'igExample', 'Labela', 7 );
+
+        // adds column to the grid
+        $ig->addColumn( 'Coluna 1', 'Title Column 1', 10, 'default val 1' );
+        $ig->addColumn( 'Coluna 2', 'Title Column 2', 20, 'default col value 2' );
+        $ig->addColumn( 'Coluna 3', 'Title Column 3', 20, 'default col value 3' );
+        $ig->addColumn( 'Coluna 4', 'Title Column 4', 15, 'default value 4' );
+        // change the value of a specific row, col
+        $ig->setFieldValue( 3, 4, '>>>CHANGED<<<' );
+        $ig->setFieldValue( 6, 2, '>>>CHANGED<<<' );
+
+        // adds the fields to the form
+        $this->addField( $ig );
+        // define a button
+        $buttons = array( new MButton( 'btnPost', _M('Send') ) );
+        // add the button to the form
+        $this->setButtons( $buttons );
+    }
+
+
+    /**
+     * this method handles the button click (submit) and
+     * is called by the constructor (eventHandler)
+     */
+    protected function btnPost_click()
+    {
+        // add text
+        $this->addField( new MText( 'txt1', _M('Getting all values') ) );
+        // set field to bold
+        $this->txt1->setBold();
+
+        // gets the table's values
+        $value = $this->getFieldValue( 'igExample' );
+
+        // create a new raw table with the submitted values
+        $t = new MTableRaw( '', $value );
+        $this->addField( $t );
+
+        // gets the value of a specific value of a row, column
+        $value53 = $this->igExample->getFieldValue( 5, 3 );
+        // show a text with the value
+        $this->addField( new MText( 'txt2', _M('Getting specific value (row 5, column 3):') . ' ' . $value53 ) );
+        // set text to bold
+        $this->txt2->setBold();
+
+        // text field
+        $this->addField( new MText( 'txt3', _M('Getting a specific row (2)') ) );
+        // set bold
+        $this->txt3->setBold();
+
+        // show the values of row 2
+        $row = $this->igExample->getRow( 2 );
+        $tr = new MTableRaw( '', $row );
+        $this->addField( $tr );
+    }
+
+}
+
+?>

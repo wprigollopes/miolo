@@ -1,0 +1,139 @@
+<?php
+    class Theme extends MTheme
+    {
+        function __construct()
+        {
+            parent::__construct('system');
+        }
+
+        function Init()
+        {
+            $ui = $this->manager->GetUI();
+            $logo = $ui->GetImageTheme($this->id, $this->manager->GetConf('theme.logo'));
+            // top
+            $aTop1 = array(
+                new MTextHeader('', '1', $this->manager->GetConf('theme.company')),
+                new MTextHeader('', '2', $this->manager->GetConf('theme.system'))
+            );
+            $img = new MImageButton('', 'Home', $this->manager->GetConf('home.url'), $logo);
+            $img->image->AddAttribute('width', '40px');
+            $img->image->AddAttribute('height', '40px');
+            $top = array(
+                new MDiv('', $img, 'logo'),
+                new MDiv('', $aTop1, 'text')
+            );
+
+            $this->SetElement('top', $top, 'm-container-top');
+            // navigation
+            $this->SetElement('navigation', new MNavigationBar(), 'm-container-topmenu');
+        }
+
+        function Generate()
+        {
+            $method = "Generate" . $this->layout;
+            return $this->$method();
+        }
+
+        function GenerateDefault()
+        {
+            // bottom
+            $this->SetElement('bottom', new MStatusBar(), 'm-container-bottom');
+            
+            // menus
+            if ( $this->manager->GetConf('options.mainmenu') == 2 )
+            {
+                $idModule = 'm-container-module';
+                $idMenu = 'm-container-dhtmlmenu';
+            }
+            else if ( $this->manager->GetConf('options.mainmenu') == 3 )
+            {
+                $idModule = 'm-container-module2';
+                $needTable = true;
+            }
+            else
+            {
+                $idMenu = 'm-container-menu';
+            }
+
+            // module
+            $this->SetElementId('module', $idModule);
+
+            $this->SetElementId('menus', $idMenu);
+
+            // content
+            $idContent = ( ($this->manager->GetConf('options.mainmenu') == 2) || ($this->manager->GetConf('options.mainmenu') == 3) )
+                       ? 'm-container-content-full' : 'm-container-content';
+            $this->SetElementId('content', $idContent);
+
+            $html = $this->GenerateElement('top');
+
+            if ($this->HasMenuOptions())
+            {
+                $html .= ($needTable == true) ? '<div><table id="m-container-dhtmlmenu2" collspacing=0 cellpadding=0 cellspacing=1 border=0><tr>' : '';
+                $html .= $this->GenerateElement('menus');
+                $html .= ($needTable == true) ? '</tr></table></div>' : '';
+            }
+
+            if ($this->GetElement('module') != NULL)
+            {
+                $html .= $this->GenerateElement('module');
+            }
+
+            if ($this->GetElement('navigation')->HasOptions())
+            {
+                $html .= $this->GenerateElement('navigation');
+            }
+
+            $html .= $this->GenerateElement('content');
+            $html .= $this->GenerateElement('bottom');
+            return $this->painter->div(new Div('m-container', $html));
+        }
+
+        function GenerateLookup()
+        {
+            $html = $this->GenerateElement('content');
+            $div = new Div('', $html, 'm-container');
+            $div->AddStyle('width', '100%');
+            return $this->painter->GenerateToString($div);
+        }
+
+        function GenerateHtmlArea()
+        {
+            // module
+            $this->SetElementId('module', 'm-container-module');
+            // content
+            $this->SetElementId('content', 'm-htmlarea');
+            // bottom
+            $this->SetElement('bottom', new StatusBar(), 'm-container-bottom');
+
+            $html = $this->GenerateElement('top');
+
+            if ($this->GetElement('module') != NULL)
+            {
+                $html .= $this->GenerateElement('module');
+            }
+
+            if ($this->GetElement('navigation')->HasOptions())
+            {
+                $html .= $this->GenerateElement('navigation');
+            }
+
+            $html .= $this->GenerateElement('content');
+            $html .= $this->GenerateElement('bottom');
+            return $this->painter->div(new Div('m-container', $html));
+        }
+
+        function GeneratePopup()
+        {
+            $html = $this->GenerateElement('content');
+            $div = new Div('', $html, 'm-container');
+            $div->AddStyle('width', '100%');
+            return $this->painter->GenerateToString($div);
+        }
+
+        function GeneratePrint()
+        {
+            $this->GenerateDefault();
+        }
+    }
+?>

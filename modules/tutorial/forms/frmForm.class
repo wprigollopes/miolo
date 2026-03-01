@@ -1,0 +1,119 @@
+<?
+    class frmForm extends MForm
+    {
+        function __construct()
+        {
+            parent::__construct("Exemplo de Form - width:70%");
+            $this->SetWidth('70%');
+            $this->EventHandler();
+        }
+
+        function CreateFields()
+        { 
+            $grupo = $this->manager->GetBusinessMAD('access');
+            $qryGrupo = $grupo->ListAll();
+
+            $sistema = $this->manager->GetBusiness('common', 'sistema');
+            $qrySistema = $sistema->ListAll();
+
+            $mt = array
+                (
+                new MTextField('teste', '', 'a label'),
+                new MSelection('grupos', '', 'Grupos', $qryGrupo->ChunkResult()),
+                new MSelection('permissoes', '', 'Permissões', $this->manager->GetPerms()->perms)
+                );
+
+            $checks = array(
+                new MCheckBox('chk1','c1','Label Check1', true,'Text Check1'),
+                new MCheckBox('chk2','c2','Label Check2', false,'Text Check2'),
+                new MCheckBox('chk3','c3','Label Check3', true,'Text Check3'),
+                new MCheckBox('chk4','c4','Label Check4', false,'Text Check4'),
+                new MCheckBox('chk5','c5','Label Check5', true,'Text Check5')
+            );
+
+            $options = array(
+                new MOption('opt1','o1','Label Option1', false),
+                new MOption('opt2','o2','Label Option2', false),
+                new MOption('opt3','o3','Label Option3', false),
+                new MOption('opt4','o4','Label Option4', false),
+                new MOption('opt5','o5','Label Option5', false)
+            );
+ 
+
+            $fields = array
+                (
+                new MBaseGroup('bp', 'A MBaseGroup', $mt),
+                new MTextField('idtrans', '', 'Id'),
+                new MLookupTextField('transacao', '', 'formMode=1',20, 'formMode=1'),
+                new MCalendarField('cal', '', "formMode = 2"),
+                new MSelection('idsistema', '', 'formMode = 3:', $qrySistema->ChunkResult()),
+                new MSeparator(),
+                new TextLabel('text','Field com 70%', 'Label com 25%'),
+                new MSeparator(),
+                new MCheckBoxGroup('grpChk','MCheckBoxGroup Label - using MCheckBox', $checks,'','vertical','css'),
+                new MCheckBoxGroup('grpOpt','MCheckBoxGroup Label - using MOption', $options,'','horizontal','css'),
+                new MRadioButtonGroup('grpOptRadio','MRadioButtonGroup Label - using MOption', $options,'o4','','horizontal','css'),
+                new MMultiTextField3('grupos', null, 'Acesso', $mt, 180, true, 'horizontal')
+                );
+
+            $this->SetFields($fields);
+            $this->SetFieldAttr('bp', 'showLabel', true);
+            $this->SetFieldAttr('idtrans', 'visible', false);
+            $this->SetFieldAttr('transacao', 'formMode', '1');
+            $this->SetFieldAttr('cal', 'formMode', '2');
+            $this->SetFieldAttr('idsistema', 'formMode', '3');
+            $this->SetFieldAttr('transacao', 'module', 'admin');
+            $this->SetFieldAttr('transacao', 'item', 'transacao');
+            $this->SetFieldAttr('transacao', 'event', 'btnEdit:click');
+            $this->SetLabelWidth('25');
+
+
+            $buttons = Array
+                (
+                new FormButton('btnPost', 'Enviar'),
+                new FormButton('btnNew', 'Novo'),
+                new FormButton('btnLeft', 'Esquerda'),
+                new FormButton('btnBgColor', 'BgColor Blue'),
+                );
+
+            $this->SetButtons($buttons);
+        }
+
+        function btnPost_click()
+        {
+            $v = $this->grpChk->GetValue();
+            $values = array();
+            foreach($v as $name=>$value)
+            {
+                $values[] = array($name,$value);
+            }
+            $this->AddField(new MTableRaw('grpChk Value',$values));
+
+            $v = $this->grpOpt->GetValue();
+            $values = array();
+            foreach($v as $name=>$value)
+            {
+                $values[] = array($name,$value);
+            }
+            $this->AddField(new MTableRaw('grpOpt Value',$values));
+
+            $v = $this->grpOptRadio->GetValue();
+            $this->AddField(new MLabel('grpOptRadio Value = ' . $v));
+        }
+
+        function btnEdit_click($key = '')
+        {
+        }
+
+        function btnLeft_click()
+        {
+            $this->SetAlign('left');
+        }
+
+        function btnBgColor_click()
+        {
+            $this->SetBackgroundColor('blue');
+        }
+
+    }
+?>

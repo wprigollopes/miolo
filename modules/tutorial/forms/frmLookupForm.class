@@ -1,0 +1,75 @@
+<?
+    class frmLookupForm extends MForm
+    {
+        function __construct()
+        {
+            parent::__construct("Exemplo de Form utilizando Lookup");
+            $this->SetWidth('70%');
+            $this->EventHandler();
+            $this->setClose( '#' );
+        }
+
+        function CreateFields()
+        { 
+            $fields = array( );
+
+            $fields[] = new mText( '', 'Lookup padrão, abrindo em nova janela');
+            $fields[] = new mLookupTextField(   'usuario',  //nome do campo
+                                                '',         //valor
+                                                'Usuário',  //rótulo
+                                                10,         //tamanho
+                                                'Localizar usuário',       //dica (hint)
+                                                null,       //validator
+                                                'nome',     //campos relacionados (separados por vírgula)
+                                                'tutorial', //módulo que contém o lookup
+                                                'usuario',  //nome do lookup
+                                                null,       //evento a ser utilizado
+                                                array('filterNome'=>'nome'), 
+                                                        //campos com filtros: array onde o índice é o filtro no lookup
+                                                        //e o valor é o campo neste formulário
+                                                true        // se é para utilizar autocomplete
+                                            );
+            $fields[] = new mTextField('nome', '', 'Nome do usuário', 40);
+
+            $fields[] = new mText( '', 'Lookup iframe, abrindo em um frame na mesma janela');
+            $lookup   = new mLookupTextField(   'usuario2',  //nome do campo
+                                                '',         //valor
+                                                'Usuário2',  //rótulo
+                                                10,         //tamanho
+                                                'Localizar usuário',       //dica (hint)
+                                                null,       //validator
+                                                'nome2',     //campos relacionados (separados por vírgula)
+                                                'tutorial', //módulo que contém o lookup
+                                                'usuario',  //nome do lookup
+                                                null,       //evento a ser utilizado
+                                                array('filterNome'=>'nome2'), 
+                                                        //campos com filtros: array onde o índice é o filtro no lookup
+                                                        //e o valor é o campo neste formulário
+                                                true        // se é para utilizar autocomplete
+                                            );
+            $lookup->setWindowType('iframe', '40%', '250px');
+            $fields[] = $lookup;
+            $fields[] = new mTextField('nome2', '', 'Nome do usuário', 40);
+            $fields[] = new mTextField('email', '', 'Email do usuário', 40);
+
+            $fields[] = new mText( '', 'Lookup como ação em uma grid, abrindo um formulário em um frame na mesma janela, com autoPostBack habilitado (envio automático)');
+            $MIOLO = MIOLO::getInstance( );
+            $db = $MIOLO->getDatabase( 'admin' );
+            $sql = new mSql('login,name', 'miolo_user');
+            $colunas = array( new mGridColumn('login', 'Login'),
+                              new mGridColumn('name' , 'Nome')
+                            );
+            $grid     = new mGrid( $db->query( $sql->select( ) ), $colunas, '');
+            $action   = new mGridActionLookup( $grid, '', 'Email', 'edit', 'tutorial', 'usuarioForm', array('lkp_email'=>'email') );
+            $action->setWindowSize( '300px', '100px');
+            $grid->actions[] = $action;
+            $fields[] = $grid;
+
+            $this->setFields($fields);
+        }
+
+        function btnPost_click()
+        {
+        }
+    }
+?>

@@ -1,0 +1,244 @@
+<?
+class frmModule extends MForm
+{
+	var $home;
+    var $objModule;
+
+	function __construct()
+    {   global $MIOLO, $module, $action;
+
+        $this->home      = $MIOLO->GetActionURL($module,$action);
+        $this->objModule = $MIOLO->GetBusiness($module,'module');
+		parent::__construct('Modules');
+        $this->SetWidth('65%');
+        $this->SetIcon($MIOLO->GetUI()->GetImage('admin','system1.png'));
+        $this->SetClose($MIOLO->GetActionURL('admin','main'));
+	    $this->EventHandler();
+	}
+
+    function CreateFields()
+	{  global $MIOLO;
+
+       $fields = array(
+           new MTextField('edtIdModule','','Módulo',50),
+           new MTextField('edtNome','','Nome',50),
+           new MMultiLineField( 'edtDescricao','','Descrição',30,5,30),
+       );
+	   $this->SetFields($fields);
+
+       $this->SetFieldsVisible(false);
+	   $this->SetFieldAttr('edtIdModule','visible',true);
+
+       $buttons = array(
+           new MButton('btnEdit',   'Editar'),
+		   new MButton('btnNew',    'Incluir'),
+           new MButton('btnDelete', 'Excluir'),
+	       new MButton('btnList',   'Relação')
+       );
+	   $this->SetButtons($buttons);
+       var_dump(ok);
+	}
+
+    function SetFieldsVisible($value)
+    {
+	   $this->SetFieldAttr('edtIdModule','visible',$value);
+	   $this->SetFieldAttr('edtNome','visible',$value);
+	   $this->SetFieldAttr('edtDescricao','visible',$value);
+    }
+
+/*
+    GetData: obtém os valores fornecidos no formulario e cria um objeto FormData
+             cujos attributos têm o mesmo nome dos atributos do objeto que vai receber os valores.
+    A implementação default do GetData cria um objeto FormData cujos atributos têm
+    o mesmo nome dos campos do formulário.   
+*/
+	function GetData()
+	{
+        $data = new FormData();
+		$data->idModule = $this->GetFieldValue('edtIdModule');
+		$data->nome     = $data->name = $this->GetFieldValue('edtNome');
+		$data->descricao= $data->description = $this->GetFieldValue('edtDescricao');
+        return $data;
+	}
+
+/*
+    SetData: obtém os valores fornecidos através do parâmetro $data (geralmente um
+             objeto de negócio) e preenche os campos do formulário.
+    A implementação default do SetData assume que os atributos do objeto $data têm
+    o mesmo nome dos campos do formulário.   
+*/
+	function SetData($data)
+	{
+		$this->SetFieldValue('edtIdModule' , $data->idModule);
+		$this->SetFieldValue('edtNome'     , $data->nome);
+		$this->SetFieldValue('edtDescricao', $data->descricao);
+	}
+
+	function btnPost_click()
+	{
+		global $MIOLO;
+
+        $module = $this->GetFieldValue('edtIdModule');  // inclusão ou edição?
+        
+        if ($module != '')
+        {
+            $this->objModule->GetById($module); // se for edição, obtem os dados atuais do objeto
+        }
+        // seta os atributos do objeto com os valores dos campos do formulario
+		$this->objModule->SetData($this->GetData()); 
+
+        try
+        {
+            $this->objModule->save();
+            $MIOLO->Information('Módulo atualizado com sucesso.', $this->home );
+        }
+        catch (EMioloException $e)
+        {
+            $this->AddError($e->getMessage());
+	    }
+	}
+
+	function btnList_click()
+	{   
+		global $MIOLO, $module, $action;
+
+        // limpa o formulário
+        $this->ClearFields();
+        $this->ClearButtons();
+        $this->defaultButton = false;
+ 
+        // define o campo para fazer o filtro
+        $fields = array(
+            array(
+               new MTextField('txtId'  ,'' ,'Módulo',25),
+               new MButton   ('btnList','Relação')
+            )
+        );
+        $this->SetFields($fields);
+
+        // colunas do DataGrid
+        $columns = array(
+           new MDataGridColumn('idmodule' ,'Id'       ,'left', true, '40%',true),
+           new MDataGridColumn('name'     ,'Nome'     ,'left', true, '60%',true, NULL, true,true),
+        );
+
+        // link de referencia para o grid
+		$hrefDatagrid = $MIOLO->GetActionURL($module,$action,'', Array('event'=>'btnList_click'));
+
+        // valor definido como filtro
+        $id = MUtil::NVL($this->GetFieldValue('txtId'), '');
+
+        // executa a query
+        $query = $this->objModule->ListById($id);
+
+        // instancia o datagrid
+        $datagrid = new MDataGrid($query, $columns, $hrefDatagrid, 20);
+        $datagrid->SetTitle('Relação de Módulos');
+        $datagrid->SetClose($MIOLO->GetActionURL($module,$action));
+
+ 	    $href_edit = $MIOLO->GetActionURL($module,$action,'%0%',Array('event'=>'btnEdit:click'));
+	    $href_dele = $MIOLO->GetActionURL($module,$action,'%0%',Array('event'=>'btnDelete:click'));
+        $datagrid->AddActionUpdate($href_edit);
+	    $datagrid->AddActionDelete($href_dele);
+        // coloca o datagrid no formulário
+		$this->AddField($datagrid);
+	}
+
+	function btnEdit_click($sender, $key='')
+	{   
+        global $item;
+
+        $module = $this->GetFieldValue('edtIdModule');
+        // verifica se está sendo executado através do evento do grid
+        $item = ($module != '') ? $module : $item;
+        $this->objModule->GetById($item);
+        
+        if ($this->objModule->nome)
+        {
+            // coloca os dados do objeto nos campos do formulário
+            $this->SetData($this->objModule);
+            // exibe os campos
+            $this->SetFieldsVisible(true);
+            $this->SetFieldAttr('idModule','readonly',true);
+            $this->AddButton(new MButton('btnCancel', 'Cancelar', $this->home));
+            $this->SetButtonAttr('btnEdit','name'    ,'btnPost');
+            $this->SetButtonAttr('btnPost','label'   ,'Gravar');
+            $this->SetButtonAttr('btnNew' ,'visible' , false);
+        }
+        else
+        {
+            $this->AddError("Módulo [$module] não encontrado!");
+        }
+	}
+
+	function btnCancel_click()
+	{   
+        $this->SetFieldValue('edtIdModule','');
+    }
+
+	function btnNew_click($sender)
+	{   
+        $data = new FormData();
+        $data->idModule = $this->GetFieldValue('edtIdModule');
+        if ($data->idModule != '')
+        {
+            $this->SetData($data);
+            $this->SetFieldsVisible(true);
+            $this->AddButton(new MButton('btnCancel', 'Cancelar', $this->home));
+            $this->SetButtonAttr('btnEdit','name'   ,'btnPost');
+            $this->SetButtonAttr('btnPost','label'  ,'Gravar');
+            $this->SetButtonAttr('btnNew' ,'visible', false);
+            $this->AddValidator(new RequiredValidator('edtIdModule'));
+            $this->AddValidator(new RequiredValidator('edtNome'));
+        }
+        else
+        {
+            $this->AddError("Por favor, informe a identificação para o novo módulo!");
+        }
+	}
+
+	function btnDelete_click($sender, $key='')
+	{   
+		global $MIOLO, $module, $item, $self, $action, $url;
+
+        $objModule = $this->objModule;
+        $modulo    = $this->GetFieldValue('edtIdModule');
+        // verifica se está sendo executado através do evento do grid
+        $item = ($key != '') ? $key : $item;
+        $objModule->GetById($item);
+        
+        if ($objModule->idModule)
+        {
+            $conf = $this->GetFormValue('conf');
+	        if ( $conf == 'sim')
+	        {
+                try
+                {
+                     $objModule->Delete();
+                     $MIOLO->Prompt(Prompt::Information("Módulo [$objModule->idModule] excluído com sucesso.",$this->home));
+                }
+                catch (EMioloException $e)
+                {
+		             $MIOLO->Prompt(Prompt::Information( $objModule->GetErrors(),$this->home));
+                }
+	        }
+	        elseif ( $conf == 'nao')
+            {
+	            $MIOLO->Prompt(Prompt::Information('Exclusão cancelada.',$this->home));
+            }
+	        else
+	        {
+		        $action_sim = $MIOLO->GetActionURL($module,$action,$objModule->idUser, array('event'=>'btnDelete:click','conf'=>'sim'));
+		        $action_nao = $MIOLO->GetActionURL($module,$action,$objModule->idUser, array('event'=>'btnDelete:click','conf'=>'nao'));
+	            $MIOLO->Prompt(Prompt::Question("Confirma a exclusão do módulo [$objModule->idModule]?", $action_sim, $action_nao));
+            }
+        }
+        else
+        {
+            $this->AddError("Módulo [$modulo] não encontrado!");
+        }
+	}
+
+}
+
+?>

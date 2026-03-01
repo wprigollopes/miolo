@@ -1,0 +1,38 @@
+<?
+class FrmMultiSelectionField extends Form
+{
+
+    function FrmMultiSelectionField()
+    {   
+		global $page;
+
+		$this->Form('Exemplo MultiSelectionField');
+        $options_arr1 = Array('op1'=>'Opção1','op2'=>'Opção2','op3'=>'Opção3','op4'=>'Opção4','op5'=>'Opção5');
+        $options_arr2 = Array(1=>'op1','op2','op3','op4','op5');
+        $sel1 = new Selection('sel1','','Selection 1',$options_arr1);
+        $sel2 = new Selection('sel2','','Selection 2',$options_arr2);
+        $f = array($sel1, $sel2);
+        $fields = array(
+             new MultiSelectionField('msf',null,'MultiSelectionField',$f,200,true,'Info'),
+			 new Text('text'),
+		);
+		$this->SetFields($fields);
+        $this->SetFieldAttr('text','color','blue');
+        $buttons = Array(
+           new FormButton('btnPost', 'Enviar'),
+        );
+	    $this->SetButtons($buttons);
+        if ( $page->IsPostBack() )
+		{
+           $this->EventHandler();
+		}
+	}
+
+    function btnPost_click()
+    {
+       $value = $this->msf->GetCodeValue();
+       $this->AddField(new TableRaw('Campo msf',$value));
+    }
+}
+
+?>

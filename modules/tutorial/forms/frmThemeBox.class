@@ -1,0 +1,26 @@
+<?
+class frmThemeBox extends MForm
+{
+	function __construct()
+    {   
+		parent::__construct('ThemeBox');
+	}
+
+    function CreateFields()
+	{
+       $space = new MSpacer('15px');
+       $content = new MLabel('Conteudo da ThemeBox (um Control)');
+	   $box1 = new MThemeBox('Título da ThemeBox 1 - default', $content);
+       $box2 = new MThemeBox('Título da ThemeBox 2 - style', $content); 
+       $box2->backgroundColor ='#CCF';
+       $box3 = new MThemeBox('Título da ThemeBox 3 - style', $content); 
+       $box3->width ='50%';
+       $box4 = new MThemeBox('Título da ThemeBox 4 - style', $content); 
+       $box4->width ='50%';
+       $box4->float ='right';
+       $fields = array( $box1, $space, $box2, $space, $box3, $space, $box4, $space);
+	   $this->SetFields($fields);
+	   $this->defaultButton = False;
+	}
+}
+?>

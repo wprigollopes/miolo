@@ -1,0 +1,31 @@
+<?
+class frmSimpleTable extends MForm
+{
+	function __construct()
+    {   
+		parent::__construct('SimpleTable');
+	}
+
+    function CreateFields()
+	{  
+       $bgColor = array('#EEEEEE','#DDDDDD','#CCCCCC','#BBBBBB');
+       $table = new MSimpleTable('st', "cellspacing=0 cellpadding=0 align=center border=1 width=70%", 3, 4);
+       for($i=0; $i<3; $i++)
+       {
+           for($j=0; $j<4; $j++)
+           {
+               $table->SetCell($i,$j,"[$i x $j]");
+               $table->SetCellAttribute($i,$j,'bgcolor',$bgColor[($i+$j)%4]);
+               
+           }
+       }
+       $fields = Array(
+           $table
+       );
+	   $this->SetFields($fields);
+	   $this->defaultButton = false;
+	}
+
+}
+
+?>

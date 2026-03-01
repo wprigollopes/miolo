@@ -1,0 +1,44 @@
+<?
+class frmHints extends MForm
+{
+		function __construct() 
+		{
+			parent::__construct('Controls Hints Sample');
+			if ($this->page->IsPostBack())
+			{
+				$this->EventHandler();
+			}
+            $this->AddField(new ViewSource(__FILE__));
+		}
+
+		function CreateFields()
+		{
+            $fields = array(
+               new MText('txt','Posicione o cursor sobre o campo de entrada para ver o hint'),
+               new MTextField('edtMoney1','','Valor'),
+               new MTextField('edtMoney2','','Soma'),
+               new MTextField('edtMoney3','','Total'),
+               new MSeparator()
+            );
+            $this->SetFields($fields);
+            $this->edtMoney1->SetJsHint('Valor inicial a ser aplicado na soma'); 
+            $this->edtMoney2->SetJsHint('Valor a ser somado no valor inicial'); 
+            $this->edtMoney3->SetJsHint('Resultado da soma'); 
+            $this->txt->SetBold();
+            $this->SetFieldAttr('edtMoney3','readonly',true); 
+			$buttons = array(
+				new MButton('btnPost','Enviar')
+			);
+			$this->SetButtons($buttons);
+		}
+
+		function btnPost_click()
+		{
+            $money1 = $this->GetFieldValue('edtMoney1');
+            $money2 = $this->GetFieldValue('edtMoney2');
+            $this->AddField(new MTextLabel('lblMoney1',$money1,'GetField 1'));
+            $this->AddField(new MTextLabel('lblMoney2',$money2,'GetField 2'));
+            $this->SetFieldValue('edtMoney3', $money1 + $money2);
+		}
+}
+?>

@@ -1,0 +1,115 @@
+<?php
+
+/**
+ *
+ */
+class FrmEventHandler extends Form
+{
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->Form( 'HandlerEvent Sample' );
+
+        // define array of options
+        $options_sel = Array( 'a' => 'ValorA',
+                              'b' => 'ValorB',
+                              'c' => 'ValorC' 
+                             );
+
+        // define array of fields
+        $fields = array( new CheckBox( 'chkBox', 'value', 'CheckBox', true, 'Text' ),
+                         new RadioButton( 'radioButton', 'value', 'RadioButton', true, 'Text' ),
+                         new ComboBox( 'combo', '', 'ComboBox', $options_sel, false, '', 10 ),
+                         new MSelection( 'select1', 'b', 'Select', $options_sel, false )
+                        );
+
+        // set the fields to the form
+        $this->setFields($fields);
+
+        // define array of buttons
+        $buttons = Array( new FormButton( 'btnPost', _M('Send') ),
+                          new FormButton( 'btnEvent1', _M('Event1') ),
+                          new FormButton( 'btnEvent2', _M('Event2') ),
+                          new FormButton( 'btnEvent3', _M('Event3') )
+                         );
+
+        // add the buttons to the form
+        $this->setButtons($buttons);
+
+        // add the eventos to the buttons
+        //$this->btnEvent1->attachEventHandler( 'click', 'onBtnEvent1Click' );
+        $this->btnEvent2->attachEventHandler( 'click', 'onBtnEvent2Click' );
+
+        // sharing event
+        $this->btnEvent3->attachEventHandler( 'click', 'onBtnEvent2Click','parameter1' );
+
+        // call the eventHandler
+        $this->eventHandler();
+        
+
+    }
+
+    /**
+     * Default post event handler
+     */
+    public function btnPost_click( $sender = NULL )
+    {
+        // create a textfield
+        $text = new MText( 'eventText', _M('btnPost Event Raised.') );
+
+        // define the text color
+        $sender->color = $text->color = 'blue';
+
+        // add the field to the form
+        $this->addField( $text );
+//        $this->clearFieldValues();
+    }
+
+    /**
+     * This is the default handler for the button btnEvent1
+     */
+    public function btnEvent1_click( $sender = NULL )
+    {
+        $text = new MText( 'eventText', 'btnEvent1 Click (btnEvent1_click) Event Raised.' );
+        $sender->color = $text->color = 'red';
+        $this->addField( $text );
+    }
+
+    /**
+     * If you want, you can associate event using the attachEventHandler
+     */
+    public function onBtnEvent1Click( $sender = NULL )
+    {
+        //
+        $text = new MText('eventText', 'btnEvent1 Click Event Raised.');
+        $sender->color = $text->color = 'red';
+        $this->AddField($text);
+    }
+
+    /**
+     * This method is shared by two buttons. The main difference is thar the btnEvent3
+     * sends a parameter wich could be used to identify some data.
+     * Also, the $sender object can be user to access some property.
+     */
+    public function onBtnEvent2Click( $sender = NULL, $param = NULL )
+    {
+       if ( ! $param )
+       {
+           $text = new MText( 'eventText', 'btnEvent2 Click Event Raised. ' );
+           $sender->color = $text->color = 'green';
+       }
+       else
+       {
+           $text = new MText( 'eventText', 'btnEvent3 Click Event Raised, with param: ' . $param );
+           $sender->color = $text->color = '#990000';
+       }
+
+       // add field to the form
+       $this->addField( $text );
+    }
+
+}
+
+?>

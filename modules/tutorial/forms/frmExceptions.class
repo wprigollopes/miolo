@@ -1,0 +1,64 @@
+<?
+class FrmExceptions extends MForm
+{
+		function __construct() 
+		{
+			parent::__construct('Exceptions Sample');
+			if($this->page->IsPostBack())
+			{
+				$this->EventHandler();
+			}
+		}
+
+		function CreateFields()
+		{
+            $fields = array(
+               new MTextField('edtLogin','','Login'),
+               new MTextField('edtSenha','','Senha')
+            );
+            $this->SetFields($fields);
+			$buttons = array(
+				new MButton('btnE1','Incluir Ok'),
+				new MButton('btnE2','Incluir Exception')
+			);
+			$this->SetButtons($buttons);
+		}
+
+		function btnE1_click()
+		{
+			global $MIOLO;
+
+            $usuario = $MIOLO->GetBusiness('tutorial','user');
+            $usuario->login = $this->GetFieldValue('edtLogin');
+            $usuario->password = $this->GetFieldValue('edtSenha');
+            try
+            {
+               $usuario->save_ok();
+               $this->AddInfo("Dados cadastrados com sucesso!");
+            }
+            catch (Exception $e)
+            {
+               $this->AddError($e->GetMessage());
+            } 
+		}
+
+		function btnE2_click()
+		{
+			global $MIOLO;
+
+            $usuario = $MIOLO->GetBusiness('tutorial','user');
+            $usuario->login = $this->GetFieldValue('edtLogin');
+            $usuario->password = $this->GetFieldValue('edtSenha');
+            try
+            {
+               $usuario->save_error();
+               $this->AddInfo("Dados cadastrados com sucesso!");
+            }
+            catch (Exception $e)
+            {
+               $this->AddError($e->GetMessage());
+            } 
+		}
+
+}
+?>

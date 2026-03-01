@@ -1,0 +1,32 @@
+<?
+class FrmPageTransfer extends Form
+{
+
+    function FrmPageTransfer()
+    {   
+		global $MIOLO, $page, $state, $module;
+
+		$this->Form('Page Transfer - page 1');
+        if (!$page->IsPostBack())
+        {
+           $this->SetFieldValue('msg','Page 1');
+        }
+        else
+        {
+           $transaction = $MIOLO->GetBusiness('admin','transacao');
+           $myTrans = $transaction->GetById($this->GetFieldValue('seltrans'));
+           $state->set('myTrans',$myTrans);
+        } 
+
+	}
+    
+    function CreateFields()
+    {   
+		$this->AddField(new TextLabel('msg','','Mensagem'));
+        $this->AddField(new Selection('seltrans','','Selecione transação',array('0','1','2','3')));
+    }
+
+
+}
+
+?>
