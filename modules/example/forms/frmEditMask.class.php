@@ -41,4 +41,3 @@ class frmEditMask extends MForm
         $this->setButtons(new MBackButton());
     }
 }
-?>

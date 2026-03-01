@@ -98,4 +98,3 @@ class MError extends MControl
         echo "</body></html>";
     }
 }
-?>

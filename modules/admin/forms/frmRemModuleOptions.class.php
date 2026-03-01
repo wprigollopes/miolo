@@ -262,5 +262,3 @@ class frmRemModuleOptions extends MForm
     }
    
 }
-
-?>

@@ -58,5 +58,3 @@ class MEmailValidator extends MValidator
         return $valid ? parent::validate($value) : $valid;
     }
 }
-
-?>

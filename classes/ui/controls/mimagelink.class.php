@@ -22,5 +22,3 @@ class MImageLink extends MLink
         $this->caption = $this->image->generate();
     }
 }
-
-?>

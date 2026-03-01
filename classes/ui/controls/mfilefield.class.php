@@ -363,4 +363,3 @@ class MFileField extends MTextField
         return $uploadedFiles;
     }
 }
-?>

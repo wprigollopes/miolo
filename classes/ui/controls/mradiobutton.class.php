@@ -25,5 +25,3 @@ class MRadioButton extends MChoiceControl
         $this->inner = $this->generateLabel() . $this->getRender( 'inputcheck' );
     }
 }
-
-?>

@@ -132,4 +132,3 @@ class BusinessAdminLookup
         return $sql;
     }
 }
-?>

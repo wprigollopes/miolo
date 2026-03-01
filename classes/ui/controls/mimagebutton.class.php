@@ -42,5 +42,3 @@ class MImageButton extends MImageLink
         $this->onClick = $onClick;
     }
 }
-
-?>

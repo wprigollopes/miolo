@@ -55,4 +55,3 @@ class BusinessPersistenceGroup extends MBusiness
        $this->users[] = $user;
     }
 }
-?>

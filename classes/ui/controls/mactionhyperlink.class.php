@@ -8,5 +8,3 @@ class MActionHyperLink extends MLink
         $this->setAction( $module, $action, $item, $args );
     }
 }
-
-?>

@@ -725,7 +725,7 @@ class MioloAdmin
         }
         else
         {
-            $admin->error("tranlate extract: Couldn't extract strings.");
+            $this->error("tranlate extract: Couldn't extract strings.");
         }
     }
 
@@ -742,7 +742,7 @@ class MioloAdmin
         }
         else
         {
-            $admin->error("tranlate extract: Couldn't generate translation files.");
+            $this->error("tranlate extract: Couldn't generate translation files.");
         }
     }
 
@@ -834,5 +834,3 @@ class MioloAdmin
         return $field;
     }
 }
-
-?>

@@ -6,4 +6,3 @@ class Form extends MForm
         parent::__construct($title,$action,$close,$icon);
     }
 }
-?>

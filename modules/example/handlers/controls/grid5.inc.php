@@ -6,4 +6,3 @@ $ui = $MIOLO->getUI();
 
 $form = $ui->getForm($module, 'frmGrid5');
 $theme->insertContent($form);
-?>

@@ -138,4 +138,3 @@ class EasyDownload
         exit();
     }
 }
-?>

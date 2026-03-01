@@ -290,5 +290,3 @@ class MEventCalendar extends MDiv
         return parent::generate();
     }
 }
-
-?>

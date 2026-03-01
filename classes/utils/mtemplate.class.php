@@ -31,6 +31,9 @@ class MTemplate
      */
     public function __construct($fileName)
     {
+        $mimeType = null;
+        $templateFile = null;
+        $vars = array();
         include $fileName;
         $this->mimeType = $mimeType;
         $this->templateFile = $templateFile;
@@ -55,4 +58,3 @@ class MTemplate
         return $str;
     }
 }
-?>

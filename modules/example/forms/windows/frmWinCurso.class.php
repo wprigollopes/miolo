@@ -54,4 +54,3 @@ class frmWinCurso extends MFormAjax
         $curso->save();
     }
 }
-?>

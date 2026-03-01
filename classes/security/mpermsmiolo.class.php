@@ -50,6 +50,7 @@ class MPermsMiolo extends MPerms
             }
 
             $go    = $this->manager->history->back('action');
+            $caption = '';
             $error = Prompt::error($msg, $go, $caption, '');
             $error->addButton( _M('   Login   '), $this->manager->getActionURL($this->manager->getConf('login.module'),'login',null,array('return_to'=>urlencode($this->manager->history->top()))), '');
 
@@ -145,4 +146,3 @@ class MPermsMiolo extends MPerms
         return $groups;
     }
 }
-?>

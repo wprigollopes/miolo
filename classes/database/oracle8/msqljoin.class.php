@@ -36,4 +36,3 @@ class Oracle8SqlJoin extends MSqlJoin
         }
     }
 }
-?>

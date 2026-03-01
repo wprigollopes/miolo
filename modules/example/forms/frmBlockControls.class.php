@@ -46,4 +46,3 @@ class frmBlockControls extends MForm
         $this->setButtons(new MBackButton());
     }
 }
-?>

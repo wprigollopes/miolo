@@ -165,5 +165,3 @@ class Business#ModuleBrowser extends MBusiness
         return $query->result;
     }
 }
-
-?>

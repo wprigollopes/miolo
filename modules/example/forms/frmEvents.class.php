@@ -99,15 +99,16 @@ HERE;
 
     public function doAjaxButton($args)
     {
+        $module = MIOLO::getCurrentModule();
         $label = new MLabel(_M('Ajax event from button click', $module));
         $this->manager->ajax->setResponseControls($label, 'div4');
     }
 
     public function doAjaxSelection($args)
     {
+        $module = MIOLO::getCurrentModule();
         $choice = $args->selAjax;
         $label = new MLabel(_M('Ajax event from selection change', $module) . ": $choice");
         $this->manager->ajax->setResponseControls($label, 'div5');
     }
 }
-?>

@@ -188,5 +188,3 @@ class BusinessCommonLog extends Business
 
     
 }
-
-?>

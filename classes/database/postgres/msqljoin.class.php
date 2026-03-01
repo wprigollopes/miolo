@@ -41,4 +41,3 @@ class PostgresSqlJoin extends MSqlJoin
         $sql->setTables($cond);
     }
 }
-?>

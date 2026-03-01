@@ -29,5 +29,3 @@ class frm#Form extends MForm
         new MMessageWarning(_M('This is a warning message with the form data', $module) . $data);
     }
 }
-
-?>

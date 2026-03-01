@@ -5,4 +5,3 @@ $navbar->addOption('Users',$module,$self);
 $ui = $MIOLO->getUI();
 $form = $ui->getForm($module,'frmUser');
 $theme->appendContent($form);
-?>

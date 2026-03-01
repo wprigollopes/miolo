@@ -132,4 +132,3 @@ class BusinessBaseLookup
         return $sql;
     }
 }
-?>

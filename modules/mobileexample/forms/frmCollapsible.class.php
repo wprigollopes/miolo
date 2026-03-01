@@ -79,5 +79,3 @@ class frmCollapsible extends MForm
         $this->page->redirect($url);
     }
 }
-
-?>

@@ -43,4 +43,3 @@ class caseconverter implements IConverter
        return $value;
    }
 }
-?>

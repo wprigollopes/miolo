@@ -13,4 +13,3 @@ class BusinessAdminAccess extends MBusiness implements IAccess
         return parent::_construct('admin', $data);
     }
 }
-?>

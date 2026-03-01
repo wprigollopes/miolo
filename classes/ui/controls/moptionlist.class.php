@@ -138,5 +138,3 @@ class MOptionList extends MFormControl
         return $ul;
     }
 }
-
-?>

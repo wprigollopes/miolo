@@ -31,4 +31,3 @@ class PostgresSchema extends MSchema
         return $query->result;
     }
 }
-?>

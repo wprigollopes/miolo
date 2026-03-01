@@ -38,5 +38,3 @@ class MMultiSelection extends MListControl
         $this->inner = $this->generateLabel() . $this->getRender('select');
     }
 }
-
-?>

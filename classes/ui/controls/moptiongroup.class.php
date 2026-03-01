@@ -29,4 +29,3 @@ class MOptionGroup extends MControl
         return $this->getRender( 'optiongroup' );
     }
 }
-?>

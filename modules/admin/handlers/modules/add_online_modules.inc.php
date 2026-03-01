@@ -13,5 +13,3 @@ if ( ! $MIOLO->invokeHandler($module, $context->shiftAction()) )
 {
     $theme->insertContent($form);
 }
-
-?>

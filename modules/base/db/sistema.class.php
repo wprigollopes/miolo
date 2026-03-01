@@ -78,5 +78,3 @@ class BusinessBaseSistema extends Business
     }
 
 }
-
-?>

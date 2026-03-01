@@ -64,4 +64,3 @@ class frmFormHV extends MForm
         $this->h2->setVisibility($sender->checked);
     }
 }
-?>

@@ -157,5 +157,3 @@ class MContainerControl extends MDiv
     }
 
 }
-
-?>

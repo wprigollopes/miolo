@@ -18,4 +18,3 @@
     $theme->appendContent(new MLabel("Context::item : " . $context->item));
     $theme->appendContent(new MSpacer());
     $theme->appendContent(new MLabel("==="));
-?>

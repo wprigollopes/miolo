@@ -451,7 +451,8 @@ HERE;
         $styles    = $page->getStyles()->getTextByTemplate("<link rel=\"stylesheet\" type=\"text/css\" href=\"/:v/\">\n");
         $styleCode = $page->getStyleCode()->getTextByTemplate("<style>/:v/</style>\n");
         $jscode = $page->getJsCode()->getValueText('',chr(13));
-        $html = 
+        $title = $page->title;
+        $html =
     <<< HERE
 $compliant
 <html>
@@ -470,4 +471,3 @@ HERE;
     }
 
 }
-?>

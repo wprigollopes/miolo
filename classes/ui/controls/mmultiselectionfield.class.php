@@ -181,4 +181,3 @@ class MMultiSelectionField extends MListControl
         return $this->inner;
     }
 }
-?>

@@ -73,5 +73,3 @@ class frmViewInformationModules extends MForm
         $this->addField($spacer);
     }
 }
-
-?>

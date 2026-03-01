@@ -20,4 +20,3 @@
     }
 
     $theme->appendContent($panel);
-?>

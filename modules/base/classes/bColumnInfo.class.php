@@ -189,5 +189,3 @@ class bColumnInfo
         return $this->constraint == 'p';
     }
 }
-
-?>

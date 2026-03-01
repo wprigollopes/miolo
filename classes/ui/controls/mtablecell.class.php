@@ -53,4 +53,3 @@ class TableCell extends MControl
        $this->contentCount++;
     }
 }
-?>

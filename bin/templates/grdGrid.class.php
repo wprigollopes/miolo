@@ -11,5 +11,3 @@ class grd#Grid extends MGrid
         $this->setTitle(_M('#title', $module));
     }
 }
-
-?>

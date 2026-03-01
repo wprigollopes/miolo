@@ -109,4 +109,3 @@
             $this->pdf->ezText($this->timestamp, 9, array('justification' => 'right'));
         }
     }
-?>

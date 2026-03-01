@@ -12,7 +12,7 @@ class BusinessExampleSala extends MBusiness
 
     public function getById($idCurso)
     {
-       $this->idSala = $idSala;
+       $this->idSala = $idCurso;
        $this->retrieve();
        return $this;
     }
@@ -24,4 +24,3 @@ class BusinessExampleSala extends MBusiness
         return $query;
     }
 }
-?>

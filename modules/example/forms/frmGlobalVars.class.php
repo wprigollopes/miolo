@@ -88,4 +88,3 @@ class frmGlobalVars extends MForm
         $this->setButtons(new MBackButton());
     }
 }
-?>

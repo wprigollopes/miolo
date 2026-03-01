@@ -113,4 +113,3 @@ class MDatabaseException extends Exception
     }
 
 }
-?>

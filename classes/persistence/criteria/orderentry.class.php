@@ -28,4 +28,3 @@ class OrderEntry
         return $s;
     }
 }
-?>

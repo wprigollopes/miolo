@@ -409,5 +409,3 @@ class frmDynamicSearch extends bFormSearch
     }
 
 }
-
-?>

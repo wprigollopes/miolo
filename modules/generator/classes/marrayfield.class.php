@@ -17,6 +17,7 @@ class MArrayField extends MContainer
         $MIOLO = MIOLO::getInstance();
         $this->_name = $name;
         $this->_controls = $controls;
+        $index = 0;
         $controls = $this->parseFields($controls, $index);
         $container[] = $this->convertControl($controls); //place the fields inside a container
         $container[] = new MHiddenField($name . '_counter', '0'); //add counter
@@ -242,9 +243,9 @@ class MArrayField extends MContainer
         }
         else
         {
-            $controls = $this->parseFields($this->_controls, $obj);
+            $controls = $this->parseFields($this->_controls, null);
             $this->addControl($this->convertControl($controls, $addButton));
-            $this->addControl(new MHiddenField($this->name . '_counter', $index ? $index : '0'));
+            $this->addControl(new MHiddenField($this->name . '_counter', '0'));
         }
     }
 
@@ -268,6 +269,7 @@ class MArrayField extends MContainer
         }
 
         //return in the proper format
+        $resultData = null;
         if ( is_array($controlData) )
         {
             foreach ( $controlData as $indice => $dado )
@@ -285,5 +287,3 @@ class MArrayField extends MContainer
         return $resultData;
     }
 }
-
-?>

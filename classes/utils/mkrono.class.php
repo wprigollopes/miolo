@@ -1425,7 +1425,8 @@ class MKrono
 
 	 	if($location!='' && ($latitude==0 || $longitude==0))
 		{
-			require_once '_it_geo_coord.dat.php';			
+			$_geo_coord = array();
+			require_once '_it_geo_coord.dat.php';
 			$location=strtoupper($location);
 			if(in_array($location,array_keys($_geo_coord)))
 			{
@@ -2071,4 +2072,3 @@ class MKrono
          }
     }
 }
-?>

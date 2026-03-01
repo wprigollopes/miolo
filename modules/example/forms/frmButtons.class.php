@@ -84,4 +84,3 @@ class frmButtons extends MForm
         $this->setButtons(array());
     }
 }
-?>

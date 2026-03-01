@@ -201,5 +201,3 @@ class ButtonFind extends MButtonFind {}
 class LinkBack extends MLinkBack {}
 class OpenWindow extends MOpenWindow {}
 class ButtonWindow extends MButtonWindow {}
-
-?>

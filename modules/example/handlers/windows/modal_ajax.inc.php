@@ -15,4 +15,3 @@
            $form = $ui->getForm($module,'frmWinMatricula','','windows');
     }
     $theme->setContent($form);
-?>

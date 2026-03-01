@@ -254,5 +254,3 @@ class MPasswordValidator extends MValidator
         return $valid ? parent::validate($passwd) : $valid;
     }
 }
-
-?>

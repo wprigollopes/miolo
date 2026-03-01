@@ -20,4 +20,3 @@ function ajax_sample($arg)
     $sample = new MRawText("<br>i've received the argument: $arg");
     $theme->setAjaxContent($sample);
 }
-?>

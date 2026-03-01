@@ -606,5 +606,3 @@ class MUtil
         return $type;
     }
 }
-
-?>

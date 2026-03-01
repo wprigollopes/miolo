@@ -16,4 +16,3 @@ class MContentHeader extends MControl
         return $div->generate();
     }
 }
-?>

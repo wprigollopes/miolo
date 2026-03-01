@@ -9,5 +9,3 @@ class MLinkButtonGroup extends MBaseGroup
         $this->setShowChildLabel( false, true );
     }
 }
-
-?>

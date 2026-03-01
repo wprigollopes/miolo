@@ -31,4 +31,3 @@ class frmTimestampField extends controlForm
         new MMessage($data->time);
     }
 }
-?>

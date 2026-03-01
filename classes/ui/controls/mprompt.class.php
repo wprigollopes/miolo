@@ -294,6 +294,3 @@ class MPrompt extends MInputControl
         return $prompt->generate();
     }
 }
-
-?>
-

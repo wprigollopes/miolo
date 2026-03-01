@@ -41,7 +41,6 @@ class SQLiteConnection extends MConnection
         if ($success)
         {
             $this->affectedrows = sqlite_changes($this->id);
-            unset ($rs);
         }
         else
         {
@@ -79,4 +78,3 @@ class SQLiteConnection extends MConnection
         return $date;
     }
 }
-?>

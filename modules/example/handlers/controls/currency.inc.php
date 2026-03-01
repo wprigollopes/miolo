@@ -13,5 +13,3 @@ $form = $ui->getForm( $module, 'frmCurrency' );
 $theme->clearContent();
 // inserts the form into the content
 $theme->insertContent( $form );
-
-?>

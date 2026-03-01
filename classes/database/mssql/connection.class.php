@@ -343,5 +343,3 @@ class MssqlConnection
         return $q;
     }
 };
-
-?>

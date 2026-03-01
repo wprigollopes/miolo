@@ -111,4 +111,3 @@ class frmComplex extends MForm
         $this->defaultButton = false;
     }
 }
-?>

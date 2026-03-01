@@ -287,8 +287,8 @@ class MForm extends MBaseForm
      * Set a form field's validator
      */
     public function setFieldValidator($name,$value)
-    {   
-        for ( $i=0, $n = count($field); $i < $n; $i++ )
+    {
+        for ( $i=0, $n = count($this->fields); $i < $n; $i++ )
         {
             if ( $name == $this->fields[$i]->name )
             {
@@ -819,5 +819,3 @@ class MForm extends MBaseForm
         return $ok;
     }
 }
-
-?>

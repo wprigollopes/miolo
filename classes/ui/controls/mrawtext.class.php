@@ -7,5 +7,3 @@ class MRawText extends MLabel
         $this->inner = trim($this->value);
     }
 }
-
-?>

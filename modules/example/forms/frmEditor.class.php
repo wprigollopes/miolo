@@ -65,16 +65,17 @@ class frmEditor extends MForm
 
     public function generateEditor()
     {
+        $module = MIOLO::getCurrentModule();
         $editor = new MEditor('ajaxEditor', NULL, _M('Editor created via AJAX', $module));
         $this->setResponse($editor, 'responseDiv');
     }
 
     public function submit_button_click($args)
     {
+        $module = MIOLO::getCurrentModule();
         $editor = new MEditor('ajaxEditor', $args->ajaxEditor, _M('Editor created via AJAX', $module));
         $this->setResponse($editor, 'responseDiv');
 
         new MMessage($args->ajaxEditor);
     }
 }
-?>

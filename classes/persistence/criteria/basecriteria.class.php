@@ -23,4 +23,3 @@ class BaseCriteria
         return $condition;
     }
 }
-?>

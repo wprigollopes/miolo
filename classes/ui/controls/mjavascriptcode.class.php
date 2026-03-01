@@ -23,4 +23,3 @@ class MJavascriptCode extends MControl
         return $this->code->getTextByTemplate("\n<script type=\"text/javascript\">\n <!--\n/:v/\n//-->\n</script>\n");
     }
 }
-?>

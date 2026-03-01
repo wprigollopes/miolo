@@ -4,6 +4,7 @@ class frmActiveLookup extends MForm
 {
     public function __construct()
     {
+        $module = MIOLO::getCurrentModule();
         parent::__construct(_M('@1 Sample', $module, 'ActiveLookup'));
         $objGrupo = $this->manager->getBusinessMAD('group');
         $objQuery = $objGrupo->listAll();
@@ -31,4 +32,3 @@ class frmActiveLookup extends MForm
         }
     }
 }
-?>

@@ -19,4 +19,3 @@ class Oracle8Schema extends MSchema
         return $query->result;
     }
 }
-?>

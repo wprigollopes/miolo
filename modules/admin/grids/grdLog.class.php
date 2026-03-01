@@ -28,4 +28,3 @@ class grdLog extends MGrid
     }
 
 }
-?>

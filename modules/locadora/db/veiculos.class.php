@@ -121,5 +121,3 @@ class BusinessLocadoraVeiculos extends Business
     }
 
 }
-
-?>

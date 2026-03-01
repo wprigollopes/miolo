@@ -24,4 +24,3 @@ class frmStepByStep1 extends MStepByStepForm
         $this->setValidators($valids);
     }
 }
-?>

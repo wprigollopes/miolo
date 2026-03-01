@@ -192,4 +192,3 @@ class frmConfTheme extends MForm
     }
 
 }
-?>

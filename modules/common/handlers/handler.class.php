@@ -7,4 +7,3 @@ class HandlerCommon extends MHandler
         $this->manager->Trace(__METHOD__);
     }
 }
-?>

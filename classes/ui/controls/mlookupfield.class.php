@@ -146,6 +146,3 @@ HERE;
 //        $this->inner = $this->GenerateLabel() . $html;
    }
 }
-
-
-?>

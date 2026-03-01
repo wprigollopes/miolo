@@ -19,4 +19,3 @@ class MIFrame extends MControl
         $this->inner = $this->getRender('iframe');
     }
 }
-?>

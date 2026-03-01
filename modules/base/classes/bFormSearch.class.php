@@ -519,5 +519,3 @@ class bFormSearch extends bForm
         $this->botaoBuscar_click();
     }
 }
-
-?>

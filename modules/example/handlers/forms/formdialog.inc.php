@@ -20,4 +20,3 @@
           $form = $ui->getForm($module,'frmFormDialog');
     }
     $theme->setContent($form);
-?>

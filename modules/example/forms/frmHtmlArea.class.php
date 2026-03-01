@@ -30,4 +30,3 @@ class frmHtmlArea extends MForm
         $this->setButtons($buttons);
     }
 }
-?>

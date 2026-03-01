@@ -19,4 +19,3 @@ $panel->addControl(new ImageLinkLabel('imgExample12','E',$action,$ui->getImage('
 $panel->addControl(new ImageLinkLabel('imgExample13','Image Example',$action,$ui->getImage('','button_drop.png')));
 $panel->addControl(new ImageLinkLabel('imgExample14','Image Example',$action,$ui->getImage('','button_browse.png')));
 $theme->insertContent($panel);
-?>

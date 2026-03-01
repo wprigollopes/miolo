@@ -120,5 +120,3 @@ class BusinessBaseGrupoAcesso extends MBusiness
         return $this->_db->count($sql->select());
     }
 }
-
-?>

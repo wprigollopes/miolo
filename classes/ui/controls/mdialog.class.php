@@ -142,5 +142,3 @@ JS;
         return parent::generate();
     }
 }
-
-?>

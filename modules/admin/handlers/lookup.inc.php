@@ -29,4 +29,3 @@ $object = new $businessClass();
 $object->$lookupMethod($lookup);
 
 $lookup->setContent();
-?>

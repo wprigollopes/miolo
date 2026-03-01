@@ -49,5 +49,3 @@ class FrmMultiSelectionField extends MForm
         $this->addField(new MTableRaw(_M('Returned value', $module), $value));
     }
 }
-
-?>

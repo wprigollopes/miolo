@@ -49,5 +49,3 @@ class frmJasper extends MForm
         $report->execute('example', 'samplesub', $parameters);
     }
 }
-
-?>

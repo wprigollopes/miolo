@@ -29,5 +29,3 @@ class frmAccess extends MForm
         $this->defaultButton = false;
     }
 }
-
-?>

@@ -9,4 +9,3 @@ $theme->insertContent($form);
 
 $src = new ViewSource(__FILE__);
 $theme->appendContent($src);
-?>

@@ -148,5 +148,3 @@ class BusinessExampleBrowser extends MBusiness
         return $query->result;
     }
 }
-
-?>

@@ -63,4 +63,3 @@ class FrmState extends MForm
         $this->setFieldAttr('finaltext', 'visible', false);
     }
 }
-?>

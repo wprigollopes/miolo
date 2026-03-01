@@ -55,4 +55,3 @@ class MCompoundForm extends MForm
         $this->inner = $this->formBox;
     }
 }
-?>

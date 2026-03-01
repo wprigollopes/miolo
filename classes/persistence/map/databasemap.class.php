@@ -9,4 +9,3 @@ class DatabaseMap
         $this->name = $name;
     }
 }
-?>

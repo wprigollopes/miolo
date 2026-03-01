@@ -329,5 +329,3 @@ class MToolBar extends MBaseGroup
         parent::generateInner();
     }
 }
-
-?>

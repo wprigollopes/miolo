@@ -131,4 +131,3 @@ class BusinessAdminTransaction extends Business implements ITransaction
     {
     }
 }
-?>

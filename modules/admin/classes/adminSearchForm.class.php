@@ -35,5 +35,3 @@ class AdminSearchForm extends MForm
     }
 
 }
-
-?>

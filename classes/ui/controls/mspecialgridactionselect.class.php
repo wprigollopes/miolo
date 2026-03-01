@@ -64,5 +64,3 @@ class MSpecialGridActionSelect extends MGridActionSelect
         return $control;
     }
 }
-
-?>

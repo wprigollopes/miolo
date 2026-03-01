@@ -34,4 +34,3 @@ class frmLightbox extends MForm
         $this->setButtons(new MBackButton());
     }
 }
-?>

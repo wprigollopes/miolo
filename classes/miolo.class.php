@@ -1013,12 +1013,12 @@ mdump($this->getConf("options.fileextension"));
                 $url = str_replace('/miolo26/', '/miolo20/', $url);
             }
         }
-        else if ( preg_match('/\?module=(avinst|'.(!$relCliente20?'relcliente|':'').''.(!$contasPagar20?'contaspagar|':'').'portal)&/', $url) )
+        else if ( preg_match('/\?module=(avinst|'.(!$clientReport20?'relcliente|':'').''.(!$accountsPayable20?'contaspagar|':'').'portal)&/', $url) )
         {
             $url = str_replace('/miolo20/', '/miolo26/', $url);
         }
 
-        if (!$contasPagar20 && preg_match('/module=contaspagar&amp;action=main:diverseConsultation/', $url))
+        if (!$accountsPayable20 && preg_match('/module=contaspagar&amp;action=main:diverseConsultation/', $url))
         {
             $url = str_replace('/miolo26/', '/miolo20/', $url);
         }
@@ -1276,6 +1276,7 @@ mdump($this->getConf("options.fileextension"));
         else
         {
             // Seek in all scope?
+            $value = null;
             if ( $from == 'ALL')
             {
                 // search in REQUEST
@@ -1319,7 +1320,7 @@ mdump($this->getConf("options.fileextension"));
                 // let's try in the global scope
                 if ( ( ! isset($value) ) && ( ( strpos($vars, '[') ) === false) )
                 {
-                    $value = isset($_GLOBALS["$vars"]) ? $_GLOBALS["$vars"] : null;
+                    $value = isset($GLOBALS["$vars"]) ? $GLOBALS["$vars"] : null;
                 }
     
                 // If we still didn't has the value
@@ -1620,6 +1621,7 @@ mdump($this->getConf("options.fileextension"));
         // ../modules/$module/classes (only for compatibility purpose *don't use it*)
         // if the file doesn't exist raise exception, otherwise we'll
         // receive an eval error
+        $miolo2integration = false;
         if ( ! $this->import('modules::' . $module . '::business::'. $name, $class, $this->php, $miolo2integration) )
         {
             if ($this->getConf('options.miolo2modules')) //miolo 2.0 integration
@@ -2336,4 +2338,3 @@ mdump($this->getConf("options.fileextension"));
         return MIOLO_VERSION_NUMBER;
     }
 }
-?>

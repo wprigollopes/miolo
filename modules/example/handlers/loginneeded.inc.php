@@ -17,4 +17,3 @@ else
     $form->setFieldValue('return_to', $url);
     $theme->setContent($form);
 }
-?>

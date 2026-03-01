@@ -45,4 +45,3 @@ class MysqlIdGenerator extends MIdGenerator
         return $value;
     }
 }
-?>

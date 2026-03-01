@@ -47,7 +47,7 @@ class MTextField extends MInputControl
 
     public function setValidator( $value )
     {
-        $this->validator = is_string($value) ? new MMaskValidator( $name, $label, $value ) : $value;
+        $this->validator = is_string($value) ? new MMaskValidator( $this->name, $this->label, $value ) : $value;
     }
 
     public function addMask( $mask, $optional = true, $msg = '' )
@@ -114,6 +114,3 @@ class MTextField extends MInputControl
         }
     }
 }
-
-
-?>

@@ -93,5 +93,3 @@ class MCPFValidator extends MMaskValidator
         return $valid ? parent::validate($value) : $valid;
     }
 }
-
-?>

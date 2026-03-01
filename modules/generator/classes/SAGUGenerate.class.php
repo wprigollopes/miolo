@@ -138,7 +138,7 @@ class SAGUGenerate
         return implode(",\n        ", $parameters);
     }
 
-    public function generateFieldByType($name, $value, $label, $type, $maxlength, $hint, $lookupForm=false)
+    public function generateFieldByType($name, $value, $label, $type, $maxlength, $hint, $lookupForm=false, $search=false)
     {
         $fields = '';
         $size = self::getFieldSize($type, $lookupForm);
@@ -806,5 +806,3 @@ class SAGUGenerate
         return $size;
     }
 }
-
-?>

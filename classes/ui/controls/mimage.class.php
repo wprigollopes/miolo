@@ -19,4 +19,3 @@ class MImage extends MFormControl
         $this->inner = $this->getRender('image');
     }
 }
-?>

@@ -310,4 +310,3 @@ class BusinessAdmin_ldapUser extends Business //implements IUser
         return $ok;
     }
 }
-?>

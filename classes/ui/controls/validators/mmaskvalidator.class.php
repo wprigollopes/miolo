@@ -141,5 +141,3 @@ class MMaskValidator extends MValidator
         }
     }
 }
-
-?>

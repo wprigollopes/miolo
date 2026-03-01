@@ -65,6 +65,7 @@ class frmTransactionSearch extends AdminSearchForm
 
     public function search_click()
     {
+        $filters = new stdClass();
         $filters->transaction = $this->getFormValue('transaction');
 
         $data = $this->createGrid($filters);
@@ -72,6 +73,3 @@ class frmTransactionSearch extends AdminSearchForm
         $this->setResponse($data, 'divGrid');
     }
 }
-
-?>
-

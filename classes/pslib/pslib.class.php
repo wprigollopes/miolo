@@ -558,4 +558,3 @@ class postscript
         return (1);
     }
 }
-?>

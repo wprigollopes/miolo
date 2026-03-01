@@ -40,4 +40,3 @@ class MAuthDb extends MAuth
         return $login;
     }
 }
-?>

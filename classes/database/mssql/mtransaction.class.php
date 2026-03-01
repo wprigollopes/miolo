@@ -41,4 +41,3 @@ class MSSQLTransaction extends MTransaction
         $this->conn->_execute("rollback work");
     }
 }
-?>

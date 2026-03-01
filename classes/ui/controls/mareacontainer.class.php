@@ -117,7 +117,7 @@ class MAreaContainer extends MControl
 
         if ($num_rows && $num_cols)
         {
-            $table = new MSimpleTable($obj->name);
+            $table = new MSimpleTable($this->name);
             $table->setAttribute('width', '100%');
             $table->setCell(0, 0, $this->top, "align=\"center\" colspan=$num_cols");
             $table->setCell(1, 0, $this->left, "align=\"center\" valign=\"top\"");
@@ -128,4 +128,3 @@ class MAreaContainer extends MControl
         }
     }
 }
-?>

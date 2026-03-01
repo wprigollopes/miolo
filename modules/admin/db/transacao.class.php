@@ -160,4 +160,3 @@ class BusinessAdminTransacao extends MBusiness implements ITransaction
     {
     }
 }
-?>

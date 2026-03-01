@@ -29,4 +29,3 @@ class frmSession extends MForm
         $this->addField(new ViewSource(__FILE__));
     }
 }
-?>

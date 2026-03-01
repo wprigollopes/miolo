@@ -136,7 +136,7 @@ class BusinessBaseSessao extends MBusiness implements ISession
     public function delete()
     {
         $sql= new sql('','cm_setor','idsetor = ?');
-        $this->execute($sql->delete($this->idsetor));
+        $ok = $this->execute($sql->delete($this->idsetor));
         return $ok;
     }
 
@@ -181,5 +181,3 @@ class BusinessBaseSessao extends MBusiness implements ISession
         return $query;
    }      
 }
-
-?>

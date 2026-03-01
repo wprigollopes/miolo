@@ -450,5 +450,3 @@ if ( in_array($evento, $eventosPossiveis) )
 {
     bChoice::$evento($args);
 }
-
-?>

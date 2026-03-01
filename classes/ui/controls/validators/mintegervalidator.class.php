@@ -29,5 +29,3 @@ class MIntegerValidator extends MRegExpValidator
         parent::__construct($field, $label, '(^-?[0-9][0-9]*$)', $type, $msgerr);
     }
 }
-
-?>

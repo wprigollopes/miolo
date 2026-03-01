@@ -41,4 +41,3 @@ class MQueryRange
         $this->total = $total;
     }
 }
-?>

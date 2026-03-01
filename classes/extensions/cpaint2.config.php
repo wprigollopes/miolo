@@ -65,5 +65,3 @@
 	$cpaint2_proxy_whitelist[] = 'www.salcms.de/test/cpaint2/examples/ping/';
 	// needed for the google request example
 	$cpaint2_proxy_whitelist[] = 'www.google.com';
-
-?>

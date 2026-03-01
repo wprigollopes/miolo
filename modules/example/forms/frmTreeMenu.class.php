@@ -92,7 +92,7 @@ class frmTreemenu extends MForm
     public function onTree2Click($itemId)
     {
         $module = MIOLO::getCurrentModule();
-        $field = new MText('itemid', "<b>" . _M('Tree', $module) . ": $name  -  " . _M('Item Id', $module) . ": $itemId</b>");
+        $field = new MText('itemid', "<b>" . _M('Tree', $module) . ": $itemId  -  " . _M('Item Id', $module) . ": $itemId</b>");
         $this->setResponse($field, 'divitemid');
     }
 
@@ -103,4 +103,3 @@ class frmTreemenu extends MForm
         $this->setResponse($field, 'itemaluno');
     }
 }
-?>

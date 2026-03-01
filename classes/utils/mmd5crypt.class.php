@@ -107,4 +107,3 @@ class MMD5Crypt
        return $ret;
     }
 }
-?>

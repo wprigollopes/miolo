@@ -7,5 +7,3 @@ class MHr extends MDiv
         parent::__construct('', '', 'mHr');
     }
 }
-
-?>

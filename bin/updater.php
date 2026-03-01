@@ -56,5 +56,3 @@ chdir($BIN_PATH);
 
 $mu = new MIOLOUpdater($updateDataFile);
 $mu->update();
-
-?>

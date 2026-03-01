@@ -113,4 +113,3 @@ class MWebService
         return 32 - log(($mask ^ $base) + 1, 2);
     }
 }
-?>

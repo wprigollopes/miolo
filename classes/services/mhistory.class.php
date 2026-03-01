@@ -139,4 +139,3 @@ class MHistory extends MService
         $this->stackHistory->save();
     }
 }
-?>

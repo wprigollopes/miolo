@@ -258,15 +258,14 @@ class MTabbedForm2 extends MForm
 	         $this->buttons[] = new FormButton( FORM_SUBMIT_BTN_NAME, _M('Send'),'SUBMIT');
          }
 	  }
+      $title  = null;
       //$title  = HtmlPainter::generateToString($this->generateTitle());
       $body   = HtmlPainter::generateToString($this->generateBody());
       $footer = HtmlPainter::generateToString($this->generateFooter());
- 
+
       $f = new Div('', array($title,$body,$footer), 'formBox');
       HtmlPainter::generateElements($f);
    }
 
 
 }
-
-?>

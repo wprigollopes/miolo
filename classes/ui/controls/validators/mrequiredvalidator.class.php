@@ -38,5 +38,3 @@ class MRequiredValidator extends MValidator
         $this->msgerr = $msgerr;
     }
 }
-
-?>

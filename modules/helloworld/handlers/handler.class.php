@@ -5,5 +5,3 @@
 class HandlerHelloWorld extends Handler
 {
 }
-
-?>

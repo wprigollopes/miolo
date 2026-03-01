@@ -66,4 +66,3 @@ class frmMessageDemo extends MForm
         new MMessage(_M('You clicked the Error button!', MIOLO::getCurrentModule()), MMessage::TYPE_ERROR);
     }
 }
-?>

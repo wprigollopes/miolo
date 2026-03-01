@@ -196,5 +196,3 @@ class MLookupGrid extends MGrid
         }
     }
 }
-
-?>

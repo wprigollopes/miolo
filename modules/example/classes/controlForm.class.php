@@ -193,5 +193,3 @@ class controlForm extends MForm
         }
     }
 }
-
-?>

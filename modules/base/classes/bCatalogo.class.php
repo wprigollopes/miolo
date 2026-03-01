@@ -1022,7 +1022,7 @@ class bCatalogo
 
      * @return boolean Returns true if the table was removed.
      */
-    public static function removerTabelaSeExistir($esquma, $nome)
+    public static function removerTabelaSeExistir($esquema, $nome)
     {
         if (self::verificarExistenciaDaTabela($esquema, $nome))
         {

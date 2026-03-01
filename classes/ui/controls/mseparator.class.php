@@ -25,7 +25,7 @@ class MSeparator extends MDiv
         if ( trim($this->text) != '' )
         {
             $this->setClass( 'mSeparator' );
-            $text = new MLabel($this->text, $color);
+            $text = new MLabel($this->text, $this->color);
             $this->inner = $text->generate() . $this->getRender('hr');
         }
         else
@@ -34,6 +34,3 @@ class MSeparator extends MDiv
         }
     }
 }
-
-
-?>

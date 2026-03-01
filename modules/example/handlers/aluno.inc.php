@@ -18,4 +18,3 @@ $content[] = new MButton('btnBack1','Voltar para grid2', $url1);
 $content[] = new MButton('btnBack2','Voltar para grid3', $url2);
 $content[] = new MButton('btnClose','Fechar esta janela', 'window.close();');
 $theme->insertContent($content);
-?>

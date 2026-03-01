@@ -159,4 +159,3 @@ class frmLogin extends MForm
     }
 
 }
-?>

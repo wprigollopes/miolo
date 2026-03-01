@@ -20,5 +20,3 @@ class MFieldLabel extends MBaseLabel
         $this->inner = ( trim($this->value) != '' ) ? $this->getRender('label') : '';
     }
 }
-
-?>

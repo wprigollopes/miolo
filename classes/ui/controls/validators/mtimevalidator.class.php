@@ -59,5 +59,3 @@ class MTimeValidator extends MMaskValidator
         return $valid ? parent::validate($value) : $valid;
     }
 }
-
-?>

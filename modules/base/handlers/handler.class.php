@@ -13,4 +13,3 @@ class HandlerBase extends MHandler
 	}
     }
 }
-?>

@@ -132,4 +132,3 @@ class frmConfDb extends MForm
         return $confArray;
     }
 }
-?>

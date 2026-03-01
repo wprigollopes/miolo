@@ -103,4 +103,3 @@ class frmComplexCSS extends MCSSForm
         $this->defaultButton = false;
     }
 }
-?>

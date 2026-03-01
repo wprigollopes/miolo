@@ -59,7 +59,7 @@ class AttributeMap
        }
        elseif ($this->index)
        {
-          $object->{$this->name}{$this->index} = $value;
+          $object->{$this->name}[$this->index] = $value;
        }
        else
        {
@@ -71,7 +71,7 @@ class AttributeMap
     {
        if ($this->index)
        {
-          $value = $object->{$this->name}{$this->index};
+          $value = $object->{$this->name}[$this->index];
        }
        else
        {
@@ -121,4 +121,3 @@ class AttributeMap
         return $this->type;
     }
 }
-?>

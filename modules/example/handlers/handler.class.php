@@ -11,4 +11,3 @@ class HandlerExample extends MHandler
     }
 
 }
-?>

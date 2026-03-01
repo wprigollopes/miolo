@@ -43,4 +43,3 @@ class UpdateCriteria extends DMLCriteria
         return $this->manager->processCriteriaUpdate($this, $parameters);
     }
 }
-?>

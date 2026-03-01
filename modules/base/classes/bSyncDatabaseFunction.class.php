@@ -70,6 +70,7 @@ class bSyncDatabaseFunction implements bSync
         
         $fileFunctions = $this->getSqlFunctions($content);
         $dbFunctions = bCatalogo::listarFuncoes();
+        $result = new stdClass();
         $result->start = count( $dbFunctions ) -1; //desconsidera drop functions
         $result->file = count( $fileFunctions );
         
@@ -219,4 +220,3 @@ class bSyncDatabaseFunction implements bSync
     }
    
 }
-?>

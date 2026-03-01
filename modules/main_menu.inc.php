@@ -78,5 +78,3 @@ $docMenu->addLink(_M('Classes Diagram'), 'http://www.miolo.org.br/doc_MIOLO2/htm
 $docMenu->addLink(_M('MIOLO 2 Overview'), 'http://www.miolo.org.br/modules/sites/files/files/site_miolo/miolo2_overview.pdf', '_blank', 'tutorial-16x16.png');
 $docMenu->addLink(_M('Reference Guide'), 'http://www.miolo.org.br/modules/sites/files/files/site_miolo/RefGuide.pdf', '_blank', 'tutorial-16x16.png');
 $docMenu->addLink(_M('Database - DAO'), 'http://www.miolo.org.br/modules/sites/files/files/site_miolo/miolo20_dao.pdf', '_blank', 'tutorial-16x16.png');
-
-?>

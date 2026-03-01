@@ -17,4 +17,3 @@ class MService
         $this->manager = MIOLO::getInstance();
     }
 }
-?>

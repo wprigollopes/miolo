@@ -79,5 +79,3 @@ class MCheckBoxGroup extends MBaseGroup
     }
 
 }
-
-?>

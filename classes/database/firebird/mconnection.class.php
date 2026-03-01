@@ -111,4 +111,3 @@ class FirebirdConnection extends MConnection
         return $date;
     }
 }
-?>

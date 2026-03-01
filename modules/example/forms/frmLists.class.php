@@ -115,5 +115,3 @@ class frmLists extends controlForm
         $this->addFields($fields);
     }
 }
-
-?>

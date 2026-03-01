@@ -31,5 +31,3 @@ $panel->addControl($controls,'100%','clear');
 $theme->appendContent($panel);
 $src = new ViewSource(__FILE__);
 $theme->appendContent($src);
-
-?>

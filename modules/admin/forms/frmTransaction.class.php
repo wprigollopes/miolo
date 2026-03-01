@@ -112,5 +112,3 @@ class frmTransaction extends AdminForm
         parent::delete_click('transaction', $idTransaction);
     }
 }
-
-?>

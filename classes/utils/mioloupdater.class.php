@@ -631,5 +631,3 @@ class MIOLOUpdater extends MIOLOConsole
         fwrite($this->logFile, "\n$prefix $message");
     }
 }
-
-?>

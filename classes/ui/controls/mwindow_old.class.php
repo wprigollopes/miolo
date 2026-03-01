@@ -121,4 +121,3 @@ class MWindow extends MControl
         return $this->link;
     }
 }
-?>

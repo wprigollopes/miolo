@@ -10,5 +10,3 @@ class HandlerMobileExample extends MHandler
         $this->manager->page->onload("if ( typeof jQuery != 'undefined' ) $('.ui-page').trigger('create');");
     }
 }
-
-?>

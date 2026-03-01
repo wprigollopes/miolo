@@ -97,4 +97,3 @@ class SQLiteQuery extends MQuery
         return $rType;
     }
 }
-?>

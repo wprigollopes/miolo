@@ -64,4 +64,3 @@ HERE;
         $this->page->addJsCode($code);
     }
 }
-?>

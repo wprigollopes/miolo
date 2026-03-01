@@ -105,4 +105,3 @@ class MLightBoxButton extends MButton
         $this->addAttribute('href', $urlImage);
     }
 }
-?>

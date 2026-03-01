@@ -161,7 +161,7 @@ class PersistentCriteria
 
     public function getAlias($classMap = NULL)
     {
-        if ($className == NULL)
+        if ($classMap == NULL)
             return $this->alias;
         else
         {
@@ -530,4 +530,3 @@ class PersistentCriteria
         $this->whereCondition->addCondition($criteria->getWhereCondition());
     }
 }
-?>

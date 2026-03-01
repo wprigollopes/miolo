@@ -249,5 +249,3 @@ class frmModule extends MForm
     }
 
 }
-
-?>

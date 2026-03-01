@@ -26,4 +26,3 @@
 	{
 		$theme->insertContent($formSave);
 	}
-?>

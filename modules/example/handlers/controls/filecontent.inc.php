@@ -5,4 +5,3 @@
     $navbar->addOption('FileContent', $module, $self);
     $form = $ui->getForm($module, 'frmFileContent');
     $theme->insertContent($form);
-?>

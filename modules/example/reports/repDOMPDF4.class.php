@@ -19,4 +19,3 @@
             $this->setFields($fields); 
         }
     }
-?>

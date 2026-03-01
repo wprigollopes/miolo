@@ -18,4 +18,3 @@ $frmPanel->addAction(_M('Step by Step', $module), $ui->getImage($module, 'forms.
 
 $theme->appendContent($frmPanel);
 $handled = $MIOLO->invokeHandler($module, 'forms/' . $context->shiftAction());
-?>

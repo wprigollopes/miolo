@@ -118,5 +118,3 @@ class frmLoginMD5 extends MForm
        return $code;
     }
 }
-
-?>

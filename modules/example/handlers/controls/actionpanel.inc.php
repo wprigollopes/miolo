@@ -9,4 +9,3 @@ $panel->addAction('Action Globais',$icon,$module,'main:varglobais');
 $panel->addAction('Action Prompt',$icon,$module,'themeelement:prompt');
 $panel->addAction('Action Buttons',$icon,$module,'controles:buttons');
 $theme->insertContent($panel);
-?>

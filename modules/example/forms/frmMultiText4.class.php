@@ -54,4 +54,3 @@ class frmMultiText4 extends MForm
         $this->addField(new MTableRaw(_M('Field @1', $module, 'mt2'), $value));
     }
 }
-?>

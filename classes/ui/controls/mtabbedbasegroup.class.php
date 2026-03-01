@@ -471,4 +471,3 @@ class MTab extends MVContainer
         $this->disabled = true;
     }
 }
-?>

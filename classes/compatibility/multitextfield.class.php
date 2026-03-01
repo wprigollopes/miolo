@@ -2,4 +2,3 @@
 class MultiTextField extends MMultiTextField2
 {
 }
-?>

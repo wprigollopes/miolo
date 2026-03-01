@@ -14,4 +14,3 @@
     }
 // Dialogs are showed at 'dialog' container of theme
     $theme->setContent($form);
-?>

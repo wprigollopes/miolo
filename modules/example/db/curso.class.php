@@ -56,4 +56,3 @@ class BusinessExampleCurso extends MBusiness
     }
 
 }
-?>

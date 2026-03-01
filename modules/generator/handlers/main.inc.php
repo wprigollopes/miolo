@@ -20,4 +20,3 @@ if ( $shiftAction )
 {
     $handled = $MIOLO->invokeHandler($module, $shiftAction);
 }
-?>

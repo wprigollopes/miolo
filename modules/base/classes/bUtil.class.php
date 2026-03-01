@@ -40,5 +40,3 @@ class bUtil
         return preg_match('/2.0/', MIOLO_VERSION);
     }
 }
-
-?>

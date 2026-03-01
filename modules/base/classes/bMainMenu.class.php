@@ -240,6 +240,7 @@ class bMainMenu extends MDiv
         // Gets from session to avoid repeated processing
         //$itensJS = $sessao->getValue($this->id . self::ID_JS);
 
+        $itensJS = null;
         if ( !$itensJS )
         {
             $itensJS = array();
@@ -503,5 +504,3 @@ JS;
         return parent::generate() . $this->gerarAcessoRapido();
     }
 }
-
-?>

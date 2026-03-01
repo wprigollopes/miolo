@@ -51,5 +51,3 @@ class MUnitTestSuite extends PHPUnit_Framework_TestSuite
         return new self('MUnitTestSuite');
     }
 }
-
-?>

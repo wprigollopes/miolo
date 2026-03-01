@@ -21,4 +21,3 @@ class frmGrid3 extends MForm
         $this->setButtons($buttons);
     }
 }
-?>

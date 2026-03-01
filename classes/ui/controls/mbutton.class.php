@@ -96,4 +96,3 @@ class MButton extends MActionControl
         }
     }
 }
-?>

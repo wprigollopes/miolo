@@ -11,6 +11,7 @@ class frmThemeBox extends MForm
 
     public function createFields()
     {
+        $module = MIOLO::getCurrentModule();
         $space = new MSpacer('15px');
         $content = new MLabel(_M('Content of @1', $module, 'MThemeBox'));
         $box1 = new MThemeBox(_M('MThemeBox Title @1', $module, '1') . ' - default', $content);
@@ -27,4 +28,3 @@ class frmThemeBox extends MForm
         $this->setButtons(new MBackButton());
     }
 }
-?>

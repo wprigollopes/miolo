@@ -133,5 +133,3 @@ class MDateTimeDMYValidator extends MDateValidator
         $this->msgerr = $msgerr;
     }
 }
-
-?>

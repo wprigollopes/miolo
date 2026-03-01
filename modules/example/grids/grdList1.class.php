@@ -63,5 +63,3 @@ JS;
         $this->page->onload($js);
     }
 }
-
-?>

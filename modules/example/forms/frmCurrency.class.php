@@ -58,6 +58,7 @@ class FrmCurrency extends MForm
         $money3 = $cf->formatWithSymbol($cf->toDecimal($money1) + $cf->toDecimal($money2));
 
         // add two fields with the submitted values
+        $module = MIOLO::getCurrentModule();
         $this->addField(new MTextLabel('lblMoney1', $money1, _M('First value', $module)));
         $this->addField(new MTextLabel('lblMoney2', $money2, _M('Second value', $module)));
 
@@ -66,4 +67,3 @@ class FrmCurrency extends MForm
         $this->setFieldValue('edtMoney3', $money3);
     }
 }
-?>

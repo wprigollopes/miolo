@@ -51,5 +51,3 @@ if ( strlen($returnTo) > 0 )
 // redirect to common environment
 $newURL = $MIOLO->getActionURL( $MIOLO->getConf('options.common'), 'main', null, $opts);
 $page->redirect( $newURL );
-
-?>

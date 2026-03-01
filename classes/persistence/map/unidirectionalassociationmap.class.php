@@ -275,4 +275,3 @@ class UniDirectionalAssociationMap
         return $criteriaParameters;
     }
 }
-?>

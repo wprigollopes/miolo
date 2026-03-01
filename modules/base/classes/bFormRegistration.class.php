@@ -440,5 +440,3 @@ class bFormRegistration extends bForm
     }
        
 }
-
-?>

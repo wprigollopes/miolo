@@ -29,4 +29,3 @@ class ConverterUpperCase implements IConverter
        return $value;
    }
 }
-?>

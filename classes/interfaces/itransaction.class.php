@@ -6,4 +6,3 @@ interface ITransaction
     public function getUsersAllowed($action = A_ACCESS);
     public function getGroupsAllowed($action = A_ACCESS);
 }
-?>

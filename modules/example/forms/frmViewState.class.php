@@ -31,4 +31,3 @@ class FrmViewState extends MForm
         $this->setFields($fields);
     }
 }
-?>

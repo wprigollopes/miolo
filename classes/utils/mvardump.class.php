@@ -42,5 +42,3 @@ class MVarDump
         echo "</blockquote>\n";
     }
 }
-
-?>

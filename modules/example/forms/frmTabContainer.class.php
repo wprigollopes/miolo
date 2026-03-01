@@ -30,4 +30,3 @@ class frmTabContainer extends MForm
         $this->setButtons(new MBackButton());
     }
 }
-?>

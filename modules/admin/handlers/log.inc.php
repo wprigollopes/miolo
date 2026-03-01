@@ -15,4 +15,3 @@ if( ! MIOLO::_REQUEST('pointer') )
 {
     $theme->appendContent($form);
 }
-?>

@@ -307,4 +307,3 @@ abstract class BDependencyCheck
     public abstract function filePermission();
     public abstract function emailConfigured();
 }
-?>

@@ -87,6 +87,7 @@ class MDOMPDFReport extends MForm
     {
         $body = new MDiv('',$this->generateBody());
         if (!is_null($this->bgColor)) $body->addStyle('backgroundColor',$this->bgColor);
+        $footer = $this->generateFooter();
         $this->box->setControls(array($body, $footer));
         $id = $this->getId();
         $form = $body;
@@ -101,4 +102,3 @@ class MDOMPDFReport extends MForm
         $this->pdf->execute();
     }
 }
-?>

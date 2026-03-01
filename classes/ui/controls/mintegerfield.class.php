@@ -46,4 +46,3 @@ class MIntegerField extends MTextField
         $this->addAttribute('onchange', 'return miolo.integerfield.validate(this)');
     }
 }
-?>

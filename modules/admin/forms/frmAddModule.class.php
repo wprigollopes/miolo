@@ -17,6 +17,7 @@ class frmAddModule extends MForm
         parent::__construct( _M('Add New Module','admin') );
         $this->setWidth('70%');
         $this->setIcon( $MIOLO->getUI()->getImage('admin', 'modules-16x16.png') );
+        $url = $MIOLO->getActionURL($module, $action);
         $this->page->setAction($url);
         $this->setClose( $MIOLO->getActionURL('admin', 'main') );
         $this->eventHandler();
@@ -48,12 +49,11 @@ class frmAddModule extends MForm
     public function  btnAdd_click()
     {
         $MIOLO = MIOLO::getInstance();
-        
+        $module = MIOLO::getCurrentModule();
+
         $this->page->goto( $MIOLO->getActionURL($module,
         'main:modules:requisite_setup_module', null,
         array('localFileField'=>$this->getFieldValue('txtLocation'))));
 
     }
 }
-
-?>

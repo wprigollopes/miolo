@@ -98,4 +98,3 @@ class MSuccess
         echo "</table>\n";
     }
 }
-?>

@@ -22,5 +22,3 @@ class grdList4 extends MActiveGrid
         $this->addActionText('alt','Editar',$href_edit);
 	}
 }
-
-?>

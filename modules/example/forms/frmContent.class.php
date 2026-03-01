@@ -12,6 +12,7 @@ class frmContent extends MForm
 
     public function createFields()
     {
+        $module = MIOLO::getCurrentModule();
         $fields = array(
             new MLabel(_M('Content of file', $module) . ': example/html/files/miolo.txt', 'blue', true),
             new MContent('example', '/html/files/miolo.txt')
@@ -19,4 +20,3 @@ class frmContent extends MForm
         $this->setFields($fields);
     }
 }
-?>

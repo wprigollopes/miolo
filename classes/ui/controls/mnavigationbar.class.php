@@ -71,4 +71,3 @@ class MNavigationBar extends MMenu
         $this->separator = $separator;
     }
 }
-?>

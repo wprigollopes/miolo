@@ -161,5 +161,3 @@ class MInputGrid extends MInputControl
     }
 
 }
-
-?>

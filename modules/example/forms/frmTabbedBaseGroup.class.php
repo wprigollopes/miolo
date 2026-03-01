@@ -93,5 +93,3 @@ class frmTabbedBaseGroup extends MForm
         MTabbedBaseGroup::createStaticTab('testTab', 'tabExtra'.rand(),' Extra'.rand(0,100), $controls);
     }
 }
-
-?>

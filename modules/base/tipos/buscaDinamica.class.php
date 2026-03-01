@@ -163,5 +163,3 @@ class buscaDinamica extends bType
         return $colunas;
     }
 }
-
-?>

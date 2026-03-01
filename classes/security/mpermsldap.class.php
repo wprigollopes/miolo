@@ -47,8 +47,8 @@ class MPermsLdap extends MPerms
         if (!$ok && $deny)
         {
         
-            $msg = _M('Access Denied') . "<br><br>\n" . 
-                   '<center><big><i><font color=red>' . _M('Transaction: ') . "$transaction</font></i></big></center><br><br>\n" .
+            $msg = _M('Access Denied') . "<br><br>\n" .
+                   '<center><big><i><font color=red>' . _M('Transaction: ') . "$module</font></i></big></center><br><br>\n" .
                    _M('Please inform a valid login/password to access this content.') . "<br>";
 
             $users = $this->getUsersAllowed($module, $action);
@@ -58,7 +58,8 @@ class MPermsLdap extends MPerms
                 $msg .= "<br><br>\n" . _M('Users with access rights') . ":<ul><li>" . implode('<li>', $users) . '</ul>';
             }
 
-            $go = $this->manager->history->back('action'); 
+            $go = $this->manager->history->back('action');
+            $caption = '';
             $error = Prompt::error($msg, $go, $caption, '');
             $error->addButton(_M('   Login   '), $this->manager->getActionURL($this->manager->getConf('login.module'),'login',null,array('return_to'=>urlencode($this->manager->history->top()))), '');
             $this->manager->prompt($error,$deny);
@@ -137,4 +138,3 @@ class MPermsLdap extends MPerms
         return $groups;
     }
 }
-?>

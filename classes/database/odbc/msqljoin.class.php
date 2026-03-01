@@ -21,4 +21,3 @@ class ODBCSqlJoin extends MSqlJoin
         $sql->setTables($cond);
     }
 }
-?>

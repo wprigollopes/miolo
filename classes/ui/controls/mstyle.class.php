@@ -255,4 +255,3 @@ $MIOLO = MIOLO::getInstance(); $MIOLO->tracestack(); mdump($name . ' - ' . $valu
         $this->addStyle('font', $value);
     }
 }
-?> 

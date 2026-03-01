@@ -6,5 +6,3 @@ class BasLog
     public $dateTime;
     public $ipAddress;
 }
-
-?>

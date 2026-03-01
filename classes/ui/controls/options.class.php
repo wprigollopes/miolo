@@ -150,4 +150,3 @@ class MOptionGroup extends MControl
         return HtmlPainter::optionGroup('formCombo',"$this->label", $content);
     }
 }
-?>

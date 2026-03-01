@@ -29,5 +29,3 @@ define('A_SYSTEM',   31); // 011111
 define('A_ADMIN',    31); // 011111
 
 define('A_DEVELOP',  32); // 100000
-
-?>

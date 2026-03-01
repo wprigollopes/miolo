@@ -20,4 +20,3 @@ class DeleteCriteria extends DMLCriteria
         return $this->manager->processCriteriaDelete($this, $parameters);
     }
 }
-?>

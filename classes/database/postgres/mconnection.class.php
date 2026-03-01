@@ -516,4 +516,3 @@ class PostgresConnection extends MConnection
         return pg_result_error_field($result, $fieldcode);
     }
 }
-?>

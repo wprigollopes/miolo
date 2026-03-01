@@ -11,4 +11,3 @@
             $this->setFields($fields);
         }
     }
-?>

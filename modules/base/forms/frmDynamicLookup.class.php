@@ -60,9 +60,13 @@ class frmDynamicLookup extends bFormRegistration
         $camposBusca[] = $campoBuscaDinamicaId = new MTextField('campobuscadinamicaid');
         $campoBuscaDinamicaId->addStyle('display', 'none');
         
+        $module = MIOLO::getCurrentModule();
+        $data = $this->getData();
+        $valorPadrao = null;
+
         $camposBusca[] = new MDiv('containerReferencias',  $this->gerarCamposDeReferencia(NULL, NULL, TRUE));
         $camposBusca[] = new MDiv('dadosDoCampo', $this->obterDadosDoCampo(NULL, bColumnInfo::TYPE_TEXT, NULL, TRUE));
-        
+
         $camposBusca[] = new MMultilineField('valorespossiveis', $this->getFormValue('valoresPossiveis', $data->valoresPossiveis), _M('Valores possíveis', $module), T_DESCRICAO, 5, 50);
         $camposBusca[] = new MIntegerField('posicao', '0', _M('Posição', $module), T_CODIGO);
         $camposBusca[] = new MTextField('valorpadrao', $valorPadrao, _M('Valor padrão', $module), T_DESCRICAO);
@@ -255,5 +259,3 @@ class frmDynamicLookup extends bFormRegistration
     }
     
 }
-
-?>

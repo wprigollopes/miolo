@@ -290,4 +290,3 @@ class MEditor extends MMultiLineField
         return parent::generate();
     }
 }
-?>

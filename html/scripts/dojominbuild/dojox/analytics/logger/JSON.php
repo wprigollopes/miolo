@@ -720,5 +720,3 @@ class Services_JSON
     }
     
 }
-    
-?>

@@ -75,5 +75,3 @@ class frmGroupSearch extends AdminSearchForm
         $this->setResponse($data, 'divGrid');
     }
 }
-
-?>

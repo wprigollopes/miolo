@@ -29,4 +29,3 @@ class frmExtensions extends MForm
         $this->setButtons($buttons);
     }
 }
-?>

@@ -616,4 +616,3 @@ class MEzPDFReport extends MReport
         $page->redirect(str_replace('&amp;','&',$this->fileout));
     }
 }
-?>

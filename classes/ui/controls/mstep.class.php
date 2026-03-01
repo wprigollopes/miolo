@@ -114,4 +114,3 @@ class MStep extends MDiv
         $this->setClass(self::DISABLED_STYLE, FALSE);
     }
 }
-?>

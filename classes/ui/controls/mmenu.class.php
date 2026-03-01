@@ -66,5 +66,3 @@ class MMenu extends MOptionList
         }
     }
 }
-
-?>

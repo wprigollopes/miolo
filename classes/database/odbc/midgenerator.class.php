@@ -21,4 +21,3 @@ class ODBCIdGenerator extends MIdGenerator
         return $value;
     }
 }
-?>

@@ -164,5 +164,3 @@ class MToolBarButton extends MFormControl
         }
     }
 }
-
-?>

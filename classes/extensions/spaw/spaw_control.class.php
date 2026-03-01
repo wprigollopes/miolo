@@ -34,4 +34,3 @@ class M_SPAW_Wysiwyg extends MControl
         echo $this->spaw_control->show();
     }
 }
-?>

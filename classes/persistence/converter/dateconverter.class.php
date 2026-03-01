@@ -40,4 +40,3 @@ class dateconverter implements IConverter
     }
 
 }
-?>

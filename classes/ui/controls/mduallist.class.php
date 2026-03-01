@@ -267,5 +267,3 @@ class MDualList extends MSelection
         return $leftListDiv->generate() . $rightListDiv->generate() . $orderDiv->generate() . $div->generate();
     }
 }
-
-?>

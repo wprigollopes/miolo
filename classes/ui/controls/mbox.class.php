@@ -61,5 +61,3 @@ class MBox extends MContainerControl
         $this->inner = new MDiv(NULL, $this->getControls(), "mBoxInner panel {$this->cssClassType}");
     }
 }
-
-?>

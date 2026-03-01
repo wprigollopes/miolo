@@ -152,6 +152,7 @@ abstract class MConnection
 
     public function getError()
     {
+        $err = '';
         if (!$this->id)
         {
             $err = _M("No valid Database connection estabilished.");
@@ -297,4 +298,3 @@ abstract class MConnection
         return $query;
     }
 }
-?>

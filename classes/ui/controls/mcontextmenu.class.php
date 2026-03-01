@@ -145,5 +145,3 @@ class MContextMenu extends MStaticMenu
         return $div->generate();
     }
 }
-
-?>

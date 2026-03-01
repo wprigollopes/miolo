@@ -377,7 +377,7 @@ class bType
      */
     public function obterFuncao()
     {
-        return $funcao;
+        return $this->funcao;
     }
 
     /**
@@ -1542,5 +1542,3 @@ class bType
         return $return;
     }
 }
-
-?>

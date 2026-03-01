@@ -34,4 +34,3 @@
             $this->addFields($fields);
         }
     }
-?>

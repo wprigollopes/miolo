@@ -278,5 +278,3 @@ class MssqlQuery
         $this->sql  = $sql;
     }
 }
-
-?>

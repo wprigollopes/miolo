@@ -361,5 +361,3 @@ class MPopupConfirm extends MPopup
         parent::__construct('mPopupConfirm', $fields, $label);
     }
 }
-
-?>

@@ -54,5 +54,3 @@ class frmMain extends MForm
         $this->addField( new MLabel( $this->getFieldValue('myName') ) );
     }
 }
-
-?>

@@ -133,5 +133,3 @@ class frmUser extends AdminForm
         parent::delete_click('user', $this->dbUser->idUser);
     }
 }
-
-?>

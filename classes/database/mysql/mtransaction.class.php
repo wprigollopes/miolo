@@ -2,4 +2,3 @@
 class MysqlTransaction extends MTransaction
 {
 }
-?>

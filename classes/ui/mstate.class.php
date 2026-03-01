@@ -72,4 +72,3 @@ class MState
         return $this->idElement;
     }
 }
-?>

@@ -802,5 +802,3 @@ class frmLogin extends MForm
         return $this->auth->isLogged();
     }
 }
-
-?>

@@ -85,5 +85,3 @@ class MCaptchaField extends MContainer
         return $img->check( $code );
     }
 }
-
-?>

@@ -45,10 +45,10 @@ class PHPConfigLoader
                            'PHPConfigLoader::getMap() ' . _M('Error') . ": $classMapName - " . _M('Class not found'));
 
             $map = new $classMapName();
-            $this->maps[$class] = &$map;
+            $this->maps[$classMapName] = &$map;
         }
 
-        return $this->maps[$class];
+        return $this->maps[$classMapName];
     }
 
     public function &getClassMap($classMapName)
@@ -190,4 +190,3 @@ class PHPConfigLoader
         return $converter;
     }
 }
-?>

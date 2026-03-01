@@ -31,4 +31,3 @@ class ConverterLOB implements IConverter
     }
 
 }
-?>

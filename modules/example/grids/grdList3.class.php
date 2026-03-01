@@ -106,6 +106,8 @@ class grdList3 extends MGrid
         // define header links
         $this->headerLink('new', _M('HeaderLink - New Record', $module), $MIOLO->getActionURL('example', 'main:aluno', '', array( 'event' => 'btnInsert:click' )));
 
+        $item = $MIOLO->getContext()->shiftAction();
+        $self = $MIOLO->getContext()->getAction();
         if ( $item == 'detalhes' )
         {
             $this->setColumnAttr(0, 'visible', true);
@@ -134,7 +136,7 @@ class grdList3 extends MGrid
         // example:
         // if there exist 'A' in the curso, disable delete action, enable edit e renderiza in red
         // else enable the delete action, disable edit and renderiza in blue
-        if ( $row[2]{0} == 'A' )
+        if ( $row[2][0] == 'A' )
         {
             $actions[1]->enabled = false;
             $actions[2]->enabled = true;
@@ -178,6 +180,7 @@ class grdList3 extends MGrid
      */
     public function btnShow_click()
     {
+        $module = MIOLO::getCurrentModule();
         if ( count($this->selecteds) )
         {
             $show[] = new MLabel("line => {position} - {value}");
@@ -215,4 +218,3 @@ class grdList3 extends MGrid
     }
 
 }
-?>

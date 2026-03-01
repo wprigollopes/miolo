@@ -158,4 +158,3 @@ class MDragDrop extends MFormControl
         return $this->getRender('inputhidden');
     }
 }
-?>

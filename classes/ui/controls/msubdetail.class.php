@@ -1658,7 +1658,7 @@ class MSubDetail extends MBaseGroup
 
         if ( !$nivel )
         {
-            $nivel = $data->arrayItemTemp[$args->mSubDetail];
+            $nivel = $data->arrayItemTemp[$data->mSubDetail];
         }
         if ( $nivel != 0 )
         {
@@ -1668,7 +1668,7 @@ class MSubDetail extends MBaseGroup
             self::defineData($nivel, $tempObjSuperior, $object);
         }
 
-        self::update(null, $args->mSubDetail);
+        self::update(null, $data->mSubDetail);
     }
 
     public static function downFromTable($data)
@@ -1679,7 +1679,7 @@ class MSubDetail extends MBaseGroup
 
         if ( !$nivel )
         {
-            $nivel = $data->arrayItemTemp[$args->mSubDetail];
+            $nivel = $data->arrayItemTemp[$data->mSubDetail];
         }
 
         $item = self::getData($object, false);
@@ -1692,7 +1692,7 @@ class MSubDetail extends MBaseGroup
             self::defineData($nivel, $tempObjInferior, $object);
         }
 
-        self::update(null, $args->mSubDetail);
+        self::update(null, $data->mSubDetail);
     }
 
     /**
@@ -1822,7 +1822,7 @@ class MSubDetail extends MBaseGroup
 
         //add event on field exit, add style and set value
         $ajaxAction = MUtil::getAjaxAction('editCellExit', array( 'mSubDetail' => $args->mSubDetail, 'mSubDetailCellEditId' => $cellId ));
-        $js .= "
+        $js = "
         innerElement = dojo.byId('$idEx');
 
         if (innerElement)
@@ -2266,5 +2266,3 @@ class MSubDetail extends MBaseGroup
 }
 
 MSubDetail::ajaxHandler();
-
-?>

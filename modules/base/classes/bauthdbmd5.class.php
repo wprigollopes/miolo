@@ -3,7 +3,7 @@ class bAuthDbMD5 extends MAuth
 {
     public function authenticate($userId, $challenge, $response = NULL )
     {
-        $this->manager->logMessage("[LOGIN] Authenticating $user MD5");
+        $this->manager->logMessage("[LOGIN] Authenticating $userId MD5");
         $login = NULL;
 
         try
@@ -38,4 +38,3 @@ class bAuthDbMD5 extends MAuth
         return $login;
     }
 }
-?>

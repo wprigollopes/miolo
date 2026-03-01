@@ -29,5 +29,3 @@ if ( $a = $context->shiftAction() )
 {
    $handled = $MIOLO->invokeHandler( $module, $a );
 }
-
-?>

@@ -3,5 +3,3 @@
 class MFormAJAX extends MForm
 {
 }
-
-?>

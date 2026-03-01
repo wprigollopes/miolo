@@ -35,4 +35,3 @@ class UDAMapEntry
         return $this->fromAssociative;
     }
 }
-?>

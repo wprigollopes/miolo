@@ -298,4 +298,3 @@ class MBusiness extends PersistentObject
         return $this->_miolo;
     }
 }
-?>

@@ -38,5 +38,3 @@ class MCEPValidator extends MMaskValidator
         $this->msgerr = $msgerr;
     }
 }
-
-?>

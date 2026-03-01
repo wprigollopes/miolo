@@ -12,4 +12,3 @@ if( ! MIOLO::_REQUEST('ajax') )
 {
     $theme->appendContent($form);
 }
-?>

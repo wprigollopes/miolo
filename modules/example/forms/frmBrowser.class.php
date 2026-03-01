@@ -125,5 +125,3 @@ class frmBrowser extends MForm
         $MIOLO->page->redirect($url);
     }
 }
-
-?>

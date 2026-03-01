@@ -25,5 +25,3 @@ $frmPanel->addAction('Modal_Ajax',$ui->getImage($module,'forms.png'),$module,'ma
 
 
 $theme->appendContent($frmPanel);
-
-?>

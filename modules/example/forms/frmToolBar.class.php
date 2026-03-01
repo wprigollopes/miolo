@@ -44,7 +44,7 @@ class frmToolBar extends MForm
         $text = new MText('labelText', _M('New record', MIOLO::getCurrentModule()));
 
         // define the text color
-        $sender->color = $text->color = 'blue';
+        $text->color = 'blue';
 
         // add the field to the form
         $this->addField($text);
@@ -57,7 +57,7 @@ class frmToolBar extends MForm
         $text = new MText('labelText', _M('Saving', MIOLO::getCurrentModule()));
 
         // define the text color
-        $sender->color = $text->color = 'blue';
+        $text->color = 'blue';
 
         // add the field to the form
         $this->addField($text);
@@ -71,7 +71,7 @@ class frmToolBar extends MForm
         $text = new MText('labelText', _M('Deleting', MIOLO::getCurrentModule()));
 
         // define the text color
-        $sender->color = $text->color = 'blue';
+        $text->color = 'blue';
 
         // add the field to the form
         $this->addField($text);
@@ -86,7 +86,7 @@ class frmToolBar extends MForm
         $text = new MText('labelText', _M('Searching, please wait', MIOLO::getCurrentModule()));
 
         // define the text color
-        $sender->color = $text->color = 'blue';
+        $text->color = 'blue';
 
         // add the field to the form
         $this->addField($text);
@@ -101,7 +101,7 @@ class frmToolBar extends MForm
         $text = new MText('labelText', _M('Prepare the printer', MIOLO::getCurrentModule()));
 
         // define the text color
-        $sender->color = $text->color = 'blue';
+        $text->color = 'blue';
 
         // add the field to the form
         $this->addField($text);
@@ -112,10 +112,9 @@ class frmToolBar extends MForm
         $text = new MText('labelText', _M('Bye bye, folk', MIOLO::getCurrentModule()));
 
         // define the text color
-        $sender->color = $text->color = 'blue';
+        $text->color = 'blue';
 
         // add the field to the form
         $this->addField($text);
     }
 }
-?>

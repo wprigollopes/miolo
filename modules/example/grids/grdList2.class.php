@@ -44,7 +44,7 @@ class grdList2 extends MGrid
         // add actions to the grid
         $this->addActionUpdate( $href_edit );
         $this->addActionDelete( $href_dele );
-        $this->addActionIcon( 'ID','select.gif',$action );
+        $this->addActionIcon( 'ID','select.gif',$href_edit );
         $this->addActionText('alt', _M('Edit'), $href_edit );
 
         // add action with custom image - path of image is inside CSS file
@@ -52,4 +52,3 @@ class grdList2 extends MGrid
 
     }
 }
-?>

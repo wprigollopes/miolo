@@ -48,4 +48,3 @@ class frmMenuForm extends MForm
         }
     }
 }
-?>

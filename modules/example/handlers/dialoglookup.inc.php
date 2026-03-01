@@ -16,4 +16,3 @@ $object->$lookupMethod($lookup);
 $page->setAction($lookup->href);
 $theme->setContent($lookup->grid);
 $theme->setLayout('lookup');
-?>

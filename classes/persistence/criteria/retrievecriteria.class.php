@@ -215,4 +215,3 @@ class RetrieveCriteria extends PersistentCriteria
         return $this->manager->processCriteriaAsProxyCursor($this, $parameters);
     }
 }
-?>

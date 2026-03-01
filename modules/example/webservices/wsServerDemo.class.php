@@ -19,5 +19,3 @@ class wsServerDemo extends MWebService
         }
     }
 }
-
-?>

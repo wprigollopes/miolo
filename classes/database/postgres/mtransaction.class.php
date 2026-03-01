@@ -41,4 +41,3 @@ class PostgresTransaction extends MTransaction
         $this->conn->_execute("rollback");
     }
 }
-?>

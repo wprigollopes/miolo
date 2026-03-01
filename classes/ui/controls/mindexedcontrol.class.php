@@ -86,5 +86,3 @@ class MIndexedControl extends MInputControl
         $this->inner = $t;
     }
 }
-
-?>

@@ -34,5 +34,3 @@ class MImageLinkLabel extends MImageLink
 	$this->caption = '<a href="'.$this->href.'">'.$this->caption.'</a>';
     }
 }
-
-?>

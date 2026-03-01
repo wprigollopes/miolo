@@ -17,4 +17,3 @@ interface bSync
      */
     public static function listSyncFiles($module);
 }
-?>

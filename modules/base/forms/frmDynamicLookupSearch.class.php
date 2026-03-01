@@ -61,5 +61,3 @@ class frmDynamicLookupSearch extends bFormSearch
         $this->buildGrid($colunas);
     }
 }
-
-?>

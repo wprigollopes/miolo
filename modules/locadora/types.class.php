@@ -7,5 +7,3 @@
         public $fone;
         public $plac_veic;
     };
-
-?>

@@ -218,5 +218,3 @@ class MStaticMenu extends MDiv
         return parent::generate();
     }
 }
-
-?>

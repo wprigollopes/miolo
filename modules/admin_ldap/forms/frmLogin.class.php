@@ -126,4 +126,3 @@ class frmLogin extends Form
     }
 
 }
-?>

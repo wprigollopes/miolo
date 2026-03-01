@@ -42,4 +42,3 @@ if ($theme->hasMenuOptions())
 <?php
     }
 }
-?>

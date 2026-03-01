@@ -7,6 +7,7 @@ class frmWindow1 extends MForm
 //
     public function __construct()
     {
+        $module = MIOLO::getCurrentModule();
         parent::__construct(_M('Dialog Sample', $module));
         $this->eventHandler();
     }
@@ -42,4 +43,3 @@ class frmWindow1 extends MForm
         $this->setFieldValue('edtSoma', $soma);
     }
 }
-?>

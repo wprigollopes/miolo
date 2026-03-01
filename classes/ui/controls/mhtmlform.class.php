@@ -57,4 +57,3 @@ class MHtmlForm extends MFormControl
         return $this->getRender('form');
     }
 }
-?>

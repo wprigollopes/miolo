@@ -99,4 +99,3 @@ class Cursor
         return $this->size;
     }
 }
-?>

@@ -143,4 +143,3 @@ class ThemebModern extends MTheme
         return $this->painter->generateToString($div);
     }
 }
-?>

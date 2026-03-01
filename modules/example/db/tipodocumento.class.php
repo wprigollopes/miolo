@@ -82,4 +82,3 @@ class BusinessExampleTipodocumento
     return $this->listRange();
   }
 }
-?>

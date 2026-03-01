@@ -24,4 +24,3 @@ $page->setAction($lookup->href);
 $MIOLO->conf->loadConf($lookup->module);
 $theme = $MIOLO->getTheme($MIOLO->getConf('theme.lookup'),'lookup');
 $theme->setContent($lookup->grid);
-?>

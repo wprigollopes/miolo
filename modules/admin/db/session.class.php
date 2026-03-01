@@ -181,5 +181,3 @@ class BusinessCommonSessao extends MBusiness implements ISession
         return $query;
    }      
 }
-
-?>

@@ -26,4 +26,3 @@ class MChoiceControl extends MInputControl
     }
 
 }
-?>

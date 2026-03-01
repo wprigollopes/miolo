@@ -129,4 +129,3 @@ class ThemeModern extends MTheme
         return $this->painter->generateToString($div);
     }
 }
-?>

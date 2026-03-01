@@ -21,5 +21,3 @@
         // insert the form into the theme's content
         $theme->insertContent( $formVeic );
     }
-
-?>

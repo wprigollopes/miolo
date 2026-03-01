@@ -131,4 +131,3 @@ class MHandler
         return $return;
     }
 }
-?>

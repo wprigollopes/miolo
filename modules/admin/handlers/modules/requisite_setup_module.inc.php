@@ -150,5 +150,3 @@ function download($file_source, $file_target)
     fclose($wh);
     return false;
 }
-
-?>

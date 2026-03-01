@@ -7,4 +7,3 @@ class HandlerAdmin extends MHandler
         $this->manager->trace(__METHOD__);
     }
 }
-?>

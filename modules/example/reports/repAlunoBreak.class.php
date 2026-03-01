@@ -103,4 +103,3 @@ class repAlunoBreakReport extends MPDFReport
         $this->pdf->ezText($this->timestamp,9,array('justification'=>'right'));
     }
 }
-?>

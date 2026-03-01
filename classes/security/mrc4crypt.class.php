@@ -62,4 +62,3 @@ class MRC4Crypt
         return $cipher;
     }
 }
-?>

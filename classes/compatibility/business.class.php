@@ -6,4 +6,3 @@ class Business  extends MBusiness
         parent::__construct($database,$data);
     }
 }
-?>

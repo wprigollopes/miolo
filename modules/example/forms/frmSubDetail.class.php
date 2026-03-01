@@ -82,5 +82,3 @@ class frmSubDetail extends MForm
         new MMessage(str_replace("\n", '<br/>', print_r($data->things, 1)));
     }
 }
-
-?>

@@ -71,6 +71,7 @@ class frmUserSearch extends AdminSearchForm
 
     public function search_click()
     {
+        $filters = new stdClass();
         $filters->login = $this->getFormValue('username');
         $filters->fullname = $this->getFormValue('fullname');
         $filters->nickname = $this->getFormValue('nickname');
@@ -81,5 +82,3 @@ class frmUserSearch extends AdminSearchForm
         $this->setResponse($data, 'divGrid');
     }
 }
-
-?>

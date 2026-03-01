@@ -354,5 +354,3 @@ class QueryFilter
         return $result;
     }
 }
-
-?>

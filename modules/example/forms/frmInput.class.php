@@ -71,5 +71,3 @@ class frmInput extends controlForm
         $this->addFields($fields);
     }
 }
-
-?>

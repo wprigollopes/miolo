@@ -231,5 +231,3 @@ class BusinessBaseBusAccess extends Business
     }
 
 }
-
-?>

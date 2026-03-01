@@ -94,5 +94,3 @@ class MLookupGrid extends MDataGrid
         return $footer;
     }
 }
-
-?>

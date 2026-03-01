@@ -53,7 +53,8 @@ class MAuth extends MService
 
         // still no login -- should we do an automatic login?
         // Probably does not work: $auto is boolean, so when using getConf it should not return something valid...
-        if ( $auto = MUtil::getBooleanValue($this->manager->getConf('login.auto')) && $this->manager->getConf("login.$auto.id") )
+        $auto = MUtil::getBooleanValue($this->manager->getConf('login.auto'));
+        if ( $auto && $this->manager->getConf("login.$auto.id") )
         {
             $this->manager->logMessage('[LOGIN] Using automatic login ' . $auto);
 
@@ -115,4 +116,3 @@ class MAuth extends MService
         $this->manager->getSession()->destroy();
     }
 }
-?>

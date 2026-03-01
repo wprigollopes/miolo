@@ -39,4 +39,3 @@ class frmSyncToken extends MForm
         $this->addField(new MLabel(_M('End of transaction', $module)));
     }
 }
-?>

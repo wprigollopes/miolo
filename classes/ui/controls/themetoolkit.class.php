@@ -161,4 +161,3 @@ class ThemeToolkit
         echo "  </table>\n";
     }
 }
-?>

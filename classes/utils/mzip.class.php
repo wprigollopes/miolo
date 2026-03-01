@@ -59,5 +59,3 @@ class MZip
         $zip->close();
     }
 }
-
-?>

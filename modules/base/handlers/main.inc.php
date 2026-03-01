@@ -373,4 +373,3 @@ else
         die( bBaseDeDados::obterUltimoErro() .' -<br/>SQL = '.  bBaseDeDados::obterUltimaInstrucao() . '<br/>Mensagem='.$e->getMessage().'-'.$e->getFile().'-'.$e->getLine());
     }
 }
-?>

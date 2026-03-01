@@ -13,4 +13,3 @@ class MLinkBack extends MLink
         parent::__construct('', '', $href, $text);
     }
 }
-?>

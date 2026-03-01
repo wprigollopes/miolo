@@ -119,5 +119,3 @@ class BusinessAdminGrupoAcesso extends Business
         return $this->_db->count($sql->select());
     }
 }
-
-?>

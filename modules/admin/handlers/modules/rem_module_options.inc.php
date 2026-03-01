@@ -9,5 +9,3 @@ $navbar->addOption( _M('Remove Module Options'), $module, 'main:modules:rem_modu
 $ui   = $MIOLO->getUI();
 $form = $ui->getForm($module,'frmRemModuleOptions');
 $theme->appendContent($form);
-
-?>

@@ -17,5 +17,3 @@ class MDiv extends MControl
         return $this->getRender('div');
     }
 }
-
-?>

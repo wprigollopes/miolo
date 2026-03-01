@@ -118,5 +118,3 @@ class AdminForm extends MForm
     
     }
 }
-
-?>

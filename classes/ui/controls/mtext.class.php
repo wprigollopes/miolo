@@ -21,5 +21,3 @@ class MText extends MBaseLabel
         $this->inner = $this->getRender( 'text' );
     }
 }
-
-?>

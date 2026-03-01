@@ -16,4 +16,3 @@ switch ( MIOLO::_REQUEST( 'function' ) )
 }
 
 $theme->insertContent($form);
-?>

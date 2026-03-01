@@ -33,4 +33,3 @@ class FrmThemeSkin extends Form
         $this->page->setStyles($skin);
     }
 }
-?>

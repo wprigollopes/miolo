@@ -54,7 +54,7 @@ class MDHTMLMenu2 extends MOptionList
         {
             if ( $module && $action )
             {
-                $control = new MLink(NULL, $label);
+                $control = new MLink(NULL, $title);
                 $control->setAction($module, $action, $item, $args);
                 $link = $control->href;
             }
@@ -248,7 +248,7 @@ class MDHTMLMenu2 extends MOptionList
 
         $this->createMenu();
 
-        $form = ($this->form == NULL) ? $page->name : $this->form->name;
+        $form = ($this->form == NULL) ? $this->page->name : $this->form->name;
 
         $themeName = 'Theme'.ucfirst($this->themeStyle);
 
@@ -256,7 +256,7 @@ class MDHTMLMenu2 extends MOptionList
         $html .= "</td>";
         $this->inner = $html;
 
-        $code .= "var MAIN_MENU_JS_{$this->nOrder} = [ " . $this->jsMenu . "];";
+        $code = "var MAIN_MENU_JS_{$this->nOrder} = [ " . $this->jsMenu . "];";
 
         if ( MUtil::getBooleanValue( $this->manager->getConf('options.mainmenu.clickopen') ) == true )
         {
@@ -270,5 +270,3 @@ class MDHTMLMenu2 extends MOptionList
     }
 
 }
-
-?>

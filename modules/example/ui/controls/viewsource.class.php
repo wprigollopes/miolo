@@ -11,5 +11,3 @@ class ViewSource extends MLink
         
     }
 }
-
-?>

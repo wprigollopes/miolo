@@ -119,6 +119,7 @@ class frmEzPDF extends MForm
     public function btnRep2_click()
     {
         $MIOLO = MIOLO::getInstance();
+        $module = MIOLO::getCurrentModule();
 
         $report = new MezPDFReport();
         $data = array( );
@@ -142,6 +143,7 @@ class frmEzPDF extends MForm
 
     public function btnRep3_click()
     {
+        $module = MIOLO::getCurrentModule();
         $report = new MezPDFReport();
         $report->setFont('veramono.afm');
         $pdf = $report->getPdf();
@@ -233,4 +235,3 @@ class frmEzPDF extends MForm
         $report->generate();
     }
 }
-?>

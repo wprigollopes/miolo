@@ -30,4 +30,3 @@ class SQLiteSchema extends MSchema
         return $res;
     }
 }
-?>

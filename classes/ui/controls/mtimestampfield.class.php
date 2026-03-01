@@ -153,4 +153,3 @@ class MTimestampField extends MTextField
         $this->inner = $this->dateField . $this->timeField->inner . $this->inner;
     }
 }
-?>

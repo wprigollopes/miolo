@@ -86,4 +86,3 @@ class BusinessAdminGroup extends Business  implements IGroup
         }
     }
 }
-?>

@@ -94,5 +94,3 @@ class ODBCQuery extends MQuery
         return $rType;
     }
 }
-
-?>

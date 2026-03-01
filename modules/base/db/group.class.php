@@ -209,5 +209,3 @@ class BusinessBaseGroup extends MBusiness implements IGroup
         return $groups;
     }
 }
-
-?>

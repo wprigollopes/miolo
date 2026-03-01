@@ -105,4 +105,3 @@ class MThemeElement extends MContainerControl
         return $this->inner;
     }
 }
-?>

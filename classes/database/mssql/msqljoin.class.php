@@ -34,4 +34,3 @@ class MSSQLSqlJoin extends MSqlJoin
         $sql->setTables($cond);
     }
 }
-?>

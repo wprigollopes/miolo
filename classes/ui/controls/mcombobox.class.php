@@ -56,4 +56,3 @@ class MComboBox extends MSelection
         $this->inner = $this->generateLabel() . $span->generate();
     }
 }
-?>

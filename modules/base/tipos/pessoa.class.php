@@ -9,5 +9,3 @@ class pessoa extends bType
         parent::__construct('basperson');
     }
 }
-
-?>

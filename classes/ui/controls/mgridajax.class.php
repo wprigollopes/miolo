@@ -3,5 +3,3 @@
 class MGridAJAX extends MGrid
 {
 }
-
-?>

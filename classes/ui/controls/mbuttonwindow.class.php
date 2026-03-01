@@ -8,4 +8,3 @@ class MButtonWindow extends MButton
         $this->setActionType('WINDOW:'. $href);
     }
 }
-?>

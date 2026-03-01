@@ -323,5 +323,3 @@ class frmTemplate extends MForm
         MPopup::confirm($message, _M('Confirm remove', $module), $actionYes, 'mpopup.remove();');
     }
 }
-
-?>

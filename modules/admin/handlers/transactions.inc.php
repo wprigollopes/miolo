@@ -15,4 +15,3 @@ else
     $form = $ui->getForm( $module, 'frmTransaction' );
 }
 $theme->insertContent( $form );
-?>

@@ -24,4 +24,3 @@ class MButtonClose extends MLinkButton
         $this->caption = $div->generate();
     }
 }
-?>

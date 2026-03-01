@@ -435,4 +435,3 @@ class BusinessAdminUser extends MBusiness implements IUser
     }
     
 }
-?>

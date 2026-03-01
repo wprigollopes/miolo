@@ -37,5 +37,3 @@
 		echo "'" . getSpec($type, $text, $i) . "'<br>";
 	}
 	echo "</pre>\n";
-
-?>

@@ -21,5 +21,3 @@ class MTextLabel extends MText
         $this->inner =  $this->generateLabel() . $this->getRender( 'text' );
     }
 }
-
-?>

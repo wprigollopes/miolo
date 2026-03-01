@@ -113,5 +113,3 @@ else
     
     $server->fault('171', 'Sorry, webservices not found!');
 }
-
-?>

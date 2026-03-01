@@ -436,4 +436,3 @@ class PageNavigator
         echo "</table>\n";
     }
 }
-?>

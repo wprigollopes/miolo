@@ -112,6 +112,7 @@ class frmConf extends MForm
 
         /* manipulate form values */
         $formValues = explode('&', $formValues);
+        $data = new stdClass();
         foreach( $formValues as $value )
         {
             $aux = explode('=', $value);
@@ -336,4 +337,3 @@ class frmConf extends MForm
     }
 
 }
-?>

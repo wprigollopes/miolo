@@ -72,4 +72,3 @@ class frmWinMatricula extends MFormAJAX
         $aluno->save();
     }
 }
-?>

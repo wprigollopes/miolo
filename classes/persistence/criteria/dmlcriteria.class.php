@@ -20,4 +20,3 @@ class DMLCriteria extends PersistentCriteria
         return $this->transaction;
     }
 }
-?>

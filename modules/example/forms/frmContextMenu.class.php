@@ -94,5 +94,3 @@ class frmContextMenu extends MForm
         $this->setResponse($contextMenu, 'divMenu1');
     }
 }
-
-?>

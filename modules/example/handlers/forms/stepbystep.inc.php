@@ -16,4 +16,3 @@ $content = $MIOLO->getUI()->getForm($module, $form, $stepsDescription);
 
 $theme->clearContent();
 $theme->insertContent($content);
-?>

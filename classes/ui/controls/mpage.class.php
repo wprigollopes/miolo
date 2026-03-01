@@ -543,4 +543,3 @@ class MPage extends MControl
        return $this->painter->dompdf($this); 
     }
 }
-?>

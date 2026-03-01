@@ -47,4 +47,3 @@ class frmBox extends MForm
         $this->setButtons(new MBackButton());
     }
 }
-?>

@@ -58,4 +58,3 @@ class NavigationBar extends MMenu
        $this->inner = $painter->generateToString($ul);
    }
 }
-?>

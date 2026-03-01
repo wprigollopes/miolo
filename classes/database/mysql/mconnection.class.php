@@ -130,4 +130,3 @@ class MysqlConnection extends MConnection
         }
     }
 }
-?>

@@ -21,7 +21,7 @@ class MDOMPDF extends MReport
         $this->dompdf->setPaper($paper, $orientation);
     }
 
-    public function setInput($str,$params=NULL)
+    public function setInput($str,$params=NULL,$file=NULL,$base_path=NULL)
     {
         if ($params)
         {
@@ -60,4 +60,3 @@ class MDOMPDF extends MReport
         $page->redirect($this->fileout);
     }
 }
-?>

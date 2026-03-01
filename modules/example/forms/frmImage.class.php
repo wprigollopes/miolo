@@ -31,4 +31,3 @@ class frmImage extends MForm
         $this->setButtons(new MBackButton());
     }
 }
-?>

@@ -396,5 +396,3 @@ JS;
         $this->conf->axes->yaxis->label = $label;
     }
 }
-
-?>

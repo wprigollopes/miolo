@@ -88,4 +88,3 @@ class ThemeMobile extends MTheme
         return $this->painter->generateToString($divContainer);
     }
 }
-?>

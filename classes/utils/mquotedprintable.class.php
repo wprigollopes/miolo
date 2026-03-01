@@ -65,5 +65,3 @@ class MQuotedPrintable
         return trim($out);
     }
 }
-
-?>

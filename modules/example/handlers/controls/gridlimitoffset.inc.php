@@ -6,4 +6,3 @@ $ui = $MIOLO->getUI();
 
 $form = $ui->getForm($module, 'frmGridLimitOffset');
 $theme->insertContent($form);
-?>

@@ -66,4 +66,3 @@ abstract class MComponent
         return $this->manager;
     }
 }
-?>

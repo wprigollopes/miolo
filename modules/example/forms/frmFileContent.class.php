@@ -16,4 +16,3 @@ class frmFileContent extends MForm
         $this->setFields($fields);
     }
 }
-?>

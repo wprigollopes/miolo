@@ -97,5 +97,3 @@ class MLink extends MActionControl
         $this->inner = $this->generateLabel() . $this->getRender('anchor');
     }
 }
-
-?>

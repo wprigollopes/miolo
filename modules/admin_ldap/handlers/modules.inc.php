@@ -6,4 +6,3 @@ $home = 'main:admin';
 $ui   = $MIOLO->getUI();
 $form = $ui->getForm($module,'frmModule');
 $theme->appendContent($form);
-?>

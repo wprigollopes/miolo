@@ -24,5 +24,3 @@ class MThemeBox extends MContainerControl
         $this->setClass('mThemeBox');
     }
 }
-
-?>

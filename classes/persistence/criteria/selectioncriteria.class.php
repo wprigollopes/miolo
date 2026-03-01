@@ -53,10 +53,10 @@ class SelectionCriteria
     public function getWhereSql()
     {
         $condition = "(";
+        $cm = $this->attributeMap->getColumnMap();
         $conv = $cm->getConverter();
         $condition .= $this->attributeMap->getColumnMap()->getColumnName() . ' ' . $this->operator . ' ' . $this->_getValue();
         $condition .= ")";
         return $condition;
     }
 }
-?>

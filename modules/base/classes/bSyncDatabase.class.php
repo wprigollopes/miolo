@@ -229,6 +229,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
 
         //Initializes l
         $l = null;
+        $db = null;
 
         //iterates through all UML content
         foreach ( $uml as $line => $xmlElement )
@@ -289,6 +290,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
 
         //array of tables indexed by id
         $tablesById = array( );
+        $db = null;
 
         //iterates through all UML content
         foreach ( $uml as $line => $xmlElement )
@@ -745,7 +747,7 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
                 }
                 else if ( $tabelaDB && !$tabelaXml )
                 {
-                    $this->addMessage("Herança '$tabelaDb' sobrando na tabela '$shema.$tableNama'.");
+                    $this->addMessage("Herança '$tabelaDB' sobrando na tabela '$schema.$tableName'.");
                 }
             }
         }
@@ -1223,5 +1225,3 @@ class bSyncDatabase extends SimpleXMLElement implements bSync
         return trim(strtolower($columName));
     }
 }
-
-?>

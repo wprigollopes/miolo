@@ -33,5 +33,3 @@ class MCheckBox extends MChoiceControl
         $this->inner = $this->generateLabel() . $this->getRender( 'inputcheck' );
     }
 }
-
-?>

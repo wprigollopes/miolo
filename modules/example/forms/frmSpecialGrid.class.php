@@ -51,4 +51,3 @@ class frmSpecialGrid extends MForm
         new MMessage('<pre>'.print_r($data, 1).'</pre>');
     }
 }
-?>

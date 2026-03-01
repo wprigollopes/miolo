@@ -100,7 +100,7 @@ class MBasePainter
             }
             else
             {
-                $html = "BasePainter Error: Method Generate not defined to " . get_class($elements);
+                $html = "BasePainter Error: Method Generate not defined to " . get_class($element);
             }
         }
         else
@@ -117,4 +117,3 @@ class MBasePainter
         return $html;
     }
 } // end of BasePainter
-?>

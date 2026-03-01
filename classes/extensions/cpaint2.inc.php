@@ -956,5 +956,3 @@
       return $return_value;
     }
   }
-
-?>

@@ -56,5 +56,3 @@ class MUnOrderedList extends MListControl
         $this->inner = $this->getRender( 'unorderedlist' );
     }
 }
-
-?>

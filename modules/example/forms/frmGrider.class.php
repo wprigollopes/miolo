@@ -118,7 +118,7 @@ class frmGrider extends MForm
 
         $controls[] = new MButton('btnRandomValue', _M('Sortear valor'), $grider2->getAjaxAction('randomValue'));
         $controls[] = new MTextField('digite');
-        $controls[] = new MSelection('escolha', 'true', '', $options2, false, '', '', false);
+        $controls[] = new MSelection('escolha', 'true', '', $options, false, '', '', false);
 
         $grider2->setControls($controls);
         //$grider2->setAddRow(false);
@@ -183,7 +183,7 @@ class frmGrider extends MForm
      */
     public function confirmation($args)
     {
-        $msg .= '1 - <pre>' . print_r($this->myGrider->getData(), 1) . '</pre>';
+        $msg = '1 - <pre>' . print_r($this->myGrider->getData(), 1) . '</pre>';
         $msg .= '2 - <pre>' . print_r($this->secondGrider->getData(), 1) . '</pre>';
         new MMessageInformation('Informações do Exemplo de Grider: </br>' . $msg);
     }
@@ -201,5 +201,3 @@ class frmGrider extends MForm
         $this->setResponse('', 'limbo');
     }
 }
-
-?>

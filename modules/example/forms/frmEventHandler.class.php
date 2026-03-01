@@ -128,4 +128,3 @@ HERE;
         $this->addField($text);
     }
 }
-?>

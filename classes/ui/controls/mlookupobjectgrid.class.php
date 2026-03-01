@@ -49,5 +49,3 @@ class MLookupObjectGrid extends MLookupGrid
 
 
 }
-
-?>

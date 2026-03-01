@@ -140,4 +140,3 @@ class MFormControl extends MControl
         $this->addAttribute('placeholder', $placeholder);
     }
 }
-?>

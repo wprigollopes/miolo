@@ -16,4 +16,3 @@ abstract class MSqlJoin
      */
     abstract public function _sqlJoin($sql);
 }
-?>

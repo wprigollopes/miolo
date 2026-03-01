@@ -719,5 +719,3 @@ abstract class MControl extends MComponent
 class MControlConcrete extends MControl
 {
 }
-
-?>

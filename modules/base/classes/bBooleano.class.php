@@ -46,5 +46,3 @@ class bBooleano
         return $arraySimNao;
     }
 }
-
-?>

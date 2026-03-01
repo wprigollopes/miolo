@@ -74,5 +74,3 @@ class MBaseGroup extends MContainer
         return $outer->generate();
     }
 }
-
-?>

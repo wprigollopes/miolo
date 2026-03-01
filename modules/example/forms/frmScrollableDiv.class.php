@@ -83,4 +83,3 @@ class frmScrollableDiv extends MForm
         }
     }
 }
-?>

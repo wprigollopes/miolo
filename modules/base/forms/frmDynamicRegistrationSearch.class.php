@@ -64,5 +64,3 @@ class frmDynamicRegistrationSearch extends bFormSearch
         $this->buildGrid($colunas);
     }
 }
-
-?>

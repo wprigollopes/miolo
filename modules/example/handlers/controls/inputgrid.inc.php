@@ -20,5 +20,3 @@
         // insert the form into the theme content
         $theme->insertContent( $form );
     }
-
-?>

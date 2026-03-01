@@ -31,5 +31,3 @@ class MFloatValidator extends MRegExpValidator
         $this->chars = '0123456789+-' . $separator;
     }
 }
-
-?>

@@ -322,4 +322,3 @@ class frmMain extends MForm
         $this->setStatus( 'finished' );
     }
 }
-?>

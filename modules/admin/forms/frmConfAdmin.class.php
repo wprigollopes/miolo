@@ -277,4 +277,3 @@ class frmConfAdmin extends MForm
     }
 
 }
-?>

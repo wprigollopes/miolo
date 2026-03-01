@@ -113,4 +113,3 @@
             return $this->painter->generateToString($div);
         }
     }
-?>

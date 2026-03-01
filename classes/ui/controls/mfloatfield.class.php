@@ -66,4 +66,3 @@ class MFloatField extends MTextField
         return parent::generate();
     }
 }
-?>

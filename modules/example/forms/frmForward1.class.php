@@ -42,4 +42,3 @@ class frmForward1 extends MForm
         $this->page->forward($go);
     }
 }
-?>

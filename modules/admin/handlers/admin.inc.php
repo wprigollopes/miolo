@@ -18,4 +18,3 @@ if (! $handled)
 {
    $MIOLO->invokeHandler($module, 'admin/users');
 }
-?>

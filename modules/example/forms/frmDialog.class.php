@@ -48,5 +48,3 @@ class frmDialog extends MForm
         
     }
 }
-
-?>

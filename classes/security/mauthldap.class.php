@@ -220,4 +220,3 @@ class MAuthLdap extends MAuth
         return ldap_get_dn($ldapConn, $entry);
     }
 }
-?>

@@ -28,4 +28,3 @@
         $theme->setContent($content);
     }
     include_once($MIOLO->getConf('home.modules') .'/main_menu.inc');
-?>

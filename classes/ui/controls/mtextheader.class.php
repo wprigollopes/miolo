@@ -17,6 +17,3 @@ class MTextHeader extends MBaseLabel
         $this->inner = $this->getRender( 'header' );
     }
 }
-
-
-?>

@@ -68,8 +68,3 @@ class MModularCalendar extends MDiv
         return parent::generate();
     }
 }
-
-
-
-
-?>

@@ -7,5 +7,3 @@ class MOutputControl extends MFormControl
         parent::__construct( $name, $label, NULL,  $color, $hint );
     }
 }
-
-?>

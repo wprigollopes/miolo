@@ -48,5 +48,3 @@ class MInvertDate
         return $this->date;
     }
 }
-
-?>

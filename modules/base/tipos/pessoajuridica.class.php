@@ -9,5 +9,3 @@ class pessoajuridica extends bType
         parent::__construct('baslegalperson');
     }    
 }
-
-?>

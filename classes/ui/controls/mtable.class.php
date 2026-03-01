@@ -52,5 +52,3 @@ class MTable extends MControl
 
 
 }
-
-?>

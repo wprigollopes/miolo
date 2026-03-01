@@ -9,4 +9,3 @@
     {
         $theme->insertContent($form);
     }
-?>

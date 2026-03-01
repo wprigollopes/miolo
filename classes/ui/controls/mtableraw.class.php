@@ -97,5 +97,3 @@ class MTableRaw extends MSimpleTable
         return parent::generate();
     }
 }
-
-?>

@@ -27,4 +27,3 @@ class BusinessPersistenceSector extends MBusiness
     }
 
 }
-?>

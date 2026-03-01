@@ -21,5 +21,3 @@ class MPageComment extends MBaseLabel
         return $this->getInner();
     }
 }
-
-?>

@@ -180,6 +180,7 @@ class BusinessBaseLog extends MBusiness
     {
         $sql = "begin oracleufjf_pkg.sp_log(:classe,:cursor);end;";
         $p_classe = $classe;
+        $cursor = null;
         $args['classe'] = array(&$p_classe,20,null);
         $args['cursor'] = array(&$cursor,-1, OCI_B_CURSOR);
         $result = $this->_db->executeSP($sql, $args); 
@@ -188,5 +189,3 @@ class BusinessBaseLog extends MBusiness
 
     
 }
-
-?>

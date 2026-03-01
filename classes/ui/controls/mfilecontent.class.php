@@ -30,5 +30,3 @@ class MFileContent extends MContent
         }
     }
 }
-
-?>

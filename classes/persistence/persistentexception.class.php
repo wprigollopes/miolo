@@ -26,5 +26,3 @@ class EPersistentManagerException extends EPersistenceException
         parent::__construct($msg);
     }
 }
-
-?>

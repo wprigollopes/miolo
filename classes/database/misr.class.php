@@ -582,4 +582,3 @@ class MISR
         return $this->phonetic->fonetize($word);
     }
 }
-?>

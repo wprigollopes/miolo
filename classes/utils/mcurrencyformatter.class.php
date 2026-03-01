@@ -495,7 +495,7 @@ class CurrencyFormatter
 				break;
 			case "apostropheThousandsNoDecimals" :
 				$rv = number_format($amount, 2, ".", " ");
-				$rv = substr($str, 0, -3);
+				$rv = substr($rv, 0, -3);
 				break;
 			case "apostropheThousandsDotDecimal" :
 				$rv = number_format($amount, 2, ".", "'");
@@ -564,5 +564,3 @@ class MCurrencyFormatter extends CurrencyFormatter
 		return parent::toDecimal($amount, $ISOCode);
 	}
 }
-
-?>

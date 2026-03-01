@@ -28,5 +28,3 @@
     $form->setFields( $fields );
 
     $theme->appendContent( $form );
-
-?>

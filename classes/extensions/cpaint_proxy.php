@@ -36,4 +36,3 @@ if ($cp_remote_method == "GET") {
 	fclose($cp_socket);
 	exit();
 }
-?>

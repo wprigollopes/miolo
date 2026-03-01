@@ -41,4 +41,3 @@ public function cpaint_xml_close_result() {
 }
 
 }
-?>

@@ -28,7 +28,7 @@ class MTextTable extends MFormControl
         $this->select = $select;
         $this->scrollHeight = '';
         $this->scrollWidth = '';
-        $this->caption      = $caption;
+        $this->caption      = $label;
         $this->index = 0;
         $this->formMode = MFormControl::FORM_MODE_SHOW_ABOVE;
         $this->zebra = $zebra ? 'true' : 'false'; 
@@ -191,4 +191,3 @@ class MTextTable extends MFormControl
         return $this->generateLabel() . $div->generate();
     }
 }
-?>

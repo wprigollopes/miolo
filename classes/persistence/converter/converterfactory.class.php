@@ -27,4 +27,3 @@ class ConverterFactory
         return self::$trivialConverter;
     }
 }
-?>

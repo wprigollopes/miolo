@@ -45,4 +45,3 @@ class MSSQLIdGenerator extends MIdGenerator
         return $value;
     }
 }
-?>

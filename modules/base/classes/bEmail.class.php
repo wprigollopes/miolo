@@ -504,5 +504,3 @@ class bEmail extends PHPMailer
         $this->SMTPSecure = $SMTPSecure;
     }
 }
-
-?>

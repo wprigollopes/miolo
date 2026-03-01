@@ -42,4 +42,3 @@ class bAuthDb extends MAuth
         return $login;
     }
 }
-?>

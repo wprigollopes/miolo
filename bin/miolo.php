@@ -278,4 +278,3 @@ switch ($argv[1])
         die("Invalid command\n");
         break;
 }
-?>

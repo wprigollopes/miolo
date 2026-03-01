@@ -50,4 +50,3 @@ class MOption extends MInputControl
         return $this->getRender( 'option' );
     }
 }
-?>

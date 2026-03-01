@@ -152,6 +152,7 @@ class frmGroup extends AdminForm
             {
                 if ( $this->getFormValue("transaction{$keyTransaction}perm{$keyPerm}") )
                 {
+                    $access = new stdClass();
                     $access->transaction = $keyTransaction;
                     $access->rights = $keyPerm;
                     $selectedAccess[] = clone ($access);
@@ -191,5 +192,3 @@ class frmGroup extends AdminForm
         parent::delete_click('group', $this->dbGroup->idGroup);
     }
 }
-
-?>

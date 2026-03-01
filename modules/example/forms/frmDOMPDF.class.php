@@ -96,7 +96,7 @@ class frmDOMPDF extends MForm
         $params = new stdClass();
         $rowsCount = count($query->result);
         $rowsPage = 42;
-        $numPages = ceil($limit / $rowsPage);
+        $numPages = ceil($rowsCount / $rowsPage);
         $i = 0;
         while ( $i < $rowsCount )
         {
@@ -129,7 +129,7 @@ class frmDOMPDF extends MForm
         $params = new stdClass();
         $rowsCount = count($query->result);
         $rowsPage = 42;
-        $numPages = ceil($limit / $rowsPage);
+        $numPages = ceil($rowsCount / $rowsPage);
         $i = 0;
         while ( $i < $rowsCount )
         {
@@ -174,4 +174,3 @@ class frmDOMPDF extends MForm
         $template->execute('repTemplate3.html');
     }
 }
-?>

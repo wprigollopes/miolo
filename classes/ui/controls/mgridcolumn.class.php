@@ -233,5 +233,3 @@ class MGridColumn extends MControl
         $this->replace[$key] = $replace;
     }
 }
-
-?>

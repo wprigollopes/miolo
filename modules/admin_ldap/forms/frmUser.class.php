@@ -346,5 +346,3 @@ class frmUser extends MForm
         return $rs;
     }
 }
-
-?>

@@ -341,4 +341,3 @@ class BString
         return $this->getString();
     }
 }
-?>

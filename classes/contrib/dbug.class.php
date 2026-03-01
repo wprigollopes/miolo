@@ -623,5 +623,3 @@ class dBug
         echo "</table>";
     }
 }
-
-?>

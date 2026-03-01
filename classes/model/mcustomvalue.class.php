@@ -274,5 +274,3 @@ class MCustomValue26
         return self::getBusiness()->execute($sql->delete(array($this->customizedId, $this->customFieldId)));
     }    
 }
-
-?>

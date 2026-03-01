@@ -106,4 +106,3 @@ class MError
         echo "</table>\n";
     }
 }
-?>

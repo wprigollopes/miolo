@@ -34,4 +34,3 @@ class FirebirdSqlJoin extends MSqlJoin
         $sql->setTables($cond);
     }
 }
-?>

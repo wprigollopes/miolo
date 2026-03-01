@@ -35,4 +35,3 @@ class frmWizard1 extends MFormDialog
             $this->page->redirect($next);
 		}
 }
-?>

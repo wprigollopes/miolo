@@ -426,5 +426,3 @@ class frmDynamic extends bFormRegistration
     }    
     
                     }
-                    
-?>

@@ -150,4 +150,3 @@ class MProfile extends MService
         return $html;
     }
 }
-?>

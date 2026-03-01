@@ -25,4 +25,3 @@ class frmSave extends MForm
         $MIOLO->saveFile('example', 'exampleFile.txt');
     }
 }
-?>

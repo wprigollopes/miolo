@@ -7,4 +7,3 @@ class HandlerAdmin_ldap extends Handler
         $this->manager->trace(__METHOD__);
     }
 }
-?>

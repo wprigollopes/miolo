@@ -52,5 +52,3 @@ class MSubDetailUniqueValidator extends MValidator
     }
 
 }
-
-?>

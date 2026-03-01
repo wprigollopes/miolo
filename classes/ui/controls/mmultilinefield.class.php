@@ -31,5 +31,3 @@ class MMultiLineField extends MTextField
             $this->page->onload("dojo.parser.parse(\"dojo.byId({$this->name})\");");
     }
 }
-
-?>

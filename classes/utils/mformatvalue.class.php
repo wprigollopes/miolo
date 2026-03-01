@@ -33,5 +33,3 @@ class MFormatValue
         return $this->value;
     }
 }
-
-?>

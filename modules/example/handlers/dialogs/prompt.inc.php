@@ -4,5 +4,3 @@
     $navbar->addOption('Dialog Prompt', $module, $self);
     $form = $ui->getForm($module,'frmDlgPrompt');
     $theme->insertContent($form);
-
-?>

@@ -41,4 +41,3 @@ class FirebirdTransaction extends MTransaction
         ibase_rollback ($this->conn->id);
     }
 }
-?>

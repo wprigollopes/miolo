@@ -7,5 +7,3 @@ class MHiddenField extends MTextField
         return $this->getRender('inputhidden');
     }
 }
-
-?>

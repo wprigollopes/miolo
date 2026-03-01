@@ -5,7 +5,7 @@ class MTabContainer extends MContainerControl
 
     public function __construct( $name = NULL, $content = '&nbsp;', $class = NULL, $attributes = NULL )
     {
-        parent::__construct( $name, $content, $ckass, $attributes );
+        parent::__construct( $name, $content, $class, $attributes );
         $this->options = new MStringList();
         $this->height = '150px';
     }
@@ -35,4 +35,3 @@ class MTabContainer extends MContainerControl
     }
 
 }
-?>

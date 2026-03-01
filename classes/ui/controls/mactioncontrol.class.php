@@ -125,4 +125,3 @@ class MActionControl extends MInputControl
         return $onclick . ' return false;';
     }
 }
-?>

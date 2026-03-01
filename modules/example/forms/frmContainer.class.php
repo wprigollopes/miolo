@@ -37,4 +37,3 @@ class FrmContainer extends MForm
         $this->setValidators($validators);
     }
 }
-?>

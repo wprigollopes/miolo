@@ -164,11 +164,13 @@ class MIOLOGenerate
 
 
         $empty = $this->findVars();
+        $str = null;
+        $i = null;
 
         foreach ( $empty as $var )
         {
-            unset($str);
-            unset($i);
+            $str = null;
+            $i = null;
             if ( $this->vars[$var] )
             {
                 $this->generated = str_replace('%' . $var . '%', $this->vars[$var], $this->generated);
@@ -917,7 +919,7 @@ class MIOLOGenerate
         return $fields;
     }
 
-    public function generateFieldByType($name, $value, $label, $type, $maxlength=NULL)
+    public function generateFieldByType($name, $value, $label, $type, $maxlength=NULL, $search=false)
     {
         $fields = '';
         $size = null;
@@ -1057,4 +1059,3 @@ class MIOLOGenerate
         return $className;
     }
 }
-?>

@@ -150,7 +150,7 @@ class bBarraDeFerramentas extends MBaseGroup
      */
     public function addButton($nome, $titulo, $url, $jsSugestao, $ativo, $ativoImagem, $desativadoImagem, $tipo=MToolBar::TYPE_ICON_ONLY)
     {
-        $this->botoes[$name] = new MToolBarButton($nome, $titulo, $url, $jsSugestao, $ativo, $ativoImagem, $desativadoImagem, NULL, $tipo);
+        $this->botoes[$nome] = new MToolBarButton($nome, $titulo, $url, $jsSugestao, $ativo, $ativoImagem, $desativadoImagem, NULL, $tipo);
     }
 
     /**
@@ -284,5 +284,3 @@ class bBarraDeFerramentas extends MBaseGroup
         parent::generateInner();
     }
 }
-
-?>

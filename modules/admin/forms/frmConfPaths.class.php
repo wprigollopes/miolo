@@ -232,4 +232,3 @@ class frmConfPaths extends MForm
     }
 
 }
-?>

@@ -26,4 +26,3 @@ if ($theme->getContent()  == '')
 
 //$MIOLO->page->generate();
 //exit;
-?>

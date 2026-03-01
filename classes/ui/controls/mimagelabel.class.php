@@ -36,5 +36,3 @@ class MImageLabel extends MImage
         $this->inner = $image->generate() . $text->generate();
     }
 }
-
-?>

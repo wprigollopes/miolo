@@ -17,4 +17,3 @@ class ODBCTransaction extends MTransaction
         odbc_rollback($this->conn->id);
     }
 }
-?>

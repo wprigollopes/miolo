@@ -56,5 +56,3 @@ class MCurrencyField extends MTextField
         parent::generateInner();
     }
 }
-
-?>

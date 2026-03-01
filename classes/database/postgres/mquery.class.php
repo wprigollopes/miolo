@@ -123,5 +123,3 @@ class PostgresQuery extends MQuery
         return $rType;
     }
 }
-
-?>

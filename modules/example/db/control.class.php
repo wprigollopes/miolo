@@ -213,5 +213,3 @@ class BusinessExampleControl extends MBusiness
         return $query->result;
     }
 }
-
-?>

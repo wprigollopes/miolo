@@ -2,4 +2,3 @@
 class HandlerHangman extends MHandler
 {
 }
-?>

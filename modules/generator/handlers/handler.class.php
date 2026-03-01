@@ -7,4 +7,3 @@ class HandlerGenerator extends Handler
         $this->manager->trace(__METHOD__);
     }
 }
-?>

@@ -76,4 +76,3 @@ class MAttributes
         return $this->attributes( $mergeDuplicates );
     }
 }
-?>

@@ -20,5 +20,3 @@ if ( ! $MIOLO->invokeHandler($module,$a) )
 {
     $theme->insertContent($cmPanel);
 }
-
-?>

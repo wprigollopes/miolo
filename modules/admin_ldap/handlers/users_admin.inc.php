@@ -8,6 +8,4 @@
     
     $form = $ui->getForm($module,'frmUser');
     $theme->clearContent();
-    $theme->insertContent($form);    
-
-?>
+    $theme->insertContent($form);

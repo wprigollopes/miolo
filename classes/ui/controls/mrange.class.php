@@ -14,4 +14,3 @@ class MRange
         $this->total = $total;
     }
 }
-?>

@@ -23,4 +23,3 @@ class MLinkButton extends MLink
         }
     }
 }
-?>

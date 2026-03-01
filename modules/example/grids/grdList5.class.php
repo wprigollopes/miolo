@@ -66,4 +66,3 @@ class grdList5 extends MGrid
         $this->eventHandler();
     }
 }
-?>

@@ -69,4 +69,4 @@ dojo.addOnLoad(miolo.initHistory);
 </body>
 </html>
 
-<?php require_once './cookiesPopup.php'; ?>
+<?php require_once './cookiesPopup.php';

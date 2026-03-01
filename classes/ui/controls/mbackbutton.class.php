@@ -38,4 +38,3 @@ class MBackButton extends MButton
         parent::__construct($name, $label, 'javascript:history.back();', $image);
     }
 }
-?>

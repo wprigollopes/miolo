@@ -149,4 +149,3 @@ class MMultiTextField4 extends MMultiTextField3
         return $this->inner;
     }
 }
-?>

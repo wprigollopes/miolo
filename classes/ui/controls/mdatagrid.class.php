@@ -180,5 +180,3 @@ class MDataGrid extends MGrid
 class MDataGrid2 extends MDataGrid
 {
 }
-
-?>

@@ -66,7 +66,7 @@ class bJavascript
      * @param string $divId Id of the DIV whose display will be changed.
      * @param string $divImagemId Id of the DIV containing images whose display will be changed.
      */
-    public static function alterarVisualizacao($divId)
+    public static function alterarVisualizacao($divId, $divImagemId = '')
     {
         $MIOLO = MIOLO::getInstance();
 
@@ -175,5 +175,3 @@ class bJavascript
         $MIOLO->page->onload("base.checarCampo('$campoId');");
     }
 }
-
-?>

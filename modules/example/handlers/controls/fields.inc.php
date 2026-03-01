@@ -40,4 +40,3 @@
     $panel->addControl($controls);
 
     $theme->appendContent($panel);
-?>

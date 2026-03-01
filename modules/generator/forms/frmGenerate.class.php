@@ -536,5 +536,3 @@ class frmGenerate extends MForm
         }
     }
 }
-
-?>

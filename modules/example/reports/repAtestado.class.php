@@ -65,4 +65,3 @@
             $this->pdf->addTextWrap(300, $this->pdf->y, 200, 10, 'Nome do Responsável', 'center');
         }
     }
-?>

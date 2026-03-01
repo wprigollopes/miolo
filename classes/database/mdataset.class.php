@@ -474,4 +474,3 @@ class MDataSet
 class RowObject
 {
 }
-?>

@@ -188,11 +188,13 @@ class FrmTabbedFour extends MForm
 {
     public function __construct()
     {
+        $module = MIOLO::getCurrentModule();
         parent::__construct(_M('Tab four', $module));
     }
 
     public function createFields()
     {
+        $module = MIOLO::getCurrentModule();
         $fields4 = array(
             new MTextLabel('tabfields', '', _M('Fields', $module))
         );
@@ -200,4 +202,3 @@ class FrmTabbedFour extends MForm
         $this->setFields($fields4);
     }
 }
-?>

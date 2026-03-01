@@ -84,4 +84,3 @@ class frmSimpleTable extends MForm
         $this->setButtons(new MBackButton());
     }
 }
-?>

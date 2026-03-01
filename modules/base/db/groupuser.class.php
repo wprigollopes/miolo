@@ -95,4 +95,3 @@ class BusinessBaseGroupUser extends MBusiness implements IGroup
         return $criteria->retrieveAsQuery();
     }
 }
-?>

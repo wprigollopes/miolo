@@ -43,4 +43,3 @@ class FirebirdIdGenerator extends MIdGenerator
         return $value;
     }
 }
-?>

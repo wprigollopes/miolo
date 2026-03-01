@@ -228,5 +228,3 @@ public function showInfo(result)
     }
 
 }
-
-?>

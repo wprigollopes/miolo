@@ -291,5 +291,3 @@ function backtrace($depth = 20)
     
     return $lines;
 }
-
-?>

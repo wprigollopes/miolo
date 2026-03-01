@@ -50,4 +50,3 @@ class frmLink extends MForm
         $this->setButtons(new MBackButton());
     }
 }
-?>

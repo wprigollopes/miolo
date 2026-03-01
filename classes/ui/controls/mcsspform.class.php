@@ -86,16 +86,15 @@ class MCSSPForm extends MForm
         $body = HtmlPainter::generateToString($this->generateBody());
         $footer = HtmlPainter::generateToString($this->generateFooter());
 
-        $style = "style=\"\{height:{$form->height}px; position:absolute}\"";
+        $style = "style=\"\{height:{$this->height}px; position:absolute}\"";
         $b = new Div('', $body, 'formBox', $style);
 
-        if (($form->_top) && ($form->_left))
-            $style = "style=\"\{width:{$form->width}; top:{$form->_top}px; left:{$form->_left}px; position:absolute}\"";
+        if (($this->_top) && ($this->_left))
+            $style = "style=\"\{width:{$this->width}; top:{$this->_top}px; left:{$this->_left}px; position:absolute}\"";
         else
-            $style = "style=\"\{width:{$form->width}; position:relative}\"";
+            $style = "style=\"\{width:{$this->width}; position:relative}\"";
 
         $f = new Div('', array($title, $b, $footer), 'formContainer', $style);
         HtmlPainter::generateElements($f);
     }
 }
-?>

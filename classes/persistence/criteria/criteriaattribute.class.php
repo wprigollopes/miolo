@@ -19,4 +19,3 @@ class CriteriaAttribute
         return $s;
     }
 }
-?>

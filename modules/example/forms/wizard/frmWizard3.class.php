@@ -32,4 +32,3 @@ class frmWizard3 extends MFormDialog
 		$this->setButtons($buttons);
 	}
 }
-?>

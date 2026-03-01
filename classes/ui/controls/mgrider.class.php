@@ -457,5 +457,3 @@ class MGrider extends MTableRaw
         return $name;
     }
 }
-
-?>

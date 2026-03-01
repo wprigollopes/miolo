@@ -62,5 +62,3 @@ class MOptionListItem extends MControl
         return $this->$method();
     }
 }
-
-?>

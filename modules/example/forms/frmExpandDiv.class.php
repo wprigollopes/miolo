@@ -32,4 +32,3 @@ class frmExpandDiv extends MForm
         $this->setButtons(new MBackButton());
     }
 }
-?>

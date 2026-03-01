@@ -33,4 +33,3 @@ class frmHints extends MForm
         $this->setButtons($buttons);
     }
 }
-?>

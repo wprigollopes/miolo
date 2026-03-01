@@ -38,4 +38,3 @@ class MAuthMIOLO extends MAuth
         return false;
     }
 }
-?>

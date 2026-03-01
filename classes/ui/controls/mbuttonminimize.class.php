@@ -20,5 +20,3 @@ class MButtonMinimize extends MLinkButton
         $this->caption = $div->generate();
     }
 }
-
-?>

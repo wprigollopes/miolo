@@ -111,4 +111,3 @@ class MRadioButtonGroup extends MBaseGroup
         $this->setClass('mRadioButtonGroupDiv');
     }
 }
-?>

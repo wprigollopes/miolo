@@ -42,4 +42,3 @@ class frmStepByStep3 extends MStepByStepForm
         new MMessageSuccess(_M('Step by step finalized'));
     }
 }
-?>

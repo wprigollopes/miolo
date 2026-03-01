@@ -21,4 +21,3 @@ class frmGridLimitOffset extends MForm
         $this->setButtons($buttons);
     }
 }
-?>

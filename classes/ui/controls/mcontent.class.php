@@ -18,5 +18,3 @@ class MContent extends MControl
         $this->inner = new MDiv('', $content, 'mThemeContent');
     }
 }
-
-?>

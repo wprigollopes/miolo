@@ -117,4 +117,3 @@ class frmTextTable extends MForm
         $this->addField(new MTableRaw('', $data));
     }
 }
-?>

@@ -86,4 +86,3 @@ class BusinessAdminGroup extends MBusiness  implements IGroup
         }
     }
 }
-?>

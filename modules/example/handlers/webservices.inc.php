@@ -7,4 +7,3 @@
     $form = $ui->getForm($module, 'frmWebServices');
     
     $theme->insertContent($form);
-?>

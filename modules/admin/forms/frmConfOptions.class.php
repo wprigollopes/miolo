@@ -319,4 +319,3 @@ class frmConfOptions extends MForm
     }
 
 }
-?>

@@ -18,4 +18,3 @@ class MButtonHelp extends MLinkButton
         $this->inner = $this->getRender('anchor');
     }
 }
-?>

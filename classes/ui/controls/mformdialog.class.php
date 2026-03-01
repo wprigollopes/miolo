@@ -69,4 +69,3 @@ class MFormDialog extends MFormAJAX
     }
 
 }
-?>

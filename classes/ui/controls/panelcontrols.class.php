@@ -86,5 +86,3 @@ class MBasePanel extends MContainer
 
 
 class MPanel extends MBasePanel {}
-
-?>

@@ -22,4 +22,3 @@
     // adding more content to the theme
     $theme->appendContent(new MSpacer());
     $theme->appendContent(new MLabel("I'm at insert1 handler AGAIN."));
-?>

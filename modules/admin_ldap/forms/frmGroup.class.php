@@ -307,5 +307,3 @@ class frmGroup extends MForm
 
 
 }
-
-?>

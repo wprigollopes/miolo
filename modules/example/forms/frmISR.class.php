@@ -47,6 +47,7 @@ class frmISR extends MForm
     public function btnRetrieve_click()
     {
         $MIOLO = MIOLO::getInstance();
+        $module = MIOLO::getCurrentModule();
 
         $db = $MIOLO->getDatabase('common');
         $isr = $db->getISR();
@@ -63,6 +64,7 @@ class frmISR extends MForm
     public function btnIndex_click()
     {
         $MIOLO = MIOLO::getInstance();
+        $module = MIOLO::getCurrentModule();
 
         $db = $MIOLO->getDatabase('common');
         $isr = $db->getISR();
@@ -82,6 +84,7 @@ class frmISR extends MForm
     public function btnUpdate_click()
     {
         $MIOLO = MIOLO::getInstance();
+        $module = MIOLO::getCurrentModule();
 
         $db = $MIOLO->getDatabase('common');
         $isr = $db->getISR();
@@ -95,7 +98,7 @@ class frmISR extends MForm
         $sql = new MSQL('idpessoa,nome,sexo', 'cm_pessoa', "idpessoa in ($in)", 'nome');
         $query = $db->getQuery($sql);
         $result = $query->result;
-        $t = new MTableRaw(_M("Retrieve of '@1' in", $module, $value) . ' cm_pessoa::nome', $result);
+        $t = new MTableRaw(_M("Retrieve of '@1' in", $module, $nome) . ' cm_pessoa::nome', $result);
         $this->addField($t);
     }
 
@@ -105,10 +108,9 @@ class frmISR extends MForm
 
         $db = $MIOLO->getDatabase('common');
         $isr = $db->getISR();
+        $key = $this->getFieldValue('edtKey');
         $pessoa = $MIOLO->getBusiness('common', 'pessoa', $key);
         $pessoa->delete();
-        $key = $this->getFieldValue('edtKey');
         $isr->delete('cm_pessoa', $key);
     }
 }
-?>

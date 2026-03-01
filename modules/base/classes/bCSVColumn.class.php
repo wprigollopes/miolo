@@ -396,4 +396,3 @@ class bCSVColumn
         return $cases;
     }
 }
-?>

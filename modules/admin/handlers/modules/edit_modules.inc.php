@@ -8,4 +8,3 @@ $navbar->addOption( _M('Modules'), $module, $home);
 $ui   = $MIOLO->getUI();
 $form = $ui->getForm($module,'frmModule');
 $theme->appendContent($form);
-?>

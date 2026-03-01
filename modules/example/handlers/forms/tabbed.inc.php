@@ -7,4 +7,3 @@ if ( $theme->getContent() == '' )
 {
     $theme->insertContent($form);
 }
-?>

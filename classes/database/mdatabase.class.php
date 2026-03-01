@@ -368,7 +368,7 @@ class MDatabase
         $err = $this->conn->getErrors();
         if ($err)
         {
-            throw new EDatabaseException($conf, $info . $err);
+            throw new EDatabaseException($this->conf, $info . $err);
         }
     }
 
@@ -422,4 +422,3 @@ class MDatabase
         $lob->handle($object, $attribute, $value, $operation);
     }
 }
-?>

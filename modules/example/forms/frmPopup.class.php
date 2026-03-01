@@ -70,4 +70,3 @@ class frmPopup extends MForm
         new MMessage(_M('You have confirmed', $module));
     }
 }
-?>

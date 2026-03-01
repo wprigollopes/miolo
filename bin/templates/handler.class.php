@@ -9,5 +9,3 @@ class Handler#Module extends MHandler
         $this->manager->trace('Handler#Module:init');
     }
 }
-
-?>

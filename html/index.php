@@ -18,6 +18,3 @@ require_once '../classes/miolo.class.php';
 $MIOLO = MIOLO::getInstance();
 /* @var *MIOLO MIOLO */
 $MIOLO->handlerRequest();
-
-?>
-

@@ -111,5 +111,3 @@ class frmSearchBrowser extends MForm
         }
     }
 }
-
-?>

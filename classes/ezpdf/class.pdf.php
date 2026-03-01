@@ -4457,4 +4457,3 @@ class Cpdf
         $this->fonts_path = $path;
     }
 } // end of class
-?>

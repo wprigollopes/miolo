@@ -86,5 +86,3 @@ class Oracle8Query extends MQuery
         return $rType;
     }
 }
-
-?>

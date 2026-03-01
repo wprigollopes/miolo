@@ -114,6 +114,8 @@ class frmAddOnlineModule extends MForm
                           new MGridColumn( _M('URLDecode', 'admin'), 'left', true, '15%', false, null, false, true ) 
                             );
 
+        $module = MIOLO::getCurrentModule();
+        $url = $MIOLO->getActionURL($module, 'main:modules:add_online_module');
         $grid = new MGrid($installMod, $columns, $url,0);
 
         $grid->addActionIcon( _M('Install', 'admin'), 'module_add_online-16x16.png',$MIOLO->getActionURL($module,'main:modules:requisite_setup_module',null,array ('fileURL'=>'%4%', 'dependency'=>'%6%', 'modRequired'=>'%3%')));
@@ -124,5 +126,3 @@ class frmAddOnlineModule extends MForm
     }
 
 }
-
-?>

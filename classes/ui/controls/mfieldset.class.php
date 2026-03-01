@@ -41,5 +41,3 @@ class MFieldSet extends MContainer
         return $this->getRender('fieldset');
     }
 }
-
-?>

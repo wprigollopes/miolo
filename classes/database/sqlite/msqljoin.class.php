@@ -34,4 +34,3 @@ class SQLiteSqlJoin extends MSqlJoin
         $sql->setTables($cond);
     }
 }
-?>

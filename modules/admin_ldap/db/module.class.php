@@ -127,4 +127,3 @@ class BusinessAdmin_ldapModule extends Business //implements IModule
         return $access;
     }
 }
-?>

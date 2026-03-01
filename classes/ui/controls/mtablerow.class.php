@@ -52,5 +52,3 @@ class TableRow extends MControl
        return null;
     }
 }
-
-?>

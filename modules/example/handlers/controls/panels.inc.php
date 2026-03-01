@@ -20,4 +20,3 @@ $src = new ViewSource(__FILE__);
 
 $theme->insertContent($panel);
 $theme->appendContent($src);
-?>

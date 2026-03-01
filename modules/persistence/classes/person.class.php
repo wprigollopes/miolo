@@ -17,4 +17,3 @@ class BusinessPersistencePerson extends MBusiness
        return $this;
     }
 }
-?>

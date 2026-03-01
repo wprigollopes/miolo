@@ -74,10 +74,10 @@ class Oracle8Connection extends MConnection
         {
             if ($success = oci_execute($sql->stmt, $this->executemode))
             {
-                $this->affectedrows = oci_num_rows($statement);
+                $this->affectedrows = oci_num_rows($sql->stmt);
                 if (!$sql->bind)
                 {
-                    oci_free_statement ($statement);
+                    oci_free_statement ($sql->stmt);
                 }
             }
         }
@@ -126,4 +126,3 @@ class Oracle8Connection extends MConnection
         return "TO_CHAR($date,'$format') ";
     }
 }
-?>

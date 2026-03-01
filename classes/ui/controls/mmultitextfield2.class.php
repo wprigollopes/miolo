@@ -170,7 +170,7 @@ class MMultiTextField2 extends MTextField
 
         // fields
         $n = 1;
-        unset ( $ref );
+        $ref = '';
 
         foreach ( $this->fields as $f )
         {
@@ -273,5 +273,3 @@ class MMultiTextField2 extends MTextField
         return $this->inner;
     }
 }
-
-?>

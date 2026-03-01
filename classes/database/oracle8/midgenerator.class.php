@@ -43,4 +43,3 @@ class Oracle8IdGenerator extends MIdGenerator
         return $value;
     }
 }
-?>

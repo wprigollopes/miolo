@@ -57,5 +57,3 @@ class MOrderedList extends MListControl
         $this->inner = $this->getRender( 'orderedlist' );
     }
 }
-
-?>

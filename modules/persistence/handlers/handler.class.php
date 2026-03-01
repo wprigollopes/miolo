@@ -3,4 +3,3 @@
 class HandlerPersistence extends MHandler
 {
 }
-?>

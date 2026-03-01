@@ -58,4 +58,3 @@ class BusinessPersistenceUser extends MBusiness
     }
 
 }
-?>

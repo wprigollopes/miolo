@@ -67,5 +67,3 @@ class MStatusBar extends MControl
         return $div->generate();
     }
 }
-
-?>

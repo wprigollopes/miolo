@@ -43,4 +43,3 @@ class PostgresIdGenerator extends MIdGenerator
         return $value;
     }
 }
-?>

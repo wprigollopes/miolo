@@ -45,4 +45,3 @@ class frmLabels extends MForm
         $this->setButtons(new MBackButton());
     }
 }
-?>

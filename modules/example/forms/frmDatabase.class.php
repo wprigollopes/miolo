@@ -580,4 +580,3 @@ class frmDatabase extends MForm
         $this->addField(new MThemeBox(_M('Results', $this->module), $text));
     }
 }
-?>

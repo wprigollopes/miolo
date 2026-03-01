@@ -238,4 +238,3 @@ class MLogin
         return array_key_exists($group, $this->groups);
     }
 }
-?>

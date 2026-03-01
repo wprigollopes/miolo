@@ -69,6 +69,7 @@ class frmIndexed extends MForm
      */
     protected function btnPost_click()
     {
+        $module = MIOLO::getCurrentModule();
         // gets the indexed control
         $indexed = $this->getFieldValue('ixcontrol');
 
@@ -80,4 +81,3 @@ class frmIndexed extends MForm
     }
 
 }
-?>

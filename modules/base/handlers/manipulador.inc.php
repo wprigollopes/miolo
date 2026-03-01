@@ -170,6 +170,8 @@ function bManipular($chave)
                     $formularioBusca = 'frmDynamicSearch';
                     $modulo = 'base';
                 }
+                $access = null;
+                $deny = null;
                 $MIOLO->checkAccess($formularioBusca, $access, $deny);
                 // Instantiates the dynamic search form.
                 $conteudo = $ui->getForm($modulo, $formularioBusca, $parametros);
@@ -203,6 +205,8 @@ function bManipularPassos($chave, $passos, $passosDescricao, $titulo)
     $descricaoChave = $chave;
     
     $nomeFormulario = 'frm' . $descricaoChave;
+    $theme = $MIOLO->getTheme();
+
     if ($MIOLO->perms->hasTransaction($nomeFormulario))
     {
         if ($MIOLO->checkAccess($nomeFormulario, $MIOLO->perms->converterFuncaoDaBaseParaAccess($funcao), true))
@@ -210,8 +214,6 @@ function bManipularPassos($chave, $passos, $passosDescricao, $titulo)
             $theme->clearContent();
         }
     }
-    
-    $theme = $MIOLO->getTheme();
     
     $formBusca = $MIOLO->getConf('home.modules') . "/$modulo/forms/frm{$descricaoChave}Busca.class.php";
 
@@ -256,5 +258,3 @@ function bManipularPassos($chave, $passos, $passosDescricao, $titulo)
     $theme->clearContent();
     $theme->insertContent($conteudo);
 }
-
-?>

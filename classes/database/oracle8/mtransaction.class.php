@@ -43,4 +43,3 @@ class Oracle8Transaction extends MTransaction
         $this->conn->executemode = OCI_COMMIT_ON_SUCCESS;
     }
 }
-?>

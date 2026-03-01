@@ -45,7 +45,8 @@ class MPerms extends MService
             }
             
             $MIOLO = $this->manager;
-            $go    = $MIOLO->history->back('action'); 
+            $go    = $MIOLO->history->back('action');
+            $caption = '';
             $error = MPrompt::error($msg, $go, $caption, '');
             $error->addButton(_M('   Login   '), $MIOLO->getActionURL( $MIOLO->getConf('login.module'), '_relogin', null, array('return_to'=>urlencode($MIOLO->history->top()))), '' );
             $MIOLO->prompt($error, $deny);
@@ -101,4 +102,3 @@ class MPerms extends MService
         return $transaction->getGroupsAllowed($action);
     }
 }
-?>

@@ -29,6 +29,7 @@ class frmDragDrop1 extends MForm
         $drag3->backgroundColor = 'blue';
 
         $source = new MBaseGroup('dragBox', _M('Drag from here', $module), array( $drag1, $drag2, $drag3 ));
+        $labelSource = new MLabel(_M('Drag from here', $module));
         $boxSource = new MDiv('boxSource', array( $labelSource, $source ));
 
         $drop1 = new MDiv('dropBox1');
@@ -75,4 +76,3 @@ class frmDragDrop1 extends MForm
         $this->addField(new MTableRaw(_M('Results', $module), $dd, array( _M('Element dragged', $module), _M('& dropped on', $module) )));
     }
 }
-?>

@@ -105,5 +105,3 @@ class MysqlQuery extends MQuery
     }
 
 }
-
-?>

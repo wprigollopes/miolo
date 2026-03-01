@@ -31,4 +31,3 @@ $theme->appendContent($panel);
 $urlSrc = $MIOLO->getActionURL('example','doc','controls/webcontrols.inc');
 $src = new OpenWindow('','View Source',$urlSrc);
 $theme->appendContent($src);
-?>

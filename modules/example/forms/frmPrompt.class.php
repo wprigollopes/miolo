@@ -90,4 +90,3 @@ class frmPrompt extends MForm
         $this->setFieldValue('lblText', $text);
     }
 }
-?>

@@ -12,4 +12,3 @@
             $this->setFields($fields); 
         }
     }
-?>

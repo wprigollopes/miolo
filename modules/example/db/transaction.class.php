@@ -131,4 +131,3 @@ class BusinessExampleTransaction extends MBusiness implements ITransaction
     {
     }
 }
-?>

@@ -9,4 +9,3 @@
     $navbar->addOption('Forward(2)', 'example', $self);
     $form = $ui->getForm('example','frmForward2');
     $theme->appendContent($form);
-?>

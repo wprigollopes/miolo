@@ -159,4 +159,3 @@ class SType extends BasLog
         return SDatabase::getPrimaryKey($this->getTableName());
     }
 }
-?>

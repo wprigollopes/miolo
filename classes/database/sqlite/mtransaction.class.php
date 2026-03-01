@@ -41,4 +41,3 @@ class SQLiteTransaction extends MTransaction
         sqlite_exec($this->conn->id, 'ROLLBACK');
     }
 }
-?>

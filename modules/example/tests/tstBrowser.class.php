@@ -42,5 +42,3 @@ class tstBrowser extends MUnitTest
         $this->addBusiness(new BusinessExampleBrowser($data));
     }
 }
-
-?>

@@ -273,5 +273,3 @@ class DBInfo
         return $this->db->query($sql)->result;
     }
 }
-
-?>

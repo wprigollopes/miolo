@@ -183,4 +183,3 @@ class OperandFunction extends PersistentOperand
         return $this->argument;
     }
 }
-?>

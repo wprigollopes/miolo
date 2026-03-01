@@ -62,4 +62,3 @@ class BusinessExampleAluno extends MBusiness
         return $query;
     }
 }
-?>

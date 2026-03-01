@@ -205,4 +205,3 @@ class BusinessAdminUser extends Business implements IUser
         return $ok;
     }
 }
-?>

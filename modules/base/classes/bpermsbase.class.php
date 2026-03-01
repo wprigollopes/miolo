@@ -118,6 +118,7 @@ class BPermsBase extends MPerms
            
             $go = $this->manager->getActionURL($this->manager->getConf('options.startup'), 'main' );
             
+            $caption = _M('Access Denied');
             $error = Prompt::Error($msg, $go, $caption, '');
             $this->manager->Prompt($error,$deny);
         }
@@ -185,4 +186,3 @@ class BPermsBase extends MPerms
         return strlen($transaction)>0;
     }
 }
-?>

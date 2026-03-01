@@ -18,5 +18,3 @@ class MImageFormLabel extends MDiv
         $this->inner = $this->image->generate() . $this->painter->BR . $this->label->generate();
     }
 }
-
-?>

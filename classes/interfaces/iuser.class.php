@@ -10,4 +10,3 @@ interface IUser
     public function getTransactionRights($transaction);
     public function getArrayGroups();
 }
-?>

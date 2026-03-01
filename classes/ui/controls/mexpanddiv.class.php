@@ -189,5 +189,3 @@ class MExpandDiv extends MDiv
         return parent::generate();
     }
 }
-
-?>

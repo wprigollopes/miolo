@@ -22,4 +22,3 @@ class MModuleHeader extends MDiv
         $this->setClass('mModuleHeader');
     }
 }
-?>

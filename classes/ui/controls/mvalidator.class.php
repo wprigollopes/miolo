@@ -129,5 +129,3 @@ class MValidator extends MFormControl
         $this->manager->getPage()->onLoad("miolo.getForm('{$this->formId}').validators.add({$v});");
     }
 }
-
-?>

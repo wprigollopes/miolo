@@ -4,4 +4,3 @@
     $navbar->addOption('Database', $module, $self);
     $form = $ui->getForm($module,'frmDatabase');
     $theme->insertContent($form);
-?>

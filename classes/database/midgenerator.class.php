@@ -12,4 +12,3 @@ abstract class MIdGenerator
     abstract public function getNewId($sequence='admin', $tableGenerator = 'cm_sequence');
     abstract public function getNextValue($sequence='admin', $tableGenerator = 'cm_sequence');
 }
-?>

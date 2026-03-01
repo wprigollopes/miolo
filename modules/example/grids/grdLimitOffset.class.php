@@ -31,5 +31,3 @@ class grdLimitOffset extends MGrid
         $this->setQuery($sql, 'example');
     }
 }
-
-?>

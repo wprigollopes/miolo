@@ -753,4 +753,3 @@ class MStepByStepForm extends MForm
         return parent::generate();
     }
 }
-?>

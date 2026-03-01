@@ -85,4 +85,3 @@ class frmLookup extends controlForm
         $this->setResponse(new MLabel($key . ' - ' . $aluno->nome, NULL, true), 'divAlunoId');
     }
 }
-?>

@@ -169,4 +169,3 @@ class MStringList extends MList
 class MObjectList extends MList
 {
 }
-?>

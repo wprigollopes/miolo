@@ -16,4 +16,3 @@ $ctlPanel->addAction('ThemeBox',$ui->getImage('','button_edit.png'),$module,'the
 $ctlPanel->addAction('SimpleTable',$ui->getImage('','button_edit.png'),$module,'themeelement:simpletable');
 $theme->appendContent($ctlPanel);
 $handled = $MIOLO->invokeHandler($module, 'controls/' . $context->shiftAction());
-?>

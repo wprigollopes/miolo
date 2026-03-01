@@ -63,5 +63,3 @@ class MCalendarField extends MTextField
         $this->page->onload("if (dijit.byId('$this->name')) { dijit.byId('$this->name').setJsValue('$value'); }");
     }
 }
-
-?>

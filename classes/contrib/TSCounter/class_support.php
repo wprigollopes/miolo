@@ -631,4 +631,3 @@ class SupportFunctions
         echo("</select>");
     }
 }
-?>

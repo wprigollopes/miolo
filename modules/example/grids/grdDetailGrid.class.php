@@ -68,5 +68,3 @@ class grdDetailGrid extends MGridAJAX
         $MIOLO->getTheme()->setAjaxContent($control);
     }
 }
-
-?>

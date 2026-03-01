@@ -93,7 +93,7 @@ class MTransaction
             throw new EDatabaseTransactionException($e->getMessage());
         }
 
-        return $ok;
+        return true;
     }
 
     public function addCommand($sql)
@@ -117,4 +117,3 @@ class MTransaction
         return $this->batch;
     }
 }
-?>

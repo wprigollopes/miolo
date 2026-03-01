@@ -58,7 +58,10 @@ class MioloStatus extends MControl
         $width = 200;
 
         $dump = $MIOLO->dump->get();
-                
+
+        $control = '';
+        $html = '';
+
         if ( $dump['profile'] )
         {
             if ( $control )
@@ -134,5 +137,3 @@ class MioloStatus extends MControl
         }
     }
 }
-
-?>

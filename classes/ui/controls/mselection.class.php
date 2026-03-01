@@ -143,5 +143,3 @@ class MSelection extends MListControl
         }
     }
 }
-
-?>

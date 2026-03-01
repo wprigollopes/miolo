@@ -72,4 +72,3 @@ class frmDragDrop2 extends MForm
         $this->addField($a);
     }
 }
-?>

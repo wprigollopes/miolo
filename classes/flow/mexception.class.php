@@ -208,7 +208,7 @@ class MValidationException extends EMioloException
         parent::__construct();
         $this->messages = $messages;
         
-        $this->linePosition = $line;
+        $this->linePosition = $linePosition;
     }
     
     /**
@@ -253,5 +253,3 @@ class MValidationException extends EMioloException
     }
     
 }
-
-?>

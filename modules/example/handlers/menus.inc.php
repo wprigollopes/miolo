@@ -22,5 +22,3 @@ foreach ( $actions as $action => $title )
 
 $theme->appendContent($frmPanel);
 $handled = $MIOLO->invokeHandler($module, 'menus/' . $context->shiftAction());
-
-?>

@@ -16,5 +16,3 @@ if (! $handled)
     $theme->insertContent($cmPanel);
 }
 include_once($MIOLO->getConf('home.modules') .'/main_menu.inc');
-
-?>

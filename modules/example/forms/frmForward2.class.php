@@ -25,4 +25,3 @@ class frmForward2 extends MForm
         $this->defaultButton = false;
     }
 }
-?>

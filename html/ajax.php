@@ -64,5 +64,3 @@ $MIOLO->ignoreDispatch = true;
 $MIOLO->generateMethod = 'generateAJAX';
 
 $MIOLO->handlerRequest();
-
-?>

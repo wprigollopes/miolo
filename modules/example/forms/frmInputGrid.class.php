@@ -84,4 +84,3 @@ class frmInputGrid extends MForm
         $this->addField($tr);
     }
 }
-?>

@@ -20,7 +20,7 @@ class FirebirdQuery extends MQuery
         $str .= ($this->offset > 0) ? "SKIP $this->offset " : '';
         $this->sql = preg_replace('/^[ \t]*select/i', $str, $this->sql);
         $this->sql = str_replace('password', "\"PASSWORD\"", $this->sql);
-        $this->id_result = ibase_query($this->conn->id, $this->sql, $sql->parameters);
+        $this->id_result = ibase_query($this->conn->id, $this->sql, $this->parameters);
         $this->error = $this->_error();
 
         if (!$this->error)
@@ -107,5 +107,3 @@ class FirebirdQuery extends MQuery
         return $rType;
     }
 }
-
-?>

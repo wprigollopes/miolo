@@ -49,5 +49,3 @@ class jCollapsibleSection extends MDiv
         }
     }
 }
-
-?>

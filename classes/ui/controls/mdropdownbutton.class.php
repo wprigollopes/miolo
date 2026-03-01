@@ -67,5 +67,3 @@ class MDropDownButton extends MButton
         $this->page->onUnLoad($this->unload);
     }
 }
-
-?>

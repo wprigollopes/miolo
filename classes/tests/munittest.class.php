@@ -200,5 +200,3 @@ class MUnitTest extends PHPUnit_Framework_TestCase
         $this->business[] = $business;
     }
 }
-
-?>

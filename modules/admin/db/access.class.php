@@ -65,4 +65,3 @@ class BusinessAdminAccess extends MBusiness implements IAccess
         $db->execute( $sql->delete() );
     }
 }
-?>

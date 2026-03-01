@@ -337,4 +337,3 @@ class MLookupContainer extends MContainer
         $this->lookupField->setAutoComplete($autocomplete);
     }
 }
-?>

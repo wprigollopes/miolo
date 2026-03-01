@@ -519,5 +519,3 @@ class frmLoginLaSalle extends MForm
         return $this->auth->isLogged();
     }
 }
-
-?>

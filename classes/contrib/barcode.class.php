@@ -201,4 +201,3 @@ class BarcodeI25
         }
     } //End of mixCode
 }     //End of Class
-?>

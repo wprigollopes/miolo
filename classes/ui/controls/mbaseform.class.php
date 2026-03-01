@@ -1118,8 +1118,8 @@ class MBaseForm extends MContainerControl
      * Set a form field's validator
      */
     public function setFieldValidator($name,$value)
-    {   
-        for ( $i=0, $n = count($field); $i < $n; $i++ )
+    {
+        for ( $i=0, $n = count($this->fields); $i < $n; $i++ )
         {
             if ( $name == $this->fields[$i]->name )
             {
@@ -1128,8 +1128,8 @@ class MBaseForm extends MContainerControl
             }
         }
     }
-    
-    
+
+
     /**
      * Get a reference for a form field
      */
@@ -1236,7 +1236,7 @@ class MBaseForm extends MContainerControl
    {
         if ( (strpos($width, '%') === false) && (strpos($width, 'px') === false) )
         {
-            $width = "{$value}%";
+            $width = "{$width}%";
         }
         $this->labelWidth = $width; 
    } 
@@ -1688,5 +1688,3 @@ class MBaseForm extends MContainerControl
 class FormData
 {
 }
-
-?>

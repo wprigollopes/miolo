@@ -106,4 +106,3 @@ class frmForm extends MForm
         $this->setBackgroundColor('blue');
     }
 }
-?>

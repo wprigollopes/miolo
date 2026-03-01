@@ -29,4 +29,3 @@ class grdBrowser extends MGrid
         $this->setTitle(_M('Browsers', $module));
     }
 }
-?>

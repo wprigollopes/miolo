@@ -22,4 +22,3 @@ class frmStepByStep2 extends MStepByStepForm
         $this->addFields($fields);
     }
 }
-?>

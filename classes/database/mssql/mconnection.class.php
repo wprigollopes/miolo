@@ -93,4 +93,3 @@ class MSSQLConnection extends MConnection
         return "convert(varchar," . $date . ",103) ";
     }
 }
-?>

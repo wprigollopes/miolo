@@ -92,6 +92,3 @@ $content .=  "</html>";
 $page->generate();
 echo $content;
 exit;
-
-?>
-

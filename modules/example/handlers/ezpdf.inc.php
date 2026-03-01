@@ -7,4 +7,3 @@
     {
       $theme->insertContent($form);
     }
-?>

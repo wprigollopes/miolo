@@ -126,7 +126,8 @@ class bStatusBar extends MDiv
 
         $ui = $this->manager->getUI();
         $login = $this->manager->getLogin();
-        
+
+        $data = new stdClass();
         $data->login = $login->id;
 
         $busAccess = $this->manager->getBusiness('base', 'BusAccess');
@@ -168,7 +169,7 @@ class bStatusBar extends MDiv
                     $icon = 'default-16x16.png';
                 }
 
-                $image = $ui->getImage($id, $ico);
+                $image = $ui->getImage($module, $icon);
 
                 $label = _M($label);
                 $url = $this->manager->getActionURL($module, $action);
@@ -193,6 +194,7 @@ class bStatusBar extends MDiv
         $ui = $this->manager->getUI();
         $login = $this->manager->getLogin();
 
+        $data = new stdClass();
         $data->login = $login->id;
 
         $busAccess = $this->manager->getBusiness('base', 'BusAccess');
@@ -336,5 +338,3 @@ JS;
          
     }
 }
-
-?>

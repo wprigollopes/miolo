@@ -96,5 +96,3 @@ class MActionPanel extends MPanel
         $this->addControl( new MSpacer(), '0', 'clear' );
     }
 }
-
-?>

@@ -31,5 +31,3 @@ class unittestSuite extends MUnitTestSuite
         parent::__construct('unittestSuite');
     }
 }
-
-?>

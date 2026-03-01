@@ -82,4 +82,3 @@ class PersistentManagerFactory
         $this->converters[$name] = $converter;
     }
 }
-?>

@@ -26,4 +26,3 @@ class frmWinSala extends MForm
         $sala->save();
     }
 }
-?>

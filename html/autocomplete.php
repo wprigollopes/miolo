@@ -137,5 +137,3 @@ $info_ = substr($info_, 0, -1);
 echo $info_;
 
 //var_dump( $autoCompleteObj->getResult() );
-
-?>

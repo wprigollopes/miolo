@@ -592,9 +592,9 @@
       { 
             $this->response->html[] = $this->manager->getPage()->painter->generateToString($control);
       }
-      if (!is_array($element))
+      if (!is_array($elements))
       {
-            $elements = array($elements);          
+            $elements = array($elements);
       }
       foreach($elements as $element)
       { 
@@ -1035,5 +1035,3 @@
       return $return_value;
     }
   }
-
-?>

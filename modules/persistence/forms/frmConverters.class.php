@@ -63,4 +63,3 @@ class frmConverters extends MForm
         $this->divRight->setControls(array(new MThemeBox('[Date converter with Test]', $text)));
     }
 }
-?>

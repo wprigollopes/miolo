@@ -9,5 +9,3 @@ class MTableXml extends MTableRaw
         parent::__construct($title, $array, $colTitle);
     }
 }
-
-?>

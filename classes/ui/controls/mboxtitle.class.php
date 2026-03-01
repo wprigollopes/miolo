@@ -84,5 +84,3 @@ class MBoxTitle extends MDiv
         $this->inner = array( $icon, $caption, $close );
     }
 }
-
-?>

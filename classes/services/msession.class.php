@@ -540,4 +540,3 @@ class MSession extends MService
         return TRUE;
     }
 }
-?>

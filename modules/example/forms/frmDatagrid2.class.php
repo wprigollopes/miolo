@@ -41,6 +41,7 @@ class frmDataGrid2 extends MForm
             "15" => "EXECUTE",
             "31" => "SYSTEM"
         );
+        $module = MIOLO::getCurrentModule();
         $mt_field = array(
             array( 'mtgrupos', _M('Groups', $module), '', $grupos ),
             array( 'mtperms', _M('Permissions', $module), '', $this->perms )
@@ -256,6 +257,7 @@ class frmDataGrid2 extends MForm
     public function btnExemplo_click()
     {
         global $theme;
+        $module = MIOLO::getCurrentModule();
         $lnkBack = new Hyperlink('', _M('Example button - click to return', $module), $this->listURL);
         $theme->insertContent($lnkBack);
     }
@@ -263,6 +265,7 @@ class frmDataGrid2 extends MForm
     public function btnArray1_click()
     {
         global $theme;
+        $module = MIOLO::getCurrentModule();
         $lnkBack = new Hyperlink('', _M('List selected - click to return', $module), $this->listURL);
         $texto = '<br>';
         $selecionados = Form::getFormValue('selectRow');
@@ -280,8 +283,8 @@ class frmDataGrid2 extends MForm
     public function btnArray2_click()
     {
         global $theme;
+        $module = MIOLO::getCurrentModule();
         $lnkBack = new Hyperlink('', _M('Click to return', $module), $this->listURL);
         $theme->insertContent($lnkBack);
     }
 }
-?>

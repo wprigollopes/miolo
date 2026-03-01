@@ -16,5 +16,3 @@ class MSpan extends MOutputControl
         return $this->getRender('span');
     }
 }
-
-?>

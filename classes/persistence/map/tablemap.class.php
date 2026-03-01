@@ -35,4 +35,3 @@ class TableMap
         return $this->name;
     }
 }
-?>

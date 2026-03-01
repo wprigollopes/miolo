@@ -17,5 +17,3 @@ class MHtmlElement extends MControl
         return $this->getRender('htmlelement');
     }
 }
-
-?>

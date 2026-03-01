@@ -46,5 +46,3 @@ class frmTableRaw extends MForm
         $this->setButtons(new MBackButton());
     }
 }
-
-?>

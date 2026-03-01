@@ -70,4 +70,3 @@ class frmFormHV2 extends MForm
         $this->setButtons($buttons);
     }
 }
-?>

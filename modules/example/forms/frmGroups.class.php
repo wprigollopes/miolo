@@ -101,5 +101,3 @@ class frmGroups extends controlForm
         $this->addFields($fields);
     }
 }
-
-?>

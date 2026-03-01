@@ -307,5 +307,3 @@ class MRowContainer extends MContainer
         return $this->generateLabel() . $this->generateFieldSpan();
     }
 }
-
-?>

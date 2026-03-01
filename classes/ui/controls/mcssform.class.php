@@ -119,6 +119,7 @@ class MCSSForm extends MForm
         {
             $body->addStyle('background-color',$this->bgColor);
         }
+        $footer = $this->generateFooter();
         $this->formBox->setControls(array($body, $footer));
         $id = $this->getUniqueId();
         $this->formBox->setClass("mFormOuter");
@@ -131,4 +132,3 @@ class MCSSForm extends MForm
 
     }
 }
-?>

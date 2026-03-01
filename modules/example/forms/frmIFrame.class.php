@@ -23,4 +23,3 @@ class frmIFrame extends MForm
         $this->setButtons(new MBackButton());
     }
 }
-?>

@@ -342,4 +342,3 @@ class MTheme extends MContainerControl
         }
     }
 }
-?>

@@ -28,7 +28,8 @@ class frmWebServices extends MForm
         $this->setShowPostButton(false);
         $this->setButtons($buttons);
         
-        $this->setFields($fields);       
+        $this->setFields($fields);
+        $validators = array();
         $this->setValidators($validators);        
     }
     
@@ -42,4 +43,3 @@ class frmWebServices extends MForm
         $this->setResponse(_M('Server result', $this->module) . ': '.$rs, 'resultDiv');
     }
 }
-?>

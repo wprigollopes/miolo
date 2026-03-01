@@ -535,5 +535,3 @@ class MJasperReport extends MReport
     }
 
 }
-
-?>

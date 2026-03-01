@@ -34,4 +34,3 @@ if( !($handled = $MIOLO->invokeHandler($module,$a)) )
     $theme->insertContent($content);
 }
 */
-?>

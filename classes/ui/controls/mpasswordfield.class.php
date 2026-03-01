@@ -9,5 +9,3 @@ class MPasswordField extends MTextField
         $this->type = 'password';
     }
 }
-
-?>

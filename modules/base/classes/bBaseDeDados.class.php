@@ -221,6 +221,7 @@ class bBaseDeDados
     public static function consultarBloco(array $sqls, $base = NULL)
     {
         // Converts the array of SQLs into a string.
+        $sql = $sqls;
         if ( is_array($sql) )
         {
             $sql = implode(";\n", $sql);
@@ -458,5 +459,3 @@ class bBaseDeDados
         return $result[0][0];
     }
 }
-
-?>

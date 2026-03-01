@@ -51,4 +51,3 @@ class SQLiteIdGenerator extends MIdGenerator
         return $value;
     }
 }
-?>

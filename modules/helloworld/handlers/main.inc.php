@@ -9,4 +9,3 @@
 
     // set the $form as the theme content
     $theme->setContent($form);
-?>

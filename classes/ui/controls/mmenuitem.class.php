@@ -64,5 +64,3 @@ class MMenuItem extends MDiv
         return $this->inner;
     }
 }
-
-?>

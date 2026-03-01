@@ -368,13 +368,13 @@ class MGridFilterText extends MGridFilter
 
 class MGridFilterSelection extends MGridFilter
 {
-    
+
     public function __construct($grid,      $label, $options = array(
         ),               $index = 0, $enabled = false)
     {
         parent::__construct($grid, 'selection', $label, '', $index, $enabled);
         $this->control = new MSelection("mGridFilterSel$index", '', $label, $options);
-        $this->value = $this->page->request($this->control->name) ? $this->page->request($this->control->name) : $value;
+        $this->value = $this->page->request($this->control->name) ? $this->page->request($this->control->name) : '';
     }
 }
 
@@ -1498,7 +1498,7 @@ class MGrid extends MBaseGrid
         
         if( $this->scrollable )
         {
-            $bodyHeader = new MDiv('head'.$this->id, $tblDataHeader, 'mGridHead', 'style="'.
+            $bodyHeader = new MDiv('head'.$this->id, $tblData, 'mGridHead', 'style="'.
                                                        'width:'.$this->scrollWidth.';'.
                                                        'overflow-x:hidden;"');
             $body = new MDiv('body'.$this->id, $tblData,'mGridBody','style="'.
@@ -1835,4 +1835,3 @@ class MGrid extends MBaseGrid
     }
 
 }
-?>

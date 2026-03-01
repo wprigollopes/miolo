@@ -7,4 +7,3 @@ class MButtonFind extends MInputButton
         $this->setClass('mButtonFind');
     }
 }
-?>

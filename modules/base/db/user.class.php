@@ -298,12 +298,12 @@ class BusinessBaseUser extends MBusiness implements IUser
     public function setArrayGroups($aGroups)
     {
         $this->groups = NULL;
-        if ( count( $aGrupos ) )
+        if ( count( $aGroups ) )
         {
-            foreach ( $aGrupos as $g )
+            foreach ( $aGroups as $g )
             {
                 $grupo = $this->_miolo->getBusiness( 'base', 'group', $g );
-                $this->groups[$g] = $group;
+                $this->groups[$g] = $grupo;
             }
         }
     }
@@ -351,4 +351,3 @@ class BusinessBaseUser extends MBusiness implements IUser
         return false;
     }
 }
-?>

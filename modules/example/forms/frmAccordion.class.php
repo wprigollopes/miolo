@@ -42,4 +42,3 @@ class frmAccordion extends MForm
         $this->setButtons(new MBackButton());
     }
 }
-?>

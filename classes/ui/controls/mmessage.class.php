@@ -289,5 +289,3 @@ class MMessageError extends MMessage
         parent::__construct($message, self::TYPE_ERROR, $display, self::MSG_CONTAINER_ID, true, $hideTime, $cssAttributes);
     }
 }
-
-?>

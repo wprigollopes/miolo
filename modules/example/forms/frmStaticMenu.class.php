@@ -37,5 +37,3 @@ class frmStaticMenu extends MForm
         $this->addFields($fields);
     }
 }
-
-?>

@@ -46,5 +46,3 @@ if ( !$handled )
 
     $theme->insertContent($cmPanel);
 }
-
-?>

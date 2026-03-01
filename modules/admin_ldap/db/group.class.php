@@ -217,4 +217,3 @@ class BusinessAdmin_ldapGroup extends Business  implements IGroup
 
 
 }
-?>

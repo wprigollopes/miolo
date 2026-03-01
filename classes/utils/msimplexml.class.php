@@ -157,4 +157,3 @@ class MSimpleXml
         return $this->xml->xpath($argument);
     }
 }
-?>

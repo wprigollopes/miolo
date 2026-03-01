@@ -39,5 +39,3 @@ class frm#Form extends MForm
         $this->grid->setData($#table->search($data));
     }
 }
-
-?>

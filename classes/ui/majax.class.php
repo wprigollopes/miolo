@@ -1122,5 +1122,3 @@
       return $return_value;
     }
   }
-
-?>

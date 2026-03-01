@@ -49,6 +49,8 @@ class frmRemModule extends MForm
                           new MGridColumn( _M('Description', 'admin'), 'left', true, '65%', true, null, false, true ),
                             );
 
+        $module = MIOLO::getCurrentModule();
+        $url = $MIOLO->getActionURL($module, 'main:rem_module');
         $grid = new MGrid($fields, $columns, $url,0);
         $grid->addActionIcon('del','close.png',$MIOLO->getActionURL($module,'main:modules:rem_modules:rem_module_options',null,array ('moduleToDelete'=>'%0%')));
         $grid->addActionIcon('view','information16.png',$MIOLO->getActionURL($module,'main:modules:rem_modules:view_information_modules',null,array ('moduleInfo'=>'%0%')));
@@ -56,5 +58,3 @@ class frmRemModule extends MForm
     }
 
 }
-
-?>

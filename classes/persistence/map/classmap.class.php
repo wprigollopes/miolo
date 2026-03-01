@@ -360,10 +360,10 @@ class ClassMap
             $nestedObject = $classMap->getObject();
             for ($i = 0; $i < $classMap->getSize(); $i++)
             {
-                $value = $result[$index++];
                 $am = $classMap->getAttributeMap($i);
                 if ($cm = $am->getColumnMap())
                 {
+                    $value = $query->getValue($cm->getName());
                     $am->setValue($nestedObject, $cm->getValueTo($value,$this));
                 }
             }
@@ -492,6 +492,7 @@ class ClassMap
     {
         $isFirst = TRUE;
         $classMap = $this;
+        $tables = '';
 
         do
         {
@@ -823,4 +824,3 @@ class ClassMap
         return $cmd;   
     }
 }
-?>

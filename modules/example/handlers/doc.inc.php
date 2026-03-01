@@ -12,4 +12,3 @@ $div->addStyle('font-size','10pt');
 $theme->setContent($div);
 $theme->appendContent(new MButton('btnClose','Fechar','javascript:miolo.getWindow(\'\').close();'));
 $theme->setLayout('Popup');
-?>

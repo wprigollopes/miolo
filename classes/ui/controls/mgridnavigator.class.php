@@ -283,4 +283,3 @@ class MGridNavigator extends MControl
 
 
 }
-?>

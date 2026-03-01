@@ -74,4 +74,3 @@
             $this->generateBodyBand($t);
         }
     }
-?>

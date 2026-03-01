@@ -80,5 +80,3 @@
 	$panel->addControl($controls,'100%','left');
 	
 	$theme->appendContent($panel);
-
-?>

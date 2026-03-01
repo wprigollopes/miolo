@@ -79,4 +79,3 @@ HERE;
         return $this->link;
     }
 }
-?>

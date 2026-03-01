@@ -15,5 +15,3 @@ class Business#Module#Table extends MBusiness
         return $query->result;
     }
 }
-
-?>

@@ -9,5 +9,3 @@ $navbar->addOption( _M('Module Setup Data Base'), $module, 'main:modules:setup_b
 $ui   = $MIOLO->getUI();
 $form = $ui->getForm($module,'frmSetupModuleBD');
 $theme->appendContent($form);
-
-?>

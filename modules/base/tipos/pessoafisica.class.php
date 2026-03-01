@@ -53,5 +53,3 @@ class pessoafisica extends bType
         return MIOLO::getInstance()->getConf('pessoafisica.legalperson');
     }
 }
-
-?>

@@ -112,5 +112,3 @@ if ( $a = $context->shiftAction() )
 {
     $handled = $MIOLO->invokeHandler($module, 'controls/' . $a);
 }
-
-?>

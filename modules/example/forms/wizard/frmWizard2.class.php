@@ -83,4 +83,3 @@ $this->manager->trace(implode(' , ',$_REQUEST));
             $this->page->redirect($back);
 		}
 }
-?>

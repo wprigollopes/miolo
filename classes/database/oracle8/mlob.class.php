@@ -45,4 +45,3 @@ class Oracle8LOB extends MLOB
     }
 
 }
-?>

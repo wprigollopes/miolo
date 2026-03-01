@@ -73,5 +73,3 @@ class MLookupTextField extends MLookupField
    }
 
 }
-
-?>

@@ -109,5 +109,3 @@ $theme->setContent($lookup->grid);
 //$MIOLO->generateTheme('lookup');
 
 $page->generate();
-
-?>

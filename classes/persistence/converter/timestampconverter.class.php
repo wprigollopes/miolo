@@ -40,4 +40,3 @@ class timestampconverter implements IConverter
     }
 
 }
-?>

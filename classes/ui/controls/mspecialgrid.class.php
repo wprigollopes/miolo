@@ -397,5 +397,3 @@ class MSpecialGrid extends MGrid
         return $this->getRender('div');
     }
 }
-
-?>

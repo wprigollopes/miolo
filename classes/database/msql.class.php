@@ -1072,4 +1072,3 @@ class MSQLNewJoin
         return $this->getType() . ' JOIN ' . $this->getTable() . ' ON ' . $this->getCondition();
     }
 }
-?>

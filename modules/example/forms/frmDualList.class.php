@@ -56,5 +56,3 @@ class frmDualList extends controlForm
         $this->addFields($fields);
     }
 }
-
-?>

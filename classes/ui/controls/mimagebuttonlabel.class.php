@@ -26,5 +26,3 @@ class MImageButtonLabel extends MImageButton
         $this->caption = $this->image->generate() . $text->generate();
     }
 }
-
-?>

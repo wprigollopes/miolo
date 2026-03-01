@@ -11,5 +11,3 @@ $ui = $MIOLO->getUI();
 
 // instantiates a new grid "grdDetailGrid" located in grids/grdDetailGrid.class
 $grid = $ui->getGrid($module, 'grdDetailGrid');
-
-?>

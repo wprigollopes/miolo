@@ -44,4 +44,3 @@ class trimcaseconverter implements IConverter
    }
 
 }
-?>

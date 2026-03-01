@@ -86,5 +86,3 @@ class MSSQLQuery extends MQuery
         return $rType;
     }
 }
-
-?>

@@ -11,4 +11,3 @@ class sql extends MSQL
         parent::__construct($columns,$tables,$where,$orderBy,$groupBy,$having);
     }
 }
-?>

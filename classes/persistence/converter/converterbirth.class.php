@@ -32,4 +32,3 @@ class ConverterBirth implements IConverter
     }
 
 }
-?>

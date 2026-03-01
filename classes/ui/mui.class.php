@@ -85,7 +85,7 @@ class MUI extends MService
             $this->manager->uses( 'types.class', $module );
         }
 
-        $file = is_null($dir) ? "forms/$class.class" .$this->php : "forms/$dir/$classe.class" .$this->php;
+        $file = is_null($dir) ? "forms/$class.class" .$this->php : "forms/$dir/$class.class" .$this->php;
 
         $path = $this->manager->getModulePath( $module, $file );
 
@@ -328,4 +328,3 @@ class MUI extends MService
         return $link;
     }
 }
-?>

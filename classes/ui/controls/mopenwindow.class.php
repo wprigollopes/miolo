@@ -8,4 +8,3 @@ class MOpenWindow extends MLink
         $this->setActionType('WINDOW:' . $this->href);
     }
 }
-?>

@@ -84,4 +84,3 @@ class ODBCConnection extends MConnection
         return $date;
     }
 }
-?>

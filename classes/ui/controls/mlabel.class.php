@@ -47,5 +47,3 @@ class MLabel extends MBaseLabel
         $this->inner = ( trim($this->value) != '' ) ? $this->getRender( 'text' ) : '';
     }
 }
-
-?>

@@ -16,5 +16,3 @@ if ($theme->getContent()  == '')
 {
     $theme->insertContent($formState);
 }
-
-?>
