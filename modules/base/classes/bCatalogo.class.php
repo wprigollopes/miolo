@@ -1,26 +1,26 @@
 <?php
 
 /**
- * <--- Copyright 2012 de Solis - Cooperativa de Soluções Livres Ltda.
+ * <--- Copyright 2012 Solis - Cooperativa de Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa Base.
+ * This file is part of the Base program.
  *
- * O Base é um software livre; você pode redistribuí-lo e/ou modificá-lo
- * dentro dos termos da Licença Pública Geral GNU como publicada pela Fundação
- * do Software Livre (FSF); na versão 2 da Licença.
+ * Base is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation (FSF); version 2 of the License.
  *
- * Este programa é distribuído na esperança que possa ser útil, mas SEM
- * NENHUMA GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a qualquer MERCADO
- * ou APLICAÇÃO EM PARTICULAR. Veja a Licença Pública Geral GNU/GPL em
- * português para maiores detalhes.
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License/GPL
+ * for more details.
  *
- * Você deve ter recebido uma cópia da Licença Pública Geral GNU, sob o título
- * "LICENCA.txt", junto com este programa, se não, acesse o Portal do Software
- * Público Brasileiro no endereço www.softwarepublico.gov.br ou escreva para a
- * Fundação do Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
- * MA 02110-1301, USA --->
+ * You should have received a copy of the GNU General Public License, under
+ * the title "LICENCA.txt", along with this program. If not, visit the
+ * Brazilian Public Software Portal at www.softwarepublico.gov.br or write
+ * to the Free Software Foundation (FSF) Inc., 51 Franklin St, Fifth Floor,
+ * Boston, MA 02110-1301, USA --->
  *
- * Classe manipuladora do catálogo do Postgresql.
+ * PostgreSQL catalog handler class.
  *
  * @author Eduardo Bonfandini [eduardo@solis.coop.br]
  * @author Jader Osvino Fiegenbaum [jader@solis.coop.br]
@@ -31,7 +31,7 @@
 class bCatalogo
 {
     /**
-     * Constantes que definem os tipos das colunas de tabela do banco de dados.
+     * Constants that define the database table column types.
      */
 
     const TYPE_TEXT = 'text';
@@ -45,11 +45,11 @@ class bCatalogo
     const TYPE_TIMESTAMP = 'timestamp';
 
     /**
-     * Listas os nomes das colunas de uma tabela.
-     * TODO: considerar esquema.
+     * Lists the column names of a table.
+     * TODO: consider schema.
      * 
-     * @param string $tabela Nome da tabela.
-     * @return array Vetor com a listagem de colunas da tabela
+     * @param string $tabela Table name.
+     * @return array Array with the table column listing
      */
     public static function listarColunasDaTabela($tabela)
     {
@@ -84,11 +84,11 @@ class bCatalogo
     }
 
     /**
-     * Obtém dados da coluna. Descrição, tipo e valor padrão.
+     * Gets column data. Description, type and default value.
      *
-     * @param string $coluna Nome da coluna.
-     * @param string $tabela Nome da tabela.
-     * @param string $esquema Nome do esquema.
+     * @param string $coluna Column name.
+     * @param string $tabela Table name.
+     * @param string $esquema Schema name.
      */
     public static function buscarDadosDaColuna($coluna, $tabela, $esquema = '')
     {
@@ -122,24 +122,24 @@ class bCatalogo
 
         $resultado = bBaseDeDados::consultar($msql, $parametros);
 
-        $infoColuna = new bInfoColuna();
+        $infoColuna = new bColumnInfo();
         list(
                 $infoColuna->label,
-                $infoColuna->tipo,
-                $infoColuna->valorPadrao
+                $infoColuna->type,
+                $infoColuna->defaultValue
                 ) = current($resultado);
 
         return $infoColuna;
     }
 
     /**
-     * Busca as chaves estrangeiras da tabela.
+     * Searches for the table foreign keys.
      *
-     * @todo Unir com obterChavesEstrangeiras.
-     * @param string $tabela Tabela da qual se quer obter a lista de colunas.
-     * @param string $esquema Esquema do qual a tabela faz parte. Padrão é public.
-     * @param character $tipo Tipo de relação. Usar constantes TIPO_*.
-     * @return array Matriz com os dados das chaves estrangeiras.
+     * @todo Merge with obterChavesEstrangeiras.
+     * @param string $tabela Table from which to get the column list.
+     * @param string $esquema Schema the table belongs to. Default is public.
+     * @param character $tipo Relation type. Use TIPO_* constants.
+     * @return array Matrix with foreign key data.
      */
     public static function buscarChavesEstrangeirasDaTabela($tabela, $esquema = 'public')
     {
@@ -184,14 +184,14 @@ class bCatalogo
     }
 
     /**
-     * Retorna a estrutura completa dos campos.
+     * Returns the complete field structure.
      * 
-     * Os parametros são filtros no sql.
+     * The parameters are filters in the SQL.
      * 
-     * @param string $esquema Nome do esquema.
-     * @param string $tabela Nome da tabela.
-     * @param string $coluna Nome da coluna.
-     * @return array de stdClass Colunas da tabela. 
+     * @param string $esquema Schema name.
+     * @param string $tabela Table name.
+     * @param string $coluna Column name.
+     * @return array of stdClass Table columns.
      */
     public static function obterColunasDaTabela($esquema = NULL, $tabela = NULL, $coluna = NULL)
     {        
@@ -254,7 +254,7 @@ class bCatalogo
 
         $parametros = array();
 
-        // Ignora campos da baslog.
+        // Ignores baslog fields.
         //$msql->setWhere("pg_attribute.attname NOT IN (SELECT column_name FROM information_schema.columns WHERE table_name = 'baslog')");
 
         if ($tabela)
@@ -284,42 +284,42 @@ class bCatalogo
         
         foreach ($resultado as $linha)
         {
-            $coluna = new bInfoColuna();
+            $coluna = new bColumnInfo();
             list(
-                    $coluna->nome,
-                    $coluna->tipo,
-                    $coluna->titulo,
-                    $coluna->obrigatorio,
-                    $coluna->valorPadrao,
-                    $coluna->tamanho,
-                    $coluna->restricao,
-                    $coluna->fkEsquema,
-                    $coluna->fkTabela,
-                    $coluna->fkColuna,
-                    $coluna->esquema,
-                    $coluna->tabela,
-                    $coluna->campo
+                    $coluna->name,
+                    $coluna->type,
+                    $coluna->title,
+                    $coluna->required,
+                    $coluna->defaultValue,
+                    $coluna->size,
+                    $coluna->constraint,
+                    $coluna->fkSchema,
+                    $coluna->fkTable,
+                    $coluna->fkColumn,
+                    $coluna->schema,
+                    $coluna->table,
+                    $coluna->field
                     ) = $linha;
 
-            if ($colunas[$coluna->nome] != NULL)
+            if ($colunas[$coluna->name] != NULL)
             {
-                $coluna->fkEsquema = $colunas[$coluna->nome]->fkEsquema;
-                $coluna->fkTabela = $colunas[$coluna->nome]->fkTabela;
-                $coluna->fkColuna = $colunas[$coluna->nome]->fkColuna;
+                $coluna->fkSchema = $colunas[$coluna->name]->fkSchema;
+                $coluna->fkTable = $colunas[$coluna->name]->fkTable;
+                $coluna->fkColumn = $colunas[$coluna->name]->fkColumn;
             }
 
-            $colunas[$coluna->nome] = $coluna;
+            $colunas[$coluna->name] = $coluna;
         }
 
         return $colunas;
     }
 
     /**
-     * Função genérica que busca tabela do banco de dados.
+     * Generic function that searches for a database table.
      * 
-     * @param string $esquema Nome do esquema.
-     * @param string $nomeTabela Nome da tabela.
-     * @return array de stdClass Lista de tabelas.
+     * @param string $esquema Schema name.
+     * @param string $nomeTabela Table name.
+     * @return array of stdClass Table list.
      */
     public static function listarTabelas($esquema = NULL, $nomeTabela = NULL)
     {
@@ -349,7 +349,7 @@ class bCatalogo
 
         $tabelas = bBaseDeDados::consultar($msql, $parametros);
 
-        // Trata os dados para retornar um stdClass.
+        // Processes data to return a stdClass.
         if (is_array($tabelas))
         {
             foreach ($tabelas as $linha => $tabela)
@@ -370,11 +370,11 @@ class bCatalogo
     }
 
     /**
-     * Verifica se uma tabela existe na base de dados.
+     * Checks if a table exists in the database.
      * 
-     * @param string $esquema Nome do esquema.
-     * @param string $nomeTabela Nome da tabela.
-     * @return boolean Retorno positivo caso a tabela exista no esquema especificado.
+     * @param string $esquema Schema name.
+     * @param string $nomeTabela Table name.
+     * @return boolean Returns true if the table exists in the specified schema.
      */
     public static function verificarExistenciaDaTabela($esquema = NULL, $nomeTabela = NULL)
     {
@@ -385,12 +385,12 @@ class bCatalogo
     }
 
     /**
-     * Lista chave estrangeiras de uma tabela.
+     * Lists foreign keys of a table.
      * 
-     * @param string $esquema Nome do esquema.
-     * @param string $tabela Nome da tabela.
+     * @param string $esquema Schema name.
+     * @param string $tabela Table name.
      * 
-     * @return array de stdClass Lista de chaves estrangeiras.
+     * @return array of stdClass Foreign key list.
      */
     public static function obterChavesEstrangeiras($esquema = NULL, $tabela = NULL)
     {
@@ -442,16 +442,16 @@ class bCatalogo
         {
             foreach ($resultado as $linha => $info)
             {
-                // Explode as definições para conseguir obter chaves duplas, pois o sql normal não retorna-as.
+                // Explodes the definitions to get dual keys, since the normal SQL does not return them.
                 $definicao = $info[7];
                 $definicao = explode('(', $definicao);
 
-                // Separa a coluna.
+                // Separates the column.
                 $coluna = $definicao[1];
                 $coluna = explode(')', $coluna);
                 $coluna = strtolower(str_replace(' ', '', trim($coluna[0])));
 
-                // Separa a coluna de referência.
+                // Separates the reference column.
                 $colunaRef = $definicao[2];
                 $colunaRef = explode(')', $colunaRef);
                 $colunaRef = strtolower(str_replace(' ', '', trim($colunaRef[0])));
@@ -473,10 +473,10 @@ class bCatalogo
     }
 
     /**
-     * Obtem os indices de uma tabela.
+     * Gets the indexes of a table.
      * 
-     * @param string $esquema Nome do esquema.
-     * @param string $tabela Nome da tabela.
+     * @param string $esquema Schema name.
+     * @param string $tabela Table name.
      */
     public static function obterIndices($esquema = NULL, $tabela)
     {
@@ -504,7 +504,7 @@ class bCatalogo
 
         $resultado = bBaseDeDados::consultar($msql, $parametros);
 
-        // Trata informações transformando em objeto.
+        // Processes information transforming into object.
         if (is_array($resultado))
         {
             foreach ($resultado as $linha => $info)
@@ -515,14 +515,14 @@ class bCatalogo
                 $infoObj->index = $info[2];
                 $infoObj->space = $info[3];
 
-                // Separa as colunas que montam o índice baseado em sua definição.
+                // Separates the columns that compose the index based on its definition.
                 $definicao = $info[4];
                 $pos = stripos($definicao, '(');
 
                 $colunas = substr($definicao, $pos + 1, strlen($definicao) - $pos - 2);
                 $infoObj->columns = explode(',', strtolower(str_replace(' ', '', $colunas)));
 
-                // Define o tipo do índice baseado em sua definição.
+                // Defines the index type based on its definition.
                 $type = 'index';
 
                 if (stripos(strtolower($definicao), 'unique'))
@@ -541,10 +541,10 @@ class bCatalogo
     }
 
     /**
-     * Obter os checks/constraints de uma tabela.
+     * Gets the checks/constraints of a table.
      * 
-     * @param string $esquema Nome do esquema.
-     * @param string $nomeTabela Nome da tabela.
+     * @param string $esquema Schema name.
+     * @param string $nomeTabela Table name.
      */
     public static function obterChecagens($esquema = NULL, $nomeTabela, $check = NULL)
     {
@@ -583,7 +583,7 @@ class bCatalogo
 
         $resultado = bBaseDeDados::consultar($msql, $parametros);
 
-        // Converte cada linha para um objeto.
+        // Converts each line to an object.
         if (is_array($resultado))
         {
             foreach ($resultado as $linha => $info)
@@ -600,10 +600,10 @@ class bCatalogo
     }
 
     /**
-     * Retorna o código fonte das funções do banco.
-     * 
-     * @param string $funcao Nome da função.
-     * @return string Código fonte das funções do banco.
+     * Returns the source code of the database functions.
+     *
+     * @param string $funcao Function name.
+     * @return string Source code of the database functions.
      */
     public static function obterCodigoFonteDaFuncao($funcao = NULL)
     {
@@ -638,9 +638,9 @@ class bCatalogo
     }
 
     /**
-     * Lista as funções do banco.
-     * 
-     * @return array of stdClass Lista de funções.
+     * Lists the database functions.
+     *
+     * @return array of stdClass List of functions.
      */
     public static function listarFuncoes()
     {
@@ -681,10 +681,10 @@ class bCatalogo
     }
 
     /**
-     * Lista todas as visões de um esquema
-     * 
-     * @param string $esquema Nome do esquema.
-     * @return array de stdClass Lista de visões.
+     * Lists all views of a schema
+     *
+     * @param string $esquema Schema name.
+     * @return array of stdClass List of views.
      */
     public static function listarVisoes($esquema = 'public')
     {
@@ -719,11 +719,11 @@ class bCatalogo
     }
 
     /**
-     * Lista uma ou mais sequências.
-     * 
-     * @param string $esquema Nome do esquema.
-     * @param string $sequencia Nome da sequência
-     * @return array de stdClass Lista de sequências.
+     * Lists one or more sequences.
+     *
+     * @param string $esquema Schema name.
+     * @param string $sequencia Sequence name
+     * @return array of stdClass List of sequences.
      */
     public static function listarSequencias($esquema = NULL, $sequencia = NULL)
     {
@@ -781,12 +781,12 @@ class bCatalogo
     }
 
     /**
-     * Método público e estático que retorna uma lista com gatilhos de determinado esquema e tabela.
+     * Public static method that returns a list of triggers for a given schema and table.
      * 
-     * @param string $esquema Nome do esquema.
-     * @param string $gatilho Nome do gatilho.
-     * @param string $tabela Nome da tabela.
-     * @return array de stdClass Lista de gatilhos.
+     * @param string $esquema Schema name.
+     * @param string $gatilho Trigger name.
+     * @param string $tabela Table name.
+     * @return array of stdClass List of triggers.
      */
     public static function listarGatilhos($esquema = NULL, $gatilho = NULL, $tabela = NULL)
     {
@@ -837,7 +837,7 @@ class bCatalogo
                 $infoObj->action = $info[5];
                 $infoObj->orientation = $info[6];
 
-                // Precisa ser assim porque uma trigger de UPDATE DELETE E INSERT aparece 3 vezes.
+                // Needs to be this way because an UPDATE DELETE and INSERT trigger appears 3 times.
                 $resultadoN[$infoObj->name][] = $infoObj;
             }
         }
@@ -846,11 +846,11 @@ class bCatalogo
     }
 
     /**
-     * Obtém os esquemas presentes na base.
+     * Gets the schemas present in the database.
      *
-     * @param string $tabela - Nome da tabela que precisa obter o esquema.
-     * 
-     * @return array Vetor para ser utilizado em componentes do tipo combo.
+     * @param string $tabela - Name of the table that needs to get the schema.
+     *
+     * @return array Array to be used in combo-type components.
      */
     public static function listarEsquemas($tabela = null)
     {
@@ -877,7 +877,7 @@ class bCatalogo
     }
     
     /**
-     * Adiciona uma coluna em uma tabela
+     * Adds a column to a table
      * @param string $esquema
      * @param string $tabela
      * @param string $coluna
@@ -886,7 +886,7 @@ class bCatalogo
      */
     public static function adicionarColuna($esquema, $tabela, $coluna, $tipo)
     {
-        // Caso não exista um esquema coloca o público.
+        // If no schema exists, uses public.
         if (!$esquema)
         {
             $esquema = 'public';
@@ -898,16 +898,16 @@ class bCatalogo
     }
 
     /**
-     * Remove uma coluna.
-     * 
-     * @param string $esquema Nome do esquema.
-     * @param string $tabela Nome da tabela.
-     * @param string $coluna Nome da coluna.
-     * @return boolean Retorna positivo se a coluna foi removida foi sucesso.
+     * Removes a column.
+     *
+     * @param string $esquema Schema name.
+     * @param string $tabela Table name.
+     * @param string $coluna Column name.
+     * @return boolean Returns true if the column was removed successfully.
      */
     public static function removerColuna($esquema = NULL, $tabela, $coluna)
     {
-        // Caso não exista um esquema coloca o público.
+        // If no schema exists, uses public.
         if (!$esquema)
         {
             $esquema = 'public';
@@ -919,12 +919,12 @@ class bCatalogo
     }
 
     /**
-     * Remove uma coluna caso exista.
+     * Removes a column if it exists.
      * 
-     * @param string $esquema Nome do esquema.
-     * @param string $tabela Nome da tabela.
-     * @param string $coluna Nome da coluna.
-     * @return boolean Retorna positivo se a coluna foi removida com sucesso.
+     * @param string $esquema Schema name.
+     * @param string $tabela Table name.
+     * @param string $coluna Column name.
+     * @return boolean Returns true if the column was removed successfully.
      */
     public static function removerColunaSeExistir($esquema = NULL, $tabela, $coluna)
     {
@@ -937,10 +937,10 @@ class bCatalogo
     }
 
     /**
-     * Executa a criação de uma sequência.
-     * 
-     * @param string $nomeSequencia Nome da sequência.
-     * @return boolean Retorna positivo se a sequência foi criada com sucesso.
+     * Executes the creation of a sequence.
+     *
+     * @param string $nomeSequencia Sequence name.
+     * @return boolean Returns true if the sequence was created successfully.
      */
     public static function criarSequencia($nomeSequencia)
     {
@@ -948,10 +948,10 @@ class bCatalogo
     }
 
     /**
-     * Executa a criação de uma sequencia, caso não exista.
-     * 
-     * @param string $nomeSequencia Nome da sequência.
-     * @return boolean Retorna positivo se a sequência foi criada com sucesso.
+     * Executes the creation of a sequence, if it does not exist.
+     *
+     * @param string $nomeSequencia Sequence name.
+     * @return boolean Returns true if the sequence was created successfully.
      */
     public static function criarSequenciaQuandoPossivel($nomeSequencia)
     {
@@ -970,33 +970,33 @@ class bCatalogo
     }
 
     /**
-     * Renomeia uma tabela na base de dados.
-     * 
-     * @param string $nomeAntigo Nome que  a tabela tem atualmente.
-     * @param string $nomeNovo Nome que  a tabela terá.
-     * @return boolean Retorna positivo se a tabela foi renomeada
+     * Renames a table in the database.
+     *
+     * @param string $nomeAntigo Name the table currently has.
+     * @param string $nomeNovo Name the table will have.
+     * @return boolean Returns true if the table was renamed
      */
     public static function renomearTabela($nomeAntigo, $nomeNovo)
     {
-        //Renomeia a tabela para um novo nome
+        //Renames the table to a new name
         $sql = "ALTER TABLE $nomeAntigo RENAME TO $nomeNovo;";
 
         return bBaseDeDados::executar($sql);
     }
 
     /**
-     * Renomeia uma tabela somente se ela existir na base de dados.
-     * 
-     * @param string $nomeAntigo Nome que  a tabela tem atualmente.
-     * @param string $nomeNovo Nome que  a tabela terá.
-     * @return boolean Retorna positivo se a tabela foi renomeada
+     * Renames a table only if it exists in the database.
+     *
+     * @param string $nomeAntigo Name the table currently has.
+     * @param string $nomeNovo Name the table will have.
+     * @return boolean Returns true if the table was renamed
      */
     public static function renomearTabelaSeExistir($nomeAntigo, $nomeNovo)
     {
-        //Verifica se a tabela existe na base de dados
+        //Checks if the table exists in the database
         if (self::verificarExistenciaDaTabela(null, $nomeAntigo))
         {
-            //Renomeia a tabela para um novo nome
+            //Renames the table to a new name
             self::renomearTabela($nomeAntigo, $nomeNovo);
         }
         else
@@ -1016,11 +1016,11 @@ class bCatalogo
     }
 
     /**
-     * Remove uma tabela na base de dados.
-     * 
-     * @param string $nomeAntigo nome que a tabela tem atualmente.
+     * Removes a table from the database.
+     *
+     * @param string $nomeAntigo Current name of the table.
 
-     * @return boolean Retorna positivo se a tabela foi removida
+     * @return boolean Returns true if the table was removed.
      */
     public static function removerTabelaSeExistir($esquma, $nome)
     {
@@ -1033,11 +1033,11 @@ class bCatalogo
     }
 
     /**
-     * Determinar de qual tabela a tabela passada possui herança
-     * 
+     * Determines which table the given table inherits from
+     *
      * @param string $schema
      * @param string $tabela
-     * @return stdClass com tabela e esquema
+     * @return stdClass with table and schema
      */
     public static function obterHeranca($schema, $tabela)
     {
@@ -1074,12 +1074,12 @@ class bCatalogo
     }
 
     /**
-     * Busca as chaves primárias da tabela.
+     * Searches for the table primary keys.
      *
-     * @param string $tabela Tabela da qual se quer obter a lista de colunas.
-     * @param string $esquema Esquema do qual a tabela faz parte. Padrão é public.
-     * @param character $tipo Tipo de relação. Usar constantes TIPO_*.
-     * @return array Matriz com os dados das chaves primárias.
+     * @param string $tabela Table from which to get the column list.
+     * @param string $esquema Schema the table belongs to. Default is public.
+     * @param character $tipo Relation type. Use TIPO_* constants.
+     * @return array Array with the primary key data.
      */
     public static function buscarChavesPrimariasDaTabela($tabela, $esquema = 'public')
     {
@@ -1116,10 +1116,10 @@ class bCatalogo
     }
 
     /**
-     * Método estático para obter comentário da tabela.
-     * 
-     * @param String $nomeDaTabela Nome da tabela.
-     * @return String Comentário da tabela. 
+     * Static method to get the table comment.
+     *
+     * @param String $nomeDaTabela Table name.
+     * @return String Table comment.
      */
     public static function obterComentarioDaTabela($nomeDaTabela)
     {
@@ -1194,14 +1194,14 @@ class bCatalogo
     }
 
     /**
-     * Retorna a estrutura completa dos campos.
+     * Returns the complete field structure.
      *
-     * Os parâmetros são filtros no sql.
+     * The parameters are SQL filters.
      *
-     * @param string $esquema Nome do esquema.
-     * @param string $tabela Nome da tabela.
-     * @param string $coluna Nome da coluna.
-     * @return array de stdClass Colunas da tabela.
+     * @param string $esquema Schema name.
+     * @param string $tabela Table name.
+     * @param string $coluna Column name.
+     * @return array of stdClass Table columns.
      */
     public static function obterObjetosDasColunasDaTabela($esquema = NULL, $tabela = NULL, $coluna = NULL)
     {
@@ -1264,7 +1264,7 @@ class bCatalogo
 
         $parametros = array();
 
-        // Ignora campos da baslog.
+        // Ignores baslog fields.
         $msql->setWhere("pg_attribute.attname NOT IN (SELECT column_name FROM information_schema.columns WHERE table_name = 'baslog')");
 
         if ($tabela)
@@ -1292,30 +1292,30 @@ class bCatalogo
 
         foreach ($resultado as $linha)
         {
-            $coluna = new bInfoColuna();
+            $coluna = new bColumnInfo();
             list(
-                $coluna->nome,
-                $coluna->tipo,
-                $coluna->titulo,
-                $coluna->obrigatorio,
-                $coluna->valorPadrao,
-                $coluna->tamanho,
-                $coluna->restricao,
-                $coluna->fkEsquema,
-                $coluna->fkTabela,
-                $coluna->fkColuna,
-                $coluna->esquema,
-                $coluna->tabela,
-                $coluna->campo
+                $coluna->name,
+                $coluna->type,
+                $coluna->title,
+                $coluna->required,
+                $coluna->defaultValue,
+                $coluna->size,
+                $coluna->constraint,
+                $coluna->fkSchema,
+                $coluna->fkTable,
+                $coluna->fkColumn,
+                $coluna->schema,
+                $coluna->table,
+                $coluna->field
                 ) = $linha;
 
-            if ($colunas[$coluna->nome] != NULL)
+            if ($colunas[$coluna->name] != NULL)
             {
-                $coluna->fkEsquema = $colunas[$coluna->nome]->fkEsquema;
-                $coluna->fkTabela = $colunas[$coluna->nome]->fkTabela;
-                $coluna->fkColuna = $colunas[$coluna->nome]->fkColuna;
+                $coluna->fkSchema = $colunas[$coluna->name]->fkSchema;
+                $coluna->fkTable = $colunas[$coluna->name]->fkTable;
+                $coluna->fkColumn = $colunas[$coluna->name]->fkColumn;
             }
-            $colunas[$coluna->nome] = $coluna;
+            $colunas[$coluna->name] = $coluna;
         }
         return $colunas;
     }

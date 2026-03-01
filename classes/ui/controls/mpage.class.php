@@ -68,9 +68,9 @@ class MPage extends MControl
     
     /*
      * Declaration of MPage::addStyle($url) should be compatible with MControl::addStyle($name, $value):
-     * Adicionar um style em um componente não é a mesma coisa que adicionar em uma página,
-     * mas como MPage é descendente de MControl, tem que seguir a mesma assinatura para o método.
-     * O jeito mais simples de resolver é adicionando um parâmetro opcional.
+     * Adding a style to a component is not the same as adding it to a page,
+     * but since MPage is a descendant of MControl, it must follow the same method signature.
+     * The simplest way to solve this is by adding an optional parameter.
      */
     public function addStyle($url, $value = null)
     {   

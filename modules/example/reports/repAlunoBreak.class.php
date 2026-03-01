@@ -34,22 +34,22 @@ class repAlunoBreak extends MPDFReport
         $n = count($t->tree);
         foreach($t->tree as $k=>$node)
         {
-            // para cada nós (nome do curso), cria um novo report passando o array de dados
-            // e o nome do curso
+            // for each node (course name), create a new report passing the data array
+            // and the course name
             $rep = new repAlunoBreakReport($node, $k);
-            // define que o objeto PDF do subreport é o mesmo deste report 
+            // set the subreport PDF object to be the same as this report's
             $rep->setPDF($this->getPDF());
-            // gera o subreport
+            // generate the subreport
             $rep->generate();
-            // nova página, após gerar o subreport
+            // new page, after generating the subreport
             if ($k != $n) $this->getPDF()->newPage();
         }
  	}
 
     public function generate()
     {
-        // este método sobreescreve o da classe pai, apenas para evitar a geração deste report
-        // já que este report não tem dados...ele atua apenas como um container para os subreports
+        // this method overrides the parent class method, just to prevent this report from being generated
+        // since this report has no data...it acts only as a container for the subreports
         $this->setOutput();
         $this->execute();
     }
@@ -69,7 +69,7 @@ class repAlunoBreakReport extends MPDFReport
         $action = MIOLO::getCurrentAction();
         $page = $MIOLO->getPage();
 
-        // este subreport é um report como outro qualquer....
+        // this subreport is a report like any other....
         $this->nomeCurso = strtoupper($nomeCurso);
         $ui = $MIOLO->getUI();
         $this->img = $ui->getImageSrc('logonet.png','tutorial');

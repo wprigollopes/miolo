@@ -1,17 +1,17 @@
 <?php
 
 /**
- * Interface de arquivos de sincronização
+ * Synchronization files interface
  */
 interface bSync 
 {
     /**
-     * Efetua a sincroniazação
+     * Performs the synchronization
      */
     public function syncronize();
     
     /**
-     * Retorna um array com os arquivos de sincronização de base do módulo informado.
+     * Returns an array with the base synchronization files of the specified module.
      * @param string $module
      * @return array 
      */

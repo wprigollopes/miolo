@@ -2007,7 +2007,7 @@ class MKrono
        
         unset($objArgs);
         
-        // mktime() sem parâmetros foi deprecated no 5.1. time() retorna a mesma coisa.
+        // mktime() without parameters was deprecated in 5.1. time() returns the same thing.
         return time() + $nOffset;
     }
 

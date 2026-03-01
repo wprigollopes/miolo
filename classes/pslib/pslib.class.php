@@ -211,7 +211,7 @@ class postscript
         return (1);
     }
 
-    // Use ISOLatin1 Encoding = Acentuação, caracteres gráficos
+    // Use ISOLatin1 Encoding = Accented characters, graphic characters
     public function encode_ISOLatin1($var = true)
     {
         $this->ISOLatin1 = $var;
@@ -289,7 +289,7 @@ class postscript
     }
 
     // Insert a PS file/image (remember to delete the information in the top of the file (source))
-    // Insere um arquivo/imagem PS (lembre-se de remover a informaçao no inicio daquele arquivo)
+    // Insert a PS file/image (remember to remove the information at the beginning of that file)
     public function open_ps($ps_file = "")
     {
         if (!$ps_file)

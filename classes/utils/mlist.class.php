@@ -52,9 +52,9 @@ class MList
             {
                 for ($i = $this->count; $i >= $key; $i--)
                 {
-                    // Quando $i chegar na posição desejada, apenas insere
-                    // NULL para abrir espaço para o $item. Isso evita chegar
-                    // no índice -1 quando $key for 0 e calcular $i-1.
+                    // When $i reaches the desired position, just insert
+                    // NULL to make room for $item. This avoids reaching
+                    // index -1 when $key is 0 and calculating $i-1.
                     $this->items[$i] = ($key == $i) ? null : $this->items[$i - 1];
                 }
             }

@@ -1,71 +1,71 @@
 <?php
 
 /**
- * Copyright 2005-2017 de Solis Soluções Livres Ltda.
+ * Copyright 2005-2017 Solis Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa SolisGE/Sagu.
+ * This file is part of the SolisGE/Sagu program.
  *
- * O SolisGE/Sagu é um software de propriedade da SOLIS, sendo desenvolvido
- * e mantido exclusivamente por esta empresa.
+ * SolisGE/Sagu is proprietary software of SOLIS, developed and maintained
+ * exclusively by this company.
  *
- * A licença de uso está disponível mediante aquisição exclusiva junto à
- * SOLIS. A licença é concedida sem caráter de exclusividade ao licenciado.
- * Os direitos de uso são perpétuos.
+ * The usage license is available through exclusive acquisition from SOLIS.
+ * The license is granted on a non-exclusive basis to the licensee.
+ * Usage rights are perpetual.
  *
- * Embora os códigos fontes sejam fornecidos, o software é de propriedade
- * da SOLIS, não sendo permitido ao adquirente da licença a sua revenda,
- * empréstimo ou cessão (onerosa ou não) à terceiros. Também não é permitido,
- * a qualquer título e tempo, promover no software qualquer tipo de alienação,
- * reprodução, distribuição, divulgação, registro, licenciamento, transferência
- * ou qualquer outro ato que prejudique ou comprometa os direitos de propriedade
- * de software, o nome e a imagem da sua proprietária e do próprio software,
- * além de configurar concorrência à SOLIS.
+ * Although source code is provided, the software is the property of SOLIS.
+ * The licensee is not permitted to resell, lend, or transfer (whether for
+ * payment or not) the license to third parties. It is also not permitted,
+ * at any time or for any reason, to perform any alienation, reproduction,
+ * distribution, disclosure, registration, licensing, transfer, or any other
+ * act that may harm or compromise the software property rights, the name
+ * and image of its owner and the software itself, or that constitutes
+ * competition with SOLIS.
  *
- * O licenciado, com o acesso ao código fonte do software, terá o direito de
- * promover mudanças no respectivo código. No entanto, nas situações em que ele
- * contar com o suporte oficial prestado pela SOLIS, não poderá promover mudanças
- * no código fonte, sob pena de perda do referido suporte.
+ * The licensee, with access to the software source code, shall have the
+ * right to make changes to the respective code. However, in situations
+ * where the licensee relies on official support provided by SOLIS, changes
+ * to the source code are not permitted, under penalty of losing said support.
  *
- * Para conhecer em detalhes o Termo de Licenciamento do Software SolisGE/Sagu
- * leia o arquivo “LICENCA.txt” disponível junto ao código deste software.
+ * For detailed information about the SolisGE/Sagu Software Licensing Terms,
+ * read the "LICENCA.txt" file included with this software.
  *
  *
- * Formulário principal do Base.
+ * Base main form.
  *
  *
  */
 class bForm extends MForm
 {
     /**
-     * @var bBarraDeFerramentas Barra de ferramentas do sistema.
+     * @var bBarraDeFerramentas System toolbar.
      */
     protected $barraDeFerramentas;
 
     /**
-     * @var string Nome do módulo.
+     * @var string Module name.
      */
     protected $modulo;
     
     /**
-     * @var string Função do formulário. 
+     * @var string Form function. 
      */
     protected $funcao;
     
     /**
-     * @var bTipo Instância do tipo. 
+     * @var bType Type instance. 
      */
     protected $tipo;
     
     /**
-     * @var boolean Flag que define se será feito event handler 
+     * @var boolean Flag that defines whether event handler will be executed 
      */
     public static $fazerEventHandler;
     
     /**
-     * Método construtor do formulário.
+     * Form constructor method.
      * 
-     * @param string $titulo Título do formulário.
-     * @param aray $parametros Parametros enviados pelo manipulador.
+     * @param string $titulo Form title.
+     * @param aray $parametros Parameters sent by the handler.
      */
     public function __construct($titulo = null, $parametros = null)
     {
@@ -76,7 +76,7 @@ class bForm extends MForm
 
 	    if($parametros['tipo'])
 	    {
-            	$this->instanciarTipo($parametros['tipo']);
+            	$this->instantiateType($parametros['tipo']);
             
                 if ( strlen($titulo) == 0 )
         	{
@@ -88,7 +88,7 @@ class bForm extends MForm
 
             if ( $this->barraDeFerramentas )
             {
-                // Classe que faz o espaçamento necessário para o uso da toolbar vertical.
+                // Class that provides the necessary spacing for the vertical toolbar.
                 $this->setClass('verticalToolbarPadding');
             }
                 
@@ -98,7 +98,7 @@ class bForm extends MForm
                 self::$fazerEventHandler = true;
             }
 
-            // TODO: remova-me
+            // TODO: remove me
             $barraDeNavegacao = $this->manager->getTheme()->getElement('navigation');
             $barraDeNavegacao->addOption($titulo, $this->modulo, 'main');
 
@@ -107,11 +107,11 @@ class bForm extends MForm
         }
         catch ( MDatabaseException $e )
         {
-            $this->exibirErro($e->getMessage());
+            $this->displayError($e->getMessage());
         }
         catch ( MValidationException $e )
         {
-            // Obtém as mensagens do validador.
+            // Gets the validator messages.
             $mensagens = $e->getMessages();
             $javascript = 'mvalidator.removeAllErrors();';
             
@@ -123,29 +123,29 @@ class bForm extends MForm
                 }
             }
             
-            // Adiciona as mensagens ao lado dos campos que estão inválidos.
+            // Adds the messages next to the fields that are invalid.
             $this->page->onload($javascript);
             
-            // Resposta ajax para que validação seja ajax.
+            // Ajax response so that validation is ajax.
             $this->setResponse(NULL, 'responseDiv');
         }
         catch ( Exception $e )
         {
 //            MUtil::debug($e->getMessage());
-            $this->exibirErro($e->getMessage());
+            $this->displayError($e->getMessage());
         }
     }
 
     /**
-     * Método para criação de campos do formulário.
+     * Method for creating form fields.
      * 
-     * @param boolean $barraDeFerramentas Flag booleana para mostrar ou não a barra de ferramentas.
+     * @param boolean $barraDeFerramentas Boolean flag to show or hide the toolbar.
      */
     public function createFields($barraDeFerramentas = true)
     {
         parent::createFields();
         
-        // Evento que ativam o definir campos.
+        // Events that trigger the field definition.
         $eventos[] = 'botaoBuscar_click';
         $eventos[] = 'tbBtnNew:click';
         $eventos[] = 'bfEditar:click';
@@ -156,12 +156,12 @@ class bForm extends MForm
         $eventos[] = 'confirmarExclusao';
         $eventos[] = 'confirmarExclusao';
         
-        // Somente chama os campos principais caso seja necessário.
+        // Only calls the main fields when necessary.
         if ( MUtil::isFirstAccessToForm() || in_array( MIOLO::_REQUEST(MUtil::getDefaultEvent()), $eventos ) || substr(MIOLO::_REQUEST(MUtil::getDefaultEvent()), 0, 11) == 'mlinkbutton' )
         {
             try
             {
-                $this->definirCampos(false);
+                $this->buildFields(false);
             }
             catch (Exception $e)
             {
@@ -170,7 +170,7 @@ class bForm extends MForm
         }
     }
     
-    public function definirCampos($barraDeFerramentas)
+    public function buildFields($barraDeFerramentas)
     {
         $fields = array();
         
@@ -188,15 +188,15 @@ class bForm extends MForm
     }
     
     /**
-     * Método reescrito para obter primeiro campo do formulário e definir o foco nele.
+     * Overridden method to get the first form field and set focus on it.
      * 
-     * @param array Vetor de campos.
+     * @param array Array of fields.
      */
     public function addFields($campos)
     {
         parent::addFields($campos);
         
-        $primeiroCampoVisivel = $this->obterPrimeiroCampoVisivel($campos);
+        $primeiroCampoVisivel = $this->getFirstVisibleField($campos);
 
         if ( $primeiroCampoVisivel && MUtil::isFirstAccessToForm() )
         { 
@@ -205,12 +205,12 @@ class bForm extends MForm
     }
 
     /**
-     * Cria uma instância do tipo informado e a define no atributo tipo do formulário.
+     * Creates an instance of the specified type and sets it in the form's type attribute.
      *
-     * @param string $nomeDoTipo Nome do tipo.
-     * @return labType Instância do tipo.
+     * @param string $nomeDoTipo Type name.
+     * @return labType Type instance.
      */
-    public function instanciarTipo($nomeDoTipo)
+    public function instantiateType($nomeDoTipo)
     {
         if ( !$nomeDoTipo )
         {
@@ -218,24 +218,24 @@ class bForm extends MForm
         }
                
         
-        $this->tipo = bTipo::instanciarTipo($nomeDoTipo, $this->modulo);
+        $this->tipo = bType::instantiateType($nomeDoTipo, $this->modulo);
     }
     
     /**
-     * Método para exibir erros em tela.
+     * Method to display errors on screen.
      * 
-     * @param string $erro Mensagem de erro.
+     * @param string $erro Error message.
      */
-    public function exibirErro( $erro )
+    public function displayError( $erro )
     {
-        // Primeiro acesso a página.
+        // First access to the page.
         if ( MUtil::isFirstAccessToPage() )
         {
             $this->error( $erro );
         }
         else
         {
-            // Testa se a mensagem de erro possui mais de uma linha, caso tenha, adiciona a mensagem em uma DIV expandida.
+            // Tests if the error message has more than one line; if so, adds the message in an expanded DIV.
             if ( count(explode("<br />", $erro)) > 1 )
             {
                 $divErro = new MExpandDiv( NULL, $erro );
@@ -251,19 +251,19 @@ class bForm extends MForm
     }
     
     /**
-     * Método que obtém o id do primeiro campo de entrada visível (recursiva).
+     * Method that gets the id of the first visible input field (recursive).
      *
-     * @param array Vetor com componentes do MIOLO.
-     * @return string Id do primeiro campo vísivel.
+     * @param array Array with MIOLO components.
+     * @return string Id of the first visible field.
      *
      */
-    public function obterPrimeiroCampoVisivel($campos)
+    public function getFirstVisibleField($campos)
     {
         foreach ( (array) $campos as $campo )
         {
             if ( $campo instanceof MContainer )
             {
-                $campoVisivel = $this->obterPrimeiroCampoVisivel($campo->getControls());
+                $campoVisivel = $this->getFirstVisibleField($campo->getControls());
                 
                 if ( $campoVisivel )
                 {
@@ -272,7 +272,7 @@ class bForm extends MForm
             }
             elseif ( $campo instanceof MDiv )
             {
-                $campoVisivel = $this->obterPrimeiroCampoVisivel($campo->getInner());
+                $campoVisivel = $this->getFirstVisibleField($campo->getInner());
                 
                 if ( $campoVisivel )
                 {
@@ -291,26 +291,26 @@ class bForm extends MForm
     }
     
     /**
-     *  Método reescrito para atender os campos cujo id é palavra reservada do sistema. Ex: name.
+     * Overridden method to handle fields whose id is a system reserved word. E.g.: name.
      * 
-     * @return FormData Objeto com valores do formulário. 
+     * @return FormData Object with form values. 
      */
     public function getData()
     {
         $dados = $this->getAjaxData();
         
-        // Percorre os valores do FormData ajustando os valores cujo indice termine com '_'.
+        // Iterates through the FormData values adjusting values whose index ends with '_'.
         foreach ( $dados as $indice => $dado )
         {
             if ( substr($indice, strlen($indice) -1, 1) == '_' )
             {
-                // Retira o "-" no final do indice.
+                // Removes the '_' at the end of the index.
                 $novoIndice = substr($indice, 0, strlen($indice) -1);
                 $dados->$novoIndice = $dado;
             }
         }
         
-        // Suporte ao componente MSubDetail.
+        // Support for the MSubDetail component.
         foreach ( $this->fields as $campo )
         {
             if ( $campo instanceof MSubDetail )
@@ -334,21 +334,21 @@ class bForm extends MForm
     }
 
     /**
-     * Obtém o campo personalizado relacionado a uma coluna e tabela
+     * Gets the custom field related to a column and table
      *
-     * @param String $coluna Coluna relacionada a coluna
-     * @param String $tabela Tabela relacionada ao campo
-     * @param array $parametros Lista com atributos para ser sobrescrito ao campo obtido
-     * @return Array Lista do campo e validador
+     * @param String $coluna Column related to the column
+     * @param String $tabela Table related to the field
+     * @param array $parametros List of attributes to override on the obtained field
+     * @return Array List of field and validator
      */
-    public function obterCampoDeTabela($coluna, $tabela, $parametros = array())
+    public function getTableField($coluna, $tabela, $parametros = array())
     {
         $tabela = strtolower($tabela);
         $coluna = strtolower($coluna);
 
         try
         {
-            list( $field, $validator, $campoMensagem ) = SDicionarioDeCampos::obterCampoDeTabela($coluna, $tabela, $parametros);
+            list( $field, $validator, $campoMensagem ) = SDicionarioDeCampos::getTableField($coluna, $tabela, $parametros);
 
             if (!is_array($parametros['chavePrimaria']) && count($this->pkey) > 0)
             {

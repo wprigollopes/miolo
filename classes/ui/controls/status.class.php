@@ -20,7 +20,7 @@
 // +-----------------------------------------------------------------+
 
 /**
- * Uma classe auxiliar para monitorar o desempenho 
+ * A helper class to monitor performance
  */
 /**
  * Brief Class Description.

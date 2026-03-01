@@ -1,26 +1,26 @@
 <?php
 
 /**
- * <--- Copyright 2012 de Solis - Cooperativa de Soluções Livres Ltda.
+ * <--- Copyright 2012 Solis - Cooperativa de Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa Base.
+ * This file is part of the Base program.
  *
- * O Fermilab é um software livre; você pode redistribuí-lo e/ou modificá-lo
- * dentro dos termos da Licença Pública Geral GNU como publicada pela Fundação
- * do Software Livre (FSF); na versão 2 da Licença.
+ * Fermilab is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation (FSF); version 2 of the License.
  *
- * Este programa é distribuído na esperança que possa ser útil, mas SEM
- * NENHUMA GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a qualquer MERCADO
- * ou APLICAÇÃO EM PARTICULAR. Veja a Licença Pública Geral GNU/GPL em
- * português para maiores detalhes.
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License/GPL
+ * for more details.
  *
- * Você deve ter recebido uma cópia da Licença Pública Geral GNU, sob o título
- * "LICENCA.txt", junto com este programa, se não, acesse o Portal do Software
- * Público Brasileiro no endereço www.softwarepublico.gov.br ou escreva para a
- * Fundação do Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
- * MA 02110-1301, USA --->
+ * You should have received a copy of the GNU General Public License, under
+ * the title "LICENCA.txt", along with this program. If not, visit the
+ * Brazilian Public Software Portal at www.softwarepublico.gov.br or write
+ * to the Free Software Foundation (FSF) Inc., 51 Franklin St, Fifth Floor,
+ * Boston, MA 02110-1301, USA --->
  *
- * Formulário genérico de edição, inserção e exploração do Base.
+ * Generic form for editing, inserting and exploring in Base.
  *
  * @author Daniel Hartmann [daniel@solis.coop.br]
  * @author Jader Osvino Fiegenbaum [jader@solis.coop.br]
@@ -28,16 +28,16 @@
  * @since
  * Class created on 27/06/2012
  */
-class bFormCadastro extends bForm
+class bFormRegistration extends bForm
 {
     /**
-     * Método para criação de campos específicos dos formulários de edição e inserção.
+     * Method for creating fields specific to edit and insert forms.
      * 
-     * @param boolean $barraDeFerramentas Flag booleana para mostrar ou não a barra de ferramentas.
+     * @param boolean $barraDeFerramentas Boolean flag to show or hide the toolbar.
      */
-    public function definirCampos($barraDeFerramentas=TRUE)
+    public function buildFields($barraDeFerramentas=TRUE)
     {
-        parent::definirCampos($barraDeFerramentas);
+        parent::buildFields($barraDeFerramentas);
 
         if ( $this->barraDeFerramentas )
         {
@@ -59,9 +59,9 @@ class bFormCadastro extends bForm
     }
 
     /**
-     * Sobrescrito método addFields para alterar visualização dos campos conforme função atual.
+     * Overridden addFields method to change field display according to the current function.
      *
-     * @param array $fields Instâncias de componentes.
+     * @param array $fields Component instances.
      */
     public function addFields($campos, $informarValorChavePrimaria = FALSE)
     {
@@ -74,7 +74,7 @@ class bFormCadastro extends bForm
             
             if ( $this->funcao == FUNCAO_INSERIR )
             {
-                // Retira o campo da tela quando tiver chave primária sequencial. Ex: código.
+                // Removes the field from the screen when it has a sequential primary key. E.g.: code.
                 if ( strlen($chavesPrimarias['sequencial']) )
                 {
                     foreach ( $campos as $chave => $campo )
@@ -90,7 +90,7 @@ class bFormCadastro extends bForm
             {
                 foreach ( $campos as $campo )
                 {
-                    // Seta só os campos que são chave primária como somente leitura.
+                    // Sets only the primary key fields as read-only.
                     if ( in_array($campo->name, $chavesPrimarias) && method_exists($campo, 'setReadOnly') )
                     {
                         $campo->setReadOnly(TRUE);
@@ -99,7 +99,7 @@ class bFormCadastro extends bForm
             }
             elseif ( $this->funcao == FUNCAO_EXPLORAR )
             {
-                // Seta todos os campos como somente leitura.
+                // Sets all fields as read-only.
                 foreach ( $campos as $campo )
                 {
                     $campo->setReadOnly(TRUE);
@@ -107,7 +107,7 @@ class bFormCadastro extends bForm
             }
         }
 
-        // Obtém e adiciona os campos personalizados ao formulário.
+        // Gets and adds custom fields to the form.
         list($identifier, $customizedId) = $this->obterInformacoesDoFormulario();
         $camposPersonalizados = $this->getCustomFields($identifier, $customizedId);
         $campos = array_merge($campos, $camposPersonalizados);
@@ -125,7 +125,7 @@ class bFormCadastro extends bForm
     }
 
     /**
-     * Obtém as informações do formulário, para obter os campos personalizados.
+     * Gets form information, to obtain custom fields.
      *
      * @return array
      */
@@ -133,7 +133,7 @@ class bFormCadastro extends bForm
     {
         $identifier = 'frm' . ((strlen(MIOLO::_REQUEST('chave')) > 0) ? MIOLO::_REQUEST('chave') : $this->tipo->getTabela());
         $primaryKey = $this->tipo->obterChavesPrimarias();
-        $customizedId = MIOLO::_REQUEST($primaryKey['sequencial']); // Sempre utilizará a chave primária sequencial.
+        $customizedId = MIOLO::_REQUEST($primaryKey['sequencial']); // Will always use the sequential primary key.
 
         return array($identifier, $customizedId, $primaryKey['sequencial']);
     }
@@ -150,7 +150,7 @@ class bFormCadastro extends bForm
             }
             if ($dicionarioDeCampos != null)
             {
-                // Comentando pois não existe a opção de cadastrar um campo não editável no dicionário de campos, por enquanto
+                // Commenting out because there is no option to register a non-editable field in the field dictionary, for now
 //                if ( !$dicionarioDeCampos->isEditable() )
 //                {
 //                    $campo->setReadOnly(true);
@@ -174,11 +174,11 @@ class bFormCadastro extends bForm
 
     
     /**
-     * Obtém os botões padrões do formulário de cadastro.
+     * Gets the default buttons for the registration form.
      * 
-     * @param boolean $botaoCancelar Adicionar botão cancelar.
-     * @param boolean $botaoSalvar Adicionar botão salvar.
-     * @return MDiv contendo os botões. 
+     * @param boolean $botaoCancelar Add cancel button.
+     * @param boolean $botaoSalvar Add save button.
+     * @return MDiv containing the buttons. 
      */
     protected function obterBotoesPadrao($botaoCancelar=TRUE, $botaoSalvar=TRUE)
     {
@@ -186,24 +186,24 @@ class bFormCadastro extends bForm
 
         if ( $botaoCancelar )
         {
-            // Botão cancelar.
+            // Cancel button.
             $imagem = $this->manager->getUI()->getImageTheme(NULL, 'botao_cancelar.png');
             $botoes[] = new MButton('botaoCancelar', _M('Cancelar'), NULL, $imagem);
         }
         
         if ( $botaoSalvar )
         {
-            // Botão salvar.
+            // Save button.
             $imagem = $this->manager->getUI()->getImageTheme(NULL, 'botao_salvar.png');
             $botoes[] = new MButton('botaoSalvar', _M('Salvar'), ':botaoSalvar_click', $imagem);
         }
         
-        // Adiciona botão buscar no formulário
+        // Adds search button to the form
         return MUtil::centralizedDiv($botoes);
     }
 
     /**
-     * Método para salvar os dados do formulário, é chamado ao clicar no botão "Salvar".
+     * Method to save form data, called when clicking the "Save" button.
      */
     public function botaoSalvar_click()
     {
@@ -211,7 +211,7 @@ class bFormCadastro extends bForm
         {    
             $this->tipo->definir($this->getData());
 
-            // Define a função do formulário.
+            // Sets the form function.
             $this->tipo->definirFuncao(MIOLO::_REQUEST('funcao'));
             
             try
@@ -220,7 +220,7 @@ class bFormCadastro extends bForm
 
                 $resultado = $this->tipo->salvar();
 
-                // Salva os valores dos campos personalizados.
+                // Saves the custom field values.
                 list($identifier, $customizedId, $primaryKey) = $this->obterInformacoesDoFormulario();
                 $this->saveCustomFields($this->tipo->$primaryKey, $this->getData(), $identifier);
 
@@ -260,7 +260,7 @@ class bFormCadastro extends bForm
                     $this->limparIndicacaoDeFormModificado();
                     new MMessageSuccess(_M('Registro editado com sucesso.'));
                     
-                    // Volta para a tela de busca
+                    // Returns to the search screen
                     $parametros = array (
                         'chave' => MIOLO::_REQUEST('chave'),
                         'funcao' => FUNCAO_BUSCAR
@@ -282,8 +282,8 @@ class bFormCadastro extends bForm
     }
 
     /**
-     * Método para cancelar digitação de dados no formulário. Se o valor de algum campo foi alterado, questiona o
-     * usuário se ele realmente deseja cancelar.
+     * Method to cancel data entry in the form. If any field value was changed, asks the
+     * user if they really want to cancel.
      */
     public function botaoCancelar_click()
     {
@@ -302,7 +302,7 @@ class bFormCadastro extends bForm
     }
 
     /**
-     * Cancela a edição/inserção de dados, redirecionando o usuário à tela de busca.
+     * Cancels data editing/insertion, redirecting the user to the search screen.
      */
     public function cancelar()
     {
@@ -315,7 +315,7 @@ class bFormCadastro extends bForm
     }
 
     /**
-     * Limpa o campo que indica que formulário foi modificado.
+     * Clears the field that indicates the form was modified.
      */
     public function limparIndicacaoDeFormModificado()
     {
@@ -323,13 +323,13 @@ class bFormCadastro extends bForm
     }
 
     /**
-     * Método chamado para carregar os dados dos campos do formulário ao editar.
+     * Method called to load form field data when editing.
      */
     public function onLoad()
     {
         if ( ( $this->funcao == FUNCAO_EDITAR || $this->funcao == FUNCAO_EXPLORAR) && MUtil::isFirstAccessToForm() )
         {
-            // Obtém os valores das chaves primárias passadas por URL.
+            // Gets the primary key values passed by URL.
             $chavesPrimarias = $this->tipo->obterChavesPrimarias();
 
             $dados = new stdClass();
@@ -342,16 +342,16 @@ class bFormCadastro extends bForm
             $this->tipo->definir($dados);
             $this->tipo->popular();
             
-            // Obtém os dados do tipo.
+            // Gets the type data.
             $dados = $this->tipo->obter();
 
-            // Obtém os dados de todas tipos relacionados.
+            // Gets the data of all related types.
             $dadosDosTiposRelacionados = $this->tipo->obterDadosTiposRelacionados();
             
-            // Percorre os campos para verificar se existe id's de campos que são palavras reservadas.
+            // Iterates through the fields to check for field ids that are reserved words.
             foreach ( $this->fields as $campo )
             {
-                // Obtém nome do campo.
+                // Gets the field name.
                 $nome = $campo->getName();
                 
                 if ( substr($nome, strlen($nome) -1, 1) == '_' )
@@ -360,29 +360,29 @@ class bFormCadastro extends bForm
                     $dados->$nome = $dados->$indice;
                 }
                 
-                // Carrega os dados das MSubDetail.
+                // Loads the MSubDetail data.
                 if ( $campo instanceof MSubDetail )
                 {
-                    // Obtém o id da MSubDetail.
+                    // Gets the MSubDetail id.
                     $idSubDetail = $campo->getName();
                     
-                    // Obtém os dados do tipo.
+                    // Gets the type data.
                     $dadosSubDetail = $dadosDosTiposRelacionados[$idSubDetail];
                     
-                    // Seta os dados na MSubDetail.
+                    // Sets the data in the MSubDetail.
                     MSubDetail::setData($dadosSubDetail, $idSubDetail);
                 }
             }
 
-            // Seta os dados no formulário.
+            // Sets the data in the form.
             $this->setData($dados);
         }
     }
     
     /**
-     * Método chamado ao editar um registro da MSubDetail.
+     * Method called when editing a MSubDetail record.
      * 
-     * @param string $args Argumentos do ajax. 
+     * @param string $args Ajax arguments. 
      */
     public static function editFromTable($args)
     {
@@ -390,9 +390,9 @@ class bFormCadastro extends bForm
     }
    
     /**
-     * Método chamado ao mover um registro para baixo na MSubDetail.
+     * Method called when moving a record down in the MSubDetail.
      * 
-     * @param string $args Argumentos do ajax. 
+     * @param string $args Ajax arguments. 
      */
     public static function downFromTable($data)
     {
@@ -400,9 +400,9 @@ class bFormCadastro extends bForm
     }
     
     /**
-     * Método chamado ao mover um registro para cima na MSubDetail.
+     * Method called when moving a record up in the MSubDetail.
      * 
-     * @param string $args Argumentos do ajax. 
+     * @param string $args Ajax arguments. 
      */
     public static function upFromTable($data)
     {
@@ -410,9 +410,9 @@ class bFormCadastro extends bForm
     }
     
     /**
-     * Método chamado ao limpar uma MSubDetail.
+     * Method called when clearing a MSubDetail.
      * 
-     * @param string $args Argumentos do ajax. 
+     * @param string $args Ajax arguments. 
      */
     public static function clearTableFields($args)
     {
@@ -420,9 +420,9 @@ class bFormCadastro extends bForm
     }
     
     /**
-     * Método chamado ao adicionar um registro da MSubDetail.
+     * Method called when adding a MSubDetail record.
      * 
-     * @param string $args Argumentos do ajax. 
+     * @param string $args Ajax arguments. 
      */
     public static function addToTable($data)
     {
@@ -430,9 +430,9 @@ class bFormCadastro extends bForm
     }
     
     /**
-     * Método chamado ao remover um registro da MSubDetail.
+     * Method called when removing a MSubDetail record.
      * 
-     * @param string $args Argumentos do ajax. 
+     * @param string $args Ajax arguments. 
      */
     public static function removeFromTable($args)
     {

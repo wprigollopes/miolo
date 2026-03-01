@@ -296,17 +296,17 @@ class MTheme extends MContainerControl
         }
         if (file_exists($path . $CSSFileName))
         {
-            $arquivo_css = $path . $CSSFileName;
+            $cssFile = $path . $CSSFileName;
         }
-        $path = $this->manager->getConf('home.modules').'/'.$this->manager->getContext()->module. $this->manager->getConf('home.module.themes') . '/' . $this->name . '/'; 
+        $path = $this->manager->getConf('home.modules').'/'.$this->manager->getContext()->module. $this->manager->getConf('home.module.themes') . '/' . $this->name . '/';
         if (file_exists($path . $CSSFileName))
         {
-            $arquivo_css = $path . $CSSFileName;
+            $cssFile = $path . $CSSFileName;
         }
-        $fp = fopen ($arquivo_css, "r") or die($CSSFileName . " Arquivo não encontrado");
-        $conteudo = fread($fp, filesize ($arquivo_css));
+        $fp = fopen ($cssFile, "r") or die($CSSFileName . " File not found");
+        $content = fread($fp, filesize ($cssFile));
         fclose($fp);
-        return $conteudo;
+        return $content;
     }
 
     #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

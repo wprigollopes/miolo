@@ -1,33 +1,33 @@
 <?php
 
 /**
- * Copyright 2005-2017 de Solis Soluções Livres Ltda.
+ * Copyright 2005-2017 Solis Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa SolisGE/Sagu.
+ * This file is part of the SolisGE/Sagu program.
  *
- * O SolisGE/Sagu é um software de propriedade da SOLIS, sendo desenvolvido
- * e mantido exclusivamente por esta empresa.
+ * SolisGE/Sagu is proprietary software of SOLIS, developed and maintained
+ * exclusively by this company.
  *
- * A licença de uso está disponível mediante aquisição exclusiva junto à
- * SOLIS. A licença é concedida sem caráter de exclusividade ao licenciado.
- * Os direitos de uso são perpétuos.
+ * The usage license is available through exclusive acquisition from SOLIS.
+ * The license is granted on a non-exclusive basis to the licensee.
+ * Usage rights are perpetual.
  *
- * Embora os códigos fontes sejam fornecidos, o software é de propriedade
- * da SOLIS, não sendo permitido ao adquirente da licença a sua revenda,
- * empréstimo ou cessão (onerosa ou não) à terceiros. Também não é permitido,
- * a qualquer título e tempo, promover no software qualquer tipo de alienação,
- * reprodução, distribuição, divulgação, registro, licenciamento, transferência
- * ou qualquer outro ato que prejudique ou comprometa os direitos de propriedade
- * de software, o nome e a imagem da sua proprietária e do próprio software,
- * além de configurar concorrência à SOLIS.
+ * Although source code is provided, the software is the property of SOLIS.
+ * The licensee is not permitted to resell, lend, or transfer (whether for
+ * payment or not) the license to third parties. It is also not permitted,
+ * at any time or for any reason, to perform any alienation, reproduction,
+ * distribution, disclosure, registration, licensing, transfer, or any other
+ * act that may harm or compromise the software property rights, the name
+ * and image of its owner and the software itself, or that constitutes
+ * competition with SOLIS.
  *
- * O licenciado, com o acesso ao código fonte do software, terá o direito de
- * promover mudanças no respectivo código. No entanto, nas situações em que ele
- * contar com o suporte oficial prestado pela SOLIS, não poderá promover mudanças
- * no código fonte, sob pena de perda do referido suporte.
+ * The licensee, with access to the software source code, shall have the
+ * right to make changes to the respective code. However, in situations
+ * where the licensee relies on official support provided by SOLIS, changes
+ * to the source code are not permitted, under penalty of losing said support.
  *
- * Para conhecer em detalhes o Termo de Licenciamento do Software SolisGE/Sagu
- * leia o arquivo “LICENCA.txt” disponível junto ao código deste software. e
+ * For detailed information about the SolisGE/Sagu Software Licensing Terms,
+ * read the "LICENCA.txt" file included with this software. e
  * 
  * 
  *
@@ -58,7 +58,7 @@ class bSyncDatabaseView implements bSync
     }
 
     /**
-     * Faz a sincronização do arquivo com o banco
+     * Synchronizes the file with the database
      * 
      * @return stdClass
      */
@@ -71,40 +71,40 @@ class bSyncDatabaseView implements bSync
             return false;
         }
 
-        //lista views no arquivo e no banco
+        //lists views in the file and in the database
         $fileViews = $this->getViews($content);
         $dbViews = bCatalogo::listarVisoes('public');
 
-        //marca contadores no resultado
+        //sets counters in the result
         $result = new stdClass();
         $result->file = count($fileViews);
         $result->start = count($dbViews);
 
-        //explode os conteúdo para executar um por um
+        //explodes the content to execute one by one
         $sqlCommands = explode('CREATE OR REPLACE VIEW', $content);
-        //filtra array em função de linha em branco
+        //filters array based on blank lines
         $sqlCommands = array_values(array_filter($sqlCommands));
 
-        //passa as instruções uma a uma para mostrar o erro corretamente
+        //passes instructions one at a time to show errors correctly
         foreach ( $sqlCommands as $line => $sql )
         {
             if ( $sql )
             {
-                //exclui e recria a view
+                //drops and recreates the view
                 $sql = 'DROP VIEW IF EXISTS ' . $fileViews[$line] . ";\n" . 'CREATE OR REPLACE VIEW' . $sql;
                 bBaseDeDados::executar($sql);
             }
         }
 
-        //obtem lista atualizada
+        //gets updated list
         $finalDbViews = bCatalogo::listarVisoes();
 
-        //marca no contador
+        //marks in the counter
         $result->final = count($finalDbViews);
 
         $sqlResult = '';
 
-        //busca views a sobrando no banco
+        //searches for extra views in the database
         foreach ( $finalDbViews as $line => $view )
         {
             if ( !in_array($view->name, $fileViews) )
@@ -114,18 +114,18 @@ class bSyncDatabaseView implements bSync
             }
         }
 
-        //faltantes
+        //missing
         $result->missing = $missing;
-        //sql para incluir no views.sql
+        //SQL to include in views.sql
         $result->sql = $sqlResult;
 
         return $result;
     }
 
     /**
-     * Faz parser do arquivo sql obtendo a listagem de funções
+     * Parses the SQL file getting the list of views
      * 
-     * @param string $content conteúdo do arquivo sql
+     * @param string $content SQL file content
      * @return array of stdClass
      * 
      */
@@ -137,7 +137,7 @@ class bSyncDatabaseView implements bSync
     }
 
     /**
-     * Retorna um array com os arquivos de sincronização de base do módulo informado.
+     * Returns an array with the base synchronization files of the specified module.
      * 
      * @param string $module
      * @return array 

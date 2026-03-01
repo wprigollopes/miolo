@@ -9,7 +9,7 @@ class PostgresConnection extends MConnection
 
     public function _connect($dbhost, $loginDB, $loginUID, $loginPWD, $persistent=TRUE, $parameters=NULL, $port=NULL)
     {
-        // Multi-unidade do Solis GE não funciona se tiver com o usuário postgres, o if abaixo força o usuário logado
+        // Solis GE multi-unit does not work with the postgres user, the if below forces the logged-in user
         if ($loginUID == 'postgres' && strlen(trim(MIOLO::getInstance()->getLogin()->id)) > 0)
         {
             $loginUID = trim(MIOLO::getInstance()->getLogin()->id);

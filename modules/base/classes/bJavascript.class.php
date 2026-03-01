@@ -1,26 +1,26 @@
 <?php
 
 /**
- * <--- Copyright 2012 de Solis - Cooperativa de Soluções Livres Ltda.
+ * <--- Copyright 2012 Solis - Cooperativa de Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa Base.
+ * This file is part of the Base program.
  *
- * O Base é um software livre; você pode redistribuí-lo e/ou modificá-lo
- * dentro dos termos da Licença Pública Geral GNU como publicada pela Fundação
- * do Software Livre (FSF); na versão 2 da Licença.
+ * Base is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation (FSF); version 2 of the License.
  *
- * Este programa é distribuído na esperança que possa ser útil, mas SEM
- * NENHUMA GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a qualquer MERCADO
- * ou APLICAÇÃO EM PARTICULAR. Veja a Licença Pública Geral GNU/GPL em
- * português para maiores detalhes.
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License/GPL
+ * for more details.
  *
- * Você deve ter recebido uma cópia da Licença Pública Geral GNU, sob o título
- * "LICENCA.txt", junto com este programa, se não, acesse o Portal do Software
- * Público Brasileiro no endereço www.softwarepublico.gov.br ou escreva para a
- * Fundação do Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
- * MA 02110-1301, USA --->
+ * You should have received a copy of the GNU General Public License, under
+ * the title "LICENCA.txt", along with this program. If not, visit the
+ * Brazilian Public Software Portal at www.softwarepublico.gov.br or write
+ * to the Free Software Foundation (FSF) Inc., 51 Franklin St, Fifth Floor,
+ * Boston, MA 02110-1301, USA --->
  *
- *  Classe que define os métodos javascript que podem ser utilizados no sistema.
+ *  Class that defines the javascript methods that can be used in the system.
  *          
  * @author Eduardo Bonfandini [eduardo@solis.coop.br]
  * @author Jader Osvino Fiegenbaum [jader@solis.coop.br]
@@ -32,10 +32,10 @@ class bJavascript
 {
 
     /**
-     * Método público e estático para definir o foco no campo desejado.
+     * Public static method to set focus on the desired field.
      * 
-     * @param string $campoId Id do campo em que o foco será setado.
-     * @param boolean $imediato Seta o foco imediatamente caso for verdadeiro.
+     * @param string $campoId Id of the field where focus will be set.
+     * @param boolean $imediato Sets focus immediately if true.
      */
     public static function definirFoco($campoId, $imediato = TRUE)
     {
@@ -46,11 +46,11 @@ class bJavascript
     }
 
     /**
-     * Método público e estático para definir um display para o campo/elemento desejado.
+     * Public static method to set a display for the desired field/element.
      * 
-     * @param string $campoId Id do campo que terá a visualização alterada.
-     * @param boolean $rotulo Caso verdadeiro, altera a visualização do rótulo também.
-     * @param string $display Valor do "display" para o elemento. Ex: block, none.
+     * @param string $campoId Id of the field whose display will be changed.
+     * @param boolean $rotulo If true, also changes the label display.
+     * @param string $display "display" value for the element. E.g.: block, none.
      */
     public static function definirVisualizacao($campoId, $rotulo = FALSE, $display = 'block')
     {
@@ -61,10 +61,10 @@ class bJavascript
     }
 
     /**
-     * Altera a visualização atual do elemento.
+     * Changes the current display of the element.
      * 
-     * @param string $divId Id da DIV que terá a visualização alterada.
-     * @param string $divImagemId Id da DIV que contém imagens que terá a visualização alterada.
+     * @param string $divId Id of the DIV whose display will be changed.
+     * @param string $divImagemId Id of the DIV containing images whose display will be changed.
      */
     public static function alterarVisualizacao($divId)
     {
@@ -74,9 +74,9 @@ class bJavascript
     }
 
     /**
-     * Método público e estático para esconder elementos.
+     * Public static method to hide elements.
      * 
-     * @param string $elementoId Id do elemento que se deseja esconder.
+     * @param string $elementoId Id of the element to hide.
      */
     public static function esconderElemento($elementoId)
     {
@@ -86,9 +86,9 @@ class bJavascript
     }
 
     /**
-     * Método público e estático para mostrar elementos.
+     * Public static method to show elements.
      * 
-     * @param string $elementoId Id do elemento que se deseja mostrar.
+     * @param string $elementoId Id of the element to show.
      */
     public static function mostrarElemento($elementoId)
     {
@@ -98,9 +98,9 @@ class bJavascript
     }
 
     /**
-     * Método público e estático para desabilitar o campo desejado.
+     * Public static method to disable the desired field.
      * 
-     * @param string $campoId Id do campo que se deseja desabilitar.
+     * @param string $campoId Id of the field to disable.
      */
     public static function desabilitarCampo($campoId)
     {
@@ -110,9 +110,9 @@ class bJavascript
     }
 
     /**
-     * Método público e estático para habilitar o campo desejado.
+     * Public static method to enable the desired field.
      * 
-     * @param string $campoId Id do campo que se deseja habilitar.
+     * @param string $campoId Id of the field to enable.
      */
     public static function habilitarCampo($campoId)
     {
@@ -122,10 +122,10 @@ class bJavascript
     }
 
     /**
-     * Método público e estático para definir um valor no campo desejado.
+     * Public static method to set a value on the desired field.
      * 
-     * @param string $campoId Id do campo que se deseja habilitar.
-     * @param string $valor Valor que será setado no campo.
+     * @param string $campoId Id of the field to set the value on.
+     * @param string $valor Value to be set on the field.
      */
     public static function definirValor($campoId, $valor)
     {
@@ -135,10 +135,10 @@ class bJavascript
     }
 
     /**
-     * Método público e estático para definir um conteúdo em determinado elemento.
+     * Public static method to set content on a specific element.
      * 
-     * @param string $elementoId Id do elemento onde o conteúdo será setado.
-     * @param string $conteudo Conteúdo que será adicionado no elemento desejado.
+     * @param string $elementoId Id of the element where the content will be set.
+     * @param string $conteudo Content to be added to the desired element.
      */
     public static function definirConteudo($elementoId, $conteudo)
     {
@@ -148,10 +148,10 @@ class bJavascript
     }
 
     /**
-     * Método público e estático para definir um campo como somente leitura.
+     * Public static method to set a field as read-only.
      * 
-     * @param string $elementoId Id do elemento onde o conteúdo será setado.
-     * @param boolean somenteLeitura Caso verdadeiro, seta o campo somente leitura.
+     * @param string $elementoId Id of the element where the content will be set.
+     * @param boolean somenteLeitura If true, sets the field as read-only.
      */
     public static function definirSomenteLeitura($campoId, $somenteLeitura = TRUE)
     {
@@ -162,10 +162,10 @@ class bJavascript
     }
 
     /**
-     * Método público e estático para checar o campo desejado.
+     * Public static method to check the desired field.
      * 
-     * @param string $campoId Id do campo que se deseja checar.
-     * @param boolean $checar Flag para checar o campo.
+     * @param string $campoId Id of the field to check.
+     * @param boolean $checar Flag to check the field.
      */
     public static function checarCampo($campoId, $checar = TRUE)
     {

@@ -4,14 +4,14 @@ $moduleRequisicao        = MIOLO::_REQUEST('module');
 $encontrouModulo = false;
 if( strlen($moduleRequisicao) > 0 )
 {
-    //Verifica se existe tela de login personalizada para o módulo passado (miolo20/html/login_modulo)
+    // Checks if there is a custom login screen for the given module (miolo20/html/login_modulo)
     if( is_dir($MIOLO->getAbsolutePath()."/html/login_".$module) )
     {
         $encontrouModulo = true;
         header("location:".$MIOLO->getConf('home.url')."/login_".$module);
     }
 }
-//Verifica se existe tela personalizada (miolo26/html/login_novo)
+// Checks if there is a custom screen (miolo26/html/login_novo)
 if( is_dir($MIOLO->getAbsolutePath()."/html/login_novo") && !$encontrouModulo )
 {
     header("location:".$MIOLO->getConf('home.url')."/login_novo");
@@ -52,7 +52,7 @@ else
 {
     $formularioLogin = "frmLogin";
     
-    // Caso o módulo requisitado seja o da avaliação, considera o formulário personalizado
+    // If the requested module is the evaluation module, considers the custom form
     if( $moduleRequisicao === "avinst" )
     {
         if( strlen(SAGU::getParameter("avinst", "FORMULARIO_DE_LOGIN_PERSONALIZADO")) > 0 )
@@ -65,14 +65,14 @@ else
 
             if ( (substr_count($url, 'module=avinst') > 0 || substr_count($url, 'avaliacao') > 0) )
             {
-                // Para não renderizar a barra superior do tema da avaliação
+                // To not render the top bar of the evaluation theme
                 $MIOLO->page->OnLoad(" document.getElementById('__mainForm_container_top').style.display = 'none'; ");
 
                 $MIOLO->session->set('return_to', 'AVALIACAO');
                 $url = $MIOLO->getActionURL('portal', 'main');
                 $url = html_entity_decode($url);
 
-                // Redireciona para o portal para que seja utilizado o mesmo tema para o login da avaliação e portal
+                // Redirects to the portal so that the same theme is used for the evaluation and portal login
                 $MIOLO->page->addJsCode(" window.location = '$url';");
                 $formularioLogin = NULL;
             }

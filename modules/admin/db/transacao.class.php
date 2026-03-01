@@ -2,8 +2,8 @@
 class BusinessAdminTransacao extends MBusiness implements ITransaction
 {
     public $idtrans;
-	var $transacao;
-	var $idsistema;
+	var $transaction;
+	var $systemId;
     public $grupos;
 
     public function businessAdminTransacao($data=null)
@@ -14,8 +14,8 @@ class BusinessAdminTransacao extends MBusiness implements ITransaction
 	function setData($data)
 	{
 		$this->idtrans = $data->idtrans;
-		$this->transacao = strtoupper($data->transacao);
-		$this->idsistema = $data->idsistema;
+		$this->transaction = strtoupper($data->transacao);
+		$this->systemId = $data->idsistema;
         $this->grupos = $data->grupos;
 	}
 
@@ -26,7 +26,7 @@ class BusinessAdminTransacao extends MBusiness implements ITransaction
         if ( $query )
         {
             $this->setData($query->getRowObject());
-            $this->setGrupos();
+            $this->setGroups();
         }
         return $this;
     }
@@ -38,7 +38,7 @@ class BusinessAdminTransacao extends MBusiness implements ITransaction
         if ( $query )
         {
             $this->setData($query->getRowObject());
-            $this->setGrupos();
+            $this->setGroups();
         }
         return $this;
     }
@@ -66,36 +66,36 @@ class BusinessAdminTransacao extends MBusiness implements ITransaction
         $this->idtrans = $this->_db->getNewId('seq_cm_transacao');
         $sql = new sql('idtrans, transacao, idsistema','cm_transacao');
         $args = array($this->idtrans,
-                      strtoupper($this->transacao),
-                      $this->idsistema);
+                      strtoupper($this->transaction),
+                      $this->systemId);
         $cmd[] = $sql->insert($args);
         $sql->sql('idtrans, idgrupo, direito','cm_acesso');
 		
-        foreach($this->grupos as $grupo)
+        foreach($this->grupos as $group)
         {
-           $cmd[] = $sql->insert(array($this->idtrans, $grupo[0], $grupo[1]));
+           $cmd[] = $sql->insert(array($this->idtrans, $group[0], $group[1]));
         }
         $ok = $this->execute($cmd);
-        if ($ok) {$this->log(OP_INS,"idtrans = $this->idtrans; transacao = $this->transacao");} 
+        if ($ok) {$this->log(OP_INS,"idtrans = $this->idtrans; transacao = $this->transaction");}
         return $ok;
     }
 
     public function update()
     {
         $sql = new sql('transacao, idsistema','cm_transacao','idtrans = ?');
-        $args = array(strtoupper($this->transacao),
-                      $this->idsistema,
+        $args = array(strtoupper($this->transaction),
+                      $this->systemId,
 			          $this->idtrans);
         $cmd[] = $sql->update($args);
         $sql->sql('','cm_acesso','idtrans=?');
         $cmd[] = $sql->delete($this->idtrans);
         $sql->sql('idtrans, idgrupo, direito','cm_acesso');
-        foreach($this->grupos as $grupo)
+        foreach($this->grupos as $group)
         {
-           $cmd[] = $sql->insert(array($this->idtrans, $grupo[0], $grupo[1]));
+           $cmd[] = $sql->insert(array($this->idtrans, $group[0], $group[1]));
         }
         $ok = $this->execute($cmd);
-        if ($ok) {$this->log(OP_UPD,"idtrans = $this->idtrans; transacao = $this->transacao");} 
+        if ($ok) {$this->log(OP_UPD,"idtrans = $this->idtrans; transacao = $this->transaction");} 
         return $ok;
     }
     
@@ -106,7 +106,7 @@ class BusinessAdminTransacao extends MBusiness implements ITransaction
         $obj = new sql('','cm_transacao','idTrans = ' . $this->idtrans);
         $sql[] = $obj->delete();
         $ok = $this->execute( $sql );
-        if ($ok) {$this->log(OP_DEL,"idtrans = $this->idtrans; transacao = $this->transacao");} 
+        if ($ok) {$this->log(OP_DEL,"idtrans = $this->idtrans; transacao = $this->transaction");} 
         return $ok;
     }
 
@@ -132,7 +132,7 @@ class BusinessAdminTransacao extends MBusiness implements ITransaction
         return $query;
     }
 
-    public function setGrupos()
+    public function setGroups()
     {
         $sql = new sql('a.idgrupo, a.direito', 'cm_acesso a, cm_grupoacesso g', '(a.idgrupo=g.idgrupo) and (idtrans = ?)', 'g.grupo');
         $query = $this->query($sql,$this->idtrans);

@@ -66,15 +66,15 @@ class MSubDetail extends MBaseGroup
         $this->title = $title;
         $this->item = $name;
 
-        // adiciona coluna padrão
+        // add default column
         $this->addColumn(_M('Actions'), 'left', true, '10%', true, '');
         $this->setColumns($columns);
         $this->setFields($fields);
 
-        // limpa as ações para este subdetail
+        // clear the actions for this subdetail
         self::setSessionValue('actions', null, $this->item);
 
-        // adiciona ações padrão
+        // add default actions
         if ( $opts )
         {
             $ui = $MIOLO->getUI();
@@ -144,11 +144,11 @@ class MSubDetail extends MBaseGroup
             }
         }
 
-        $this->addStyle('clear', 'both'); // para conseguir setar o width sem problema
+        $this->addStyle('clear', 'both'); // to be able to set the width without problems
 
         $this->setOrder(true);
         $MIOLO = MIOLO::getInstance();
-        // cria o campo arrrayItemTemp automaticamente para este subdetail, sobre demanda
+        // automatically create the arrayItemTemp field for this subdetail, on demand
         $MIOLO->page->onload("msubdetail.addJsField('arrayItemTemp{$name}')");
     }
     
@@ -163,12 +163,12 @@ class MSubDetail extends MBaseGroup
     }
 
     /**
-     * Define um valor padrão a ser mostrado em um campo específico a cada vez que os campos forem limpos
+     * Defines a default value to be shown in a specific field each time the fields are cleared
      *
-     * Este valor é chamado ao limpar, após adicionar, e após editar.
+     * This value is called on clear, after add, and after edit.
      *
-     * @param String $fieldId o id do campo a receber o valor
-     * @param String $value  o valor padrão para o campo
+     * @param String $fieldId the id of the field to receive the value
+     * @param String $value the default value for the field
      */
     public function setDefaultValue($fieldId, $value)
     {
@@ -178,7 +178,7 @@ class MSubDetail extends MBaseGroup
     }
 
     /**
-     * Define se é para mostrar ou não o botão de atualização
+     * Defines whether to show the update button or not
      *
      * @param boolean $show
      */
@@ -189,7 +189,7 @@ class MSubDetail extends MBaseGroup
     }
 
     /**
-     * Define se é para dar suporte as funções de ordenação automáticas ou não
+     * Defines whether to support automatic sorting functions or not
      *
      * @param boolean $show
      */
@@ -204,9 +204,9 @@ class MSubDetail extends MBaseGroup
     }
 
     /**
-     * Return se é para mostrar ou não o botão de atualização
+     * Returns whether to show the update button or not
      *
-     * @return se é para mostrar ou não o botão de atualização
+     * @return whether to show the update button or not
      *
      */
     public function getUpdateButton($itemForce = null)
@@ -216,9 +216,9 @@ class MSubDetail extends MBaseGroup
     }
 
     /**
-     * Se era para adicionar botões automaticos de adição e de limpar (add e clear)
+     * Whether to add automatic add and clear buttons
      *
-     * @param boolean $showButtons true para adicionar botões automaticos de adição e de limpar (add e clear)
+     * @param boolean $showButtons true to add automatic add and clear buttons
      */
     public function setShowButtons($showButtons)
     {
@@ -226,7 +226,7 @@ class MSubDetail extends MBaseGroup
     }
 
     /**
-     * Retornar se é para adicionar botões automáticos
+     * Returns whether to add automatic buttons
      *
      * @return boolean
      */
@@ -260,10 +260,10 @@ class MSubDetail extends MBaseGroup
     }
 
     /**
-     * Definido automaticamente pelo subdetail no parseFields quando ele detecta in subdetail dentro dele.
+     * Automatically defined by the subdetail in parseFields when it detects a subdetail inside it.
      *
-     * @param String $name nome/item/id do subdetail
-     * @param String $childId nome/item/id do filho
+     * @param String $name name/item/id of the subdetail
+     * @param String $childId name/item/id of the child
      */
     function addChild($name, $childId)
     {
@@ -276,10 +276,10 @@ class MSubDetail extends MBaseGroup
     }
 
     /**
-     * Retorna um array com os ids dos filho
+     * Returns an array with the child ids
      *
      * @param String $name
-     * @return String um array com os ids dos filho
+     * @return String an array with the child ids
      */
     function getChilds($name)
     {
@@ -287,8 +287,8 @@ class MSubDetail extends MBaseGroup
     }
 
     /**
-     * Passa pelo campo (ou campos recursivamente) detectando se existe campos internos ou não
-     * Função usada para detectar relação de campos para javascripts, e também faz parser e ajusta campos necessários
+     * Iterates through the field (or fields recursively) detecting whether inner fields exist or not
+     * Function used to detect field relationships for JavaScript, and also parses and adjusts necessary fields
      *
      * @param Object $field
      * @param boolean $session
@@ -309,14 +309,14 @@ class MSubDetail extends MBaseGroup
         if ( $field instanceof MSubDetail )
         {
             $this->namesArray[] = $this->item . '_' . $field->name;
-            $this->classesArray[] = get_class($field); //duplo em função do namesArray ser duplo também
-            //não faz parser do campos caso seja um subdetail, o subdetail filho faz seus próprio parser
-            self::addChild($this->item, $field->name); //adiciona um filho ao subdetail
+            $this->classesArray[] = get_class($field); //duplicate because namesArray is also duplicate
+            //does not parse the fields if it is a subdetail, the child subdetail does its own parsing
+            self::addChild($this->item, $field->name); //adds a child to the subdetail
         }
         else
         if ( $field instanceof MTabbedBaseGroup )
         {
-            //faz o parser dos campos internos mas não muda o id destes primeiros
+            //parses the internal fields but does not change the id of these first ones
             $this->parseFields($field->getControls());
         }
         else
@@ -336,19 +336,19 @@ class MSubDetail extends MBaseGroup
         }
         
         /*
-         * A variável $field nem sempre é um objeto, às vezes é um array, às vezes é uma string.
-         * Isso acarreta um monte de problemas nas próximas linhas, onde simplesmente assume-se
-         * que é sempre um objeto...
-         * O problema é que não da pra ignorar tudo que está abaixo quando $field não for objeto,
-         * pois pode quebrar algum comportamento, sendo necessário tratar cada notice de forma isolada...
+         * The $field variable is not always an object, sometimes it is an array, sometimes a string.
+         * This causes many problems in the following lines, where it is simply assumed
+         * to always be an object...
+         * The problem is that we cannot ignore everything below when $field is not an object,
+         * as it may break some behavior, so each notice must be handled individually...
          */
 
-        //não relaciona situações abaixo na relação de campos
+        //does not include the situations below in the field list
         if ( (is_object($field) && $field->name) && (!$field instanceof MContainer || $field instanceof MRadioButtonGroup) && !$field instanceof MLabel && !$field instanceof MText && !$field instanceof MSubDetail && !$field instanceof MRadioButton )
         {
-            $this->namesArray[] = $this->item . '_' . $field->name; //adiciona o campo com o nome do subdetail concatenado
-            $this->classesArray[] = get_class($field); //duplo em função do namesArray ser duplo também
-            //le valor padrã do campo e seta como valor padrão do componente no subdetail // defaultValue ;
+            $this->namesArray[] = $this->item . '_' . $field->name; //adds the field with the subdetail name concatenated
+            $this->classesArray[] = get_class($field); //duplicate because namesArray is also duplicate
+            //reads the field default value and sets it as the component default value in the subdetail // defaultValue ;
             if ( $field->id && $field->value )
             {
                 if ( $field instanceof MCheckBox || $field instanceof MCheckBox )
@@ -388,17 +388,17 @@ class MSubDetail extends MBaseGroup
             $field->lookup_name = "lookup_{$field->formId}_{$field->name}";
         }
 
-        //coloca os campos na sessão
+        //put the fields in the session
         if ( !$neverEnterSessionIf )
         {
             if ( $session || ($field instanceof MSelection) || ($field instanceof MRadioButtonGroup) || ($field instanceof MCheckBoxGroup) )
             {
-                // Quando $field não é objeto, está literalmente passando null para getColumn()...
+                // When $field is not an object, it is literally passing null to getColumn()...
                 $fieldId = isset($field->id) ? $field->id : null;
                 $column = self::getColumn($fieldId, $itemForce);
 
-                // Dependendo de qual momento esse método é chamado, as colunas ainda não exitem na sessão.
-                // Com isso, é necessário primeiro verificar se o objeto existe antes de verificar o atributo order.
+                // Depending on when this method is called, the columns may not yet exist in the session.
+                // Therefore, it is necessary to first check if the object exists before checking the order attribute.
                 if ( (isset($column->order) && $column->order) || ($field instanceof MSelection) || ($field instanceof MRadioButtonGroup) || ($field instanceof MCheckBoxGroup) || ($field instanceof MLookupTextField) )
                 {
                     $newField = new StdClass();
@@ -422,7 +422,7 @@ class MSubDetail extends MBaseGroup
                     }
 
                     $fields = self::getSessionValue('fields', $this->item);
-                    $fields[$field->name] = json_encode($newField); // foi serializado e encodado em função de enviar para a sessão, qualquer outra forma não funciona (não monta devolta no getFiels)
+                    $fields[$field->name] = json_encode($newField); // was serialized and encoded for sending to the session, any other way does not work (does not reassemble in getFields)
 
 
                     self::setSessionValue('fields', $fields, $this->item);
@@ -430,7 +430,7 @@ class MSubDetail extends MBaseGroup
             }
         }
 
-        //adiciona * para campos requeridos dentro do subdetail
+        //adds * for required fields inside the subdetail
         if ( $field instanceof MContainer )
         {
             $containerControls = $field->getControls();
@@ -449,7 +449,7 @@ class MSubDetail extends MBaseGroup
         }
         else
         {
-            // De novo, nem sempre $field é um objeto...
+            // Again, $field is not always an object...
             if (is_object($field))
             {
                 $fieldIdName = $field->name ? $field->name : $field->id;
@@ -464,10 +464,10 @@ class MSubDetail extends MBaseGroup
             if ( isset($valid->type) && $valid->type == 'required' )
             {
                 /*
-                 * Aparentemente nenhum campo tem o objeto validator já definido,
-                 * dando um warning de "Creating default object from empty value"
-                 * em todos os casos. Para evitar isso e não quebrar uma eventual
-                 * lógica que dependa do type='required', cria um stdClass no atributo.
+                 * Apparently no field has the validator object already defined,
+                 * giving a "Creating default object from empty value" warning
+                 * in all cases. To avoid this and not break any possible
+                 * logic that depends on type='required', create a stdClass in the attribute.
                  */
                 if (!is_object($field->validator))
                 {
@@ -520,9 +520,9 @@ class MSubDetail extends MBaseGroup
     }
 
     /**
-     * Define os campos que serão utilizados na classe
+     * Defines the fields that will be used in the class
      *
-     * @param array $fields array de objetos
+     * @param array $fields array of objects
      */
     public function setFields($fields)
     {
@@ -549,9 +549,9 @@ class MSubDetail extends MBaseGroup
     }
 
     /**
-     * Define as colunas que serão criadas na Tabela
+     * Defines the columns that will be created in the Table
      *
-     * @param array $columns array de objetos MGridColum
+     * @param array $columns array of MGridColumn objects
      */
     public function setColumns($columns)
     {
@@ -560,7 +560,7 @@ class MSubDetail extends MBaseGroup
         $tempColumns = null;
         if ( $columns && is_array($columns) )
         {
-            //crias os títulos e as colunas na seção
+            //create the titles and columns in the session
             foreach ( $columns as $info )
             {
                 $info instanceof MGridColumn;
@@ -573,7 +573,7 @@ class MSubDetail extends MBaseGroup
                     $temp->title = $info->title;
                     $temp->width = $info->width;
                     $temp->visible = $info->visible;                    
-                    $temp->options = $this->item . '_' . $info->options; //concatena o nome do subdetail na coluna
+                    $temp->options = $this->item . '_' . $info->options; //concatenate the subdetail name to the column
                     $temp->order = $info->order;
                     $temp->key = $info->options;
                     $temp->replace = $info->getReplace();
@@ -635,7 +635,7 @@ class MSubDetail extends MBaseGroup
         $titles = self::getSessionValue('titles', $this->item);
         $columns = self::getSessionValue('columns', $this->item);
 
-        //Inserir na seção tambem
+        //Insert in the session as well
         $columns[] = new MGridColumn($title, $align, $nowrap, $width, $visible, $options, $order, $filter);
 
         if ( $visible == true )
@@ -656,15 +656,15 @@ class MSubDetail extends MBaseGroup
     {
         $this->currentValidators = $validators;
         
-        //limpa a seção caso seja null
+        //clear the session if null
         if ( is_null($validators) )
         {
             self::setSessionValue('validators', '', $this->item);
             return;
         }
 
-        //converte para array, caso venha um único objeto
-        //previne erro de tela branca
+        //convert to array if a single object is passed
+        //prevents blank screen error
         if ( is_object($validators) )
         {
             $validators = array( $validators );
@@ -716,7 +716,7 @@ class MSubDetail extends MBaseGroup
     }
 
     /**
-     * Adiciona uma ação personalizada a tabela
+     * Adds a custom action to the table
      */
     public function addAction($phpFunction, $imgUrl)
     {
@@ -731,9 +731,9 @@ class MSubDetail extends MBaseGroup
     }
 
     /**
-     * Gera uma a string de uma ação
+     * Generates an action string
      *
-     * @return o html correspondente a uma ação
+     * @return the html corresponding to an action
      */
     protected function generateActionString($i, $itemForce = NULL)
     {
@@ -783,11 +783,11 @@ class MSubDetail extends MBaseGroup
     }
 
     /**
-     * Trata os dados de acordo com a situação retirando ou adicionando o id do componente a frente dos dados.
+     * Processes the data according to the situation, removing or adding the component id in front of the data.
      *
-     * @param Object $data dados a serem parseado
-     * @param String $itemForce id do subdetail
-     * @param Boolean $remove se é para remover (caso contrário é adição)
+     * @param Object $data data to be parsed
+     * @param String $itemForce subdetail id
+     * @param Boolean $remove whether to remove (otherwise it is addition)
      * @return Object
      */
     public function parseData($data, $itemForce, $remove = false)
@@ -801,9 +801,9 @@ class MSubDetail extends MBaseGroup
                 $newData = array( );
                 $infoArray = (array) $info;
                 
-                // $info pode ser um array, mas é sempre usado como um objeto nesse
-                // método. Faz casting para garantir o tipo e não emitir warning
-                // no get_class().
+                // $info can be an array, but it is always used as an object in this
+                // method. Cast to ensure the type and not emit a warning
+                // in get_class().
                 $info = (object) $info;
 
                 foreach ( $infoArray as $l => $i )
@@ -818,7 +818,7 @@ class MSubDetail extends MBaseGroup
 
                     if ( strrpos($l, "\0") > 0 )
                     {
-                        //FIXME: POG feita para mapear campos private da classe
+                        //FIXME: Workaround to map private fields of the class
                         //http://br.php.net/manual/en/language.types.array.php
                         $aux = explode("\0", $l);
                         $l = $aux[2];
@@ -826,7 +826,7 @@ class MSubDetail extends MBaseGroup
 
                     if ( !is_object($i) )
                     {
-                        //se esta adicinando
+                        //if adding
                         if ( !$remove )
                         {
                             if ( $pos_underline > 0 )
@@ -839,7 +839,7 @@ class MSubDetail extends MBaseGroup
                                 else
                                 {
                                     $newData[$l] = $i;
-                                    $newData[$itemForce . '_' . $l] = $i; // isto foi colocado em função do MLookupContainer dentro do MSubDetail, para funcionar o campo _lookDescription
+                                    $newData[$itemForce . '_' . $l] = $i; // this was added for MLookupContainer inside MSubDetail, to make the _lookDescription field work
                                 }
                             }
                             else
@@ -855,13 +855,13 @@ class MSubDetail extends MBaseGroup
                                 }
                             }
                         }
-                        else //se esta tirando
+                        else //if removing
                         {
                             if ( $pos_underline > 0 )
                             {
                                 $temp = explode('_', $l);
 
-                                if ( isset($temp[2]) && $temp[2] ) //isto é feito pois o lookup tem um _ no seu nome, mas o MSubdetail precisa pegar o nome inteiro
+                                if ( isset($temp[2]) && $temp[2] ) //this is done because the lookup has an _ in its name, but MSubdetail needs to get the full name
                                 {
                                     $temp[1] .= '_' . $temp[2];
                                 }
@@ -890,8 +890,8 @@ class MSubDetail extends MBaseGroup
                                 }
                                 else
                                 {
-                                    // segurança para não sobrescrever dados ja existentes,
-                                    // útil no caso no subdetail interno, em outros caso não interfere
+                                    // safety to not overwrite already existing data,
+                                    // useful in the case of internal subdetail, in other cases it does not interfere
                                     if ( !isset($newData[$l]) || !is_array($newData[$l]) )
                                     {
                                         $newData[$l] = $i;
@@ -915,9 +915,9 @@ class MSubDetail extends MBaseGroup
     }
 
     /**
-     * Trabalha os dados para reconhecer automaticamente o campoDescription dentre outros
+     * Processes the data to automatically recognize the fieldDescription among others
      *
-     * Os dados ja devem vir trabalhados com o nome do subdetail na frente, por isso $result.
+     * The data must already come processed with the subdetail name in front, hence $result.
      *
      * @param $result
      * @return unknown_type
@@ -946,13 +946,13 @@ class MSubDetail extends MBaseGroup
                 {
                     if ( !isset($array[$fieldId]) )
                     {
-                        $array[$fieldId] = null; //FIXME adicionaria os campos faltantes nos dados, faria funcionar o 'Não' no caso do checkbox, mas não esta funcionando, esta limpando os campos no setData
+                        $array[$fieldId] = null; //FIXME would add the missing fields in the data, would make the 'Não' work in the checkbox case, but it is not working, it is clearing the fields in setData
                     }
                 }
 
                 foreach ( $array as $fieldId => $value )
                 {
-                    $valueDescription = null; //Reinicia a variável dentro do foreach
+                    $valueDescription = null; //Reset the variable inside the foreach
                     $field = self::getFields($itemForce, $fieldId);
                     $phpClasse = isset($classesData[$fieldId]) ? $classesData[$fieldId] : null;
                     $fieldIdDescription = $fieldId . 'Description';
@@ -973,19 +973,19 @@ class MSubDetail extends MBaseGroup
                     }
 
                     /*
-                     * Mesmo problema que o método parseFields():
-                     * $field aqui pode ser NULL ou stdClass, então causa um monte de notices nas linhas abaixo.
-                     * Para não quebrar nenhum comportamento existente, trata cada caso isoladamente.
+                     * Same problem as the parseFields() method:
+                     * $field here can be NULL or stdClass, so it causes many notices in the lines below.
+                     * To not break any existing behavior, handle each case individually.
                      */
                     
                     if (isset($field->options))
                     {
                         $options = $field->options;
 
-                        // procura string de descrição do dado atual na grid
+                        // search for the description string of the current data in the grid
                         if ($value)
                         {
-                            // se as opções forem  array multi dimensional
+                            // if the options are a multi-dimensional array
                             if (isset($options[0]) && is_array($options[0]))
                             {
                                 foreach ($options as $index => $option)
@@ -996,12 +996,12 @@ class MSubDetail extends MBaseGroup
                                     }
                                 }
                             }
-                            else //se for array simples
+                            else //if it is a simple array
                             {
                                 $valueDescription = $field->options[$value];
                             }
 
-                            // somente define os dados de descrição, caso já não existam
+                            // only set the description data if they do not already exist
                             if (!array_key_exists($fieldIdDescription, $newData))
                             {
                                 $newData[$fieldIdDescription] = $valueDescription;
@@ -1009,7 +1009,7 @@ class MSubDetail extends MBaseGroup
                         }
                     }
 
-                    // se for um campo de descrição e não contiver dados limpa a descrição evitando assim aparecer o '--Select--' no tabela de dados
+                    // if it is a description field and does not contain data, clear the description to avoid showing '--Select--' in the data table
                     if ( strpos($fieldId, 'Description') && !strpos($fieldId, 'lookup') )
                     {
                         $realFieldId = str_replace('Description', '', $fieldId);
@@ -1025,7 +1025,7 @@ class MSubDetail extends MBaseGroup
                     }
                     else
                     {
-                        //define o dado padrão
+                        //set the default data
                         $newData[$fieldId] = $value;
                     }
                 }
@@ -1055,7 +1055,7 @@ class MSubDetail extends MBaseGroup
         $MIOLO = MIOLO::getInstance();
 
         $item = $this->item;
-        //pega o nome da classe do form atual (que é pai do subdetail )
+        //get the class name of the current form (which is the subdetail's parent)
         self::setSessionValue('form', get_class($this->parent), $item);
 
         $sendArray['mSubDetail'] = $item;
@@ -1126,16 +1126,16 @@ class MSubDetail extends MBaseGroup
 
     public function order($columnName, $orderType = null, $itemForce = null)
     {
-        //tentar pegar o id do this caso não passe o itemForce
+        //try to get the id from this if itemForce is not passed
         if ( isset($this) && !$itemForce )
         {
             $itemForce = $this->item;
         }
 
-        //pega os dados do subdetail
+        //get the subdetail data
         $itensData = self::getData($itemForce, false);
 
-        //se não tiver tipo de ordenação faz ordenação automática, a qual inverte a ordenação atual sempre
+        //if there is no sort type, do automatic sorting, which always inverts the current sort order
         if ( !$orderType & !is_array($columnName) )
         {
             $orderType = self::getSessionValue('orderType_' . $columnName, $itemForce);
@@ -1147,14 +1147,14 @@ class MSubDetail extends MBaseGroup
 
             $orderType = $orderType == 'asc' ? 'desc' : 'asc';
 
-            //define dados na sessão o orderType
+            //set the orderType data in the session
             self::setSessionValue('orderType_' . $columnName, $orderType, $itemForce);
         }
 
-        //define na seção as colunas ordenadas
+        //define the sorted columns in the session
         self::setSessionValue('orderColumnName', $columnName, $itemForce);
 
-        //transforma columnName em array caso não seja
+        //transform columnName into array if it is not one
         if ( !is_array($columnName) )
         {
             $columnName = array( $columnName );
@@ -1165,7 +1165,7 @@ class MSubDetail extends MBaseGroup
             $orderType = array( $orderType );
         }
 
-        //adiciona o nome do subdetail na coluna caso seja necessário
+        //add the subdetail name to the column if necessary
         foreach ( $columnName as $line => $info )
         {
             if ( stripos($info, '_') === false )
@@ -1176,27 +1176,27 @@ class MSubDetail extends MBaseGroup
 
         $orderArray = array( );
 
-        //monta arrays de ordenação
+        //build sorting arrays
         if ( is_array($itensData) )
         {
             foreach ( $itensData as $line => $info )
             {
                 foreach ( $columnName as $index => $name )
                 {
-                    //pega pela descrição, caso de selections, checkbox e radios ...
+                    //get by description, in case of selections, checkbox and radios ...
                     $key = $info->{$name . 'Description'};
 
-                    //  se não achou pela descrição pega o dado normal do campo
+                    //  if not found by description, get the normal field data
                     if ( !$key )
                     {
                         $key = $info->$name;
                     }
 
-                    $key = strtoupper($key); // colaca tudo em maisculas para não interferir na ordenação
+                    $key = strtoupper($key); // convert everything to uppercase to not interfere with sorting
                     $orderArray[$name][] = $key;
                 }
 
-                $newItensData[] = $info; //adiciona ao novo array
+                $newItensData[] = $info; //add to the new array
             }
         }
 
@@ -1213,7 +1213,7 @@ class MSubDetail extends MBaseGroup
 
         $itensData = array( );
 
-        //remonta o array original com índices com numeração
+        //rebuild the original array with numbered indices
         if ( is_array($newItensData) )
         {
             $i = 0;
@@ -1224,13 +1224,13 @@ class MSubDetail extends MBaseGroup
             }
         }
 
-        //pega e define imagens a serem utilizadas
+        //get and define images to be used
         $MIOLO = MIOLO::getInstance();
         $ui = $MIOLO->getUI();
         $upImg = $ui->getImageTheme($MIOLO->getTheme()->getId(), 'down.png');
         $downImg = $ui->getImageTheme($MIOLO->getTheme()->getId(), 'up.png');
 
-        //adiciona por javascript as setas de ordenação
+        //add the sorting arrows via javascript
 
         foreach ( $columnName as $line => $info )
         {
@@ -1249,7 +1249,7 @@ class MSubDetail extends MBaseGroup
 	        ");
         }
 
-        //atualiza o subdetail por ajax
+        //update the subdetail via ajax
         self::update($itensData, $itemForce);
     }
 
@@ -1277,16 +1277,16 @@ class MSubDetail extends MBaseGroup
         $data = self::parseData($data, $this->item);
         $controls = self::getFields($this->item);
 
-        // Verifica atributo que indica se o autocomplete dos lookups deve ser disparado
+        // Check attribute that indicates whether the lookup autocomplete should be triggered
         if ( self::$doLookupAutocomplete )
         {
-            // Dispara o autocomplete dos lookups presentes na subdetail
+            // Trigger the autocomplete of lookups present in the subdetail
             $data = self::lookupAutocomplete($data, $controls);
         }
 
         self::clearData($this->item);
         self::addData($data, $this->item);
-        self::getData($this->item, false); // Chamado para reordenar os índices
+        self::getData($this->item, false); // Called to reorder the indices
     }
 
     public function getValue($value)
@@ -1300,7 +1300,7 @@ class MSubDetail extends MBaseGroup
         $columns = self::getSessionValue('columns', $item);
         $sessionActions = self::getSessionValue('actions', $item);
 
-        //transforma os títulos em links
+        //transforms the titles into links
         if ( self::getOrder($item) && !$readOnly )
         {
             foreach ( $titles as $line => $info )
@@ -1313,7 +1313,7 @@ class MSubDetail extends MBaseGroup
             }
         }
 
-        //adiciona coluna de ações caso não seja somente leitura e tenha ações
+        //add actions column if not read-only and has actions
         if ( is_array($sessionActions) && !$readOnly )
         {
             $titles = array_merge(array( _M('Ações') ), $titles);
@@ -1339,17 +1339,17 @@ class MSubDetail extends MBaseGroup
 
         $itens = self::getData($item, false);
 
-        //monta os dados para a tabela
+        //build the data for the table
         $tableData = array();
         if ( $itens )
         {
             foreach ( $itens as $i => $info )
             {
                 /*
-                 * Em algumas circustâncias, como ao abrir um form pela primeira vez, os itens não tem
-                 * o atributo "dataStatus", emitindo notice ao fazer a comparação.
-                 * Para corrigir de forma simples, inverte a lógica da comparação e ignora todos
-                 * os itens com self::STATUS_REMOVE:
+                 * In some circumstances, such as when opening a form for the first time, items do not have
+                 * the "dataStatus" attribute, emitting a notice when making the comparison.
+                 * To fix it simply, invert the comparison logic and ignore all
+                 * items with self::STATUS_REMOVE:
                  * if ( $info->dataStatus != self::STATUS_REMOVE )
                  */
                 if (isset($info->dataStatus) && $info->dataStatus == self::STATUS_REMOVE)
@@ -1378,7 +1378,7 @@ class MSubDetail extends MBaseGroup
                     {
                         if ( $column->options )
                         {
-                            //pega por descrição caso exista
+                            //get by description if it exists
                             $opt = $column->options;
                             $tempOpt = $opt . 'Description';
                             if (isset($info->$tempOpt))
@@ -1414,12 +1414,12 @@ class MSubDetail extends MBaseGroup
                                 $table->setCellAttribute($aplyCellAttributeId, $line, 'onclick', MUtil::getAjaxAction('editCell', array( 'mSubDetail' => $item, 'mSubDetailCellEditId' => $cellId )));
                             }
 
-                            //alinhamento
+                            //alignment
                             if ( $column->align )
                             {
                                 $table->setCellAttribute($aplyCellAttributeId, $line, 'align', $column->align);
                             }
-                            //tamanho
+                            //size
                             if ( $column->width )
                             {
                                 $table->setCellAttribute($aplyCellAttributeId, $line, 'width', $column->width);
@@ -1432,7 +1432,7 @@ class MSubDetail extends MBaseGroup
             }
         }
 
-        $table->array = $tableData; //seta os dados no array
+        $table->array = $tableData; //set the data in the array
 
         return $table;
     }
@@ -1454,8 +1454,8 @@ class MSubDetail extends MBaseGroup
     {
         $arrayItem = 'arrayItemTemp' . $args->mSubDetail;
         $MIOLO = MIOLO::getInstance();
-        $indexData = self::getData($args->mSubDetail, false); //dados da sessão
-        $lineData = $indexData[$args->$arrayItem]; //dados na sessão da linha atual
+        $indexData = self::getData($args->mSubDetail, false); //session data
+        $lineData = $indexData[$args->$arrayItem]; //session data for the current row
 
         if (isset($lineData->dataStatus) && $lineData->dataStatus == self::STATUS_ADD)
         {
@@ -1483,17 +1483,17 @@ class MSubDetail extends MBaseGroup
         $arrayItem = 'arrayItemTemp' . $data->mSubDetail;
         $childs = self::getChilds($subdetailId);
 
-        //detecta os filhos e capta os dados deles
+        //detect the children and capture their data
         if ( is_array($childs) )
         {
             foreach ( $childs as $line => $childId )
             {
-                if ( $childId != $data->mSubDetail ) // se não for o mSubdetail atual para não ficar recursivo
+                if ( $childId != $data->mSubDetail ) // if it is not the current subdetail to avoid recursion
                 {
                     $innerData = self::getData($childId);
-                    $data->$childId = $innerData; //pega os dados do mSubdetail filho e adiciona no pai
+                    $data->$childId = $innerData; //get the child mSubdetail data and add to the parent
                     self::clearData($childId);
-                    self::update(null, $childId); //limpa o filho e atualiza
+                    self::update(null, $childId); //clear the child and update
                 }
             }
         }
@@ -1508,7 +1508,7 @@ class MSubDetail extends MBaseGroup
             $field = $validator->field;
             $fieldWithoutSub = substr($field, strpos($field, "_") + 1);
             $valid = MUtil::NVL($validator->label, $field);
-            
+
         if ( !(strlen(MIOLO::_REQUEST($field)) > 0) && $validator->type == 'required' )
         {
             $errors[] = _M('O campo "@1" é obrigatório!', MIOLO::getCurrentModule(), $valid);
@@ -1547,37 +1547,37 @@ class MSubDetail extends MBaseGroup
             self::clearValidationErrors();
         }
         
-        //se estiver editando
+        //if editing
         if ( $data->$arrayItem || $data->$arrayItem === '0' )
         {
-            //obtem o dado atual da sessão
+            //get the current data from the session
             $sData = self::getDataItem($data->$arrayItem, $subdetailId);
-            //e seta o dataStatus que esta na sessão para o registro atual
+            //and set the dataStatus from the session for the current record
             $data->dataStatus = isset($sData->dataStatus) ? $sData->dataStatus : null;
 
-            //caso o status seja diferente de adição, troca para editado
+            //if the status is different from add, change to edited
             if ( $data->dataStatus != self::STATUS_ADD )
             {
                 $data->dataStatus = self::STATUS_EDIT;
             }
-            //atualiza os dados específicos
+            //update the specific data
             self::defineData($data->$arrayItem, $data, $data->mSubDetail);
         }
-        //se estiver adicionando
+        //if adding
         else
         {
             $data->dataStatus = self::STATUS_ADD;
             self::addData($data, $data->mSubDetail);
         }
 
-        //limpa os campos e define o foco no primeiro
+        //clear the fields and set focus on the first one
         self::clearFields($data->mSubDetail);
 
         self::update(null, $data->mSubDetail);
     }
 
     /**
-     * Define o focus do primeiro campo do subdetail
+     * Sets the focus on the first field of the subdetail
      *
      * @return unknown_type
      */
@@ -1603,18 +1603,18 @@ class MSubDetail extends MBaseGroup
         $fieldNames = self::getSessionValue('fieldNames', $name);
         $temp = '';
 
-        //passa pelos campos setando-os como vazio
+        //iterate through the fields setting them as empty
         if ( is_array($fieldNames) )
         {
             foreach ( $fieldNames as $line => $info )
             {
-                $info = str_replace('Description', '', $info); //evita que se limpe o conteúdo dos $valueDescription
+                $info = str_replace('Description', '', $info); //prevents clearing the content of $valueDescription
                 $temp .= "msubdetail.updateField('$info','');";
             }
         }
 
         $temp .= "msubdetail.updateButtons( '$name', '$addImg', '$clearImg');";
-        $temp .= "dojo.byId('arrayItemTemp{$name}').value=''"; //limpa o arrayItem
+        $temp .= "dojo.byId('arrayItemTemp{$name}').value=''"; //clear the arrayItem
 
         $MIOLO->page->onload($temp);
 
@@ -1622,7 +1622,7 @@ class MSubDetail extends MBaseGroup
     }
 
     /**
-     * Limpa o valor prenchido nos campos
+     * Clears the values filled in the fields
      *
      * @param object $args
      */
@@ -1630,12 +1630,12 @@ class MSubDetail extends MBaseGroup
     {
         $childs = self::getChilds($args->mSubDetail);
 
-        //detecta os filhos e os limpa também
+        //detect the children and clear them as well
         if ( is_array($childs) )
         {
             foreach ( $childs as $line => $info )
             {
-                if ( $info != $args->mSubDetail ) // se não for o subdetail atual para não ficar recursivo
+                if ( $info != $args->mSubDetail ) // if it is not the current subdetail to avoid recursion
                 {
                     self::clearData($info);
                     self::update(null, $info); //limpa o filho e atualiza
@@ -1696,7 +1696,7 @@ class MSubDetail extends MBaseGroup
     }
 
     /**
-     * Função chamada automaticamente ao apertar editar na tabela, define os valores dos campos
+     * Function called automatically when pressing edit in the table, sets the field values
      *
      * @param object $data ajax miolo object
      */
@@ -1718,7 +1718,7 @@ class MSubDetail extends MBaseGroup
 
         $temp .= "dojo.byId('{$arrayItem}').value='{$args->$arrayItem}'";
 
-        //resposta falsa só para executar o js
+        //fake response just to execute the js
         $MIOLO->page->onload($temp);
         $MIOLO->ajax->setResponse(null, 'divResponse');
     }
@@ -1730,12 +1730,12 @@ class MSubDetail extends MBaseGroup
         $arrayItem = 'arrayItemTemp' . $args->mSubDetail;
         $temp = '';
 
-        //detecta filhos e seta os dados deles
+        //detect children and set their data
         if ( is_array($childs) )
         {
             foreach ( $childs as $line => $childId )
             {
-                if ( $childId != $args->mSubDetail ) // se não for o subdetail atual para não ficar recursivo
+                if ( $childId != $args->mSubDetail ) // if it is not the current subdetail to avoid recursion
                 {
                     $valuesSB = self::getDataItem($args->$arrayItem, $args->mSubDetail);
                     $subData = $valuesSB->$childId;
@@ -1746,7 +1746,7 @@ class MSubDetail extends MBaseGroup
                         $subData = $valuesSB->$name;
                     }
 
-                    //se ainda não achou dados limpa o subdetail interno
+                    //if data still not found, clear the internal subdetail
                     if ( !$subData )
                     {
                         self::clearData($childId);
@@ -1784,7 +1784,7 @@ class MSubDetail extends MBaseGroup
     }
 
     /**
-     * Evento chamado ao clicar em uma célula editável
+     * Event called when clicking on an editable cell
      */
     public function editCell($args)
     {
@@ -1820,7 +1820,7 @@ class MSubDetail extends MBaseGroup
             $field->addStyle('height', '100%');
         }
 
-        //adiciona evento ao sair do campo, adiciona estilo e seta valor
+        //add event on field exit, add style and set value
         $ajaxAction = MUtil::getAjaxAction('editCellExit', array( 'mSubDetail' => $args->mSubDetail, 'mSubDetailCellEditId' => $cellId ));
         $js .= "
         innerElement = dojo.byId('$idEx');
@@ -1837,7 +1837,7 @@ class MSubDetail extends MBaseGroup
     }
 
     /**
-     * Evento executado ao sair de uma célula editável
+     * Event executed when leaving an editable cell
      */
     public function editCellExit($args)
     {
@@ -1851,7 +1851,7 @@ class MSubDetail extends MBaseGroup
         $arrayItem = $id[2];
 
         $value = $args->$fieldIdDesc ? $args->$fieldIdDesc : $args->$fieldId;
-        $value = addSlashes($value); //FIXME isso não funciona, precisa funcionar para aceitar aspas simples
+        $value = addSlashes($value); //FIXME this does not work, it needs to work to accept single quotes
 
 
         $itemData = self::getDataItem($arrayItem, $args->mSubDetail);
@@ -1864,13 +1864,13 @@ class MSubDetail extends MBaseGroup
     }
 
     /**
-     * Limpa o campo dataStatus de todos os dados do subdetail passado
+     * Clears the dataStatus field from all data of the given subdetail
      *
-     * Função chamada após enviar o SubDetail para o banco de dados, mas continuando a sua utilização.
+     * Function called after sending the SubDetail to the database, but continuing its use.
      *
-     * Se for STATUS_REMOVE, quer dizer, é pra remover no banco, após a remoção, o registro é removido do subdetail
-     * Se for STATUS_ADD o registro foi inserido no banco e pode continuar aqui, mas não precisa mais fazer nada, removemos então o dataStatus
-     * O caso do STATUS_EDIT é o mesmo do STATUS_ADD, o registro foi editado e podemos remover o dataStatus
+     * If STATUS_REMOVE, it means it should be removed from the database; after removal, the record is removed from the subdetail
+     * If STATUS_ADD, the record was inserted in the database and can remain here, but nothing else needs to be done, so we remove the dataStatus
+     * The STATUS_EDIT case is the same as STATUS_ADD, the record was edited and we can remove the dataStatus
      *
      * @param $name
      * @return void
@@ -1904,14 +1904,14 @@ class MSubDetail extends MBaseGroup
         $itemName = MIOLO::getCurrentAction() . ':' . $item;
         $object = $session->getValue($itemName) ?: new stdClass;
         $object->$var = $value;
-        //diferencia por handler
+        //differentiate by handler
         $session->setValue($itemName, $object);
     }
 
     public static function getSessionValue($var, $item)
     {
         $MIOLO = MIOLO::getInstance();
-        //diferencia por handler
+        //differentiate by handler
         $object = $MIOLO->getSession()->getValue(MIOLO::getCurrentAction() . ':' . $item);
         
         return isset($object->$var) ? $object->$var : null;
@@ -1980,10 +1980,10 @@ class MSubDetail extends MBaseGroup
             foreach ( $fieldNames as $line => $info )
             {
                 $info2 = str_replace('Description', '', $info);
-                $fieldNames[] = $info2 . 'Description'; //adiciona suporte a campo campoDescription (usado no MSelection e MCheckBox)
+                $fieldNames[] = $info2 . 'Description'; //add support for fieldDescription field (used in MSelection and MCheckBox)
                 $classesData[$info2] = $classesNames[$line];
 
-                $info3 = str_replace($itemForce . '_', '', $info); //tira o id do subdetail do nome
+                $info3 = str_replace($itemForce . '_', '', $info); //remove the subdetail id from the name
                 $fieldNames[] = $info3;
                 $classesData[$info3] = $classesNames[$line];
             }
@@ -2010,11 +2010,11 @@ class MSubDetail extends MBaseGroup
 
                 foreach ( $line as $k => $l )
                 {
-                    //se tiver nome de campo na sessão, ou seja, subdetail ja foi instanciado, filtra os campos
+                    //if there is a field name in the session, i.e., subdetail was already instantiated, filter the fields
                     if ( !$fieldNames || in_array($k, $fieldNames) )
                     {
-                        // $classe não utilizada?
-                        //$classe = strtolower($classesData[$k]); // classe PHP do campo
+                        // $classe not used?
+                        //$classe = strtolower($classesData[$k]); // PHP class of the field
 
                         if (!isset($newLine->$k))
                         {
@@ -2094,7 +2094,7 @@ class MSubDetail extends MBaseGroup
                 $parseData = array( $data );
                 $data = self::parseFieldData($parseData, $item);
 
-                //quando for duplicar os dataStatus sempre devem ser add, para forçar uma adição no banco de dados
+                //when duplicating, the dataStatus must always be add, to force an insertion in the database
                 if ( MIOLO::_REQUEST('duplicar') )
                 {
                     $data[0]->dataStatus = self::STATUS_ADD;
@@ -2125,17 +2125,17 @@ class MSubDetail extends MBaseGroup
 
         if ( self::$doLookupAutocomplete )
         {
-            // Dispara o autocomplete dos lookups presentes na subdetail
+            // Trigger the autocomplete of lookups present in the subdetail
             $data = self::lookupAutocomplete($data, $controls);
         }
 
         self::clearData($itemForce);
         self::addData($data, $itemForce);
-        self::getData($itemForce, false); // chamado para reordenar os indices
+        self::getData($itemForce, false); // called to reorder the indices
     }
 
     /**
-     * Função estática que executa o autocomplete dos lookups presentes no array passado ($controls)
+     * Static function that executes the autocomplete of lookups present in the passed array ($controls)
      *
      * @param array $data
      * @param array $controls
@@ -2163,7 +2163,7 @@ class MSubDetail extends MBaseGroup
 
                 $extraData = $lookup->doAutoComplete($line->{$control->name});
 
-                // busca dados dos lookup para cada linha do subdetail
+                // fetch lookup data for each row of the subdetail
                 foreach ( $relatedArray as $rKey => $related )
                 {
                     if ( !$data[$key]->$related )
@@ -2202,16 +2202,16 @@ class MSubDetail extends MBaseGroup
         $args = MUtil::getAjaxActionArgs();
         $event = MIOLO::_REQUEST("{$MIOLO->page->getFormId()}__EVENTTARGETVALUE");
 
-        //lista de eventos possíveis
+        //list of possible events
         $possibleEvents = array( 'removeFromTable', 'duplicate', 'addToTable', 'forceAddToTable', 'upFromTable', 'downFromTable', 'editFromTable', 'clearTableFields', 'editCell', 'editCellExit', 'removeFromTable' );
 
-        //chama a função especifica
+        //call the specific function
         if ( in_array($event, $possibleEvents) )
         {
             self::$event($args);
         }
 
-        //"order" tem padrão diferenciado
+        //"order" has a different pattern
         if ( $event == 'order' )
         {
             self::$event($args->mSubDetailOrderField, null, $args->mSubDetail);
@@ -2219,11 +2219,11 @@ class MSubDetail extends MBaseGroup
     }
 
     /**
-     * Método para alterar o atributo doLookupAutocomplete
-     * Esse atributo indica se o autocomplete do lookup deve ser disparado ao fazer o setValue
+     * Method to change the doLookupAutocomplete attribute
+     * This attribute indicates whether the lookup autocomplete should be triggered when calling setValue
      *
-     * Importante: No setData, o atributo não é levado em consideração, pois o método é estático,
-     * disparando o autocomplete de cada lookup
+     * Important: In setData, the attribute is not taken into consideration, because the method is static,
+     * triggering the autocomplete of each lookup
      *
      * @param boolean $doLookupAutocomplete
      */

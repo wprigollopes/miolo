@@ -122,13 +122,13 @@ class MAuthLdap extends MAuth
                     
                     if ( !$exists )
                     {
-                        // Se ainda não encontrou, verifica se no ldap ad não está em md5
+                        // If not yet found, check if the LDAP AD password is not in md5
                         if ( strlen($info[$i]['userpassword'][0]) )
                         {
                             $passwordColumn = 'userpassword';
-                            $senhaDigitada = self::pwdEncrypt($pass);
-                            
-                            $exists = $info[$i][$passwordColumn][0] == $senhaDigitada["userPassword"];
+                            $encryptedPassword = self::pwdEncrypt($pass);
+
+                            $exists = $info[$i][$passwordColumn][0] == $encryptedPassword["userPassword"];
                         }
                     }
                 }
@@ -139,9 +139,9 @@ class MAuthLdap extends MAuth
                 if( $bind || $exists )
                 {
                     /**
-                     * Como o ldap/ad não é case sensitive, o sistema deve conseguir encontrar no
-                     * sistema o usuário se informado em minusculo, ou em maiúsculo. E então utilizar
-                     * o encontrado no sistema para a setagem da sessão.
+                     * Since LDAP/AD is not case sensitive, the system should be able to find
+                     * the user whether entered in lowercase or uppercase. Then use
+                     * the one found in the system for setting the session.
                      */
                     $dbuser = $this->manager->GetBusinessMAD('user');
                     $dbuser->getByLogin($user, 'ILIKE');
@@ -198,7 +198,7 @@ class MAuthLdap extends MAuth
     }
     
     /**
-     * Retorna o dn completo de um usuário do ldap.
+     * Returns the full dn of an LDAP user.
      * 
      * @param ldap_connect() $ldap_conn
      * @param String $user_name

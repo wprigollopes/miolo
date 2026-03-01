@@ -47,21 +47,21 @@ class frmTextTable extends MForm
         $tableId = $tblData->getTableId();
         $formId = $this->page->getFormId();
 
-        // o codigo javascript abaixo mostra como executar uma função quando uma linha é selecionada
-        // a função usa a url $selectAluno para chamar o método btnSelectAluno_click
-        // $tableId : id do elemento table
-        // customSelect : método executado quando uma linha é selecionada
+        // the javascript code below shows how to execute a function when a row is selected
+        // the function uses the url $selectAluno to call the btnSelectAluno_click method
+        // $tableId : id of the table element
+        // customSelect : method executed when a row is selected
         $tblData->addCode("miolo.page.controls.get('{$tableId}').customSelect = function() { " .
-                // row : linha que foi selecionada
+                // row : row that was selected
                 "   var row = miolo.getElementById(miolo.page.controls.get('{$tableId}').rowSelected); " .
-                // cols : colunas (elementos TD) da linha selecionada
+                // cols : columns (TD elements) of the selected row
 //          "   var cols = xGetElementsByTagName('TD',row); ".
                 "   var cols = dojo.query('TD',row); " .
-                // url : url que será chamada
+                // url : url that will be called
                 "   url = '{$selectAluno}'; " .
-                // troca o %0% pelo valor da coluna 1 (idAaluno)
+                // replace %0% with the value of column 1 (idAluno)
 //          "   url = url.replace( '%0%', cols[1].firstChild.nodeValue); ".
-                // chama a url
+                // call the url
                 "   miolo.doPostBack('btnSelectAluno:click',cols[1].firstChild.nodeValue,'{$formId}'); " .
                 "};");
 

@@ -83,8 +83,8 @@ class frmDataGrid2 extends MForm
     {
         $this->setFieldValue('key', $data->idtrans);
         $this->setFieldValue('txtIdTrans', $data->idtrans);
-        $this->setFieldValue('lkpTransacao', $data->transacao);
-        $this->setFieldValue('selIdSistema', $data->idsistema);
+        $this->setFieldValue('lkpTransacao', $data->transaction);
+        $this->setFieldValue('selIdSistema', $data->systemId);
         $this->mtfGrupos->setCodeValue($data->grupos);
     }
 
@@ -248,7 +248,7 @@ class frmDataGrid2 extends MForm
         {
             $action_sim = $MIOLO->getActionURL($module, $action, $idtrans, array( 'event' => 'btnDelete:click', 'conf' => 'sim' ));
             $action_nao = $MIOLO->getActionURL($module, $action, $idtrans, array( 'event' => 'btnDelete:click', 'conf' => 'nao' ));
-            $MIOLO->prompt(Prompt::question(_M('Confirm removing transaction', $module) . " [$transacao->transacao]?",
+            $MIOLO->prompt(Prompt::question(_M('Confirm removing transaction', $module) . " [$transacao->transaction]?",
                             $action_sim, $action_nao));
         }
     }
@@ -269,7 +269,7 @@ class frmDataGrid2 extends MForm
         foreach ( $selecionados as $k => $v )
         {
             $this->objTransacao->getById($v);
-            $texto .= $v . " - " . $this->objTransacao->transacao . "<br>";
+            $texto .= $v . " - " . $this->objTransacao->transaction . "<br>";
         }
         if ( $texto )
             $txtShow = new Text('txtShow', $texto);

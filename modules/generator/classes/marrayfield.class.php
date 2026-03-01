@@ -4,7 +4,7 @@ $MIOLO->page->addScript('m_arrayfield.js', MIOLO::getCurrentModule());
 
 class MArrayField extends MContainer
 {
-    private $controlNames; //nome dos controles escaneados na função parseFields
+    private $controlNames; //names of controls scanned in the parseFields function
     private $_name;
     private $_controls;
 
@@ -18,8 +18,8 @@ class MArrayField extends MContainer
         $this->_name = $name;
         $this->_controls = $controls;
         $controls = $this->parseFields($controls, $index);
-        $container[] = $this->convertControl($controls); //joga os campos dentro de um container
-        $container[] = new MHiddenField($name . '_counter', '0'); //adiciona contador
+        $container[] = $this->convertControl($controls); //place the fields inside a container
+        $container[] = new MHiddenField($name . '_counter', '0'); //add counter
         parent::__construct($name, $container, 'vertical', MFormControl::FORM_MODE_SHOW_NBSP);
         $this->page->onload('marrayfield.parseLookup(\'' . $name . '\');');
 
@@ -27,7 +27,7 @@ class MArrayField extends MContainer
     }
 
     /**
-     * Retorna um container com os campos
+     * Returns a container with the fields
      *
      * @param unknown_type $controls
      * @param unknown_type $addButton
@@ -43,37 +43,37 @@ class MArrayField extends MContainer
 
         if ( $addButton )
         {
-            $delImg->addStyle('visibility', 'hidden'); //esconde del
+            $delImg->addStyle('visibility', 'hidden'); //hide del
         }
         else
         {
-            $addImg->addStyle('visibility', 'hidden'); //esconde add
+            $addImg->addStyle('visibility', 'hidden'); //hide add
         }
 
-        // Caso o primeiro e o último campo sejam containers
+        // If the first and last fields are containers
         if ( $controls[0] instanceof MContainer && $controls[count($controls) - 1] instanceof MContainer )
         {
-            // Recria o botão de excluir para apagar um nível acima
+            // Recreate the delete button to delete one level up
             $delImg = new MImageButton($this->_name . '_remove', null, 'javascript:marrayfield.remove(this.parentNode, \'' . $this->_name . '\');', $delUrl);
             if ( $addButton )
             {
                 $delImg->addStyle('visibility', 'hidden');
             }
 
-            // Insere o botão adicionar na primeira posição dos controls
+            // Insert the add button at the first position of controls
             $controls[0]->insertControl($addImg, 0);
             $controls[count($controls) - 1]->addControl($delImg);
         }
-        // Caso o primeiro campo seja container
+        // If the first field is a container
         elseif ( $controls[0] instanceof MContainer && !( $controls[count($controls) - 1] instanceof MContainer ) )
         {
             $controls[0]->insertControl($addImg, 0);
             $controls = array_merge(is_array($controls) ? $controls : array( $controls ), array( $delImg ));
         }
-        // Caso o último campo seja container
+        // If the last field is a container
         elseif ( $controls[count($controls) - 1] instanceof MContainer )
         {
-            // Recria o botão de excluir para apagar um nível acima
+            // Recreate the delete button to delete one level up
             $delImg = new MImageButton($this->_name . '_remove', null, 'javascript:marrayfield.remove(this.parentNode, \'' . $this->_name . '\');', $delUrl);
             if ( $addButton )
             {
@@ -92,12 +92,12 @@ class MArrayField extends MContainer
     }
 
     /**
-     * Trabalha os campos internos do AArrayField,
-     * registrando um array com o nome dos campos a tratar no get data,
-     * assim como, tratando os id dos campos adicionando [] neles para que os dados sejam pegos corretamento no final 
+     * Processes the internal fields of AArrayField,
+     * registering an array with the field names to handle in get data,
+     * as well as treating the field ids by adding [] to them so that data is correctly retrieved in the end
      *
-     * @param Object $field o campo ou array de campos
-     * @param Object $data dados a serem forçados no campo
+     * @param Object $field the field or array of fields
+     * @param Object $data data to be forced into the field
      * @return Object
      */
     private function parseFields($field, $data, $index = 0)
@@ -112,7 +112,7 @@ class MArrayField extends MContainer
         }
         else if ( $field instanceof ALookupField )
         {
-            $newField = clone($field); //clona para pode aceitar vários
+            $newField = clone($field); //clone to accept multiple
 
             $this->controlNames[] = $field->name;
 
@@ -169,7 +169,7 @@ class MArrayField extends MContainer
         }
         elseif ( $field->name )
         {
-            $newField = clone($field); //clona para pode aceitar vários
+            $newField = clone($field); //clone to accept multiple
 
             $this->controlNames[] = $field->name;
 
@@ -249,16 +249,16 @@ class MArrayField extends MContainer
     }
 
     /**
-     * Retorna um array de objetos, onde cada linha é um registro do ArrayField
+     * Returns an array of objects, where each line is a record of the ArrayField
      *
-     * @return Array de objetos
+     * @return Array of objects
      */
     function getData()
     {
         $data = (Object) $_REQUEST;
         $controlData = null;
 
-        //separa só os dados necessários
+        //separate only the necessary data
         if ( is_array($this->controlNames) )
         {
             foreach ( $this->controlNames as $line => $info )
@@ -267,7 +267,7 @@ class MArrayField extends MContainer
             }
         }
 
-        //retorna no formato adequado
+        //return in the proper format
         if ( is_array($controlData) )
         {
             foreach ( $controlData as $indice => $dado )

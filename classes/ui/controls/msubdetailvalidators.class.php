@@ -1,6 +1,6 @@
 <?php
 /**
- * Função criada para armazenar validadores específicos da subdetail do MIOLO2.6
+ * Function created to store specific validators for the MIOLO2.6 subdetail
  *
  * @author Luís Felipe Wermann [moises@solis.coop.br]
  *

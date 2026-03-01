@@ -97,14 +97,14 @@ class frmGroup extends MForm
 	{
         $MIOLO = MIOLO::getInstance();
 
-        $key = $this->getFieldValue('key');  // inclusão ou edição?
-        $objGroup = $this->objGroup;     // apenas um shortcut
+        $key = $this->getFieldValue('key');  // insert or edit?
+        $objGroup = $this->objGroup;     // just a shortcut
         if ($key != '')
         {
-            $objGroup->getById($key); // se for edição, obtem os dados atuais do objeto
+            $objGroup->getById($key); // if editing, get the current data of the object
         }
-        // seta os atributos do objeto com os valores dos campos do formulario
-		$objGroup->setData($this->getData()); 
+        // set the object attributes with the form field values
+		$objGroup->setData($this->getData());
         $objGroup->setArrayRights($this->getField('mtfAccess')->getCodeValue());
         try
         {
@@ -162,12 +162,12 @@ class frmGroup extends MForm
         if( ! $item )
             $item  = $this->getFieldValue('txtIdGroup');
         $group = $this->getFieldValue('txtGroup');
-        // verifica se está sendo executado através do evento do grid
+        // check if it is being executed through the grid event
 
         if ($item != '')
         {
             $this->objGroup->getById($item);
-        }		
+        }
         else
         {
             $this->objGroup->getByGroup($group);
@@ -175,7 +175,7 @@ class frmGroup extends MForm
 
         if ($this->objGroup->idGroup)
         {
-            // coloca os dados do objeto nos campos do formulário
+            // place the object data into the form fields
             $this->setData($this->objGroup->getData());
             // exibe os campos
             $this->setFieldsVisible(true);

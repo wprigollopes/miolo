@@ -37,10 +37,10 @@
 #---------------------------------------------------------------------
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Rotina para a geração de Código de Barra
-# no padrão Interleved 2 of 5 (Intercalado 2 de 5)
-# utilizado para os documentos bancários conforme
-# padrão FEBRABAN.
+# Routine for Barcode generation
+# in the Interleaved 2 of 5 standard
+# used for banking documents according to
+# FEBRABAN standard.
 # UNILASALLE
 #---------------------------------------------------------------------
 class BarcodeI25
@@ -127,7 +127,7 @@ class BarcodeI25
 
         $lbc = strlen($this->bc_string) - 1;
 
-        //Gera o código com os patterns
+        //Generate the code with the patterns
         for ($xi = 0; $xi <= $lbc; $xi++)
         {
             $k = (int)substr($this->bc_string, $xi, 1);
@@ -136,7 +136,7 @@ class BarcodeI25
 
         $this->bc_string = $new_string;
 
-        //Faz a mixagem do Código
+        //Mix the Code
         $this->mixCode();
 
         $this->bc_string = $this->bc[10] . $this->bc_string . $this->bc[11]; //Adding Start and Stop Pattern
@@ -171,8 +171,8 @@ class BarcodeI25
 
     public function mixCode()
     {
-        //Faz a mixagem do valor a ser codificado pelo Código de Barras I25
-        //Declaração de Variaveis
+        //Mix the value to be encoded by the I25 Barcode
+        //Variable declarations
         $i = 0;
         $l = 0;
         $k = 0;  //inteiro, inteiro, longo

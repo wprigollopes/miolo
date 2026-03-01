@@ -1,32 +1,32 @@
 <?php
 /**
- * Copyright 2005-2017 de Solis Soluções Livres Ltda.
+ * Copyright 2005-2017 Solis Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa SolisGE/Sagu.
+ * This file is part of the SolisGE/Sagu program.
  *
- * O SolisGE/Sagu é um software de propriedade da SOLIS, sendo desenvolvido
- * e mantido exclusivamente por esta empresa.
+ * SolisGE/Sagu is proprietary software of SOLIS, developed and maintained
+ * exclusively by this company.
  *
- * A licença de uso está disponível mediante aquisição exclusiva junto à
- * SOLIS. A licença é concedida sem caráter de exclusividade ao licenciado.
- * Os direitos de uso são perpétuos.
+ * The usage license is available through exclusive acquisition from SOLIS.
+ * The license is granted on a non-exclusive basis to the licensee.
+ * Usage rights are perpetual.
  *
- * Embora os códigos fontes sejam fornecidos, o software é de propriedade
- * da SOLIS, não sendo permitido ao adquirente da licença a sua revenda,
- * empréstimo ou cessão (onerosa ou não) à terceiros. Também não é permitido,
- * a qualquer título e tempo, promover no software qualquer tipo de alienação,
- * reprodução, distribuição, divulgação, registro, licenciamento, transferência
- * ou qualquer outro ato que prejudique ou comprometa os direitos de propriedade
- * de software, o nome e a imagem da sua proprietária e do próprio software,
- * além de configurar concorrência à SOLIS.
+ * Although source code is provided, the software is the property of SOLIS.
+ * The licensee is not permitted to resell, lend, or transfer (whether for
+ * payment or not) the license to third parties. It is also not permitted,
+ * at any time or for any reason, to perform any alienation, reproduction,
+ * distribution, disclosure, registration, licensing, transfer, or any other
+ * act that may harm or compromise the software property rights, the name
+ * and image of its owner and the software itself, or that constitutes
+ * competition with SOLIS.
  *
- * O licenciado, com o acesso ao código fonte do software, terá o direito de
- * promover mudanças no respectivo código. No entanto, nas situações em que ele
- * contar com o suporte oficial prestado pela SOLIS, não poderá promover mudanças
- * no código fonte, sob pena de perda do referido suporte.
+ * The licensee, with access to the software source code, shall have the
+ * right to make changes to the respective code. However, in situations
+ * where the licensee relies on official support provided by SOLIS, changes
+ * to the source code are not permitted, under penalty of losing said support.
  *
- * Para conhecer em detalhes o Termo de Licenciamento do Software SolisGE/Sagu
- * leia o arquivo “LICENCA.txt” disponível junto ao código deste software. e
+ * For detailed information about the SolisGE/Sagu Software Licensing Terms,
+ * read the "LICENCA.txt" file included with this software. e
  * 
  * 
  *
@@ -47,95 +47,95 @@ class bCSVColumn
     const TYPE_CHAR = 8;
     const TYPE_ESTADO = 9;
     
-    // Campos tipos booleanos
+    // Boolean type fields
     public static $booleanRangesAll = array('t', 's', 'sim',
                                             'f', 'n', 'nao');
     public static $booleanRangesTrue = array('t', 's', 'sim');
     public static $booleanRangesFalse = array('f', 'n', 'nao');
     
-    // Campos tipos sexo
+    // Sex/gender type fields
     public static $sexRanges = array('F','M');
     
     /**
-     * Nome da coluna no arquivo CSV
+     * Column name in the CSV file
      * 
      * @var string
      */
     private $name;
     
     /**
-     * Define um label para exibicao amigavel nas mensagens desta coluna
+     * Defines a label for friendly display in messages for this column
      *
      * @var string 
      */
     private $label;
     
     /**
-     * Indica se coluna e requerida no arquivo CSV
+     * Indicates whether the column is required in the CSV file
      *
      * @var boolean 
      */
     private $isRequired = false;
     
     /**
-     * Indica se deve ser unico
+     * Indicates whether it must be unique
      *
      * @var boolean
      */
     private $isUnique = false;
     
     /**
-     * Tipo de dado da coluna
+     * Column data type
      *
      * @var string
      */
     private $type;
     
     /**
-     * Array com valores que devem ser substituidos
+     * Array with values that should be replaced
      *
      * @var array 
      */
     private $replaceVars = array();
     
     /**
-     * Nome da tabela e coluna na base de dados (exemplo: Basphysicalperson.name)
+     * Table and column name in the database (example: Basphysicalperson.name)
      * 
      * @var string
      */
     private $databaseColumn;
     
     /**
-     * Define o limite minimo de caracteres
+     * Defines the minimum character limit
      *
      * @var int
      */
     private $minLength = 0;
     
     /**
-     * Define o limite maximo de caracteres
+     * Defines the maximum character limit
      *
      * @var int
      */
     private $maxLength = 1000;
     
     /**
-     * Restringe para que este campo no CSV tenha apenas estes valores.
-     * Exemplo: array('M', 'F') - valida para que o campo no CSV possa ter apenas estes valores.
+     * Restricts this CSV field to only have these values.
+     * Example: array('M', 'F') - validates that the CSV field can only have these values.
      *
      * @var string
      */
     private $restrictValues = array();
     
     /**
-     * Range inicial do intervalo
+     * Start range of the interval
      *
      * @var int
      */
     private $rangeStart = null;
     
     /**
-     * Range final do intervalo
+     * End range of the interval
      *
      * @var int
      */
@@ -143,7 +143,7 @@ class bCSVColumn
     
     
     /**
-     * Posicao desta coluna no array bCSVFileImporter
+     * Position of this column in the bCSVFileImporter array
      *
      * @var int
      */
@@ -156,7 +156,7 @@ class bCSVColumn
     }
     
     /**
-     * Verifica se os dados passados sao suficientes para ler arquivo CSV
+     * Checks if the provided data is sufficient to read the CSV file
      *
      * @throws Exception 
      */
@@ -223,7 +223,7 @@ class bCSVColumn
     {
         if ( strlen($type) > 0 )
         {
-            // Restringe valores booleanos
+            // Restricts boolean values
             if ( $type == self::TYPE_BOOLEAN )
             {
                 $this->setRestrictValues(self::$booleanRangesAll);
@@ -309,7 +309,7 @@ class bCSVColumn
     }
 
     /**
-     * Define o limite de intervalo permitido para o valor do campo
+     * Defines the allowed range limit for the field value
      * 
      * @param int $rangeStart
      * @param int $rangeEnd
@@ -344,7 +344,7 @@ class bCSVColumn
     }
         
     /**
-     * Obtem expressoes SQL de validadores
+     * Gets SQL validation expressions
      * 
      * @return array
      */
@@ -357,16 +357,16 @@ class bCSVColumn
         $minLength = $this->getMinLength();
         $maxLength = $this->getMaxLength();
 
-        // Validacao de requerido
+        // Required field validation
         if ( $this->getIsRequired() )
         {
             $cases[] = "(CASE WHEN {$colName} = '' OR {$colName} IS NULL THEN 'O campo {$colLabel} e requerido.\n' ELSE '' END)";
         }
 
-        // Validacao de limite de caracteres
+        // Character limit validation
         $cases[] = "(CASE WHEN ( CHAR_LENGTH({$colName}) > 0 ) AND ( CHAR_LENGTH({$colName}) NOT BETWEEN {$minLength} AND {$maxLength} ) THEN 'O campo {$colLabel} deve possuir entre {$minLength} e {$maxLength} caracteres.\n' ELSE '' END)";
 
-        // Validacao de valores restritos
+        // Restricted values validation
         if ( count($this->restrictValues) > 0 )
         {
             $restrict = SAGU::quoteArrayStrings($this->restrictValues, null, 'strtolower');
@@ -375,7 +375,7 @@ class bCSVColumn
             $cases[] = "(CASE WHEN CHAR_LENGTH({$colName}) > 0 AND (lower({$colName}) NOT IN ({$restrict})) THEN 'O campo {$colLabel} esta deve possuir apenas um dos seguintes valores: {$restrictDisplay}.\n' ELSE '' END)";
         }
         
-        // Validacao de intervalos (ranges)
+        // Range validation
         if ( strlen($this->rangeStart) > 0 && strlen($this->rangeEnd) > 0 )
         {
             $cases[] = "( CASE WHEN CHAR_LENGTH({$colName}) > 0 AND ({$colName}::int NOT BETWEEN {$this->rangeStart}::int AND {$this->rangeEnd}::int) THEN 'O campo {$colLabel} deve estar no intervalo entre {$this->rangeStart} e {$this->rangeEnd}.\n' ELSE '' END)";
@@ -383,14 +383,14 @@ class bCSVColumn
 
         switch ( $this->getType() )
         {
-            // Validacao de integer
+            // Integer validation
             case bCSVColumn::TYPE_INT:
                 $cases[] = "(CASE WHEN ( CHAR_LENGTH({$colName}) > 0 ) AND ( NOT({$colName} ~ '^([0-9]+)$') ) THEN 'O campo {$colLabel} deve ser numerico.\n' ELSE '' END)";
                 break;
 
-            // Validacao de datas
+            // Date validation
 
-            // Validacao de CPF
+            // CPF validation
         }
         
         return $cases;

@@ -1,40 +1,40 @@
 <?php
 
 /**
- * Copyright 2005-2017 de Solis Soluções Livres Ltda.
+ * Copyright 2005-2017 Solis Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa SolisGE/Sagu.
+ * This file is part of the SolisGE/Sagu program.
  *
- * O SolisGE/Sagu é um software de propriedade da SOLIS, sendo desenvolvido
- * e mantido exclusivamente por esta empresa.
+ * SolisGE/Sagu is proprietary software of SOLIS, developed and maintained
+ * exclusively by this company.
  *
- * A licença de uso está disponível mediante aquisição exclusiva junto à
- * SOLIS. A licença é concedida sem caráter de exclusividade ao licenciado.
- * Os direitos de uso são perpétuos.
+ * The usage license is available through exclusive acquisition from SOLIS.
+ * The license is granted on a non-exclusive basis to the licensee.
+ * Usage rights are perpetual.
  *
- * Embora os códigos fontes sejam fornecidos, o software é de propriedade
- * da SOLIS, não sendo permitido ao adquirente da licença a sua revenda,
- * empréstimo ou cessão (onerosa ou não) à terceiros. Também não é permitido,
- * a qualquer título e tempo, promover no software qualquer tipo de alienação,
- * reprodução, distribuição, divulgação, registro, licenciamento, transferência
- * ou qualquer outro ato que prejudique ou comprometa os direitos de propriedade
- * de software, o nome e a imagem da sua proprietária e do próprio software,
- * além de configurar concorrência à SOLIS.
+ * Although source code is provided, the software is the property of SOLIS.
+ * The licensee is not permitted to resell, lend, or transfer (whether for
+ * payment or not) the license to third parties. It is also not permitted,
+ * at any time or for any reason, to perform any alienation, reproduction,
+ * distribution, disclosure, registration, licensing, transfer, or any other
+ * act that may harm or compromise the software property rights, the name
+ * and image of its owner and the software itself, or that constitutes
+ * competition with SOLIS.
  *
- * O licenciado, com o acesso ao código fonte do software, terá o direito de
- * promover mudanças no respectivo código. No entanto, nas situações em que ele
- * contar com o suporte oficial prestado pela SOLIS, não poderá promover mudanças
- * no código fonte, sob pena de perda do referido suporte.
+ * The licensee, with access to the software source code, shall have the
+ * right to make changes to the respective code. However, in situations
+ * where the licensee relies on official support provided by SOLIS, changes
+ * to the source code are not permitted, under penalty of losing said support.
  *
- * Para conhecer em detalhes o Termo de Licenciamento do Software SolisGE/Sagu
- * leia o arquivo “LICENCA.txt” disponível junto ao código deste software.
+ * For detailed information about the SolisGE/Sagu Software Licensing Terms,
+ * read the "LICENCA.txt" file included with this software.
  *
  *
- * Formulário de gerenciamento de busca dinâmica.
+ * Dynamic search management form.
  *
  *
  */
-class frmBuscaDinamica extends bFormCadastro
+class frmDynamicLookup extends bFormRegistration
 {
 
     public function __construct($parametros)
@@ -42,14 +42,14 @@ class frmBuscaDinamica extends bFormCadastro
         parent::__construct(_M('Busca dinâmica', MIOLO::getCurrentModule()), $parametros);
     }
 
-    public function definirCampos()
+    public function buildFields()
     {
         if ( MUtil::isFirstAccessToForm() )
         {
             MSubDetail::clearData('campoBuscaDinamica');
         }
         
-        parent::definirCampos();
+        parent::buildFields();
         
         $campos = array();
         $campos[] = new MTextField('buscadinamicaid', NULL, _M('Código'), 10);
@@ -61,7 +61,7 @@ class frmBuscaDinamica extends bFormCadastro
         $campoBuscaDinamicaId->addStyle('display', 'none');
         
         $camposBusca[] = new MDiv('containerReferencias',  $this->gerarCamposDeReferencia(NULL, NULL, TRUE));
-        $camposBusca[] = new MDiv('dadosDoCampo', $this->obterDadosDoCampo(NULL, bInfoColuna::TIPO_TEXTO, NULL, TRUE));
+        $camposBusca[] = new MDiv('dadosDoCampo', $this->obterDadosDoCampo(NULL, bColumnInfo::TYPE_TEXT, NULL, TRUE));
         
         $camposBusca[] = new MMultilineField('valorespossiveis', $this->getFormValue('valoresPossiveis', $data->valoresPossiveis), _M('Valores possíveis', $module), T_DESCRICAO, 5, 50);
         $camposBusca[] = new MIntegerField('posicao', '0', _M('Posição', $module), T_CODIGO);
@@ -109,7 +109,7 @@ class frmBuscaDinamica extends bFormCadastro
         $campoBuscaDinamica->setFields( $camposBusca );
         $campoBuscaDinamica->setColumns($colunasBusca);
         
-        // Validadores.
+        // Validators.
         $validador = array( );
         $validador[] = new MRequiredValidator('identificador', '', 50);
         $validador[] = new MRequiredValidator('modulo_', '', 20);
@@ -119,31 +119,31 @@ class frmBuscaDinamica extends bFormCadastro
     }
     
     /**
-     * Atualiza os campos de referência de acordo com os dados informados.
+     * Updates the reference fields according to the provided data.
      *
-     * @param object $args Dados do post.
-     * @return MFormContainer Combos formatados em uma mesma linha.
+     * @param object $args Post data.
+     * @return MFormContainer Combos formatted on the same line.
      */
     public function atualizarReferencias($args)
     {
-        // Obtém o esquema selecionado.
+        // Gets the selected schema.
         $esquema = $args->campoBuscaDinamica_referenciaEsquema;
         
-        // Obtém a tabela selecionada.
+        // Gets the selected table.
         $tabela = $args->campoBuscaDinamica_referenciaTabela;
         
-        // Obtém os campos de referência.
+        // Gets the reference fields.
         $campos = $this->gerarCamposDeReferencia($esquema, $tabela);
         
         $this->setResponse($campos, 'campoBuscaDinamica_containerReferencias');
     }
     
     /**
-     * Gera campos para preenchimento da refêrencia, fornecendo combos de esquema, tabela e coluna.
+     * Generates fields for filling in the reference, providing schema, table and column combos.
      *
-     * @param string $esquema Filtra as tabelas pelo esquema definido.
-     * @param string $tabela Filtra as colunas pela tabela definida.
-     * @return MFormContainer Combos formatados em uma mesma linha.
+     * @param string $esquema Filters the tables by the defined schema.
+     * @param string $tabela Filters the columns by the defined table.
+     * @return MFormContainer Combos formatted on the same line.
      */
     public function gerarCamposDeReferencia($esquema='public', $tabela='', $createFields = FALSE)
     {
@@ -174,7 +174,7 @@ class frmBuscaDinamica extends bFormCadastro
         
         if ( $tabela )
         {
-            //FIXME: considerar esquema também.
+            //FIXME: consider schema as well.
             $colunas = bCatalogo::listarColunasDaTabela($tabela);
             
             $colunasArray = array();
@@ -202,29 +202,29 @@ class frmBuscaDinamica extends bFormCadastro
     }
        
     /**
-     * Atualiza dados básicos do campo.
+     * Updates basic field data.
      *
-     * @param object $args Dados do post.
-     * @return array Campos a serem renderizados. 
+     * @param object $args Post data.
+     * @return array Fields to be rendered.
      */
     public function atualizarDadosDoCampo($args)
     {
         $infoColuna = bCatalogo::buscarDadosDaColuna($args->campoBuscaDinamica_referenciaColuna, $args->campoBuscaDinamica_referenciaTabela, $args->campoBuscaDinamica_referenciaEsquema);
        
-        $dadosDoCampo = $this->obterDadosDoCampo(NULL, $infoColuna->tipo, $args->campoBuscaDinamica_referenciaEsquema.'.'.$args->campoBuscaDinamica_referenciaTabela.'.'.$args->campoBuscaDinamica_referenciaColuna);
+        $dadosDoCampo = $this->obterDadosDoCampo(NULL, $infoColuna->type, $args->campoBuscaDinamica_referenciaEsquema.'.'.$args->campoBuscaDinamica_referenciaTabela.'.'.$args->campoBuscaDinamica_referenciaColuna);
 
         $this->setResponse($dadosDoCampo, 'campoBuscaDinamica_dadosDoCampo');
     }
     
     /**
-     * Gera campos de nome, tipo e valor padrão.
+     * Generates name, type and default value fields.
      *
-     * @param string $nomePadrao Valor padrão do campo nome.
-     * @param string $tipoPadrao Valor padrão do campo tipo.
-     * @param string $referencia Valor padrão da referência.
-     * @return MFormContainer Campos de nome, tipo e valor padrão alinhados verticalmente.
+     * @param string $nomePadrao Default value for the name field.
+     * @param string $tipoPadrao Default value for the type field.
+     * @param string $referencia Default value for the reference.
+     * @return MFormContainer Name, type and default value fields aligned vertically.
      */
-    public function obterDadosDoCampo($nomePadrao='', $tipoPadrao=bInfoColuna::TIPO_TEXTO, $referencia='', $createFields=FALSE)
+    public function obterDadosDoCampo($nomePadrao='', $tipoPadrao=bColumnInfo::TYPE_TEXT, $referencia='', $createFields=FALSE)
     {
         $campos = array();
         $id = $createFields ? 'nome' : 'campoBuscaDinamica_nome';
@@ -232,7 +232,7 @@ class frmBuscaDinamica extends bFormCadastro
         $nome->addAttribute('maxlength', '100');
 
         $id = $createFields ? 'tipo' : 'campoBuscaDinamica_tipo';
-        $campos[] = $tipo = new MSelection($id, $tipoPadrao, _M('Tipo'), bInfoColuna::listarTipos());
+        $campos[] = $tipo = new MSelection($id, $tipoPadrao, _M('Tipo'), bColumnInfo::listarTipos());
 
         $camposEscondidos = array();
         

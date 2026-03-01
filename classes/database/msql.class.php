@@ -65,16 +65,16 @@ class MSQL
         if ($string == '')
             return;
         
-        // clear() seta todos os atributos como uma string vazia. Com isso, ao
-        // tentar utilizar a variável como um array, um warning é gerado.
-        // Em vez de corrigir o clear(), e provavelmente quebrar alguma coisa,
-        // achei melhor só garatir o tipo aqui.
+        // clear() sets all attributes as an empty string. Because of this, when
+        // trying to use the variable as an array, a warning is generated.
+        // Instead of fixing clear(), and probably breaking something,
+        // I thought it better to just ensure the type here.
         if (!$array)
         {
             $array = array();
         }
 
-        // Suporte a passagem de parametros como array no setColumns() e outros
+        // Support for passing parameters as array in setColumns() and others
         if ( is_array($string) )
         {
             $string = implode(',', $string);

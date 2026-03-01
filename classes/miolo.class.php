@@ -464,8 +464,8 @@ class MIOLO
         
         /**
          * Ticket #46247
-         * O getConf do modules.inc.php foi posto mais para baixo nessa função pois
-         * estávamos tendo problema em utilizar funções do MUtil (que ainda não estava instanciado) no modules.inc.php.
+         * The getConf of modules.inc.php was moved further down in this function because
+         * we were having issues using MUtil functions (which was not yet instantiated) in modules.inc.php.
          */
         
         // get the modules.inf
@@ -912,10 +912,8 @@ mdump($this->getConf("options.fileextension"));
     }
 
     /**
-     * @todo TRANSLATE
-     *
-     * Compõe um link (URL).
-     * Este metodo compoe um link para uma URL no sistema.
+     * Composes a link (URL).
+     * This method composes a link to a URL in the system.
      * <br>
      * @example
      * <code>
@@ -993,14 +991,14 @@ mdump($this->getConf("options.fileextension"));
      */
     public function saguCompatibility($url)
     {
-        $arquivoVersao = $this->getModulePath('basic', 'VERSION');
-        $versao = file_exists($arquivoVersao) ? file_get_contents($arquivoVersao) : '1.0.0';
-        
-        $contasPagar20 = (version_compare($versao, "3.67.0") >= 0);
-        $relCliente20 = (version_compare($versao, "3.68.0") >= 0);
+        $versionFile = $this->getModulePath('basic', 'VERSION');
+        $version = file_exists($versionFile) ? file_get_contents($versionFile) : '1.0.0';
+
+        $accountsPayable20 = (version_compare($version, "3.67.0") >= 0);
+        $clientReport20 = (version_compare($version, "3.68.0") >= 0);
 
         if (
-             preg_match('/\?module=(admin|basic|academic|finance|services|selectiveProcess|'.($relCliente20?'relcliente|':'').'accountancy|controlCopies|'.($contasPagar20?'contaspagar|':'').'training|institutional|protocol|research|residency|humanResources)&/', $url) ||
+             preg_match('/\?module=(admin|basic|academic|finance|services|selectiveProcess|'.($clientReport20?'relcliente|':'').'accountancy|controlCopies|'.($accountsPayable20?'contaspagar|':'').'training|institutional|protocol|research|residency|humanResources)&/', $url) ||
              preg_match('/main:report:generateReport&report=/', $url) || // Redireciona relatorios genericos para o SAGU MIOLO 2.0
              preg_match('/main:document:genericReports&reportid=/', $url) ||
              preg_match('/main:report:genericReports&reportid=/', $url)
@@ -1244,26 +1242,25 @@ mdump($this->getConf("options.fileextension"));
     }
 
     /**
-     * @todo TRANSLATION
-     * Retorna
-     * O metodo _REQUEST provê uma forma simples e rápida para se ter acesso às 
-     * variáveis, além de garantir a compatibilidade com versões futuras do PHP.
-     * Utilizando comandos PHP, seria necessário utilizar $_REQUEST, $_GET, $_POST 
-     * ou global ao passo este método possibilita, além da busca num, a busca em
-     * todas as informacoes.
-     * Caso você queira obter apenas o valor da variáveis provenientes de
-     * uma dessas opcoes, por exemplo GET, passe essa palavra como segundo
-     * parâmetro.
+     * Returns
+     * The _REQUEST method provides a simple and fast way to access
+     * variables, while also ensuring compatibility with future PHP versions.
+     * Using PHP commands, it would be necessary to use $_REQUEST, $_GET, $_POST
+     * or global, whereas this method enables searching not only in one, but in
+     * all the information sources.
+     * If you want to obtain only the value of variables from
+     * one of these options, for example GET, pass that word as the second
+     * parameter.
      *
-     * @param (mixed) $vars String ou array: variáveis das quais se deseja obter o valor
-     * @param (string) $from De onde obter os dados. Pode ser 'GET', 'POST',
-     *                       'SESSION', 'REQUEST' além do padrão 'ALL' que 
-     *                       retorna todos os dados.
-     * @param (string) $order Onde pesquisar primeiro POST ou GET. Por padrão a 
-     *                        pesquisa é feita de acordo com a configuração do php.ini .
-     *                        Para forçar a ordem, informe "PG" ou "GP" (P=post, G=get)
+     * @param (mixed) $vars String or array: variables whose values are to be obtained
+     * @param (string) $from Where to obtain the data from. Can be 'GET', 'POST',
+     *                       'SESSION', 'REQUEST' in addition to the default 'ALL' which
+     *                       returns all data.
+     * @param (string) $order Where to search first, POST or GET. By default the
+     *                        search is done according to the php.ini configuration.
+     *                        To force the order, specify "PG" or "GP" (P=post, G=get)
      *
-     * @return (array) Os valores das variáveis solicitadas
+     * @return (array) The values of the requested variables
      */
     public static function _REQUEST( $vars, $from = 'ALL', $order='' )
     {
@@ -1463,15 +1460,15 @@ mdump($this->getConf("options.fileextension"));
     //     GetTheme
     //
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    # Este método é utilizado para criar uma conexão com a base de dados
-    # especificada no parâmetro <code>$conf</code>.
-    # A configuração da base deve ter sido previamente criada no arquivo
-    # de configuração do MIOLO: miolo.conf
+    # This method is used to create a connection to the database
+    # specified in the <code>$conf</code> parameter.
+    # The database configuration must have been previously created in the
+    # MIOLO configuration file: miolo.conf
     #
-    # @param $conf (string) Nome da configuração, definida no miolo.conf
-    # @param $user (string) (optional) Nome do usuário para conectar à base
-    #        de dados
-    # @param $pass (string) (optional) Senha para acesso à base.
+    # @param $conf (string) Configuration name, defined in miolo.conf
+    # @param $user (string) (optional) Username to connect to the database
+    #
+    # @param $pass (string) (optional) Password for database access.
     #
     # @see #MIOLO::getBusiness, miolo/database.class.php
     #---------------------------------------------------------------------
@@ -1563,17 +1560,17 @@ mdump($this->getConf("options.fileextension"));
     #      miolo/ui/form.class#Form::getData
     #---------------------------------------------------------------------
     /**
-     * Método para acessar funções do banco de dados
-     * Como o MIOLO é capaz de abrigar módulos diferentes, era preciso
-     * adotar um esquema para evitar possíveis colisões de nomes de classes.
-     * Teoricamente dois modulos poderiam definir uma classe, por exemplo,
-     * 'Guestbook' que, utilizada simultaneamente, causaria problemas.
+     * Method to access database functions
+     * Since MIOLO is capable of hosting different modules, it was necessary
+     * to adopt a scheme to avoid possible class name collisions.
+     * Theoretically two modules could define a class, for example,
+     * 'Guestbook' which, if used simultaneously, would cause problems.
      * <br><br>
-     * O MIOLO espera que classes do tipo 'Business' tenham o seu nome composto
-     * de 'Business' + 'nome do module' + 'nome da classe'. Mas para evitar
-     * redundâncias adotou-se o padrão de somente usar o nome básico da classe
-     * para definir o nome do arquivo, já que o mesmo se encontra dentro da estrutura
-     * de diretórios do módulo em questão.
+     * MIOLO expects 'Business' type classes to have their name composed
+     * of 'Business' + 'module name' + 'class name'. But to avoid
+     * redundancies, the standard adopted is to only use the basic class name
+     * to define the file name, since it is located within the directory
+     * structure of the module in question.
      *
      * @example
      * <i> in file: ../modules/foo/db/guestbook.class.php </i>
@@ -1596,7 +1593,7 @@ mdump($this->getConf("options.fileextension"));
      * ?&gt;
      *
      *
-     * @param $module (string) nome do módulo
+     * @param $module (string) module name
      * @param $namemain' (tipo) desc
      * @param $data= (tipo) desc
      *

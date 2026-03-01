@@ -23,7 +23,7 @@ $favicon = $theme->getFavicon();
 <meta name="Generator" content="MIOLO Version Miolo 2.5; http://www.miolo.org.br">
 
 <?php
-//Caso for o módulo AVINST, utiliza o dojo 1.7.2 para funcionar as lookups
+// If it is the AVINST module, uses dojo 1.7.2 for the lookups to work
 if ( $miolo->getCurrentModule() == 'avinst' )
 {
 ?>

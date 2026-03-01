@@ -81,7 +81,7 @@ class MHandler
         $navbar = $theme->getElement('navigation');
         $history = $this->manager->history;
 
-        //redirect da avaliação institucional
+        //redirect for institutional evaluation
         if($module == 'avinst' && $action == 'main')
         {
             if(SAGU::getParameterBoolean('BASIC', 'AVALIACAO_FORM_RESPONSIVO') == true)

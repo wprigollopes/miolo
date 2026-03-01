@@ -1,26 +1,26 @@
 <?php
 
 /**
- * <--- Copyright 2012 de Solis - Cooperativa de Soluções Livres Ltda.
+ * <--- Copyright 2012 Solis - Cooperativa de Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa Base.
+ * This file is part of the Base program.
  *
- * O Base é um software livre; você pode redistribuí-lo e/ou modificá-lo
- * dentro dos termos da Licença Pública Geral GNU como publicada pela Fundação
- * do Software Livre (FSF); na versão 2 da Licença.
+ * Base is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation (FSF); version 2 of the License.
  *
- * Este programa é distribuído na esperança que possa ser útil, mas SEM
- * NENHUMA GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a qualquer MERCADO
- * ou APLICAÇÃO EM PARTICULAR. Veja a Licença Pública Geral GNU/GPL em
- * português para maiores detalhes.
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License/GPL
+ * for more details.
  *
- * Você deve ter recebido uma cópia da Licença Pública Geral GNU, sob o título
- * "LICENCA.txt", junto com este programa, se não, acesse o Portal do Software
- * Público Brasileiro no endereço www.softwarepublico.gov.br ou escreva para a
- * Fundação do Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
- * MA 02110-1301, USA --->
+ * You should have received a copy of the GNU General Public License, under
+ * the title "LICENCA.txt", along with this program. If not, visit the
+ * Brazilian Public Software Portal at www.softwarepublico.gov.br or write
+ * to the Free Software Foundation (FSF) Inc., 51 Franklin St, Fifth Floor,
+ * Boston, MA 02110-1301, USA --->
  *
- *  Classe que manipula e representa uma tabela da base de dados.
+ *  Class that manipulates and represents a database table.
  *          
  * @author Jader Osvino Fiegenbaum [jader@solis.coop.br]
  * @author Daniel Hartmann [daniel@solis.coop.br]
@@ -28,109 +28,109 @@
  * @since
  * Class created on 25/06/2012
  */
-class bTipo
+class bType
 {
     /**
-     * Para registros de log do usuário.
+     * For user log records.
      * 
      * @var String
      */
     public $username;
     
     /**
-     * Para registros de log do da data de alteração/criação. 
+     * For alteration/creation date log records. 
      * 
      * @var String
      */
     public $datetime;
     
     /**
-     * Para registros de log do ip.
+     * For IP log records.
      * 
      * @var String;
      */
     public $ipadress;
 
     /**
-     * @var Matriz Nomes das colunas e chave primária da tabela.
+     * @var Array Column names and primary key of the table.
      */
     protected $colunas;
 
     /**
-     * @var string Nome da tabela
+     * @var string Table name
      */
     protected $tabela;
 
     /**
-     * @var string $funcao Função do formulário. 
+     * @var string $funcao Form function. 
      */
     protected $funcao;
 
     /**
-     * @var array $estruturaTabela Vetor com a estrutura da tabela.
+     * @var array $estruturaTabela Array with the table structure.
      */
     protected $estruturaTabela = array( );
 
     /**
-     * @var array $chavesPrimarias Vetor com as chaves primárias da tabela. 
+     * @var array $chavesPrimarias Array with the primary keys of the table. 
      */
     protected $chavesPrimarias = array( );
 
     /**
-     * @var string $esquema Esquema em que a tabela se encontra. 
+     * @var string $esquema Schema where the table is located. 
      */
     protected $esquema = 'public';
 
     /**
-     * @var array $tiposRelacionados Vetor com os nomes dos tipos que são relcionados ao tipo principal.
+     * @var array $tiposRelacionados Array with the names of types that are related to the main type.
      */
     protected $tiposRelacionados = array( );
 
     /**
-     * @var array $dadosTiposRelacionados Vetor com os tipos relacionados.
+     * @var array $dadosTiposRelacionados Array with the related types.
      */
     protected $dadosTiposRelacionados = array( );
 
     /**
-     * @var string $status Status em que se encontra o tipo. 
+     * @var string $status Status of the type. 
      */
     public $status;
     
     /**
-     * @var String Comentário da tabela. 
+     * @var String Table comment. 
      */
     private $comentarioDaTabela;
     
     /**
-     * @var String Coluna descritiva da tabela
+     * @var String Descriptive column of the table
      */
     protected $colunaDescritiva;
     
     /**
-     * @var Array Valores das colunas estrangeiras
+     * @var Array Foreign column values
      */
     private $valorDaColunaEstrangeira;
     
     /**
-     * @var Array Relacionamentos desta tabela
+     * @var Array Relationships of this table
      */
     private $relacionamentos;
     
     /**
-     * @var String Ordenação padrão da tabela
+     * @var String Default table ordering
      */
     protected $ordenacaoPadrao;
     
     /**
-     * @var String Máscara padrão dos campos de timestamp
+     * @var String Default mask for timestamp fields
      */
     protected $mascaraTimeStamp = 'DD/MM/YYYY HH24:MI';
 
     /**
-     * Construtor da classe.
+     * Class constructor.
      *
-     * @param FormData $dados Dados do formulário.
-     * @param boolean $popular Indica se a classe deve ser populada com os dados da base.
+     * @param FormData $dados Form data.
+     * @param boolean $popular Indicates whether the class should be populated with database data.
      */
     public function __construct($chave = null)
     {
@@ -139,7 +139,7 @@ class bTipo
             $chave = get_class($this);
         }
         
-        // Ticket #38602 - ajustando esquema
+        // Ticket #38602 - adjusting schema
         $esquema = bCatalogo::listarEsquemas($chave);
         $this->esquema = (strlen($esquema[0][0]) > 0 ) ? $esquema[0][0] : 'public';
         
@@ -150,7 +150,7 @@ class bTipo
     }
     
     /**
-     * Retorna o nome da tabela que a grid está utilizando
+     * Returns the table name that the grid is using
      * 
      * @return string
      */
@@ -183,17 +183,17 @@ class bTipo
     }
 
     /**
-     * Método para buscar os registros na base de dados.
+     * Method to search records in the database.
      * 
-     * @param stdClass $filtros Filtros para condição da busca.
-     * @param string $colunas Colunas em que se deseja efetuar a busca.
-     * @return array de objetos Vetor com os resultados. 
+     * @param stdClass $filtros Filters for the search condition.
+     * @param string $colunas Columns to search in.
+     * @return array of objects Array with the results. 
      */
     public function buscar($filtros = NULL, $colunas = NULL)
     {
         $sql = $this->obterConsulta($filtros, $colunas);
 
-        // Efetua a busca na base de dados.
+        // Performs the search in the database.
         $resultado = bBaseDeDados::obterInstancia()->_db->query($sql, NULL, NULL, PostgresQuery::FETCH_OBJ);
         
         return is_array($resultado) ? $resultado : $resultado->result;
@@ -213,11 +213,11 @@ class bTipo
     }
     
     /**
-     * Método para buscar resultados para um campo de seleção.
+     * Method to search results for a selection field.
      * 
-     * @param stdClass $filtros Filtros para condição da busca.
-     * @param string $colunas Colunas em que se deseja efetuar a busca.
-     * @return array Matriz com valores.  
+     * @param stdClass $filtros Filters for the search condition.
+     * @param string $colunas Columns to search in.
+     * @return array Array with values.  
      */
     public function buscarParaSelection($filtros=NULL, $colunas=NULL)
     {
@@ -227,7 +227,7 @@ class bTipo
         
         $retorno = is_array($query) ? $query : $query->result;
         
-        // Caso não retorne registros, adiciona uma mensagem para aparecer no formulário.
+        // If no records are returned, adds a message to appear in the form.
         if ( !is_array($retorno) )
         {
             $retorno = array(_M('Registros não encontrados'));
@@ -237,11 +237,11 @@ class bTipo
     }
     
     /**
-     * Método para buscar resultados para um campo de seleção.
+     * Method to search results for a choice field.
      * 
-     * @param stdClass $filtros Filtros para condição da busca.
-     * @param array $colunas Colunas em que se deseja efetuar a busca.
-     * @return array Matriz com valores.  
+     * @param stdClass $filtros Filters for the search condition.
+     * @param array $colunas Columns to search in.
+     * @return array Array with values.  
      */
     public function buscarParaEscolha($filtro=NULL, $colunas=NULL, $limit=NULL)
     {
@@ -284,11 +284,11 @@ class bTipo
     }
     
     /**
-     * Método para buscar resultados para um campo de seleção.
+     * Method to search results for an autocomplete choice field.
      * 
-     * @param stdClass $filtros Filtros para condição da busca.
-     * @param array $colunas Colunas em que se deseja efetuar a busca.
-     * @return array Matriz com valores.  
+     * @param stdClass $filtros Filters for the search condition.
+     * @param array $colunas Columns to search in.
+     * @return array Array with values.  
      */
     public function buscarParaAutoCompletarEscolha($codigo=NULL, $colunas=NULL)
     {
@@ -317,9 +317,9 @@ class bTipo
     }
 
     /**
-     * Método para definir os valores dos atributos da classe.
+     * Method to set the class attribute values.
      * 
-     * @param FormData $dados Dados do formulário.
+     * @param FormData $dados Form data.
      */
     public function definir($dados)
     {
@@ -331,27 +331,27 @@ class bTipo
             }
         }
 
-        // Define o status caso tiver.
+        // Sets the status if available.
         if ( strlen($dados->dataStatus) )
         {
             $this->status = $dados->dataStatus;
         }
 
-        // Define os dados dos tipos relacionados.
+        // Sets the related types data.
         if ( is_array($this->tiposRelacionados) )
         {
-            // Percorre os tipos relacionados para verificar se existem dados para ele nos dados vindos do formulário.
+            // Iterates through the related types to check if there is data for them in the form data.
             foreach ( $this->tiposRelacionados as $tipoRelacionado )
             {
                 $dados = (array) $dados;
 
-                // Verifica se o tipo relacionado se encontra nos dados.
+                // Checks if the related type is found in the data.
                 if ( in_array($tipoRelacionado, array_keys($dados)) )
                 {
-                    // Instância os tipos relacionados.
+                    // Instantiates the related types.
                     foreach ( $dados[$tipoRelacionado] as $valores )
                     {
-                        $tipo = self::instanciarTipo($tipoRelacionado);
+                        $tipo = self::instantiateType($tipoRelacionado);
                         $tipo->definir($valores);
                         $this->dadosTiposRelacionados[$tipoRelacionado][] = $tipo;
                     }
@@ -361,9 +361,9 @@ class bTipo
     }
 
     /**
-     * Método público para definir função do type.
+     * Public method to set the type function.
      * 
-     * @param string $funcao Função do type, pode ser inserir, atualizar ou remover. 
+     * @param string $funcao Type function, can be insert, update or delete. 
      */
     public function definirFuncao($funcao)
     {
@@ -371,9 +371,9 @@ class bTipo
     }
     
     /**
-     * Obtém a função do tipo.
+     * Gets the type function.
      * 
-     * @return String Função do tipo. 
+     * @return String Type function. 
      */
     public function obterFuncao()
     {
@@ -381,9 +381,9 @@ class bTipo
     }
 
     /**
-     * Método que edita o registro no banco.
+     * Method that edits the record in the database.
      *
-     * @return boolean Retorna positivo no caso de sucesso.
+     * @return boolean Returns true on success.
      */
     public function editar()
     {
@@ -395,7 +395,7 @@ class bTipo
 
         $parametros = array( );
 
-        // Define os dados.
+        // Sets the data.
         foreach ( $colunas as $coluna )
         {
             $parametros[] = $this->$coluna;
@@ -410,23 +410,23 @@ class bTipo
             $whereBasLog .= " AND {$coluna} = '{$this->$coluna}' ";
         }
 
-        // Aplica a atualização da basLog
+        // Applies the basLog update
         bBaseDeDados::executar(self::obterUpdadeDaBasLog($this->tabela, ' WHERE ' . substr($whereBasLog, 4)));
 
         $retorno = bBaseDeDados::executar($sql->update($parametros));
 
-        // Edita os dados dos tipos relacionados.
+        // Edits the related types data.
         if ( $retorno && is_array($this->dadosTiposRelacionados) )
         {
             foreach ( $this->dadosTiposRelacionados as $nomeTipo )
             {
                 foreach ( $nomeTipo as $tipo )
                 {
-                    $tipo instanceof bTipo;
+                    $tipo instanceof bType;
                     
                     $dados = $tipo->obter();
 
-                    // Define a chave primária faltante.
+                    // Sets the missing primary key.
                     foreach ( $this->chavesPrimarias as $chave )
                     {
                         $dados->$chave = $this->$chave;
@@ -434,19 +434,19 @@ class bTipo
 
                     $tipo->definir($dados);
 
-                    // Insere o dado relacionado.
+                    // Inserts the related data.
                     if ( $tipo->status == MSubDetail::STATUS_ADD )
                     {
                         $tipo->inserir();
                     }
                     elseif ( $tipo->status == MSubDetail::STATUS_EDIT )
                     {
-                        // Edita o dado relacionado.
+                        // Edits the related data.
                         $tipo->editar();
                     }
                     elseif ( $tipo->status == MSubDetail::STATUS_REMOVE )
                     {
-                        // Exclui o dado relacionado.
+                        // Deletes the related data.
                         $tipo->excluir();
                     }
                 }
@@ -470,9 +470,9 @@ class bTipo
     }
 
     /**
-     * Método que exclui o registro do banco.
+     * Method that deletes the record from the database.
      *
-     * @return boolean Retorna positivo no caso de sucesso.
+     * @return boolean Returns true on success.
      */
     public function excluir()
     {
@@ -514,11 +514,11 @@ class bTipo
     }
 
     /**
-     * Método protegido e estático para excluir dados de qualquer tabela. Muito útil para excluir dados dos tipos relacionados.
+     * Protected static method to delete data from any table. Very useful for deleting related types data.
      * 
-     * @param string $tabela Nome da tabela que será excluída.
-     * @param stdClass $condicao Objeto com os campos que são condição na exclusão.
-     * @return boolean Retorna positivo caso tenha excluído os dados.
+     * @param string $tabela Name of the table to be deleted from.
+     * @param stdClass $condicao Object with the fields that are conditions for deletion.
+     * @return boolean Returns true if data was deleted.
      */
     protected static function excluirDadosDaTabela($tabela, stdClass $condicao)
     {
@@ -543,38 +543,38 @@ class bTipo
     }
 
     /**
-     * Método que insere o registro na base dados, testando se é chave sequêncial ou não sequencial.
+     * Method that inserts the record in the database, testing whether the key is sequential or non-sequential.
      * 
-     * @return boolean Retorna positivo no caso de sucesso.
+     * @return boolean Returns true on success.
      */
     public function inserir()
     {
-        // Testa se o type possui mais de uma chave primária.
+        // Tests if the type has more than one primary key.
         if ( strlen($this->chavesPrimarias['sequencial'])  )
         {
-            // Caso seja apenas uma chave, faz uma inserção de chave sequêncial.
+            // If it is only one key, performs a sequential key insertion.
             $retorno = $this->inserirChaveSequencial();
         }
         else
         {
-            // Caso tenha, faz uma inserção de chave composta.
+            // If it has, performs a composite key insertion.
             $retorno = $this->inserirChaveNaoSequencial();
         }
 
-        // Inserir os dados relacionados.
+        // Insert the related data.
         if ( $retorno && is_array($this->tiposRelacionados) )
         {
-            // Percorre os tipos relacionados para verificar se existem dados para ele nos dados vindos do formulário.
+            // Iterates through the related types to check if there is data for them in the form data.
             foreach ( $this->tiposRelacionados as $tipoRelacionado )
             {
                 foreach ( $this->dadosTiposRelacionados[$tipoRelacionado] as $tipo )
                 {
-                    // Somente insere o dado, caso o status seja para inserir.
+                    // Only inserts the data if the status is set to insert.
                     if ( $tipo->status == MSubDetail::STATUS_ADD )
                     {
                         $dados = $tipo->obter();
 
-                        // Define a chave primária faltante.
+                        // Sets the missing primary key.
                         foreach ( $this->chavesPrimarias as $chave )
                         {
                             $dados->$chave = $this->$chave;
@@ -591,9 +591,9 @@ class bTipo
     }
 
     /**
-     * Método que insere o registro no banco com chave sequencial.
+     * Method that inserts the record in the database with a sequential key.
      *
-     * @return boolean Retorna positivo no caso de sucesso.
+     * @return boolean Returns true on success.
      */
     private function inserirChaveSequencial()
     {
@@ -605,7 +605,7 @@ class bTipo
 
         $parametros = array( );
 
-        // Colunas que não são chave primária.
+        // Columns that are not primary key.
         foreach ( $colunasSemChavePrimaria as $coluna )
         {
             $parametros[] = $this->$coluna;
@@ -631,9 +631,9 @@ class bTipo
     }
 
     /**
-     * Método que insere o registro no banco com chave composta.
+     * Method that inserts the record in the database with a composite key.
      *
-     * @return boolean Retorna positivo no caso de sucesso.
+     * @return boolean Returns true on success.
      */
     private function inserirChaveNaoSequencial()
     {
@@ -652,9 +652,9 @@ class bTipo
     }
 
     /**
-     * Obter dados do tipo.
+     * Get type data.
      * 
-     * @return stdClass Objeto com dados do tipe. 
+     * @return stdClass Object with type data. 
      */
     public function obter()
     {
@@ -662,9 +662,9 @@ class bTipo
     }
 
     /**
-     * Método público para obter as chaves primárias do tabela.
+     * Public method to get the table primary keys.
      * 
-     * @return array Vetor com as chaves primárias da tabela. 
+     * @return array Array with the table primary keys. 
      */
     public function obterChavesPrimarias()
     {
@@ -672,7 +672,7 @@ class bTipo
     }
     
     /**
-     * Retorna valores das chaves primarias
+     * Returns primary key values
      *
      * @return array
      */
@@ -689,7 +689,7 @@ class bTipo
     }
     
     /**
-     * Retorna TRUE caso todas as chaves primarias foram populadas com valor.
+     * Returns TRUE if all primary keys have been populated with a value.
      *
      * @return boolean
      */
@@ -699,9 +699,9 @@ class bTipo
     }
 
     /**
-     * Método protegido que obtém as colunas da tabela que não são chave primária.
+     * Protected method that gets the table columns that are not primary key.
      * 
-     * @return array Vetor com as colunsa que não são chave primária. 
+     * @return array Array with columns that are not primary key. 
      */
     public function obterColunasSemChavePrimaria()
     {
@@ -719,8 +719,8 @@ class bTipo
     }
     
     /**
-     * Obtem colunas que devem entrar na instrucao UPDATE ou INSERT da consulta.
-     * Exclui colunas que nao tenham valor definido no Tipo (NULL conta como sendo valor definido).
+     * Gets columns that should be included in the query UPDATE or INSERT statement.
+     * Excludes columns that have no value set in the Type (NULL counts as a set value).
      * 
      * @return array
      */
@@ -740,11 +740,11 @@ class bTipo
     }
 
     /**
-     * Obtém consulta SQL, usado na busca, busca para lookup e Grid de dados.
+     * Gets SQL query, used in search, lookup search and data Grid.
      *
-     * @param FormData $filtros Valores a serem usados como filtros.
-     * @param string Colunas da tabela separadas por vírgula.
-     * @return string Consulta SQL.
+     * @param FormData $filtros Values to be used as filters.
+     * @param string Table columns separated by comma.
+     * @return string SQL query.
      */
     public function obterConsulta($filtros = NULL, $colunas=NULL, $limit=NULL)
     {
@@ -754,9 +754,9 @@ class bTipo
     }
     
     /**
-     * Permite sobrescrever o objeto padrao de consulta do Tipo.
+     * Allows overriding the default Type query object.
      * 
-     * @see Veja o metodo obterConsulta()
+     * @see See the obterConsulta() method
      * 
      * @return MSQL 
      */
@@ -775,23 +775,23 @@ class bTipo
         {
             foreach ( $filtros as $idFiltro => $filtro )
             {
-                $tipoColuna = $this->estruturaTabela[$idFiltro]->tipo;
+                $tipoColuna = $this->estruturaTabela[$idFiltro]->type;
 
                 if ( strlen($tipoColuna) && strlen($filtro) )
                 {
                     switch ( $tipoColuna )
                     {
-                        case bInfoColuna::TIPO_TEXTO_LONGO:
+                        case bColumnInfo::TYPE_LONG_TEXT:
                             $sql->setWhere("unaccent(lower($idFiltro)) LIKE unaccent(lower(?))");
                             $parametros[] = '%' . $filtro . '%';
                             break;
 
-                        case bInfoColuna::TIPO_TEXTO:
+                        case bColumnInfo::TYPE_TEXT:
                             $sql->setWhere("unaccent(lower($idFiltro)) LIKE unaccent(lower(?))");
                             $parametros[] = $filtro . '%';
                             break;
                         
-                        case bInfoColuna::TIPO_CHAR:
+                        case bColumnInfo::TYPE_CHAR:
                             $sql->setWhere("unaccent(lower($idFiltro)) LIKE unaccent(lower(?))");
                             $parametros[] = $filtro . '%';
                             break;
@@ -821,7 +821,7 @@ class bTipo
     }
     
     /**
-     * Função para adicionar máscaras às colunas, conforme o seu tipo.
+     * Function to add masks to columns, according to their type.
      * 
      * @param Array $colunas
      * @return Array
@@ -841,8 +841,8 @@ class bTipo
         {
             $dadosDaColuna = bCatalogo::buscarDadosDaColuna($column, $this->tabela);
             
-            // Se a coluna for timestamp, aplica a máscara definida no tipo.
-            if ( $dadosDaColuna->tipo == bInfoColuna::TIPO_TIMESTAMP )
+            // If the column is timestamp, applies the mask defined in the type.
+            if ( $dadosDaColuna->type == bColumnInfo::TYPE_TIMESTAMP )
             {
                 $columns[$key] = "to_char($column, '{$this->mascaraTimeStamp}') as $column";
             }
@@ -852,7 +852,7 @@ class bTipo
     }
 
     /**
-     * Método que preenche o objeto com os dados do banco.
+     * Method that populates the object with database data.
      */
     public function popular()
     {
@@ -880,12 +880,12 @@ class bTipo
             $contador++;
         }
 
-        // Popula dados relacionados.
+        // Populates related data.
         if ( is_array($this->tiposRelacionados) )
         {
             foreach ( $this->tiposRelacionados as $tipo )
             {
-                // Monta o filtro através
+                // Builds the filter
                 $filtro = new stdClass();
 
                 foreach ( $this->chavesPrimarias as $chave )
@@ -893,20 +893,20 @@ class bTipo
                     $filtro->$chave = $this->$chave;
                 }
                 
-                // Obtém uma instância do tipo para poder buscar todos os tipos relacionados.
-                $intanciaTipo = bTipo::instanciarTipo($tipo);
+                // Gets an instance of the type to be able to search all related types.
+                $intanciaTipo = bType::instantiateType($tipo);
                 $resultado = $intanciaTipo->buscar($filtro);
                 
                 if ( is_array($resultado) )
                 {
                     foreach ( $resultado as $valor )
                     {
-                        $tipoObjeto = bTipo::instanciarTipo($tipo);
+                        $tipoObjeto = bType::instantiateType($tipo);
                         
                         $relacionamentos = bCatalogo::obterRelacionamentos($tipo);
                         foreach($relacionamentos as $relacionamento)
                         {
-                            $tipoRelacionado = self::instanciarTipo($relacionamento->tabela_ref);
+                            $tipoRelacionado = self::instantiateType($relacionamento->tabela_ref);
                             
                             if ( strlen($tipoRelacionado->obterColunaDescritiva()) > 0 )
                             {
@@ -917,11 +917,11 @@ class bTipo
                         
                         $tipoObjeto->definir($valor);
 
-                        // Adicionando chave da descrição dos relacionamentos
+                        // Adding relationship description key
                         foreach ( $tipoObjeto->estruturaTabela as $rel )
                         {                            
-                            $idDescription = $rel->nome . 'Descricao';
-                            $tipoObjeto->$idDescription = $tipoObjeto->valorDaColunaEstrangeira[$rel->nome];
+                            $idDescription = $rel->name . 'Descricao';
+                            $tipoObjeto->$idDescription = $tipoObjeto->valorDaColunaEstrangeira[$rel->name];
                         }
                         
                         $this->dadosTiposRelacionados[$tipo][] = $tipoObjeto;
@@ -932,9 +932,9 @@ class bTipo
     }
 
     /**
-     * Método que salva o registro no banco, editando ou inserindo conforme o caso.
+     * Method that saves the record in the database, editing or inserting as appropriate.
      *
-     * @return boolean Retorna positivo no caso de sucesso.
+     * @return boolean Returns true on success.
      */
     public function salvar()
     {
@@ -953,19 +953,19 @@ class bTipo
     }
 
     /**
-     * Método que define a estrutura dos campos da tabela que estão mapeados no tipo.
+     * Method that defines the structure of the table fields mapped in the type.
      */
     private function definirEstruturaDaTabela()
     {
-        // Obtém colunas que estão na tabela.
+        // Gets columns that are in the table.
         $colunas = bCatalogo::obterColunasDaTabela($this->esquema, $this->tabela);
         if ( is_array($colunas) )
         {
             foreach ( $colunas as $coluna => $dados )
             {
-                if ( $dados->restricao == 'p' )
+                if ( $dados->constraint == 'p' )
                 {
-                    if ( substr($dados->valorPadrao, 0, 7) == 'nextval' )
+                    if ( substr($dados->defaultValue, 0, 7) == 'nextval' )
                     {
                         $this->chavesPrimarias['sequencial'] = $coluna;
                     }
@@ -976,7 +976,7 @@ class bTipo
                 }
             }
             
-            // Define as colunas da tabela.
+            // Sets the table columns.
             $this->colunas = array_keys($colunas);
         }
         else
@@ -984,14 +984,14 @@ class bTipo
             throw new Exception(_M('A tabela especificada não existe.'));
         }
 
-        // Define a estrutura da tabela.
+        // Sets the table structure.
         $this->estruturaTabela = $colunas;
     }
     
     /**
-     * Método publico para obter a estrutura da tabela.
+     * Public method to get the table structure.
      * 
-     * @return array Vetor com os campos da tabela. 
+     * @return array Array with the table fields. 
      */
     public function obterEstruturaDaTabela()
     {
@@ -1005,26 +1005,26 @@ class bTipo
     {
         $estrutura = $this->obterEstruturaDaTabela();
         
-        return $estrutura[$coluna]->tipo;
+        return $estrutura[$coluna]->type;
     }
     
     /**
-     * Retorna se tipo de coluna e numerico (int, bigint, numeric..).
+     * Returns whether the column type is numeric (int, bigint, numeric..).
      * 
      * @return boolean
      */
     public function colunaTipoNumerico($coluna)
     {
-        return in_array($this->obterTipoColuna($coluna), array(bInfoColuna::TIPO_INTEIRO, bInfoColuna::TIPO_INTEIRO_LONGO, bInfoColuna::TIPO_NUMERIC));
+        return in_array($this->obterTipoColuna($coluna), array(bColumnInfo::TYPE_INTEGER, bColumnInfo::TYPE_BIG_INTEGER, bColumnInfo::TYPE_NUMERIC));
     }
     
     /**
-     * Método público e estático que instância um tipo ou um objeto bTipo com dados da tabela desejada.
+     * Public static method that instantiates a type or a bType object with data from the desired table.
      * 
-     * @param string $nomeDoTipo Nome/chave do tipo desejado.
-     * @return bTipo Instância do objeto bTipo.
+     * @param string $nomeDoTipo Name/key of the desired type.
+     * @return bType Instance of the bType object.
      */
-    public static function instanciarTipo($nomeDoTipo, $modulo=NULL)
+    public static function instantiateType($nomeDoTipo, $modulo=NULL)
     {
         if ( !strlen($nomeDoTipo) )
         {
@@ -1040,7 +1040,7 @@ class bTipo
         
         $tipo = $MIOLO->getModulePath($modulo, 'tipos/' . $nomeDoTipo . '.class.php');
         
-        // Verifica se o código do tipo existe.
+        // Checks if the type code exists.
         if ( file_exists($tipo) )
         {
             $MIOLO->uses("tipos/$nomeDoTipo.class.php", $modulo);
@@ -1048,17 +1048,17 @@ class bTipo
         }
         else
         {
-            // Instância um tipo dinamicamente.
-            $tipo = new bTipo($nomeDoTipo);
+            // Instantiates a type dynamically.
+            $tipo = new bType($nomeDoTipo);
         }
 
         return $tipo;
     }
    
     /**
-     * Método público para adicionar um tipo relacionado.
+     * Public method to add a related type.
      * 
-     * @param string $tipoRelacionado Nome do tipo que está relacionado.
+     * @param string $tipoRelacionado Name of the related type.
      */
     public function adicionarTipoRelacionado($tipoRelacionado)
     {
@@ -1066,9 +1066,9 @@ class bTipo
     }
     
     /**
-     * Método público para remover um tipo relacionado.
+     * Public method to remove a related type.
      * 
-     * @param int $indice Posição onde está o tipo relacionado que será removido.
+     * @param int $indice Position of the related type to be removed.
      */
     public function removerTipoRelacionado($indice)
     {
@@ -1076,9 +1076,9 @@ class bTipo
     }
     
     /**
-     * Método público para definir um tipo relacionado.
+     * Public method to set a related type.
      * 
-     * @param array $tiposRelacionados Vetor com os tipos relacionados.
+     * @param array $tiposRelacionados Array with the related types.
      */
     public function definirTiposRelacionados(array $tiposRelacionados)
     {
@@ -1086,9 +1086,9 @@ class bTipo
     }
     
     /**
-     * Método público para obter os tipos relacionados.
+     * Public method to get the related types.
      * 
-     * @return array Vetor com os tipos relacionados. 
+     * @return array Array with the related types. 
      */
     public function obterTiposRelacionados()
     {
@@ -1096,9 +1096,9 @@ class bTipo
     }
     
     /**
-     * Define o comentário da tabela do tipo.
+     * Sets the type's table comment.
      * 
-     * @param String $comentario Comentário da tabela.
+     * @param String $comentario Table comment.
      */
     public function definirComentarioDaTabela($comentario=NULL)
     {
@@ -1111,9 +1111,9 @@ class bTipo
     }
     
     /**
-     * Obtém o comentário da tabela.
+     * Gets the table comment.
      * 
-     * @return String comentário da tabela. 
+     * @return String table comment. 
      */
     public function obterComentarioDaTabela()
     {
@@ -1121,9 +1121,9 @@ class bTipo
     }
     
     /**
-     * Define os dados dos tipos relacionados.
+     * Sets the related types data.
      * 
-     * @param array $dadosTiposRelacionados Vetor com os dados de tipos relacionados.
+     * @param array $dadosTiposRelacionados Array with related types data.
      */
     public function definirDadosTiposRelacionados($dadosTiposRelacionados)
     {
@@ -1131,9 +1131,9 @@ class bTipo
     }
     
     /**
-     * Obtém os dados dos tipos relacionados.
+     * Gets the related types data.
      * 
-     * @return array Vetor com os dados de tipos relacionados. 
+     * @return array Array with related types data. 
      */
     public function obterDadosTiposRelacionados()
     {
@@ -1141,9 +1141,9 @@ class bTipo
     }
     
     /**
-     * Método público para validar os dados do tipo.
+     * Public method to validate the type data.
      * 
-     * @return boolean Retorna positivo caso tenha passado na validação.
+     * @return boolean Returns true if validation passed.
      */
     public function validar()
     {
@@ -1153,23 +1153,23 @@ class bTipo
             
             foreach ( $this->estruturaTabela as $campo => $estrutura )
             {
-                $estrutura instanceof bInfoColuna;
+                $estrutura instanceof bColumnInfo;
                 
                 if ( $this->chavesPrimarias['sequencial'] == $campo )
                 {
                     continue;
                 }
                 
-                // Verifica se campo obrigatório foi preenchido.
-                if ( ($estrutura->obrigatorio == DB_TRUE) && (strlen($this->$campo) == 0) && ( $estrutura->valorPadrao == DB_FALSE ) )
+                // Checks if required field was filled.
+                if ( ($estrutura->required == DB_TRUE) && (strlen($this->$campo) == 0) && ( $estrutura->defaultValue == DB_FALSE ) )
                 {
                     $camposInvalidos[$campo] = _M('Este campo é obrigatório');
                 }
                 
-                // Verifica se a quantidade de caracteres excede o tamanho do campo na base de dados.
-                if ( $estrutura->tamanho && (strlen($this->$campo) > $estrutura->tamanho) )
+                // Checks if the number of characters exceeds the field size in the database.
+                if ( $estrutura->size && (strlen($this->$campo) > $estrutura->size) )
                 {
-                    $camposInvalidos[$campo] = _M('O campo excede o número de caracteres permitido', NULL, $estrutura->titulo);
+                    $camposInvalidos[$campo] = _M('O campo excede o número de caracteres permitido', NULL, $estrutura->title);
                 }
             }
             
@@ -1184,11 +1184,11 @@ class bTipo
     }
 
     /**
-     * Realiza consulta baseada nas colunas de referência.
+     * Performs query based on reference columns.
      *
-     * @param array $colunas Vetor de objetos SInfoColuna.
-     * @param array $filtros Filtros a serem aplicados na consulta.
-     * @return MSQL Objeto MSQL do resultado da consulta.
+     * @param array $colunas Array of SInfoColuna objects.
+     * @param array $filtros Filters to be applied to the query.
+     * @return MSQL MSQL object of the query result.
      */
     public function buscarNaReferencia($colunas, $valoresFiltrados=array())
     {
@@ -1205,45 +1205,45 @@ class bTipo
         $filtros->generico = $valoresFiltrados->generico;
         
         $orderBy = $this->ordenacaoPadrao;
-        // $chave é esquema.tabela.coluna
+        // $chave is schema.table.column
         foreach ( $colunas as $chave => $coluna )
         {
-            $coluna instanceof bInfoColuna;
+            $coluna instanceof bColumnInfo;
             
             if ( $orderBy == NULL || strlen($orderBy) == 0 )
             {
                 $orderBy = $coluna->ordenar;
             }
-            
-            // Ajusta os filtros vindos do formulário.
-            if ( $coluna->filtravel )
+
+            // Adjusts the filters coming from the form.
+            if ( $coluna->filterable )
             {
-                $filtros->{$coluna->campo} = $valoresFiltrados->{$coluna->campo};
+                $filtros->{$coluna->field} = $valoresFiltrados->{$coluna->field};
             }
-            
-            if ( !in_array("$coluna->esquema.$coluna->tabela", $tabelas) )
+
+            if ( !in_array("$coluna->schema.$coluna->table", $tabelas) )
             {
-                $tabelas[] = "$coluna->esquema.$coluna->tabela";
-                
-                $colunasString[] = "$coluna->esquema.$coluna->tabela.$coluna->nome";
-                
+                $tabelas[] = "$coluna->schema.$coluna->table";
+
+                $colunasString[] = "$coluna->schema.$coluna->table.$coluna->name";
+
                 if ( $tabelaAnterior == '' )
                 {
-                    $esquemaAnterior = $coluna->esquema;
-                    $tabelaAnterior = $coluna->tabela;
-                    
-                    // Obtém dados da tabela anterior.
+                    $esquemaAnterior = $coluna->schema;
+                    $tabelaAnterior = $coluna->table;
+
+                    // Gets data from the previous table.
                     $dadosDaTabelaAnterior = bCatalogo::buscarChavesEstrangeirasDaTabela($tabelaAnterior, $esquemaAnterior);
                 }
 
                 if ( $tabelasString == '' )
                 {
-                    $tabelasString .= "$coluna->esquema.$coluna->tabela ";
+                    $tabelasString .= "$coluna->schema.$coluna->table ";
                 }
                 else
                 {
-                    $dadosDaTabela = bCatalogo::buscarChavesPrimariasDaTabela($coluna->tabela, $coluna->esquema);
-                    
+                    $dadosDaTabela = bCatalogo::buscarChavesPrimariasDaTabela($coluna->table, $coluna->schema);
+
                     foreach ( $dadosDaTabela as $pk )
                     {
                         list($pkColuna, $pkTipo) = $pk;
@@ -1251,8 +1251,8 @@ class bTipo
                         foreach ( $dadosDaTabelaAnterior as $fk )
                         {
                             list($fkFromSchema, $fkFromTable, $fkFromColumn, $fkToSchema, $fkToTable, $fkToColumn, $fkObrigatorio) = $fk;
-//        var_dump($coluna->esquema.' - '.$coluna->tabela );
-                            
+//        var_dump($coluna->schema.' - '.$coluna->table );
+
                             $join = $fkToSchema.$fkToTable;
                             
                             if ( $fkToColumn == $pkColuna && !in_array($join, $joins) )
@@ -1269,7 +1269,7 @@ class bTipo
             }
             else
             {
-                $colunasString[] = "$coluna->esquema.$coluna->tabela.$coluna->nome";
+                $colunasString[] = "$coluna->schema.$coluna->table.$coluna->name";
             }
         }
         
@@ -1307,10 +1307,10 @@ class bTipo
 
             $chave = str_replace('__', '.', $chave);
             
-            switch( $colunas[$chave]->tipo )
+            switch( $colunas[$chave]->type )
             {
-                case bInfoColuna::TIPO_TEXTO:
-                case bInfoColuna::TIPO_TEXTO_LONGO:
+                case bColumnInfo::TYPE_TEXT:
+                case bColumnInfo::TYPE_LONG_TEXT:
                     
                     if ( strlen($valor) )
                     {
@@ -1318,7 +1318,7 @@ class bTipo
                         $parametros[] = $valor . '%';
                     }
 
-                    // Busca pelo valor do campo genérico.
+                    // Searches by the generic field value.
                     if ( strlen($filtros->generico) )
                     {
                         $msql->setWhereOr("UNACCENT($chave) ILIKE UNACCENT(?)");
@@ -1327,11 +1327,11 @@ class bTipo
 
                     break;
                     
-                case bInfoColuna::TIPO_LISTA:
+                case bColumnInfo::TYPE_LIST:
                     
                     if (strlen($valor) )
                     {
-                        $relacionamentos = bCatalogo::obterRelacionamentos($this->tabela, $colunas[$chave]->tabela);
+                        $relacionamentos = bCatalogo::obterRelacionamentos($this->tabela, $colunas[$chave]->table);
                         if ( $relacionamentos[0] )
                         {
                             $chaveEstrangeira = "{$relacionamentos[0]->esquema}.{$relacionamentos[0]->tabela_ref}.{$relacionamentos[0]->atributo_ref}";
@@ -1347,10 +1347,10 @@ class bTipo
                     
                     break;
                     
-                case bInfoColuna::TIPO_INTEIRO:
-                case bInfoColuna::TIPO_INTEIRO_LONGO:
-                case bInfoColuna::TIPO_NUMERIC:
-                case bInfoColuna::TIPO_DECIMAL:
+                case bColumnInfo::TYPE_INTEGER:
+                case bColumnInfo::TYPE_BIG_INTEGER:
+                case bColumnInfo::TYPE_NUMERIC:
+                case bColumnInfo::TYPE_DECIMAL:
                     
                     if ( strlen($valor) && is_numeric($valor) )
                     {
@@ -1358,7 +1358,7 @@ class bTipo
                         $parametros[] = $valor;
                     }
                     
-                    // Busca pelo valor do campo genérico.
+                    // Searches by the generic field value.
                     if ( strlen($filtros->generico) && is_numeric($filtros->generico) )
                     {
                         $msql->setWhereOr("$chave = ?");
@@ -1375,7 +1375,7 @@ class bTipo
                         $parametros[] = $valor;
                     }
                     
-                    // Busca pelo valor do campo genérico.
+                    // Searches by the generic field value.
                     if ( strlen($filtros->generico) )
                     {
                         $msql->setWhereOr("UNACCENT($chave::varchar) ILIKE (?)");
@@ -1387,7 +1387,7 @@ class bTipo
         
         if ( $fazerSubCondicao )
         {
-            // Previne erros se não houver nenhum filtro. Não remover.
+            // Prevents errors if there are no filters. Do not remove.
             if ( count($parametros) == 0 )
             {
                 $msql->setWhere('1=1');
@@ -1400,7 +1400,7 @@ class bTipo
     }
     
     /**
-     * Retorna o id incremental da ultima insercao
+     * Returns the incremental id of the last insertion
      *
      * @return int
      */
@@ -1470,7 +1470,7 @@ class bTipo
     }
     
     /**
-     * @param array $valoresRestritivos - Esses valores vão restringer a consulta (estão relacionados à chave primária).
+     * @param array $valoresRestritivos - These values will restrict the query (they are related to the primary key).
      * @return array
      */
     public function obterArrayAssociativo($valoresRestritivos = null)
@@ -1515,7 +1515,7 @@ class bTipo
     }
     
     /**
-     * Obtem valores relacionados com o tipo.
+     * Gets values related to the type.
      * 
      * @param string $coluna
      * @param string $colunaDeComparacao

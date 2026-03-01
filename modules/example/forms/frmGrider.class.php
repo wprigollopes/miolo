@@ -144,9 +144,9 @@ class frmGrider extends MForm
     }
 
     /**
-     * Exemplo de adição de item via programação
-     * 
-     * @param stdClass $args 
+     * Example of adding an item programmatically
+     *
+     * @param stdClass $args
      */
     public function addItem($args)
     {
@@ -165,9 +165,9 @@ class frmGrider extends MForm
     }
 
     /**
-     * Exemplo de definição de grider como somente leitura
-     * 
-     * @param stdClass $args 
+     * Example of setting grider as read-only
+     *
+     * @param stdClass $args
      */
     public function readOnly($args)
     {
@@ -177,9 +177,9 @@ class frmGrider extends MForm
     }
 
     /**
-     * Confirmação de postagem
-     * 
-     * @param string $args 
+     * Post confirmation
+     *
+     * @param string $args
      */
     public function confirmation($args)
     {

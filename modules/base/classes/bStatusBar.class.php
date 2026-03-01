@@ -1,36 +1,36 @@
 <?php
 
 /**
- * Copyright 2005-2017 de Solis Soluções Livres Ltda.
+ * Copyright 2005-2017 Solis Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa SolisGE/Sagu.
+ * This file is part of the SolisGE/Sagu program.
  *
- * O SolisGE/Sagu é um software de propriedade da SOLIS, sendo desenvolvido
- * e mantido exclusivamente por esta empresa.
+ * SolisGE/Sagu is proprietary software of SOLIS, developed and maintained
+ * exclusively by this company.
  *
- * A licença de uso está disponível mediante aquisição exclusiva junto à
- * SOLIS. A licença é concedida sem caráter de exclusividade ao licenciado.
- * Os direitos de uso são perpétuos.
+ * The usage license is available through exclusive acquisition from SOLIS.
+ * The license is granted on a non-exclusive basis to the licensee.
+ * Usage rights are perpetual.
  *
- * Embora os códigos fontes sejam fornecidos, o software é de propriedade
- * da SOLIS, não sendo permitido ao adquirente da licença a sua revenda,
- * empréstimo ou cessão (onerosa ou não) à terceiros. Também não é permitido,
- * a qualquer título e tempo, promover no software qualquer tipo de alienação,
- * reprodução, distribuição, divulgação, registro, licenciamento, transferência
- * ou qualquer outro ato que prejudique ou comprometa os direitos de propriedade
- * de software, o nome e a imagem da sua proprietária e do próprio software,
- * além de configurar concorrência à SOLIS.
+ * Although source code is provided, the software is the property of SOLIS.
+ * The licensee is not permitted to resell, lend, or transfer (whether for
+ * payment or not) the license to third parties. It is also not permitted,
+ * at any time or for any reason, to perform any alienation, reproduction,
+ * distribution, disclosure, registration, licensing, transfer, or any other
+ * act that may harm or compromise the software property rights, the name
+ * and image of its owner and the software itself, or that constitutes
+ * competition with SOLIS.
  *
- * O licenciado, com o acesso ao código fonte do software, terá o direito de
- * promover mudanças no respectivo código. No entanto, nas situações em que ele
- * contar com o suporte oficial prestado pela SOLIS, não poderá promover mudanças
- * no código fonte, sob pena de perda do referido suporte.
+ * The licensee, with access to the software source code, shall have the
+ * right to make changes to the respective code. However, in situations
+ * where the licensee relies on official support provided by SOLIS, changes
+ * to the source code are not permitted, under penalty of losing said support.
  *
- * Para conhecer em detalhes o Termo de Licenciamento do Software SolisGE/Sagu
- * leia o arquivo “LICENCA.txt” disponível junto ao código deste software.
+ * For detailed information about the SolisGE/Sagu Software Licensing Terms,
+ * read the "LICENCA.txt" file included with this software.
  *
  *
- * Componente de barra de status.
+ * Status bar component.
  *
  *
  *
@@ -42,17 +42,17 @@ $MIOLO->page->addScript('bMainMenu.js', 'base');
 class bStatusBar extends MDiv
 {
     /**
-     * @var array Dados a serem exibidos na direita da barra de status.
+     * @var array Data to be displayed on the right side of the status bar.
      */
     public $cols;
 
     /**
-     * @var MDiv Div do botão do menu de favoritos.
+     * @var MDiv Div of the bookmarks menu button.
      */
     public $bookmarks;
 
     /**
-     * @var MDiv Div do botão do menu de mais acessados.
+     * @var MDiv Div of the most accessed menu button.
      */
     public $mostAccessed;
 
@@ -63,14 +63,14 @@ class bStatusBar extends MDiv
     public $unidades;
 
     /**
-     * @var boolean Indica se usuário está autenticado.
+     * @var boolean Indicates whether the user is authenticated.
      */
     public $authenticated = false;
 
     /**
-     * Construtor do componente de barra de status.
+     * Status bar component constructor.
      *
-     * @param array $cols Dados a serem exibidos na direito da barra de status.
+     * @param array $cols Data to be displayed on the right side of the status bar.
      */
     public function __construct($cols = null)
     {
@@ -116,9 +116,9 @@ class bStatusBar extends MDiv
     }
 
     /**
-     * Gera o código JavaScript para a criação dos itens no menu de favoritos.
+     * Generates the JavaScript code for creating items in the bookmarks menu.
      *
-     * @return string Código JavaScript para a criação dos itens.
+     * @return string JavaScript code for creating the items.
      */
     public function createBookmarkMenu()
     {
@@ -140,8 +140,8 @@ class bStatusBar extends MDiv
         }
         else
         {
-            // FIXME: verificar necessidade de filtro por módulo
-            // Caso esteja na tela principal não filtra por módulo
+            // FIXME: check the need for module filtering
+            // If on the main screen, do not filter by module
             /*if ( $module != 'sagu2' )
             {
                 $data->moduleAccess = $module;
@@ -161,8 +161,8 @@ class bStatusBar extends MDiv
                 $busModule->getById($module);
                 $moduleName = strlen($busModule->nome) > 0 ? $busModule->nome : $module;
 
-                // FIXME: código atual só aceita classes CSS
-                // Caso não exista o ícone, exibe o default-16x16.png
+                // FIXME: current code only accepts CSS classes
+                // If the icon does not exist, display default-16x16.png
                 if ( !file_exists($this->manager->GetModulePath($module, null) . 'html/images/' . $icon) )
                 {
                     $icon = 'default-16x16.png';
@@ -182,7 +182,7 @@ class bStatusBar extends MDiv
     }
 
     /**
-     * Gera código JavaScript para a criação dos itens do menu de mais acessados.
+     * Generates JavaScript code for creating items in the most accessed menu.
      *
      * @return type 
      */
@@ -205,13 +205,13 @@ class bStatusBar extends MDiv
         }
         else
         {
-            // FIXME: verificar necessidade de filtro por módulo
-            // Caso esteja na tela principal não filtra por módulo
+            // FIXME: check the need for module filtering
+            // If on the main screen, do not filter by module
             /*if ( $module != 'sagu2' )
             {
                 $data->moduleAccess = $module;
             }*/
-        
+
             $data->isBookmark = false;
             $links = $busAccess->searchAccess($data);
 
@@ -222,8 +222,8 @@ class bStatusBar extends MDiv
                 $busModule->getById($module);
                 $moduleName = strlen($busModule->nome) > 0 ? $busModule->nome : $module;
 
-                // FIXME: código atual só aceita classes CSS
-                // Caso não exista o ícone, exibe o default-16x16.png
+                // FIXME: current code only accepts CSS classes
+                // If the icon does not exist, display default-16x16.png
                 if ( !file_exists($this->manager->GetModulePath($module, null) . 'html/images/' . $icon) )
                 {
                     $icon = 'default-16x16.png';
@@ -247,7 +247,7 @@ class bStatusBar extends MDiv
 
         foreach ( $unidades as $unitId => $unidade )
         {
-            // Somente adiciona as unidades diferentes da atual logada para op??o de troca.
+            // Only adds units different from the currently logged in unit as a switch option.
             if ( $unitId != sMultiUnidade::obterUnidadeLogada() )
             {
                 $url = $this->manager->getActionURL($module, $action . '&event=trocarUnidade&unitId=' . $unitId);
@@ -331,7 +331,7 @@ JS;
         }
         else
         {
-            return 'Versão não encontrada';
+            return 'Version not found';
         }    
          
     }

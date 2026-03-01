@@ -1,26 +1,26 @@
 <?php
 
 /**
- * <--- Copyright 2012 de Solis - Cooperativa de Soluções Livres Ltda.
+ * <--- Copyright 2012 Solis - Cooperativa de Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa Base.
+ * This file is part of the Base program.
  *
- * O Fermilab é um software livre; você pode redistribuí-lo e/ou modificá-lo
- * dentro dos termos da Licença Pública Geral GNU como publicada pela Fundação
- * do Software Livre (FSF); na versão 2 da Licença.
+ * Fermilab is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation (FSF); version 2 of the License.
  *
- * Este programa é distribuído na esperança que possa ser útil, mas SEM
- * NENHUMA GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a qualquer MERCADO
- * ou APLICAÇÃO EM PARTICULAR. Veja a Licença Pública Geral GNU/GPL em
- * português para maiores detalhes.
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License/GPL
+ * for more details.
  *
- * Você deve ter recebido uma cópia da Licença Pública Geral GNU, sob o título
- * "LICENCA.txt", junto com este programa, se não, acesse o Portal do Software
- * Público Brasileiro no endereço www.softwarepublico.gov.br ou escreva para a
- * Fundação do Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
- * MA 02110-1301, USA --->
+ * You should have received a copy of the GNU General Public License, under
+ * the title "LICENCA.txt", along with this program. If not, visit the
+ * Brazilian Public Software Portal at www.softwarepublico.gov.br or write
+ * to the Free Software Foundation (FSF) Inc., 51 Franklin St, Fifth Floor,
+ * Boston, MA 02110-1301, USA --->
  *
- * Classe que constrói a barra de ferramentas.
+ * Class that builds the toolbar.
  *
  * @author Daniel Hartmann [daniel@solis.coop.br]
  * @author Jader Osvino Fiegenbaum [jader@solis.coop.br]
@@ -31,7 +31,7 @@
 class bBarraDeFerramentas extends MBaseGroup
 {
     /**
-     * Constantes dos nomes dos botões.
+     * Button name constants.
      */
     const BOTAO_INSERIR = 'bfInserir';
     const BOTAO_EDITAR = 'bfEditar';
@@ -43,21 +43,21 @@ class bBarraDeFerramentas extends MBaseGroup
     const BOTAO_SAIR = 'bfSair';
 
     /**
-     * @var array Botões da barra de ferramentas.
+     * @var array Toolbar buttons.
      */
     protected $botoes;
 
     /**
-     * @var string Tipo de exibição padrão dos botões.
+     * @var string Default button display type.
      */
     private $tipo = MToolbar::TYPE_ICON_TEXT;
 
     /**
-     * Barra de ferramentas personalizada para o FermiLab.
+     * Customized toolbar for FermiLab.
      */
     public function __construct()
     {
-        //ID para tornar a barra de ferramentas vertical (classes css do tema modern)
+        //ID to make the toolbar vertical (CSS classes from the modern theme)
         parent::__construct('toolbar', '');
 
         $modulo = MIOLO::getCurrentModule();
@@ -66,7 +66,7 @@ class bBarraDeFerramentas extends MBaseGroup
         $url = $this->manager->getActionURL($modulo, null, null, array( 'chave' => $chave ));
 
 
-        // Botão inserir
+        // Insert button
         $paramaters = array(
             'chave' => $chave,
             'funcao' => FUNCAO_INSERIR
@@ -77,25 +77,25 @@ class bBarraDeFerramentas extends MBaseGroup
         $this->adicionarBotaoPadrao(self::BOTAO_INSERIR, _M('Novo'), $eventoURL, _M('Clique para inserir um novo registro', $modulo), 'new-20x20.png', 'new-disabled-20x20.png');
         
         
-        // Botão editar
+        // Edit button
         $evento = self::BOTAO_EDITAR . ':click';
         $eventoURL = "javascript:miolo.doAjax('$evento','','{$formId}');";
         $this->adicionarBotaoPadrao(self::BOTAO_EDITAR, _M('Editar'), $eventoURL, _M('Clique para editar o registro selecionado', $modulo), 'bf-editar-on.png', 'bf-editar-off.png');
 
         
-        // Botão salvar
+        // Save button
         $evento = self::BOTAO_SALVAR . ':click';
         $eventoURL = "javascript:miolo.doAjax('botaoSalvar_click','','__mainForm'); return false;";
 //        $eventoURL = "javascript:miolo.doAjax('$evento','','{$formId}');";
         $this->adicionarBotaoPadrao(self::BOTAO_SALVAR, _M('Salvar'), $eventoURL, _M('Clique para salvar', $modulo), 'save-20x20.png', 'save-disabled-20x20.png');
 
-        // Botão remover
+        // Remove button
         $evento = self::BOTAO_REMOVER . ':click';
         $eventoURL = "javascript:miolo.doAjax('$evento','','{$formId}');";
         $this->adicionarBotaoPadrao(self::BOTAO_REMOVER, _M('Deletar'), $eventoURL, _M('Clique para remover o registro selecionado', $modulo), 'delete-20x20.png', 'delete-disabled-20x20.png');
 
 
-        // Botão buscar
+        // Search button
         $paramaters = array(
             'chave' => $chave,
             'funcao' => FUNCAO_BUSCAR
@@ -105,10 +105,10 @@ class bBarraDeFerramentas extends MBaseGroup
         $this->adicionarBotaoPadrao(self::BOTAO_BUSCAR, _M('Procurar'), $eventoURL, _M('Clique para ir a página de busca', $modulo), 'search-20x20.png', 'search-disabled-20x20.png');
 
 
-        // Botão sair
+        // Exit button
         $funcao = MIOLO::_REQUEST('funcao');
         
-        // Redireciona para home.
+        // Redirect to home.
         $eventoURL = $this->manager->getConf('home.url');      
         $this->adicionarBotaoPadrao(self::BOTAO_SAIR, _M('Fechar'), $eventoURL, _M('Clique para sair do formulário', $modulo), 'exit-20x20.png', 'exit-disabled-20x20.png');
 
@@ -116,14 +116,14 @@ class bBarraDeFerramentas extends MBaseGroup
     }
 
     /**
-     * Adiciona um botão no formato padrão da classe.
+     * Adds a button in the standard class format.
      *
-     * @param string $nome Identificador do botão.
-     * @param string $titulo Rótulo.
-     * @param string $evento Evento.
-     * @param string $dica Dica.
-     * @param string $imagemAtivo Nome da imagem quando ativo.
-     * @param string $imagemInativo Nome da imagem quando inativo.
+     * @param string $nome Button identifier.
+     * @param string $titulo Label.
+     * @param string $evento Event.
+     * @param string $dica Tooltip.
+     * @param string $imagemAtivo Image name when active.
+     * @param string $imagemInativo Image name when inactive.
      */
     public function adicionarBotaoPadrao($nome, $titulo, $evento, $dica, $imagemAtivo, $imagemInativo)
     {
@@ -136,17 +136,17 @@ class bBarraDeFerramentas extends MBaseGroup
     }
 
     /**
-     * Adiciona um botão customizado
+     * Adds a custom button
      *
-     * @param string $nome Identificação do MToolbarButton.
-     * @param string $titulo Título do botão.
-     * @param string $url URL da ação do botão.
-     * @param string $jsSugestao Sugesão do botão.
-     * @param boolean $ativo Status do botão.
-     * @param string $ativoImagem URL da imagem do botão ativo.
-     * @param string $desativadoImagem URL da imagem do botão quando desativado.
+     * @param string $nome MToolbarButton identifier.
+     * @param string $titulo Button title.
+     * @param string $url Button action URL.
+     * @param string $jsSugestao Button tooltip.
+     * @param boolean $ativo Button status.
+     * @param string $ativoImagem Active button image URL.
+     * @param string $desativadoImagem Disabled button image URL.
      * @param string $method @deprecated
-     * @param string $tipo Tipo do botão, que pode ser: MToolBar::TYPE_ICON_ONLY, MToolBar::TYPE_ICON_TEXT or MToolBar::TYPE_TEXT_ONLY.
+     * @param string $tipo Button type, which can be: MToolBar::TYPE_ICON_ONLY, MToolBar::TYPE_ICON_TEXT or MToolBar::TYPE_TEXT_ONLY.
      */
     public function addButton($nome, $titulo, $url, $jsSugestao, $ativo, $ativoImagem, $desativadoImagem, $tipo=MToolBar::TYPE_ICON_ONLY)
     {
@@ -154,9 +154,9 @@ class bBarraDeFerramentas extends MBaseGroup
     }
 
     /**
-     * Método para mostrar botões.
+     * Method to show buttons.
      *
-     * @param array $names Identificação dos botões.
+     * @param array $names Button identifiers.
      */
     public function showButtons(array $names)
     {

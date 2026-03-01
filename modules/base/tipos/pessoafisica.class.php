@@ -1,6 +1,6 @@
 <?php
 
-class pessoafisica extends bTipo
+class pessoafisica extends bType
 {
     protected $ordenacaoPadrao = 'basphysicalperson.name';
     

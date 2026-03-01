@@ -8,12 +8,12 @@
     {
         public function __construct()
         {
-            // número de linhas por página
+            // number of lines per page
             parent::__construct(NULL, NULL, 55);
 
             $this->titleReport = 'Exemplo MBandreport _ MultiLevel com Bands';
 
-            // simula $query->result com multiplos niveis de quebra 
+            // simulate $query->result with multiple break levels
             $setor[1] = 'Setor 1';
             $setor[2] = 'Setor 2';
             $setor[3] = 'Setor 3';

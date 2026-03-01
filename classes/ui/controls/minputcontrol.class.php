@@ -42,11 +42,11 @@ class MInputControl extends MFormControl
     /*
      * Declaration of MActionControl::getOnClick($ref, $action, $attr) should be compatible with
      * MInputControl::getOnClick($action, $attr):
-     * A classe filha adiciona um parâmetro extra que não é opcional. Nesse caso, é um pouco mais complicado de
-     * resolver, pois não adianta adicionar um atributo opcional na classe pai, nem transformar em opcional um
-     * dos parâmetros da classe filha.
-     * Adicionei um parâmetro "obrigatório" na classe pai (aqui) e a princípio não ocorreu erro por falta
-     * desse parâmetro em quem chama esse método.
+     * The child class adds an extra parameter that is not optional. In this case, it is a bit more complicated
+     * to solve, because adding an optional attribute in the parent class does not help, nor does making one of
+     * the child class parameters optional.
+     * I added a "required" parameter in the parent class (here) and initially no error occurred due to the
+     * lack of this parameter in whoever calls this method.
      */
     public function getOnClick($action, $attr, $optional)
     {

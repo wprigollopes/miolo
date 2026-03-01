@@ -35,8 +35,8 @@ class MLookupField extends MTextField
         $baseModule = MUtil::NVL($this->manager->GetConf("mad.module"),"admin");
         $event = MUtil::NVL($event,'filler');
         
-        // $autocomplete nunca existiu no contexto do construtor, o que significa que sempre foi passado
-        // null para o setContext()...
+        // $autocomplete never existed in the constructor context, which means null was always passed
+        // to setContext()...
         $this->setContext($baseModule,$module,$item,$event,$related,$filter,null,$title);
 
         $this->lookup_name = "lookup_{$this->formId}_{$this->name}";

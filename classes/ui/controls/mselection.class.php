@@ -52,7 +52,7 @@ class MSelection extends MListControl
             }
 
             // Notice: Undefined offset: 0
-            // Quando $keys[0] não existe, está na real comparando null !== ''. Então, usa null como fallback.
+            // When $keys[0] does not exist, it is actually comparing null !== ''. So, use null as fallback.
             $check = isset($keys[0]) ? $keys[0] : null;
             $options = ($check !== '') ? $s + $options : $options;
         }

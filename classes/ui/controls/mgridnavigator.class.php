@@ -1,7 +1,7 @@
 <?php
 define('PN_PAGE', 'pn_page');
 /**
- * Uma implementação de controles de navagação de páginas para grids
+ * An implementation of page navigation controls for grids
  */
 class MGridNavigator extends MControl
 {

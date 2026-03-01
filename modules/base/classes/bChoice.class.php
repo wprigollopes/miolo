@@ -1,33 +1,33 @@
 <?php
 
 /**
- * Copyright 2005-2017 de Solis Soluções Livres Ltda.
+ * Copyright 2005-2017 Solis Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa SolisGE/Sagu.
+ * This file is part of the SolisGE/Sagu program.
  *
- * O SolisGE/Sagu é um software de propriedade da SOLIS, sendo desenvolvido
- * e mantido exclusivamente por esta empresa.
+ * SolisGE/Sagu is proprietary software of SOLIS, developed and maintained
+ * exclusively by this company.
  *
- * A licença de uso está disponível mediante aquisição exclusiva junto à
- * SOLIS. A licença é concedida sem caráter de exclusividade ao licenciado.
- * Os direitos de uso são perpétuos.
+ * The usage license is available through exclusive acquisition from SOLIS.
+ * The license is granted on a non-exclusive basis to the licensee.
+ * Usage rights are perpetual.
  *
- * Embora os códigos fontes sejam fornecidos, o software é de propriedade
- * da SOLIS, não sendo permitido ao adquirente da licença a sua revenda,
- * empréstimo ou cessão (onerosa ou não) à terceiros. Também não é permitido,
- * a qualquer título e tempo, promover no software qualquer tipo de alienação,
- * reprodução, distribuição, divulgação, registro, licenciamento, transferência
- * ou qualquer outro ato que prejudique ou comprometa os direitos de propriedade
- * de software, o nome e a imagem da sua proprietária e do próprio software,
- * além de configurar concorrência à SOLIS.
+ * Although source code is provided, the software is the property of SOLIS.
+ * The licensee is not permitted to resell, lend, or transfer (whether for
+ * payment or not) the license to third parties. It is also not permitted,
+ * at any time or for any reason, to perform any alienation, reproduction,
+ * distribution, disclosure, registration, licensing, transfer, or any other
+ * act that may harm or compromise the software property rights, the name
+ * and image of its owner and the software itself, or that constitutes
+ * competition with SOLIS.
  *
- * O licenciado, com o acesso ao código fonte do software, terá o direito de
- * promover mudanças no respectivo código. No entanto, nas situações em que ele
- * contar com o suporte oficial prestado pela SOLIS, não poderá promover mudanças
- * no código fonte, sob pena de perda do referido suporte.
+ * The licensee, with access to the software source code, shall have the
+ * right to make changes to the respective code. However, in situations
+ * where the licensee relies on official support provided by SOLIS, changes
+ * to the source code are not permitted, under penalty of losing said support.
  *
- * Para conhecer em detalhes o Termo de Licenciamento do Software SolisGE/Sagu
- * leia o arquivo “LICENCA.txt” disponível junto ao código deste software. e
+ * For detailed information about the SolisGE/Sagu Software Licensing Terms,
+ * read the "LICENCA.txt" file included with this software. e
  * 
  * 
  *
@@ -37,7 +37,7 @@
  *
  **/
  
-class bEscolha extends MRowContainer
+class bChoice extends MRowContainer
 {
     private $codigo;
     private $descricao;
@@ -46,19 +46,19 @@ class bEscolha extends MRowContainer
     {
         $MIOLO = MIOLO::getInstance();
         
-        // Testa se componente possui nome.
+        // Tests if the component has a name.
         if ( strlen($nome) == 0 )
         {
             throw new Exception(_M("É necessário definir um nome para o componente bEscolha."));
         }
 
-        // Testa se componente possui a chave.
+        // Tests if the component has a key.
         if ( strlen($chave) == 0 )
         {
             throw new Exception(_M("É necessário definir uma chave para o componente bEscolha."));
         }
         
-        // Testa se componente possui módulo.
+        // Tests if the component has a module.
         if ( strlen($modulo) == 0 )
         {
             throw new Exception(_M("É necessário definir um módulo para o componente bEscolha."));
@@ -69,35 +69,35 @@ class bEscolha extends MRowContainer
             $camposDaTabela = $nome.', ' . $this->obterColunaDescricaoDaTabela($chave);
 	}
         
-        // Define campos padrão do componente.
+        // Defines the default fields of the component.
         $campos = array();
         $campos[] = $this->codigo = new MTextField($nome, $valor, $rotulo, 5, NULL, NULL, $somenteLeitura);
         $this->codigo->addAttribute('onchange', "miolo.doAjax('obterRegistro',this.id + '|' + this.value + '|' + '$chave' + '|' + '$modulo' + '|' + '$camposDaTabela','{$MIOLO->page->getFormId()}');");
         
-        $campos[] = $this->descricao = new bEscolhaTextField($nome . 'Descricao', NULL, NULL, 50, NULL, NULL, $somenteLeitura);
+        $campos[] = $this->descricao = new bChoiceTextField($nome . 'Descricao', NULL, NULL, 50, NULL, NULL, $somenteLeitura);
         $this->descricao->setChave($chave);
         $this->descricao->setModulo($modulo);
         $this->descricao->setCamposDaTabela($camposDaTabela);
-        $this->descricao->addAttribute('onkeydown', "return bEscolha.onkeyUpEscolha(event, this, this.id, '{$chave}', '{$modulo}', '{$camposDaTabela}')" );
-        $this->descricao->addAttribute('ondblclick',"return bEscolha.onDoubleClick(event, this.id, '{$chave}', '{$modulo}', '{$camposDaTabela}')");
+        $this->descricao->addAttribute('onkeydown', "return bChoice.onkeyUpEscolha(event, this, this.id, '{$chave}', '{$modulo}', '{$camposDaTabela}')" );
+        $this->descricao->addAttribute('ondblclick',"return bChoice.onDoubleClick(event, this.id, '{$chave}', '{$modulo}', '{$camposDaTabela}')");
         
-        // Seta o validador no código
+        // Sets the validator on the code
         if ( !is_null($validator) )
         {
             $this->codigo->validator = $validator;
         }
         
         parent::__construct(NULL, $campos);
-        $this->page->addScript('bEscolha.js', 'base');
+        $this->page->addScript('bChoice.js', 'base');
         
-        // Linha necessária para buscar o valor da descrição quando o campo é read-only ou quando o form estiver em edição.
+        // Line necessary to fetch the description value when the field is read-only or when the form is in edit mode.
         $MIOLO->page->onload("var elem = dojo.byId('$nome'); if(elem != null){elem.onchange();}");
     }
     
     /**
-     * Método para definir o componente como somente leitura.
+     * Method to set the component as read-only.
      * 
-     * @param boolean $somenteLeitura Caso verdadeiro, deixa os controles do componente em modo somente leitura.
+     * @param boolean $somenteLeitura If true, sets the component controls to read-only mode.
      */
     public function setReadOnly($somenteLeitura)
     {
@@ -110,24 +110,24 @@ class bEscolha extends MRowContainer
     }
     
     /**
-     * Método para adicionar eventos ao componente.
+     * Method to add events to the component.
      * 
-     * @param String $evento Evento que será adicionado ao componente.
-     * @param String $valor Valor do evento.
+     * @param String $evento Event to be added to the component.
+     * @param String $valor Event value.
      */
     public function addEvent($evento, $valor)
     {
         $this->codigo->addEvent($evento, $valor);
         
         /**
-         * Tivemos que tirar isso fora, porque estava dando problemas quando o
-         * componente tinha algum evento que sobrescreve um evento padrão do 
-         * bEscolha, exemplo: "onChange".
+         * We had to remove this because it was causing problems when the
+         * component had an event that overrides a default bChoice event,
+         * for example: "onChange".
          * 
-         * Não conseguimos identificar o porquê é que isso foi feito, mas ao
-         * eliminar essa linha tudo voltou a funcionar. Também não teria porque
-         * adicionar o evento também na descrição, pois a descrição vai jogar
-         * valores pro código e o código vai realizar eventos normalmente.
+         * We could not identify why this was done, but by
+         * removing this line everything worked again. There would also be no reason
+         * to add the event to the description as well, since the description will pass
+         * values to the code and the code will perform events normally.
          * 
          * Ticket #40853
          */
@@ -135,10 +135,10 @@ class bEscolha extends MRowContainer
     }
     
     /**
-     * Método para adicionar atríbutos ao componente.
+     * Method to add attributes to the component.
      *  
-     * @param String $atributo Atríbuto que será adicionado ao componente.
-     * @param String $valor Valor do atríbuto.
+     * @param String $atributo Attribute to be added to the component.
+     * @param String $valor Attribute value.
      */
     public function addAttribute($atributo, $valor)
     {
@@ -146,15 +146,15 @@ class bEscolha extends MRowContainer
     }
    
     /**
-     *  Método utilizado para auto-completar a descrição.
+     *  Method used to auto-complete the description.
      * 
-     * @param stdClass $parametros Argumentos do Ajax.
+     * @param stdClass $parametros Ajax arguments.
      */
     public function obterRegistro($parametros)
     {
         $MIOLO = MIOLO::getInstance();
         
-        // Obtém id do componente e valor.
+        // Gets component id and value.
         $parametros = explode('|', $parametros);        
         $idComponente = $parametros[0];
         $valor = $parametros[1];
@@ -163,7 +163,7 @@ class bEscolha extends MRowContainer
         $campos = explode(',', $parametros[4]);
         $campoChave = $campos[0];
         
-        // Para garantir o funcionamento com o bTipo dinamico, efetuar um trim nos nomes das colunas.
+        // To ensure proper functioning with dynamic bType, trim the column names.
         foreach($campos as $key => $campo)
         {
             $campos[$key] = trim($campos[$key]);
@@ -171,9 +171,9 @@ class bEscolha extends MRowContainer
 
         define(DB_NAME, $modulo);
         
-        $tipo = bTipo::instanciarTipo($chave, $modulo);
+        $tipo = bType::instantiateType($chave, $modulo);
 
-        // Protecao para evitar erro de base de dados
+        // Protection to avoid database error
         if ( $tipo->colunaTipoNumerico( $campoChave ) && !is_numeric($valor) )
         {
             $valor = null;
@@ -187,7 +187,7 @@ class bEscolha extends MRowContainer
         }
             
         $idDescricao = $idComponente . 'Descricao';
-        // Se o campo estiver em um componente que o repete (como o MGrider), o seu id vem com colchetes por ser um array.
+        // If the field is in a component that repeats it (like MGrider), its id comes with brackets because it is an array.
         if ( substr_count($idComponente, '[') > 0 )
         {
             $posColchete = strpos($idComponente, '[');
@@ -196,20 +196,20 @@ class bEscolha extends MRowContainer
         
         $MIOLO->page->onload("dojo.byId('{$idDescricao}').value = '{$descricao}'");
         
-        // Response ajax.
+        // Ajax response.
         $MIOLO->page->ajax->setResponse(NULL, 'responseDiv');
     }
     
     /**
-     * Função chamada após a digitação dos dados.
+     * Function called after data entry.
      * 
-     * @param stdClass $args Argumentos do Ajax.
+     * @param stdClass $args Ajax arguments.
      */
     public function onkeyUpEscolha($parametros)
     {
         $MIOLO = MIOLO::getInstance();
         
-        // Obtém id do componente e valor.
+        // Gets component id and value.
         $parametros = explode("|", $parametros);
 
         $idComponente = $parametros[0];
@@ -219,24 +219,24 @@ class bEscolha extends MRowContainer
         $chave = $parametros[2];
         $modulo = $parametros[3];
         $campos = explode(',', $parametros[4]);
-        // Para garantir o funcionamento com o bTipo dinamico, efetuar um trim nos nomes das colunas.
+        // To ensure proper functioning with dynamic bType, trim the column names.
         foreach($campos as $key => $campo)
         {
             $campos[$key] = trim($campos[$key]);
         }
 
-        // Obtém os registros.
+        // Gets the records.
         define(DB_NAME, $modulo);
 
-        $tipo = bTipo::instanciarTipo($chave, $modulo);
-        // TODO: Limite de 50 fixo no código. No futuro fazer um atributo.
+        $tipo = bType::instantiateType($chave, $modulo);
+        // TODO: Limit of 50 hardcoded. In the future make it an attribute.
         $resultado = $tipo->buscarParaEscolha($valor, $campos, 50);
 
         $idDescricao = $idComponente . 'Descricao';
         $idItem = $idComponente . 'Item';
         $idTable = $idComponente . 'Table';
         $idDiv = $idComponente . 'Div';
-        // Se o campo estiver em um componente que o repete (como o MGrider), o seu id vem com colchetes por ser um array.
+        // If the field is in a component that repeats it (like MGrider), its id comes with brackets because it is an array.
         if ( substr_count($idComponente, '[') > 0 )
         {
             $posColchete = strpos($idComponente, '[');
@@ -251,16 +251,16 @@ class bEscolha extends MRowContainer
         
         if ( count($resultado) )
         {
-            // Cria uma tabela com os dados.
+            // Creates a table with the data.
             $table = new MTableRaw();
             
             foreach ( $resultado as $i => $info)
             {
-                // Tratamento dos valores.
+                // Value processing.
                 $codigo = str_replace("'", "\'", $info[1]);
                 $descricao = str_replace("'", "\'", $info[0]);
                 
-                // Eventos do onClick
+                // onClick events
                 $onClick = 'dojo.byId(\''.$idComponente.'\').value = \''.$codigo.'\'; 
                             dojo.byId(\''.$idDescricao.'\').value = \''.$descricao.'\'; 
                             dojo.byId(\'divResposta' . $idDescricao . '\').style.display=\'none\'; 
@@ -268,13 +268,13 @@ class bEscolha extends MRowContainer
                             dojo.byId(\''.$idDescricao.'\').dispatchEvent(new Event(\'change\'));
                             dojo.byId(\''.$idComponente.'\').dispatchEvent(new Event(\'change\'));';
                 
-                $onMouseOver = 'bEscolha.deselecionarItem(this);';
+                $onMouseOver = 'bChoice.deselecionarItem(this);';
                 
                 $table->setCellAttribute($i, 0, 'onClick', $onClick);
                 $table->setCellAttribute($i, 0, 'id', "{$idItem}{$i}");
                 $table->setCellAttribute($i, 0, 'style', 'padding:0');
 
-                // Esconde 2º coluna.
+                // Hides 2nd column.
                 $table->setCellAttribute($i, 1, 'style', 'display:none');
 
                 //$table->setRowAttribute($i, 'onClick', $onClick);
@@ -284,7 +284,7 @@ class bEscolha extends MRowContainer
 
             //$table->addAttribute('onMouseOver', $onMouseOver);
 
-            // Define os dados da tabela.
+            // Sets the table data.
             $table->setData($resultado);
             
             $table->setAlternate( true );
@@ -311,15 +311,15 @@ class bEscolha extends MRowContainer
             $MIOLO->page->onload("dojo.byId('divResposta{$idDescricao}').style.display='block';");
         }
         
-        // Coloca foco na DIV interna.
+        // Sets focus on the inner DIV.
     $MIOLO->page->onload("dojo.byId('{$idDiv}').focus();");
     }
     
     /**
-     * Obtém a coluna de descrição de uma data tabela
+     * Gets the description column of a given table
      * 
-     * @param String $tabela Nome da tabela
-     * @return String Coluna que representa a descrição de uma dada tabela
+     * @param String $tabela Table name
+     * @return String Column that represents the description of a given table
      */
     public function obterColunaDescricaoDaTabela($tabela)
     {
@@ -329,9 +329,9 @@ class bEscolha extends MRowContainer
         
         foreach( $colunas as $coluna )
         {
-            if( in_array($coluna->nome, array("descricao", "description")) )
+            if( in_array($coluna->name, array("descricao", "description")) )
             {
-                $colunaDescricao = $coluna->nome;
+                $colunaDescricao = $coluna->name;
             }
             
         }
@@ -341,33 +341,33 @@ class bEscolha extends MRowContainer
 }
 
 /**
- * Copyright 2005-2017 de Solis Soluções Livres Ltda.
+ * Copyright 2005-2017 Solis Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa SolisGE/Sagu.
+ * This file is part of the SolisGE/Sagu program.
  *
- * O SolisGE/Sagu é um software de propriedade da SOLIS, sendo desenvolvido
- * e mantido exclusivamente por esta empresa.
+ * SolisGE/Sagu is proprietary software of SOLIS, developed and maintained
+ * exclusively by this company.
  *
- * A licença de uso está disponível mediante aquisição exclusiva junto à
- * SOLIS. A licença é concedida sem caráter de exclusividade ao licenciado.
- * Os direitos de uso são perpétuos.
+ * The usage license is available through exclusive acquisition from SOLIS.
+ * The license is granted on a non-exclusive basis to the licensee.
+ * Usage rights are perpetual.
  *
- * Embora os códigos fontes sejam fornecidos, o software é de propriedade
- * da SOLIS, não sendo permitido ao adquirente da licença a sua revenda,
- * empréstimo ou cessão (onerosa ou não) à terceiros. Também não é permitido,
- * a qualquer título e tempo, promover no software qualquer tipo de alienação,
- * reprodução, distribuição, divulgação, registro, licenciamento, transferência
- * ou qualquer outro ato que prejudique ou comprometa os direitos de propriedade
- * de software, o nome e a imagem da sua proprietária e do próprio software,
- * além de configurar concorrência à SOLIS.
+ * Although source code is provided, the software is the property of SOLIS.
+ * The licensee is not permitted to resell, lend, or transfer (whether for
+ * payment or not) the license to third parties. It is also not permitted,
+ * at any time or for any reason, to perform any alienation, reproduction,
+ * distribution, disclosure, registration, licensing, transfer, or any other
+ * act that may harm or compromise the software property rights, the name
+ * and image of its owner and the software itself, or that constitutes
+ * competition with SOLIS.
  *
- * O licenciado, com o acesso ao código fonte do software, terá o direito de
- * promover mudanças no respectivo código. No entanto, nas situações em que ele
- * contar com o suporte oficial prestado pela SOLIS, não poderá promover mudanças
- * no código fonte, sob pena de perda do referido suporte.
+ * The licensee, with access to the software source code, shall have the
+ * right to make changes to the respective code. However, in situations
+ * where the licensee relies on official support provided by SOLIS, changes
+ * to the source code are not permitted, under penalty of losing said support.
  *
- * Para conhecer em detalhes o Termo de Licenciamento do Software SolisGE/Sagu
- * leia o arquivo “LICENCA.txt” disponível junto ao código deste software. e
+ * For detailed information about the SolisGE/Sagu Software Licensing Terms,
+ * read the "LICENCA.txt" file included with this software. e
  * 
  * 
  *
@@ -376,7 +376,7 @@ class bEscolha extends MRowContainer
  *
  *
  **/
-class bEscolhaTextField extends MTextField
+class bChoiceTextField extends MTextField
 {
     
     private $chave;
@@ -408,7 +408,7 @@ class bEscolhaTextField extends MTextField
     }
 
     /**
-     * Método reescrito com objetivo de alterar o comportamemto ao gerá-lo.
+     * Overridden method to change the behavior when generating it.
      */
     public function generateInner()
     {
@@ -436,19 +436,19 @@ class bEscolhaTextField extends MTextField
     }
 }
 
-// EventHandler do componente.
+// Component EventHandler.
 $evento = MIOLO::_REQUEST("{$MIOLO->page->getFormId()}__EVENTTARGETVALUE");
 
-// Obtém os parâmetros do ajax.
+// Gets the ajax parameters.
 $args = MIOLO::_REQUEST("{$MIOLO->page->getFormId()}__EVENTARGUMENT");
 
-// Lista de eventos possíveis de serem executados no componente.
+// List of possible events to be executed on the component.
 $eventosPossiveis = array( 'obterRegistro', 'onkeyUpEscolha' );
 
-// Chama o método ajax.
+// Calls the ajax method.
 if ( in_array($evento, $eventosPossiveis) )
 {
-    bEscolha::$evento($args);
+    bChoice::$evento($args);
 }
 
 ?>

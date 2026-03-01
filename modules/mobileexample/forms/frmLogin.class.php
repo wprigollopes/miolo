@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Formulário de autenticação.
+ * Authentication form.
  *
  * @author Daniel Hartmann [daniel@solis.coop.br]
  *

@@ -110,7 +110,7 @@ class MBasePainter
 
         if($MIOLO->getConf('options.charset')=="UTF-8")
         {
-            //esta linhar garante que tudo vira utf-8, mantendo os acentos, independente da codificacao.
+            //this line ensures that everything becomes utf-8, keeping the accents, regardless of the encoding.
             return mb_convert_encoding($html,"UTF-8", "UTF-8");
         }
         

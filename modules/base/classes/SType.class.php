@@ -1,35 +1,35 @@
 <?php
 /**
- * Copyright 2005-2017 de Solis Soluções Livres Ltda.
+ * Copyright 2005-2017 Solis Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa SolisGE/Sagu.
+ * This file is part of the SolisGE/Sagu program.
  *
- * O SolisGE/Sagu é um software de propriedade da SOLIS, sendo desenvolvido
- * e mantido exclusivamente por esta empresa.
+ * SolisGE/Sagu is proprietary software of SOLIS, developed and maintained
+ * exclusively by this company.
  *
- * A licença de uso está disponível mediante aquisição exclusiva junto à
- * SOLIS. A licença é concedida sem caráter de exclusividade ao licenciado.
- * Os direitos de uso são perpétuos.
+ * The usage license is available through exclusive acquisition from SOLIS.
+ * The license is granted on a non-exclusive basis to the licensee.
+ * Usage rights are perpetual.
  *
- * Embora os códigos fontes sejam fornecidos, o software é de propriedade
- * da SOLIS, não sendo permitido ao adquirente da licença a sua revenda,
- * empréstimo ou cessão (onerosa ou não) à terceiros. Também não é permitido,
- * a qualquer título e tempo, promover no software qualquer tipo de alienação,
- * reprodução, distribuição, divulgação, registro, licenciamento, transferência
- * ou qualquer outro ato que prejudique ou comprometa os direitos de propriedade
- * de software, o nome e a imagem da sua proprietária e do próprio software,
- * além de configurar concorrência à SOLIS.
+ * Although source code is provided, the software is the property of SOLIS.
+ * The licensee is not permitted to resell, lend, or transfer (whether for
+ * payment or not) the license to third parties. It is also not permitted,
+ * at any time or for any reason, to perform any alienation, reproduction,
+ * distribution, disclosure, registration, licensing, transfer, or any other
+ * act that may harm or compromise the software property rights, the name
+ * and image of its owner and the software itself, or that constitutes
+ * competition with SOLIS.
  *
- * O licenciado, com o acesso ao código fonte do software, terá o direito de
- * promover mudanças no respectivo código. No entanto, nas situações em que ele
- * contar com o suporte oficial prestado pela SOLIS, não poderá promover mudanças
- * no código fonte, sob pena de perda do referido suporte.
+ * The licensee, with access to the software source code, shall have the
+ * right to make changes to the respective code. However, in situations
+ * where the licensee relies on official support provided by SOLIS, changes
+ * to the source code are not permitted, under penalty of losing said support.
  *
- * Para conhecer em detalhes o Termo de Licenciamento do Software SolisGE/Sagu
- * leia o arquivo “LICENCA.txt” disponível junto ao código deste software.
+ * For detailed information about the SolisGE/Sagu Software Licensing Terms,
+ * read the "LICENCA.txt" file included with this software.
  *
  *
- * Classe gerenciadora de types
+ * Type manager class
  *
  *
  *
@@ -41,15 +41,15 @@ $MIOLO->uses('tipos/BasLog.class.php', 'base');
 class SType extends BasLog
 {
     /**
-     * Atributo reservado MSubDetail
+     * Reserved MSubDetail attribute
      *
      * @var <type>
      */
     protected $removeData;
 
     /**
-     * Atributo que armazena itens ja populados sob-demanda,
-     * util para ser utilizado no metodo __get() do type.
+     * Attribute that stores items already populated on-demand,
+     * useful for use in the type's __get() method.
      */
     protected $_checkedPopulate = array();
     
@@ -97,17 +97,17 @@ class SType extends BasLog
     
     
     /**
-     * Define um pseudo atributo, que deve ser "redirecionado" para um outro atributo original.
-     * Toda vez que for definido (Objeto->atributoAlias = 'valor') sera definido o valor para o atributo original.
-     * Toda vez que for obtido (Objeto->atributoAlias) sera obtido o valor do atributo original.
-     * Util para casos onde existam atributos na subdetail que sao diferentes do nome do atributo no SType.
-     * 
-     * Lembre-se que o pseudo atributo tambem deve estar declarado como protected na respectiva classe SType.
-     * 
-     * Exemplo pratico de uso na classe modules/training/types/TraTeam.class
+     * Defines a pseudo attribute, which should be "redirected" to another original attribute.
+     * Every time it is set (Object->aliasAttribute = 'value') the value will be set on the original attribute.
+     * Every time it is retrieved (Object->aliasAttribute) the value of the original attribute will be returned.
+     * Useful for cases where subdetail attributes have different names than the SType attribute.
      *
-     * @param type $alias Pseudo nome de atributo
-     * @param type $attribute Atributo fonte, que deve ser setado e obtido o valor
+     * Remember that the pseudo attribute must also be declared as protected in the respective SType class.
+     *
+     * Practical usage example in the modules/training/types/TraTeam.class class
+     *
+     * @param type $alias Pseudo attribute name
+     * @param type $attribute Source attribute, whose value should be set and retrieved
      */
     public function addAlias($alias, $attribute)
     {
@@ -116,10 +116,10 @@ class SType extends BasLog
 
 
     /**
-     * Verifica se deve popular dados sob demanda
-     * Util para utilizar no __get() do type.
+     * Checks whether data should be populated on demand.
+     * Useful for use in the type's __get().
      *
-     * CUIDADO: Ao utilizar esta funcao uma vez, o $name passado sera anotado como "ja populado"
+     * WARNING: Once this function is used, the passed $name will be marked as "already populated"
      *
      * @param string $name
      */
@@ -136,7 +136,7 @@ class SType extends BasLog
     }
     
     /**
-     * Obtem o nome da tabela, baseando-se no nome da classe por padrao.
+     * Gets the table name, based on the class name by default.
      *
      * @return string
      */
@@ -146,7 +146,7 @@ class SType extends BasLog
     }
     
     /**
-     * Obtem ultimo id inserido
+     * Gets the last inserted id
      */
     public function getLastInsertId()
     {
@@ -154,7 +154,7 @@ class SType extends BasLog
     }
     
     /**
-     * Obtem nome da chave primaria
+     * Gets the primary key name
      */
     public function getPrimaryKey()
     {

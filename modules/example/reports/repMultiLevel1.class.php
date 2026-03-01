@@ -61,7 +61,7 @@
 
         public function myRowMethod($row, $columns, $slot, $report)
         {
-            // se é o mesmo valor na coluna level1, não imprime
+            // if it is the same value in column level1, do not print
             if ($row[0] === $slot['level1'])
             {
                 $row[0] = '';
@@ -71,7 +71,7 @@
                 $slot['level1'] = $row[0];
             }
 
-            // se é o mesmo valor na coluna level2, não imprime
+            // if it is the same value in column level2, do not print
             if ($row[1] === $slot['level2'])
             {
                 $row[1] = '';
@@ -81,7 +81,7 @@
                 $slot['level2'] = $row[1];
             }
 
-            // se é o mesmo valor na coluna level3, não imprime
+            // if it is the same value in column level3, do not print
             if ($row[2] === $slot['level3'])
             {
                 $row[2] = '';

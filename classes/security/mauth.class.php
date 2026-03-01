@@ -52,7 +52,7 @@ class MAuth extends MService
         }
 
         // still no login -- should we do an automatic login?
-        // Provavelmente não funciona: $auto é booleano, então ao usar o getConf não deve retornar algo válido...
+        // Probably does not work: $auto is boolean, so when using getConf it should not return something valid...
         if ( $auto = MUtil::getBooleanValue($this->manager->getConf('login.auto')) && $this->manager->getConf("login.$auto.id") )
         {
             $this->manager->logMessage('[LOGIN] Using automatic login ' . $auto);

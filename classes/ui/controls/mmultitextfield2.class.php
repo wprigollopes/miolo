@@ -103,7 +103,7 @@ class MMultiTextField2 extends MTextField
                         }
                     }
                 }
-                else // valor unico => apenas um field (na posicao 0)
+                else // single value => only one field (at position 0)
                 {
                     $options = $this->fields[0][3];
 
@@ -182,8 +182,8 @@ class MMultiTextField2 extends MTextField
             $ref .= $f[0];
             $labelF = htmlspecialchars( $f[1] ) . ( $f[2] ? ' - ' . htmlspecialchars( $f[2]) : '' );
 
-            // caso tenhamos opções para este campo ($f[3] é o array de opções)
-            // utilizamos um selection caso contrário um simples text field
+            // if we have options for this field ($f[3] is the options array)
+            // we use a selection, otherwise a simple text field
             if ( $options = $f[3] )
             {
                 $content = array();

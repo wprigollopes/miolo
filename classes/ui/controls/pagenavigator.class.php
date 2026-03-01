@@ -22,8 +22,7 @@
 define('PN_PAGE', 'pn_page');
 
 /**
- * Uma implementação de uma barra de navagação de páginas para resultados
- * de consultas
+ * An implementation of a page navigation bar for query results
  */
 /**
  * Brief Class Description.

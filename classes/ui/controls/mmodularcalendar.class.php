@@ -19,7 +19,7 @@ class MModularCalendar extends MDiv
 
         parent::__construct($name, array(new MDiv('wrap', new MDiv('calendar'))));
 
-        //Realizado import com echo pois addStyle não funcionou
+        //Import done with echo because addStyle did not work
         echo '<link rel="stylesheet" type="text/css" href="'.MIOLO::getInstance()->getAbsoluteURL('themes/portal/modularcalendar/fullcalendar.min.css').'">';
         $this->page->addScript('modularcalendar/fullcalendar.min.js', 'portal');
     }
@@ -30,7 +30,7 @@ class MModularCalendar extends MDiv
         $events = $this->events;
 
         /**
-         * Estrutura do envento
+         * Event structure
          * {
          *     title: 'titulo',
          *     start: new Date(y, m, d, 12, 0),
@@ -38,8 +38,8 @@ class MModularCalendar extends MDiv
          *     allDay: false
          * }
          *
-         * Obs.: A classe Date é uma classe do JavaScript,
-         *       mais informações na documentação oficial
+         * Note: The Date class is a JavaScript class,
+         *       see the official documentation for more information
          */
 
         $jsCode = "

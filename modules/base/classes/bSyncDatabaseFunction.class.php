@@ -1,32 +1,32 @@
 <?php
 /**
- * Copyright 2005-2017 de Solis Soluções Livres Ltda.
+ * Copyright 2005-2017 Solis Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa SolisGE/Sagu.
+ * This file is part of the SolisGE/Sagu program.
  *
- * O SolisGE/Sagu é um software de propriedade da SOLIS, sendo desenvolvido
- * e mantido exclusivamente por esta empresa.
+ * SolisGE/Sagu is proprietary software of SOLIS, developed and maintained
+ * exclusively by this company.
  *
- * A licença de uso está disponível mediante aquisição exclusiva junto à
- * SOLIS. A licença é concedida sem caráter de exclusividade ao licenciado.
- * Os direitos de uso são perpétuos.
+ * The usage license is available through exclusive acquisition from SOLIS.
+ * The license is granted on a non-exclusive basis to the licensee.
+ * Usage rights are perpetual.
  *
- * Embora os códigos fontes sejam fornecidos, o software é de propriedade
- * da SOLIS, não sendo permitido ao adquirente da licença a sua revenda,
- * empréstimo ou cessão (onerosa ou não) à terceiros. Também não é permitido,
- * a qualquer título e tempo, promover no software qualquer tipo de alienação,
- * reprodução, distribuição, divulgação, registro, licenciamento, transferência
- * ou qualquer outro ato que prejudique ou comprometa os direitos de propriedade
- * de software, o nome e a imagem da sua proprietária e do próprio software,
- * além de configurar concorrência à SOLIS.
+ * Although source code is provided, the software is the property of SOLIS.
+ * The licensee is not permitted to resell, lend, or transfer (whether for
+ * payment or not) the license to third parties. It is also not permitted,
+ * at any time or for any reason, to perform any alienation, reproduction,
+ * distribution, disclosure, registration, licensing, transfer, or any other
+ * act that may harm or compromise the software property rights, the name
+ * and image of its owner and the software itself, or that constitutes
+ * competition with SOLIS.
  *
- * O licenciado, com o acesso ao código fonte do software, terá o direito de
- * promover mudanças no respectivo código. No entanto, nas situações em que ele
- * contar com o suporte oficial prestado pela SOLIS, não poderá promover mudanças
- * no código fonte, sob pena de perda do referido suporte.
+ * The licensee, with access to the software source code, shall have the
+ * right to make changes to the respective code. However, in situations
+ * where the licensee relies on official support provided by SOLIS, changes
+ * to the source code are not permitted, under penalty of losing said support.
  *
- * Para conhecer em detalhes o Termo de Licenciamento do Software SolisGE/Sagu
- * leia o arquivo “LICENCA.txt” disponível junto ao código deste software. e
+ * For detailed information about the SolisGE/Sagu Software Licensing Terms,
+ * read the "LICENCA.txt" file included with this software. e
  * 
  * 
  *
@@ -55,7 +55,7 @@ class bSyncDatabaseFunction implements bSync
         
         $this->module =$module;
         
-        //cria função padrão drop_function_if_exists
+        //creates the standard drop_function_if_exists function
         $this->createDropFunction();
     }
     
@@ -78,7 +78,7 @@ class bSyncDatabaseFunction implements bSync
         
         foreach ( $sqlCommands as $line => $sql )
         {
-            //necessidade para rodar as funções e mostrar o erro corretamente
+            //needed to run the functions and show the error correctly
             if ( $sql )
             {
                 $sql = 'CREATE OR REPLACE ' . $sql;
@@ -90,7 +90,7 @@ class bSyncDatabaseFunction implements bSync
         
         $result->final = count( $finalDbFunctions ) -1 ; //desconsidera drop functions
         
-        //alinha funções por nome para fácil localização
+        //aligns functions by name for easy location
         foreach ( $fileFunctions as $line => $info )
         {
             $functionsF[ $info->function ] = $info->params ? $info->params :  ' ';
@@ -100,12 +100,12 @@ class bSyncDatabaseFunction implements bSync
         
         foreach ( $finalDbFunctions as $line => $info )
         {
-            //registra sql para geração de funções faltantes
+            //registers SQL for generating missing functions
             if ( !$functionsF[ $info->function ]  )
             {
                 $functions[ $info->function ][0] = $info->function;
                 
-                //funções "sobresalentes"
+                //"extra" functions
                 if ( $info->function != 'plpgsql_call_handler'
                      && $info->function != 'plpgsql_validator'
                      && $info->function != 'drop_function_if_exists'
@@ -118,10 +118,10 @@ class bSyncDatabaseFunction implements bSync
             }
         }
         
-        //funções que vem "sobrando" no select
+        //functions that come "extra" in the select
         unset($functions['plpgsql_call_handler']);
         unset($functions['plpgsql_validator']);
-        //função criada pela própria classe
+        //function created by the class itself
         unset($functions['drop_function_if_exists']);
         
         
@@ -132,9 +132,9 @@ class bSyncDatabaseFunction implements bSync
     }
     
     /**
-     * Faz parser do arquivo sql obtendo a listagem de funções
+     * Parses the SQL file getting the list of functions
      * 
-     * @param type $content conteúdo do arquivo sql
+     * @param type $content SQL file content
      * @return array of stdClass
      * 
      */
@@ -159,7 +159,7 @@ class bSyncDatabaseFunction implements bSync
     }
     
     /**
-     * Retorna um array com os arquivos de sincronização de base do módulo informado.
+     * Returns an array with the base synchronization files of the specified module.
      * @param string $module
      * @return array 
      */
@@ -172,8 +172,8 @@ class bSyncDatabaseFunction implements bSync
     }
 
     /**
-     * Cria uma função padrão no banco de dados que serve para drop funções somente
-     * se elas existem
+     * Creates a standard function in the database that serves to drop functions only
+     * if they exist
      */
     public function createDropFunction()
     {

@@ -1,32 +1,32 @@
 <?php
 /**
- * Copyright 2005-2017 de Solis Soluções Livres Ltda.
+ * Copyright 2005-2017 Solis Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa SolisGE/Sagu.
+ * This file is part of the SolisGE/Sagu program.
  *
- * O SolisGE/Sagu é um software de propriedade da SOLIS, sendo desenvolvido
- * e mantido exclusivamente por esta empresa.
+ * SolisGE/Sagu is proprietary software of SOLIS, developed and maintained
+ * exclusively by this company.
  *
- * A licença de uso está disponível mediante aquisição exclusiva junto à
- * SOLIS. A licença é concedida sem caráter de exclusividade ao licenciado.
- * Os direitos de uso são perpétuos.
+ * The usage license is available through exclusive acquisition from SOLIS.
+ * The license is granted on a non-exclusive basis to the licensee.
+ * Usage rights are perpetual.
  *
- * Embora os códigos fontes sejam fornecidos, o software é de propriedade
- * da SOLIS, não sendo permitido ao adquirente da licença a sua revenda,
- * empréstimo ou cessão (onerosa ou não) à terceiros. Também não é permitido,
- * a qualquer título e tempo, promover no software qualquer tipo de alienação,
- * reprodução, distribuição, divulgação, registro, licenciamento, transferência
- * ou qualquer outro ato que prejudique ou comprometa os direitos de propriedade
- * de software, o nome e a imagem da sua proprietária e do próprio software,
- * além de configurar concorrência à SOLIS.
+ * Although source code is provided, the software is the property of SOLIS.
+ * The licensee is not permitted to resell, lend, or transfer (whether for
+ * payment or not) the license to third parties. It is also not permitted,
+ * at any time or for any reason, to perform any alienation, reproduction,
+ * distribution, disclosure, registration, licensing, transfer, or any other
+ * act that may harm or compromise the software property rights, the name
+ * and image of its owner and the software itself, or that constitutes
+ * competition with SOLIS.
  *
- * O licenciado, com o acesso ao código fonte do software, terá o direito de
- * promover mudanças no respectivo código. No entanto, nas situações em que ele
- * contar com o suporte oficial prestado pela SOLIS, não poderá promover mudanças
- * no código fonte, sob pena de perda do referido suporte.
+ * The licensee, with access to the software source code, shall have the
+ * right to make changes to the respective code. However, in situations
+ * where the licensee relies on official support provided by SOLIS, changes
+ * to the source code are not permitted, under penalty of losing said support.
  *
- * Para conhecer em detalhes o Termo de Licenciamento do Software SolisGE/Sagu
- * leia o arquivo “LICENCA.txt” disponível junto ao código deste software. e
+ * For detailed information about the SolisGE/Sagu Software Licensing Terms,
+ * read the "LICENCA.txt" file included with this software. e
  * 
  * 
  *
@@ -42,188 +42,188 @@ $MIOLO->uses( "/classes/BString.class.php", 'base');
 class bEmail extends PHPMailer
 {
     /**
-     * @var boolean $log Define se é necessário gravar log. 
+     * @var boolean $log Defines whether logging is necessary.
      */
     private $log = FALSE;
     
     /**
-     * @var string $arquivoDeLog Caminho completo do log. 
+     * @var string $logFile Full log file path.
      */
-    private $arquivoDeLog;
+    private $logFile;
 
-    function __construct($host, $porta, $enderecoRemetente, $nomeRemetente, $necessidadeDeAutenticacao, $usuario, $senha, $tipoDeConteudo)
+    function __construct($host, $port, $senderAddress, $senderName, $authRequired, $username, $password, $contentType)
     {
         parent::__construct();
         $this->setLanguage('br');
-        $this->definirCodificacao('UTF-8');
+        $this->setEncoding('UTF-8');
         
-        // Define que será usado smtp.
+        // Defines that SMTP will be used.
         $this->isSMTP();
 
-        // Define os vaores dos parâmetros.
-        $this->definirHost($host);
-        $this->definirPorta($porta);
-        $this->definirRemetente($enderecoRemetente);
-        $this->definirNomeRemetente($nomeRemetente);
-        $this->definirNecessidadeAutenticacao($necessidadeDeAutenticacao);
-        $this->definirUsuario($usuario);
-        $this->definirSenha($senha);
-        $this->definirTipoConteudo($tipoDeConteudo);
+        // Sets the parameter values.
+        $this->setHost($host);
+        $this->setPort($port);
+        $this->setSender($senderAddress);
+        $this->setSenderName($senderName);
+        $this->setAuthRequired($authRequired);
+        $this->setUsername($username);
+        $this->setPassword($password);
+        $this->setContentType($contentType);
         
-        // Aumenta o tempo limite de conexão com serviço de e-mail.
+        // Increases the connection timeout with the email service.
         $this->Timeout = 60; 
     }
 
     /**
-     * Define a codificação do e-mail para o email.
+     * Sets the email encoding.
      *
-     * @param string $codificacao Codificação do e-mail.
+     * @param string $encoding Email encoding.
      */
-    public function definirCodificacao( $codificacao )
+    public function setEncoding( $encoding )
     {
-        $this->CharSet = $codificacao;
+        $this->CharSet = $encoding;
     }
 
     /**
-     * Retorna a codificação do e-mail.
+     * Returns the email encoding.
      * 
-     * @return string Codificação definida no e-mail.
+     * @return string Encoding defined in the email.
      */
-    public function obterCodificacao( )
+    public function getEncoding( )
     {
         return $this->CharSet;
     }
 
     /**
-     * Retorna o arquivo de log
+     * Sets the full log path
      */
-    private function definirCaminhoCompletoLog()
+    private function setFullLogPath()
     {
-        if ( strlen( $this->arquivoDeLog ) )
+        if ( strlen( $this->logFile ) )
         {
             return;
         }
 
-        // Verifica configuração do log.
+        // Checks log configuration.
         if ( MUTIL::getBooleanValue( MAIL_LOG_GENERATE ) )
         {
             return;
         }
 
         $MIOLO = MIOLO::getInstance();
-        $this->arquivoDeLog  = $MIOLO->getConf('home.logs')."/";
-        $this->arquivoDeLog .= defined('MAIL_LOG_FILE_NAME') ? MAIL_LOG_FILE_NAME : "mail.log";
+        $this->logFile  = $MIOLO->getConf('home.logs')."/";
+        $this->logFile .= defined('MAIL_LOG_FILE_NAME') ? MAIL_LOG_FILE_NAME : "mail.log";
     }
 
     /**
-     * Este método incrementa o vetor de destinatários.
+     * This method increments the recipients array.
      *
-     * @param string $endereco Destinatários separados por vírgula.
+     * @param string $address Recipients separated by comma.
      */
-    public function adicionarDestinatario($endereco)
+    public function addRecipient($address)
     {
-        // Caso não encontre arroba não adiciona,
-        if ( !preg_match( "/@/", $endereco ) )
+        // If @ is not found, do not add,
+        if ( !preg_match( "/@/", $address ) )
         {
             return;
         }
 
-        // Caso seja separado por vírgulas.
-        if ( preg_match("/,/", $endereco ) )
+        // If separated by commas.
+        if ( preg_match("/,/", $address ) )
         {
-            $destinatarios = explode(",", $endereco);
+            $recipients = explode(",", $address);
             
-            foreach($destinatarios as $enderecoDestinatario)
+            foreach($recipients as $recipientAddress)
             {
-                parent::addAddress($enderecoDestinatario);
+                parent::addAddress($recipientAddress);
             }
         }
         else
         {
-            parent::addAddress( trim( $endereco ) );
+            parent::addAddress( trim( $address ) );
         }
     }
     
     /**
-     * Define o endereço do destinatário.
+     * Sets the recipient address.
      *
-     * @param string $endereco Endereço do destinatário.
+     * @param string $address Recipient address.
      */
-    public function definirEndereco($endereco)
+    public function setAddress($address)
     {
-        // Limpa todos destinatários anteriores.
+        // Clears all previous recipients.
         $this->ClearAddresses();
         
-        // Adiciona o endereço do destinatário.
-        $this->adicionarDestinatario($endereco);
+        // Adds the recipient address.
+        $this->addRecipient($address);
     }
     
     /**
-     * Retorna os destinatários do e-mail.
+     * Returns the email recipients.
      *
-     * @return array Vetor com endereços de e-mail.
+     * @return array Array with email addresses.
      */
-    public function obterEnderecos()
+    public function getAddresses()
     {
         return array_keys( $this->all_recipients );
     }
 
     /**
-     * Adiciona anexo. Podem ser vários separados por vírgula.
+     * Adds attachment. Multiple files can be separated by comma.
      *
-     * @param string Caminho completo do(s) arquivo(s).
+     * @param string Full path of the file(s).
      */
-    public function adicionarAnexo($caminhoCompletoArquivo)
+    public function attachFile($fullFilePath)
     {
-        $caminhoCompletoArquivo = trim($caminhoCompletoArquivo);
+        $fullFilePath = trim($fullFilePath);
 
-        // Suporta vários arquivos separados por vírgula.
-        if ( preg_match( "/,/", $caminhoCompletoArquivo ) )
+        // Supports multiple files separated by comma.
+        if ( preg_match( "/,/", $fullFilePath ) )
         {
-            $arquivos = explode(",", $caminhoCompletoArquivo);
+            $files = explode(",", $fullFilePath);
 
-            foreach($arquivos as $arquivo)
+            foreach($files as $file)
             {
-                parent::addAttachment($arquivo);
+                parent::addAttachment($file);
             }
         }
         else
         {
-            if ( file_exists( $caminhoCompletoArquivo ) )
+            if ( file_exists( $fullFilePath ) )
             {
-                parent::addAttachment( $caminhoCompletoArquivo );
+                parent::addAttachment( $fullFilePath );
             }
         }
     }
     
     /**
-     * Obtém os anexos.
+     * Gets the attachments.
      *
-     * @return array Vetor com os caminho completo dos arquivos anexados.
+     * @return array Array with full paths of attached files.
      */
-    public function obterAnexos()
+    public function getAttachments()
     {
         return $this->attachment;
     }
 
     /**
-     * Define o conteúdo do e-mail.
+     * Sets the email content.
      *
-     * @param string $conteudo Conteúdo do e-mail.
+     * @param string $content Email content.
      */
-    public function definirConteudo($conteudo)
+    public function setContent($content)
     {
-        $this->Body = new BString($conteudo);
+        $this->Body = new BString($content);
     }
     
     /**
-     * Obtém o conteúdo do e-mail.
+     * Gets the email content.
      *
-     * @return string Conteúdo do e-mail.
+     * @return string Email content.
      */
-    public function obterConteudo()
+    public function getContent()
     {
-        if ($this->obterEHtml())
+        if ($this->isHtml())
         {
             $this->Body->replace("\n", "<br>");
         }
@@ -232,240 +232,240 @@ class bEmail extends PHPMailer
     }
 
     /**
-     * Define o assunto do email.
+     * Sets the email subject.
      *
-     * @param string $assunto Assunto do e-mail.
+     * @param string $subject Email subject.
      */
-    public function definirAssunto($assunto)
+    public function setSubject($subject)
     {
-        $assunto = str_replace('  ', ' ', $assunto);
-        $this->Subject = new BString($assunto);
+        $subject = str_replace('  ', ' ', $subject);
+        $this->Subject = new BString($subject);
     }
     
     /**
-     * Obtém o Assunto do e-mail.
+     * Gets the email subject.
      *
-     * @return string Assunto do e-mail.
+     * @return string Email subject.
      */
-    public function obterAssunto()
+    public function getSubject()
     {
         return $this->Subject->getString();
     }
 
     /**
-     * Define o usuário de autenticação.
+     * Sets the authentication user.
      *
-     * @param string $usuario Usuário de autenticação.
+     * @param string $username Authentication user.
      */
-    public function definirUsuario($usuario)
+    public function setUsername($username)
     {
-        $usuario = new BString($usuario);
-        $usuario->replace(array("\n", "\t", "\r"), "");
-        $usuario->trim();
-        $this->Username = $usuario;
+        $username = new BString($username);
+        $username->replace(array("\n", "\t", "\r"), "");
+        $username->trim();
+        $this->Username = $username;
     }
     
     /**
-     * Obtém o usuário utilizado na autenticação.
+     * Gets the user used for authentication.
      *
-     * @return string Usuário utilizado.
+     * @return string User used.
      */
-    public function obterUsuario()
+    public function getUsername()
     {
         return $this->Username->getString();
     }
 
     /**
-     * Define a senha de autenticação.
+     * Sets the authentication password.
      *
-     * @param string $senha Senha necessária para autenticação.
+     * @param string $password Password required for authentication.
      */
-    public function definirSenha($senha)
+    public function setPassword($password)
     {
-        $this->Password = new BString($senha);
+        $this->Password = new BString($password);
     }
     
      /**
-     * Obtém a senha de autenticação.
+     * Gets the authentication password.
      *
-     * @return string Senha de autenticação.
+     * @return string Authentication password.
      */
-    public function obterSenha()
+    public function getPassword()
     {
         return $this->Password->getString();
     }
 
     /**
-     * Define o endereço do servidor.
+     * Sets the server address.
      *
-     * @param string $host Endereço do servidor.
+     * @param string $host Server address.
      */
-    public function definirHost($host)
+    public function setHost($host)
     {
         $this->Host = $host;
     }
     
     /**
-     * Obtém o host/servidor utilizado para envio do e-mail.
+     * Gets the host/server used for sending the email.
      *
-     * @return string Endereço do servidor.
+     * @return string Server address.
      */
-    public function obterHost()
+    public function getHost()
     {
         return $this->Host;
     }
 
     /**
-     * Define a porta de conexao.
+     * Sets the connection port.
      *
-     * @param Integer $porta Número da porta.
+     * @param Integer $port Port number.
      */
-    public function definirPorta($porta)
+    public function setPort($port)
     {
-        $this->Port = $porta;
+        $this->Port = $port;
     }
     
     /**
-     * Obtém a porta utilizada na conexão.
+     * Gets the port used for the connection.
      *
-     * @return Integer Número da porta.
+     * @return Integer Port number.
      */
-    public function obterPorta()
+    public function getPort()
     {
         return $this->Port;
     }
 
     /**
-     * Define o remetente do e-mail.
+     * Sets the email sender.
      *
-     * @param string $remetente Remetente do e-mail.
+     * @param string $sender Email sender.
      */
-    public function definirRemetente($remetente)
+    public function setSender($sender)
     {
-        $remetente = new BString($remetente);
-        $remetente->replace(array("\n", "\t", "\r"), "");
-        $remetente->trim();
-        $this->From = $remetente;
+        $sender = new BString($sender);
+        $sender->replace(array("\n", "\t", "\r"), "");
+        $sender->trim();
+        $this->From = $sender;
     }
 
     /**
-     * Obtém endereço do remetente.
+     * Gets the sender address.
      *
-     * @return string Endereço do remetente.
+     * @return string Sender address.
      */
-    public function obterRemetente()
+    public function getSender()
     {
         return $this->From->getString();
     }
     
     /**
-     * Define o nome do remetente.
+     * Sets the sender name.
      *
-     * @param string $nomeRemetente Nome do remetente. 
+     * @param string $senderName Sender name.
      */
-    public function definirNomeRemetente($nomeRemetente)
+    public function setSenderName($senderName)
     {
-        $this->FromName = new BString($nomeRemetente);
+        $this->FromName = new BString($senderName);
     }
     
     /**
-     * Obtém o nome do remetente.
+     * Gets the sender name.
      *
-     * @return string Nome do remetente.
+     * @return string Sender name.
      */
-    public function obterNomeRemetente()
+    public function getSenderName()
     {
         return $this->FromName->getString();
     }
     
     /**
      *
-     * Seta se o metodo de conexao com o server é autenticado ou não
+     * Sets whether the server connection method is authenticated or not
      *
-     * @param boolean $autenticacao Caso positivo, usa autenticação no envio de e-mail.
+     * @param boolean $authentication If true, uses authentication when sending email.
      */
-    public function definirNecessidadeAutenticacao($autenticacao)
+    public function setAuthRequired($authentication)
     {
-        $this->SMTPAuth = $autenticacao;
+        $this->SMTPAuth = $authentication;
     }
     
     /**
-     * Obtém a necessidade de utilizar autenticação para envio de e-mail.
+     * Gets the need to use authentication for sending email.
      *
-     * @return boolean Retorna verdadeiro se é necessário autenticação.
+     * @return boolean Returns true if authentication is required.
      */
-    public function obterNecessidadeAutenticacao()
+    public function getAuthRequired()
     {
         return $this->SMTPAuth;
     }
 
     /**
-     * Seta o tipo do conteudo que será enviado (HTML|TEXT).
+     * Sets the content type to be sent (HTML|TEXT).
      *
-     * @param boolean $html Define se e-mail será no formato HTML.
+     * @param boolean $html Defines whether email will be in HTML format.
      */
-    public function definirEmailFormatoHTML($html=TRUE)
+    public function setHtmlFormat($html=TRUE)
     {
         $this->IsHTML($html);
     }
     
     /**
-     * retorna se o tipo de texto é html (isHTML true|false)
+     * returns whether the text type is html (isHTML true|false)
      *
      * @return (Boolean)
      */
-    public function obterEHtml()
+    public function isHtml()
     {
         return $this->ContentType == 'text/html';
     }
 
     /**
-     * Define a liguagem do conteudo.
+     * Defines the content language.
      *
-     * @param string $tipo Tipo do conteúdo do e-mail.
+     * @param string $type Email content type.
      */
-    public function definirTipoConteudo($tipo = 'html')
+    public function setContentType($type = 'html')
     {
-        switch ($tipo)
+        switch ($type)
         {
             default:
-                $this->definirEmailFormatoHTML(TRUE);
+                $this->setHtmlFormat(TRUE);
         }
     }
 
     /**
-     * Obtém o tipo do conteúdo do e-mail.
+     * Gets the email content type.
      * 
-     * @return Tipo do conteúdo. 
+     * @return Content type.
      */
-    public function obterTipoConteudo()
+    public function getContentType()
     {
         return $this->ContentType;
     }
 
     /**
-     * Envia e-mail.
+     * Sends email.
      *
-     * @return boolean Retorna verdadeiro caso tenha enviado o e-mail.
+     * @return boolean Returns true if the email was sent.
      */
-    public function enviar()
+    public function send()
     {
-        $enviou = parent::send();
-        $this->gravarLog($enviou);
+        $sent = parent::send();
+        $this->writeLog($sent);
         
-        return $enviou;
+        return $sent;
     }
 
     /**
-     * Escreve o arquivo de log.
+     * Writes the log file.
      *
-     * @param boolean Resultado do envio de e-mail.
+     * @param boolean Email sending result.
      */
-    private function gravarLog($resultado)
+    private function writeLog($result)
     {
-        $this->definirCaminhoCompletoLog();
+        $this->setFullLogPath();
 
-        if(!strlen($this->arquivoDeLog))
+        if(!strlen($this->logFile))
         {
             return;
         }
@@ -474,32 +474,32 @@ class bEmail extends PHPMailer
 
         $content = new BString("\n{$recordSeparator}\n");
         $content.= ($result) ? "E-mail foi enviado com sucesso!\n" : "Não foi possível enviar o e-mail.\n";
-        $content.= "Destino: '". (!is_null($this->obterEnderecos()) ? implode(",\n\t", $this->obterEnderecos()) : "null") ."'\n";
+        $content.= "Destino: '". (!is_null($this->getAddresses()) ? implode(",\n\t", $this->getAddresses()) : "null") ."'\n";
         $content.= "Data/Hora: '". date("d/m/Y H:i:s") ."'\n";
         $content.= "ContentType: '". $this->ContentType ."'\n";
-        $content.= "Authenticate: '". $this->obterNecessidadeAutenticacao() ."'\n";
-        $content.= "Host: '". $this->obterHost() .":". $this->obterPorta() ."'\n";
-        $content.= "User: '". $this->obterUsuario() ."'\n";
-        $content.= "Password: '". $this->obterSenha() ."'\n";
-        $content.= "From: '". $this->obterRemetente() ."'\n";
-        $content.= "From Name: '". $this->obterNomeRemetente() ."'\n";
-        $content.= "Subject: '". $this->obterAssunto() ."'\n";
-        $content.= "Content: '". $this->obterConteudo() ."'\n";
+        $content.= "Authenticate: '". $this->getAuthRequired() ."'\n";
+        $content.= "Host: '". $this->getHost() .":". $this->getPort() ."'\n";
+        $content.= "User: '". $this->getUsername() ."'\n";
+        $content.= "Password: '". $this->getPassword() ."'\n";
+        $content.= "From: '". $this->getSender() ."'\n";
+        $content.= "From Name: '". $this->getSenderName() ."'\n";
+        $content.= "Subject: '". $this->getSubject() ."'\n";
+        $content.= "Content: '". $this->getContent() ."'\n";
         
         if(!$result)
         {
             $content.=  "\n". $this->ErrorInfo ."\n";
         }
 
-        file_put_contents($this->arquivoDeLog, $content, FILE_APPEND);
+        file_put_contents($this->logFile, $content, FILE_APPEND);
     }
     
     /**
-     * Instancia a variável SMTPSecure
+     * Sets the SMTPSecure variable
      * 
      * @param type $SMTPSecure
      */
-    public function definirSMTPSecure($SMTPSecure)
+    public function setSmtpSecure($SMTPSecure)
     {
         $this->SMTPSecure = $SMTPSecure;
     }

@@ -1,4 +1,4 @@
-dojo.declare ("bEscolha", null,
+dojo.declare ("bChoice", null,
 {
     selecionarItem : function (nome, cont)
     {
@@ -113,7 +113,7 @@ dojo.declare ("bEscolha", null,
                 input.value --;
             }*/
 
-            bEscolha.selecionarItem(nome, cont);
+            bChoice.selecionarItem(nome, cont);
 
             return false;
         }
@@ -131,7 +131,7 @@ dojo.declare ("bEscolha", null,
                 }
             }*/
 
-            bEscolha.selecionarItem(nome,cont);
+            bChoice.selecionarItem(nome,cont);
 
             return false;
         }
@@ -154,7 +154,7 @@ dojo.declare ("bEscolha", null,
             if ( keyCode == keyPercent || (element.value.length > 1 && !dojo.byId('ajaxLoading')) )
             {
                 //clearTimeout(t);
-                setTimeout( "bEscolha.dictionaryAjax('"+element.id+"', '"+nome+"', '"+chave+"', '"+modulo+"', '"+campos+"');",500);
+                setTimeout( "bChoice.dictionaryAjax('"+element.id+"', '"+nome+"', '"+chave+"', '"+modulo+"', '"+campos+"');",500);
             }
             else
             {
@@ -203,4 +203,4 @@ dojo.declare ("bEscolha", null,
     }
 });
 
-bEscolha = new bEscolha;
+bChoice = new bChoice;

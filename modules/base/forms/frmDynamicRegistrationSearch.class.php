@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2005-2017 Solis Soluções Livres Ltda.
  *
@@ -27,29 +28,41 @@
  *
  * For detailed information about the SolisGE/Sagu Software Licensing Terms,
  * read the "LICENCA.txt" file included with this software.
- * 
- * 
- *
- * This file logout
  *
  *
+ * Dynamic registration search form.
  *
- * 
- *
- **/
- 
-// logout
-$MIOLO->getAuth()->logout();
+ */
 
-$opts = null;
-$returnTo = MIOLO::_request('return_to');
-if ( strlen($returnTo) > 0 )
+class frmDynamicRegistrationSearch extends bFormSearch
 {
-    $opts = array('return_to' => urlencode($returnTo));
-}
+    public function __construct($parametros)
+    {
+        parent::__construct(_M('Busca de cadastro dinâmico', MIOLO::getCurrentModule()), $parametros);
+    }
 
-// redirect to common environment
-$newURL = $MIOLO->getActionURL( $MIOLO->getConf('options.common'), 'main', null, $opts);
-$page->redirect( $newURL );
+    public function createFields()
+    {
+        
+        parent::createFields();
+
+        $filtros = array();
+        $colunas = array();
+
+        $filtros[] = new MTextField('codigo', NULL, _M('Código'), 10);
+        $filtros[] = new MTextField('identificador', NULL, _M('Identificador'), 50);
+        $filtros[] = new MTextField('referencia', NULL, _M('Referência'), 50);
+        $filtros[] = new MTextField('modulo_', NULL, _M('Módulo'), 20);
+        
+        $this->addFilters($filtros);
+
+        $colunas[] = new MGridColumn(_M('Código', $this->modulo));
+        $colunas[] = new MGridColumn(_M('Identificador', $this->modulo));
+        $colunas[] = new MGridColumn(_M('Referência', $this->modulo));
+        $colunas[] = new MGridColumn(_M('Módulo', $this->modulo));
+        
+        $this->buildGrid($colunas);
+    }
+}
 
 ?>

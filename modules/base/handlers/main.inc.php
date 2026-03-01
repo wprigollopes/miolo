@@ -1,47 +1,47 @@
 <?php
 /**
- * Copyright 2005-2017 de Solis Soluções Livres Ltda.
+ * Copyright 2005-2017 Solis Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa SolisGE/Sagu.
+ * This file is part of the SolisGE/Sagu program.
  *
- * O SolisGE/Sagu é um software de propriedade da SOLIS, sendo desenvolvido
- * e mantido exclusivamente por esta empresa.
+ * SolisGE/Sagu is proprietary software of SOLIS, developed and maintained
+ * exclusively by this company.
  *
- * A licença de uso está disponível mediante aquisição exclusiva junto à
- * SOLIS. A licença é concedida sem caráter de exclusividade ao licenciado.
- * Os direitos de uso são perpétuos.
+ * The usage license is available through exclusive acquisition from SOLIS.
+ * The license is granted on a non-exclusive basis to the licensee.
+ * Usage rights are perpetual.
  *
- * Embora os códigos fontes sejam fornecidos, o software é de propriedade
- * da SOLIS, não sendo permitido ao adquirente da licença a sua revenda,
- * empréstimo ou cessão (onerosa ou não) à terceiros. Também não é permitido,
- * a qualquer título e tempo, promover no software qualquer tipo de alienação,
- * reprodução, distribuição, divulgação, registro, licenciamento, transferência
- * ou qualquer outro ato que prejudique ou comprometa os direitos de propriedade
- * de software, o nome e a imagem da sua proprietária e do próprio software,
- * além de configurar concorrência à SOLIS.
+ * Although source code is provided, the software is the property of SOLIS.
+ * The licensee is not permitted to resell, lend, or transfer (whether for
+ * payment or not) the license to third parties. It is also not permitted,
+ * at any time or for any reason, to perform any alienation, reproduction,
+ * distribution, disclosure, registration, licensing, transfer, or any other
+ * act that may harm or compromise the software property rights, the name
+ * and image of its owner and the software itself, or that constitutes
+ * competition with SOLIS.
  *
- * O licenciado, com o acesso ao código fonte do software, terá o direito de
- * promover mudanças no respectivo código. No entanto, nas situações em que ele
- * contar com o suporte oficial prestado pela SOLIS, não poderá promover mudanças
- * no código fonte, sob pena de perda do referido suporte.
+ * The licensee, with access to the software source code, shall have the
+ * right to make changes to the respective code. However, in situations
+ * where the licensee relies on official support provided by SOLIS, changes
+ * to the source code are not permitted, under penalty of losing said support.
  *
- * Para conhecer em detalhes o Termo de Licenciamento do Software SolisGE/Sagu
- * leia o arquivo “LICENCA.txt” disponível junto ao código deste software. e
+ * For detailed information about the SolisGE/Sagu Software Licensing Terms,
+ * read the "LICENCA.txt" file included with this software. e
  * 
- * O Gnuteca é um software livre; você pode redistribuí-lo e/ou modificá-lo
- * dentro dos termos da Licença Pública Geral GNU como publicada pela Fundação
- * do Software Livre (FSF); na versão 2 da Licença.
+ * Gnuteca is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation (FSF); version 2 of the License.
  * 
- * Este programa é distribuído na esperança que possa ser útil, mas SEM
- * NENHUMA GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a qualquer MERCADO
- * ou APLICAÇÃO EM PARTICULAR. Veja a Licença Pública Geral GNU/GPL em
- * português para maiores detalhes.
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License/GPL
+ * for more details.
  * 
- * Você deve ter recebido uma cópia da Licença Pública Geral GNU, sob o título
- * "LICENCA.txt", junto com este programa, se não, acesse o Portal do Software
- * Público Brasileiro no endereço www.softwarepublico.gov.br ou escreva para a
- * Fundação do Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
- * MA 02110-1301, USA --->
+ * You should have received a copy of the GNU General Public License, under
+ * the title "LICENCA.txt", along with this program. If not, visit the
+ * Brazilian Public Software Portal at www.softwarepublico.gov.br or write
+ * to the Free Software Foundation (FSF) Inc., 51 Franklin St, Fifth Floor,
+ * Boston, MA 02110-1301, USA --->
  * 
  *
  *
@@ -58,27 +58,27 @@ $syncModule = MIOLO::_REQUEST('syncModule');
 $MIOLO->uses( 'classes/bBaseDeDados.class.php','base');
 $MIOLO->uses( 'classes/BString.class.php','base');
 $MIOLO->uses( 'classes/bCatalogo.class.php','base');
-$MIOLO->uses( 'classes/bInfoColuna.class.php','base');
+$MIOLO->uses( 'classes/bColumnInfo.class.php','base');
 
 if ( !$syncModule )
 {
-    // Adiciona classes necessárias.
+    // Adds required classes.
     $MIOLO->uses( 'classes/bForm.class.php','base');
-    $MIOLO->uses( 'classes/bFormCadastro.class.php','base');
-    $MIOLO->uses( 'classes/bFormBusca.class.php','base');
-    $MIOLO->uses( 'classes/bTipo.class.php','base');
+    $MIOLO->uses( 'classes/bFormRegistration.class.php','base');
+    $MIOLO->uses( 'classes/bFormSearch.class.php','base');
+    $MIOLO->uses( 'classes/bType.class.php','base');
     $MIOLO->uses( 'classes/bBarraDeFerramentas.class.php','base');
     $MIOLO->uses( 'classes/bJavascript.class.php','base');
     $MIOLO->uses( 'classes/bBooleano.class.php','base');
-    $MIOLO->uses( 'classes/bEscolha.class.php','base');
+    $MIOLO->uses( 'classes/bChoice.class.php','base');
 
-    // Adiciona biblioteca javascript do módulo Base.
+    // Adds the Base module javascript library.
     $MIOLO->page->addScript('base.js','base');
 
-    // Define a base de dados.
+    // Defines the database.
     define(DB_NAME, 'base');
     
-    // Constantes para o correto funcionamento do módulo.
+    // Constants for the correct operation of the module.
     define(DB_TRUE, 't');
     define(DB_FALSE, 'f');
     define(FUNCAO_BUSCAR, 'buscar');
@@ -88,12 +88,12 @@ if ( !$syncModule )
     define(FUNCAO_EXPLORAR, 'explorar');
     define(MODULO, 'base');
 
-    // Constantes para tamanho de campo.
+    // Constants for field size.
     define(T_CODIGO, 10);
     define(T_INTEIRO, 10);
     define(T_DESCRICAO, 25);
 
-    // Inclui o manipulador.
+    // Includes the handler.
     $chave = MIOLO::_REQUEST('chave');
     
     if ( strlen($chave) > 0 )
@@ -125,7 +125,7 @@ else
     
     $MIOLO->page->addJsCode(
     "
-        /* Esconde / mostra conteúdo de uma tabela*/
+        /* Hides / shows content of a table */
         function showHideTable( element )
         {
             if ( element.tBodies[0].style.display == '' )
@@ -142,7 +142,7 @@ else
 
     $MIOLO->page->onload("
 
-    //passa por todas tabelas adicionando suporte a esconder/mostrar
+    // iterates through all tables adding hide/show support
     tables = document.getElementsByClassName('mSimpleTable  mTableRaw');
     //tables = document.getElementsByTagName('table');
 
@@ -168,10 +168,10 @@ else
             throw new Exception( new BString('É necessário informar modulo de sincronização (syncModule).') );
         }
 
-        //cria um espaço superior
+        // creates a top space
         $fields[] = new MDiv('','<br/><br/><br/>');
 
-        //executa o script de inicialização
+        // executes the initialization script
         $startScript = $MIOLO->getConf('home.miolo').'/modules/'.$syncModule.'/syncdb/start.php';
 
         if ( file_exists( $startScript ) )
@@ -196,7 +196,7 @@ else
 
         $functionFiles = BSyncDatabaseFunction::listSyncFiles( $syncModule );
 
-        //efetua sincronização de funções de base de dados
+        // performs database function synchronization
         if ( is_array( $functionFiles ) ) 
         {
             foreach ( $functionFiles as $line => $function )
@@ -241,7 +241,7 @@ else
 
         $views = BSyncDatabaseView::listSyncFiles( $syncModule );
 
-        //efetua sincronização de funções de base de dados
+        // performs database view synchronization
         if ( is_array( $views ) ) 
         {
             foreach ( $views as $line => $view )
@@ -277,7 +277,7 @@ else
             }
         }
 
-        //obtem lista de arquivos xml a sincronizar
+        // gets list of xml files to synchronize
         $files = BSyncDatabaseContent::listSyncFiles( $syncModule );
 
         if ( is_array( $files ) )
@@ -345,7 +345,7 @@ else
                 $fields[] = new MTableRaw( $title , $resultA, array(_M('Tipo'),_M('Quantidade')), 'result'.$fileBase , true );
                 $fields[] = new MSeparator('<br/>');
 
-                //inclui xml das diferenças caso exista
+                // includes differences xml if it exists
                 $xml = $basConfig->makeXMLfromResult( $result->extras );
 
                 if ( $xml )
@@ -357,7 +357,7 @@ else
 
         $theme->appendContent( $fields );
 
-        //caso exista script de sincronização, executa-o
+        // if a synchronization script exists, executes it
         $syncScript = $MIOLO->getConf('home.miolo').'/modules/'.$syncModule.'/syncdb/sync.php';
 
         if ( file_exists( $syncScript ) )

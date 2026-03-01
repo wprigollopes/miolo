@@ -229,7 +229,7 @@ class frmConfAdmin extends MForm
             $this->aLoginAuto     ->setValue($login->getElementsByTagName('auto'  )->item(0)->nodeValue);
         }
 
-        //acesso o 2º item pois senão pega o <session> o <mad>
+        //access the 2nd item, otherwise it gets the <session> from <mad>
         if( $session = $conf->getElementsByTagName('session')->item(1) )
         {
             $this->aSessionHandler  ->setValue($session->getElementsByTagName('handler')->item(0)->nodeValue);

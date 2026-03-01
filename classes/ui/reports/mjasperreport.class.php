@@ -53,7 +53,7 @@ class MJasperReport extends MReport
     private $absoluteFileOut;
     
     /**
-     * Caminho do arquivo que acabou de ser gerado.
+     * Path of the file that was just generated.
      * 
      * @var (string)
      */
@@ -250,7 +250,7 @@ class MJasperReport extends MReport
                 // Break line incompatibility problem with Windows and Unix
                 if ( strtoupper(trim($this->filetype)) == "TXT" ) Mutil::unix2dos($fileOut);
 
-                // Quando for uma das extensoes abaixo, forca download
+                // When it is one of the extensions below, force download
                 if ( in_array(strtoupper(trim($this->filetype)), array('TXT','XLS')) )
                 {
                     $download = true;
@@ -286,8 +286,8 @@ class MJasperReport extends MReport
      * @param array $parameters Parameters to be passed to the report.
      * @param string $filetype Report file type.
      * @param boolean $save Whether to save the report or download it.
-     * @param boolean $download Se for true, vai baixar o relatório, senão só
-     * gera o conteúdo.
+     * @param boolean $download If true, the report will be downloaded, otherwise it only
+     * generates the content.
      * 
      * @return integer Returns 1 if succeeded.
      */
@@ -520,7 +520,7 @@ class MJasperReport extends MReport
     }
 
     /**
-     * Obtem o arquivo recém gerado.
+     * Gets the recently generated file.
      * 
      * @return (string)
      */

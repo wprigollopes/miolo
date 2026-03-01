@@ -1,17 +1,17 @@
 <?
-// limpa o conteúdo da página
+// clear the page content
     $theme->clearContent();
 
-// obter acesso as classes de Interface de Usuario
+// get access to User Interface classes
     $ui = $MIOLO->getUI();
-    
-// adicionando link ao barra de navegação
+
+// adding link to the navigation bar
     $navbar->addOption('State', $module, $self);
 
-// cria o formulário, definido no arquivo example/forms/FrmSession.class
+// create the form, defined in the file example/forms/FrmSession.class
     $formState = $ui->getForm($module,'frmState');
 
-// coloca o conteúdo da página (primeiro o menubar, depois o $page)
+// place the page content (first the menubar, then the $page)
 if ($theme->getContent()  == '')
 {
     $theme->insertContent($formState);

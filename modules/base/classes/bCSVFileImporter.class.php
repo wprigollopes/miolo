@@ -1,32 +1,32 @@
 <?php
 /**
- * Copyright 2005-2017 de Solis Soluções Livres Ltda.
+ * Copyright 2005-2017 Solis Soluções Livres Ltda.
  *
- * Este arquivo é parte do programa SolisGE/Sagu.
+ * This file is part of the SolisGE/Sagu program.
  *
- * O SolisGE/Sagu é um software de propriedade da SOLIS, sendo desenvolvido
- * e mantido exclusivamente por esta empresa.
+ * SolisGE/Sagu is proprietary software of SOLIS, developed and maintained
+ * exclusively by this company.
  *
- * A licença de uso está disponível mediante aquisição exclusiva junto à
- * SOLIS. A licença é concedida sem caráter de exclusividade ao licenciado.
- * Os direitos de uso são perpétuos.
+ * The usage license is available through exclusive acquisition from SOLIS.
+ * The license is granted on a non-exclusive basis to the licensee.
+ * Usage rights are perpetual.
  *
- * Embora os códigos fontes sejam fornecidos, o software é de propriedade
- * da SOLIS, não sendo permitido ao adquirente da licença a sua revenda,
- * empréstimo ou cessão (onerosa ou não) à terceiros. Também não é permitido,
- * a qualquer título e tempo, promover no software qualquer tipo de alienação,
- * reprodução, distribuição, divulgação, registro, licenciamento, transferência
- * ou qualquer outro ato que prejudique ou comprometa os direitos de propriedade
- * de software, o nome e a imagem da sua proprietária e do próprio software,
- * além de configurar concorrência à SOLIS.
+ * Although source code is provided, the software is the property of SOLIS.
+ * The licensee is not permitted to resell, lend, or transfer (whether for
+ * payment or not) the license to third parties. It is also not permitted,
+ * at any time or for any reason, to perform any alienation, reproduction,
+ * distribution, disclosure, registration, licensing, transfer, or any other
+ * act that may harm or compromise the software property rights, the name
+ * and image of its owner and the software itself, or that constitutes
+ * competition with SOLIS.
  *
- * O licenciado, com o acesso ao código fonte do software, terá o direito de
- * promover mudanças no respectivo código. No entanto, nas situações em que ele
- * contar com o suporte oficial prestado pela SOLIS, não poderá promover mudanças
- * no código fonte, sob pena de perda do referido suporte.
+ * The licensee, with access to the software source code, shall have the
+ * right to make changes to the respective code. However, in situations
+ * where the licensee relies on official support provided by SOLIS, changes
+ * to the source code are not permitted, under penalty of losing said support.
  *
- * Para conhecer em detalhes o Termo de Licenciamento do Software SolisGE/Sagu
- * leia o arquivo “LICENCA.txt” disponível junto ao código deste software.
+ * For detailed information about the SolisGE/Sagu Software Licensing Terms,
+ * read the "LICENCA.txt" file included with this software.
  *
  *
  * Class
@@ -49,76 +49,76 @@ if ( !defined('DB_NAME') )
 class bCSVFileImporter
 {
     /**
-     * Nome do arquivo
+     * File name
      *
      * @var string
      */
     private $fileName;
     
     /**
-     * Conteudo do arquivo
+     * File contents
      * 
      * @var string
      */
     private $fileContents;
     
     /**
-     * Array de conteudo do CSV quebrado por linha
+     * Array of CSV contents split by line
      *
      * @var array
      */
     private $csvFileData = array();
     
     /**
-     * Primeira linha do CSV
+     * First line of the CSV
      *
      * @var array
      */
     private $headerLine = array();
     
     /**
-     * Delimitador utilizado no arquivo CSV
+     * Delimiter used in the CSV file
      * 
      * @var string
      */
     private $delimiter = ';';
     
     /**
-     * Indica se deve ser feito os SQLS de importacao dentro de uma transacao (BEGIN e COMMIT)
+     * Indicates whether the import SQLs should be done within a transaction (BEGIN and COMMIT)
      *
      * @var boolean
      */
     private $checkTransaction = false;
     
     /**
-     * Indica que deve ser executado um ROLLBACK ao final da importacao,
-     *  e desfazer todas insercoes no banco (util para debug)
+     * Indicates that a ROLLBACK should be executed at the end of import,
+     *  and undo all database inserts (useful for debugging)
      */
     private $executarRollback = false;
     
     /**
-     * Indica se ja foi executado a verificacao
+     * Indicates whether the validation has already been executed
      *
      * @var type 
      */
     private $hasChecked = false;
     
     /**
-     * Indica se arquivo ja foi carregado
+     * Indicates whether the file has already been loaded
      *
      * @var type 
      */
     private $hasLoadedFile = false;
     
     /**
-     * Objeto de colunas do CSV que representam
+     * CSV column objects that represent
      * 
-     * @var array Array do tipo bCSVColumn
+     * @var array Array of bCSVColumn type
      */
     private $columns = array();
     
     /**
-     * Array com erros ocorridos na validacao
+     * Array with errors occurred during validation
      *
      * @var array
      */
@@ -126,7 +126,7 @@ class bCSVFileImporter
     
     
     /**
-     * Obtem a linha atual que esta sendo processada
+     * Gets the current line being processed
      *
      * @var string
      */
@@ -134,21 +134,21 @@ class bCSVFileImporter
     
     
     /**
-     * Nome de tabela temporaria que armazena dados do CSV
+     * Temporary table name that stores CSV data
      * 
      * @var string
      */
     private $tmpTableName = 'tmpcsvimporter';
     
     /**
-     * SQLs que devem ser executados antes da validacao
+     * SQLs that should be executed before validation
      *
      * @var array
      */
     private $sqlsBefore = array();
     
     /**
-     * SQLs que devem ser executados depois da validacao
+     * SQLs that should be executed after validation
      *
      * @var array
      */
@@ -156,15 +156,15 @@ class bCSVFileImporter
     
     
     /**
-     * Numero limite de registros que devem ser importados do CSV,
-     *  ordenando pela primeira linha em diante do arquivo.
+     * Limit number of records to be imported from the CSV,
+     *  ordering from the first line onwards of the file.
      * 
      * @var int
      */
     private $limitRecords = 9999999;
 
     /**
-     * Considera a primeira linha como sendo o cabecalho do arquivo CSV. Padrao FALSO.
+     * Considers the first line as the CSV file header. Default FALSE.
      *
      * @var boolean
      */
@@ -189,9 +189,9 @@ class bCSVFileImporter
     }
     
     /**
-     * Retorna se todo conteudo do arquivo CSV esta valido (nao realiza importacao)
+     * Returns whether all CSV file content is valid (does not perform import)
      * 
-     * @return boolean Retorna TRUE caso todas validacoes estejam OK
+     * @return boolean Returns TRUE if all validations pass
      */
     public function check()
     {
@@ -200,13 +200,13 @@ class bCSVFileImporter
             throw new Exception( _M('O arquivo ainda não foi carregado.') );
         }
         
-        // Valida se foi definido colunas
+        // Validates that columns have been defined
         if ( !$this->columns )
         {
             throw new Exception( _M('Devem ser definidas colunas para o arquivo CSV.') );
         }
         
-        // Valida se colunas definidas existem na planilha CSV
+        // Validates that defined columns exist in the CSV spreadsheet
         foreach ( $this->columns as $col )
         {
             if ( !in_array($col->getName(), $this->headerLine) )
@@ -222,7 +222,7 @@ class bCSVFileImporter
             throw new Exception( _M('O numero de colunas definidas (@1) nao bate com o numero de colunas do arquivo CSV. (@2)', null, $countCols, $countHeader) );
         }
         
-        // Verifica nome repetido de colunas
+        // Checks for duplicate column names
         $headers = array_filter($this->headerLine);
         if ( count(array_unique($headers)) != count($headers) )
         {
@@ -246,7 +246,7 @@ class bCSVFileImporter
     }
     
     /**
-     * Importa o arquivo CSV, apenas caso tenha passado pela validacao
+     * Imports the CSV file, only if it passed validation
      * 
      * @return boolean
      */
@@ -311,21 +311,21 @@ class bCSVFileImporter
     }
     
     /**
-     * Chamada executada antes de realizar a importacao 
+     * Callback executed before performing the import
      */
     public function executarBeforeImport()
     {
     }
 
     /**
-     * Chamada executada depois de realizar a importacao 
+     * Callback executed after performing the import
      */
     public function executarAfterImport()
     {
     }
     
     /**
-     * Percorre cada linha do arquivo CSV
+     * Iterates through each line of the CSV file
      *
      * @param type $data 
      */
@@ -360,7 +360,7 @@ class bCSVFileImporter
         $this->csvFileData = explode("\n", $this->fileContents);
         $this->headerLine = explode($this->delimiter, trim($this->csvFileData[0]));
         
-        // TODO Aplicar outras validacoes basicas do CSV se esta correto
+        // TODO Apply other basic validations to check if CSV is correct
     }
     
     public function getDelimiter()
@@ -528,7 +528,7 @@ class bCSVFileImporter
     }
     
     /**
-     * Define colunas a partir de um array passado
+     * Defines columns from a given array
      *
      * @param array $typeDefs
      * @param array $defs 
@@ -561,35 +561,35 @@ class bCSVFileImporter
     }
     
     /**
-     * Gera tabela temporaria com os dados do CSV
+     * Generates a temporary table with the CSV data
      */
     private function createTempTable()
     {
-        // Cria tabela temporaria
+        // Creates temporary table
         $colsStr = $this->generateCreateTableColumnsString(true);
         bBaseDeDados::executar("DROP TABLE IF EXISTS {$this->tmpTableName}");
         bBaseDeDados::executar("CREATE TEMP TABLE {$this->tmpTableName}({$colsStr}) WITH OIDS");
 
-        // Importa arquivo CSV diretamente via base de dados
+        // Imports CSV file directly via database
         bBaseDeDados::executar("COPY {$this->tmpTableName} FROM '{$this->fileName}' DELIMITERS '{$this->delimiter}' CSV");
 
-        // Adiciona coluna com numero da linha e erros
+        // Adds column with line number and errors
         bBaseDeDados::executar("ALTER TABLE {$this->tmpTableName} ADD linha SERIAL");
         bBaseDeDados::executar("ALTER TABLE {$this->tmpTableName} ADD erros TEXT");
 
-        // Remove a primeira linha do arquivo
+        // Removes the first line from the file
         if ( $this->getIgnoreFirstLine() )
         {
             bBaseDeDados::executar("DELETE FROM {$this->tmpTableName} WHERE oid::int = (SELECT MIN(oid)::int FROM {$this->tmpTableName})");
         }
 
-        // Define o numero da linha igualada a do arquivo CSV
+        // Sets the line number to match the CSV file line
         bBaseDeDados::executar("UPDATE {$this->tmpTableName} SET linha = ( oid::int - (SELECT MIN(oid)::int FROM {$this->tmpTableName}) + 1 )");
 
-        // Apaga primeiro registro que e o cabecalho do CSV
+        // Deletes records beyond the limit
         bBaseDeDados::executar("DELETE FROM {$this->tmpTableName} WHERE linha > ({$this->limitRecords} + 1)");
 
-        // Atualiza valores booleanos
+        // Updates boolean values
         foreach ( $this->columns as $col )
         {
             $colName = $col->getName();
@@ -606,7 +606,7 @@ class bCSVFileImporter
                 bBaseDeDados::executar("UPDATE {$this->tmpTableName} SET {$colName} = 'f' WHERE lower({$colName}) IN ({$values})");
             }
             
-            // Faz substituicoes de valores
+            // Performs value replacements
             $repVars = $col->getReplaceVars();
             foreach ( $repVars as $old => $new )
             {
@@ -619,7 +619,7 @@ class bCSVFileImporter
             bBaseDeDados::executar($sql);
         }
         
-        // Aplica validacoes 
+        // Applies validations
         $cases = $this->generateSQLValidators();
         $cases = implode(' || ', $cases);
         bBaseDeDados::executar("UPDATE {$this->tmpTableName} SET erros = {$cases}");
@@ -630,19 +630,19 @@ class bCSVFileImporter
             bBaseDeDados::executar($sql);
         }
         
-        // Coleta os erros de validacao
+        // Collects validation errors
         $result = bBaseDeDados::consultar("SELECT linha,erros FROM {$this->tmpTableName} where erros <> '' order by linha LIMIT {$this->limitRecords}");
         $this->setErrorLog( $result );
     }
     
     /**
-     * Gera colunas para o CREATE TABLE
+     * Generates columns for CREATE TABLE
      * 
      * @return array
      */
     public function generateCreateTableColumns($includeType = true)
     {
-        // Gera colunas para CREATE TABLE
+        // Generates columns for CREATE TABLE
         $cols = array();
         for ($i=0; $i < count($this->columns); $i++)
         {
@@ -664,8 +664,8 @@ class bCSVFileImporter
     
     
     /**
-     * Gera condicoes SQL de validacoes das linhas do CSV.
-     * Foi feito via base de dados por questoes de performance.
+     * Generates SQL validation conditions for CSV lines.
+     * Done via database for performance reasons.
      *
      * @return array
      */
