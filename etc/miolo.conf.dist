@@ -106,8 +106,8 @@
       <system>sqlite</system>
       <host>localhost</host>
       <name>/var/www/miolo/var/db/miolo.sqlite</name>
-      <user>admin</user>
-      <password>admin</password>
+      <user>CHANGE_ME</user>
+      <password>CHANGE_ME</password>
     </miolo>
     <dummy>
       <system>mysql</system>

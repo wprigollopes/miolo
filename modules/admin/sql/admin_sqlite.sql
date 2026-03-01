@@ -110,11 +110,13 @@ insert into miolo_sequence values('seq_miolo_group',0);
 insert into miolo_sequence values('seq_miolo_session',0);
 insert into miolo_sequence values('seq_miolo_log',0);
 
+-- WARNING: The passwords below are initial seed values for first-time setup only.
+-- You MUST change them immediately after installation.
 update miolo_sequence set value = 2 where sequence = 'seq_miolo_user';
 insert into miolo_user (iduser,login,name,nickname,m_password,confirm_hash,theme)
-   values (1,'admin','Miolo Administrator','admin','admin','','miolo');
+   values (1,'admin','Miolo Administrator','admin','CHANGE_ME','','miolo');
 insert into miolo_user (iduser,login,name,nickname,m_password,confirm_hash,theme)
-   values (2,'guest','Guest User','guest','guest','','miolo');
+   values (2,'guest','Guest User','guest','CHANGE_ME','','miolo');
 
 update miolo_sequence set value = 5 where sequence = 'seq_miolo_transaction';
 insert into miolo_transaction (idtransaction, m_transaction) values (1,'ADMIN');

@@ -152,9 +152,10 @@ $MIOLOCONF['login']['public1']['id']       = 'guest';
 $MIOLOCONF['login']['public1']['password'] = 'guest';
 $MIOLOCONF['login']['public1']['name']     = 'Public Users';
 
-$MIOLOCONF['login']['public2']['id']       = 'vilson';
-$MIOLOCONF['login']['public2']['password'] = 'CHANGE_ME';
-$MIOLOCONF['login']['public2']['name']     = "Vilson's Automatic Login";
+// To add additional automatic logins, use the pattern below:
+// $MIOLOCONF['login']['public2']['id']       = 'username';
+// $MIOLOCONF['login']['public2']['password'] = 'password';
+// $MIOLOCONF['login']['public2']['name']     = 'Description';
 
 if ($module == '') $module = $MIOLOCONF['options']['startup'];
 

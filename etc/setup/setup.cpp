@@ -72,12 +72,12 @@
 #define BIS_HOST        "127.0.0.1"
 #define BIS_BASE        "bis"
 #define BIS_USER        "postgres"
-#define BIS_PASSWD   "postgres"
+#define BIS_PASSWD   "CHANGE_ME"
 
 #define CMN_HOST        "127.0.0.1"
 #define CMN_BASE        "bis"
 #define CMN_USER        "postgres"
-#define CMN_PASSWD   "postgres"
+#define CMN_PASSWD   "CHANGE_ME"
 
 
 Wizard::Wizard( QWidget *parent, const char *name )
