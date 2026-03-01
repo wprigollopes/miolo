@@ -20,7 +20,7 @@ manual, often social, process.
   to a package manager. Created in 1999, it installed system-wide packages
   via `pear install`. But PEAR was centralized, required root access, had
   no per-project dependencies, and its library coverage was limited
-- **npm** (2010), **pip** (2011), **Bundler** (2010) — none of these existed
+- **npm** (2010), **pip** (2008), **Bundler** (2010) — none of these existed
   either; the concept of per-project dependency management was not yet
   mainstream in any language
 - **Semantic versioning** — formalized in 2011

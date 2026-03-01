@@ -16,8 +16,8 @@ output with collapsible objects), or browser DevTools with source maps. In
   setups until IDE integration matured around 2008-2010
 - **Browser DevTools** — Chrome DevTools arrived in 2008; before that,
   Firefox's Firebug (2006) was the first real option
-- **Laravel `dd()`** — arrived with Laravel 4 in 2013, built on Symfony's
-  VarDumper (2014)
+- **Laravel `dd()`** — arrived with Laravel 4 in 2013 as a simple
+  `var_dump()` wrapper; later rebuilt on Symfony's VarDumper (2014)
 - **Error tracking services** (Sentry, Bugsnag) — 2010s
 - **Structured logging** (Monolog, PSR-3) — 2011-2012
 
