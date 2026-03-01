@@ -137,8 +137,9 @@ GitHub:
 - [**Henrique Gravina**](https://github.com/Henriquegravina) — Contributed
   Mac OS X compatibility documentation and authored the MIOLO architecture
   presentation.
-- **Jamiel Spezia** — Long-term maintainer (9+ years). JSON fixes, PHP 8
-  migration, jQuery plugins, deprecated dependency removal.
+- **Jamiel Spezia** — Long-term maintainer (9+ years) and current CEO of
+  SOLIS (2025). JSON fixes, PHP 8 migration, jQuery plugins, deprecated
+  dependency removal.
 
 See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the complete list of 31
 contributors with their roles, commit histories, and key contributions.
