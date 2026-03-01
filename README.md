@@ -134,8 +134,9 @@ GitHub:
 - [**Alexandre Heitor Schmidt**](https://github.com/alexsmithbr) — Core
   developer at SOLIS. Time field, Jasper reports, i18n scripts, PHP 5.3
   compatibility, toolbar improvements.
-- **Henrique Gravina** — Contributed Mac OS X compatibility documentation
-  and authored the MIOLO architecture presentation.
+- [**Henrique Gravina**](https://github.com/Henriquegravina) — Contributed
+  Mac OS X compatibility documentation and authored the MIOLO architecture
+  presentation.
 - **Jamiel Spezia** — Long-term maintainer (9+ years). JSON fixes, PHP 8
   migration, jQuery plugins, deprecated dependency removal.
 
