@@ -51,10 +51,8 @@ fclose($handler);
 $path = realpath($MIOLO_PATH . '/classes/utils');
 
 chdir($path);
-require_once 'mioloupdater.class.php';
+require_once 'mIOLOUpdater.php';
 chdir($BIN_PATH);
 
 $mu = new MIOLOUpdater($updateDataFile);
 $mu->update();
-
-?>

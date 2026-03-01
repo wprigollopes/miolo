@@ -248,5 +248,3 @@ function jsmin($infile)
 
 //$file = file_get_contents("php://stdin");
 jsmin("php://stdin");
-
-?>

@@ -186,4 +186,3 @@
 
 	// Writing to file "test" a PNG barcode image of "1234567890" with label
 	// barCode(BC_TYPE_CODE39, "1234567890", 1, 3, 1, FALSE, 100, BC_IMG_TYPE_PNG, TRUE, BC_ROTATE_0, TRUE, TRUE, "test");
-?>

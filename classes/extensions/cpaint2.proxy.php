@@ -317,5 +317,3 @@
   } else {
     die('[CPAINT] The host or script cannot be accessed through this proxy.');
   } // end: if
-
-?>

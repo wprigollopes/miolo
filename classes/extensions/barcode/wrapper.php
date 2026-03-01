@@ -97,5 +97,3 @@
 		$p_ck,
 		$p_2File,
 		$p_fileName);
-
-?>

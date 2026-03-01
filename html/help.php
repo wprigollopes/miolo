@@ -62,13 +62,14 @@ function parseXMLFile($file, $module, $lang, $theme_image_dir, $MIOLO)
 
        $tableraw = new MTableRaw('', $array);
        $tableraw->setAlternate(true);
+       $image = '';
        $content = $header . $tableraw->generate() . $image;
 
         return $content;
     }
     else
     {
-        return 'NONE|'.$xmlFileName;
+        return 'NONE|'.$file;
     }
 
 }
@@ -143,5 +144,3 @@ else
 }
 
 echo $content;
-
-?>

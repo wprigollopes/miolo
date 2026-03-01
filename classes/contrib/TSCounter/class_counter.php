@@ -470,4 +470,3 @@ class TScounter extends SupportFunctions
         return FALSE;
     }
 }
-?>

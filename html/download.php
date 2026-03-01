@@ -35,5 +35,3 @@
     {
         echo 'Não há um usuário válido logado no sistema.';
     }
-    
-?>

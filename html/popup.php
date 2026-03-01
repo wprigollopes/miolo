@@ -18,4 +18,3 @@ $MIOLO->trace("HTTP_USER_AGENT='".$_SERVER['HTTP_USER_AGENT']."'");
 
 // page processing
 $MIOLO->handler();
-?>

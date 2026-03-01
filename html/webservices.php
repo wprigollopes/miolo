@@ -53,7 +53,7 @@ $_SERVER['QUERY_STRING']    = 'module=' . $currentModule . '&action=dummy&class=
 $tmpDir  = sys_get_temp_dir();
 $logFile = $tmpDir . '/webservices.log';
 
-require_once '../classes/miolo.class.php';
+require_once '../classes/mIOLO.php';
 
 ob_start();
 
@@ -113,5 +113,3 @@ else
     
     $server->fault('171', 'Sorry, webservices not found!');
 }
-
-?>

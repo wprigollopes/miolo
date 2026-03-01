@@ -928,5 +928,3 @@ class Securimage {
     return $out_data;
   }
 } /* class Securimage */
-
-?>

@@ -17,7 +17,7 @@
 *
 * Revision 1.3  2005/07/14 04:43:20  saloon12yrd
 * - changed parameter cpaint_returnxml=true to cpaint_response_type=(OBJECT|TEXT|XML) to be futureproof when JSON or other formats get implemented
-* - added toXML() method in cpaint2.inc.php
+* - added toXML() method in cpaint2.php
 * not sure it response-type TEXT worked in earlier version. now it does
 *
 *
@@ -109,5 +109,3 @@
     echo($http_body);
     @fclose($cp_socket);
   }
-
-?>

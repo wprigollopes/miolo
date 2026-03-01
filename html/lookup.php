@@ -12,21 +12,21 @@ include_once '../etc/miolo/miolo.conf';
 $MIOLO->trace("HTTP_REFERER='" . $_SERVER['HTTP_REFERER'] . "'");
 $MIOLO->trace("HTTP_USER_AGENT='".$_SERVER['HTTP_USER_AGENT']."'");
 
-$MIOLO->uses('lookup.class.php');
-$MIOLO->uses('history.class.php');
-$MIOLO->uses('database/sql.class.php');
-$MIOLO->uses('ui/controls/basecontrols.class.php');
-$MIOLO->uses('ui/controls/webcontrols.class.php');
-$MIOLO->uses('ui/controls/labelcontrols.class.php');
-$MIOLO->uses('ui/controls/buttoncontrols.class.php');
-$MIOLO->uses('ui/controls/fieldcontrols.class.php');
-$MIOLO->uses('ui/controls/listcontrols.class.php');
-$MIOLO->uses('ui/controls/gridcontrols.class.php');
+$MIOLO->uses('lookup.php');
+$MIOLO->uses('history.php');
+$MIOLO->uses('database/sql.php');
+$MIOLO->uses('ui/controls/basecontrols.php');
+$MIOLO->uses('ui/controls/webcontrols.php');
+$MIOLO->uses('ui/controls/labelcontrols.php');
+$MIOLO->uses('ui/controls/buttoncontrols.php');
+$MIOLO->uses('ui/controls/fieldcontrols.php');
+$MIOLO->uses('ui/controls/listcontrols.php');
+$MIOLO->uses('ui/controls/gridcontrols.php');
 
-$MIOLO->uses('ui/controls/pagenavigator.class.php');
-$MIOLO->uses('ui/controls/range.class.php');
-$MIOLO->uses('ui/controls/gridnavigator.class.php');
-$MIOLO->uses("ui/controls/datagrid.class");
+$MIOLO->uses('ui/controls/pagenavigator.php');
+$MIOLO->uses('ui/controls/range.php');
+$MIOLO->uses('ui/controls/gridnavigator.php');
+$MIOLO->uses("ui/controls/datagrid.php");
 
 $lookup = new Lookup();
 
@@ -35,9 +35,9 @@ if (!preg_match('/^[a-zA-Z0-9_]+$/', $lookup->module)) {
     die('Invalid module name');
 }
 
-$ok = $MIOLO->uses('/classes/lookup.class.php',$lookup->module);
+$ok = $MIOLO->uses('/classes/lookup.php',$lookup->module);
 
-$MIOLO->assert($ok,_M('File modules/@1/db/lookup.class.php not found!<br>'.
+$MIOLO->assert($ok,_M('File modules/@1/db/lookup.php not found!<br>'.
                       'This file must implement Business@1Lookup class '.
                       'which must have a method called Lookup@2.',
                       'miolo',$lookup->module, $lookup->item));
@@ -109,5 +109,3 @@ $theme->setContent($lookup->grid);
 //$MIOLO->generateTheme('lookup');
 
 $page->generate();
-
-?>

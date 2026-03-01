@@ -79,4 +79,3 @@ function generate()
 		$this->p_fileName);
 }
 }
-?>

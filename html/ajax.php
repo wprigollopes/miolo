@@ -57,12 +57,10 @@ header("Pragma: no-cache");                                    // HTTP/1.0
 ini_set("session.bug_compat_42","off");
 ini_set("session.bug_compat_warn","off");
 
-require_once '../classes/miolo.class.php';
+require_once '../classes/mIOLO.php';
 
 $MIOLO = MIOLO::getInstance();
 $MIOLO->ignoreDispatch = true;
 $MIOLO->generateMethod = 'generateAJAX';
 
 $MIOLO->handlerRequest();
-
-?>

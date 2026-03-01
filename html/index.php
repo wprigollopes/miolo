@@ -14,10 +14,7 @@ header("X-Robots-Tag: noindex, nofollow", true); //Dissalow index
 
 ini_set('display_errors', '1');
 
-require_once '../classes/miolo.class.php';
+require_once '../classes/mIOLO.php';
 $MIOLO = MIOLO::getInstance();
 /* @var *MIOLO MIOLO */
 $MIOLO->handlerRequest();
-
-?>
-

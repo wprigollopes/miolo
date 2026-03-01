@@ -865,4 +865,3 @@ function wizindent_indent_html($input, $doCompress=false) {
 }
 
 }
-?>
