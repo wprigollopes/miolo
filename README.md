@@ -29,11 +29,23 @@ It is a work in progress.
 
 ## The Story
 
-MIOLO's name comes from the Portuguese word for the soft interior of
-bread — *miolo*. It was created at **UNIVATES**, a community university
+MIOLO's name comes from the Portuguese word *miolo* — the soft interior
+of bread, but also meaning *intelligence* and *what sits at the center
+of everything*. It was created at **UNIVATES**, a community university
 in Lajeado, Rio Grande do Sul, Brazil (population ~60,000), as the
 foundation for **SAGU**, an academic management system that replaced
 expensive proprietary software.
+
+There is a direct connection to the very origins of PHP itself.
+[**Rasmus Lerdorf**](https://github.com/rlerdorf), the creator of PHP,
+had lived and worked in Porto Alegre — just 120 km from Lajeado — as a
+Unix programmer from 1991 to 1993. In 2001, Rasmus visited Lajeado and
+spent two weeks working with Vilson Gärtner and Thomas Sprietersbach,
+helping conceptualize the main functions of what would become MIOLO. As Cesar Brod
+[wrote](https://linuxgazette.net/issue72/brod.html): *"After a visit by
+Mr. Rasmus Lerdorf to our University, we decided we would stick to
+PostgreSQL and created a new transactional/presentation base for SAGU
+and all of our free software projects, called MIOLO."*
 
 ### What the world looked like in 1999
 
@@ -159,15 +171,24 @@ in printer instructions because there was no other way.
 
 From that foundation, MIOLO grew into a full object-oriented framework
 with database abstraction, form handling, session management, theming,
-AJAX support, report generation, and a complete UI controls layer. It
-powered **SAGU** (academic management, used by dozens of Brazilian
-universities), **Gnuteca** (library automation, promoted through UNESCO
-workshops), and many other institutional applications.
+AJAX support, report generation, and a complete UI controls layer.
+**Gnuteca** — a library automation system compliant with international
+standards, promoted through UNESCO workshops — was the first major
+project built on MIOLO. Then came the rewrite of **SAGU** (academic
+management, used by dozens of Brazilian universities), **Fred** (a web
+content manager whose name was suggested by Jon "maddog" Hall), and many
+other institutional applications. **Peter Salus**, the Unix historian
+and author of *A Quarter Century of Unix*, reviewed the university's
+free software texts — a small sign that word was getting out.
 
 In 2003, the developers founded **SOLIS** — the first cooperative in the
-world dedicated exclusively to free and open-source software. SOLIS
-became Canonical's first certified Ubuntu support partner in Brazil in
-2009.
+world dedicated exclusively to free and open-source software. The name
+was suggested by Marcelo Malheiros; the first logo was designed by
+Thomas Sprietersbach. By 2013, SOLIS had grown to 50 cooperatives from
+20 cities, serving over 100 clients across ten Brazilian states, and was
+named one of the best IT companies to work for by Computerworld in 2010.
+SOLIS became Canonical's first certified Ubuntu support partner in
+Brazil in 2009.
 
 **Read the full story:** [CONTRIBUTORS.md](CONTRIBUTORS.md) contains a
 comprehensive project history compiled from SVN logs, code comments, and
@@ -229,8 +250,10 @@ GitHub:
   project from 1999 through 2009.
 - [**Cesar Brod**](https://github.com/cesarbrod) — IT Manager at UNIVATES
   who initiated the free software strategy. Co-founded SOLIS. Presented
-  SAGU at USENIX ALS'01. The organizational force that made it all
-  possible.
+  SAGU at USENIX ALS'01. Told the SOLIS story in
+  [Linux Journal](https://www.linuxjournal.com/article/7081) and
+  [Linux Gazette](https://linuxgazette.net/issue72/brod.html). The
+  organizational force that made it all possible.
 - [**Alexandre Heitor Schmidt**](https://github.com/alexsmithbr) — Core
   developer at SOLIS. Time field, Jasper reports, i18n scripts, PHP 5.3
   compatibility, toolbar improvements.
@@ -269,6 +292,7 @@ the assistance of Claude (Anthropic), as documented in the commit history.
 - [SAGU, Free Software for Academic Administration (Linux Gazette #72)](https://linuxgazette.net/issue72/brod.html)
 - [Canonical certifica SOLIS para suporte ao Ubuntu no Brasil (BR-Linux, 2009)](https://br-linux.org/wparchive/2009/canonical-certifica-solis-para-suporte-ao-ubuntu-no-brasil.php)
 - [SOLIS: 10 anos! (Dicas-L, 2013)](http://www.dicas-l.com.br/brod/brod_201303112119.php)
+- [Iconic Linux debate sparks an open source career (Opensource.com, 2015)](https://opensource.com/life/15/10/my-linux-story-cesar-brod)
 - [Software Publico Brasileiro — SAGU and Gnuteca (SERPRO)](https://www.serpro.gov.br/menu/noticias/noticias-antigas/software-publico-brasileiro-lanca-dois-programas-para-area-educacional)
 
 ---
