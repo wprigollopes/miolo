@@ -80,6 +80,31 @@ everything: static files, PHP scripts through `mod_php`, and any dynamic
 content your application needed, all from a single process model that
 was not designed for the concurrency demands of modern web traffic.
 
+**Page rendering was pure HTML and CSS — and barely that.** There was no
+Bootstrap (2011), no Tailwind, no Material Design, no component libraries,
+no design systems, no frontend build tools, no Sass, no Less. CSS itself
+was primitive: no flexbox (2009), no grid (2017), no media queries (2012),
+no variables, no transitions. If you wanted a two-column layout, you used
+HTML `<table>` elements — because that was the only reliable way to make
+it work across Netscape and Internet Explorer. Rounded corners meant
+slicing images in Photoshop and assembling them in a 9-cell table. Drop
+shadows meant more sliced images. Consistent fonts meant hoping the user
+had them installed. Every pixel of layout was a negotiation with browsers
+that disagreed on box models, margin collapsing, and float behavior.
+
+MIOLO invented its own **theme system** (see `classes/ui/controls/mtheme.class.php`)
+years before theming became a standard concept. Each theme was a
+self-contained set of PHP rendering classes, CSS files, and image assets
+that controlled how every UI component — forms, grids, menus, toolbars,
+dialogs — was rendered to HTML. Switching the entire application's look
+meant changing one configuration value. The framework generated all HTML
+server-side through PHP objects (`MDiv`, `MForm`, `MGrid`, `MToolbar`),
+so developers never wrote raw HTML — they composed UI components in PHP
+and the theme decided how to render them. This was the pattern that
+frameworks like JSF, Vaadin, and later server-side component systems
+would adopt, but MIOLO was doing it at the turn of the millennium with
+nothing but `echo` statements and string concatenation.
+
 The very first piece of code in this repository — **PSLib** (1999) — is
 a PHP library for generating PostScript files. The university needed to
 print academic transcripts, and there were no PDF libraries for PHP.
