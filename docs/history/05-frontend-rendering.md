@@ -46,10 +46,66 @@ rendered everything, and the browser was just a display.
 
 ## MIOLO's Server-Side Component Model
 
-### The Object-Oriented UI Hierarchy
+### Version 1.0: The Minimal Starting Point
 
-MIOLO built a complete **component tree** in PHP. You didn't write HTML —
-you composed objects:
+**SVN branch:** `branches/1.0`
+
+In version 1.0, the UI layer was simple — a bootstrap loader that
+included the core form and listing classes:
+
+```php
+// Version 1.0: UI class — just a bootstrap loader
+// $Id: ui.class,v 1.4 2003/06/17 20:04:57 vgartner Exp $
+class UI
+{
+    function UI()   // PHP 4 constructor
+    {   global $MIOLO;
+        $MIOLO->Uses('ui/form.class');
+        $MIOLO->Uses('ui/listing.class');
+        $MIOLO->Uses('ui/statusbar.class');
+        $MIOLO->Uses('ui/pagenavigator.class');
+        $MIOLO->Uses('ui/tabbedform.class');
+        $MIOLO->Uses('ui/tabbedform2.class');
+        $MIOLO->Uses('ui/indexedform.class');
+        $MIOLO->Uses('ui/inputgrid.class');
+    }
+}
+```
+
+The `Theme` class was equally minimal — arrays of styles, scripts, and
+menus, with simple `Add` methods:
+
+```php
+// Version 1.0: Theme — just arrays and simple accessors
+class Theme
+{
+    var $styles;
+    var $scripts;
+    var $metas;
+    var $navbar;
+    var $menus;
+    var $content;
+    var $title;
+
+    function Theme() {}   // empty PHP 4 constructor
+
+    function AddStyle($url) { $this->styles[] = $url; }
+    function AddScript($url) { $this->scripts[] = $url; }
+    function AddMeta($name, $content) {
+        $this->metas[] = "<meta name=\"$name\" content=\"$content\">\n";
+    }
+}
+```
+
+There was no component hierarchy, no abstract base class, no painter
+pattern. The UI was built by including files that generated HTML
+directly.
+
+### Version 2.0: The Full Component Hierarchy
+
+The 2.0 rewrite introduced the complete component tree that would
+define MIOLO's architecture for the next 15+ years. You didn't write
+HTML — you composed objects:
 
 ```
 MComponent (base)
@@ -338,8 +394,15 @@ coexist — a common pattern in long-lived applications.
 
 ## What This Tells Us
 
-MIOLO's frontend architecture is a time capsule of the transition from
-"the server renders everything" to "the browser handles interaction."
+The SVN evidence shows a dramatic architectural leap between versions.
+Version 1.0's UI was a thin bootstrap loader (`UI` class with eight
+`Uses()` calls) and a minimal `Theme` (arrays of styles and scripts).
+Version 2.0 introduced the full component hierarchy (`MComponent` →
+`MControl` → 70+ controls), the Painter pattern, the element/slot
+theme system, and the PostBack lifecycle. This wasn't incremental
+improvement — it was a complete rethinking of how server-side UI
+should work.
+
 The component model — compose objects, set properties, let the framework
 render HTML — is the same pattern that React, Vue, and Angular use today.
 The difference is where that code runs: on the server in PHP (2001) or

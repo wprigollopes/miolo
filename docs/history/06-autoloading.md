@@ -44,12 +44,90 @@ errors.
 
 ---
 
-## MIOLO's Three-Layer Autoloading
+## MIOLO's Autoloading Evolution
 
-MIOLO solved this problem with three progressively more sophisticated
-mechanisms:
+### Version 1.0: The First `Uses()` Method
 
-### Layer 1: Bootstrap Includes
+**SVN branch:** `branches/1.0` — `classes/miolo.class` (note: `.class`,
+not `.class.php`)
+
+Version 1.0 already had the `Uses()` method with file-size tracking
+and error reporting — but in Portuguese:
+
+```php
+// Version 1.0: MIOLO::Uses() — the first class loader
+// $Id: miolo.class,v 1.35 2004/08/31 01:44:23 vgartner Exp $
+function Uses($name, $module = null)
+{   global $MIOLOCONF;
+
+    $this->ProfileEnter('MIOLO::Uses');
+
+    if ($module) {
+        $path = $this->GetModulePath($module, $name);
+    } else {
+        $path = $this->GetAbsolutePath($name);
+    }
+
+    if (!file_exists($path)) {
+        // Error messages in Portuguese!
+        printf("MIOLO::Uses ERRO: Arquivo '%s' NAO existe.<br>\n", $path);
+        $this->error[] = "Arquivo '$path' NAO existe!";
+    } else {
+        $this->uses[] = array($name, filesize($path));
+        include_once($path);
+    }
+
+    $this->ProfileExit('MIOLO::Uses');
+}
+```
+
+Version 1.0 also had a `UsesDump()` method that generated an HTML table
+showing every loaded file and its size — a built-in profiling tool:
+
+```php
+function UsesDump()
+{
+    $total = 0;
+    $html = "<p><b>Uses Information:</b>\n<table>\n";
+    foreach ($this->uses as $u) {
+        list($name, $size) = $u;
+        $total += $size;
+        $html .= "<tr><td>$name:</td><td>$size bytes</td></tr>\n";
+    }
+    $html .= "<tr><td>Total:</td><td>$total bytes</td></tr>\n</table>\n";
+    return $html;
+}
+```
+
+The constructor bootstrapped the framework by calling `Uses()` for each
+core file — no autoloading, just explicit includes in order:
+
+```php
+function MIOLO($home = null, $logname = 'miolo')   // PHP 4 constructor
+{
+    $this->Uses('login.class');       // note: .class, not .class.php
+    $this->Uses('context.class');
+    $this->Uses('types.class');
+    $this->Uses('error.class');
+    $this->Uses('ui/theme.class');
+    $this->Uses('ui/statusbar.class');
+    $this->Uses('../modules/modules.inc');
+}
+```
+
+**Key 1.0 conventions:**
+- Files used `.class` extension (not `.class.php`)
+- Class names had no `M` prefix: `Database`, `Context`, `Theme`, `UI`
+- Error messages were in Portuguese (`"Arquivo NAO existe"`)
+- CVS `$Id` tags tracked file versions
+- `.cvsignore` files present — the project started in CVS before SVN
+
+### Version 2.0: Three-Layer Autoloading
+
+The 2.0 rewrite introduced a much more sophisticated system with three
+layers:
+
+#### Layer 1: Bootstrap Includes
 
 **File:** `classes/miolo.class.php` — `init()` method
 
@@ -74,12 +152,12 @@ public function init()
 These four files are the minimum needed to bootstrap the autoloader.
 Everything else is loaded on demand.
 
-### Layer 2: The `uses()` Method
+#### Layer 2: The `uses()` Method (Evolved)
 
 **File:** `classes/miolo.class.php` — `uses()` method
 
-`uses()` is MIOLO's manual require-by-path system with deduplication
-and file-size tracking:
+The 2.0 `uses()` evolved from 1.0 with a key-based deduplication hash
+(instead of a plain array) and English logging:
 
 ```php
 public function uses($name, $module = NULL)
@@ -231,15 +309,38 @@ independently. The same concept as Composer's `autoload` section in
 
 ---
 
+## The File Extension Evolution
+
+A small but telling detail: version 1.0 used `.class` as the file
+extension (`miolo.class`, `context.class`, `postgres_connection.class`).
+Version 2.0 changed to `.class` as well but within organized
+subdirectories. The `.class.php` extension (seen in the current
+codebase) was adopted later — adding `.php` ensured that web servers
+wouldn't serve raw source code if directory listings were enabled.
+
+| Version | Extension | Example |
+|---|---|---|
+| 1.0 | `.class` | `database/postgres_connection.class` |
+| 2.0 | `.class` | `database/postgres/mconnection.class` |
+| Later | `.class.php` | `database/postgres/mconnection.class.php` |
+
+---
+
 ## What This Tells Us
 
 The autoloading problem — "given a class name, find and load its file" —
-is universal. MIOLO solved it three different ways as PHP evolved: manual
-includes (PHP 3/4), XML manifests (PHP 4/5), and SPL registration
-(PHP 5.1+). Each solution carries the DNA of its era.
+is universal. MIOLO solved it across four eras: manual `Uses()` with
+Portuguese error messages (1.0), a more structured `uses()` with
+key-based deduplication (2.0), XML manifests with autoloading (2.0+),
+and SPL registration with Composer fallback (current). Each solution
+carries the DNA of its era.
 
-The XML autoloader is particularly interesting because it's the same
-concept as Composer's `classmap` — a lookup table from class names to
-file paths. Composer generates this table automatically from PSR-4 rules;
-MIOLO maintained it by hand. The engineering insight is identical; only
-the automation level differs.
+The version 1.0 `Uses()` method is particularly interesting because it
+already had file-size tracking and a `UsesDump()` profiling tool — the
+team was concerned about memory usage from day one, building observability
+into the loading mechanism itself.
+
+The XML autoloader is the same concept as Composer's `classmap` — a
+lookup table from class names to file paths. Composer generates this
+table automatically from PSR-4 rules; MIOLO maintained it by hand.
+The engineering insight is identical; only the automation level differs.

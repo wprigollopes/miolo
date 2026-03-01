@@ -362,6 +362,16 @@ literature and other language ecosystems. But the team recognized their
 applicability to web development and implemented them in PHP years before
 the PHP framework ecosystem formalized them.
 
+The SVN history (with CVS artifacts in version 1.0 confirming an even
+earlier origin) shows that many of these patterns weren't present in the
+first version. Version 1.0 was simpler — standalone database drivers,
+global variables, minimal UI abstraction, Portuguese error messages.
+The 2.0 rewrite was where the architectural ambition crystallized:
+Singleton, Template Method, Factory, component hierarchy, Service
+Locator, and the full MVC pipeline. This suggests the team was actively
+studying design patterns between versions and applying them as PHP 5
+made proper OOP possible.
+
 This is the story of many early frameworks: the good ideas were always
 there, scattered across academic papers and enterprise Java. What
 Rails, Django, Symfony, and Laravel did was package them into accessible,
