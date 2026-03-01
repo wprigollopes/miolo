@@ -146,8 +146,10 @@ class MCrystalReport extends MReport
 
         //     var_dump($cmd);
         //     exec($cmd, $a, $retcode);
+        // TODO: The report server URL should be configured via MIOLO configuration, not hardcoded.
+        $reportServerUrl = $this->manager->getConf('options.report.server.url') ?: 'http://localhost:8080';
         $this->fileout
-            = "http://localhost:8080/crreport.php?p_db=$p_db&p_m=$p_m&p_f=$p_f&p_o=$p_o&p_par=$p_par";
+            = "{$reportServerUrl}/crreport.php?p_db=$p_db&p_m=$p_m&p_f=$p_f&p_o=$p_o&p_par=$p_par";
     //echo $this->fileout;
     //var_dump($this->fileout);
     //     var_dump($a);

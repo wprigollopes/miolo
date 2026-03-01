@@ -1,7 +1,7 @@
 <conf>
     <db>
        <miolo>
-           <password>admin</password>
+           <password>CHANGE_ME</password>
        </miolo>
     </db>
 </conf>

@@ -9,21 +9,21 @@
            <host>localhost</host>
            <name>/var/www/miolo/modules/example/sql/tutorial.sqlite</name>
            <user>miolo</user>
-           <password>miolo</password>
+           <password>CHANGE_ME</password>
        </tutorial>
        <example>
            <system>sqlite</system>
            <host>localhost</host>
            <name>/var/www/miolo/modules/example/sql/example.sqlite</name>
            <user>miolo</user>
-           <password>miolo</password>
+           <password>CHANGE_ME</password>
        </example>
        <persistence>
            <system>sqlite</system>
            <host>localhost</host>
            <name>/var/www/miolo/modules/example/sql/persistence.sqlite</name>
            <user>miolo</user>
-           <password>miolo</password>
+           <password>CHANGE_ME</password>
        </persistence>
     </db>
     <login>
