@@ -16,12 +16,13 @@
             "modules/"
         ],
         "files": [
-            "classes/support.inc.php"
+            "classes/support.php"
         ],
         "exclude-from-classmap": [
             "classes/extensions/dompdf/",
             "classes/extensions/json.php",
-            "modules/base/classes/phpmailer/"
+            "modules/base/classes/phpmailer/",
+            "modules/base/handlers/main.inc"
         ]
     },
     "config": {

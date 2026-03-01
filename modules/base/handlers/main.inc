@@ -1,1 +1,1 @@
-main.inc.php
+main.php

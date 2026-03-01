@@ -11,7 +11,7 @@ if ( $argc < 2 )
     die($message);
 }
 
-require_once 'mioloadmin.class.php';
+require_once 'mioloAdmin.php';
 
 if ( $argv[1] == 'configure' )
 {
@@ -83,7 +83,7 @@ switch ($argv[1])
         }
         $file = $admin->createHandler($argv[2], $argv[3], $argv[4], $argv[5]);
         echo "Handler $argv[3] successfully created on $argv[2] module!\nCreated file: $file\n";
-        echo "\nYou can add the following line at modules/$argv[2]/handlers/main.inc.php to put a link in the main handler.\n";
+        echo "\nYou can add the following line at modules/$argv[2]/handlers/main.php to put a link in the main handler.\n";
         echo "\$panel->addAction(_M('$argv[4]'), \$ui->getImage('example', 'forms.png'), \$module, 'main:$argv[3]');\n";
         break;
 

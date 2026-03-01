@@ -6,7 +6,7 @@
     
 <?php
 $MIOLO = MIOLO::getInstance();
-$MIOLO->uses( 'classes/bMainMenu.class.php','base');
+$MIOLO->uses( 'classes/bMainMenu.php','base');
 $isloged = $MIOLO->auth->isLogged();
 if ($isloged == true) {
     $theme->setElement('menu', new bMainMenu());

@@ -49,7 +49,7 @@ if (!preg_match('/^[a-zA-Z0-9_]+$/', $module)) {
     die('Invalid module name');
 }
 
-require_once '../classes/miolo.class.php';
+require_once '../classes/mIOLO.php';
 
 $MIOLO = MIOLO::getInstance();
 
@@ -61,7 +61,7 @@ $MIOLO->context = new MContext($urlContext, 0, false);
 $MIOLO->manager = $MIOLO;
 $MIOLO->context->isFile = true;
 
-require_once '../classes/support.inc';
+require_once '../classes/support.php';
 $MIOLO->init();
 
 // $MIOLO->setConf('options.dispatch', 'autocomplete.php');
@@ -80,11 +80,11 @@ $session->start( );
 
 $modulePath = $MIOLO->conf->getConf('home.modules'). "/$module";
 
-$ok = require_once( $modulePath . '/db/lookup.class.php' );
+$ok = require_once( $modulePath . '/db/lookup.php' );
 
 //$ok = $MIOLO->uses('/db/lookup.class',$module);
 
-$MIOLO->assert($ok,_M('File modules/@1/db/lookup.class.php not found!<br>'.
+$MIOLO->assert($ok,_M('File modules/@1/db/lookup.php not found!<br>'.
                       'This file must implement Business@1Lookup class '.
                       'which must have a method called Lookup@2.',
                       'miolo',$module, $item));
