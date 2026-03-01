@@ -297,12 +297,94 @@ xgettext --from-code=ISO-8859-1 --keyword='_M:1' -Lphp -f files.txt -o $OUT
 SVN export → clean `.svn` directories → `dpkg -b` — a complete build
 pipeline in a shell script.
 
-### Jenkins (2016+)
+### Jenkins + Phing (2009+)
 
-By 2016, SOLIS adopted Jenkins for automated releases. The SVN logs
-show 3,501 automated commits from the `jenkins` user, primarily creating
-version tags across branches. This was the transition from "shell scripts
-run by a developer" to "automated pipeline triggered by commits."
+By the end of 2009, SOLIS adopted **Jenkins** (then called Hudson)
+combined with **Phing** — PHP's build tool inspired by Apache Ant — to
+automate the deployment pipeline. This was a transformative moment:
+installations that previously took **weeks** of manual work — compiling
+PHP, configuring Apache, setting up PostgreSQL, copying files, running
+SQL seeds, adjusting permissions — were reduced to **hours**.
+
+The key insight was aligning MIOLO's deployment with **Ubuntu's
+conventions**. Instead of fighting the diversity of Linux distributions
+and their different file layouts, the Jenkins+Phing pipeline standardized
+on Ubuntu's package structure, default paths (`/etc/apache2/`,
+`/usr/share/php/`, `/var/log/`), and service management. This coincided
+with SOLIS becoming Canonical's first certified Ubuntu support partner
+in Brazil (2009) — the deployment infrastructure and the partnership
+reinforced each other.
+
+Phing handled the PHP-specific build steps (generating configuration
+files, running database migrations, setting file permissions, compiling
+assets), while Jenkins orchestrated the pipeline and managed triggers.
+By 2016, the `jenkins` SVN user had accumulated 3,501 automated commits
+— primarily version tagging across the 2.0, 2.5, and 2.6 branches.
+
+The evolution was clear:
+
+| Era | Deployment method | Time to deploy |
+|---|---|---|
+| 1999-2005 | Manual: compile, copy, configure by hand | Days to weeks |
+| 2005-2009 | Shell scripts + manual steps | Hours to a day |
+| 2009-2016 | Jenkins + Phing, Ubuntu-standardized | Hours |
+| 2016+ | Jenkins automated pipeline + `.deb` packages | Minutes |
+
+### Code Quality on the Jenkins Dashboard
+
+The Jenkins setup wasn't just a deployment tool — it was an early
+**code quality dashboard**. SOLIS integrated static analysis and metrics
+tools directly into the Jenkins panel, years before platforms like
+SonarQube Cloud (2013) or GitHub code scanning (2020) made this
+mainstream:
+
+- **PHPLOC** — measured codebase size: lines of code, number of classes,
+  methods per class, average complexity. Gave the team visibility into
+  codebase growth and structural health over time.
+- **PHP_CodeSniffer (PHPCS)** — enforced coding standards. Flagged
+  inconsistent formatting, naming violations, and style deviations
+  across 250+ files maintained by 30+ contributors over two decades.
+- **PHPMD (PHP Mess Detector)** — detected code smells: unused
+  variables, overly complex methods, excessive class coupling. The kind
+  of issues that accumulate silently in a long-lived codebase.
+- **phpcpd (Copy/Paste Detector)** — identified duplicated code blocks.
+  In a codebase where five database drivers share similar patterns,
+  duplication detection was essential for knowing when to refactor.
+- **pdepend** — dependency analysis and software metrics (cyclomatic
+  complexity, afferent/efferent coupling, instability index).
+
+Jenkins rendered the output of these tools as **trend graphs and build
+reports** — clickable dashboards where developers could see, at a
+glance, whether the codebase was getting better or worse. Each commit
+triggered a full analysis run, and the results were visible to the
+entire team.
+
+This was the same workflow that modern platforms provide out of the box:
+
+| SOLIS Jenkins (2009-2013) | Modern equivalent |
+|---|---|
+| PHPLOC in Jenkins | SonarQube metrics, GitHub code frequency |
+| PHPCS in Jenkins | GitHub Actions + PHPCS, pre-commit hooks |
+| PHPMD in Jenkins | SonarQube rules, PHPStan, Psalm |
+| phpcpd in Jenkins | SonarQube duplication detection |
+| pdepend in Jenkins | Deptrac, PHPStan, SonarQube |
+
+The one tool that was *not* adopted at the time was **PHPUnit** —
+automated testing was not part of the pipeline. The quality dashboard
+focused on static analysis and metrics rather than test coverage. This
+was common for the era; many PHP teams adopted code quality tools before
+building test suites.
+
+The important thing is not that these tools existed — most were available
+by 2009-2010 — but that a small cooperative in southern Brazil was
+running them in an automated pipeline and using the dashboards for
+decision-making. This was early adoption of the "continuous inspection"
+practice that the DevOps movement would later formalize.
+
+This was "CI/CD before CI/CD was a buzzword." GitHub Actions (2019),
+GitLab CI (2015), and the modern DevOps movement formalized what teams
+like SOLIS were already doing with Jenkins, Phing, and code quality
+tooling.
 
 ---
 
@@ -316,7 +398,8 @@ run by a developer" to "automated pipeline triggered by commits."
 | Web server config | Edit `httpd.conf` manually | `a2ensite`, nginx conf.d |
 | App deployment | Copy files via FTP/SCP | Git pull, Composer install, Docker |
 | Configuration | PHP array, `include()`d | `.env` files, YAML, environment vars |
-| CI/CD | Shell scripts, cron jobs | Jenkins, GitHub Actions, GitLab CI |
+| CI/CD | Shell scripts, cron jobs | Jenkins+Phing (2009), GitHub Actions, GitLab CI |
+| Code quality | Manual review, no metrics | Jenkins+PHPLOC/PHPCS/PHPMD (2009), SonarQube, GitHub scanning |
 | Packaging | Manual copy | `.deb` packages, Docker images, Helm |
 | Rollback | Restore yesterday's backup | `git revert`, blue-green deploy |
 | Monitoring | `tail -f error.log` | Prometheus, Grafana, Datadog |
