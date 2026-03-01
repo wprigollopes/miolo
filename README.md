@@ -105,6 +105,48 @@ frameworks like JSF, Vaadin, and later server-side component systems
 would adopt, but MIOLO was doing it at the turn of the millennium with
 nothing but `echo` statements and string concatenation.
 
+**Building a screen felt like PHP-GTK or Visual Studio** — not like
+writing a web page. You didn't open an HTML file and type tags. You
+opened a PHP class, instantiated component objects, set their properties,
+and added them to a container — exactly the way you'd build a desktop
+application in Delphi, Visual Basic, or PHP-GTK. A form wasn't an HTML
+`<form>` tag you wrote by hand; it was `new MTextField('name', 'Name:', 30)`
+added to `$fields[]`, then `$this->addFields($fields)`. A grid wasn't an
+HTML `<table>`; it was `new MGrid($columns, $data, $pageLength)` with
+built-in pagination, sorting, and action buttons. Validators, lookups,
+date pickers, toolbars, dialogs — all created the same way: instantiate,
+configure, compose. The developer thought in **objects and properties**,
+not in markup and stylesheets. The framework handled the messy translation
+to HTML, CSS, and the browser quirks of the day.
+
+**File downloads and image handling had to be built from first
+principles.** There was no `Content-Disposition` convention that browsers
+agreed on. Serving a file for download meant manually setting HTTP headers
+(`Content-Type`, `Content-Length`, `Content-Transfer-Encoding`), reading
+the file in chunks with `fread()`, flushing the output buffer, and
+praying that Internet Explorer didn't decide to display it inline or
+mangle the filename's encoding. Image uploads were equally raw — you
+checked `$_FILES` (which didn't exist in PHP 3; it was `$HTTP_POST_FILES`),
+validated MIME types by hand (since browsers could lie about them),
+generated unique filenames to avoid overwrites, and moved the temporary
+file to its destination. There was no `Intervention/Image`, no GD by
+default, no `Imagick` — if you needed to resize an image, you compiled
+PHP with `--with-gd` and wrote the pixel manipulation yourself.
+
+**Security was a different world.** There was no OWASP Top 10 (first
+published 2003), no established vocabulary for SQL injection or XSS —
+these attacks existed but had no widely known names or mitigation
+patterns. PHP had `register_globals` enabled by default, meaning any
+query string parameter became a PHP variable — `?admin=1` created
+`$admin = 1` in your script. Magic quotes (`magic_quotes_gpc`) was PHP's
+misguided attempt at automatic SQL escaping, mangling every input with
+backslashes. There were no prepared statements, no parameterized queries,
+no CSRF tokens, no Content-Security-Policy headers, no HTTPS by default
+(certificates were expensive and manual). Session management was
+rudimentary. Password storage often meant plain MD5 — `bcrypt` for PHP
+(`password_hash()`) wouldn't arrive until PHP 5.5 in 2013. Security was
+something you learned the hard way, usually after something went wrong.
+
 The very first piece of code in this repository — **PSLib** (1999) — is
 a PHP library for generating PostScript files. The university needed to
 print academic transcripts, and there were no PDF libraries for PHP.
