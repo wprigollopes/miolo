@@ -47,6 +47,39 @@ couldn't agree on how to render anything. JavaScript was unreliable, so
 serious applications relied on full page reloads. Deployments were done
 via FTP. Source control meant copying files to a shared folder.
 
+**There were no package managers.** PEAR (PHP Extension and Application
+Repository) was the only thing remotely close — a centralized channel for
+installing PHP libraries, but nothing like what Composer would become in
+2012. If you needed a library, you downloaded a tarball, extracted it, and
+hoped the paths worked. Installing PHP itself meant compiling it from
+source with `./configure && make && make install`, carefully enabling each
+extension you needed as a compile flag — because **extensions were rare
+and not bundled**. JSON didn't exist as a PHP extension until 2004 (and
+wasn't bundled until PHP 5.2 in 2006). There was no `json_encode()` — if
+you needed structured data exchange, you used **XML and SOAP**, the only
+standardized web service pattern of the era. REST wouldn't be described
+until Roy Fielding's dissertation in 2000, and RESTful APIs didn't become
+mainstream until years later.
+
+**Every database driver had to be written from scratch.** There was no
+PDO (it arrived in PHP 5.1, 2005). If your application needed to talk to
+PostgreSQL, MySQL, Oracle, and SQLite, you wrote four separate
+abstraction layers — each with its own connection logic, query syntax
+quirks, error handling, and result set iteration. MIOLO did exactly this
+(see `classes/database/`). PostgreSQL was at version 6.5 and MySQL at
+3.23 — both young, limited, and missing features that developers take for
+granted today. There were **no migration tools** — schema changes were
+applied by hand with SQL scripts, and you tracked what had been run with
+notes or naming conventions.
+
+**There was no caching layer.** Memcached wouldn't be created until 2003.
+Redis didn't exist until 2009. APCu, OPcache — none of it. Every page
+request hit the database, every time. And the web server landscape was
+**Apache alone** — Nginx wouldn't appear until 2004. Apache served
+everything: static files, PHP scripts through `mod_php`, and any dynamic
+content your application needed, all from a single process model that
+was not designed for the concurrency demands of modern web traffic.
+
 The very first piece of code in this repository — **PSLib** (1999) — is
 a PHP library for generating PostScript files. The university needed to
 print academic transcripts, and there were no PDF libraries for PHP.
