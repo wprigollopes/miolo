@@ -141,6 +141,10 @@ GitHub:
   SOLIS (2025). JSON fixes, PHP 8 migration, jQuery plugins, deprecated
   dependency removal.
 
+This is a 27-year-old software project that is still in development —
+I certainly forgot a lot of names. If you contributed to MIOLO and don't
+see yourself here, just get in touch and I will add you.
+
 See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the complete list of 31
 contributors with their roles, commit histories, and key contributions.
 
