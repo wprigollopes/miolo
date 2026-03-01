@@ -53,121 +53,29 @@ There were **no PHP frameworks**. PHP 3 had just been released. There was
 no Google (it launched in September 1998), no Stack Overflow, no AWS, no
 Git. Internet access was dial-up at 28.8 kbps — 56 kbps if you were
 lucky. You connected through an ISP, your phone line was busy while you
-were online, and you paid by the minute. Documentation lived in books and
-mailing lists. Browsers (Netscape Navigator 4, Internet Explorer 5)
-couldn't agree on how to render anything. JavaScript was unreliable, so
-serious applications relied on full page reloads. Deployments were done
-via FTP. Source control meant copying files to a shared folder.
+were online, and you paid by the minute. Deploying meant FTP. Source
+control meant copying files to a shared folder.
 
-**There were no package managers.** PEAR (PHP Extension and Application
-Repository) was the only thing remotely close — a centralized channel for
-installing PHP libraries, but nothing like what Composer would become in
-2012. If you needed a library, you downloaded a tarball, extracted it, and
-hoped the paths worked. Installing PHP itself meant compiling it from
-source with `./configure && make && make install`, carefully enabling each
-extension you needed as a compile flag — because **extensions were rare
-and not bundled**. JSON didn't exist as a PHP extension until 2004 (and
-wasn't bundled until PHP 5.2 in 2006). There was no `json_encode()` — if
-you needed structured data exchange, you used **XML and SOAP**, the only
-standardized web service pattern of the era. REST wouldn't be described
-until Roy Fielding's dissertation in 2000, and RESTful APIs didn't become
-mainstream until years later.
+There were no package managers, no PDO, no caching layers, no frontend
+frameworks, no CSS layout tools, no security standards. PHP extensions
+had to be compiled from source. Every database driver was written from
+scratch. JavaScript was unreliable. Page rendering was pure server-side
+HTML with `<table>` layouts. MIOLO was built in this world — and built
+solutions to problems that the PHP ecosystem wouldn't formally address
+for another decade.
 
-**Every database driver had to be written from scratch.** There was no
-PDO (it arrived in PHP 5.1, 2005). If your application needed to talk to
-PostgreSQL, MySQL, Oracle, and SQLite, you wrote four separate
-abstraction layers — each with its own connection logic, query syntax
-quirks, error handling, and result set iteration. MIOLO did exactly this
-(see `classes/database/`). PostgreSQL was at version 6.5 and MySQL at
-3.23 — both young, limited, and missing features that developers take for
-granted today. There were **no migration tools** — schema changes were
-applied by hand with SQL scripts, and you tracked what had been run with
-notes or naming conventions.
-
-**There was no caching layer.** Memcached wouldn't be created until 2003.
-Redis didn't exist until 2009. APCu, OPcache — none of it. Every page
-request hit the database, every time. And the web server landscape was
-**Apache alone** — Nginx wouldn't appear until 2004. Apache served
-everything: static files, PHP scripts through `mod_php`, and any dynamic
-content your application needed, all from a single process model that
-was not designed for the concurrency demands of modern web traffic.
-
-**Page rendering was pure HTML and CSS — and barely that.** There was no
-Bootstrap (2011), no Tailwind, no Material Design, no component libraries,
-no design systems, no frontend build tools, no Sass, no Less. CSS itself
-was primitive: no flexbox (2009), no grid (2017), no media queries (2012),
-no variables, no transitions. If you wanted a two-column layout, you used
-HTML `<table>` elements — because that was the only reliable way to make
-it work across Netscape and Internet Explorer. Rounded corners meant
-slicing images in Photoshop and assembling them in a 9-cell table. Drop
-shadows meant more sliced images. Consistent fonts meant hoping the user
-had them installed. Every pixel of layout was a negotiation with browsers
-that disagreed on box models, margin collapsing, and float behavior.
-
-MIOLO invented its own **theme system** (see `classes/ui/controls/mtheme.class.php`)
-years before theming became a standard concept. Each theme was a
-self-contained set of PHP rendering classes, CSS files, and image assets
-that controlled how every UI component — forms, grids, menus, toolbars,
-dialogs — was rendered to HTML. Switching the entire application's look
-meant changing one configuration value. The framework generated all HTML
-server-side through PHP objects (`MDiv`, `MForm`, `MGrid`, `MToolbar`),
-so developers never wrote raw HTML — they composed UI components in PHP
-and the theme decided how to render them. This was the pattern that
-frameworks like JSF, Vaadin, and later server-side component systems
-would adopt, but MIOLO was doing it at the turn of the millennium with
-nothing but `echo` statements and string concatenation.
-
-**Building a screen felt like PHP-GTK or Visual Studio** — not like
-writing a web page. You didn't open an HTML file and type tags. You
-opened a PHP class, instantiated component objects, set their properties,
-and added them to a container — exactly the way you'd build a desktop
-application in Delphi, Visual Basic, or PHP-GTK. A form wasn't an HTML
-`<form>` tag you wrote by hand; it was `new MTextField('name', 'Name:', 30)`
-added to `$fields[]`, then `$this->addFields($fields)`. A grid wasn't an
-HTML `<table>`; it was `new MGrid($columns, $data, $pageLength)` with
-built-in pagination, sorting, and action buttons. Validators, lookups,
-date pickers, toolbars, dialogs — all created the same way: instantiate,
-configure, compose. The developer thought in **objects and properties**,
-not in markup and stylesheets. The framework handled the messy translation
-to HTML, CSS, and the browser quirks of the day.
-
-**File downloads and image handling had to be built from first
-principles.** There was no `Content-Disposition` convention that browsers
-agreed on. Serving a file for download meant manually setting HTTP headers
-(`Content-Type`, `Content-Length`, `Content-Transfer-Encoding`), reading
-the file in chunks with `fread()`, flushing the output buffer, and
-praying that Internet Explorer didn't decide to display it inline or
-mangle the filename's encoding. Image uploads were equally raw — you
-checked `$_FILES` (which didn't exist in PHP 3; it was `$HTTP_POST_FILES`),
-validated MIME types by hand (since browsers could lie about them),
-generated unique filenames to avoid overwrites, and moved the temporary
-file to its destination. There was no `Intervention/Image`, no GD by
-default, no `Imagick` — if you needed to resize an image, you compiled
-PHP with `--with-gd` and wrote the pixel manipulation yourself.
-
-**Security was a different world.** There was no OWASP Top 10 (first
-published 2003), no established vocabulary for SQL injection or XSS —
-these attacks existed but had no widely known names or mitigation
-patterns. PHP had `register_globals` enabled by default, meaning any
-query string parameter became a PHP variable — `?admin=1` created
-`$admin = 1` in your script. Magic quotes (`magic_quotes_gpc`) was PHP's
-misguided attempt at automatic SQL escaping, mangling every input with
-backslashes. There were no prepared statements, no parameterized queries,
-no CSRF tokens, no Content-Security-Policy headers, no HTTPS by default
-(certificates were expensive and manual). Session management was
-rudimentary. Password storage often meant plain MD5 — `bcrypt` for PHP
-(`password_hash()`) wouldn't arrive until PHP 5.5 in 2013. Security was
-something you learned the hard way, usually after something went wrong.
+> **Deep dive:** The [Historical Curiosities](docs/history/) section
+> explores each of these challenges in detail, with code examples from
+> the MIOLO codebase and comparisons with modern equivalents.
 
 The very first piece of code in this repository — **PSLib** (1999) — is
 a PHP library for generating PostScript files. The university needed to
 print academic transcripts, and there were no PDF libraries for PHP.
 Vilson Gärtner had to write raw printer instructions: move cursor to
 coordinates, set font, draw text, draw lines — every element on the page
-was a hand-calculated coordinate and a PostScript operator. Accented
-characters (essential for Portuguese) required implementing ISOLatin1
-font re-encoding by hand. This is where it all started: writing documents
-in printer instructions because there was no other way.
+was a hand-calculated coordinate and a PostScript operator. This is where
+it all started: writing documents in printer instructions because there
+was no other way.
 
 From that foundation, MIOLO grew into a full object-oriented framework
 with database abstraction, form handling, session management, theming,
@@ -194,6 +102,28 @@ Brazil in 2009.
 comprehensive project history compiled from SVN logs, code comments, and
 public sources — including a detailed timeline from 1997 to 2026, profiles
 of all 31 contributors, and references to external publications.
+
+---
+
+## Historical Curiosities
+
+MIOLO is a time capsule of early PHP development. These documents explore
+how specific challenges were solved in 1999-2005, with code examples from
+the actual codebase and comparisons with modern tools and frameworks.
+
+| # | Topic | What It Covers |
+|---|---|---|
+| [01](docs/history/01-debugging.md) | **Debugging** | `var_dump` as the only tool, MDump vs Laravel's `dd()`, IP-gated debug output, the `/tmp/var_dump` pattern, Firebug bridge |
+| [02](docs/history/02-logging.md) | **Logging** | Custom MLog with 4 handlers (file, socket, DB, screen) before Monolog existed, MTrace execution tracing, MProfile performance profiling |
+| [03](docs/history/03-package-management.md) | **Package Management** | No Composer, no Packagist — finding libraries on mailing lists, downloading tarballs, vendoring code, getting copies from authors at conferences |
+| [04](docs/history/04-database.md) | **Database** | Writing 5 separate database drivers from scratch (PostgreSQL, MySQL, Oracle, SQLite, MsSQL) before PDO existed, comparison with modern PDO and Eloquent |
+| [05](docs/history/05-frontend-rendering.md) | **Frontend Rendering** | Server-side component model before React, MDataGrid vs DataTables/React Table, theme system, PostBack pattern, JavaScript evolution from zero to Dojo to jQuery |
+| [06](docs/history/06-autoloading.md) | **Autoloading** | XML class manifests, manual `include()` chains, the `uses()` method with file-size tracking — before `spl_autoload_register()` and PSR-4 |
+| [07](docs/history/07-installation-infrastructure.md) | **Installation & Infrastructure** | Compiling PHP from source, the Linux distro landscape (Slackware to Ubuntu), PostgreSQL versions, Apache config, CI/CD as shell scripts |
+| [08](docs/history/08-design-patterns.md) | **Design Patterns** | Singleton, Factory, Template Method, Decorator, MVC, Service Locator — implemented in PHP 3/4 before most PHP developers had heard of them |
+| [09](docs/history/09-internet-connectivity.md) | **Internet & Connectivity** | 56 kbps dial-up, 4-hour browser downloads, per-minute charges, how bandwidth constraints shaped architecture |
+| [10](docs/history/10-ahead-of-their-time.md) | **Ahead of Their Time** | ORM before Doctrine, components before React, middleware before Laravel, fluent queries before Fowler named them, CSRF protection before OWASP |
+| [11](docs/history/11-auxiliary-languages.md) | **Auxiliary Languages** | PostScript for printing, Java (JasperReports) for reports, C++ (Qt3) for GUI tools — when PHP wasn't enough |
 
 ---
 
