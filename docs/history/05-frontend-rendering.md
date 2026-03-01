@@ -371,7 +371,7 @@ Custom AJAX was built on top of Dojo's `dojo.declare`:
 dojo.declare("Miolo.Ajax", null, {
     update: function(result, ioArgs) {
         // Replace target element content with server response
-        miolo.getElementById(this.updateElement).textContent = result;
+        miolo.getElementById(this.updateElement).innerHTML = result;
         miolo.stopShowLoading();
     }
 });

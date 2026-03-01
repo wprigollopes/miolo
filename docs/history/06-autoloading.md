@@ -81,7 +81,8 @@ function Uses($name, $module = null)
 }
 ```
 
-Version 1.0 also had a `UsesDump()` method that generated an HTML table
+Version 1.0 also had a `UsesDump()` method (in the MIOLO class itself —
+later refactored into `MDump` in v2.0) that generated an HTML table
 showing every loaded file and its size — a built-in profiling tool:
 
 ```php

@@ -15,7 +15,8 @@ modern ORMs would later standardize.
 - **PDO** (PHP Data Objects) — arrived in PHP 5.1 (2005)
 - **Doctrine DBAL** — first release 2006, mature by 2010
 - **Eloquent ORM** — Laravel, 2011
-- **Prepared statements** — not available in PHP until PDO (PHP 5.1, 2005) and MySQLi
+- **Prepared statements** — not available in PHP until MySQLi (PHP 5.0, 2004)
+  and PDO (PHP 5.1, 2005)
 - **Migration tools** — Rails migrations (2005) pioneered the concept;
   PHP equivalents came much later (Phinx 2012, Doctrine Migrations 2010)
 - **Connection pooling** — not available in PHP's share-nothing model

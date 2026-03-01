@@ -77,7 +77,7 @@ class MIOLO
     public static function getInstance()
     {
         if (self::$instance == NULL) {
-            self::$instance = new Miolo;
+            self::$instance = new MIOLO();
         }
         return self::$instance;
     }
@@ -461,9 +461,10 @@ Locator via `getObject()`. The team was reading the GoF book and
 applying it to web development as the language gained the constructs
 to express these patterns properly.
 
-The MVC implementation is particularly notable because it predates
-Struts (Java, 2000) and Rails (Ruby, 2004) — the frameworks that
-popularized MVC for web applications. Even the version 1.0 `Context`
-class with its colon-separated action tokens (`main:list:detail`)
-shows MVC thinking applied directly from software engineering
-literature to a web context, before any other PHP framework existed.
+The MVC implementation is particularly notable because it was roughly
+contemporary with Struts (Java, 2000) and preceded Rails (Ruby, 2004)
+— the frameworks that popularized MVC for web applications. Even the
+version 1.0 `Context` class with its colon-separated action tokens
+(`main:list:detail`) shows MVC thinking applied directly from software
+engineering literature to a web context, before any other PHP framework
+existed.

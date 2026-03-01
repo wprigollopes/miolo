@@ -6,8 +6,10 @@ version, configuration format, class naming, directory layout, database
 support, UI architecture, and JavaScript strategy.**
 
 This comparison is based on direct analysis of the `archive/v1.0` and
-`archive/v2.0` branches, which contain full SVN exports from
-`branches/1.0/trunk/` and `tags/2.0.01/` respectively.
+`archive/v2.0` git branches (orphan branches in this repository
+containing full SVN exports from `branches/1.0/trunk/` and
+`tags/2.0.01/` respectively). To inspect them:
+`git checkout archive/v1.0` or `git checkout archive/v2.0`.
 
 ---
 
