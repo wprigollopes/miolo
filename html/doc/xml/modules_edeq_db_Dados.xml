@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="Dados.class" path="/usr/local/bis/html/modules/edeq/db/Dados.class" base="modules_edeq_db_Dados" created="" lines="142">
+    <class name="BusinessEdeqDado" base="" declaration="class BusinessEdeqDado" line="3">
+        <function name="GetDatabase" attribute="default" declaration="function GetDatabase()" line="6">
+        </function>
+        <function name="IncluirPessoa" attribute="default" declaration="function IncluirPessoa($obj)" line="13">
+            <param name="$obj" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ListarDado" attribute="default" declaration="function ListarDado(&amp;$range)" line="39">
+            <param name="&amp;$range" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ListarDadoData" attribute="default" declaration="function ListarDadoData(&amp;$range)" line="60">
+            <param name="&amp;$range" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ExcluirDado" attribute="default" declaration="function ExcluirDado($codigo)" line="88">
+            <param name="$codigo" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AlterarCategoria" attribute="default" declaration="function AlterarCategoria($obj)" line="100">
+            <param name="$obj" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ObterDado" attribute="default" declaration="function ObterDado($codigo)" line="119">
+            <param name="$codigo" value="" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+</source>

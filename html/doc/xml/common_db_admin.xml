@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="admin.class" path="/usr/local/miolo/modules/common/db/admin.class" base="common_db_admin" created="" lines="549">
+    <class name="BusinessCommonAdmin" base="Business" declaration="class BusinessCommonAdmin extends Business" line="3">
+        <function name="GetDatabase" attribute="default" declaration="function GetDatabase()" line="5">
+        </function>
+        <function name="GetModule" attribute="default" declaration="function GetModule($name)" line="15">
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Returns module's info]]>
+          </description>
+        </function>
+        <function name="GetModules" attribute="default" declaration="function GetModules($user=null)" line="49">
+            <param name="$user" value="null" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Returns registered modules.
+If user != null, returns the modules of a user]]>
+          </description>
+        </function>
+        <function name="InsertModule" attribute="default" declaration="function InsertModule($module)" line="81">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Insert a new module]]>
+          </description>
+        </function>
+        <function name="UpdateModule" attribute="default" declaration="function UpdateModule($module)" line="104">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Change module's data]]>
+          </description>
+        </function>
+        <function name="DeleteModule" attribute="default" declaration="function DeleteModule($module)" line="128">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Delete a Module]]>
+          </description>
+        </function>
+        <function name="GetUser" attribute="default" declaration="function GetUser($login)" line="146">
+            <param name="$login" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Returns user's info]]>
+          </description>
+        </function>
+        <function name="GetUsers" attribute="default" declaration="function GetUsers($module=null)" line="178">
+            <param name="$module" value="null" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Returns all users registered.
+If $module != null, returns users of a module]]>
+          </description>
+        </function>
+        <function name="InsertUser" attribute="default" declaration="function InsertUser($user)" line="210">
+            <param name="$user" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Inserts a new user]]>
+          </description>
+        </function>
+        <function name="UpdateUser" attribute="default" declaration="function UpdateUser($user)" line="237">
+            <param name="$user" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Change user's info]]>
+          </description>
+        </function>
+        <function name="DeleteUser" attribute="default" declaration="function DeleteUser($user)" line="264">
+            <param name="$user" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Delete a user]]>
+          </description>
+        </function>
+        <function name="DeleteUserPermissions" attribute="default" declaration="function DeleteUserPermissions($user)" line="289">
+            <param name="$user" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Delete user's permissions]]>
+          </description>
+        </function>
+        <function name="UpdateUserPermissions" attribute="default" declaration="function UpdateUserPermissions($module,$login,$rights)" line="307">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$login" value="" type=""><![CDATA[]]></param>
+            <param name="$rights" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Change user's permissions]]>
+          </description>
+        </function>
+        <function name="UpdateUserPassword" attribute="default" declaration="function UpdateUserPassword($user,$password)" line="334">
+            <param name="$user" value="" type=""><![CDATA[]]></param>
+            <param name="$password" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Change user's password]]>
+          </description>
+        </function>
+        <function name="SetConfirm_Hash" attribute="default" declaration="function SetConfirm_Hash($login, $confirm_hash)" line="353">
+            <param name="$login" value="" type=""><![CDATA[]]></param>
+            <param name="$confirm_hash" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetUserIdFromHash" attribute="default" declaration="function GetUserIdFromHash($hash)" line="369">
+            <param name="$hash" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetGroups" attribute="default" declaration="function GetGroups($conc=false)" line="389">
+            <param name="$conc" value="false" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Returns all the groups registered
+The conc variable indicate if the description will send concatenated with the module]]>
+          </description>
+        </function>
+        <function name="InsertGroup" attribute="default" declaration="function InsertGroup($group)" line="415">
+            <param name="$group" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Inserts a new group]]>
+          </description>
+        </function>
+        <function name="UpdateGroup" attribute="default" declaration="function UpdateGroup($group)" line="438">
+            <param name="$group" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Changes group information]]>
+          </description>
+        </function>
+        <function name="DeleteGroup" attribute="default" declaration="function DeleteGroup($group)" line="459">
+            <param name="$group" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Delete a group]]>
+          </description>
+        </function>
+        <function name="GetGroup" attribute="default" declaration="function GetGroup($group)" line="478">
+            <param name="$group" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Returns a group data]]>
+          </description>
+        </function>
+        <function name="DeleteGroupPermissions" attribute="default" declaration="function DeleteGroupPermissions($group)" line="506">
+            <param name="$group" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Delete group's permissions]]>
+          </description>
+        </function>
+        <function name="UpdateGroupPermissions" attribute="default" declaration="function UpdateGroupPermissions($module,$id,$rights)" line="523">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$id" value="" type=""><![CDATA[]]></param>
+            <param name="$rights" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Change group's permissions]]>
+          </description>
+        </function>
+    </class>
+</source>

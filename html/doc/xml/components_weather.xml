@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="weather.class" path="/usr/local/miolo/classes/components/weather.class" base="components_weather" created="" lines="105">
+  <title>Weather Class</title>
+  <description>
+  <![CDATA[This class can be used to return the weather information from the
+  Yahoo Weather site (http://weather.yahoo.com)]]>
+  </description>
+  <relations type="group">
+    <group name="components"/>
+  </relations>
+  <organisation>
+  <![CDATA[MIOLO - Miolo Development Team - SOLIS/UNIVATES]]>
+  </organisation>
+  <legal>
+  <![CDATA[CopyLeft (L) 2002-2003 SOLIS, Lajeado/RS - Brasil
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)]]>
+  </legal>
+  <contributors>
+    <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+    <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+  </contributors>
+  <maintainers>
+    <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+    <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+  </maintainers>
+  <history>
+  <![CDATA[
+    See history in CVS repository.<br>
+  ]]>
+  </history>
+    <class name="Weather" base="ThemeElement" declaration="class Weather extends ThemeElement" line="37">
+      <description>
+      <![CDATA[Important: All components must extends ThemeElement]]>
+      </description>
+        <var name="code" declaration="var $code;" line="39">
+        </var>
+        <var name="proxy" declaration="var $proxy;" line="40">
+        </var>
+        <function name="Weather" attribute="default" declaration="function Weather()" line="43">
+        </function>
+        <function name="SetProxy" attribute="default" declaration="function SetProxy($host=null)" line="49">
+            <param name="$host" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetCode" attribute="default" declaration="function SetCode($code)" line="55">
+            <param name="$code" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="65">
+          <description>
+          <![CDATA[This method creates the weather content
+Important: All components must have this method]]>
+          </description>
+        </function>
+    </class>
+</source>

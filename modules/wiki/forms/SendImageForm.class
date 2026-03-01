@@ -1,0 +1,45 @@
+<?
+// +-----------------------------------------------------------------+
+// | Wiki Development Team UNIVATES - Centro Universitário           |
+// +-----------------------------------------------------------------+
+// |      Copyleft (l) 2002 UNIVATES, Lajeado/RS - Brasil            |
+// +-----------------------------------------------------------------+
+// | Licensed under GPL: see COPYING.TXT or FSF at www.fsf.org for   |
+// |                     further details                             |
+// |                                                                 |
+// | Site: http://wiki.codigolivre.org.br                            |
+// +-----------------------------------------------------------------+
+// | Created: 2002/12/16 Alexandre Heitor Schmidt xandehs@univates.br|
+// |                     Nasair Júnior da Silva   njunior@univates.br|
+// |                                                                 |
+// | History: Initial Revision                                       |
+// +-----------------------------------------------------------------+
+
+class SendImageForm extends Form
+{
+    function SendImageForm($data=null)
+    {
+        global $MIOLO, $module, $login;
+
+        $this->Form(_M("Send an image to project @1",$module,$data->title));
+
+        $fields[] = new TextField(null,'title',$data->title,0);
+        $fields[] = new TextField(null,'project_id',$data->project_id,0);
+        $fields[] = new FileField(_M('Picture',$module) ,'image',$data->image);
+        
+        $this->SetFields($fields);
+    }
+
+    function GetData()
+    {
+        $required = array('project_id','image');
+
+        if ( $this->Validate($required) )
+        {
+            $data = $this->CollectInput(new FormData);
+        }
+        return $data;
+    }
+}
+
+?>

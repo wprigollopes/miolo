@@ -1,0 +1,61 @@
+<?
+
+// observe que o nome da classe é identica ao nome do arquivo
+class LookupForm extends Form
+{
+    function LookupForm($data=null)
+    {   global $MIOLO;
+        
+        // construtor da classe
+        $this->Form('Cadastro de Pessoa');
+
+        // adicionar os campos ao formulário
+        // $data->??? indica o valor a ser colocado no campo
+        $this->AddField( new TextField('CPF', 'cpf', $data->cpf, 20, 'Informe o CPF da pessoa', Validator::CPFValidator()) );
+        $this->AddField( new TextField('Nome', 'name', $data->name, 40),
+                         'Digite o nome da pessoa' );
+        $this->AddField( new TextField('Endereço', 'address', $data->address, 40),
+                         'Digite o endereço completo da pessoa' );
+        $this->AddField( new TextField('Bairro', 'address1', $data->address1, 30),
+                         'Digite o bairro da rua');
+        $this->AddField( new LookupField('Cep', 'zip_city', array('nam_city','cod_esta'),'tutorial','LookCity',$data->zip_city,
+                         'Selecione a cidade',array('filterEstado'=>'cod_esta','filterCidade'=>'nam_city')));
+        $this->AddField( new TextField('Cidade','nam_city',$data->nam_city,50));
+        $this->AddField( new TextField('Estado','cod_esta',$data->cod_esta,10));
+        $this->AddField( new TextField('Fone', 'phone', $data->phone, 30, 'Digite o número de telefone',
+                             Validator::PHONEValidator()) );
+        $this->AddField( new TextField('E-mail', 'email', $data->email, 30, 'Digite o endereço para email',
+                             Validator::EMAILValidator()) );
+        /*
+        // outra forma de adicionar os dados ao formulário
+        // seria utilizando o mérodo SetData
+        if ( $data )
+        {
+            $this->SetData($data);
+        }*/
+    }
+    
+    
+    // override do método padrão GetData da classe form
+    // para fazer uma validação da existência ou não 
+    // de dados no form
+    function GetData()
+    {   
+        // ValidateAll verifica se todos os campos foram informados.
+        // Para validar apenas alguns campos, pode-se utilizar
+        // Validate($array) onde $array contém os campos a serem 
+        // validados
+        if ( $this->ValidateAll() )
+        {
+            // Coleta os dados do form e retorna um objeto Person
+	    // Person está definido no arquivo ../types.class
+            return $this->CollectInput(new Person());
+        }
+        
+        // se não for validado com sucesso, retorna falso
+        return false;
+    }
+
+}
+
+?>

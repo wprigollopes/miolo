@@ -1,0 +1,638 @@
+<?php
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# @title
+#   Listing and Listing Elements
+#
+# @description
+#   This file contains the listing elements definitions
+#
+# @topics   listing, ui
+#
+# @created
+#   2001/08/14
+#
+# @organisation
+#   MIOLO - Miolo Development Team - UNIVATES Centro Universitario
+#
+# @legal
+#   CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+#   Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+#   further details)
+#
+# @contributors
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+# 
+# @maintainers
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#
+# @history
+#   See CVS history.
+#
+# @id $Id: listing.class,v 1.7 2004/08/23 18:29:44 vgartner Exp $
+#---------------------------------------------------------------------
+
+##
+#
+#
+class ListingColumn
+{
+    var $title;    # listing title
+    var $footer;   # optional listing footer
+    var $options;  # array for mapping of data value to display value
+    var $align;    # alignment left,center,right
+    var $nowrap;   # flag to specify that the cell value may not be wrapped
+    var $width;    # column width in pixels or percent
+    var $visible;  # flag to hide/show column
+    var $renderer; # custom value cell renderer, must a subclass of ListingRenderer
+
+    ##
+    #
+    #
+    function ListingColumn($title,$options=null,$align=null,$nowrap=false,$width=0)
+    {
+        $this->title    = $title;
+        $this->options  = $options;
+        $this->align    = $align;
+        $this->nowrap   = $nowrap;
+        $this->width    = $width;
+        $this->visible  = ($title != '');
+        $this->renderer = null;
+    }
+    
+    function SetRenderer($renderer)
+    {
+        $this->renderer = $renderer;
+    }
+
+    ##
+    #
+    #
+    function Generate($value='')
+    {
+        if ( is_object($this->title) )
+        {
+            echo $this->title->title;
+        }
+        else
+        {
+            echo $this->title;
+        }
+    }
+}
+
+##
+#
+#
+class CellRenderer
+{
+    function Generate(&$listing,$row,$column,$value)
+    {
+        echo $value;
+    }
+}
+
+##
+#
+#
+class ActionRenderer extends CellRenderer 
+{
+    var $actions;
+    
+    function ActionRenderer($action=null)
+    {
+        $this->actions[] = $action;
+    }
+    
+    function AddAction($a)
+    {
+        $this->actions[] = $a;
+    }
+    
+    function SetActions($actions)
+    {
+        $this->actions = $actions;
+    }
+    
+    function Generate(&$listing,$row,$column,$value)
+    {   global $MIOLO, $MIOLOCONF;
+        
+        $scrambling = $MIOLOCONF['options']['scramble'];
+     
+        //$MIOLO->Dump($this->actions,__FILE__,__LINE__);
+        if ( $this->actions )
+        {
+            foreach( $this->actions as $a )
+            {
+                $href = $a->href;
+                
+                if ( $a->index != null )
+                {
+                    $href = ereg_replace('\$id',$listing->GetValue($row,$a->index),$href);
+                }
+                
+                $label = $a->value;
+                
+                // substitute positional parameters
+                $count = $listing->GetColumnCount();
+
+                    //$old_href = $href;
+                    //echo $old_href;
+                    if ( $scrambling )
+                    {
+                        $href_prefix = substr($href, 0, strpos($href,'?')+1 );
+//                    echo $href_prefix;
+                        $href = substr($href, strpos($href,'MIOLO_URI=')+10, strlen($href) );
+                        $href = MIOLO::UnScramble($href);
+                    //echo $href;
+                    }
+                                
+                for ( $i=0; $i<$count; $i++ )
+                {
+                    $value = $listing->GetValue($row,$i);
+                    
+                    //$MIOLO->Dump($href,__FILE__,__LINE__);
+                    $href = str_replace("%$i%",urlencode($value),$href);
+                    $href = str_replace("#$i#",$value,$href);
+                    //echo $href;
+                    if ( $a->type == 'text' )
+                    {
+                        $label = str_replace("%$i%",$value,$label);
+                    }                   
+                }
+
+                if ( $scrambling )
+                {
+                    $href = $href_prefix . 'MIOLO_URI=' . MIOLO::Scramble($href);
+                }
+
+                if ( $a->type == 'image' )
+                {
+                    $img = $this->GetImage($a->value);
+        
+                    // first column is for action buttons
+                    echo "<a class=\"listingLink\" href=\"$href\"><img src=\"$img\" title=\"{$a->alt}\" border=\"0\"></a>";
+                }
+                else if ( $a->type == 'text' )
+                {
+                    echo "<a class=\"listingLink\" href=\"$href\">$label</a>";
+                }
+                else
+                {
+                    $MIOLO->Error("ERROR: Unknow action type '{$a->type}'!");
+                }
+            }
+        }
+    }
+    
+    // $src = 'update.gif'
+    //  ??? /themes/images/$src
+    //  ??? /images/$src
+    function GetImage($src)
+    {   global $MIOLOCONF;
+
+        $url = $this->icons[$src];
+        
+        if ( ! $url )
+        {
+            if ( substr($src,0,1) == '/' || substr($src,0,5) == 'http:' )
+            {
+                $url = $src;
+            }
+            else
+            {
+                $file = $MIOLOCONF['home']['themes'] . '/' .
+                        $MIOLOCONF['theme']['main']  . '/images/' . $src;
+                
+                if ( file_exists($file) )
+                {
+                    $url = $MIOLOCONF['home']['url.themes'] . '/' .
+                           $MIOLOCONF['theme']['main']  . '/images/' . $src;
+                }
+                else
+                {
+                    $url = $MIOLOCONF['home']['url'] . '/images/' . $src;
+                }
+            }
+            
+            $this->icons[$src] = $url;
+        }
+        
+        return $url;
+    }
+}
+
+##
+#
+#
+class ListingAction
+{
+    var $type;   // text or img
+    var $value;  // image or text label
+    var $href;   // link pattern
+    var $alt;    // optional image description
+    var $index;  // deprecated
+    
+    function ListingAction($type,$alt,$value,$href,$index=null)
+    {   global $MIOLO;
+        
+        $this->type  = $type;
+        $this->alt   = $alt;
+        $this->value = $value;
+        $this->href  = $href;
+        $this->index = $index;
+        
+        if ( $index != null )
+        {
+            $MIOLO->Deprecate('ListingAction: The constructor parameter $index should no longer be used!');
+        }
+    }
+}
+
+##
+#
+#
+class IconAction extends ListingAction
+{
+    function IconAction($value,$href,$alt=null)
+    {
+        $this->ListingAction('image',$alt,$value,$href);
+    }
+}
+
+##
+#
+#
+class TextAction extends ListingAction
+{
+    function TextAction($value,$href)
+    {
+        $this->ListingAction('text',null,$value,$href);
+    }
+}
+
+##
+#
+#
+class ListFilter
+{
+    var $text;
+    
+    function ListFilter($text = null)
+    {
+        $this->text = $text;
+    }
+    
+    function Generate()
+    {
+        echo($this->text);
+    }
+}
+
+##
+#
+#
+class Listing
+{
+    var $titulo;    // table display title
+    var $filter;    // filter line
+    var $labels;    // column headings
+    var $dados;     // table data cells
+    var $actions;   // array with actions
+    var $showid;    // flag whether to show ids or not
+    var $home;
+    var $icons;
+    var $errors;
+    
+    function Listing()
+    {
+    }
+    
+    function & GetTitle()
+    {
+        return $this->titulo;
+    }
+    
+    function & GetFooter()
+    {
+        return $this->footer;
+    }
+    
+    function & GetLabel($i)
+    {
+        return $this->labels[$i];
+    }
+
+    function SetTitle($titulo)
+    {
+        $this->titulo = $titulo;
+    }
+    
+    function SetCellRenderer($column,$renderer)
+    {
+        $this->labels[$column]->renderer = $renderer;
+    }
+    
+    function SetFilter($filter)
+    {
+        $this->filter = $filter;
+    }
+    
+    function SetFooter($footer)
+    {
+        $this->footer = $footer;
+    }
+    
+    function SetLabels($labels)
+    {   global $MIOLO;
+        
+        unset($this->labels);
+        
+        foreach ($labels as $label)
+        {
+            if ( strtolower(get_class($label)) == 'listingcolumn' )
+            {
+                $this->labels[] = $label;
+            }
+            else
+            {
+                $MIOLO->LogMessage("[DEPRECATED]Listing::SetRotulos: Converting labels -- use ListingColumn class!",true);
+
+                if ( is_array($label) )
+                {
+                    $this->labels[] = new ListingColumn($label[0],$label[1]);
+                }
+
+                else
+                {
+                    $this->labels[] = new ListingColumn($label);
+                }
+            }
+        }
+    }
+    
+    function SetData($dados)
+    {
+        $this->dados = $dados;
+    }
+    
+    function GetValue($row,$col)
+    {
+        return $this->dados[$row][$col];
+    }
+    
+    function SetValue($row,$col,$value)
+    {
+        $this->dados[$row][$col] = $value;
+    }
+    
+    function GetColumnCount()
+    {
+        return count($this->labels);
+    }
+    
+    function GetRowCount()
+    {
+        return count($this->dados);
+    }
+    
+    function AddAction($alt,$icon,$href,$index=0)
+    {   global $MIOLO;
+        
+        $MIOLO->Deprecate('Use: AddActionIcon()');
+        
+        $this->AddActionIcon($alt,$icon,$href,$index);
+    }
+    
+    function AddActionIcon($alt,$icon,$href,$index=0)
+    {
+        $this->actions[] = new ListingAction('image',$alt,$icon,$href,$index);
+    }
+    
+    function AddActionText($alt,$text,$href,$index=0)
+    {
+        $this->actions[] = new ListingAction('text',$alt,$text,$href,$index);
+    }
+    
+    function AddError($err)
+    {
+        if ( $err )
+        {
+            if ( is_array($err) )
+            {
+                if ( $this->errors )
+                {
+                    $this->errors = array_merge($this->errors,$err);
+                }
+                
+                else
+                {
+                    $this->errors = $err;
+                }
+            }
+            
+            else
+            {
+                $this->errors[] = $err;
+            }
+        }
+    }    
+    
+    function ShowID($state)
+    {
+        $this->showid = $state;
+    }
+    
+    function QueryData($sql)
+    {
+        $this->dados = ExecuteQuery($sql);
+        return count($this->dados) > 0;
+    }
+    
+    function HasErrors()
+    {
+        return count($this->errors);
+    }
+    
+    function GenerateErrors()
+    {
+        $caption = _M('Errors Occured');
+        
+        echo "  <table width=\"100%\" bgcolor=\"#c00000\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n" .
+             "    <tr class=\"formErrors\">\n"  .
+             "      <td width=\"60\" valign=\"top\"><div style=\"margin: 10px\"><img src=\"/images/error.gif\"></div></td>\n" .
+             "      <td valign=\"top\"><font size=+1><b>$caption:</b></font>\n<ul>\n";
+        
+        foreach ( $this->errors as $e )
+        {
+            echo "        <li>$e</li>\n";
+        }
+        
+        echo "      </ul></div></td>\n"  .
+             "    </tr>\n"  .
+             "  </table>\n";
+    }
+    
+    function GenerateBody()
+    {   global $MIOLO,$SCRIPT_NAME;
+
+        if ( $this->HasErrors() )
+        {
+            $this->GenerateErrors();
+        }
+       
+        echo "<table width=\"100%\" cellspacing=\"1\" border=\"0\">\n";
+        
+        // generate column heading row
+        echo "  <tr class=\"listingRowHead\">\n";
+        
+        // heading para coluna 'Actions'
+        if ( count($this->actions) )
+        {
+            echo "   <td>". _M('Action') ."</td>\n";
+        }
+        
+        // generate column headings
+        foreach ( $this->labels as $r )
+        {
+            if ( ! $r->visible )
+            {
+                continue;
+            }
+            
+            echo '   <td>';
+            $r->Generate();
+            echo "&nbsp;</td>\n";
+        }
+        
+        echo "  </tr>\n";
+        
+        if ( $this->dados )
+        {
+            // generate data rows
+            for ( $i=0; $i<count($this->dados); $i++ )
+            {
+                $row = & $this->dados[$i];
+                
+                $rowId = ($i % 2) + 1;
+                
+                $rowClass = "listingRow$rowId";
+                $colClass = "listingCol$rowId";
+                
+                echo "  <tr class=\"$rowClass\">\n";
+                
+                if ( count($this->actions) )
+                {
+                    echo "    <td class=\"$rowClass\" align=\"center\" width=\"50\" nowrap>\n";
+                    echo "    <table cellspacing=\"1\" cellpadding=\"1\">\n";
+                    echo "      <tr>\n";
+                    echo "        <td>";
+                    
+                    $renderer = new ActionRenderer();
+                    $renderer->SetActions($this->actions);
+                    $renderer->Generate($this,$i,0,null);;
+                    
+                    echo "        </td>\n";
+                    echo "      </tr>\n";
+                    echo "    </table>\n";
+                    echo "    </td>\n";
+                }
+                
+                for ( $j=0; $j<count($row); $j++ )
+                {
+                    if ( ! $this->labels[$j]->visible )
+                    {
+                        continue;
+                    }
+                    
+                    $value = $row[$j];
+                    
+                    if ( $this->labels[$j]->options )
+                    {
+                        $value = $this->labels[$j]->options[$value];
+                        
+                        if ( $this->showid )
+                        {
+                            $value .= " ($row[$j])";
+                        }
+                    }
+                    
+                    // by default, we align numbers to the right and text to the left
+                    $c = substr($value,0,1);
+                    
+                    $align = $this->labels[$j]->align;
+                    $width = $this->labels[$j]->width;
+                    
+                    if ( ! $align && ( $c == '-' || ( $c >= '0' && $c <= '9' ) ) )
+                    {
+                        $align = 'right';
+                    }
+                    
+                    else if ( ! $align )
+                    {
+                        $align = 'left';
+                    }
+                    
+                    echo("    <td class=\"$class\"");
+                    
+                    if ( $this->labels[$j]->nowrap )
+                    {
+                        echo " nowrap";
+                    }
+                    
+                    if ( $width )
+                    {
+                        echo " width=\"$width\"";
+                    }
+                    
+                    echo "><div align=\"$align\">";
+                    
+                    if ( isset($this->labels[$j]->renderer) )
+                    {
+                        $this->labels[$j]->renderer->Generate($this,$i,$j,$value);
+                    }
+                    else
+                    {
+                        echo $value.'&nbsp;';
+                    }
+                    
+                    echo "</div></td>\n";
+                }
+                
+                echo("  </tr>\n");
+                
+            } // foreach row
+            
+        } // if
+        
+        echo("</table>\n");
+    }
+    
+    function GetBody()
+    {
+        ob_start();
+        $this->GenerateBody();
+        $body = ob_get_contents();
+        ob_end_clean();
+        return $body;
+    }
+    
+    function Generate()
+    {   global $MIOLO;
+        
+        // need to re-assign global $MIOLO to a locar var to
+        // avoid 'method call on non-object' error
+        // $m =& $MIOLO;
+        
+        // get the theme painter and draw the form
+        $painter = & $MIOLO->GetThemePainter();
+        $painter->GenerateListing($this);
+        
+        // scripts are always generated here, since they should not depend
+        // of the applied theme
+        //$this->GenerateScript();
+    }
+}
+
+?>

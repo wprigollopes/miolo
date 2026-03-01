@@ -1,0 +1,76 @@
+<?
+
+// observe que o nome da classe é identica ao nome do arquivo
+class PessoaForm extends Form
+{
+    function PessoaForm($data=null)
+    {   global $MIOLO;
+        
+        // construtor da classe
+        $this->Form('Cadastro de Pessoa');
+
+        // O método GetBusiness é utilizado para instanciar
+        // classes db, definidas nos arquivos em ../db
+        // Aqui é instancia a classe BusinessTutorialCity, que
+        // está no arquivo db/city.class do módulo tutorial 
+        $db = $MIOLO->GetBusiness('tutorial', 'city');
+        
+        // executando o método GetCities
+        $cities = $db->GetCities();
+        
+        // adiciona os erros ocorridos em GetCities ao formulário
+        $this->AddError( $db->GetErrors() );
+        
+        // fecha a conexão
+        $db->close;
+        
+        // adicionar os campos ao formulário
+        // $data->??? indica o valor a ser colocado no campo
+        $this->AddField( new TextField('CPF', 'cpf', $data->cpf, 20, 'Informe o CPF da pessoa', Validator::CPFValidator()) );
+        $this->AddField( new TextField('Nome', 'name', $data->name, 40),
+                         'Digite o nome da pessoa' );
+        $this->AddField( new TextField('Endereço', 'address', $data->address, 40),
+                         'Digite o endereço completo da pessoa' );
+        $this->AddField( new TextField('Bairro', 'address1', $data->address1, 30),
+                         'Digite o bairro da rua');
+        $this->AddField( new Selection('Cidade', 'zip_city', $data->zip_city, $cities),
+                         'Selecione a cidade');
+        $this->AddField( new TextField('Fone', 'phone', $data->phone, 30, 'Digite o número de telefone',
+                             Validator::PHONEValidator()) );
+        $this->AddField( new TextField('E-mail', 'email', $data->email, 30, 'Digite o endereço para email',
+                             Validator::EMAILValidator()) );
+        $this->AddField( new DateField('Data do cadastro','data',$data->data,10,'Clique nos ... para verificar o calendário','DMY','-'));
+        
+        /*
+        // outra forma de adicionar os dados ao formulário
+        // seria utilizando o mérodo SetData
+        if ( $data )
+        {
+            $this->SetData($data);
+        }*/
+    }
+    
+    
+    // override do método padrão GetData da classe form
+    // para fazer uma validação da existência ou não 
+    // de dados no form
+    function GetData()
+    {   
+        // ValidateAll verifica se todos os campos foram informados.
+        // Para validar apenas alguns campos, pode-se utilizar
+        // Validate($array) onde $array contém os campos a serem 
+        // validados
+        if ( $this->ValidateAll() )
+        {
+            // Coleta os dados do form e retorna um objeto Person
+	    // Person está definido no arquivo ../types.class
+            return $this->CollectInput(new Person());
+        }
+        
+        // se não for validado com sucesso, retorna falso
+        return false;
+    }
+
+}
+
+?>

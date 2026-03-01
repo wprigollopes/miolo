@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="tabbedform.class" path="/usr/local/miolo/classes/ui/tabbedform.class" base="ui_tabbedform" created="2001/11/21" lines="371">
+  <title>Tabbed Form</title>
+  <description>
+  <![CDATA[This file contains the form and form elements definitions]]>
+  </description>
+  <relations type="see-also">
+    <group name="miolo/ui/form.class"/>
+    <group name="miolo/ui/themepainter.class"/>
+  </relations>
+  <relations type="group">
+    <group name="tabbedform"/>
+    <group name="ui"/>
+  </relations>
+  <organisation>
+  <![CDATA[MIOLO - Miolo Development Team - UNIVATES Centro Universitario]]>
+  </organisation>
+  <legal>
+  <![CDATA[CopyLeft (L) 2001-2003 UNIVATES, Lajeado/RS - Brasil
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)]]>
+  </legal>
+  <contributors>
+    <author name="Vilson Cristiano Gartner" type="author" login="" email="vilson@miolo.org.br"></author>
+    <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+  </contributors>
+  <maintainers>
+    <author name="Vilson Cristiano Gartner" type="author" login="" email="vilson@miolo.org.br"></author>
+    <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+  </maintainers>
+  <history>
+  <![CDATA[
+    See CVS history.<br>
+  ]]>
+  </history>
+    <class name="TabbedForm" base="Form" declaration="class TabbedForm extends Form" line="48">
+      <description>
+      <![CDATA[TODO: TRANSLATION
+O tabbedform &eacute; extendida da classe form class e difere, principalmente
+na forma como os dados s&atilde;o apresentados.
+Com o tabbedform, &eacute; poss&iacute;vel criar p&aacute;ginas nas quais os campos ser&atilde;o
+apresentados. Vale ressaltar que, quando uma p&aacute;gina n&atilde;o est&aacute; ativa,
+os campos do formul&aacute;tio s&atilde;o do tipo hidden.]]>
+      </description>
+        <var name="pages" declaration="var $pages;" line="51">
+        </var>
+        <function name="TabbedForm" attribute="default" declaration="function TabbedForm($title='',$action='')" line="54">
+            <param name="$title" value="''" type=""><![CDATA[]]></param>
+            <param name="$action" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddField" attribute="default" declaration="function AddField()" line="59">
+        </function>
+        <function name="AddPage" attribute="default" declaration="function AddPage($title, $fields)" line="65">
+            <param name="$title" value="" type=""><![CDATA[]]></param>
+            <param name="$fields" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetFieldValue" attribute="default" declaration="function GetFieldValue($name,$value=false)" line="97">
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="false" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Obtains a form field's value]]>
+          </description>
+        </function>
+        <function name="SetFormValue" attribute="default" declaration="function SetFormValue($name,$value)" line="133">
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[sets a form field to the specified value. In addition, a global variable
+'frm_' + name is also set to the specified value]]>
+          </description>
+        </function>
+        <function name="GenerateFormTabs" attribute="default" declaration="function GenerateFormTabs($currpage)" line="169">
+            <param name="$currpage" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Generate form tabs]]>
+          </description>
+        </function>
+        <function name="GetCurrentPage" attribute="default" declaration="function GetCurrentPage()" line="217">
+          <description>
+          <![CDATA[Returns the label of the current page]]>
+          </description>
+        </function>
+        <function name="GetFieldList" attribute="default" declaration="function GetFieldList()" line="225">
+          <description>
+          <![CDATA[Returns a plain list of all fields contained in the form]]>
+          </description>
+        </function>
+        <function name="GenerateBody" attribute="default" declaration="function GenerateBody()" line="240">
+          <description>
+          <![CDATA[Generate form body]]>
+          </description>
+        </function>
+    </class>
+</source>

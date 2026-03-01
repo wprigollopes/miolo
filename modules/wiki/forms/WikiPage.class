@@ -1,0 +1,626 @@
+<?
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# @title
+#   WikiPage and WikiText implementations
+#
+# @description
+#   The classes in this file are used to layout and render Wiki
+#   texts as HTML output.
+#
+# @created
+#   2003/02/07
+#
+# @organisation
+#   MIOLO - Miolo Development Team - UNIVATES Centro Universitario
+#
+# @legal
+#   CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+#   Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+#   further details)
+#
+# @contributors
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+# 
+# @maintainers
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#
+# @id $Id: WikiPage.class,v 1.1 2003/02/27 03:36:59 thomas Exp $
+#---------------------------------------------------------------------
+
+##
+# This class is responsible to layout the wiki information as HTML 
+# page. The content and comments are supposed to be WikiText text
+# information. The class itself takes care of rendering the output
+# accordingly.
+#
+class WikiPage extends ThemeElement
+{
+    var $home;        // action url for project's home page
+    var $topic;       // topic object
+    var $comments;    // an array of topic comments
+    
+    var $showComments = true;
+    
+    function SetTopic($topic)
+    {
+        $this->topic = $topic;
+    }
+    
+    function SetComments($comments)
+    {
+        $this->comments = $comments; 
+    }
+    
+    function Generate()
+    {   global $MIOLO;
+        
+        $module = 'wiki';
+        
+        $is_admin = $MIOLO->CheckAccess($module,'admin',false);
+        
+        $home = $MIOLO->GetActionURL($module,'main:topic',$this->topic->project_id);
+        
+        $heading = "<div style=\"text-align:left;border:1;width:100%;\"><a href=\"$home\">{$this->topic->project_title}</a> :: {$this->topic->title}</div>";
+        
+        $body = new WikiText($this->topic->body,$this->topic->project_id,$this->topic->topic_id);
+        
+        $center[] = '<div align="left">';
+        $center[] = $body->toHTML();
+        
+        if ( $this->showComments && $this->comments )
+        {
+            foreach($this->comments as $c )
+            {
+                $wt = new WikiText($c->comments,$this->topic->project_id,$this->topic->topic_id);
+                
+                $txt = "<div style=\"background-color: #ffffef; padding: 8px;\"><b>Comentário de <a href=\"mailto:{$c->email}\">{$c->name}</a></b>\n" .
+                       "<blockquote><i>" . $wt->toHTML() . "</i></blockquote>\n";
+                       
+                // compose administration options for the comment
+                if ( $is_admin )
+                {
+                    $link = $MIOLO->GetActionURL($module,'main:comment',"&project={$c->project_id}&topic={$c->topic_id}&comment={$c->comment_id}");
+                    
+                    $txt .= "<div align=\"right\" style=\"font-size: 8pt;\">[" . _M("Machine: @1",$module,$c->ip) . "]";
+                    
+                    if ($c->status == 0)
+                    {
+                        $txt .= "&nbsp;&nbsp;[<a href=\"{$link}&option=aprove\">"._M("Aprove",$module)."</a>]";
+                    }
+                    else if ($c->status == 1)
+                    {
+                        $txt .= "&nbsp;&nbsp;[<a href=\"{$link}&option=hide\">"._M("Hide",$module)."</a>]";
+                    }
+                    else if ($c->status == 2)
+                    {
+                        $txt .= "&nbsp;&nbsp;[<a href=\"{$link}&option=show\">"._M("Show",$module)."</a>]";
+                    }
+                    $txt .= "&nbsp;&nbsp;[<a href=\"{$link}&option=delete\">Delete</a>]</div>";
+                }
+
+                $txt .= "</div>\n";
+                
+                $center[] = $txt;
+            }
+        }
+        
+        $center[] = '</div>';
+        
+        $footer[] = "<table width=\"100%\">\n" .
+                  "  <tr>\n" .
+                  "    <td align=\"left\">Dia: {$this->topic->last_update}</td>\n" .
+                  "    <td align=\"right\">Versão: {$this->topic->review}</td>\n" .
+                  "  </tr>\n" .
+                  "</table>\n";
+                  
+        echo "<!-- START OF WIKI PAGE -->\n";
+        $outer = new Container();
+        $outer->AddElement($heading,'top');
+        $outer->AddElement($center);
+        $outer->AddElement($footer,'bottom');
+        $outer->Generate();
+        echo "<!-- END OF WIKI PAGE -->\n";
+    }
+}
+
+##
+#
+#
+class WikiText
+{
+    var $text;
+    var $project;
+    var $topic;
+    
+    ##
+    #
+    #
+    function WikiText($text=null,$project=null,$topic=null)
+    {
+        $this->text = $text;
+        $this->project = $project;
+        $this->topic = $topic;
+    }
+    
+    ##
+    #
+    #
+    function toHTML()
+    {
+        return $this->Render(new HTMLRenderer());
+    }
+    
+    ##
+    #
+    #
+    function toSGML()
+    {
+        return $this->Render(new SGMLRenderer());
+    }
+    
+    ##
+    # Renders the content of this text using the specified renderer
+    #
+    function Render($render,$t="\n")
+    {
+        global $MIOLO;
+
+        $module = 'wiki';
+        
+        $topics = $MIOLO->GetBusiness($module,'Topics');
+        
+        $content = $render->escape($this->text);
+        
+        $par = false;
+        $dl  = array( false, false, false );
+        $ul  = array( false, false, false );
+        $ol  = array( false, false, false );
+        
+        # strip carriage returns, join continued' lines and then split the whole
+        # bunch into an array of separate lines 
+        $lines = explode("\n",str_replace(" _\n","",str_replace("\r","",$content)));
+        
+        $body = '';
+        
+        for ( $i=0; $i<count($lines); $i++ )
+        {
+            $l = $lines[$i];
+            
+            # <BR> tag
+            if ( trim($l) == '' )
+            {
+                if ( $par )
+                {
+                    $body .= $render->P(false) . $t . $render->P(true) . $t;
+                }
+                else
+                {
+                    $body .= $render->BR() . $t;
+                }
+                continue;
+            }
+            
+            # <HR> tag
+            if ( WikiText::lineTag($l,"----") )
+            {
+                if ( $par )
+                {
+                    $body .= $render->P($par=false) . $t;
+                }
+                
+                $body .= $render->HR() . $t;
+                continue;
+            }
+                
+            # <H3> tag
+            if ( WikiText::lineTag($l,"!!!,!!! ,===,=== ") )
+            {
+                if ( $par )
+                {
+                    $body .= $render->P($par=false) . $t;
+                }
+                
+                $body .= $render->H3($l) . $t;
+                continue;
+            }
+                
+            # <H2> tag
+            if ( WikiText::lineTag($l,"!!,!! ,==,== ") )
+            {
+                if ( $par )
+                {
+                    $body .= $render->P($par=false) . $t;
+                }
+                
+                $body .= $render->H2($l) . $t;
+                continue;
+            }
+                
+            # <H1> tag
+            if ( WikiText::lineTag($l,"!,! ,=,= ") )
+            {
+                if ( $par )
+                {
+                    $body .= $render->P($par=false) . $t;
+                }
+                
+                $body .= $render->H1($l) . $t;
+                continue;
+            }
+                
+            # <DL> tag
+            $DL_TAGS = array( "\t---,  ---", 
+                              "\t--,  --", 
+                              "\t-,  -" );
+                              
+            $found = false;
+            
+            for ( $j=0; $j<count($DL_TAGS); $j++ )
+            {
+                if ( WikiText::lineTag($l,$DL_TAGS[$j]) )
+                {
+                    if ( $par )
+                    {
+                        $body .= $render->P($par=false) . $t;
+                    }
+                    
+                    if ( ! $dl[$j] )
+                    {
+                        $body .= $render->DL($dl[$j]=true) . $t;
+                    }
+                    
+                    list ( $dt, $dd ) = explode(':',$l);
+                    
+                    $body .= $render->DT(trim($dt)) . $t . $render->DD(trim($dd)) . $t;
+                    
+                    $found = true;
+                    
+                    break;
+                }
+            }
+            
+            for ( $j=0; $j<count($DL_TAGS); $j++ )
+            {
+                if ( $dl[$j] && ! WikiText::lineTag($lines[$i+1],$DL_TAGS[$j],true) )
+                {
+                    $body .= $render->DL($dl[$j]=false) . $t;
+                }
+            }
+            
+            if ( $found )
+            {
+                continue;
+            }
+            
+            # <OL> tag
+            $OL_TAGS = array( "\t###,  ###", 
+                              "\t##,  ##", 
+                              "\t#,  #" );
+                              
+            $found = false;
+            
+            for ( $j=0; $j<count($OL_TAGS); $j++ )
+            {
+                if ( WikiText::lineTag($l,$OL_TAGS[$j]) )
+                {
+                    if ( $par )
+                    {
+                        $body .= $render->P($par=false) . $t;
+                    }
+                    
+                    if ( ! $ol[$j] )
+                    {
+                        $body .= $render->OL($ol[$j]=true) . $t;
+                    }
+                    
+                    $body .= $render->LI($l) . $t;
+                    
+                    $found = true;
+                    break;
+                }
+            }
+            
+            for ( $j=0; $j<count($OL_TAGS); $j++ )
+            {
+                if ( $ol[$j] && ! WikiText::lineTag($lines[$i+1],$OL_TAGS[$j],true) )
+                {
+                    $body .= $render->OL($ol[$j]=false) . $t;
+                }
+            }
+                    
+            if ( $found ) 
+            {
+                continue;
+            }
+
+            # <UL> tag
+            $UL_TAGS = array( "\t***,  ***", 
+                              "\t**,  **", 
+                              "\t*,  *" );
+                              
+            $found = false;
+            
+            for ( $j=0; $j<count($UL_TAGS); $j++ )
+            {
+                if ( WikiText::lineTag($l,$UL_TAGS[$j]) )
+                {
+                    if ( $par )
+                    {
+                        $body .= $render->P($par=false) . $t;
+                    }
+                    
+                    if ( ! $ul[$j] )
+                    {
+                        $body .= $render->UL($ul[$j]=true) . $t;
+                    }
+                    
+                    $body .= $render->LI($l) . $t;
+                    
+                    $found = true;
+                    break;
+                }
+            }
+            
+            for ( $j=0; $j<count($UL_TAGS); $j++ )
+            {
+                if ( $ul[$j] && ! WikiText::lineTag($lines[$i+1],$UL_TAGS[$j],true) )
+                {
+                    $body .= $render->UL($ul[$j]=false) . $t;
+                }
+            }                    
+            
+            if ( $found ) 
+            {
+                continue;
+            }
+            
+            # raw data
+            if ( WikiText::lineTag($l,"/") )
+            {
+                $body .= $render->raw($l) . $t;
+                continue;
+            }
+            
+            # open new paragraph if required
+            if ( ! $par )
+            {
+                $body .= $render->P($par=true) . $t;
+            }
+                
+            # simply a line of (paragraph text)
+            $body .= $l . $t;
+        }
+
+        // close open paragraph if required
+        if ( $par )
+        {
+            $body .= $render->P($par=false) . $t;
+        }
+        
+        // render bold words
+        while ( true )
+        {
+            if ( WikiText::wordTag($body,"''',```",$left,$word,$right) )
+            {
+                $body = $left . $render->B($word) . $right;
+            }
+            else if ( WikiText::wordTag($body,"'',``",$left,$word,$right) )
+            {
+                $body = $left . $render->I($word) . $right;
+            }
+            else if ( WikiText::anyTag($body,'[',']',$left,$word,$right) )
+            {
+                if ( ( substr($word,0,1) != '[' ) && ( substr($right,0,1) != ']' ) )
+                {
+                    $MIOLO->Dump($word,__FILE__,__LINE__);
+                    
+                    if ( strpos($word,'http://') === 0 )
+                    {
+                        $body = $left . $render->A($word,$word) . $right;
+                    }
+                    else if ( strpos($word,'image:') === 0 )
+                    {
+                        $word = substr($word,6);
+                    
+                        if ( strpos($word,'http://') === 0 )
+                        {
+                            $body = $left . $render->IMG($word) . $right;
+                        }
+                        
+                        // if it is a local image, we build the image path accordingly
+                        else
+                        {
+                            $path = $MIOLO->GetModulePath($module,"files/{$this->project}/$word");
+                            
+                            $url = $MIOLO->GetActionURL($module,"main:topic:image&item={$this->project}&topic={$this->topic}&image=$word");
+                            
+                            if ( ! file_exists($path) )
+                            {
+                                $body = $left . $render->U($word) . $render->A($url,'?') . $right;
+                            }
+                            
+                            else
+                            {
+                                $src = $MIOLO->GetAbsoluteURL("files/{$this->project}/$word",$module);
+                                $body = $left . $render->A($url,$render->IMG($src)) . $right;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ( $topics->IsExistingTopic($this->project,$word) )
+                        {
+                            $url = $MIOLO->GetActionURL($module,"main:topic&item={$this->project}&topic=$word");
+                            $body = $left . $render->A($url,$word) . $right;
+                        }
+                        else
+                        {
+                            $url = $MIOLO->GetActionURL($module,"main:topic&item={$this->project}&topic=$word&option=edit");
+                            $body = $left . $render->U($word) . $render->A($url,'?') . $right;
+                        }
+                    }
+                }                
+                else
+                {
+                    $body = $left . '&#91;' . substr($word,1) . '&#93;' . substr($right,1);
+                }
+            }
+            else 
+            {
+                break;
+            }
+        }
+        
+        return $body;
+    }
+    
+    ##
+    # Checks if the line starts whith one of the (comma separated)
+    # tags specified in markers. If $peek is false, the marker will
+    # be stripped off the line, if true, the line will remain the
+    # same.
+    #
+    # @return the function returns true, if the line starts with
+    #         one of the strings contained in markers
+    #
+    function lineTag(&$line,$markers,$peek=false)
+    {
+        foreach ( explode(',',$markers) as $m )
+        {
+            $start = strpos($line,$m);
+            
+            if ( $start === false || $start > 0 )
+            {
+                continue;
+            }
+            
+            # if not in peek mode, we strip off leading and optionally
+            # trailing markers
+            if ( ! $peek )
+            {
+                $start = strlen($m);
+                $end   = strpos($line,$m,$start);
+                if ( $end === false )
+                {
+                    $end = strlen($line);
+                }
+                $line = trim(substr($line,$start,$end-$start));
+            }
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    ##
+    # Searches the string for ocurrencies of the specified markers.
+    # The markers are expected to be used pair-wise. The function
+    # returns true, if it has found the marked word.
+    # 
+    function wordTag($text,$marker,&$left,&$word,&$right)
+    {
+        foreach ( explode(',',$marker) as $m )
+        {
+            if ( WikiText::anyTag($text,$m,$m,$left,$word,$right) )
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    ##
+    #   This method can be used to extract an arbitrary tag delimited by an open and close
+    #   marker from a block of text.
+    #
+    function anyTag($text,$open,$close,&$left,&$word,&$right)
+    {    
+        $start = strpos($text,$open);
+        
+        if ( $start === false )
+        {
+            return false;
+        }
+        
+        $end = strpos($text,$close,$start + strlen($open));
+        
+        if ( $end === false )
+        {
+            return false;
+        }
+        
+        $left  = substr($text,0,$start);
+        $start += strlen($open);
+        $word  = substr($text,$start,$end - $start);
+        $right = substr($text,$end + strlen($close));
+        
+        return true;
+    }
+}
+
+##
+#
+#
+class HTMLRenderer
+{
+    function HR()       { return '<hr>'; }
+    function BR()       { return '<br>'; }
+    function UL($f)     { return $f ? '<ul>' : '</ul>'; }
+    function OL($f)     { return $f ? '<ol>' : '</ol>'; }
+    function DL($f)     { return $f ? '<dl>' : '</dl>'; }
+    function P($f)      { return $f ? '<p>' : '</p>'; }
+    function H1($t)     { return '<h1>' . $t . '</h1>'; }
+    function H2($t)     { return '<h2>' . $t . '</h2>'; }
+    function H3($t)     { return '<h3>' . $t . '</h3>'; }
+    function LI($t)     { return '<li>' . $t . '</li>'; }
+    function DT($t)     { return '<dt style="padding-top:4"><i>' . $t . '</i></dt>'; }
+    function DD($t)     { return '<dd>' . $t . '</dd>'; }
+    function B($t)      { return '<b>' . $t . '</b>'; }
+    function I($t)      { return '<i>' . $t . '</i>'; }
+    function U($t)      { return '<u>' . $t . '</u>'; }
+    function A($h,$t)   { return '<a href="' . $h . '">' . $t . '</a>'; }
+    function IMG($s)    { return '<center><img src="' . $s . '" border="0"></center>'; }
+    function raw($t)    { return $t; }
+    function escape($t)
+    {
+        return strtr( $t, array('<' =>'&#60;',
+                                '>' =>'&#62;',
+                                #'[['=>'&#91;',
+                                #']]'=>'&#93;',
+                                '    '=>"\t",
+                                '/['  =>'&#91;',
+                                '/]'  =>'&#93;',
+                                '/`'  =>'&#96;',
+                                "/'"  =>"&acute;"));
+    }
+}
+
+##
+#
+#
+class SGMLRenderer
+{
+    function HR()       { return '<sgml-hr>'; }
+    function BR()       { return '<sgml-br>'; }
+    function UL($f)     { return $f ? '<sgml-ul>' : '</sgml-ul>'; }
+    function OL($f)     { return $f ? '<sgml-ol>' : '</sgml-ol>'; }
+    function DL($f)     { return $f ? '<sgml-dl>' : '</sgml-dl>'; }
+    function P($f)      { return $f ? '<sgml-p>' : '</sgml-p>'; }
+    function H1($t)     { return '<sgml-h1>' . $t . '</sgml-h1>'; }
+    function H2($t)     { return '<sgml-h2>' . $t . '</sgml-h2>'; }
+    function H3($t)     { return '<sgml-h3>' . $t . '</sgml-h3>'; }
+    function LI($t)     { return '<sgml-li>' . $t . '</sgml-li>'; }
+    function DT($t)     { return '<sgml-dt>' . $t . '</sgml-dt>'; }
+    function DD($t)     { return '<sgml-dd>' . $t . '</sgml-dd>'; }
+    function B($t)      { return '<sgml-b>' . $t . '</sgml-b>'; }
+    function I($t)      { return '<sgml-i>' . $t . '</sgml-i>'; }
+    function U($t)      { return '<sgml-u>' . $t . '</sgml-u>'; }
+    function A($h,$t)   { return '<sgml-a href="' . $h . '">' . $t . '</sgml-a>'; }
+    function IMG($s)    { return '<sgml-img src="' . $s . '">'; }
+    function raw($t)    { return $t; }
+    function escape($t) { return $t; }
+}
+
+?>

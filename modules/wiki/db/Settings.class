@@ -1,0 +1,73 @@
+<?
+// +-----------------------------------------------------------------+
+// | Wiki Development Team UNIVATES - Centro Universitário           |
+// +-----------------------------------------------------------------+
+// |      Copyleft (l) 2002 UNIVATES, Lajeado/RS - Brasil            |
+// +-----------------------------------------------------------------+
+// | Licensed under GPL: see COPYING.TXT or FSF at www.fsf.org for   |
+// |                     further details                             |
+// |                                                                 |
+// | Site: http://wiki.codigolivre.org.br                            |
+// +-----------------------------------------------------------------+
+// | Created: 2002/12/16 Alexandre Heitor Schmidt xandehs@univates.br|
+// |                     Nasair Júnior da Silva   njunior@univates.br|
+// |                                                                 |
+// | History: Initial Revision                                       |
+// +-----------------------------------------------------------------+
+
+class BusinessWikiSettings
+{
+
+    function GetDatabase()
+    {
+        global $MIOLO;
+        return $MIOLO->GetDatabase('wiki');
+    }
+   
+    function SetSettings($data)
+    {
+        if ( $this->GetSettings() == false)
+        {
+             $select =  "   INSERT INTO wik_settings ( ".
+                        "               need_login, ".
+                        "               history_all, ".
+                        "               need_comment_aproval ".
+                        " ) VALUES (".
+                        "       '{$data->need_login}', ".
+                        "       '{$data->history_all}', ".
+                        "       '{$data->need_comment_aproval}' ) ";
+        }
+        else
+        {
+            $select =   "   UPDATE  wik_settings ".
+                        "       SET need_login = '{$data->need_login}', ".
+                        "           history_all = '{$data->history_all}', ".
+                        "           need_comment_aproval = '{$data->need_comment_aproval}' ";
+        }
+
+        $db = $this->GetDatabase();
+        $result = $db->Query($select);
+        $db->Close();
+        return $result;
+    }
+
+    function GetSettings()
+    {
+        $select =   "   SELECT  need_login, ".
+                    "           history_all, ".
+                    "           need_comment_aproval ".
+                    "      FROM wik_settings ";
+        $db = $this->GetDatabase();
+        $result = $db->Query($select);
+        $db->Close();
+        if (!$result) return false;
+
+        $settings = new Settings;
+        $settings->need_login  = $result[0][0] == 't' ? true : false;
+        $settings->history_all = $result[0][1] == 't' ? true : false;
+        $settings->need_comment_aproval = $result[0][2] == 't' ? true : false;
+        return $settings;
+    }
+}
+
+?>

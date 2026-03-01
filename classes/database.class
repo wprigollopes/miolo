@@ -1,0 +1,293 @@
+<?php
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# @title
+#   Database
+#
+# @description
+#   This file contains database abstraction class
+#
+# @see      miolo/database/postgres_connection.class,
+#           miolo/database/postgres_query.class,
+#           miolo/database/mysql_connection.class,
+#           miolo/database/mysql_querry.class
+#
+# @topics   db, business
+#
+# @created
+#   2001/08/14
+#
+# @organisation
+#   MIOLO - Miolo Development Team - UNIVATES Centro Universitario
+#
+# @legal
+#   CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+#   Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+#   further details)
+#
+# @contributors
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+# 
+# @maintainers
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#
+# history: see miolo cvs.
+#
+# @id $Id: database.class,v 1.8 2005/01/21 21:47:05 thomas Exp $
+#---------------------------------------------------------------------
+
+class Database 
+{
+    var $conf;
+    var $system;
+    var $host;
+    var $db;
+    var $user;
+    var $pass;
+    var $conn;
+    
+    
+    function Database($conf,$system,$host,$db,$user,$pass)
+    {   global $MIOLO;
+        
+        $MIOLO->Assert($system,"Missing DB system!");
+        $MIOLO->Assert($host,"Missing DB host!");
+        $MIOLO->Assert($db,"Missing DB name!");
+        
+        $MIOLO->Uses('database/'.$system.'_connection.class');
+        
+        $this->conf   = $conf;
+        $this->system = $system;
+        $this->host   = $host;
+        $this->db     = $db;
+        $this->user   = $user;
+        $this->pass   = $pass;
+        
+        eval("\$this->conn = new {$system}Connection($conf);");
+        
+        $this->conn->Open($host,$db,$user,$pass);
+    }
+    
+    
+    function Close()
+    {
+        $this->conn->Close();
+    }
+    
+    
+    function GetError()
+    {
+        $err = $this->GetErrors();
+        
+        return $err ? $err[0] : false;
+    }
+    
+    
+    function GetErrors()
+    {
+        return $this->conn->GetErrors();
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Useful method to work with positional parameters in SQL statements.
+    # Parameter substitution, so far, handles string and literal null
+    # values.
+    #
+    # @param $sql - the sql statement with positional parameters
+    # @param $params - either single parameter value, or an array of
+    #        values for parameter substitution.
+    #        Note: the number of postional parameters MUST match the
+    #        number of elements represented by the $param argument.
+    #
+    # @example
+    #
+    # // with a couple of substitution parameters
+    #    $db->Prepare( 'insert into test ( a, b, c ) values ( ?, ?, ? )', array( 'A', 'B', 'C' ) );
+    #
+    # // or with a single substitution parameter
+    #    $db->Prepare( 'select * from test where id = ?', 123 );
+    #---------------------------------------------------------------------
+    function Prepare($sql,$params)
+    {
+        global $MIOLO;
+        
+        if ( $params && ! is_array($params) )
+        {
+            $params = array($params);
+        }
+        
+        $i = 0;
+        
+        while ( true ) 
+        {
+            $pos = strpos($sql,'?');
+            
+            if ( $pos === false )
+            {
+                $prepared .= $sql;
+                break;
+            }
+            
+            else
+            {
+                if ( $pos > 0 )
+                {
+                    $prepared .= substr($sql,0,$pos);
+                }
+                
+                # add handling for literal null values. to make this work, null values in contained 
+                # in the parameters array $params[] MUST be provided as literal null values.
+                
+                $value = $params[$i++];
+                
+                # adds null values SQL conform as literal NULL words, anything else is enclosed in single quotes
+                $prepared .= $value !== null ? "'" . pg_escape_string($value) . "'" : 'NULL';
+                
+                $sql = substr($sql,$pos+1);
+            }
+        }
+        
+        $MIOLO->Assert($i==count($params),"PREPARE: Invalid number of parameters!");
+        
+        return $prepared;
+    }
+    
+    
+    function Execute($sql)
+    { 
+        global $MIOLO;
+        
+        $MIOLO->ProfileEnter('Database::Execute');
+        
+        if ( is_array($sql) )
+        {
+            $ok = $this->ExecuteBatch($sql);
+        }
+        else
+        {
+            $ok = $this->conn->Execute($sql);
+        }
+        
+        $MIOLO->ProfileExit('Database::Execute');
+        
+        return $ok;
+    }
+    
+    
+    function ExecuteBatch($sql_array)
+    {
+        $this->conn->Begin();
+        
+        foreach ( $sql_array as $sql )
+        {
+            $ok = $this->conn->Execute($sql);
+            
+            if ( ! $ok )
+            {
+                break;
+            }
+        }
+        
+        $this->conn->Finish();
+        
+        return $ok;
+    }
+    
+    
+    function Query($sql,$maxrows=0)
+    {
+        return $this->QueryChunk($sql, $maxrows, 0, $total);
+    }
+    
+    
+    function QueryRange($sql,&$range)
+    {
+        return $this->QueryChunk($sql,
+                                 $range->rows,
+                                 $range->offset,
+                                 &$range->total);
+    }
+
+    
+    function QueryChunk($sql, $maxrows, $offset, &$total)
+    { 
+        global $MIOLO;
+        
+        $MIOLO->ProfileEnter('Database::QueryChunk');
+        
+        $query =$this->conn->CreateQuery($sql);
+        
+        $err = $query->GetError();
+        
+        if ( $err )
+        {
+            $this->conn->traceback[] = 'DB '.$err;
+        
+            $MIOLO->LogError($err . '; SQL:' . $sql,$this->conf);
+        }
+        else
+        {
+            $total = $query->GetRowCount();
+            $result = Array();
+            
+            for ( $i=0; $i<$offset && $query->MoveNext(); $i++ )
+                ;
+
+            if ( $maxrows > 0 )
+            {
+                for ( $i=0; $i<$maxrows && $query->MoveNext(); $i++ )
+                {
+                    $result[] = $query->GetRowValues();
+                }
+            }
+            else
+            {
+                while ( $query->MoveNext() )
+                {
+                    $result[] = $query->GetRowValues();
+                }
+            }
+            
+            $query->Close();
+            
+            $MIOLO->ProfileExit('Database::QueryChunk');
+        }
+        
+        return $result;
+    }
+    
+    
+    //
+    // This function checks, if the last executed command caused a database
+    // error. If this is the case, an exception is raised, informing the
+    // reason(s).
+    //
+    function Assert($info=false)
+    {   
+        global $MIOLO;
+
+        $err = $this->conn->GetErrors();
+        
+        if ( $err )
+        {
+            if ( ! $info )
+            {
+                $info = 'Database Error';
+            }
+            
+            $info .= "<br><ul>\n";
+            
+            foreach ( $err as $e )
+            {
+                $info .= "<li>" . $e . "</li>\n"; 
+            }
+            
+            $info .= "</ul>\n";
+            
+            $MIOLO->Error($info);
+        }
+    }
+}
+
+?>

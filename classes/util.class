@@ -1,0 +1,102 @@
+<?php
+// +-----------------------------------------------------------------+
+// | MIOLO - Miolo Development Team - UNIVATES Centro Universitário  |
+// +-----------------------------------------------------------------+
+// | Copyleft (l) 2001 UNIVATES, Lajeado/RS - Brasil                 |
+// +-----------------------------------------------------------------+
+// | Licensed under GPL: see COPYING.TXT or FSF at www.fsf.org for   |
+// |                     further details                             |
+// |                                                                 |
+// | Site: http://miolo.codigoaberto.org.br                          |
+// | E-mail: vgartner@univates.br                                    |
+// |         ts@interact2000.com.br                                  |
+// +-----------------------------------------------------------------+
+// | Abstract: This file contains utils functions                    |
+// |                                                                 |
+// | Created: 2001/08/14 Thomas Spriestersbach                       |
+// |                     Vilson Cristiano Gärtner,                   |
+// |                                                                 |
+// | History: Initial Revision                                       |
+// +-----------------------------------------------------------------+
+
+class VarDump
+{
+    var $var;
+    
+    function VarDump(&$var)
+    {
+        $this->var =& $var;
+    }
+    
+    function Generate()
+    {
+        echo "<b>Variable Dump:</b><br><br>\n";
+        echo "<blockquote>\n";
+        echo "<pre>\n";
+        var_dump($this->var);
+        echo "</pre>\n";
+        echo "</blockquote>\n";
+    }
+}
+
+class InvertDate
+{
+
+	var $date;
+
+	function InvertDate($date=null)
+	{
+
+		$date = strstr($date,'/') ? str_replace('/', '-', $date) : str_replace('.', '-', $date);
+		$this->date = $date;
+
+		$this->FormatDate();
+	}
+    
+    function ymd2dmy($date=null)
+    {
+        list($obj1, $obj2, $obj3) = split("-", $date, 3);
+
+        if ( $obj1 && $obj2 && $obj3 )
+            return $obj3 . "/" . $obj2 . "/" . $obj1;
+    }
+
+    function dmy2ymd($date=null)
+    {
+
+        list($obj1, $obj2, $obj3) = split("/", $date, 3);
+
+        if ( $obj1 && $obj2 && $obj3 )
+            return $obj3 . "-" . $obj2 . "-" . $obj1;
+    }
+
+	Function FormatDate()
+	{
+
+		list($obj1, $obj2, $obj3) = split("-", $this->date, 3);
+
+		$this->date = $obj3 . "-" . $obj2 . "-" . $obj1;
+
+		if ( ( $this->date == '--' ) )
+			$this->date = 'Invalid Date!';
+
+		return $this->date;
+
+	}
+
+}
+
+// formata o valor conforme n casas decimais
+class FormatValue
+{
+	var $value;
+
+	function FormatValue($value,$precision=2)
+	{
+		//$this->value = sprintf("%." . $precision . "f",$value);
+		$this->value = number_format($value,$precision,',','.');
+		return $this->value;
+	}
+}
+
+?>

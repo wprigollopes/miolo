@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="mysql_query.class" path="/usr/local/bis/html/miolo/mysql_query.class" base="miolo_mysql_query" created="">
+    <class name="MysqlQuery" base="" declaration="class MysqlQuery" line="25">
+        <var name="conf" declaration="var $conf;     // name of database configuration" line="27">
+        </var>
+        <var name="conn" declaration="var $conn;     // the connection id" line="28">
+        </var>
+        <var name="sql" declaration="var $sql;      // the SQL command string" line="29">
+        </var>
+        <var name="result" declaration="var $result;   // the SQL command result set" line="30">
+        </var>
+        <var name="row" declaration="var $row;      // the current row index" line="31">
+        </var>
+        <function name="MysqlQuery" attribute="default" declaration="function MysqlQuery($conf)" line="33">
+            <param name="$conf" value=""></param>
+        </function>
+        <function name="Open" attribute="default" declaration="function Open()" line="38">
+        </function>
+        <function name="Close" attribute="default" declaration="function Close()" line="49">
+        </function>
+        <function name="MovePrev" attribute="default" declaration="function MovePrev()" line="59">
+        </function>
+        <function name="MoveNext" attribute="default" declaration="function MoveNext()" line="71">
+        </function>
+        <function name="GetRowCount" attribute="default" declaration="function GetRowCount()" line="83">
+        </function>
+        <function name="GetColumnCount" attribute="default" declaration="function GetColumnCount()" line="88">
+        </function>
+        <function name="GetColumnName" attribute="default" declaration="function GetColumnName($col)" line="93">
+            <param name="$col" value=""></param>
+        </function>
+        <function name="GetValue" attribute="default" declaration="function GetValue($col)" line="98">
+            <param name="$col" value=""></param>
+        </function>
+        <function name="GetRowValues" attribute="default" declaration="function GetRowValues()" line="103">
+        </function>
+        <function name="SetConnection" attribute="default" declaration="function SetConnection($c)" line="110">
+            <param name="$c" value=""></param>
+        </function>
+        <function name="SetSQL" attribute="default" declaration="function SetSQL($sql)" line="115">
+            <param name="$sql" value=""></param>
+        </function>
+    </class>
+</source>

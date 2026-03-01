@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="UserForm.class" path="/usr/local/miolo/modules/common/forms/UserForm.class" base="common_forms_UserForm" created="" lines="38">
+    <class name="CommonUserForm" base="Form" declaration="class CommonUserForm extends Form" line="3">
+        <function name="CommonUserForm" attribute="default" declaration="function CommonUserForm($data=null)" line="5">
+            <param name="$data" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetData" attribute="default" declaration="function GetData()" line="26">
+        </function>
+    </class>
+</source>

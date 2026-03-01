@@ -1,0 +1,237 @@
+======================================
+  DESENVOLVIMENTO - CODING STANDARDS
+======================================
+
+Este documento está desatualizado. Favor verificar as referências no MioloWiki, tópico CodingStanderds.
+
+- Tags de PHP:
+==============
+Prefira utilizar <? .... ?>
+ao invés de <?php ...... ?>
+Não utilize <script language="PHP" ... ?>
+
+
+- Identação:
+============
+Identação padrão utilizando 4 caracteres.
+Configurar o editor para substituir o caracter TAB por espaços.
+
+Para configurar o vim/vi:
+  set expandtab
+  set shiftwidth=4
+  set tabstop=4
+
+JEdit:
+  Global Options->Editing
+  Tab width: 4
+  Ident width: 4
+  Soft tabs
+
+
+- Nome de Constantes:
+=====================
+O nome de constantes devem ser identificados com todas as letras maiúsculas.
+Utilize _ para separar palavras.
+
+Exemplo:
+  $MIOLO->....
+  $DB_ACAO (onde DB identifica a classe)
+
+
+- Nome de Variáves:
+===================
+O nome de variáveis devem ser identificados com letra minúscula.
+Utilize _ para separar palavras.
+
+Exemplo:
+  $var1       = "Valor";
+  $variavel_1 = "Valor1";
+
+
+- Estruturas de Controle:
+=========================
+Iniciar o bloco de comandos com '{' na linha após o teste condicional.
+Utilizar chaves mesmo quando existir apenas uma instrução.
+No caso de teste composto com || e/ou && ... utilizar parênteses para
+separar os blocos e outro para delimitar todo o conjunto.
+Deixar um espaço entre o comando de condicional e o bloco de teste.
+
+if ( (condição1) || (condição2) )
+{
+    ação1;
+}
+elseif ( (condição3) && (condição4) )
+{
+    ação2;
+    ação3;
+}
+else
+{
+    ação4;
+}
+
+
+switch ( condição )
+{
+    case 1:
+        ação1;
+        break;
+
+    case 2:
+        ação2;
+        break;
+
+    default:
+        ação3;
+        break;
+}
+
+
+- Chamada de Funções:
+=====================
+Uma chamada:
+$var = funcao($param1, $param2, $param3);
+
+Bloco de chamada de funções (observe o alinhamento):
+$var1      = foo($bar);
+$variavel2 = foo($rin);
+
+
+- Definição de Funções:
+=======================
+Iniciar o bloco de código (chaves) na segunda linha.
+O nome da função deve iniciar com letra maiúscula.
+
+function UmaFunction($arg1, $arg2 = '')
+{
+    if ( condição )
+    {
+        código;
+    }
+
+    return $val;
+}
+
+
+function connect(&$dsn, $persistent = false)
+{
+    if ( is_array($dsn) )
+    {
+        $dsninfo = &$dsn;
+    }
+    else
+    {
+        $dsninfo = DB::ParseDSN($dsn);
+    }
+
+    if ( (! $dsninfo) || (! $dsninfo['phptype']) )
+    {
+        return $this->RaiseError();
+    }
+
+    return true;
+}
+
+
+- Composição de variável sql
+============================
+As cláusulas select, from, where, and, group, ... ficam alinhadas
+à direita, e, conseqüentemente, as identificações de arquivos, campos,...
+ficam alinhados à esquerda.
+As condições da cláusula where também devem ter os '=' alinhados de forma
+que as condições fiquema alinhados à esquerda
+
+    $sql = " select distinct C.campo1, C.campo2, c.campo3" .
+           "        d.campo1, " .
+           "        count(*) " .
+           "   from tabela1 A, " .
+           "        tabela2 B, " .
+           "        tabela3 C, " .
+           "        tabela4 D " .
+           "  where (A.campo1 = $var1) " .
+           "    and (B.cmp3   = '$var2') " .
+           "    and (A.campo2 = C.campo1) " .
+           "    and (A.cmp4   = D.campo1) " .
+           "    and (D.cmp3   = B.cmp1) " .
+           "  group by C.campo1, " .
+           "           C.cmp2 " ;
+
+
+- Comentários:
+==============
+// para uma linha
+
+
+//
+// para uma linha
+//
+
+
+//
+// esta forma é
+// similar à anterior
+//
+
+
+/*
+ * outra forma
+ * para mais de uma linha
+ *
+ */
+
+
+- Inclusão de Arquivos:
+=======================
+Utilize include_once() e require_once() ao invés de include() e require()
+
+
+- Cabeçalho dos Arquivos:
+=========================
+
+// +--------------------------------------------------------------------+
+// | Projeto - Projeto Development Team - UNIVATES Centro Universitário |
+// +--------------------------------------------------------------------+
+// | CopyLeft (L) 2002 UNIVATES, Lajeado/RS - Brasil                    |
+// +--------------------------------------------------------------------+
+// | Licensed under GPL: see COPYING.TXT or FSF at www.fsf.org for      |
+// |                     further details                                |
+// |                                                                    |
+// | Site: http://projeto.codigolivre.org.br                            |
+// | E-mail: autor@univates.br                                          |
+// |                                                                    |
+// +--------------------------------------------------------------------+
+// | Abstract: Objetivo deste arquivo...                                |
+// |                                                                    |
+// | Created: aaaa/mm/dd  Nome do autor1                                |
+// |                     Nome do autor2                                 |
+// |                                                                    |
+// | History: $Id: CodingStandards.txt,v 1.3 2003/04/09 17:38:57 vgartner Exp $                                                      |
+// +--------------------------------------------------------------------+
+( $Id: CodingStandards.txt,v 1.3 2003/04/09 17:38:57 vgartner Exp $ = Initial Revision, por exemplo )
+
+
+Ambiente do MIOLO
+=================
+Os programas são criados obedecendo à seguinte estrutura de diretórios:
+
+|
++-modules
+     |
+     +-Programa
+          |
+          +-handlers (manipuladores)
+          |
+          +-db (classes Base de Dados)
+          |
+          +-forms (classes formulários)
+          |
+          +-sql (diretório que contém o sql de criação/alteração das bases)
+	  |
+	  +-doc (documentação)
+
+
+
+- Codificação dos Arquivos:
+===========================
+O arquivo principal dos sistemas deve ser main.inc, que fica localizado no
+diretório handlers do módulo.

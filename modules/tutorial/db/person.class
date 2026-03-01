@@ -1,0 +1,175 @@
+<?
+
+// Observe que as chamadas de instanciamento é feita da forma
+// $db = $MIOLO->GetBusiness('tutorial', 'personal') , mas o nome da
+// classe não é apenas person, e sim BusinessTutorialPerson
+//
+// Explicação conceitual: como o MIOLO pode instanciar qualquer classe
+// a partir de qualquer módulo, seria muito fácil ocorrer duplicação de
+// nomes, e por isso o nome da classe deve ser Business+Nome do Módule+Classe
+class BusinessTutorialPerson extends Business
+{
+    // override do método GetDatabase, para facilitar a chamada ao GetDatabase
+    function GetDatabase()
+    {   global $MIOLO;
+        
+        // obter conexão com a base 'tutorial'
+        // a base 'tutorial' é definida no arquivo miolo.conf
+        return $MIOLO->GetDatabase('tutorial');
+    }
+    
+    
+    // retorna os dados da pessoa, de acordo com o cpf passado
+    function GetPerson($cpf)
+    {
+        // cria conexão com a base
+        $db = $this->GetDatabase();
+        
+        // consulta $sql
+        $sql = ' select cpf, name, address, address1, zip_city, phone, email' .
+               '   from tut_people '.
+               '  where cpf=? ';
+        
+        // executa a query
+        // a função prepare substitui os '?' pelo parâmetro $cpf
+        $rs = $db->Query( $db->Prepare($sql, $cpf) );
+        
+        // verifica ocorrência de erros
+        // Importante: o CheckError não apresenta nenhuma mensagem, apenas
+        //             insere a informação de erro, que pode ser acessada
+        //             posteriormente (no lado do handler: .inc)
+        $this->CheckError( $db );
+        
+        // cria um novo objeto Person
+        // a classe Person deve ser definida no arquiovo ../types.inc
+        // o MIOLO utiliza esse metodo para facilitar a manipulação de dados
+        $person = new Person();
+        
+        // atribui o resultado ao objeto person
+        list ( $person->cpf,
+               $person->name,
+               $person->address,
+               $person->address1,
+               $person->zip_city,
+               $person->phone,
+               $person->email ) = $rs[0];
+        
+        // retorna o objeto
+        return $person;
+    }
+    
+    
+    // inserir pessoa no cadastro
+    function InsertPerson($person)
+    {   global $MIOLO;
+        
+        // cria conexão com a base
+        $db = $this->GetDatabase();
+        
+        $sql = 'insert into tut_people (' .
+               '       cpf,' .
+               '       name,' .
+               '       address,' .
+               '       address1,' .
+               '       zip_city,' .
+               '       phone,' .
+               '       email' .
+               ' ) values (?,?,?,?,?,?,?) ';
+
+        $args = array( $person->cpf, 
+                       $person->name, 
+                       $person->address,
+                       $person->address1,
+                       $person->zip_city,
+                       $person->phone,
+                       $person->email 
+                      );
+        
+        // executa o sql e recebe true ou false como resultado
+        // a função Prepare substitui os '?' pela array
+        $ok = $db->Execute( $db->Prepare($sql,$args) );
+        
+        // verifica erros no Execute
+        $this->CheckError($db);
+
+        return $ok;
+    }
+    
+    
+    // atualizar dados de pessoa
+    function UpdatePerson($person)
+    {
+        $db = $this->GetDatabase();
+        
+        $sql = ' update tut_people   ' .
+               '    set name     = ? ' .
+               '      , address  = ? ' .
+               '      , address1 = ? ' .
+               '      , zip_city = ? ' .
+               '      , phone    = ? ' .
+               '      , email    = ? ' .
+               '  where cpf      = ? ' ;
+
+        
+        $args = array( $person->name, 
+                       $person->address,
+                       $person->address1,
+                       $person->zip_city,
+                       $person->phone,
+                       $person->email,
+                       $person->cpf
+                      );
+        
+        $ok = $db->Execute( $db->Prepare($sql,$args) );
+        
+        $this->CheckError( $db );
+
+        return $ok;
+    }
+    
+    
+    // deletar pessoa, de acordo com o $cpf
+    function DeletePerson($cpf)
+    {
+        $db = $this->GetDatabase();
+        
+        $sql = ' delete from tut_people '.
+               '  where cpf = ?';
+        
+        $ok = $db->Execute( $db->Prepare($sql,$cpf) );
+          
+        $this->CheckError( $db );
+        
+        return $ok;
+    }
+    
+    
+    // retornar lista de pessoas cadastradas
+    function GetPersonList(&$range)
+    {
+        $sql = 'select' .
+               '       P.cpf,' .
+               '       P.name,' .
+               '       P.address,' .
+               '       P.address1,' .
+               '       C.zip_code,' .
+               '       C.name,' .
+               '       C.state,' .
+               '       P.phone,' .
+               '       P.email' .
+               '  from tut_people P, tut_cities C' .
+               ' where C.zip_code = P.zip_city' .
+               ' order by P.name';
+    
+        $db = $this->GetDatabase();
+        
+        // executa a consulta e somente retorna os dados da página atual
+        $persons = $db->QueryRange($sql,$range);
+        
+        $this->CheckError($db);
+        
+        return $persons;
+    }
+}
+
+?>

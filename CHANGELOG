@@ -1,0 +1,135 @@
+
+CHANGELOG MIOLO 1.0-Final - http://www.miolo.org.br
+=========================
+
+Além de alguns bug fixes, a versão final do MIOLO apresenta as seguintes alterações
+(principais):
+
+- handler.php (diretório /html)
+  -----------
+  Foi criada uma rotina que procura pelo arquivo de configuração nos diretórios
+  padrão (/etc/miolo e ../etc). Em caso de erro, é exibida uma mensagem, o que 
+  não acontecia até então. A partir de agora também, este arquivo chama o 
+  /classes/startup.inc (que instancia o $MIOLO), o que nas versões anteriores 
+  era feito no próprio arquivo de configuração (miolo.conf).
+
+- lookup.php (diretório /html)
+  ----------
+  Foi criada uma rotina que procura pelo arquivo de configuração nos diretórios 
+  padrão (/etc/miolo e ../etc). Em caso de erro, é exibida uma mensagem, o que
+  não acontecia até então. A partir de agora também, este arquivo chama o 
+  /classes/startup.inc (que instancia o $MIOLO), o que nas versões anteriores
+  era feito no próprio arquivo de configuração (miolo.conf).
+
+  IMPORTANTE:
+  -----------
+  Em função das alterações acima descritas, atualize as configurações e utilize 
+  o miolo.conf desta nova versão.  
+  
+  
+- Classe MIOLO (arquivo: /classes/miolo.class)
+  ------------
+  - Método Authenticate: inclui na variável de sessão $login os grupos ao qual o
+                         usuário pertence.  
+  - Método AuthenticateLdap: autenticação via LDAP, de acordo com as configurações
+                             no miolo.conf
+  - Método Autocomplete: possui um novo parâmetro $defaults, através do  qual  é 
+                         possível  passar variáveis a  serem utilizadas no 
+                         autocomplete.
+  - Método CheckAccess: ao fazer a verificação dos direitos de acesso, ao invés 
+                        de mostrar uma tela de erro quando o usuário não tem 
+                        direito de acesso, o MIOLO abre o formulário de login.
+
+- Classe Lookup (arquivo /classes/lookup.class)
+  -------------
+  - Método SetBusiness: método novo que permite selecionar a classe DB
+
+- Classe InvertDate (arquivo /classes/util.class)
+  -----------------
+  - Método ymd2dmy: método novo, para conversão de datas.
+  - Método dmy2ymd: método novo, para conversão de datas.
+
+- Classe Validator (arquivo /classes/ui/form.class)
+  ----------------
+  - Método DATEDMYValidator: agora é possível especificar o separador que deve 
+                             ser utilizado nas datas
+                             
+- Classe LookupField (arquivo /classes/ui/form.class)
+  ------------------
+  - Método LookupField (construtor): possui agora o parâmetro defaults, que pode
+                                     ser utilizado para passar variáveis,....
+                                     bug corrigido: ao clicar num dos itens da 
+                                     janela, a mesma não retornava o valor ao 
+                                     formulário e também não fechava.
+                                     
+- Classe DateField (arquivo /classes/ui/form.class)
+  ----------------
+  - Classe nova, proporciona suporte a seleção de datas em calendário pop-up 
+    (ver Classe Calendar)
+  
+- Classe MultiChoiceField (arquivo /classes/ui/form.class)
+  - Classe nova, exibe dois campos "select", onde um contém as opções e o outro 
+    as selecionadas.
+  
+- Classe Form
+  -----------
+  - Adicionado método SetFocus, que permite que se indique qual o campo do 
+    formulário que deverá receber o foco ao abrir a página.
+  - Métodos RadioButtonGroup e CheckBoxGroup: corrigido bug que não mantia os 
+    valores selecionados quando se trocava as páginas um TabbedForm.
+  
+- Classe TabbedForm2 (arquivo /classes/ui/tabbedform2.class)
+  ------------------
+  - Corrigido problema que gerava erro na utilização dotabbedform2. A Classe 
+    está ok para utilização e com o tempo deverá substituir a TabbedForm.
+  
+- Classe Calendar (arquivo /classes/ui/calendar.class)
+  ---------------
+  - Classe nova, para criação de calendário. Ela é utilizada pelo campo DateField
+    de formulário
+  - arquivo de suporte necessário: html/calendar.php
+  
+- Classe ThemeMenu (arquivo /classes/ui/theme.class)
+  ----------------
+  - Método AddGroupOption: similar ao método AddUserOption que adiciona uma opção 
+                           ao menu dependendo das permissões do usuário, este 
+                           método adiciona uma opção verificando as permissões do
+                           grupo ao qual o usuário pertence. Desta forma, é possível
+                           criar menus para grupos de trabalho, sem ser necessário 
+                           fazer isso  individualmente por usuário.
+
+- Classe PostgresConnection (arquivo /classes/database/postgres_connection.class)
+  -------------------------
+  - Método ExecuteAffect: executa o sql e retorna a quantidade de registros afetados. 
+  
+- Classe PageButton ( arquivo /classes/ui/tabbedform.class)
+  -----------------
+  - Classe nova, utilizada para adicionar botões às páginas dos TabbedForms.
+
+- Documentação
+  ------------
+  - Foi atualizado e corrigido o gerador de documentação do MIOLO/Módulos, refletindo
+    as alterações de estrutura ocorridas na versão RC5. Todavia, não é necessário gerar
+    a documentação do MIOLO, pois a mesma já está criada e acompanha esta versão e ela
+    se encontra em ../html/doc e pode ser acessado diretamente no Menu->Documentation
+
+- Base de Dados
+  ------------------
+  - Adicionada layer para acesso ao SQLite  
+  
+- Novo Tema: Contribuição Darlan Gomes - FASB/BA
+  ---------------
+  
+  
+  Participe das listas do MIOLO:
+  ------------------------------
+  miolo-users = voltada para os usuários do MIOLO, resolução de dúvidas, ajuda.
+  miolo-devel = lista para assuntos relativos ao desenvolvimento do MIOLO e suas 
+                funcionalidades.
+  miolo-i18n  = internacionalização.
+  
+
+Vilson Cristiano Gärtner
+  vilson@miolo.org.br
+Coordenador Projeto MIOLO
+

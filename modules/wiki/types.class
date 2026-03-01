@@ -1,0 +1,47 @@
+<?php
+
+class WikiProject
+{
+   var $project_id;
+   var $title;
+   var $creation;
+   var $last_update;
+   var $responsible;
+   var $review;
+   var $annonymous_read;
+   var $annonumous_write;
+}
+
+class WikiTopic
+{
+   var $topic_id;
+   var $project_id;
+   var $code;
+   var $title;
+   var $body;
+   var $creation;
+   var $last_update;
+   var $review;
+   var $project_title;
+}
+
+class WikiComment
+{
+    var $comment_id;
+    var $topic_id;
+    var $project_id;
+    var $name;
+    var $email;
+    var $comments;
+    var $ip;
+    var $status;
+}
+
+class Settings
+{
+    var $need_login;
+    var $history_all;
+    var $need_comment_aproval;
+}
+
+?>

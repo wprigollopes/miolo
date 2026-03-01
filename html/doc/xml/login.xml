@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="login.class" path="/usr/local/miolo/classes/login.class" base="login" created="" lines="50">
+    <class name="Login" base="" declaration="class Login" line="22">
+        <var name="id" declaration="var $id;         // login id" line="24">
+        </var>
+        <var name="password" declaration="var $password;   // user password" line="25">
+        </var>
+        <var name="time" declaration="var $time;       // login time" line="26">
+        </var>
+        <var name="user" declaration="var $user;       // full user name" line="27">
+        </var>
+        <var name="userData" declaration="var $userData;   // an array of data chunks associated to module" line="28">
+        </var>
+        <function name="Login" attribute="default" declaration="function Login($id,$password,$user)" line="30">
+            <param name="$id" value="" type=""><![CDATA[]]></param>
+            <param name="$password" value="" type=""><![CDATA[]]></param>
+            <param name="$user" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetUserData" attribute="default" declaration="function &amp; GetUserData($module)" line="38">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetUserData" attribute="default" declaration="function SetUserData($module,$data)" line="44">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$data" value="" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+</source>

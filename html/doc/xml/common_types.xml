@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="types.class" path="/usr/local/miolo/modules/common/types.class" base="common_types" created="" lines="29">
+    <class name="CommonUser" base="" declaration="class CommonUser" line="3">
+        <var name="login" declaration="var $login;" line="5">
+        </var>
+        <var name="password" declaration="var $password;" line="6">
+        </var>
+        <var name="name" declaration="var $name;" line="7">
+        </var>
+        <var name="nickname" declaration="var $nickname;" line="8">
+        </var>
+        <var name="email" declaration="var $email;" line="9">
+        </var>
+        <var name="theme" declaration="var $theme;" line="10">
+        </var>
+    </class>
+    <class name="CommonModule" base="" declaration="class CommonModule" line="13">
+        <var name="name" declaration="var $name;" line="15">
+        </var>
+        <var name="description" declaration="var $description;" line="16">
+        </var>
+        <var name="rights" declaration="var $rights;" line="17">
+        </var>
+    </class>
+    <class name="CommonGroup" base="" declaration="class CommonGroup" line="20">
+        <var name="id" declaration="var $id;" line="22">
+        </var>
+        <var name="description" declaration="var $description;" line="23">
+        </var>
+        <var name="module" declaration="var $module;" line="24">
+        </var>
+    </class>
+</source>

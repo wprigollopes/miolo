@@ -1,0 +1,9 @@
+# Put this file in the html dir.
+# Don't forget to change the httpd.conf file, enabling AllowOverride for this directory
+#
+# Cheers Vilson & Thomas  :)
+
+RedirectMatch "\.inc$"   /restricted.html
+RedirectMatch "\.class$" /restricted.html 
+RedirectMatch "\.conf$"  /restricted.html
+

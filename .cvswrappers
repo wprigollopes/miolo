@@ -1,0 +1,3 @@
+# wrappers for binary files
+*.gif -k 'b'
+*.png -k 'b'

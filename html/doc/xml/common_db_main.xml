@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="main.class" path="/usr/local/miolo/modules/common/db/main.class" base="common_db_main" created="" lines="58">
+    <class name="BusinessCommonMain" base="Business" declaration="class BusinessCommonMain extends Business" line="3">
+        <function name="GetDatabase" attribute="default" declaration="function GetDatabase()" line="5">
+        </function>
+        <function name="GetUser" attribute="default" declaration="function GetUser($login)" line="11">
+            <param name="$login" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetRights" attribute="default" declaration="function GetRights($module,$login)" line="36">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$login" value="" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+</source>

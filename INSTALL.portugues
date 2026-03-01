@@ -1,0 +1,561 @@
+INSTALAÇÃO MIOLO - Versão 1.0-Final
+===================================
+
+1. Atualizando o MIOLO
+----------------------
+   1.1 - Usuários versão RC5
+   1.2 - Usuários versão RC4
+   
+2. Instalação Rápida
+--------------------
+   2.1 - Instalação
+   2.2 - Base de Dados
+   2.3 - Configurações
+   2.4 - Apache
+   
+3. Instalação Passo-a-Passo
+---------------------------
+   3.1 - Instalando os Arquivos do MIOLO 
+   3.2 - Preparando o Banco de Dados
+   3.3 - Criando a Base de Dados do MIOLO
+   3.4 - Preparando o Apache
+         3.4.1 - Arquivos de Configuração
+         3.4.2 - Exemplo 1
+         3.4.3 - Exemplo 2
+         3.4.4 - Exemplo 3
+         3.4.5 - Reiniciando o Apache
+         
+   3.5 - Configurando o MIOLO - Parte 1
+         3.5.1 - Configurando o acesso à Base de Dados
+         3.5.2 - Trace
+         3.5.3 - Primeiro contato imediato de 3o. Grau
+         
+   3.6 - Configurando o MIOLO - Parte 2 - O Login
+         3.6.1 - Opções de Login
+         3.6.2 - Combinações possíveis
+         3.6.3 - Que configuração utilizar?
+                 3.6.3.a - Um portal "aberto", com restrições
+                 3.6.3.b - Um portal "fechado", tipo intranet
+                 3.6.3.c - Um portal "aberto", parcialmente restrito
+                 
+   3.7 - Erros Comuns
+
+4. PENDÊNCIAS
+-------------
+   4.1 - Base Mysql
+
+5. Ajuda/Suporte
+----------------
+   5.1 - Listas
+   5.2 - Rau-Tu
+
+
+
+1. ATUALIZANDO O MIOLO
+======================
+
+1.1 - Usuários RC5:
+-------------------
+Se você já está utilizando a versão RC 5 do MIOLO, o processo de atualização é bem simples:
+- Copiei o diretório miolo/classes para a sua instalação atual
+- Em função das alterações desta versão, é aconselhável que você utilize o arquivo de configuração desta versão (em miolo/etc/miolo.conf). Para isso, altere as configurações deste arquivo de maneira que ele reflita a sua configuração atual e sobreponha o miolo.conf existente.
+- Nenhuma alteração é necessária para a base de dados.
+
+1.2 - Usuários RC4:
+-------------------
+Se você for usuário desta versão, aconselhamos que somente instale a versão Final (ou mesmo RC5) caso os seus programas suportem essas novas versões.
+
+
+
+2. INSTALAÇÃO RÁPIDA
+====================
+
+2.1 - Instalação
+----------------
+A instalação do MIOLO é bem simples. Geralmente, o problema maior está na configuração do Apache e da Base de Dados (que muitas vezes não está rodando).
+
+Para instalar o MIOLO, você tem duas opções:
+- utilizar o script em Bash: install.sh  ou 
+- utilizar o programa gráfico em QT: install
+
+
+2.2 - Base de Dados
+-------------------
+O script em bash cria a base de dados e as tabelas. Se Você utilizar o programa em QT, deve executar manualmente os scripts abaixo.
+Para criar a base de dados e as tabelas necessárias, execute um dos scripts abaixo, dependendo da sua base de dados.
+
+create_db_pgsql -> Postgresql
+create_db_mysql -> Mysql
+
+Observação: se você está atualizando a sua versão do MIOLO, NÃO é necessário executar estes scripts. Execute apenas o script update_db_pgsql (para atualizar a base postgres... é necessário convertê-lo para bases Mysql).
+
+Para acessar a interface de administração, efetue login com o usuário miolo, senha miolo.
+
+
+2.3 - Configurações
+-------------------
+Após executar o script de instalação, será necessário ajustar as configurações em /etc/miolo/miolo.conf 
+Os pontos mais importantes que devem ser alterados são:
+
+$MIOLOCONF['DB']['bis'] => acertar todas as configurações da base de dados para Base/IP/Host/Usuário/Senha corretos.
+
+
+2.4 - Apache
+------------
+São aconselhadas algumas alterações no Apache: Override All para o diretório html (visível pela web).
+
+Exemplo de Virtual Host no Apache:
+
+<VirtualHost *>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /usr/local/miolo/html
+    ServerName nome.seu.servidor
+    ErrorLog logs/nome.seu.servidor.error_log
+    CustomLog logs/nome.seu.servidor.access_log common
+
+    <Directory "/usr/local/miolo/html">
+        Options FollowSymLinks
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+</VirtualHost>
+
+- Para maiores informações sobre a configuração de domínios virtuais, veja a documentação do Apache.
+- Se você preferir, pode simplesmente modificar o DocumentRoot para o diretório /usr/local/miolo/html e o endereço
+http://localhost passará a abrir a página inicial do MIOLO.
+
+
+
+3. INSTALAÇÃO PASSO-A-PASSO
+===========================
+Este passo-a-passo está baseado, em grande parte, no tutorial criado por Rafael Goulart e posteriormente alterado por Vilson C. Gärtner.
+
+
+3.1 - Instalando os arquivos do MIOLO
+-------------------------------------
+- Abra um terminal como root 
+- Utilize o tar para desempacotar/descompactar os aplicativos:
+  
+  # tar -xzvf miolo-1.0-final.tar.gz 
+
+- Agora, basta executar o instalador 
+  
+  # cd miolo-1.0-final 
+  # ./install.sh 
+
+
+3.2 - Preparando o Banco de Dados
+---------------------------------
+Historicamente, o MIOLO utiliza o Postgresql como base de dados padrão. Nesse sentido, abrangemos a sua instalação tópico. Para informações sobre a instalação/configuração do MySql, acesse: http://www.mysql.com (veja o tópico 3.3). Se você conhece bem os procedimentos de instalação do Mysql, por favor contribua com o nosso projeto e envie para que possamos adicionar um tópico para esta base também.
+
+- Hora de colocar o Postgresql para funcionar.
+Geralmente, ao colocar o serviço para rodar pela primeira vez, o Postgresql cria as configurações iniciais para uso local, e não através de TCP/IP. 
+
+- Vamos ver como funciona: 
+
+# service postgresql start (Mandrake, Conectiva) 
+ou 
+# /etc/rc.d/init.d/postgresql start (Outras distribuições) 
+
+(A sintaxe do nome do serviço pode variar um pouco de uma distribuição para outra). 
+
+
+- Agora é hora de fazer ajustes na configuração.
+ 
+Utilize seu editor de textos favorito e abra o arquivo de configuração:
+
+# vim /var/lib/pgsql/data/postgresql.conf 
+
+
+- Procure a linha e altere a linha:
+
+#tcpip_socket = false 
+e deixe: 
+tcpip_socket = true (descomente, tirando o '#' do início da linha) 
+
+
+- Reinicie o Postgresql: 
+
+# service postgresql restart (Mandrake, Conectiva) 
+ou 
+# /etc/rc.d/init.d/postgresql restart (Outras distribuições) 
+
+
+- Se tudo estiver ok, o netstat vai acusar o Postgresql executando na porta 5432:
+
+# netstat -an | grep 5432 
+
+
+- Se você utilizar um usuário diferente de 'postgres' para fazer a conexão, é bom criá-lo e dar as devidas permissões.
+
+Utilizando o usuários postgres, através de localhost (127.0.0.1), você deve incluir o seguinte no arquivo /var/lib/pgsql/data/pg_hba.conf (a localização pode variar de acordo com a distribuição):
+
+host    all         all         127.0.0.1         255.255.255.255   trust
+
+
+e reiniciar o postgres:
+
+# service postgresql restart 
+ 
+ 
+3.3 - Criando a Base de Dados do MIOLO
+--------------------------------------
+Durante a execução do programa install.sh, serão criadas a base e as tabelas. Utilizando o instalador em QT, será necessário executar manualmente o programa de criação da base.
+Entre na pasta de instalação e execute o create_db_pgsql (para mysql, utilize o create_db_mysql):
+
+# cd miolo-1.0-final 
+# ./create_db_pgsql
+
+Este comando (create_db_pgsql), sem parâmetros, gera um erro. É necessário informar o caminho até o executável do psql. O comando whereis fornece a pista: 
+
+# whereis psql 
+psql: /usr/bin/psql  /usr/share/man/man1/psql.1.bz2 
+
+Então, o create_db_pgsql fica assim:
+
+# ./create_db_pgsql  /usr/bin 
+
+
+3.4 - Preparando o APACHE 
+-------------------------
+A maneira mais fácil e simples é alterar a opção DocumentRoot para /usr/local/miolo/html no arquivo de configuração apache (veja abaixo). Desta maneira, o domínio http://localhost já aponta para o diretório do MIOLO. (Não esqueça de reiniciar o apache, após as alterações. Veja abaixo no item 3.4.5) 
+ 
+Por questões práticas, é melhor criar um domínio próprio para o MIOLO. Não precisa ser miolo.seu_site.com.br, pode ser o que você quiser, como intranet.qualquercoisa.com.br 
+Esteja sempre atento ao parâmetro "ServerName"
+
+
+3.4.1 - Arquivos de Configuração
+--------------------------------
+Você vai alterar UM destes arquivos, conforme sua distribuição e versão do Apache:
+
+a) APACHE 1.3.x => /etc/httpd/conf/httpd.conf 
+b) APACHE 2.x => /etc/httpd/conf/httpd2.conf 
+c) APACHE 2.x => /etc/httpd/conf/vhosts/Vhosts.conf (Mandrake 9.1) 
+ 
+
+3.4.2 - Exemplo 1 - um domínio comum: 
+-------------------------------------
+É necessário que miolo.meudominio.com.br esteja cadastrado no seu servidor DNS (ou então, no arquivo /etc/hosts)
+
+
+#----- início configuração ------
+
+<VirtualHost *> 
+
+    ServerAdmin webmaster@localhost 
+    DocumentRoot /usr/local/miolo/html 
+    ServerName miolo.meudominio.com.br 
+    ErrorLog logs/miolo.develop.error_log 
+    CustomLog logs/miolo.develop.access_log common 
+
+    <Directory "/usr/local/miolo/html"> 
+        Options FollowSymLinks 
+        AllowOverride All 
+        Order allow,deny 
+        Allow from all 
+    </Directory> 
+    
+</VirtualHost> 
+
+#----- final configuração ------
+
+
+3.4.3 - Exemplo 2 - máquina de desenvolvimento, localhost é o MIOLO: 
+--------------------------------------------------------------------
+Não é necessária nenhuma configuração de DNS 
+ 
+
+#----- início configuração ------
+
+<VirtualHost *> 
+
+    ServerAdmin webmaster@localhost 
+    DocumentRoot /usr/local/miolo/html 
+    ServerName localhost 
+    ErrorLog logs/miolo.develop.error_log 
+    CustomLog logs/miolo.develop.access_log common 
+
+    <Directory "/usr/local/miolo/html"> 
+        Options FollowSymLinks 
+        AllowOverride All 
+        Order allow,deny 
+        Allow from all 
+    </Directory> 
+
+</VirtualHost> 
+
+#----- final configuração ------
+
+ 
+3.4.4 - Exemplo 3 - vários domínios sobre o mesmo IP 
+----------------------------------------------------
+É necessário que miolo.meudominio.com.br esteja cadastrado no seu servidor DNS 
+Neste caso, vários domínios terão o mesmo IP mas com páginas diferentes 
+Considere que 200.200.200.213 é o IP de seu servidor Apache 
+
+
+#----- início configuração ------
+
+NameVirtualHost 200.200.200.213:80 
+
+<VirtualHost 200.200.200.213:80> 
+
+    ServerAdmin webmaster@localhost 
+    DocumentRoot /usr/local/miolo/html 
+    ServerName miolo.meudominio.com.br 
+    ErrorLog logs/miolo.develop.error_log 
+    CustomLog logs/miolo.develop.access_log common 
+
+    <Directory "/usr/local/miolo/html"> 
+        Options FollowSymLinks 
+        AllowOverride All 
+        Order allow,deny 
+        Allow from all 
+    </Directory> 
+
+</VirtualHost> 
+
+#----- final configuração ------
+
+
+IMPORTANTE: o NameVirtualHost aparece uma vez só para o IP, não vá repetí-lo para cada domínio que tiver na máquina. 
+Para maiores detalhes verifique a documentação do Apache 
+
+ 
+
+3.4.5 - Reiniciar o Apache
+--------------------------
+Feitas as alterações no arquivo de configuração do Apache, será necessário reiniciá-lo, para que as alterações tenham efeito.
+
+# service httpd restart 
+ou 
+#/etc/rc.d/init.d/httpd restart (dependendo de sua distribuição)
+
+
+3.5 - Configurando o MIOLO - Parte 1
+------------------------------------
+As configurações do MIOLO se encontram no arquivo /etc/miolo.conf
+Vamos abrir este arquivo (neste exemplo, utilizamos o programa vim)
+
+# vim /etc/miolo/miolo.conf 
+
+3.5.1 - Configurando o acesso à base de dados
+---------------------------------------------
+Altere o host, o usuário e senha de acesso à base de dados, para a base: bis 
+
+=> //BD access settings 
+=> $MIOLOCONF['DB']['bis']['system']   = 'postgres';  
+=> $MIOLOCONF['DB']['bis']['host']     = '127.0.0.1'; 
+=> $MIOLOCONF['DB']['bis']['name']     = 'bis'; 
+=> $MIOLOCONF['DB']['bis']['user']     = 'postgres'; 
+=> $MIOLOCONF['DB']['bis']['password'] = '';
+
+Geralmente, a senha inicial do postgres é nula. Então, deixando como está deve funcionar para uma instalação básica. 
+
+Atenção, se você utiliza MySql, ou outra base, informe isso na configuração system:
+
+MYSQL:
+------
+=> $MIOLOCONF['DB']['bis']['system']   = 'mysql';
+
+MSSQL:
+------
+=> $MIOLOCONF['DB']['bis']['system']   = 'mssql';
+
+SQLITE:
+-------
+=> $MIOLOCONF['DB']['bis']['system']   = 'sqlite';
+ 
+
+Obviamente, é necessário que você informe o nome do usuário e senha para o acesso à base.
+
+3.5.2 - Trace
+-------------
+A opção trace é utilizada pelo MIOLO para gerar informações e estatísticas que pode ser capturadas no lado cliente, na porta configurada.
+Desabilite o trace, principalmente se você estiver atrás de um firewall. 
+Procure a linha: 
+
+=> $MIOLOCONF['trace_port'] = 9999; 
+e troque para: 
+=> $MIOLOCONF['trace_port'] = 0; 
+
+
+3.5.3 - Primeiro contato imediato de 3o. Grau
+---------------------------------------------- 
+Abra um navegador, ponha o seu domínio (ou http://localhost). Se tudo estiver configurado de forma correta, aparecerá o logotipo do MIOLO e alguns menus.
+Nesses menus, na opção Tutorial do menu você encontrará um pequeno exemplo funcional, que poderá lhe auxiliar no processo de aprendizagem da programação no MIOLO. 
+Já em "Examples" você encontrará exemplos de utilização como campos de formulários, listagens e componentes. 
+
+
+Tente entrar no link: Sistema >> Administratation 
+
+Espero que receba uma mensagem de erro. Volte e entre no link: Sistema >> Login 
+
+Informe usuário "miolo", senha "miolo". 
+
+Agora você terá acesso à opção de adminstração.
+ 
+
+3.6 - Configurando o MIOLO - Parte 2 - O LOGIN 
+----------------------------------------------
+
+3.6.1 - Opções de Login
+-----------------------
+As opções para configuração da forma de login são 
+ 
+=> $MIOLOCONF['login']['check'] = false; 
+=> $MIOLOCONF['login']['shared'] = true; 
+=> $MIOLOCONF['login']['auto'] = false; 
+
+Vamos entendê-las: 
+
+=> $MIOLOCONF['login']['check'] 
+Haverá (true) ou não(false) checagem de login para entrar no MIOLO inicialmente. Note que para entrar nos módulos, isto depende das permissões de cada módulo - não significa acesso irrestrito, mas a tela inicial abre para usuários não logados. 
+ 
+=> $MIOLOCONF['login']['shared'] 
+Usuário compartilhado. Se sim (true), é necessário ter o usuário configurado apenas na tabela cmn_users - o usuário indicado no acesso do banco bis/common vai dar acesso para todos usuários. 
+Se não (false), o usuário necessita estar cadastrado na tabela cmn_users e como usuário do Postgresql, o qual se encarregará da autenticação. 
+
+=> $MIOLOCONF['login']['auto'] 
+O login será manual (false) - o usuário loga normalmente - ou um usuário será configurado como login "automático" (true), e o portal rodará com suas permissões. É necessário configurar quem será o usuário nas opções abaixo: 
+
+Já que há login automático, eu determino qual sua configuração 
+
+=> $MIOLOCONF['login']['auto'] = 'public1'; 
+
+// Configurações do login 
+=> $MIOLOCONF['login']['public1']['id'] = 'guest'; 
+=> $MIOLOCONF['login']['public1']['password'] = 'guest'; 
+=> $MIOLOCONF['login']['public1']['name'] = 'Public Users'; 
+
+
+Evidentemente, este usuário deve existir no cmn_users. 
+
+
+3.6.2 - Combinações possíveis
+-----------------------------
+No arquivo de configuração (miolo.conf) há explicação sobre as combinações possíveis, 
+mas vamos esmiuçá-las um pouco: 
+
+
+check  shared  auto    resultado
+------------------------------------------------------------------ 
+true   true    false   Será cobrado o login. O usuário precisa 
+                       existir SOMENTE no cmn_users. Login não 
+                       automático.
+                       
+------------------------------------------------------------------ 
+true   false   false   Será cobrado o login. O usuário precisa 
+                       existir no cmn_users E no banco de dados. 
+                       Login não automático. 
+                       
+------------------------------------------------------------------ 
+false  true    false   Não será cobrado o login. O usuário não
+                       precisa existir na base de dados.
+                       Login não automático. 
+                       
+------------------------------------------------------------------ 
+true   true    true    Login automático. O usuário precisa existir 
+                       SOMENTE no cmn_users 
+                       
+------------------------------------------------------------------ 
+false  true  true      Login automático. O usuário não precisa 
+                       existir no cmn_users. É necessário informar
+                       a configuração adicionar do usuário.
+                       
+------------------------------------------------------------------ 
+
+ 
+3.6.3 - Que configuração utilizar?
+----------------------------------
+Dependendo da estrutura na qual o MIOLO será utilizada, a opção por uma ou outra configurações vai variar.
+
+
+Exemplos de utilização:
+
+3.6.3.a - Um portal "aberto", com restrições.
+Este tipo de configuração permite que os usuários tenham acesso a determinadas partes do ambiente sem necessidade de login, Porém, os módulos (programas) possuem a "autonomia" para exigir que o usuário efetue login dependendo 
+
+$MIOLOCONF['login']['check']  = false; 
+$MIOLOCONF['login']['shared'] = true; 
+$MIOLOCONF['login']['auto']   = false; 
+
+//$MIOLOCONF['login']['auto'] = 'public1'; 
+
+
+3.6.3.b - Um portal "fechado", tipo intranet 
+
+$MIOLOCONF['login']['check']  = true; 
+$MIOLOCONF['login']['shared'] = true; 
+$MIOLOCONF['login']['auto']   = false; 
+
+//$MIOLOCONF['login']['auto'] = 'public1'; 
+
+
+3.6.3.c - Um portal "aberto", parcialmente restrito
+Geralmente, um usuário para login automático. Este tipo de configuração é interessante quando existem módulos que requerem uma determinada autorização, sem porém ser uma autorização tão rígida. Exemplificando, suponhamos que numa determinada parte do programa somente usuários com a autorização "acesso" tenham acesso. Poderemos utilizar um acesso público e informar na base (tabela cmn_acces) que este usuário possui esta permissão.
+
+$MIOLOCONF['login']['check']  = false; 
+$MIOLOCONF['login']['shared'] = true; 
+$MIOLOCONF['login']['auto']   = true; 
+
+$MIOLOCONF['login']['auto'] = 'public1'; 
+
+// Esta é a configuração adicional necessário para o usuário
+$MIOLOCONF['login']['public1']['id']       = 'guest'; 
+$MIOLOCONF['login']['public1']['password'] = 'guest'; 
+$MIOLOCONF['login']['public1']['name']     = 'Public Users'; 
+
+
+3.7 - Erros Comuns
+------------------
+
+- Erro: 
+
+Warning: pg_connect() [function.pg-connect]: Unable to connect to PostgreSQL server: FATAL: No pg_hba.conf entry for host 127.0.0.1, user postgres, database bis . in /usr/local/bis/html/miolo/postgres_connection.class on line 83 
+
+=> PROBLEMA: Seu usuário ("user postgres", no caso), não possue permissão para acessar o banco 'bis'. 
+=> SOLUÇÃO: Altere o pg_hba.conf e lhe dê permissão, conforme item 3.2
+
+
+- Erro: 
+
+Warning: fsockopen() [function.fsockopen]: php_hostconnect: connect failed in /usr/local/bis/html/miolo/miolo.class on line 1026 
+Warning: fsockopen() [function.fsockopen]: unable to connect to 127.0.0.1:9999 in /usr/local/bis/html/miolo/miolo.class on line 1026 
+
+=> PROBLEMA: Trace habilitado. 
+=> SOLUÇÃO: Desabilite o trace conforme item 3.5.2 
+
+
+4 - PENDÊNCIAS
+==============
+
+4.1 - 
+
+
+
+5 - AJUDA/SUPORTE
+=================
+
+5.1 - Listas
+------------
+- Convidamos você a se inscrever na lista miolo-users, para a qual são enviadas dúvidas, sugestões, dicas, contribuições,...
+- Para quem estiver interessado em contribuir no desenvolvimento do MIOLO, pode se inscrever na lista miolo-devel
+- Existe também a lista miolo-i18n que é voltada para os trabalhos de tradução.
+
+As listas podem ser acessadas através do site, na opção "Listas de Discussão"
+
+
+5.2 - Rau-Tu
+------------
+- O Rau-Tu é um sistema de perguntas e respostas desenvolvido pela Unicamp e amplamente utilizado e conhecido em todo o Brasil. Se você tiver alguma dúvida relativa à instalação do MIOLO, envie sua pergunta para lá. O Rau-Tu também pode ser acessado através da página do MIOLO.
+
+
+
+Vilson Cristiano Gärtner 
+Coordenador Projeto MIOLO
+
+vilson@miolo.org.br
+http://www.miolo.org.br

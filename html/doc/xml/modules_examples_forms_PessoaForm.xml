@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="PessoaForm.class" path="/usr/local/bis/html/modules/examples/forms/PessoaForm.class" base="modules_examples_forms_PessoaForm" created="" lines="75">
+    <class name="PessoaForm" base="Form" declaration="class PessoaForm extends Form" line="3">
+        <function name="PessoaForm" attribute="default" declaration="function PessoaForm($data=false)" line="5">
+            <param name="$data" value="false" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetData_1" attribute="default" declaration="function GetData_1()" line="42">
+        </function>
+        <function name="GetData" attribute="default" declaration="function GetData()" line="52">
+        </function>
+    </class>
+</source>

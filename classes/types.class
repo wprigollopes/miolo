@@ -1,0 +1,19 @@
+<?php
+
+// definition of QueryRange class
+// Used by: PageNavigator  
+class QueryRange
+{
+    var $offset;
+    var $rows;
+    var $total;
+    
+    function QueryRange($page,$rows,$total=0)
+    {
+        $this->offset = $page * $rows;
+        $this->rows   = $rows;
+        $this->total  = $total;
+    }
+}
+
+?>

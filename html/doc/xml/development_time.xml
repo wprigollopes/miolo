@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="development_time.class" path="/usr/local/miolo/classes/development_time.class" base="development_time" created="" lines="55">
+    <class name="DevelopmentTime" base="" declaration="class DevelopmentTime" line="22">
+        <function name="DefineRights" attribute="default" declaration="function DefineRights($module, $login, $access)" line="25">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$login" value="" type=""><![CDATA[]]></param>
+            <param name="$access" value="" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+</source>

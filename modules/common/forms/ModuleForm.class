@@ -1,0 +1,31 @@
+<?
+
+class CommonModuleForm extends Form
+{
+    function CommonModuleForm($data=null)
+    {
+        $this->Form($data?_M('Update Module'):_M('Insert Module'));
+        
+        $this->AddField( new TextField(_M('Name'), 'name', null, $data?0:20) );
+        $this->AddField( new TextField(_M('Description'), 'description', null, 40) );
+        $this->AddField( new MultiTextField(_M('Rights'), 'rights', 200, null, true) );
+        
+        if ( $data )
+        {
+            $this->SetData($data);
+        }
+    }
+    
+    function GetData()
+    {   
+        if ( $this->ValidateAll() )
+        {
+            return $this->CollectInput( new CommonModule() );
+        }
+        
+        return false;
+    }
+    
+}
+
+?>

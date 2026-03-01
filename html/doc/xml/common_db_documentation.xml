@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="documentation.class" path="/usr/local/miolo/modules/common/db/documentation.class" base="common_db_documentation" created="" lines="98">
+    <class name="BusinessCommonDocumentation" base="Business" declaration="class BusinessCommonDocumentation extends Business" line="26">
+        <function name="GetDatabase" attribute="default" declaration="function GetDatabase()" line="28">
+        </function>
+        <function name="ClearAll" attribute="default" declaration="function ClearAll()" line="33">
+        </function>
+        <function name="RegisterSource" attribute="default" declaration="function RegisterSource($path)" line="42">
+            <param name="$path" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="RegisterClass" attribute="default" declaration="function RegisterClass($ref_source,$name)" line="67">
+            <param name="$ref_source" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="RegisterFunction" attribute="default" declaration="function RegisterFunction($ref_source,$ref_class,$name)" line="77">
+            <param name="$ref_source" value="" type=""><![CDATA[]]></param>
+            <param name="$ref_class" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="QueryFunctionList" attribute="default" declaration="function QueryFunctionList()" line="87">
+        </function>
+    </class>
+</source>

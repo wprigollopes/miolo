@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="counter.class" path="/usr/local/miolo/classes/components/counter.class" base="components_counter" created="" lines="56">
+    <class name="Counter" base="ThemeElement" declaration="class Counter extends ThemeElement" line="3">
+        <var name="url_root" declaration="var $url_root='';" line="5">
+        </var>
+        <var name="format" declaration="var $format='Page Visits: %visits%, Page impressions: %impressions%';" line="6">
+        </var>
+        <function name="Counter" attribute="default" declaration="function Counter()" line="8">
+        </function>
+        <function name="SetRoot" attribute="default" declaration="function SetRoot($root)" line="13">
+            <param name="$root" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetFormat" attribute="default" declaration="function SetFormat($format)" line="19">
+            <param name="$format" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetCounter" attribute="default" declaration="function GetCounter()" line="25">
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="42">
+        </function>
+    </class>
+</source>

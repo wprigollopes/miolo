@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="mysql_connection.class" path="/usr/local/miolo/classes/database/mysql_connection.class" base="database_mysql_connection" created="" lines="186">
+    <class name="MysqlConnection" base="" declaration="class MysqlConnection" line="25">
+        <var name="conf" declaration="var $conf;       // name of database configuration" line="27">
+        </var>
+        <var name="id" declaration="var $id;         // the connection identifier" line="28">
+        </var>
+        <var name="traceback" declaration="var $traceback;  // a list of transaction errors" line="29">
+        </var>
+        <var name="level" declaration="var $level;      // a counter for the transaction level" line="30">
+        </var>
+        <function name="MysqlConnection" attribute="default" declaration="function MysqlConnection($conf)" line="32">
+            <param name="$conf" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Open" attribute="default" declaration="function Open($dbhost,$dbname,$dbuser,$dbpass,$persistent=true)" line="41">
+            <param name="$dbhost" value="" type=""><![CDATA[]]></param>
+            <param name="$dbname" value="" type=""><![CDATA[]]></param>
+            <param name="$dbuser" value="" type=""><![CDATA[]]></param>
+            <param name="$dbpass" value="" type=""><![CDATA[]]></param>
+            <param name="$persistent" value="true" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Close" attribute="default" declaration="function Close()" line="63">
+        </function>
+        <function name="Begin" attribute="default" declaration="function Begin()" line="76">
+        </function>
+        <function name="Finish" attribute="default" declaration="function Finish()" line="83">
+        </function>
+        <function name="GetError" attribute="default" declaration="function GetError()" line="104">
+        </function>
+        <function name="GetErrors" attribute="default" declaration="function GetErrors()" line="109">
+        </function>
+        <function name="GetErrorCount" attribute="default" declaration="function GetErrorCount()" line="114">
+        </function>
+        <function name="CheckError" attribute="default" declaration="function CheckError()" line="119">
+        </function>
+        <function name="Execute" attribute="default" declaration="function Execute($sql)" line="139">
+            <param name="$sql" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="CreateQuery" attribute="default" declaration="function CreateQuery($sql=&quot;&quot;)" line="165">
+            <param name="$sql" value="&quot;&quot;" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+</source>

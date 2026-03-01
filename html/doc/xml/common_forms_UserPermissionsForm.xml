@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="UserPermissionsForm.class" path="/usr/local/miolo/modules/common/forms/UserPermissionsForm.class" base="common_forms_UserPermissionsForm" created="" lines="67">
+    <class name="CommonUserPermissionsForm" base="Form" declaration="class CommonUserPermissionsForm extends Form" line="3">
+        <var name="whichModule" declaration="var $whichModule;" line="5">
+        </var>
+        <function name="CommonUserPermissionsForm" attribute="default" declaration="function CommonUserPermissionsForm($data=null)" line="7">
+            <param name="$data" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetData" attribute="default" declaration="function GetData($data)" line="50">
+            <param name="$data" value="" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+</source>

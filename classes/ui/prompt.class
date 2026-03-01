@@ -1,0 +1,224 @@
+<?php
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# @title
+#   Dialogs classes
+#
+# @description
+#   Implementation of the prompt class for generating common dialogs.
+#
+# @see      miolo/ui/tabbedform.class,
+#           miolo/ui/themepainter.class
+#
+# @topics   ui
+#
+# @created
+#   2001/08/14
+#
+# @organisation
+#   MIOLO - Miolo Development Team - UNIVATES Centro Universitario
+#
+# @legal
+#   CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+#   Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+#   further details)
+#
+# @contributors
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+# 
+# @maintainers
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#
+# @history
+#   $Log: prompt.class,v $
+#   Revision 1.5  2004/08/23 18:29:44  vgartner
+#   Maintenance release.
+#
+#   Revision 1.4  2002/11/16 11:08:56  vgartner
+#   Maintenance code
+#
+#   Revision 1.3  2002/09/17 18:50:41  vgartner
+#   added 'component' support
+#
+#   Revision 1.2  2002/09/05 00:59:16  vgartner
+#   project maintenance for CVS
+#
+#
+#
+# @id $Id: prompt.class,v 1.5 2004/08/23 18:29:44 vgartner Exp $
+#---------------------------------------------------------------------
+
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# This class implements common dialogs needed by an application.
+#---------------------------------------------------------------------
+class Prompt
+{
+    var $caption;
+    var $message;
+    var $buttons;
+    var $icon;
+    var $type     = 'prompt';
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # This is the constructor of the class.
+    # Use the <code>SetType</code> method to specify the type of the dialog.
+    # <br>caption
+    # 
+    # @param $caption (string) Title of the box
+    # @patam $message (string) Message for the prompt message
+    # @param $icon (file url) Image to display on the message
+    #
+    # @example
+    #
+    # @returns (nothing)
+    #---------------------------------------------------------------------
+    function Prompt($caption=null, $message=null, $icon=null)
+    {
+    	global $MIOLO,$MIOLOCONF;
+        $theme = $MIOLOCONF['theme']['main'];
+        $home = $MIOLO->GetThemeUrl('',$theme);
+        if (is_null($icon)) {$icon = $home . '/images/error3.gif';};
+
+		$this->caption = $caption;
+        $this->message = $message;
+        $this->icon    = $icon;
+
+        if ( ! $this->caption )
+        {
+            $this->caption = _M('Alert');
+        }
+        
+        if ( ! $this->message )
+        {
+            $this->message = _M('Unkown reason');
+        }
+    }
+    
+    function /* STATIC */ Error($msg='',$goto='', $caption='')
+    {
+    	global $MIOLO,$MIOLOCONF;
+        $theme = $MIOLOCONF['theme']['main'];
+        $home = $MIOLO->GetThemeUrl('',$theme);
+
+        if ( ! $caption )
+        {
+            $caption = _M('Error');
+        }
+        
+        $prompt = new Prompt( $caption, $msg);
+        $prompt->SetType('error');
+            
+        if ($goto)
+        {
+            $prompt->AddButton( _M('   Back   '), $goto);
+        }
+        
+        return $prompt;
+    }
+    
+    function /* STATIC */ Information($msg,$goto='')
+    {
+    	global $MIOLO,$MIOLOCONF;
+        $theme = $MIOLOCONF['theme']['main'];
+        $home = $MIOLO->GetThemeUrl('',$theme);
+
+        $prompt = new Prompt(_M('Information'),$msg,
+		    $home . '/images/information.gif');
+        $prompt->SetType('error');
+        if ( $goto )
+        {
+            $prompt->AddButton('   OK   ',$goto);
+        }
+        
+        return $prompt;
+    }
+    
+    function /* STATIC */ Confirmation($msg,$gotoOK='',$gotoCancel='')
+    {
+    	global $MIOLO,$MIOLOCONF;
+        $theme = $MIOLOCONF['theme']['main'];
+        $home = $MIOLO->GetThemeUrl('',$theme);
+
+		$prompt = new Prompt( _M('Confirmation'),$msg,
+		    $home. '/images/error3.gif');
+        $prompt->SetType('confirmation');
+        $prompt->AddButton('    OK    ',$gotoOK);
+        $prompt->AddButton( _M(' Cancel '),$gotoCancel);
+        
+        return $prompt;
+    }
+    
+    function /* STATIC */ Question($msg,$gotoYes='',$gotoNo='')
+    {
+    	global $MIOLO,$MIOLOCONF;
+        $theme = $MIOLOCONF['theme']['main'];
+        $home = $MIOLO->GetThemeUrl('',$theme);
+
+        $prompt = new Prompt(_M('Confirmation'),$msg,
+		    $home . '/images/question.gif');
+        $prompt->SetType('error');
+        $prompt->AddButton( _M('   YES   ') ,$gotoYes);
+        $prompt->AddButton( _M('   NO   '),$gotoNo);
+        
+        return $prompt;
+    }
+    
+    function SetType($type)
+    {
+        $this->type = $type;
+    }
+    
+    function AddButton($label,$href)
+    {
+        $this->buttons[] = array($label,$href);
+    }
+    
+    function Generate()
+    {
+        echo "<table class=\"{$this->type}Box\" width=\"500\" border=\"0\" cellspacing=\"0\" cellpadding=\"8\" align=\"center\" height=\"50%\">\n";
+        echo "  <tr>\n";
+        echo "    <td class=\"{$this->type}Title\" colspan=\"2\">{$this->caption}</td>\n";
+        echo "  </tr>\n";
+        echo "  <tr>\n";
+        echo "    <td class=\"{$this->type}Text\" valign=\"top\" width=\"60\"><img src=\"{$this->icon}\" hspace=\"20\"></td>\n";
+        echo "    <td class=\"{$this->type}Text\">";
+        
+        if ( is_array($this->message) )
+        {
+            echo "<ul>\n";
+            foreach ( $this->message as $m )
+            echo "<li>$m</li>";
+            echo "</ul>\n";
+        }
+        
+        else
+            echo $this->message;
+        
+        echo "</td>\n";
+        echo "  </tr>\n";
+        
+        if ( $this->buttons )
+        {
+            echo "  <tr>\n";
+            echo "    <td colspan=\"2\" align=\"center\">\n";
+            
+            echo "       <form>\n";
+            
+            foreach( $this->buttons as $b )
+            {
+                echo "       <input type=\"button\" onClick=\"GotoURL('{$b[1]}')\" value=\"{$b[0]}\">&nbsp;";
+            }
+            
+            echo "       </form>\n";
+            
+            echo "    </td>\n";
+            echo "  </tr>\n";
+        }
+        
+        echo "</table>\n";
+    }
+}
+
+?>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="business.class" path="/usr/local/miolo/classes/business.class" base="business" created="" lines="65">
+    <class name="Business" base="" declaration="class Business" line="40">
+      <title>Business</title>
+      <description>
+      <![CDATA[This file contains]]>
+      </description>
+      <relations type="see-also">
+        <group name="miolo/database.class"/>
+        <group name="miolo/postgres_connection.class
+miolo/postgres_query.class"/>
+      </relations>
+      <relations type="group">
+        <group name="form"/>
+        <group name="ui"/>
+      </relations>
+      <organisation>
+      <![CDATA[MIOLO - Miolo Development Team - UNIVATES Centro Universitario]]>
+      </organisation>
+      <legal>
+      <![CDATA[CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)]]>
+      </legal>
+      <contributors>
+        <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+        <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+      </contributors>
+      <maintainers>
+        <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+        <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+      </maintainers>
+      <history>
+      <![CDATA[
+        See CVS history.<br>
+      ]]>
+      </history>
+        <var name="errors" declaration="var $errors;" line="42">
+        </var>
+        <function name="CheckError" attribute="default" declaration="function CheckError($db)" line="44">
+            <param name="$db" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetErrors" attribute="default" declaration="function GetErrors()" line="59">
+          <description>
+          <![CDATA[Obtains the last DB errors]]>
+          </description>
+        </function>
+    </class>
+</source>

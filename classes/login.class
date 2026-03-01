@@ -1,0 +1,50 @@
+<?php
+// +-----------------------------------------------------------------+
+// | MIOLO - Miolo Development Team - UNIVATES Centro Universitário  |
+// +-----------------------------------------------------------------+
+// | CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil            |
+// +-----------------------------------------------------------------+
+// | Licensed under GPL: see COPYING.TXT or FSF at www.fsf.org for   |
+// |                     further details                             |
+// |                                                                 |
+// | Site: http://miolo.codigolivre.org.br                           |
+// | E-mail: vgartner@univates.br                                    |
+// |         ts@interact2000.com.br                                  |
+// +-----------------------------------------------------------------+
+// | Abstract: This file contains de login class definitions         |
+// |                                                                 |
+// | Created: 2001/08/14 Thomas Spriestersbach                       |
+// |                     Vilson Cristiano Gärtner,                   |
+// |                                                                 |
+// | History: Initial Revision                                       |
+// +-----------------------------------------------------------------+
+
+class Login
+{
+  var $id;         // login id
+  var $password;   // user password 
+  var $time;       // login time
+  var $user;       // full user name
+  var $userData;   // an array of data chunks associated to module
+  
+  function Login($id,$password,$user)
+  {
+      $this->id       = $id;
+      $this->password = $password; 
+      $this->user     = $user;   
+      $this->time     = time();
+  }
+  
+  function & GetUserData($module)
+  {
+      return $this->userData[$module];
+  }
+
+  
+  function SetUserData($module,$data)
+  {
+      $this->userData[$module] = $data;
+  }
+}
+
+?>

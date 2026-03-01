@@ -1,0 +1,161 @@
+<?
+// +-----------------------------------------------------------------+
+// | Wiki Development Team UNIVATES - Centro Universitário           |
+// +-----------------------------------------------------------------+
+// |      Copyleft (l) 2002 UNIVATES, Lajeado/RS - Brasil            |
+// +-----------------------------------------------------------------+
+// | Licensed under GPL: see COPYING.TXT or FSF at www.fsf.org for   |
+// |                     further details                             |
+// |                                                                 |
+// | Site: http://wiki.codigolivre.org.br                            |
+// +-----------------------------------------------------------------+
+// | Created: 2002/12/16 Alexandre Heitor Schmidt xandehs@univates.br|
+// |                     Nasair Júnior da Silva   njunior@univates.br|
+// |                                                                 |
+// | History: Initial Revision                                       |
+// +-----------------------------------------------------------------+
+
+class BusinessWikiPermissions
+{
+
+    function GetDatabase($db=null)
+    {
+        global $MIOLO, $module;
+        if (!$db) $db = $module;
+        return $MIOLO->GetDatabase($db);
+    }
+
+    function GetPermissions($project_id, $action, $user_id = null)
+    {
+        global $module, $MIOLO;
+        $sql =  "   SELECT  login ".
+                "      FROM wik_access ".
+                "     WHERE project_id = '{$project_id}' ".
+                "       AND permission = '{$action}' ";
+        
+        if ($user_id) $sql .= " AND login = '{$user_id}' ";
+        
+        $db = $this->GetDatabase('bis');
+        $result = $db->Query($sql);
+        $db->Close();
+        return $result;
+   }
+    
+    function CheckReadAccess($project_id, $user_id=null)
+    {
+        global $module, $MIOLO;
+        if (!$user_id) $user_id = $MIOLO->login->id;
+        $Bus = $MIOLO->GetBusiness($module,'Settings');
+        $Bus_Prj = $MIOLO->GetBusiness($module,'Projects');
+        
+        $settings = $Bus->GetSettings();
+        $project = $Bus_Prj->GetProject($project_id);
+        
+        if ($project->annonymous_read === true) return true;
+        //if ($settings->need_login === false) return true;
+        return $this->CheckAccess($module,'read_'.$project_id,true);
+    }
+
+    function CheckWriteAccess($project_id, $user_id)
+    {
+        global $module, $MIOLO;
+        $Bus = $MIOLO->GetBusiness($module,'Settings');
+        $Bus_Prj = $MIOLO->GetBusiness($module,'Projects');
+        
+        $settings = $Bus->GetSettings();
+        $project = $Bus_Prj->GetProject($project_id);
+
+        if ($project->annonymous_write === true) return true;
+        //if ($settings->need_login === false) return true;
+        return $MIOLO->CheckAccess($module,'write_'.$project_id,false);
+    }
+
+    function CheckAccess($project_id, $perm = 'write', $user_id=null, $admin = true)
+    {
+        //var_dump('<li>'.$project_id, $perm, $user_id);
+        global $module, $MIOLO;
+        if ($admin && $MIOLO->CheckAccess($module,'admin',false)) return true;
+
+        $Bus_Prj = $MIOLO->GetBusiness($module,'Projects');
+        $project = $Bus_Prj->GetProject($project_id);
+        if (!$user_id) $user_id = $MIOLO->login->id;
+            
+        if ($perm != 'read') $perm = 'write';
+        if ($perm == 'read' && $project->annonymous_read == true ) 
+            return true;
+        elseif ($perm == 'write' && $project->annonymous_write == true)
+            return true;
+        
+        $sql =  "   SELECT login ".
+                "     FROM  wik_access ".
+                "    WHERE  login = '{$user_id}' ".
+                "       AND project_id = '$project_id' ".
+                "       AND permission = '{$perm}' ";
+        $db = $this->GetDatabase();
+        $result = $db->Query($sql);
+        $db->Close();
+
+        if ($result) $result = true;
+        else $result = false;
+        
+        if ($result === false && $perm == 'read' && $admin)
+            return $MIOLO->Error(_M("You have not permission to access this project. Check your login and try again!!!",$module),
+                                 "javascript:history.go(-1)", _M("Access Denied",$module));
+        return $result;
+    }
+
+    function SetPermission($project_id, $type, $user_id, $fl)
+    {
+        $conf = "   SELECT login ".
+                "     FROM wik_access ".
+                "    WHERE login = '{$user_id}' ".
+                "      AND project_id = '{$project_id}' ".
+                "      AND permission = '{$type}' ";
+        $sql_i= "   INSERT INTO wik_access ".
+                "       ( ".
+                "               login, ".
+                "               project_id, ".
+                "               permission ".
+                "       ) VALUES ( ".
+                "               '{$user_id}', ".
+                "               '{$project_id}', ".
+                "               '{$type}' ".
+                "       ) ";
+        $sql_d= "   DELETE FROM wik_access ".
+                "         WHERE login = '{$user_id}' ".
+                "           AND project_id = '{$project_id}' ".
+                "           AND permission = '{$type}' ";
+        $db = $this->GetDatabase();
+        $result = $db->Query($conf);
+        
+        if (!$result && $fl)
+        {
+            $db->Query($sql_i);
+        }
+        if ($result && !$fl)
+        {
+            $db->Query($sql_d);
+        }
+
+        $db->Close();
+    }
+
+    function SetPermissions($data)
+    {
+        global $module, $MIOLO;
+        $Bus = $MIOLO->GetBusiness('common','admin');
+        $users = $Bus->GetUsers();
+        $types = array('read','write');
+
+        foreach($users as $user)
+        {
+            $name = 'user_'.str_replace("-","_",$user[0]);
+            foreach ($types as $k_typ=>$type)
+            {
+                $var = 'frm_'.$name.'_'.$k_typ;
+                eval('global $'.$var.';');
+                $this->SetPermission($data->project_id, $type, $user[0], isset($$var));
+            }
+        }
+    }
+}

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="themepainter.class" path="/usr/local/miolo/classes/ui/themepainter.class" base="ui_themepainter" created="2001/08/14" lines="565">
+  <title>ThemePainter</title>
+  <description>
+  <![CDATA[This file contains the default themepainter implementation]]>
+  </description>
+  <relations type="see-also">
+    <group name="miolo/ui/theme.class"/>
+  </relations>
+  <relations type="group">
+    <group name="theme"/>
+    <group name="ui"/>
+  </relations>
+  <organisation>
+  <![CDATA[MIOLO - Miolo Development Team - UNIVATES Centro Universitario]]>
+  </organisation>
+  <legal>
+  <![CDATA[CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)]]>
+  </legal>
+  <contributors>
+    <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+    <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+  </contributors>
+  <maintainers>
+    <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+    <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+  </maintainers>
+    <class name="ThemePainter" base="" declaration="class ThemePainter" line="45">
+      <description>
+      <![CDATA[The ThemePainter class is responsible for generating a HTML page
+containing all elements of the MIOLO Theme class or only those in
+which the customized theme is interested in.
+
+Each theme should provide a subclass of the ThemePainter named
+'&lt;name&gt;ThemePainter' where &lt;name&gt; represents the theme's name.
+
+Examples: UnivatesThemePainter, SlashThemePainter, PhpNukeThemePainter]]>
+      </description>
+        <var name="theme" declaration="var $theme;" line="47">
+        </var>
+        <var name="bgcolor" declaration="var $bgcolor = &quot;#ffffff&quot;;" line="50">
+        </var>
+        <var name="bgimage" declaration="var $bgimage = '';" line="51">
+        </var>
+        <var name="fgcolor" declaration="var $fgcolor = &quot;white&quot;;" line="52">
+        </var>
+        <function name="HasMenuOptions" attribute="default" declaration="function HasMenuOptions()" line="59">
+          <description>
+          <![CDATA[Determines if any of the theme's menus have at least on option. This
+function may be used to see if a menu container is to be painted or
+not.]]>
+          </description>
+        </function>
+        <function name="GenerateTheme" attribute="default" declaration="function GenerateTheme(&amp;$theme)" line="81">
+            <param name="&amp;$theme" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[This function finally generates the output page
+which will be send to the client]]>
+          </description>
+        </function>
+        <function name="GenerateHeader" attribute="default" declaration="function GenerateHeader()" line="104">
+          <description>
+          <![CDATA[This function generates the page's header, containing scripts,
+styles, meta-tags, page title etc.]]>
+          </description>
+        </function>
+        <function name="GenerateBody" attribute="default" declaration="function GenerateBody()" line="124">
+          <description>
+          <![CDATA[This function generates the page's body]]>
+          </description>
+        </function>
+        <function name="GenerateStyles" attribute="default" declaration="function GenerateStyles()" line="160">
+          <description>
+          <![CDATA[Generate output of CSS styles]]>
+          </description>
+        </function>
+        <function name="GenerateScripts" attribute="default" declaration="function GenerateScripts()" line="183">
+          <description>
+          <![CDATA[Generate output of client-side scripts]]>
+          </description>
+        </function>
+        <function name="GenerateMetas" attribute="default" declaration="function GenerateMetas()" line="206">
+          <description>
+          <![CDATA[Generate output of meta information tags]]>
+          </description>
+        </function>
+        <function name="GenerateTop" attribute="default" declaration="function GenerateTop()" line="226">
+          <description>
+          <![CDATA[Generate theme heading]]>
+          </description>
+        </function>
+        <function name="GenerateContent" attribute="default" declaration="function GenerateContent()" line="234">
+          <description>
+          <![CDATA[Generate theme content area]]>
+          </description>
+        </function>
+        <function name="GenerateBottom" attribute="default" declaration="function GenerateBottom()" line="244">
+          <description>
+          <![CDATA[Generate theme footer]]>
+          </description>
+        </function>
+        <function name="GenerateMenuBar" attribute="default" declaration="function GenerateMenuBar()" line="254">
+          <description>
+          <![CDATA[Generates the menus into a menu container]]>
+          </description>
+        </function>
+        <function name="GenerateForm" attribute="default" declaration="function GenerateForm(&amp;$form)" line="264">
+            <param name="&amp;$form" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[This function is called from a form to paint itself]]>
+          </description>
+        </function>
+        <function name="GenerateListing" attribute="default" declaration="function GenerateListing(&amp;$listing)" line="291">
+            <param name="&amp;$listing" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[This function is called from a listing to paint itself]]>
+          </description>
+        </function>
+        <function name="GenerateElements" attribute="default" declaration="function GenerateElements(&amp;$elements)" line="320">
+            <param name="&amp;$elements" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[A helper function, which generates an array of theme elements.
+This function is called recursively, when an array elements
+contains another array.]]>
+          </description>
+        </function>
+        <function name="GenerateBox" attribute="default" declaration="function GenerateBox($box)" line="347">
+            <param name="$box" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[This function is called to generate a single box]]>
+          </description>
+        </function>
+        <function name="GenerateMenu" attribute="default" declaration="function GenerateMenu($menu)" line="371">
+            <param name="$menu" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[This function is called to generate a menu's option list]]>
+          </description>
+        </function>
+        <function name="GenerateNavigationBar" attribute="default" declaration="function GenerateNavigationBar()" line="379">
+          <description>
+          <![CDATA[Implementation of a navigation bar]]>
+          </description>
+        </function>
+        <function name="GenerateTraceStatus" attribute="default" declaration="function GenerateTraceStatus()" line="458">
+          <description>
+          <![CDATA[Internal function used to generate some useful informations for the
+MIOLO developer]]>
+          </description>
+        </function>
+        <function name="GenerateOptionList" attribute="default" declaration="function GenerateOptionList($options,$depth=0)" line="493">
+            <param name="$options" value="" type=""><![CDATA[]]></param>
+            <param name="$depth" value="0" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Generates an option list which may contain nested option lists itself]]>
+          </description>
+        </function>
+        <function name="GenerateToString" attribute="default" declaration="function GenerateToString(&amp;$element)" line="555">
+            <param name="&amp;$element" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Convenience function to capture the output of an element's
+<code>Generate</code> function as HTML string.]]>
+          </description>
+        </function>
+    </class>
+</source>

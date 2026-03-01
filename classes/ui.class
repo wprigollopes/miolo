@@ -1,0 +1,131 @@
+<?php
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# @title
+#   Database
+#
+# @description
+#   This file contains database abstraction class
+#
+# @see      miolo/postgres_connection.class,
+#           miolo/postgres_query.class,
+#           miolo/mysql_connection.class,
+#           miolo/mysql_querry.class
+#
+# @topics   db, business
+#
+# @created
+#   2001/08/14
+#
+# @organisation
+#   MIOLO - Miolo Development Team - UNIVATES Centro Universitario
+#
+# @legal
+#   CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+#   Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+#   further details)
+#
+# @contributors
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+# 
+# @maintainers
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#
+# @history
+#   $Log: ui.class,v $
+#   Revision 1.4  2003/06/17 20:04:57  vgartner
+#   A lot of changes: documentation, new classes (TabbedForm2), directory changes,....
+#
+#   Revision 1.3  2002/10/29 19:40:35  vgartner
+#   Added new files to MIOLO
+#
+#   Revision 1.2  2002/09/30 21:24:19  vgartner
+#   Corrected a little bug.
+#
+#
+# @id $Id: ui.class,v 1.4 2003/06/17 20:04:57 vgartner Exp $
+#---------------------------------------------------------------------
+class UI
+{
+    function UI()
+    { global $MIOLO;
+        
+        $MIOLO->Uses('ui/form.class');
+        $MIOLO->Uses('ui/listing.class');
+        $MIOLO->Uses('ui/statusbar.class');
+        $MIOLO->Uses('ui/pagenavigator.class');
+        $MIOLO->Uses('ui/tabbedform.class');
+        $MIOLO->Uses('ui/tabbedform2.class');
+        $MIOLO->Uses('ui/indexedform.class');
+        $MIOLO->Uses('ui/inputgrid.class');
+    }
+    
+    function Alert($msg,$info,$href='')
+    { global $MIOLO;
+        
+        $MIOLO->Error($msg,$info,$href);
+    }
+    
+    function CreateForm($title='')
+    {
+        return new Form($title);
+    }
+    
+    function GetForm($module,$name,$data=null)
+    { global $MIOLO;
+        
+        $MIOLO->Uses( 'types.class', $module);
+        
+        $file = "forms/$name.class";
+        
+        $MIOLO->Assert(file_exists($MIOLO->GetModulePath($module,$file)),
+                       'UI::GetForm() ' . _M('Error: @1 - file not found.','miolo',$file) );
+        
+        $MIOLO->Uses( $file, $module);
+        
+        // Workaround: adds module's prefix to class name
+        $class = strtoupper(substr($module,0,1)) . substr($module,1) . $name;
+
+        if ( ! class_exists($class) )
+        {
+            $MIOLO->Deprecate("You should name your form class '$class' instead of '$name'!");
+            
+            $class = $name;
+        }
+        
+        if ( $data )
+        {
+          eval("\$form = new $class(\$data);");
+        }
+        else
+        {
+          eval("\$form = new $class();");
+        }
+        
+        return $form;
+    }
+    
+    function GetMenu($module='main',$name='UIMainMenu')
+    { global $MIOLO;
+        
+        $MIOLO->Uses("menus/$name.class",$module);
+        
+        eval("\$menu = new $name();");
+        
+        return $menu;
+    }
+    
+    function GetImage($module,$nome)
+    {
+        if ( $module )
+        $img = $MIOLO->GetAbsoluteURL('/modules/' . $module . '/images/' . $nome);
+        
+        else
+        $img = $MIOLO->GetAbsoluteURL('/images/' . $nome);
+        
+        return $img;
+    }
+}
+
+?>

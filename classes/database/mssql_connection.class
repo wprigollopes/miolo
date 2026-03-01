@@ -1,0 +1,240 @@
+<?php
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# @title
+#   MsSQL Connection
+#
+# @description
+#   This file contains MsSQL connection functions
+#
+# @see      miolo/database.class,
+#           miolo/mssql_query.class,
+#
+# @topics   db, business
+#
+# @created
+#   2003/09/17
+#
+# @organisation
+#   MIOLO - Miolo Development Team - UNIVATES Centro Universitario
+#   http://miolo.codigolivre.org.br
+#
+# @legal
+#   CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+#   Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+#   further details)
+#
+# @contributors
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#   Clausius Duque G. Reis   [user]   [clausius@ufv.br]
+#
+# @maintainers
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#
+# history: see miolo cvs.
+#
+# @id $Id: mssql_connection.class,v 1.0 2003/09/12 11:18:00 clausius Exp $
+#---------------------------------------------------------------------
+
+/**
+ *
+ */
+class MssqlConnection
+{
+    var $conf;       // name of database configuration
+    var $id;         // the connection identifier
+    var $traceback;  // a list of transaction errors
+    var $level;      // a counter for the transaction level
+
+    function MssqlConnection($conf)
+    {   global $MIOLO;
+
+        $this->conf = $conf;
+
+        $MIOLO->Uses('database/mssql_query.class');
+	}
+
+    // opens a connection to the specified data source
+    function Open($dbhost,$LoginDB,$LoginUID,$LoginPWD,$persistent=true)
+    {   global $MIOLO, $php_errormsg;
+
+        if ( $this->id )
+        {
+            Close();
+        }
+
+        $this->traceback = null;
+        $this->level = 0;
+
+        if ( false && $persistent )
+        {
+            $this->id = mssql_pConnect($dbhost,$LoginUID,$LoginPWD);
+        }
+        else
+        {
+            $this->id = mssql_Connect($dbhost,$LoginUID,$LoginPWD);
+        }
+
+        if ( ! $this->id )
+        {
+            $this->traceback[] = "Unable to estabilish DataBase Conection to host: $dbhost, DB: $LoginDB";
+        }
+
+        return $this->id;
+    }
+
+    // closes a previously opened connection
+    function Close()
+    {
+        if ( $this->id )
+        {   global $MIOLO;
+
+			$MIOLO->Assert($this->level==0,"Transactions not finished!");
+
+            mssql_close($this->id);
+
+            $this->id = 0;
+        }
+    }
+
+    function Begin()
+    {
+        $this->Execute("begin transaction");
+
+        $this->level++;
+    }
+
+    function Finish()
+    {   global $MIOLO;
+
+        $MIOLO->Assert($this->level>0,"Transaction level underrun!");
+
+        $success = $this->GetErrorCount() == 0;
+
+        if ( $success )
+        {
+            $this->Execute("commit");
+        }
+        else
+        {
+            $this->Execute("rollback");
+        }
+
+        $this->level--;
+
+        return $success;
+    }
+
+    function GetError()
+    {
+
+        if ( ! $this->id )
+        {
+			$err = "No valid Database connection estabilished.";
+            if ( $this->traceback )
+            {
+				$err .= "<br>" . implode("<br>", $this->traceback);
+            }
+
+        }
+        else
+        {
+		 	$err = mssql_get_last_message($this->id);
+        }
+        return $err;
+    }
+
+
+    function GetErrors()
+    {
+		return $this->traceback;
+    }
+
+    function GetErrorCount()
+    {
+		return empty($this->traceback) ? 0 : count($this->traceback);
+    }
+
+    function CheckError()
+    {   global $MIOLO;
+
+        if ( empty($this->traceback) )
+        {
+            return;
+        }
+
+        $n = count($this->traceback);
+
+        if ( $n > 0 )
+        {
+            $msg = "";
+
+            for ( $i=0; $i<$n; $i++ )
+            {
+                $msg .= $this->traceback[$i] . "<br>";
+            }
+
+            $MIOLO->Assert(false ,"Transaction Error",$msg);
+        }
+    }
+
+    function Execute($sql)
+    {   global $MIOLO;
+
+        $MIOLO->LogSQL($sql,false,$this->conf);
+
+        if ( $this->level == 0 )
+        {
+            $this->traceback = null;
+        }
+
+        ob_start();
+        $rs = mssql_query($sql,$this->id);
+
+        $success = false;
+
+        if ( $rs )
+        {
+            $success = true;
+        }
+        else
+        {
+            $sql_error=$this->treat_mssql_error(ob_get_contents()); 
+            $this->traceback[] = $sql_error;
+            ob_end_clean(); 
+        }
+        ob_end_clean(); 
+        return $success;
+    }
+
+    function CreateQuery($sql="")
+    {   global $MIOLO;
+
+        $MIOLO->Assert($this->id, $this->GetErrors());
+
+        $q = new MssqlQuery($this->conf);
+
+        $q->conn   = $this;
+        $q->sql    = $sql;
+        $q->result = 0;
+        $q->row    = -1;
+
+        if ( $sql != "" )
+        {
+            $q->Open();
+        }
+
+        return $q;
+    }
+
+    function treat_mssql_error($buffer) 
+    { 
+        $buffer=str_replace("<br />\n<b>Warning</b>:  mssql_query(): message:","",$buffer); 
+        $buffer=explode("(severity",$buffer); 
+        return $buffer[0]; 
+    } 
+
+};
+
+?>

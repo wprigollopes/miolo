@@ -1,0 +1,43 @@
+<?
+
+class BusinessTutorialLookup
+{
+    function AutoCompleteLookCity(&$context,$defaults=null)
+    {
+        $sql = " SELECT name, state FROM tut_cities WHERE zip_code = ?";
+        if ($defaults['state'])
+        {
+            $sql .= " AND state = '{$defaults['state']}' ";
+        }
+
+        $context->SetContext('tutorial', $sql);
+    }
+
+    function LookupLookCity(&$lookup)
+    {
+        $filterEstado = $lookup->GetFilterValue('filterEstado');
+        $filterCidade = $lookup->GetFilterValue('filterCidade');
+                                                                                                                             
+        $lookup->AddFilterField( new TextField('Estado','filterEstado', $filterEstado,2));
+        $lookup->AddFilterField( new TextField('Cidade','filterCidade', $filterCidade,20));
+        //$lookup->AddFilterField( new TextField('Campus','filtercampus',null,50));
+                                                                                                                             
+        $lookup->SetListingTitle('Localizar cidade');
+        $lookup->SetLabels( array( new ListingColumn('Cep'),
+                                   new ListingColumn('Nome'),
+                                   new ListingColumn('Estado')));
+                                                                                                                             
+        $lookup->SetPageLength(20);
+                                                                                                                             
+        $sql =  '  select zip_code, name, state '.
+                '  from tut_cities ' .
+                "  where name ilike '%{$filterCidade}%' ".
+                "    and state ilike '%{$filterEstado}%' ";
+                                                                                                                             
+        $lookup->SetDatabase('tutorial');
+        $lookup->SetQuery($sql);
+    }
+
+}
+
+?>

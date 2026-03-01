@@ -1,0 +1,329 @@
+<html xmlns:html="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>Source: Tabbed Form</title>
+    <link rel="stylesheet" type="text/css" href="doc.css">
+  </head>
+  <body>
+    <h1>Documentação MIOLO</h1>
+    <h2>Tabbed Form<br>
+      <font size="2">(371 linhas)</font>
+    </h2>
+    <div class="description">
+      <h3>Descrição:</h3>
+      <blockquote>
+  This file contains the form and form elements definitions
+  </blockquote>
+    </div>
+    <div class="relations" align="right">
+         [<a href="?module=common&amp;action=main:doc:index:source&amp;item=/usr/local/miolo/classes/ui/tabbedform.class">Codigo Fonte</a>]
+         [<a href="/doc/dia/ui_tabbedform.dia">Diagrama UML</a>]
+      </div>
+    <div class="relations" align="right">
+            Veja também:
+            <a href="?module=common&amp;action=main:doc:index:file&amp;item=/usr/local/bis/html/miolo/ui/form.class">miolo/ui/form.class</a>, <a href="?module=common&amp;action=main:doc:index:file&amp;item=/usr/local/bis/html/miolo/ui/themepainter.class">miolo/ui/themepainter.class</a>
+    </div>
+    <div class="relations" align="right">
+            Tópicos relacionados:
+            <a href="?module=common&amp;action=main:doc:topic&amp;item=tabbedform">tabbedform</a>, <a href="?module=common&amp;action=main:doc:topic&amp;item=ui">ui</a>
+    </div>
+    <div class="classBlock">
+      <a name="TabbedForm"></a>
+      <h2>Classe <span class="className">TabbedForm</span></h2>
+      <blockquote>
+          extends <a href="#">Form</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      TODO: TRANSLATION
+O tabbedform &eacute; extendida da classe form class e difere, principalmente
+na forma como os dados s&atilde;o apresentados.
+Com o tabbedform, &eacute; poss&iacute;vel criar p&aacute;ginas nas quais os campos ser&atilde;o
+apresentados. Vale ressaltar que, quando uma p&aacute;gina n&atilde;o est&aacute; ativa,
+os campos do formul&aacute;tio s&atilde;o do tipo hidden.
+      </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $pages;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#TabbedForm::AddField">AddField</a>, <a href="#TabbedForm::AddPage">AddPage</a>, <a href="#TabbedForm::GenerateBody">GenerateBody</a>, <a href="#TabbedForm::GenerateFormTabs">GenerateFormTabs</a>, <a href="#TabbedForm::GetCurrentPage">GetCurrentPage</a>, <a href="#TabbedForm::GetFieldList">GetFieldList</a>, <a href="#TabbedForm::GetFieldValue">GetFieldValue</a>, <a href="#TabbedForm::SetFormValue">SetFormValue</a>, <a href="#TabbedForm::TabbedForm">TabbedForm</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="TabbedForm::TabbedForm"></a>
+        <dt><span class="functionName">
+            <a href="#$class">TabbedForm</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função TabbedForm</blockquote>
+          </div>
+          <div class="declaration">function TabbedForm($title='',$action='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$title</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$title</tt>
+            </dd>
+            <dt><span class="paramName">$action</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$action</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="TabbedForm::AddField"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddField</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função AddField</blockquote>
+          </div>
+          <div class="declaration">function AddField()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="TabbedForm::AddPage"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddPage</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função AddPage</blockquote>
+          </div>
+          <div class="declaration">function AddPage($title, $fields)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$title</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$title</tt>
+            </dd>
+            <dt><span class="paramName">$fields</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$fields</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="TabbedForm::GetFieldValue"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetFieldValue</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Obtains a form field's value
+          </blockquote>
+          </div>
+          <div class="declaration">function GetFieldValue($name,$value=false)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$value</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="TabbedForm::SetFormValue"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetFormValue</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          sets a form field to the specified value. In addition, a global variable
+'frm_' + name is also set to the specified value
+          </blockquote>
+          </div>
+          <div class="declaration">function SetFormValue($name,$value)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$value</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="TabbedForm::GenerateFormTabs"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GenerateFormTabs</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Generate form tabs
+          </blockquote>
+          </div>
+          <div class="declaration">function GenerateFormTabs($currpage)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$currpage</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$currpage</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="TabbedForm::GetCurrentPage"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetCurrentPage</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Returns the label of the current page
+          </blockquote>
+          </div>
+          <div class="declaration">function GetCurrentPage()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="TabbedForm::GetFieldList"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetFieldList</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Returns a plain list of all fields contained in the form
+          </blockquote>
+          </div>
+          <div class="declaration">function GetFieldList()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="TabbedForm::GenerateBody"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GenerateBody</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Generate form body
+          </blockquote>
+          </div>
+          <div class="declaration">function GenerateBody()</div>
+        </blockquote>
+      </div>
+    </div>
+    <hr>
+    <p>
+      <b>Caminho:</b>
+      <br>
+      <blockquote>/usr/local/miolo/classes/ui/tabbedform.class</blockquote>
+    </p>
+    <p>
+      <b>Criado:</b>
+      <br>
+      <blockquote>2001/11/21</blockquote>
+    </p>
+    <p>
+      <b>Autor(es):</b>
+      <br>
+      <blockquote>
+        <table>
+          <tr>
+            <td>Vilson Cristiano Gartner</td>
+            <td>author</td>
+            <td>
+              <a href="malto:vilson@miolo.org.br">vilson@miolo.org.br</a>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Thomas Spriestersbach</td>
+            <td>author</td>
+            <td>
+              <a href="malto:ts@interact2000.com.br">ts@interact2000.com.br</a>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+      </blockquote>
+    </p>
+    <p>
+      <b>Mantido por:</b>
+      <br>
+      <blockquote>
+        <table>
+          <tr>
+            <td>Vilson Cristiano Gartner</td>
+            <td>author</td>
+            <td>
+              <a href="malto:vilson@miolo.org.br">vilson@miolo.org.br</a>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Thomas Spriestersbach</td>
+            <td>author</td>
+            <td>
+              <a href="malto:ts@interact2000.com.br">ts@interact2000.com.br</a>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+      </blockquote>
+    </p>
+    <p>
+      <b>Histórico:</b>
+      <br>
+      <blockquote style="text-align: preformatted">
+  
+    See CVS history.<br>
+  
+  </blockquote>
+    </p>
+    <div align="center" style="margin:10; border: solid 1 black;">
+      <cite></cite>
+    </div>
+    <div style="width: 95%; font-size: 9pt; text-align:right; background:#efefef; margin-top: 20px; border-top: #0000ff 1px solid; padding: 2px 20px 2px 20px;">
+  CopyLeft (L) 2001-2003 UNIVATES, Lajeado/RS - Brasil
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)
+  </div>
+  </body>
+</html>

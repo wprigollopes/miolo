@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="util.class" path="/usr/local/bis/html/miolo/util.class" base="miolo_util" created="">
+    <class name="VarDump" base="" declaration="class VarDump" line="22">
+        <var name="var" declaration="var $var;" line="24">
+        </var>
+        <function name="VarDump" attribute="default" declaration="function VarDump(&amp;$var)" line="26">
+            <param name="&amp;$var" value=""></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="31">
+        </function>
+    </class>
+    <class name="InvertDate" base="" declaration="class InvertDate" line="42">
+        <var name="date" declaration="var $date;" line="45">
+        </var>
+        <function name="InvertDate" attribute="default" declaration="function InvertDate($date=null)" line="47">
+            <param name="$date" value="null"></param>
+        </function>
+    </class>
+    <class name="FormatValue" base="" declaration="class FormatValue" line="74">
+        <var name="value" declaration="var $value;" line="77">
+        </var>
+        <function name="FormatValue" attribute="default" declaration="function FormatValue($value,$precision=2)" line="79">
+            <param name="$value" value=""></param>
+            <param name="$precision" value="2"></param>
+        </function>
+    </class>
+</source>

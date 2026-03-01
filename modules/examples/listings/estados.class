@@ -1,0 +1,71 @@
+<?php
+
+/**
+ *  O nome _test_ e para destacar dos nomes de classes comuns; normalmente
+ *  iamos chamar a classe 'CommonEstadosListing' ou uma coisa parecida.
+ *
+ *  Obs.: O nome da classe e composto automaticamente pela funçao
+ *  UI::GetListing(), Por isto deve seguir as convençoes da mesma.
+ */
+class _test_EstadosListing extends Listing
+{
+  /**
+   *  Construtor da classe
+   *  
+   *  Aqui e definido, quais sao as colunas, rotulos, alignhamento, açoes etc;
+   */
+  function _test_EstadosListing($data=null)
+  {
+    // do never forget to call constructor of the super-class
+    $this->Listing();  
+    
+    // visualizar resultado
+    $this->SetTitle('Vestibulares Cadastrados');
+        
+    // definir rotulos das colunas
+    $this->SetLabels(array(new ListingColumn('ID',null,'left'),
+                                             new ListingColumn('Nome'),
+                                             new ListingColumn('UF',null,'center'),
+                                             new ListingColumn('Populaçao',null,'right')));
+                                                          
+    // definir ações para cada linha
+    $this->AddAction('Atualizar','images/update.gif',
+                     "?module=$module&action=main:cadastros:alterar&item=%0%",0);
+                        
+    $this->AddAction('Deletar','images/delete.gif',
+                     "?module=$module&action=main:cadastros:excluir&item=%0%",0);
+                  
+    // passar os dados para o listing
+    $this->SetData($data);
+  }
+  
+  /**
+   *  Para visualizar dados dinamicos (que nao existem na hora da construcao do objeto), 
+   *  como numero total de registros por ex., precisamos personalizar a rotina de 
+   *  geracao da listagem. 
+   *  
+   *  Simplesmente adicionamos o statusbar agora (imediatamente antes que a lista esta
+   *  sendo gerada) e finalmente chamamos o tratamento padrao da classe Listing.
+   */
+  function Generate()
+  {
+    // obtenha uma referencia para o QueryRange do listing
+    $range = & $this->GetRange();
+    
+    // o rodapé do listing pode ser um simples texto ou um objeto que
+    // tem a função Generate() definido; 
+    // aqui usamos um objeto
+    $sb = new StatusBar();
+    $sb->AddInfo($range->total . ' registro(s)');
+    $sb->AddInfo('Selecione o vestibular que deseja alterar!<BR>' .
+                 'Para excluir, tome cuidado p/não excluir o vestibular errado!');
+
+    // adiciona o statusbar ao listing                 
+    $this->SetFooter($sb);
+    
+    // calls superclass' Generate method
+    Listing::Generate($this);
+  }
+}
+
+?>

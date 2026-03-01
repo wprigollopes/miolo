@@ -1,0 +1,37 @@
+<?
+
+// Observe que a chamada no arquivo ../forms/PessoaForm.class foi
+// $db = $MIOLO->GetBusiness('tutorial', 'city') , mas o nome da
+// classe não é apenas city, e sim BusinessTutorialCity
+//
+// Explicação conceitual: como o MIOLO pode instanciar qualquer classe
+// a partir de qualquer módulo, seria muito fácil ocorrer duplicação de
+// nomes, e por isso o nome da classe deve ser Business+Nome do Módule+Classe
+class BusinessTutorialCity extends Business
+{
+    
+    // método que retorna as cidades
+    function GetCities()
+    {   global $MIOLO;
+        
+        // consulta sql
+        $sql = " select zip_code, textcat(textcat(zip_code,' '),name)" .
+               "   from tut_cities ".
+               "  order by name";
+               
+        // abre conexão com a base 'tutorial', definida no miolo.conf
+        $db = $MIOLO->GetDatabase('tutorial');
+        
+        // executa a consulta $sql
+        $result = $db->Query($sql);
+        
+        // verifica erros na query e adiciona ao objeto
+        $this->CheckError( $db );
+        
+        // retorna as cidades
+        return $result;
+    }
+
+}
+
+?>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="status.class" path="/usr/local/miolo/classes/status.class" base="status" created="" lines="123">
+    <class name="MioloStatus" base="ThemeElement" declaration="class MioloStatus extends ThemeElement" line="25">
+        <function name="Generate" attribute="default" declaration="function Generate()" line="27">
+        </function>
+    </class>
+</source>

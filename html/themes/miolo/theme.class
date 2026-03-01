@@ -1,0 +1,361 @@
+<?php
+
+/************************************************************
+* Alterado em 13 de Agosto de 2003
+* Por: Darlan Gomes - darlan@fasb.edu.br
+*************************************************************/
+
+class MyThemePainter extends ThemePainter
+{
+    //
+    //  This function generates the page's body
+    //
+    function GenerateBody()
+    {
+	    global $MIOLO,$MIOLOCONF;
+		$theme = $MIOLOCONF['theme']['main'];
+    	$home = $MIOLO->GetThemeUrl('',$theme);
+
+        echo "<body class=\"themeBody\">\n";
+        echo "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
+        echo "  <tr>\n";
+        echo "    <td>\n";
+        $this->GenerateTop();            // generate theme heading
+        echo "  </tr>\n";
+        echo "  <tr>\n";
+        echo "    <td>\n";
+        echo "      <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
+        echo "        <tr>\n";
+        echo "          <td  width=\"0%\" height=\"480\" valign=\"top\">\n";
+        $this->GenerateMenuBar();        // generate menu bar container
+        echo "          </td>\n";
+        echo "          <td width=\"100%\" height=\"100%\" valign=\"top\"><div style=\"padding:10px;\">\n";
+        $this->GenerateContent();        // generate center content
+        echo "</div></td>\n";
+        echo "        </tr>\n";
+        echo "      </table>\n";
+        echo "    </td>\n";
+        echo "  </tr>\n";
+        echo "  <tr>\n";
+        echo "    <td>\n";
+        $this->GenerateBottom();         // generate theme footer
+        echo "    </td>\n";
+        echo "  </tr>\n";
+        echo "</table>\n";
+        echo "</body>\n";
+        echo "</html>\n";
+    }
+
+    function GenerateTop()
+    {
+		global $MIOLO,$MIOLOCONF;
+		$theme = $MIOLOCONF['theme']['main'];
+    	$home = $MIOLO->GetThemeUrl('',$theme);
+
+		$logo = "<div class='topMenu2'>" .
+                "<table width='100%' border='0' cellspacing='0' cellpadding='0'>".
+                "<tr>".
+                "<td width='300'><img src='$home/images/top.png'></td>".
+                "<td>&nbsp;</td>".
+                "</tr>".
+                "</table>" .
+                "</div>";
+
+        echo $logo . "\n";
+        $this->GenerateNavigationBar();
+    }
+
+    function GenerateMenu($menu)
+    {
+    	global $MIOLO,$MIOLOCONF;
+		$theme = $MIOLOCONF['theme']['main'];
+    	$home = $MIOLO->GetThemeUrl('',$theme);
+
+        echo "<table width='*' border='0' cellspacing='0' cellpadding='0' height='22'>\n";
+        echo "<tr>\n";
+        echo "<td width='7'>&nbsp;</td>\n";
+        echo "<td width='3'><img src='$home/images/fundodir.gif' width='10' height='22'></td>\n";
+        echo "<td background='$home/images/fundo.gif'><b><font face='Verdana' size='2' color='#FFFFFF'>\n";
+        echo $menu->GetTitle();
+        echo "</font></b></td>\n";
+        echo "<td width='6'><img src='$home/images/fundoesq.gif' width='10' height='22'></td>\n";
+        echo "</tr>\n";
+        echo "</table>\n";
+        echo "<table width='185' border='0' cellspacing='0' cellpadding='0'>\n";
+        echo "<tr>\n";
+        echo "<td width='7' height='5'><img src='$home/images/xdir.gif' width='7' height='5'></td>\n";
+        echo "<td width='163' height='5' bgcolor='#0164A7'></td>\n";
+        echo "<td width='7' height='5'><img src='$home/images/xesq.gif' width='7' height='5'></td>\n";
+        echo "</tr>\n";
+        echo "<tr bgcolor='#0164A7'>\n";
+        echo "<td width='7' height='17'>&nbsp;</td>\n";
+        echo "<td width='163' height='17'><font color='#FFFFFF'>\n";
+        $this->GenerateOptionList($menu->GetOptions());
+        echo "</font></td>\n";
+        echo "<td width='7' height='17'>&nbsp;</td>\n";
+        echo "</tr>\n";
+        echo "<tr bgcolor='#0164A7'>\n";
+        echo "<td width='7' height='5'><img src='$home/images/x2esq.gif' width='7' height='5'></td>\n";
+        echo "<td width='163' height='5' bgcolor='#0164A7'></td>\n";
+        echo "<td width='7' height='5'><img src='$home/images/x2dir.gif' width='7' height='5'></td>\n";
+        echo "</tr>\n";
+        echo " </table><br><br>\n";
+        echo "\n";
+
+    }
+
+    /**
+     * This function is called from a form to paint itself
+     */
+    function GenerateForm($form)
+    {
+		global $MIOLO,$MIOLOCONF;
+		$theme = $MIOLOCONF['theme']['main'];
+    	$home = $MIOLO->GetThemeUrl('',$theme);
+
+        $boxcolor = '#0164A7';
+        $title = $form->GetTitle();
+
+        echo "<div style=\"margin:20px;\">\n";
+
+        echo "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
+        echo "  <tr valign=\"top\">\n";
+        echo "    <td bgcolor=\"#ffffff\" height=\"22\"><img src=\"$home/images/pix.gif\" width=\"20\" height=\"3\" alt=\"\"></td>\n";
+        echo "    <td height=\"22\"><img src=\"$home/images/fundodir.gif\" width=\"10\" height=\"22\" alt=\"\"></td>\n";
+        echo "    <td valign='bottom' background=\"$home/images/fundo.gif\" height=\"22\"><font class=\"formTitleText\">$title</font></td>\n";
+        echo "    <td height=\"22\"><img src=\"$home/images/fundoesq.gif\" width=\"10\" height=\"22\" alt=\"\"></td>\n";
+
+        // Exibindo Help para a página, se existir
+		if ($form->help != '')
+        {
+        $javascript = "javascript:(window.open('".$form->help."','MyWindow',".
+		"'toolbar=no,location=no,directories=no,".
+		"status=no,menubar=no,scrollbars=yes,resizable=yes,".
+		"width=400,height=400,top=100,left=100'))";
+
+		echo "    <td height=\"22\">&nbsp;</td>\n";
+		echo "    <td height=\"22\">
+		<img src=\"$home/images/help.gif\" width=\"16\" height=\"16\" border=\"0\"
+		 alt=\"Ajuda\" OnClick=$javascript>
+		</td>\n";
+		}
+
+		echo "  </tr>\n";
+        echo "</table>\n";
+
+        echo "<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
+        echo "  <tr bgcolor=\"$boxcolor\"><td colspan=\"3\"><img src=\"$home/images/pix.gif\" width=\"1\" height=\"1\"></td></tr>\n";
+
+        // generate form body
+        echo "  <tr bgcolor=\"#ffffff\">\n";
+        echo "    <td bgcolor=\"$boxcolor\"><img src=\"$home/images/pix.gif\" width=\"3\" height=\"3\" alt=\"\"></td>\n";
+        echo "    <td width=\"100%\">\n";
+        echo "      <table width=\"100%\" border=\"0\" cellpadding=\"5\" cellspacing=\"0\">\n";
+        echo "        <tr><td>";
+
+        $form->GenerateBody();
+
+        echo "</td></tr>\n";
+        echo "      </table></td>\n";
+		echo "    <td bgcolor=\"$boxcolor\" align=\"right\"><img src=\"$home/images/pix.gif\" width=\"3\" height=\"3\" alt=\"\"></td>\n";
+		echo "  </tr>\n";
+
+        // generate form footer
+        if ( $form->GetFooter() != '')
+        {
+            echo "  <tr bgcolor=\"#ffffff\">\n";
+            echo "    <td bgcolor=\"$boxcolor\"><img src=\"$home/images/pix.gif\" width=\"3\" height=\"3\" alt=\"\"></td>\n";
+            echo "    <td width=\"100%\">\n";
+
+			echo "      <table width=\"100%\" border=\"0\" cellpadding=\"5\" cellspacing=\"0\">\n";
+            echo "        <tr><td>";
+
+            echo $form->GetFooter();
+
+            echo "<div align=\"center\" style=\"text-decoration: blink; font-weight: bold;\">\n";
+            echo "</div>\n";
+            echo "</td></tr>\n";
+            echo "      </table></td>\n";
+
+            echo "    <td bgcolor=\"$boxcolor\" align=\"right\"><img src=\"$home/images/pix.gif\" width=\"3\" height=\"3\" alt=\"\"></td>\n";
+            echo "  </tr>\n";
+        }
+
+        echo "  <tr bgcolor=\"#0164A7\">\n";
+        echo "    <td colspan=\"3\"><img src=\"$home/images/pix.gif\" width=\"1\" height=\"1\"></td>\n";
+        echo "  </tr>\n";
+        echo "</table><br><br>\n";
+
+        echo "</div>\n";
+    }
+
+}
+
+function MyThemeHeader()
+{
+    echo "<meta name=\"Theme-Author\" content=\"MIOLO Slash Theme\">\n";
+}
+
+function MyNavigationBox($content)
+{
+    echo "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
+    echo "  <tr>\n";
+    echo "    <td class=\"topMenuBox\">$content</td>\n";
+    echo "  </tr>\n";
+    echo "</table>\n";
+}
+
+function MyMenuBox($title, $content)
+{
+
+
+    global $MIOLO,$MIOLOCONF;
+		$theme = $MIOLOCONF['theme']['main'];
+    	$home = $MIOLO->GetThemeUrl('',$theme);
+
+    $boxcolor = '#0164A7';
+
+    echo " <table width=\"150\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
+    echo " <tr valign=\"top\" bgcolor=\"$boxcolor\">\n";
+    echo " <td bgcolor=\"#ffffff\"><img src=\"$home/images/pix.gif\" width=\"3\" height=\"3\" alt=\"\"></td>\n";
+    echo " <td><img src=\"$home/images/fundodir.gif\" width=\"10\" height=\"22\" alt=\"\"></td>\n";
+    echo " <td background=\"$home/images/fundoesq.gif\"><font class=\"formTitleText\"><B>$title</b></font></td>\n";
+    echo " <td align=\"right\"><img src=\"$home/images/fundoesq.gif\" width=\"10\" height=\"22\" alt=\"\"></td>\n";
+    echo " <td bgcolor=\"#ffffff\" align=\"right\"><img src=\"$home/images/pix.gif\" width=\"3\" height=\"3\" alt=\"\"></td>\n";
+    echo " </tr>\n";
+    echo " </table>\n";
+    echo " <table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
+    echo " <tr bgcolor=\"$boxcolor\"><td colspan=\"3\"><img src=\"$home/images/pix.gif\" width=\"1\" height=\"1\"></td></tr>\n";
+    echo " <tr bgcolor=\"#fffed3\">\n";
+    echo " <td background=\"$home/images/sl.gif\"><img src=\"$home/images/pix.gif\" width=\"3\" height=\"3\" alt=\"\"></td>\n";
+    echo " <td width=\"100%\">\n";
+    echo " <table width=\"100%\" border=\"0\" cellpadding=\"5\" cellspacing=\"0\" bgcolor=\"#fffed3\"><tr><td>$content\n";
+    echo " </td></tr></table></td>\n";
+    echo " <td background=\"$home/images/sr.gif\" align=\"right\"><img src=\"$home/images/pix.gif\" width=\"3\" height=\"3\" alt=\"\"></td>\n";
+    echo " </tr>\n";
+    echo " <tr bgcolor=\"$boxcolor\"><td colspan=\"3\"><img src=\"$home/images/pix.gif\" width=\"1\" height=\"1\"></td></tr>\n";
+    echo " </table><br><br>\n";
+    echo "\n";
+}
+
+function MyContentBox($content)
+{
+    echo "<table class=\"themeContent\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n";
+    echo "  <tr>\n";
+    echo "    <td>$content</td>\n";
+    echo "  </tr>\n";
+    echo "</table>\n";
+}
+
+function MyStatusBox($content)
+{
+    echo $content;
+}
+
+function MyFormBox($title, $filter, $body, $footer)
+{
+    global $MIOLO,$MIOLOCONF;
+		$theme = $MIOLOCONF['theme']['main'];
+    	$home = $MIOLO->GetThemeUrl('',$theme);
+
+    $boxcolor = '#0164A7';
+
+    $rows[] = $filter;
+    $rows[] = $body;
+    $rows[] = $footer;
+    
+    echo "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
+    echo "  <tr valign=\"top\" bgcolor=\"#ffeeff\">\n";
+    echo "    <td bgcolor=\"#ffffff\"><img src=\"$home/images/pix.gif\" width=\"20\" height=\"3\" alt=\"\"></td>\n";
+    echo "    <td><img src=\"$home/images/fundodir.gif\" width=\"10\" height=\"22\ alt=\"\"></td>\n";
+    echo "    <td valign='bottom' background=\"$home/images/fundo.gif\"><font class=\"formTitleText\><B>$title</b></font></td>\n";
+    echo "    <td align=\"right\"><img src=\"$home/images/fundoesq.gif\" width=\"10\" height=\"22\ alt=\"\"></td>\n";
+    echo "    <td bgcolor=\"#ffffff\" align=\"right\"><img src=\"$home/images/pix.gif\" width=\"3\" height=\"3\" alt=\"\"></td>\n";
+    echo "  </tr>\n";
+    echo "</table>\n";
+    echo "<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
+    echo "  <tr bgcolor=\"#2b4b9b\"><td colspan=\"3\"><img src=\"$home/images/pix.gif\" width=\"1\" height=\"1\"></td></tr>\n";
+    
+    foreach ( $rows as $r )
+    {
+        if ( $r )
+        {
+            echo "  <tr bgcolor=\"#ffffff\">\n";
+            echo "    <td background=\"$home/images/sl.gif\"><img src=\"$home/images/pix.gif\" width=\"3\" height=\"3\" alt=\"\"></td>\n";
+            echo "    <td width=\"100%\">\n";
+            echo "      <table width=\"600\" border=\"0\" cellpadding=\"5\" cellspacing=\"0\">\n";
+            echo "        <tr><td>$r</td></tr>\n";
+            echo "      </table></td>\n";
+            echo "    <td background=\"$home/images/sr.gif\" align=\"right\"><img src=\"$home/images/pix.gif\" width=\"3\" height=\"3\" alt=\"\"></td>\n";
+            echo "  </tr>\n";
+        }
+    }
+    
+    echo "  <tr bgcolor=\"#2b4b9b\">\n";
+    echo "    <td colspan=\"3\"><img src=\"$home/images/pix.gif\" width=\"1\" height=\"1\"></td>\n";
+    echo "  </tr>\n";
+    echo "</table><br><br>\n";
+    echo "\n";
+}
+
+//
+//
+//
+function MyListingBox($title,$filter,$body,$footer)
+{
+    global $MIOLO,$MIOLOCONF;
+		$theme = $MIOLOCONF['theme']['main'];
+    	$home = $MIOLO->GetThemeUrl('',$theme);
+
+    $rows[] = $filter;
+    $rows[] = $body;
+    $rows[] = $footer;
+    $boxcolor = '#0164A7';
+        
+    echo "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
+    echo "  <tr valign=\"top\" bgcolor=\"$boxcolor\">\n";
+    echo "    <td bgcolor=\"#FFFFFF\"><img src=\"$home/images/pix.gif\" width=\"3\" height=\"3\" alt=\"\"></td>\n";
+    echo "    <td><img src=\"$home/images/fundodir.gif\" width=\"10\" height=\"22\ alt=\"\"></td>\n";
+    echo "    <td valign='bottom' background=\"$home/images/fundo.gif\"><font class=\"formTitleText\"><b>&nbsp;&nbsp;$title&nbsp;&nbsp;</b></font></td>\n";
+    echo "    <td align=\"right\"><img src=\"$home/images/fundoesq.gif\" width=\"10\" height=\"22\ alt=\"\"></td>\n";
+    echo "    <td bgcolor=\"#FFFFFF\" align=\"right\"><img src=\"$home/images/pix.gif\" width=\"3\" height=\"3\" alt=\"\"></td>\n";
+    echo "  </tr>\n";
+    echo "</table>\n";
+    echo "<table width=\"540\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
+    echo "  <tr bgcolor=\"$boxcolor\"><td colspan=\"3\"><img src=\"$home/images/pix.gif\" width=\"1\" height=\"1\"></td></tr>\n";
+    
+    echo "  <tr bgcolor=\"$boxcolor\"><td colspan=\"3\">";
+    foreach ( $rows as $r )
+    {
+        if ( $r )
+        {
+            echo $r;
+        }
+    }
+    echo "</td></tr>\n";
+    
+    /*
+    foreach ( $rows as $r )
+    {
+        if ( $r )
+        {
+            echo "  <tr bgcolor=\"#ffffff\">\n";
+            echo "    <td background=\"$home/images/sl.gif\"><img src=\"$home/images/pix.gif\" width=\"3\" height=\"3\" alt=\"\"></td>\n";
+            echo "    <td width=\"100%\">\n";
+            echo "      <table width=\"600\" border=\"0\" cellpadding=\"5\" cellspacing=\"0\">\n";
+            echo "        <tr><td>$r</td></tr>\n";
+            echo "      </table></td>\n";
+            echo "    <td background=\"$home/images/sr.gif\" align=\"right\"><img src=\"$home/images/pix.gif\" width=\"3\" height=\"3\" alt=\"\"></td>\n";
+            echo "  </tr>\n";
+        }
+    }
+    */
+    
+    echo "  <tr bgcolor=\"$boxcolor\">\n";
+    echo "    <td colspan=\"3\"><img src=\"$home/images/pix.gif\" width=\"1\" height=\"1\"></td>\n";
+    echo "  </tr>\n";
+    echo "</table><br><br>\n";
+    echo "\n";
+}
+
+?>

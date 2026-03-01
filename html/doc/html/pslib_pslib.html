@@ -1,0 +1,895 @@
+<html xmlns:html="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>Source: pslib.class</title>
+    <link rel="stylesheet" type="text/css" href="doc.css">
+  </head>
+  <body>
+    <h1>Documentação MIOLO</h1>
+    <h2>
+            Source: <a href="?module=common&amp;action=main:doc:index:source&amp;item=/usr/local/miolo/classes/pslib/pslib.class"><span class="sourceName">pslib.class</span></a>
+      <br>
+      <font size="2">(546 linhas)</font>
+    </h2>
+    <div class="description">
+      <h3>Descrição:</h3>
+      <blockquote>
+            TODO: 
+          Descrição do arquivo pslib.class.
+        </blockquote>
+    </div>
+    <div class="relations" align="right">
+         [<a href="?module=common&amp;action=main:doc:index:source&amp;item=/usr/local/miolo/classes/pslib/pslib.class">Codigo Fonte</a>]
+         [<a href="/doc/dia/pslib_pslib.dia">Diagrama UML</a>]
+      </div>
+    <div class="classBlock">
+      <a name="postscript"></a>
+      <h2>Classe <span class="className">postscript</span></h2>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe postscript.      
+          </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $fp;</dt>
+        <dt>var $filename;</dt>
+        <dt>var $string    = "";</dt>
+        <dt>var $page      = 1;</dt>
+        <dt>var $ISOLatin1 = true; //ISOLatin Encoding</dt>
+        <dt>var $resources;</dt>
+        <dt>var $fonts;</dt>
+        <dt>var $red       = -1;</dt>
+        <dt>var $green     = -1;</dt>
+        <dt>var $blue      = -1;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#postscript::_add_font">_add_font</a>, <a href="#postscript::arc">arc</a>, <a href="#postscript::arc_fill">arc_fill</a>, <a href="#postscript::begin_page">begin_page</a>, <a href="#postscript::circle">circle</a>, <a href="#postscript::circle_fill">circle_fill</a>, <a href="#postscript::close">close</a>, <a href="#postscript::encode_ISOLatin1">encode_ISOLatin1</a>, <a href="#postscript::end_page">end_page</a>, <a href="#postscript::include_resource">include_resource</a>, <a href="#postscript::insert_line">insert_line</a>, <a href="#postscript::line">line</a>, <a href="#postscript::moveto">moveto</a>, <a href="#postscript::moveto_font">moveto_font</a>, <a href="#postscript::open_ps">open_ps</a>, <a href="#postscript::postscript">postscript</a>, <a href="#postscript::rect">rect</a>, <a href="#postscript::rect_fill">rect_fill</a>, <a href="#postscript::rotate">rotate</a>, <a href="#postscript::set_color">set_color</a>, <a href="#postscript::set_font">set_font</a>, <a href="#postscript::show">show</a>, <a href="#postscript::show_eval">show_eval</a>, <a href="#postscript::show_xy">show_xy</a>, <a href="#postscript::show_xy_font">show_xy_font</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="postscript::postscript"></a>
+        <dt><span class="functionName">
+            <a href="#$class">postscript</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função postscript</blockquote>
+          </div>
+          <div class="declaration">function postscript($fname = "", $author="", $title="Generated with PSLib 0.4",  $orientation="Portrait", $fonts="")</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$fname</span> Default <span class="paramValue">""</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$fname</tt>
+            </dd>
+            <dt><span class="paramName">$author</span> Default <span class="paramValue">""</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$author</tt>
+            </dd>
+            <dt><span class="paramName">$title</span> Default <span class="paramValue">"Generated with PSLib 0.4"</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$title</tt>
+            </dd>
+            <dt><span class="paramName">$orientation</span> Default <span class="paramValue">"Portrait"</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$orientation</tt>
+            </dd>
+            <dt><span class="paramName">$fonts</span> Default <span class="paramValue">""</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$fonts</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::_add_font"></a>
+        <dt><span class="functionName">
+            <a href="#$class">_add_font</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função _add_font</blockquote>
+          </div>
+          <div class="declaration">function _add_font($font)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$font</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$font</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::insert_line"></a>
+        <dt><span class="functionName">
+            <a href="#$class">insert_line</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função insert_line</blockquote>
+          </div>
+          <div class="declaration">function insert_line($line)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$line</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$line</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::include_resource"></a>
+        <dt><span class="functionName">
+            <a href="#$class">include_resource</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função include_resource</blockquote>
+          </div>
+          <div class="declaration">function include_resource($res)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$res</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$res</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::encode_ISOLatin1"></a>
+        <dt><span class="functionName">
+            <a href="#$class">encode_ISOLatin1</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função encode_ISOLatin1</blockquote>
+          </div>
+          <div class="declaration">function encode_ISOLatin1($var=true)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$var</span> Default <span class="paramValue">true</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$var</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::begin_page"></a>
+        <dt><span class="functionName">
+            <a href="#$class">begin_page</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função begin_page</blockquote>
+          </div>
+          <div class="declaration">function begin_page($page)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$page</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$page</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::end_page"></a>
+        <dt><span class="functionName">
+            <a href="#$class">end_page</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função end_page</blockquote>
+          </div>
+          <div class="declaration">function end_page()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::close"></a>
+        <dt><span class="functionName">
+            <a href="#$class">close</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função close</blockquote>
+          </div>
+          <div class="declaration">function close()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::line"></a>
+        <dt><span class="functionName">
+            <a href="#$class">line</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função line</blockquote>
+          </div>
+          <div class="declaration">function line($xcoord_from=0, $ycoord_from=0, $xcoord_to=0, $ycoord_to=0, $linewidth=0)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$xcoord_from</span> Default <span class="paramValue">0</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$xcoord_from</tt>
+            </dd>
+            <dt><span class="paramName">$ycoord_from</span> Default <span class="paramValue">0</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$ycoord_from</tt>
+            </dd>
+            <dt><span class="paramName">$xcoord_to</span> Default <span class="paramValue">0</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$xcoord_to</tt>
+            </dd>
+            <dt><span class="paramName">$ycoord_to</span> Default <span class="paramValue">0</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$ycoord_to</tt>
+            </dd>
+            <dt><span class="paramName">$linewidth</span> Default <span class="paramValue">0</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$linewidth</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::moveto"></a>
+        <dt><span class="functionName">
+            <a href="#$class">moveto</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função moveto</blockquote>
+          </div>
+          <div class="declaration">function moveto($xcoord, $ycoord)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$xcoord</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$xcoord</tt>
+            </dd>
+            <dt><span class="paramName">$ycoord</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$ycoord</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::moveto_font"></a>
+        <dt><span class="functionName">
+            <a href="#$class">moveto_font</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função moveto_font</blockquote>
+          </div>
+          <div class="declaration">function moveto_font($xcoord, $ycoord, $font_name, $font_size)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$xcoord</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$xcoord</tt>
+            </dd>
+            <dt><span class="paramName">$ycoord</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$ycoord</tt>
+            </dd>
+            <dt><span class="paramName">$font_name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$font_name</tt>
+            </dd>
+            <dt><span class="paramName">$font_size</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$font_size</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::open_ps"></a>
+        <dt><span class="functionName">
+            <a href="#$class">open_ps</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função open_ps</blockquote>
+          </div>
+          <div class="declaration">function open_ps($ps_file="")</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$ps_file</span> Default <span class="paramValue">""</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$ps_file</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::circle"></a>
+        <dt><span class="functionName">
+            <a href="#$class">circle</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função circle</blockquote>
+          </div>
+          <div class="declaration">function circle($xcoord, $ycoord, $ray, $linewidth)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$xcoord</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$xcoord</tt>
+            </dd>
+            <dt><span class="paramName">$ycoord</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$ycoord</tt>
+            </dd>
+            <dt><span class="paramName">$ray</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$ray</tt>
+            </dd>
+            <dt><span class="paramName">$linewidth</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$linewidth</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::circle_fill"></a>
+        <dt><span class="functionName">
+            <a href="#$class">circle_fill</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função circle_fill</blockquote>
+          </div>
+          <div class="declaration">function circle_fill($xcoord, $ycoord, $ray, $linewidth, $red, $green, $blue, $border=false)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$xcoord</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$xcoord</tt>
+            </dd>
+            <dt><span class="paramName">$ycoord</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$ycoord</tt>
+            </dd>
+            <dt><span class="paramName">$ray</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$ray</tt>
+            </dd>
+            <dt><span class="paramName">$linewidth</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$linewidth</tt>
+            </dd>
+            <dt><span class="paramName">$red</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$red</tt>
+            </dd>
+            <dt><span class="paramName">$green</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$green</tt>
+            </dd>
+            <dt><span class="paramName">$blue</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$blue</tt>
+            </dd>
+            <dt><span class="paramName">$border</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$border</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::arc"></a>
+        <dt><span class="functionName">
+            <a href="#$class">arc</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função arc</blockquote>
+          </div>
+          <div class="declaration">function arc($xcoord, $ycoord, $ray, $linewidth, $angle_start, $angle_end)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$xcoord</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$xcoord</tt>
+            </dd>
+            <dt><span class="paramName">$ycoord</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$ycoord</tt>
+            </dd>
+            <dt><span class="paramName">$ray</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$ray</tt>
+            </dd>
+            <dt><span class="paramName">$linewidth</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$linewidth</tt>
+            </dd>
+            <dt><span class="paramName">$angle_start</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$angle_start</tt>
+            </dd>
+            <dt><span class="paramName">$angle_end</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$angle_end</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::arc_fill"></a>
+        <dt><span class="functionName">
+            <a href="#$class">arc_fill</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função arc_fill</blockquote>
+          </div>
+          <div class="declaration">function arc_fill($xcoord, $ycoord, $ray, $linewidth, $angle_start, $angle_end, $red, $green, $blue, $border=false)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$xcoord</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$xcoord</tt>
+            </dd>
+            <dt><span class="paramName">$ycoord</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$ycoord</tt>
+            </dd>
+            <dt><span class="paramName">$ray</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$ray</tt>
+            </dd>
+            <dt><span class="paramName">$linewidth</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$linewidth</tt>
+            </dd>
+            <dt><span class="paramName">$angle_start</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$angle_start</tt>
+            </dd>
+            <dt><span class="paramName">$angle_end</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$angle_end</tt>
+            </dd>
+            <dt><span class="paramName">$red</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$red</tt>
+            </dd>
+            <dt><span class="paramName">$green</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$green</tt>
+            </dd>
+            <dt><span class="paramName">$blue</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$blue</tt>
+            </dd>
+            <dt><span class="paramName">$border</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$border</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::rect"></a>
+        <dt><span class="functionName">
+            <a href="#$class">rect</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função rect</blockquote>
+          </div>
+          <div class="declaration">function rect($xcoord_from, $ycoord_from, $xcoord_to, $ycoord_to, $linewidth)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$xcoord_from</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$xcoord_from</tt>
+            </dd>
+            <dt><span class="paramName">$ycoord_from</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$ycoord_from</tt>
+            </dd>
+            <dt><span class="paramName">$xcoord_to</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$xcoord_to</tt>
+            </dd>
+            <dt><span class="paramName">$ycoord_to</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$ycoord_to</tt>
+            </dd>
+            <dt><span class="paramName">$linewidth</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$linewidth</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::rect_fill"></a>
+        <dt><span class="functionName">
+            <a href="#$class">rect_fill</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função rect_fill</blockquote>
+          </div>
+          <div class="declaration">function rect_fill($xcoord_from, $ycoord_from, $xcoord_to, $ycoord_to, $linewidth, $red, $green, $blue, $border=false)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$xcoord_from</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$xcoord_from</tt>
+            </dd>
+            <dt><span class="paramName">$ycoord_from</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$ycoord_from</tt>
+            </dd>
+            <dt><span class="paramName">$xcoord_to</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$xcoord_to</tt>
+            </dd>
+            <dt><span class="paramName">$ycoord_to</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$ycoord_to</tt>
+            </dd>
+            <dt><span class="paramName">$linewidth</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$linewidth</tt>
+            </dd>
+            <dt><span class="paramName">$red</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$red</tt>
+            </dd>
+            <dt><span class="paramName">$green</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$green</tt>
+            </dd>
+            <dt><span class="paramName">$blue</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$blue</tt>
+            </dd>
+            <dt><span class="paramName">$border</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$border</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::rotate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">rotate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função rotate</blockquote>
+          </div>
+          <div class="declaration">function rotate($degrees)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$degrees</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$degrees</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::set_font"></a>
+        <dt><span class="functionName">
+            <a href="#$class">set_font</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função set_font</blockquote>
+          </div>
+          <div class="declaration">function set_font($font_name, $font_size)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$font_name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$font_name</tt>
+            </dd>
+            <dt><span class="paramName">$font_size</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$font_size</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::show"></a>
+        <dt><span class="functionName">
+            <a href="#$class">show</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função show</blockquote>
+          </div>
+          <div class="declaration">function show($text, $red='', $green='', $blue='', $justify='l')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$text</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$text</tt>
+            </dd>
+            <dt><span class="paramName">$red</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$red</tt>
+            </dd>
+            <dt><span class="paramName">$green</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$green</tt>
+            </dd>
+            <dt><span class="paramName">$blue</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$blue</tt>
+            </dd>
+            <dt><span class="paramName">$justify</span> Default <span class="paramValue">'l'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$justify</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::show_eval"></a>
+        <dt><span class="functionName">
+            <a href="#$class">show_eval</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função show_eval</blockquote>
+          </div>
+          <div class="declaration">function show_eval($text)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$text</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$text</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::show_xy"></a>
+        <dt><span class="functionName">
+            <a href="#$class">show_xy</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função show_xy</blockquote>
+          </div>
+          <div class="declaration">function show_xy($text, $xcoord, $ycoord, $red='', $green='', $blue='', $justify='l')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$text</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$text</tt>
+            </dd>
+            <dt><span class="paramName">$xcoord</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$xcoord</tt>
+            </dd>
+            <dt><span class="paramName">$ycoord</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$ycoord</tt>
+            </dd>
+            <dt><span class="paramName">$red</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$red</tt>
+            </dd>
+            <dt><span class="paramName">$green</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$green</tt>
+            </dd>
+            <dt><span class="paramName">$blue</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$blue</tt>
+            </dd>
+            <dt><span class="paramName">$justify</span> Default <span class="paramValue">'l'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$justify</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::show_xy_font"></a>
+        <dt><span class="functionName">
+            <a href="#$class">show_xy_font</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função show_xy_font</blockquote>
+          </div>
+          <div class="declaration">function show_xy_font($text, $xcoord, $ycoord, $font_name, $font_size, $red='', $green='', $blue='', $justify='l')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$text</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$text</tt>
+            </dd>
+            <dt><span class="paramName">$xcoord</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$xcoord</tt>
+            </dd>
+            <dt><span class="paramName">$ycoord</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$ycoord</tt>
+            </dd>
+            <dt><span class="paramName">$font_name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$font_name</tt>
+            </dd>
+            <dt><span class="paramName">$font_size</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$font_size</tt>
+            </dd>
+            <dt><span class="paramName">$red</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$red</tt>
+            </dd>
+            <dt><span class="paramName">$green</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$green</tt>
+            </dd>
+            <dt><span class="paramName">$blue</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$blue</tt>
+            </dd>
+            <dt><span class="paramName">$justify</span> Default <span class="paramValue">'l'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$justify</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="postscript::set_color"></a>
+        <dt><span class="functionName">
+            <a href="#$class">set_color</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função set_color</blockquote>
+          </div>
+          <div class="declaration">function set_color($red=-1, $green=-1, $blue=-1)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$red</span> Default <span class="paramValue">-1</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$red</tt>
+            </dd>
+            <dt><span class="paramName">$green</span> Default <span class="paramValue">-1</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$green</tt>
+            </dd>
+            <dt><span class="paramName">$blue</span> Default <span class="paramValue">-1</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$blue</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+    </div>
+    <hr>
+    <div style="width: 95%; font-size: 9pt; text-align:right; background:#efefef; margin-top: 20px; border-top: #0000ff 1px solid; padding: 2px 20px 2px 20px;">
+            CopyLeft (L) 2001 - 2004 <i>MIOLO</i> Development Team  SOLIS/Univates - Lajeado - Rio Grande do Sul - Brasil
+        </div>
+  </body>
+</html>

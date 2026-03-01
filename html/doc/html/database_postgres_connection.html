@@ -1,0 +1,294 @@
+<html xmlns:html="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>Source: postgres_connection.class</title>
+    <link rel="stylesheet" type="text/css" href="doc.css">
+  </head>
+  <body>
+    <h1>Documentação MIOLO</h1>
+    <h2>
+            Source: <a href="?module=common&amp;action=main:doc:index:source&amp;item=/usr/local/miolo/classes/database/postgres_connection.class"><span class="sourceName">postgres_connection.class</span></a>
+      <br>
+      <font size="2">(270 linhas)</font>
+    </h2>
+    <div class="description">
+      <h3>Descrição:</h3>
+      <blockquote>
+            TODO: 
+          Descrição do arquivo postgres_connection.class.
+        </blockquote>
+    </div>
+    <div class="relations" align="right">
+         [<a href="?module=common&amp;action=main:doc:index:source&amp;item=/usr/local/miolo/classes/database/postgres_connection.class">Codigo Fonte</a>]
+         [<a href="/doc/dia/database_postgres_connection.dia">Diagrama UML</a>]
+      </div>
+    <div class="classBlock">
+      <a name="PostgresConnection"></a>
+      <h2>Classe <span class="className">PostgresConnection</span></h2>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      This file contains postgres connection functions
+      </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $conf;       // name of database configuration</dt>
+        <dt>var $id;         // the connection identifier</dt>
+        <dt>var $traceback;  // a list of transaction errors</dt>
+        <dt>var $level;      // a counter for the transaction level</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#PostgresConnection::Begin">Begin</a>, <a href="#PostgresConnection::CheckError">CheckError</a>, <a href="#PostgresConnection::Close">Close</a>, <a href="#PostgresConnection::CreateQuery">CreateQuery</a>, <a href="#PostgresConnection::Execute">Execute</a>, <a href="#PostgresConnection::ExecuteAffect">ExecuteAffect</a>, <a href="#PostgresConnection::Finish">Finish</a>, <a href="#PostgresConnection::GetError">GetError</a>, <a href="#PostgresConnection::GetErrorCount">GetErrorCount</a>, <a href="#PostgresConnection::GetErrors">GetErrors</a>, <a href="#PostgresConnection::Open">Open</a>, <a href="#PostgresConnection::PostgresConnection">PostgresConnection</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="PostgresConnection::PostgresConnection"></a>
+        <dt><span class="functionName">
+            <a href="#$class">PostgresConnection</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função PostgresConnection</blockquote>
+          </div>
+          <div class="declaration">function PostgresConnection($conf)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$conf</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$conf</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresConnection::Open"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Open</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Opens a connection to the specified data source
+          </blockquote>
+          </div>
+          <div class="declaration">function Open($dbhost,$LoginDB,$LoginUID,$LoginPWD,$persistent=true)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$dbhost</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$dbhost</tt>
+            </dd>
+            <dt><span class="paramName">$LoginDB</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$LoginDB</tt>
+            </dd>
+            <dt><span class="paramName">$LoginUID</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$LoginUID</tt>
+            </dd>
+            <dt><span class="paramName">$LoginPWD</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$LoginPWD</tt>
+            </dd>
+            <dt><span class="paramName">$persistent</span> Default <span class="paramValue">true</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$persistent</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresConnection::Close"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Close</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          closes a previously opened connection
+          </blockquote>
+          </div>
+          <div class="declaration">function Close()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresConnection::Begin"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Begin</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Begin</blockquote>
+          </div>
+          <div class="declaration">function Begin()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresConnection::Finish"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Finish</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Finish</blockquote>
+          </div>
+          <div class="declaration">function Finish()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresConnection::GetError"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetError</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetError</blockquote>
+          </div>
+          <div class="declaration">function GetError()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresConnection::GetErrors"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetErrors</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetErrors</blockquote>
+          </div>
+          <div class="declaration">function GetErrors()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresConnection::GetErrorCount"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetErrorCount</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetErrorCount</blockquote>
+          </div>
+          <div class="declaration">function GetErrorCount()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresConnection::CheckError"></a>
+        <dt><span class="functionName">
+            <a href="#$class">CheckError</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função CheckError</blockquote>
+          </div>
+          <div class="declaration">function CheckError()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresConnection::Execute"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Execute</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Execute</blockquote>
+          </div>
+          <div class="declaration">function Execute($sql)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$sql</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$sql</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresConnection::ExecuteAffect"></a>
+        <dt><span class="functionName">
+            <a href="#$class">ExecuteAffect</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função ExecuteAffect</blockquote>
+          </div>
+          <div class="declaration">function ExecuteAffect($sql)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$sql</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$sql</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresConnection::CreateQuery"></a>
+        <dt><span class="functionName">
+            <a href="#$class">CreateQuery</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função CreateQuery</blockquote>
+          </div>
+          <div class="declaration">function CreateQuery($sql="")</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$sql</span> Default <span class="paramValue">""</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$sql</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+    </div>
+    <hr>
+    <div style="width: 95%; font-size: 9pt; text-align:right; background:#efefef; margin-top: 20px; border-top: #0000ff 1px solid; padding: 2px 20px 2px 20px;">
+            CopyLeft (L) 2001 - 2004 <i>MIOLO</i> Development Team  SOLIS/Univates - Lajeado - Rio Grande do Sul - Brasil
+        </div>
+  </body>
+</html>

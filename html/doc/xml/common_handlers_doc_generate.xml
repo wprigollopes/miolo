@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="generate.inc" path="/usr/local/miolo/modules/common/handlers/doc/generate.inc" base="common_handlers_doc_generate" created="" lines="63">
+    <function name="ProcessDirectory" attribute="default" declaration="function ProcessDirectory($dir)" line="13">
+        <param name="$dir" value="" type=""><![CDATA[]]></param>
+    </function>
+</source>

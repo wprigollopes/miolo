@@ -1,0 +1,67 @@
+<?
+
+class CommonUserPermissionsForm extends Form
+{
+    var $whichModule;
+    
+    function CommonUserPermissionsForm($data=null)
+    {   global $MIOLO;
+        
+        $this->Form('Update User Permissions');
+        
+        $MIOLO->Assert($data,_M('CommonUserPermissionsForm Error: Parameter @1 cannot be null!','miolo','(CommonUser) data'));
+        
+        $business = $MIOLO->GetBusiness('common','admin');
+        
+        $result = $business->GetModules();
+        
+        foreach ( $result as $r )
+        {
+            $modules[] = $r[0];
+        }
+        
+        $moduleIndex = Form::GetFormValue('module','0');
+        $moduleName  = $modules[$moduleIndex];
+        
+        $this->whichModule = $business->GetModule($moduleName);
+        
+        $MIOLO->Assert($this->whichModule,
+                       _M('Module @1 is not defined!','miolo',$moduleName));
+                       
+        $MIOLO->Assert(is_array($this->whichModule->rights),
+                       _M('Module @1 does not have permissions defined!','miolo',$whichModule->name));
+
+        $selection = new Selection(_M('Module'),'module',$moduleIndex,$modules);
+        $selection->SetAutoSubmit(true);
+        
+        $this->AddField(new TextField(_M('Login'),'login',$data->login,0));
+        $this->AddField(new TextField(_M('Name'),'name',$data->name,0));
+        $this->AddField($selection);
+        $this->AddField(new Separator('Permissions'));
+        
+        $permissions = $MIOLO->GetRights($this->whichModule->name,$data->login);
+
+        foreach ( $this->whichModule->rights as $r )
+        {
+            $this->AddField(new CheckBox($r,'perm_'.$r,'t',Form::GetFormValue('perm_'.$r,$permissions[$r])));
+        }
+    }
+
+    function GetData($data)
+    {
+        $data = $this->CollectInput($data);
+        
+        $data->module = $this->whichModule->name;
+        
+        unset($data->permissions);
+        
+        foreach ( $this->whichModule->rights as $r )
+        {
+            $data->permissions[$r] = ( Form::GetFormValue('perm_'.$r) != null );
+        }
+        
+        return $data;
+    }
+}
+
+?>

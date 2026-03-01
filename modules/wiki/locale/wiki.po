@@ -1,0 +1,284 @@
+ msgid "Welcome to the @1"
+ msgstr "Bem vindo ao @1"
+ 
+ msgid "Insert a project" 
+ msgstr "Insere um projeto" 
+
+ msgid "Search MioloWiki" 
+ msgstr "Procura no MioloWiki" 
+
+ msgid "Settings" 
+ msgstr "Configuracões" 
+
+ msgid "Create New Project" 
+ msgstr "Cria um Novo Projeto" 
+
+ msgid "Project title" 
+ msgstr "Título do Projeto" 
+
+ msgid "Responsible" 
+ msgstr "Responsável" 
+
+ msgid "The module @1 was added with success!" 
+ msgstr "O módulo @1 foi adicionado com sucesso!" 
+
+ msgid "Searching for" 
+ msgstr "Procurando por" 
+
+ msgid "All" 
+ msgstr "Todos" 
+
+ msgid "Title" 
+ msgstr "Título" 
+
+ msgid "Body" 
+ msgstr "Corpo" 
+
+ msgid "Searching form" 
+ msgstr "Formulário de busca" 
+
+ msgid "Search on" 
+ msgstr "Procura em" 
+
+ msgid "Text" 
+ msgstr "Texto" 
+
+ msgid "Topics Found" 
+ msgstr "Tópicos encontrados" 
+
+ msgid "No topics found." 
+ msgstr "Nenhum tópico encontrado." 
+
+ msgid "Topic edit" 
+ msgstr "Edicão de tópico" 
+
+ msgid "Project Id" 
+ msgstr "Identificacão do projecto" 
+
+ msgid "Topic Id" 
+ msgstr "Identificacão do tópico" 
+
+ msgid "Locked" 
+ msgstr "Bloqueado" 
+
+ msgid "Emphasis: `` for italics, ``` for bold, ````` for both" 
+ msgstr "Ênfase: `` para itálico, ``` para negrito e ````` para ambos" 
+
+ msgid "Lists: tab* for bullet lists, tab# for numbered lists, tabTerm:tab for definition lists" 
+ msgstr "Listas: tab* para listas simples, tab# para listas numeradas, tabTítulo:Definicão para listas de definicões" 
+
+ msgid "Links: [title|link] or [link]" 
+ msgstr "Links: [título|link] ou [link]" 
+
+ msgid "Misc:\"!\", \"!!\", \"!!!\" make headings, \"- - - -\" makes a horizontal rule, escape \"[\" with \"[[\""
+ msgstr "\"!\", \"!!\", \"!!!\" cria cabecalhos, \"----\" cria uma linha horizontal, utilize \"[\" com \"\\[\" ou \"[[\""
+
+ msgid "Last Update" 
+ msgstr "Última atualizacão" 
+
+ msgid "Updated by" 
+ msgstr "Atualizado por" 
+
+ msgid "Review" 
+ msgstr "Revisão" 
+
+ msgid "Search" 
+ msgstr "Procura" 
+
+ msgid "Edit" 
+ msgstr "Edita" 
+
+ msgid "this page" 
+ msgstr "esta página" 
+
+ msgid "Send an image" 
+ msgstr "Envia uma imagem" 
+
+ msgid "Comments" 
+ msgstr "Comentários" 
+
+ msgid "Add a Comment" 
+ msgstr "Adiciona um comentário" 
+
+ msgid "Add a comment" 
+ msgstr "Adiciona um comentário" 
+
+ msgid "Comment Id" 
+ msgstr "Identificacão do comentário" 
+
+ msgid "Name" 
+ msgstr "Nome" 
+
+ msgid "Email" 
+ msgstr "Email" 
+
+ msgid "Your comment was added with success!!!" 
+ msgstr "Seu comentário foi adicionado com sucesso!!!" 
+
+ msgid "Hide" 
+ msgstr "Oculta" 
+
+ msgid "No" 
+ msgstr "Não" 
+
+ msgid "Yes" 
+ msgstr "Sim" 
+
+ msgid "Need login" 
+ msgstr "Requer login" 
+
+ msgid "Set this to Yes and all the topics would be updated without access check." 
+ msgstr "Sete este campo para Sim e todos os tópicos poderão ser alterados sem checagem de permissões" 
+
+ msgid "History All" 
+ msgstr "Arquiva todas" 
+
+ msgid "Choose this field to Yes if you want all the topics releases stored." 
+ msgstr "Ao selecionar Sim para este campo, você deixará arquivadas todas as alteracões feitas nos tópicos." 
+
+ msgid "Need aproval to comments" 
+ msgstr "Requer aprovacão de comentários" 
+
+ msgid "Choose this field to Yes if you want that all the comments sent be checked by the administrator before be showed." 
+ msgstr "Sete este campo para Sim se você quer que todos os comentários enviados sejam checados pelo administrador antes de serem exibidos." 
+
+ msgid "Registered Projects" 
+ msgstr "Projetos Registrados" 
+
+ msgid "ID" 
+ msgstr "Identificacão" 
+
+ msgid "Project Name" 
+ msgstr "Nome do Projeto" 
+
+ msgid "Created on" 
+ msgstr "Criado em" 
+
+ msgid "Last update" 
+ msgstr "Última atualizacão" 
+
+ msgid "Open" 
+ msgstr "Abrir" 
+
+ msgid "Generate" 
+ msgstr "Gerar" 
+
+ msgid " project(s) in " 
+ msgstr " projeto(s) em " 
+
+ msgid " page(s)." 
+ msgstr " página(s)" 
+
+ msgid "Back" 
+ msgstr "Voltar" 
+
+ msgid "Generate Formats" 
+ msgstr "Gerar Formatos" 
+
+ msgid "All the formats" 
+ msgstr "Todos os formatos" 
+
+ msgid "Portable Document" 
+ msgstr "Documentos Portáteis" 
+
+ msgid "DVI" 
+ msgstr "DVI " 
+
+ msgid "Post Script" 
+ msgstr "Post Script " 
+
+ msgid "DocBook" 
+ msgstr "DocBook " 
+
+ msgid "XML" 
+ msgstr "XML " 
+
+ msgid "Sgml" 
+ msgstr "SGML" 
+
+ msgid "Html" 
+ msgstr "HTML" 
+
+ msgid "TarGz Package" 
+ msgstr "Pacote TarGz" 
+
+ msgid "The @1 format couldn't be generated!"
+ msgstr "The @1 format couldn't be generated!"
+
+ msgid "Show" 
+ msgstr "Exibe" 
+
+ msgid "Aprove" 
+ msgstr "Aprova" 
+
+ msgid "To add images, use [image:Text|path], where path is the name of the image sent (only the name with extension). [image:Teste|teste.gif]. To send images, clik on \"send image\", after send this form." 
+ msgstr "Para acrescentar imagens. use [image:texto|caminho], onde caminho é o nome da imagem enviada (apenas o nome e a extensão). [image:teste|teste.gif]. Para enviar imagens, clique em \"Enviar Imagem\", depois de enviar este formulário." 
+
+ msgid "Sending an image" 
+ msgstr "Enviando uma imagem" 
+
+ msgid "Image" 
+ msgstr "Imagem" 
+
+ msgid "Project" 
+ msgstr "Projeto" 
+
+ msgid "Edit a Project" 
+ msgstr "Edita um projeto" 
+
+ msgid "Allow annonymous read" 
+ msgstr "Permite leitura anônima" 
+
+ msgid "Allow annonymous write" 
+ msgstr "Permite gravacão anônima" 
+
+ msgid "Permissions" 
+ msgstr "Permissões" 
+
+ msgid "read" 
+ msgstr "Ler" 
+
+ msgid "write" 
+ msgstr "Gravar" 
+
+ msgid "Check All" 
+ msgstr "Marca todas" 
+
+ msgid "Uncheck All" 
+ msgstr "Desmarca todas" 
+
+ msgid "The permissions from the project @1 was setted with success!" 
+ msgstr "As permissões do projeto @1 foram setadas com sucesso!" 
+
+ msgid "Viewing project @1" 
+ msgstr "Visualizando o projeto @1" 
+
+ msgid "Machine: @1" 
+ msgstr "Máquina: @1" 
+
+ msgid "Send image to project @1" 
+ msgstr "Envia imagem para o projeto @1" 
+
+ msgid "Are you sure want to hide the selected project ?" 
+ msgstr "Você tem certeza que deseja ocultar o projeto selecionado ?" 
+
+ msgid "The selected project is now hidden!!!" 
+ msgstr "O projeto selecionado está agora oculto!!!" 
+
+ msgid "Are you sure want to show the selected project ?" 
+ msgstr "Você tem certeza que deseja exibir o projeto selecionado ?" 
+
+ msgid "The selected project was not showed!!!" 
+ msgstr "O projeto selecionado não foi exibido!!!" 
+
+ msgid "The selected project was visible again!!!" 
+ msgstr "O projeto selecionado está agora visível novamente!!!" 
+
+ msgid "Generate @1" 
+ msgstr "Gera @1" 
+
+ msgid "The module @1 was updated with success!" 
+ msgstr "O módulo @1 foi atualizado com sucesso!" 
+
+ msgid "The selected project was not hidden!!!" 
+ msgstr "O projeto selecionado não foi ocultado!!!" 

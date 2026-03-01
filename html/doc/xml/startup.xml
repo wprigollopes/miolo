@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="startup.inc" path="/usr/local/miolo/classes/startup.inc" base="startup" created="" lines="127">
+  <description>
+  <![CDATA[Support for gettext()]]>
+  </description>
+    <function name="_M" attribute="default" declaration="function _M($msg,$dom='miolo',$p1=null,$p2=null,$p3=null)" line="66">
+        <param name="$msg" value="" type=""><![CDATA[]]></param>
+        <param name="$dom" value="'miolo'" type=""><![CDATA[]]></param>
+        <param name="$p1" value="null" type=""><![CDATA[]]></param>
+        <param name="$p2" value="null" type=""><![CDATA[]]></param>
+        <param name="$p3" value="null" type=""><![CDATA[]]></param>
+      <description>
+      <![CDATA[This function is a wrapper for the gettext support. In addition to
+the standard gettext() function, it provides support for up to three
+positional parameters represented by the placeholders <code>@1</code>,
+<code>@2</code> and <code>@3</code>.]]>
+      </description>
+      <example>
+<![CDATA[echo _M('@1 is a romance written by @2 in @3','foo','Tom Sawyer','Mark Twain','1890');
+// will result in:
+//   &quot;Tom Sawyer is a romance written by Mark Twain in 1890&quot;
+
+echo _M('@2 escreveu o romance @1 em @3','foo','Tom Sawyer','Mark Twain','1890');
+//
+// will result in:
+//   &quot;Mark Twain escreveu o romance Tom Sawyer em 1890&quot;]]>
+      </example>
+    </function>
+</source>

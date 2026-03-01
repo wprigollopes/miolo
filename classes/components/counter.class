@@ -1,0 +1,56 @@
+<?
+
+class Counter extends ThemeElement
+{
+    var $url_root='';
+    var $format='Page Visits: %visits%, Page impressions: %impressions%';
+    
+    function Counter()
+    {
+    }
+    
+    
+    function SetRoot($root)
+    {
+        $this->url_root = $root;
+    }
+    
+    
+    function SetFormat($format)
+    {
+        $this->format = $format;
+    }
+    
+    
+    function GetCounter()
+    {
+        global $MIOLO, $MIOLOCONF;
+        
+        session_register("cookie");
+        
+        $MIOLO->Uses('contrib/TSCounter/class_support.php');
+        $MIOLO->Uses('contrib/TSCounter/class_counter.php');
+        
+        $counter = new TScounter($this->url_root, 
+                                 $MIOLO->GetAbsolutePath('contrib/TSCounter/'),
+                                 $MIOLOCONF['home']['logs'].'/counter_');
+
+        return $counter;
+    }
+    
+    
+    function Generate()
+    {
+        $counter = $this->GetCounter();
+        @$counter->_processPageRequest($counter->_cookieCheck());
+        
+        $text = $this->format;
+        $text = str_replace('%visits%', @$counter->_getNumberOf("visit"), $text);
+        $text = str_replace('%impressions%', @$counter->_getNumberOf("impression"), $text);
+        
+        echo $text;
+    }
+    
+}
+
+?>

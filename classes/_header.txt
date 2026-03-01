@@ -1,0 +1,36 @@
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# @title
+#   This is the document title
+#
+# @description
+#   Put here the description of the file
+#
+# @see      miolo/file_to_see.class,
+#           miolo/ui/another_file_fo_see.class
+#
+# @topics   form, ui, related, topics
+#
+# @created
+#   2001/08/14
+#
+# @organisation
+#   MIOLO - Miolo Development Team - UNIVATES Centro Universitario
+#
+# @legal
+#   CopyLeft (L) 2001-2003 UNIVATES, Lajeado/RS - Brasil
+#   Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+#   further details)
+#
+# @contributors
+#   Vilson Cristiano Gartner [author] [vilson@miolo.org.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+# 
+# @maintainers
+#   Vilson Cristiano Gartner [author] [vilson@miolo.org.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#
+# @history
+#   See CVS history.
+#
+# @id $Id: _header.txt,v 1.3 2004/08/12 18:15:32 vgartner Exp $
+#---------------------------------------------------------------------

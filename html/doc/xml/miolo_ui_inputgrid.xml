@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+
+<source name="inputgrid.class" path="/usr/local/bis/html/miolo/ui/inputgrid.class" base="miolo_ui_inputgrid" created="" lines="86">
+    <class name="InputGridColumn" base="" declaration="class InputGridColumn" line="3">
+        <var name="label" declaration="var $label;" line="5">
+        </var>
+        <var name="name" declaration="var $name;" line="6">
+        </var>
+        <var name="width" declaration="var $width;" line="7">
+        </var>
+        <var name="value" declaration="var $value;" line="8">
+        </var>
+        <function name="InputGridColumn" attribute="default" declaration="function InputGridColumn($label,$name,$width=0,$value='')" line="10">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$width" value="0" type=""><![CDATA[]]></param>
+            <param name="$value" value="''" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+    <class name="InputGrid" base="FormField" declaration="class InputGrid extends FormField" line="19">
+        <var name="cols" declaration="var $cols;  // array of column definitions" line="21">
+        </var>
+        <var name="rows" declaration="var $rows;  // the number of rows" line="22">
+        </var>
+        <function name="InputGrid" attribute="default" declaration="function InputGrid($label,$name,$rows=0)" line="24">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$rows" value="0" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetRowCount" attribute="default" declaration="function GetRowCount()" line="30">
+        </function>
+        <function name="SetRowCount" attribute="default" declaration="function SetRowCount($rows)" line="35">
+            <param name="$rows" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddColumn" attribute="default" declaration="function AddColumn($label,$name,$width=0,$value='')" line="40">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$width" value="0" type=""><![CDATA[]]></param>
+            <param name="$value" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="45">
+        </function>
+        <function name="GetValue" attribute="default" declaration="function GetValue($col,$row,$default='')" line="73">
+            <param name="$col" value="" type=""><![CDATA[]]></param>
+            <param name="$row" value="" type=""><![CDATA[]]></param>
+            <param name="$default" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetGridValue" attribute="static" declaration="function GetGridValue($name,$col,$row,$default='')" line="78">
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$col" value="" type=""><![CDATA[]]></param>
+            <param name="$row" value="" type=""><![CDATA[]]></param>
+            <param name="$default" value="''" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+</source>

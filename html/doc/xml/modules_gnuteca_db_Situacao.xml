@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="Situacao.class" path="/usr/local/bis/html/modules/gnuteca/db/Situacao.class" base="modules_gnuteca_db_Situacao" created="">
+    <class name="BusinessGnutecaSituacao" base="" declaration="class BusinessGnutecaSituacao" line="3">
+        <function name="BusinessGnutecaSituacao" attribute="default" declaration="function BusinessGnutecaSituacao()" line="5">
+        </function>
+        <function name="ObtemSituacaoPorMnemonico" attribute="default" declaration="function ObtemSituacaoPorMnemonico($Mnemonico)" line="9">
+            <param name="$Mnemonico" value=""></param>
+        </function>
+        <function name="ListaSituacao" attribute="default" declaration="function ListaSituacao()" line="28">
+        </function>
+        <function name="NovaSituacao" attribute="default" declaration="function NovaSituacao($objSituacao)" line="44">
+            <param name="$objSituacao" value=""></param>
+        </function>
+        <function name="ExcluiSituacao" attribute="default" declaration="function ExcluiSituacao($CodigoDaSituacao)" line="69">
+            <param name="$CodigoDaSituacao" value=""></param>
+        </function>
+        <function name="AlteraSituacao" attribute="default" declaration="function AlteraSituacao($objSituacao)" line="81">
+            <param name="$objSituacao" value=""></param>
+        </function>
+        <function name="ObtemSituacao" attribute="default" declaration="function ObtemSituacao($CodigoDaSituacao)" line="97">
+            <param name="$CodigoDaSituacao" value=""></param>
+        </function>
+        <function name="AlteraSituacao" attribute="default" declaration="function AlteraSituacao($objSituacao)" line="123">
+            <param name="$objSituacao" value=""></param>
+        </function>
+    </class>
+</source>

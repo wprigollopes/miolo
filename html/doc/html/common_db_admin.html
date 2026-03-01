@@ -1,0 +1,597 @@
+<html xmlns:html="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>Source: admin.class</title>
+    <link rel="stylesheet" type="text/css" href="doc.css">
+  </head>
+  <body>
+    <h1>Documentação MIOLO</h1>
+    <h2>
+            Source: <a href="?module=common&amp;action=main:doc:index:source&amp;item=/usr/local/miolo/modules/common/db/admin.class"><span class="sourceName">admin.class</span></a>
+      <br>
+      <font size="2">(549 linhas)</font>
+    </h2>
+    <div class="description">
+      <h3>Descrição:</h3>
+      <blockquote>
+            TODO: 
+          Descrição do arquivo admin.class.
+        </blockquote>
+    </div>
+    <div class="relations" align="right">
+         [<a href="?module=common&amp;action=main:doc:index:source&amp;item=/usr/local/miolo/modules/common/db/admin.class">Codigo Fonte</a>]
+         [<a href="/doc/dia/common_db_admin.dia">Diagrama UML</a>]
+      </div>
+    <div class="classBlock">
+      <a name="BusinessCommonAdmin"></a>
+      <h2>Classe <span class="className">BusinessCommonAdmin</span></h2>
+      <blockquote>
+          extends <a href="#">Business</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe BusinessCommonAdmin.      
+          </blockquote>
+      </div>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#BusinessCommonAdmin::DeleteGroup">DeleteGroup</a>, <a href="#BusinessCommonAdmin::DeleteGroupPermissions">DeleteGroupPermissions</a>, <a href="#BusinessCommonAdmin::DeleteModule">DeleteModule</a>, <a href="#BusinessCommonAdmin::DeleteUser">DeleteUser</a>, <a href="#BusinessCommonAdmin::DeleteUserPermissions">DeleteUserPermissions</a>, <a href="#BusinessCommonAdmin::GetDatabase">GetDatabase</a>, <a href="#BusinessCommonAdmin::GetGroup">GetGroup</a>, <a href="#BusinessCommonAdmin::GetGroups">GetGroups</a>, <a href="#BusinessCommonAdmin::GetModule">GetModule</a>, <a href="#BusinessCommonAdmin::GetModules">GetModules</a>, <a href="#BusinessCommonAdmin::GetUser">GetUser</a>, <a href="#BusinessCommonAdmin::GetUserIdFromHash">GetUserIdFromHash</a>, <a href="#BusinessCommonAdmin::GetUsers">GetUsers</a>, <a href="#BusinessCommonAdmin::InsertGroup">InsertGroup</a>, <a href="#BusinessCommonAdmin::InsertModule">InsertModule</a>, <a href="#BusinessCommonAdmin::InsertUser">InsertUser</a>, <a href="#BusinessCommonAdmin::SetConfirm_Hash">SetConfirm_Hash</a>, <a href="#BusinessCommonAdmin::UpdateGroup">UpdateGroup</a>, <a href="#BusinessCommonAdmin::UpdateGroupPermissions">UpdateGroupPermissions</a>, <a href="#BusinessCommonAdmin::UpdateModule">UpdateModule</a>, <a href="#BusinessCommonAdmin::UpdateUser">UpdateUser</a>, <a href="#BusinessCommonAdmin::UpdateUserPassword">UpdateUserPassword</a>, <a href="#BusinessCommonAdmin::UpdateUserPermissions">UpdateUserPermissions</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::GetDatabase"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetDatabase</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetDatabase</blockquote>
+          </div>
+          <div class="declaration">function GetDatabase()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::GetModule"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetModule</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Returns module's info
+          </blockquote>
+          </div>
+          <div class="declaration">function GetModule($name)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::GetModules"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetModules</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Returns registered modules.
+If user != null, returns the modules of a user
+          </blockquote>
+          </div>
+          <div class="declaration">function GetModules($user=null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$user</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$user</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::InsertModule"></a>
+        <dt><span class="functionName">
+            <a href="#$class">InsertModule</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Insert a new module
+          </blockquote>
+          </div>
+          <div class="declaration">function InsertModule($module)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$module</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$module</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::UpdateModule"></a>
+        <dt><span class="functionName">
+            <a href="#$class">UpdateModule</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Change module's data
+          </blockquote>
+          </div>
+          <div class="declaration">function UpdateModule($module)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$module</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$module</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::DeleteModule"></a>
+        <dt><span class="functionName">
+            <a href="#$class">DeleteModule</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Delete a Module
+          </blockquote>
+          </div>
+          <div class="declaration">function DeleteModule($module)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$module</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$module</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::GetUser"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetUser</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Returns user's info
+          </blockquote>
+          </div>
+          <div class="declaration">function GetUser($login)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$login</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$login</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::GetUsers"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetUsers</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Returns all users registered.
+If $module != null, returns users of a module
+          </blockquote>
+          </div>
+          <div class="declaration">function GetUsers($module=null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$module</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$module</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::InsertUser"></a>
+        <dt><span class="functionName">
+            <a href="#$class">InsertUser</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Inserts a new user
+          </blockquote>
+          </div>
+          <div class="declaration">function InsertUser($user)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$user</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$user</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::UpdateUser"></a>
+        <dt><span class="functionName">
+            <a href="#$class">UpdateUser</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Change user's info
+          </blockquote>
+          </div>
+          <div class="declaration">function UpdateUser($user)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$user</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$user</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::DeleteUser"></a>
+        <dt><span class="functionName">
+            <a href="#$class">DeleteUser</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Delete a user
+          </blockquote>
+          </div>
+          <div class="declaration">function DeleteUser($user)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$user</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$user</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::DeleteUserPermissions"></a>
+        <dt><span class="functionName">
+            <a href="#$class">DeleteUserPermissions</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Delete user's permissions
+          </blockquote>
+          </div>
+          <div class="declaration">function DeleteUserPermissions($user)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$user</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$user</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::UpdateUserPermissions"></a>
+        <dt><span class="functionName">
+            <a href="#$class">UpdateUserPermissions</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Change user's permissions
+          </blockquote>
+          </div>
+          <div class="declaration">function UpdateUserPermissions($module,$login,$rights)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$module</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$module</tt>
+            </dd>
+            <dt><span class="paramName">$login</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$login</tt>
+            </dd>
+            <dt><span class="paramName">$rights</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$rights</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::UpdateUserPassword"></a>
+        <dt><span class="functionName">
+            <a href="#$class">UpdateUserPassword</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Change user's password
+          </blockquote>
+          </div>
+          <div class="declaration">function UpdateUserPassword($user,$password)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$user</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$user</tt>
+            </dd>
+            <dt><span class="paramName">$password</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$password</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::SetConfirm_Hash"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetConfirm_Hash</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetConfirm_Hash</blockquote>
+          </div>
+          <div class="declaration">function SetConfirm_Hash($login, $confirm_hash)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$login</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$login</tt>
+            </dd>
+            <dt><span class="paramName">$confirm_hash</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$confirm_hash</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::GetUserIdFromHash"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetUserIdFromHash</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetUserIdFromHash</blockquote>
+          </div>
+          <div class="declaration">function GetUserIdFromHash($hash)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$hash</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$hash</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::GetGroups"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetGroups</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Returns all the groups registered
+The conc variable indicate if the description will send concatenated with the module
+          </blockquote>
+          </div>
+          <div class="declaration">function GetGroups($conc=false)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$conc</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$conc</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::InsertGroup"></a>
+        <dt><span class="functionName">
+            <a href="#$class">InsertGroup</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Inserts a new group
+          </blockquote>
+          </div>
+          <div class="declaration">function InsertGroup($group)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$group</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$group</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::UpdateGroup"></a>
+        <dt><span class="functionName">
+            <a href="#$class">UpdateGroup</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Changes group information
+          </blockquote>
+          </div>
+          <div class="declaration">function UpdateGroup($group)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$group</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$group</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::DeleteGroup"></a>
+        <dt><span class="functionName">
+            <a href="#$class">DeleteGroup</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Delete a group
+          </blockquote>
+          </div>
+          <div class="declaration">function DeleteGroup($group)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$group</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$group</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::GetGroup"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetGroup</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Returns a group data
+          </blockquote>
+          </div>
+          <div class="declaration">function GetGroup($group)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$group</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$group</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::DeleteGroupPermissions"></a>
+        <dt><span class="functionName">
+            <a href="#$class">DeleteGroupPermissions</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Delete group's permissions
+          </blockquote>
+          </div>
+          <div class="declaration">function DeleteGroupPermissions($group)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$group</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$group</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BusinessCommonAdmin::UpdateGroupPermissions"></a>
+        <dt><span class="functionName">
+            <a href="#$class">UpdateGroupPermissions</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Change group's permissions
+          </blockquote>
+          </div>
+          <div class="declaration">function UpdateGroupPermissions($module,$id,$rights)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$module</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$module</tt>
+            </dd>
+            <dt><span class="paramName">$id</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$id</tt>
+            </dd>
+            <dt><span class="paramName">$rights</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$rights</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+    </div>
+    <hr>
+    <div style="width: 95%; font-size: 9pt; text-align:right; background:#efefef; margin-top: 20px; border-top: #0000ff 1px solid; padding: 2px 20px 2px 20px;">
+            CopyLeft (L) 2001 - 2004 <i>MIOLO</i> Development Team  SOLIS/Univates - Lajeado - Rio Grande do Sul - Brasil
+        </div>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="pagenavigator.class" path="/usr/local/miolo/classes/ui/pagenavigator.class" base="ui_pagenavigator" created="" lines="198">
+    <class name="PageNavigator" base="" declaration="class PageNavigator" line="28">
+        <var name="pageLength" declaration="var $pageLength;" line="30">
+        </var>
+        <var name="pageNumber" declaration="var $pageNumber;" line="31">
+        </var>
+        <var name="action" declaration="var $action;" line="32">
+        </var>
+        <var name="queryRange" declaration="var $queryRange;" line="33">
+        </var>
+        <var name="show_totals" declaration="var $show_totals=false;" line="34">
+        </var>
+        <function name="PageNavigator" attribute="default" declaration="function PageNavigator($length=20, // Number of records per page" line="36">
+            <param name="PageNavigator" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetAction" attribute="default" declaration="function SetAction($url)" line="49">
+            <param name="$url" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetShowTotals" attribute="default" declaration="function SetShowTotals()" line="54">
+        </function>
+        <function name="GetQueryRange" attribute="default" declaration="function &amp; GetQueryRange()" line="59">
+        </function>
+        <function name="GetTotalRows" attribute="default" declaration="function GetTotalRows()" line="64">
+        </function>
+        <function name="GetCurrentPage" attribute="default" declaration="function GetCurrentPage()" line="69">
+        </function>
+        <function name="SetCurrentPage" attribute="default" declaration="function SetCurrentPage($num)" line="74">
+            <param name="$num" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetTotalPages" attribute="default" declaration="function GetTotalPages()" line="82">
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="87">
+        </function>
+    </class>
+</source>

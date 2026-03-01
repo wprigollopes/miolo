@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="DocumentoForm.class" path="/usr/local/bis/html/modules/qualitas/forms/DocumentoForm.class" base="modules_qualitas_forms_DocumentoForm" created="" lines="66">
+    <class name="DocumentoForm" base="Form" declaration="class DocumentoForm extends Form" line="3">
+        <function name="DocumentoForm" attribute="default" declaration="function DocumentoForm($data=null)" line="6">
+            <param name="$data" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetData" attribute="default" declaration="function GetData()" line="54">
+        </function>
+    </class>
+</source>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="pslib.class" path="/usr/local/bis/html/miolo/pslib/pslib.class" base="miolo_pslib_pslib" created="">
+    <class name="postscript" base="" declaration="class postscript" line="23">
+        <var name="fp" declaration="var $fp;" line="26">
+        </var>
+        <var name="filename" declaration="var $filename;" line="27">
+        </var>
+        <var name="string" declaration="var $string    = &quot;&quot;;" line="28">
+        </var>
+        <var name="page" declaration="var $page      = 1;" line="29">
+        </var>
+        <var name="ISOLatin1" declaration="var $ISOLatin1 = true; //ISOLatin Encoding" line="30">
+        </var>
+        <var name="resources" declaration="var $resources;" line="31">
+        </var>
+        <var name="fonts" declaration="var $fonts;" line="32">
+        </var>
+        <var name="red" declaration="var $red       = -1;" line="33">
+        </var>
+        <var name="green" declaration="var $green     = -1;" line="34">
+        </var>
+        <var name="blue" declaration="var $blue      = -1;" line="35">
+        </var>
+        <function name="postscript" attribute="default" declaration="function postscript($fname = &quot;&quot;, $author=&quot;&quot;, $title=&quot;Generated with PSLib 0.4&quot;,  $orientation=&quot;Portrait&quot;, $fonts=&quot;&quot;)" line="39">
+            <param name="$fname" value="&quot;&quot;"></param>
+            <param name="$author" value="&quot;&quot;"></param>
+            <param name="$title" value="&quot;Generated with PSLib 0.4&quot;"></param>
+            <param name="$orientation" value="&quot;Portrait&quot;"></param>
+            <param name="$fonts" value="&quot;&quot;"></param>
+        </function>
+        <function name="_add_font" attribute="default" declaration="function _add_font($font)" line="156">
+            <param name="$font" value=""></param>
+        </function>
+        <function name="insert_line" attribute="default" declaration="function insert_line($line)" line="190">
+            <param name="$line" value=""></param>
+        </function>
+        <function name="include_resource" attribute="default" declaration="function include_resource($res)" line="199">
+            <param name="$res" value=""></param>
+        </function>
+        <function name="encode_ISOLatin1" attribute="default" declaration="function encode_ISOLatin1($var=true)" line="208">
+            <param name="$var" value="true"></param>
+        </function>
+        <function name="begin_page" attribute="default" declaration="function begin_page($page)" line="217">
+            <param name="$page" value=""></param>
+        </function>
+        <function name="end_page" attribute="default" declaration="function end_page()" line="226">
+        </function>
+        <function name="close" attribute="default" declaration="function close()" line="235">
+        </function>
+        <function name="line" attribute="default" declaration="function line($xcoord_from=0, $ycoord_from=0, $xcoord_to=0, $ycoord_to=0, $linewidth=0)" line="249">
+            <param name="$xcoord_from" value="0"></param>
+            <param name="$ycoord_from" value="0"></param>
+            <param name="$xcoord_to" value="0"></param>
+            <param name="$ycoord_to" value="0"></param>
+            <param name="$linewidth" value="0"></param>
+        </function>
+        <function name="moveto" attribute="default" declaration="function moveto($xcoord, $ycoord)" line="264">
+            <param name="$xcoord" value=""></param>
+            <param name="$ycoord" value=""></param>
+        </function>
+        <function name="moveto_font" attribute="default" declaration="function moveto_font($xcoord, $ycoord, $font_name, $font_size)" line="275">
+            <param name="$xcoord" value=""></param>
+            <param name="$ycoord" value=""></param>
+            <param name="$font_name" value=""></param>
+            <param name="$font_size" value=""></param>
+        </function>
+        <function name="open_ps" attribute="default" declaration="function open_ps($ps_file=&quot;&quot;)" line="290">
+            <param name="$ps_file" value="&quot;&quot;"></param>
+        </function>
+        <function name="circle" attribute="default" declaration="function circle($xcoord, $ycoord, $ray, $linewidth)" line="304">
+            <param name="$xcoord" value=""></param>
+            <param name="$ycoord" value=""></param>
+            <param name="$ray" value=""></param>
+            <param name="$linewidth" value=""></param>
+        </function>
+        <function name="circle_fill" attribute="default" declaration="function circle_fill($xcoord, $ycoord, $ray, $linewidth, $red, $green, $blue, $border=false)" line="315">
+            <param name="$xcoord" value=""></param>
+            <param name="$ycoord" value=""></param>
+            <param name="$ray" value=""></param>
+            <param name="$linewidth" value=""></param>
+            <param name="$red" value=""></param>
+            <param name="$green" value=""></param>
+            <param name="$blue" value=""></param>
+            <param name="$border" value="false"></param>
+        </function>
+        <function name="arc" attribute="default" declaration="function arc($xcoord, $ycoord, $ray, $linewidth, $angle_start, $angle_end)" line="328">
+            <param name="$xcoord" value=""></param>
+            <param name="$ycoord" value=""></param>
+            <param name="$ray" value=""></param>
+            <param name="$linewidth" value=""></param>
+            <param name="$angle_start" value=""></param>
+            <param name="$angle_end" value=""></param>
+        </function>
+        <function name="arc_fill" attribute="default" declaration="function arc_fill($xcoord, $ycoord, $ray, $linewidth, $angle_start, $angle_end, $red, $green, $blue, $border=false)" line="344">
+            <param name="$xcoord" value=""></param>
+            <param name="$ycoord" value=""></param>
+            <param name="$ray" value=""></param>
+            <param name="$linewidth" value=""></param>
+            <param name="$angle_start" value=""></param>
+            <param name="$angle_end" value=""></param>
+            <param name="$red" value=""></param>
+            <param name="$green" value=""></param>
+            <param name="$blue" value=""></param>
+            <param name="$border" value="false"></param>
+        </function>
+        <function name="rect" attribute="default" declaration="function rect($xcoord_from, $ycoord_from, $xcoord_to, $ycoord_to, $linewidth)" line="363">
+            <param name="$xcoord_from" value=""></param>
+            <param name="$ycoord_from" value=""></param>
+            <param name="$xcoord_to" value=""></param>
+            <param name="$ycoord_to" value=""></param>
+            <param name="$linewidth" value=""></param>
+        </function>
+        <function name="rect_fill" attribute="default" declaration="function rect_fill($xcoord_from, $ycoord_from, $xcoord_to, $ycoord_to, $linewidth, $red, $green, $blue, $border=false)" line="382">
+            <param name="$xcoord_from" value=""></param>
+            <param name="$ycoord_from" value=""></param>
+            <param name="$xcoord_to" value=""></param>
+            <param name="$ycoord_to" value=""></param>
+            <param name="$linewidth" value=""></param>
+            <param name="$red" value=""></param>
+            <param name="$green" value=""></param>
+            <param name="$blue" value=""></param>
+            <param name="$border" value="false"></param>
+        </function>
+        <function name="rotate" attribute="default" declaration="function rotate($degrees)" line="405">
+            <param name="$degrees" value=""></param>
+        </function>
+        <function name="set_font" attribute="default" declaration="function set_font($font_name, $font_size)" line="424">
+            <param name="$font_name" value=""></param>
+            <param name="$font_size" value=""></param>
+        </function>
+        <function name="show" attribute="default" declaration="function show($text, $red='', $green='', $blue='', $justify='l')" line="446">
+            <param name="$text" value=""></param>
+            <param name="$red" value="''"></param>
+            <param name="$green" value="''"></param>
+            <param name="$blue" value="''"></param>
+            <param name="$justify" value="'l'"></param>
+        </function>
+        <function name="show_eval" attribute="default" declaration="function show_eval($text)" line="487">
+            <param name="$text" value=""></param>
+        </function>
+        <function name="show_xy" attribute="default" declaration="function show_xy($text, $xcoord, $ycoord, $red='', $green='', $blue='', $justify='l')" line="500">
+            <param name="$text" value=""></param>
+            <param name="$xcoord" value=""></param>
+            <param name="$ycoord" value=""></param>
+            <param name="$red" value="''"></param>
+            <param name="$green" value="''"></param>
+            <param name="$blue" value="''"></param>
+            <param name="$justify" value="'l'"></param>
+        </function>
+        <function name="show_xy_font" attribute="default" declaration="function show_xy_font($text, $xcoord, $ycoord, $font_name, $font_size, $red='', $green='', $blue='', $justify='l')" line="513">
+            <param name="$text" value=""></param>
+            <param name="$xcoord" value=""></param>
+            <param name="$ycoord" value=""></param>
+            <param name="$font_name" value=""></param>
+            <param name="$font_size" value=""></param>
+            <param name="$red" value="''"></param>
+            <param name="$green" value="''"></param>
+            <param name="$blue" value="''"></param>
+            <param name="$justify" value="'l'"></param>
+        </function>
+        <function name="set_color" attribute="default" declaration="function set_color($red=-1, $green=-1, $blue=-1)" line="526">
+            <param name="$red" value="-1"></param>
+            <param name="$green" value="-1"></param>
+            <param name="$blue" value="-1"></param>
+        </function>
+    </class>
+</source>

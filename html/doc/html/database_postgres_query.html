@@ -1,0 +1,296 @@
+<html xmlns:html="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>Source: postgres_query.class</title>
+    <link rel="stylesheet" type="text/css" href="doc.css">
+  </head>
+  <body>
+    <h1>Documentação MIOLO</h1>
+    <h2>
+            Source: <a href="?module=common&amp;action=main:doc:index:source&amp;item=/usr/local/miolo/classes/database/postgres_query.class"><span class="sourceName">postgres_query.class</span></a>
+      <br>
+      <font size="2">(144 linhas)</font>
+    </h2>
+    <div class="description">
+      <h3>Descrição:</h3>
+      <blockquote>
+            TODO: 
+          Descrição do arquivo postgres_query.class.
+        </blockquote>
+    </div>
+    <div class="relations" align="right">
+         [<a href="?module=common&amp;action=main:doc:index:source&amp;item=/usr/local/miolo/classes/database/postgres_query.class">Codigo Fonte</a>]
+         [<a href="/doc/dia/database_postgres_query.dia">Diagrama UML</a>]
+      </div>
+    <div class="classBlock">
+      <a name="PostgresQuery"></a>
+      <h2>Classe <span class="className">PostgresQuery</span></h2>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      This file contains de query class definitions
+      </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $conf;     // name of database configuration</dt>
+        <dt>var $conn;     // the connection id</dt>
+        <dt>var $sql;      // the SQL command string</dt>
+        <dt>var $result;   // the SQL command result set</dt>
+        <dt>var $row;      // the current row index</dt>
+        <dt>var $error;    // the query's error message from the query execution</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#PostgresQuery::Close">Close</a>, <a href="#PostgresQuery::GetColumnCount">GetColumnCount</a>, <a href="#PostgresQuery::GetColumnName">GetColumnName</a>, <a href="#PostgresQuery::GetError">GetError</a>, <a href="#PostgresQuery::GetRowCount">GetRowCount</a>, <a href="#PostgresQuery::GetRowValues">GetRowValues</a>, <a href="#PostgresQuery::GetValue">GetValue</a>, <a href="#PostgresQuery::MoveNext">MoveNext</a>, <a href="#PostgresQuery::MovePrev">MovePrev</a>, <a href="#PostgresQuery::Open">Open</a>, <a href="#PostgresQuery::PostgresQuery">PostgresQuery</a>, <a href="#PostgresQuery::SetConnection">SetConnection</a>, <a href="#PostgresQuery::SetSQL">SetSQL</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="PostgresQuery::PostgresQuery"></a>
+        <dt><span class="functionName">
+            <a href="#$class">PostgresQuery</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função PostgresQuery</blockquote>
+          </div>
+          <div class="declaration">function PostgresQuery($conf)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$conf</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$conf</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresQuery::GetError"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetError</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetError</blockquote>
+          </div>
+          <div class="declaration">function GetError()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresQuery::Open"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Open</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Open</blockquote>
+          </div>
+          <div class="declaration">function Open()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresQuery::Close"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Close</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Close</blockquote>
+          </div>
+          <div class="declaration">function Close()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresQuery::MovePrev"></a>
+        <dt><span class="functionName">
+            <a href="#$class">MovePrev</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função MovePrev</blockquote>
+          </div>
+          <div class="declaration">function MovePrev()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresQuery::MoveNext"></a>
+        <dt><span class="functionName">
+            <a href="#$class">MoveNext</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função MoveNext</blockquote>
+          </div>
+          <div class="declaration">function MoveNext()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresQuery::GetRowCount"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetRowCount</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetRowCount</blockquote>
+          </div>
+          <div class="declaration">function GetRowCount()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresQuery::GetColumnCount"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetColumnCount</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetColumnCount</blockquote>
+          </div>
+          <div class="declaration">function GetColumnCount()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresQuery::GetColumnName"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetColumnName</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetColumnName</blockquote>
+          </div>
+          <div class="declaration">function GetColumnName($col)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$col</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$col</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresQuery::GetValue"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetValue</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetValue</blockquote>
+          </div>
+          <div class="declaration">function GetValue($col)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$col</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$col</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresQuery::GetRowValues"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetRowValues</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetRowValues</blockquote>
+          </div>
+          <div class="declaration">function GetRowValues()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresQuery::SetConnection"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetConnection</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetConnection</blockquote>
+          </div>
+          <div class="declaration">function SetConnection($c)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$c</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$c</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="PostgresQuery::SetSQL"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetSQL</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetSQL</blockquote>
+          </div>
+          <div class="declaration">function SetSQL($sql)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$sql</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$sql</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+    </div>
+    <hr>
+    <div style="width: 95%; font-size: 9pt; text-align:right; background:#efefef; margin-top: 20px; border-top: #0000ff 1px solid; padding: 2px 20px 2px 20px;">
+            CopyLeft (L) 2001 - 2004 <i>MIOLO</i> Development Team  SOLIS/Univates - Lajeado - Rio Grande do Sul - Brasil
+        </div>
+  </body>
+</html>

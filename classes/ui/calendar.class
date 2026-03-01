@@ -1,0 +1,242 @@
+<?
+/*
+Create by Daniel Afonso Heisler <daniel@univates.br> 2003/04/16
+Updated by Nasair Júnior da Sulva <njunior@solis.coop.br> 2004/03/08
+*/
+
+class Calendar extends ThemeElement
+{
+    var $mes_ext;
+    var $week_ext;
+    var $dia;
+    var $mes;
+    var $ano;
+    var $url;
+    var $data;
+    var $conteudo;
+
+    function Calendar($dia_=null, $mes_=null, $ano_=null, $sep='/')
+    {
+        $this->mes_ext = array(1 => _M('January'),
+                               2 => _M('February'),
+                               3 => _M('March'),
+                               4 => _M('April'),
+                               5 => _M('May'),
+                               6 => _M('June'),
+                               7 => _M('July'),
+                               8 => _M('August'),
+                               9 => _M('September'),
+                               10 => _M('October'),
+                               11 => _M('November'),
+                               12 => _M('December'));
+        $this->week_ext = array(1 => _M('Sun'),
+                                2 => _M('Mon'),
+                                3 => _M('Tue'),
+                                4 => _M('Wed'),
+                                5 => _M('Thu'),
+                                6 => _M('Fri'),
+                                7 => _M('Sat'));
+
+        if (strlen($dia_) > 2)
+        {
+            $tr = array('/'=>$sep,'-'=>$sep);
+            $aux = explode('/',strtr($dia_,$tr));
+            list($dia_, $mes_, $ano_) = $aux;
+        }
+        if (!$ano_) $ano_ = date('Y');
+        if (!$mes_) $mes_ = date('m');
+        if (!$dia_) $dia_ = date('d');
+        
+        $this->dia = $dia ? $dia : $dia_;
+        $this->mes = $mes ? $mes : $mes_;
+        $this->ano = $ano ? $ano : $ano_;
+	    $this->sep = $sep ? $sep : '/';
+    }
+
+    function SetURL($url)
+    {
+        $this->url = $url;
+        $this->back = true;
+    }
+
+    function Setdata($data)
+    {
+        $this->data = $data;
+    }
+
+    function GetData($dia,$mes,$ano)
+    {
+        foreach ( $this->data as $row )
+        {
+            $date = date("d-m-Y", mktime (0,0,0,$mes,$dia,$ano));
+            if ( $row[0] == $date )
+            {
+                $conteudo = $row[1];
+                return $conteudo;
+            }
+        }
+        return $conteudo;
+    }
+
+    function Generate()
+    {
+
+        $box_border = "#2b4b9b";
+        $box_bg = "#ffffff";
+        $arrows = "#7ce2ff";
+        $title = "#9ffc9c";
+        $week = "#f7f7bb";
+        $day_link = "#e84c09";
+        
+        while ( ! checkdate($this->mes,$this->dia,$this->ano) )
+        {
+            $this->dia--;
+        }
+
+        if ( checkdate($this->mes,$this->dia,$this->ano) )
+        {
+            echo '<script>function returnDate(dia, mes, ano, sep)
+                    { 
+                        if (dia < 10 && dia.length < 2) dia = \'0\' + dia;
+                        if (mes < 10 && mes.length < 2) mes = \'0\' + mes;
+                        window.opener.document.'.$this->form_name.'.'.$this->field_name.'.value = dia + sep + mes + sep + ano; window.close();
+                    }</script>';
+
+            echo "<table border=\"0\" cellpadding=\"10\" cellspacing=\"5\"><tr><td valign=\"top\">\n" .
+                 "<table valign=\"top\" bgcolor=\"$box_border\" border=\"0\" cellpadding=\"0\" cellspacing=\"4\"><tr><td>\n" .
+                 "<table valign=\"top\" bgcolor=\"$box_border\" width=\"280\" border=\"0\" cellpadding=\"4\" cellspacing=\"0\">\n" .
+                 "  <tr>\n";
+                 
+            $mes_back = (int)$this->mes;
+            $ano_back = (int)$this->ano;
+            if ( $mes_back == 1 )
+            {
+                $mes_back = 12;
+                $ano_back -= 1;
+            }
+            else
+            {
+                $mes_back -= 1;
+            }
+            if ( $mes_back == 12 )
+            {
+                $ano_back_ = 1;
+                $mes_back_ = 12;
+            }
+
+            echo "    <td width=\"40\" align=\"center\"><b><a style=\"text-decoration: none;\" href=\"" . $this->url . 
+                 "&dia={$this->dia}&mes=" . ($mes_back+1-$mes_back_) . "&ano=" . ($ano_back-1+$ano_back_) . 
+                 "\"><font color=\"$arrows\"><<</font></a></b></td>\n" .
+                 "    <td width=\"40\" align=\"center\"><b><a style=\"text-decoration: none;\" href=\"" . $this->url . 
+                 "&dia={$this->dia}&mes=$mes_back&ano=$ano_back\"><font color=\"$arrows\"><</font></a></b></td>\n" .
+                 "    <td width=\"120\" align=\"center\" colspan=\"3\"><b><font color=\"$title\">" . 
+                 "{$this->mes_ext[(int)$this->mes]} $this->ano</font></b></td>\n";
+
+            $mes_forw = (int)$this->mes;
+            $ano_forw = (int)$this->ano;
+            if ( $mes_forw == 12 )
+            {
+                $mes_forw = 1;
+                $ano_forw += 1;
+            }
+            else
+            {
+                $mes_forw += 1;
+            }
+            if ( $mes_forw == 1 )
+            {
+                $ano_forw_ = 1;
+                $mes_forw_ = 12;
+            }
+
+            echo "    <td width=\"40\" align=\"center\"><b><a style=\"text-decoration: none;\" href=\"" . $this->url .
+                 "&dia={$this->dia}&mes=$mes_forw&ano=$ano_forw\"><font color=\"$arrows\">></font></a></b></td>\n" .
+                 "    <td width=\"40\" align=\"center\"><b><a style=\"text-decoration: none;\" href=\"" . $this->url .
+                 "&dia={$this->dia}&mes=" . ($mes_forw-1+$mes_forw_) . "&ano=" . ($ano_forw+1-$ano_forw_) . "\">" .
+                 "<font color=\"$arrows\">>></font></a></b></td>\n  </tr>\n" .
+                 "  <tr>\n";
+
+            for($x=1;$x<=7;$x++)
+            {
+                echo "    <td width=\"40\" align=\"center\"><b><font color=\"$week\">" .
+                     "{$this->week_ext[$x]}</font></b></td>\n";
+            }
+
+            echo "  </tr>\n";
+
+            $dia=1;
+            $chave=0;
+            $week = date ("D", mktime (0,0,0,$this->mes,$dia,$this->ano));
+            while ( checkdate($this->mes,$dia,$this->ano) )
+            {
+                echo "  <tr>\n";
+                for($x=1;$x<=7;$x++)
+                {
+                    if ( checkdate($this->mes,$dia,$this->ano) )
+                    {
+                        if ( $this->week_ext[$x] == $week && $chave == 0)
+                        {
+                            $ok = $this->GetData($dia,$this->mes,$this->ano);
+                            if ($this->back)
+                            {
+                                echo "    <td bgcolor=\"$box_bg\" width=\"40\" align=\"center\" onclick=returnDate('$dia','$this->mes','$this->ano','$this->sep')><b>$dia</b></td>\n";
+                            }
+                            elseif ( $ok )
+                                echo "    <td bgcolor=\"$box_bg\" width=\"40\" align=\"center\"><b><font color=\"$day_link\">" .
+                                     "<a style=\"text-decoration: none; color: $day_link;\" href=\"$this->url&dia=$dia&mes=$this->mes&ano=$this->ano\">$dia</a></font></b></td>\n";
+                            else
+                                echo "    <td bgcolor=\"$box_bg\" width=\"40\" align=\"center\"><b>$dia</b></td>\n";
+                            $dia++;
+                            $chave = 1;
+                        }
+                        elseif ( $chave == 1 )
+                        {
+                            $ok = $this->GetData($dia,$this->mes,$this->ano);
+                            if ($this->back)
+                            {
+                                echo "    <td bgcolor=\"$box_bg\" width=\"40\" align=\"center\" onclick=returnDate('$dia','$this->mes','$this->ano','$this->sep')><b>$dia</b></td>\n";
+                            }
+                            elseif ( $ok )
+                                echo "    <td bgcolor=\"$box_bg\" width=\"40\" align=\"center\"><b><font color=\"$day_link\">" .
+                                     "<a style=\"text-decoration: none; color: $day_link;\" href=\"$this->url&dia=$dia&mes=$this->mes&ano=$this->ano\">$dia</a></font></b></td>\n";
+                            else
+                                echo "    <td bgcolor=\"$box_bg\" width=\"40\" align=\"center\"><b>$dia</b></td>\n";
+                            $dia++;
+                        }
+                        else
+                        {
+                            echo "    <td bgcolor=\"$box_bg\" width=\"40\" align=\"center\">&nbsp;</td>\n";
+                        }
+                    }
+                    else
+                    {
+                        echo "    <td bgcolor=\"$box_bg\" width=\"40\" align=\"center\">&nbsp;</td>\n";
+                    }
+                }
+            }
+
+            echo "  </tr>\n" .
+                 "</table>\n" .
+                 "</td></tr></table>\n";
+
+            echo "</td>";
+            $ok = $this->GetData($this->dia,$this->mes,$this->ano);
+            if ( $ok )
+            {
+                echo "<td valign=\"top\"><table bgcolor=\"$box_border\" border=\"0\" cellpadding=\"0\" cellspacing=\"4\">" .
+                     "<tr><td bgcolor=\"$box_bg\"><table bgcolor=\"$box_bg\" border=\"0\" cellpadding=\"0\" cellspacing=\"5\">" .
+                     "<tr><td align=\"center\" bgcolor=\"$box_border\"><font color=\"$title\">" .
+                     $this->dia . ' - ' . $this->mes_ext[$this->mes] . ' - ' . $this->ano . "</font></td></tr>" .
+                     "<tr><td>" .
+                     $ok .
+                     "</td></tr></table></td></tr></table></td>";
+            }
+            echo "</tr></table>\n";
+        }
+        //  bool checkdate ( int month, int day, int year)
+    }
+
+}
+
+?>
+

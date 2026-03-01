@@ -1,0 +1,233 @@
+<?php
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# @title
+#   SQLite Connection
+#
+# @description
+#   This file contains sqlite connection functions
+#
+# @see      miolo/database.class,
+#           miolo/sqlite_query.class,
+#
+# @topics   db, business
+#
+# @created
+#   2004/07/15
+#
+# @organisation
+#   MIOLO - Miolo Development Team - UNIVATES Centro Universitario
+#   http://miolo.codigolivre.org.br
+#
+# @legal
+#   CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+#   Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+#   further details)
+#
+# @contributors
+#   Nasair Júnior da Silva   [author] [njunior@univates.br]
+# 
+# history: see miolo cvs.
+#
+# @id $Id: sqlite_connection.class,v 1.1 2004/07/15 15:30:57 njunior Exp $
+#---------------------------------------------------------------------
+
+/**
+ *
+ */
+class SQLiteConnection
+{
+    var $conf;       // name of database configuration
+    var $id;         // the connection identifier
+    var $traceback;  // a list of transaction errors
+    var $level;      // a counter for the transaction level
+    
+    function SQLiteConnection($conf)
+    {   global $MIOLO;
+
+        $this->conf = $conf;
+        
+        $MIOLO->Uses('database/sqlite_query.class');
+    }
+
+    // opens a connection to the specified data source
+    function Open($dbhost,$LoginDB,$LoginUID,$LoginPWD,$persistent=true)
+    {   global $MIOLO, $php_errormsg;
+        
+        if ( $this->id )
+        {
+            Close();
+        }
+        
+        $this->traceback = null;
+        $this->level = 0;
+
+        $arg = "{$LoginDB}db.db";
+
+        // $MIOLO->Dump($arg,__FILE__,__LINE__);
+
+        if ( false && $persistent )
+        {
+            $this->id = sqlite_pOpen($arg);
+        }
+        else
+        {
+            $this->id = sqlite_Open($arg,0666);
+        }
+
+        if ( ! $this->id )
+        {
+            $this->traceback[] = "Unable to estabilish DataBase Conection to host: $dbhost, DB: $LoginDB";
+        }
+        
+        return $this->id;
+    }
+    
+    // closes a previously opened connection
+    function Close()
+    {
+        if ( $this->id )
+        {   global $MIOLO;
+            
+            $MIOLO->Assert($this->level==0,"Transactions not finished!");
+            
+            sqlite_close($this->id);
+            
+            $this->id = 0;
+        }
+    }
+    
+    function Begin()
+    {
+        $this->Execute("begin transaction");
+        
+        $this->level++;
+    }
+    
+    function Finish()
+    {   global $MIOLO;
+        
+        $MIOLO->Assert($this->level>0,"Transaction level underrun!");
+        
+        $success = $this->GetErrorCount() == 0;
+        
+        if ( $success )
+        {
+            $this->Execute("commit");
+        }
+        else
+        {
+            $this->Execute("rollback");
+        }
+        
+        $this->level--;
+        
+        return $success;
+    }
+    
+    function GetError()
+    {
+        
+        if ( ! $this->id )
+        {
+            $err = "No valid Database connection estabilished.";
+           
+            if ( $this->traceback )
+            {
+                $err .= "<br>" . implode("<br>", $this->traceback);
+            }
+            
+        }
+        else
+        {
+            $err_code = sqlite_last_error($this->id);
+            $err = sqlite_error_string($err_code);
+        }
+        
+        return $err;
+    }
+    
+    
+    function GetErrors()
+    {
+        return $this->traceback;
+    }
+    
+    function GetErrorCount()
+    {
+        return empty($this->traceback) ? 0 : count($this->traceback);
+    }
+    
+    function CheckError()
+    {   global $MIOLO;
+        
+        if ( empty($this->traceback) )
+        {
+            return;
+        }
+        
+        $n = count($this->traceback);
+        
+        if ( $n > 0 )
+        {
+            $msg = "";
+            
+            for ( $i=0; $i<$n; $i++ )
+            {
+                $msg .= $this->traceback[$i] . "<br>";
+            }
+            
+            $MIOLO->Assert(false ,"Transaction Error",$msg);
+        }
+    }
+    
+    function Execute($sql)
+    {   global $MIOLO;
+        
+        $MIOLO->LogSQL($sql,false,$this->conf);
+        
+        if ( $this->level == 0 )
+        {
+            $this->traceback = null;
+        }
+        
+        $rs = sqlite_query($this->id,$sql.';');
+vaR_dump($sql.';');
+        
+        $success = false;
+        
+        if ( $rs )
+        {
+            $success = true;
+            
+            //sqlite_freeresult($rs);
+        }
+        else
+        {
+            $this->traceback[] = $this->GetError();
+        }
+        
+        return $success;
+    }
+    
+    function CreateQuery($sql="")
+    {   global $MIOLO;
+        
+        $MIOLO->Assert($this->id, $this->GetErrors());
+        
+        $q = new SQLiteQuery($this->conf);
+        
+        $q->conn   = $this;
+        $q->sql    = $sql;
+        $q->result = 0;
+        $q->row    = -1;
+        
+        if ( $sql != "" )
+        {
+            $q->Open();
+        }
+        
+        return $q;
+    }
+};
+
+?>

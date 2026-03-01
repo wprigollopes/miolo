@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="themetoolkit.class" path="/usr/local/miolo/classes/ui/themetoolkit.class" base="ui_themetoolkit" created="" lines="127">
+    <class name="ThemeToolkit" base="" declaration="class ThemeToolkit" line="25">
+        <function name="GenerateImageBorderBox" attribute="default" declaration="function GenerateImageBorderBox($borders, $title='&amp;nbsp;',$content='&amp;nbsp;', $width='100%')" line="30">
+            <param name="$borders" value="" type=""><![CDATA[]]></param>
+            <param name="$title" value="'&amp;nbsp;'" type=""><![CDATA[]]></param>
+            <param name="$content" value="'&amp;nbsp;'" type=""><![CDATA[]]></param>
+            <param name="$width" value="'100%'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GenerateSimpleBox" attribute="default" declaration="function GenerateSimpleBox($colors, $title=false, $content='&amp;nbsp;', $width='100%', $borderWidth=1 )" line="72">
+            <param name="$colors" value="" type=""><![CDATA[]]></param>
+            <param name="$title" value="false" type=""><![CDATA[]]></param>
+            <param name="$content" value="'&amp;nbsp;'" type=""><![CDATA[]]></param>
+            <param name="$width" value="'100%'" type=""><![CDATA[]]></param>
+            <param name="$borderWidth" value="1" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GenerateFormBox" attribute="default" declaration="function GenerateFormBox($title, $filter, $body, $footer)" line="94">
+            <param name="$title" value="" type=""><![CDATA[]]></param>
+            <param name="$filter" value="" type=""><![CDATA[]]></param>
+            <param name="$body" value="" type=""><![CDATA[]]></param>
+            <param name="$footer" value="" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+</source>

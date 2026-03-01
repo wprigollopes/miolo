@@ -1,0 +1,123 @@
+msgid ""
+msgstr ""
+
+msgid "Send"
+msgstr "Enviar"
+
+msgid "Log in"
+msgstr "Efetuar Login"
+
+msgid "Retype Password"
+msgstr "Confirme a Senha"
+
+msgid "MIOLO Administration"
+msgstr "Administração MIOLO"
+
+msgid "Users"
+msgstr "Usuários"
+
+msgid "Permissions"
+msgstr "Permissões"
+
+msgid "Empty database configuration name in miolo.conf"
+msgstr "Configuração do Nome da Base de Dados não informada no miolo.conf"
+
+msgid "Access Denied"
+msgstr "Accesso Negado"
+
+msgid "Please inform correct user id and password to access this content."
+msgstr "Você não tem permissão para acessar este conteúdo."
+
+msgid "Users with permission"
+msgstr "Usuários com permissão"
+
+msgid "Welcome"
+msgstr "Bem Vindo"
+
+msgid "Database configuration missing in miolo.conf!"
+msgstr "Está faltando a configuração da Base de Dados no miolo.conf!"
+
+msgid "Configuration in miolo.conf or @1 is missing login for this database!"
+msgstr "Não foi informado o login para esta base de dados no miolo.conf ou @1 !"
+
+msgid "Action"
+msgstr "Ação"
+
+msgid "Incorrect Login!"
+msgstr "Login incorreto!"
+
+msgid "tries remaining."
+msgstr "tentativas restantes."
+
+msgid "Forgot my Password"
+msgstr "Esqueci a Senha"
+
+msgid "was not informed!"
+msgstr "não foi informado!"
+
+msgid "Errors on the Form"
+msgstr "Erros no Formulário"
+
+msgid "Errors Occured"
+msgstr "Erros Ocorridos"
+
+msgid "User"
+msgstr "Usuário"
+
+msgid "Username"
+msgstr "Nome de usuário"
+
+msgid "Password"
+msgstr "Senha"
+
+msgid "Login at:"
+msgstr "Hora Login:"
+
+msgid "Date:"
+msgstr "Data:"
+
+msgid "Confirmation"
+msgstr "Confirmação"
+
+msgid "Information"
+msgstr "Informação"
+
+msgid " Cancel "
+msgstr " Cancelar "
+
+msgid "   YES   "
+msgstr "   SIM   "
+
+msgid "   NO   "
+msgstr "   NÃO   "
+
+msgid "   Back   "
+msgstr "   Voltar   "
+
+msgid "Error"
+msgstr "Erro"
+
+msgid "Fatal Error"
+msgstr "Erro Fatal"
+
+msgid "Alert"
+msgstr "Aviso"
+
+msgid "Unkown reason"
+msgstr "Causa desconhecida"
+
+msgid "Class not found in "
+msgstr "Classe nao encontrada em "
+
+msgid "Select"
+msgstr "Selecione"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Next"
+msgstr "Próximo"
+
+msgid "Finish"
+msgstr "Finalizar"
+

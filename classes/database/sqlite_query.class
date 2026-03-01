@@ -1,0 +1,143 @@
+<?php
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# @title
+#   SQLite Query
+#
+# @description
+#   This file contains de query class definitions
+#
+# @see      miolo/database.class,
+#           miolo/sqlite_connection.class,
+#
+# @topics   db, business
+#
+# @created
+#   2001/08/14
+#
+# @organisation
+#   MIOLO - Miolo Development Team - UNIVATES Centro Universitario
+#   http://miolo.codigolivre.org.br
+#
+# @legal
+#   CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+#   Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+#   further details)
+#
+# @contributors
+#   Nasair Júnior da Silva   [author] [njunior@univates.br]
+#
+# history: see miolo cvs.
+#
+# @id $Id: sqlite_query.class,v 1.1 2005/07/15 15:42:57 njunior Exp $
+#---------------------------------------------------------------------
+
+/**
+ *
+ */
+class SQLiteQuery
+{
+    var $conf;     // name of database configuration
+    var $conn;     // the connection id
+    var $sql;      // the SQL command string
+    var $result;   // the SQL command result set
+    var $row;      // the current row index
+    var $error;    // the query's error message from the query execution
+    
+    function SQLiteQuery($conf)
+    {
+        $this->conf = $conf;
+    }
+    
+    function GetError()
+    {
+        return $this->error;
+    }
+    
+    function Open()
+    {   global $MIOLO;
+        
+        $MIOLO->LogSQL($this->sql,false,$this->conf);
+        
+        $this->result = sqlite_query($this->conn->id,$this->sql.';');
+        $this->row    = -1;
+        
+        $err = sqlite_last_error($this->conn->id);
+        if ($err) $this->error = sqlite_error_string($err);
+        
+        return $this->result != null;
+    }
+    
+    function Close()
+    {
+        if ( $this->result != null )
+        {
+            //sqlite_freeresult($this->result);
+            
+            $this->result = null;
+        }
+    }
+    
+    function MovePrev()
+    {
+        if ( $this->row >= 0 )
+        {
+            $this->row--;
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    function MoveNext()
+    {
+        if ( $this->row + 1 < $this->GetRowCount() )
+        {
+            $this->row++;
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    function GetRowCount()
+    {
+        return sqlite_num_rows($this->result);
+    }
+    
+    function GetColumnCount()
+    {
+        return sqlite_num_fields($this->result);
+    }
+    
+    function GetColumnName($col)
+    {
+        return sqlite_field_name($this->result,$col-1);
+    }
+    
+    function GetValue($col)
+    {
+        return sqlite_fetch_all($this->result,$this->row,$col-1);
+    }
+    
+    function GetRowValues()
+    {
+        sqlite_seek ( $this->result, $this->row);
+        $array = sqlite_current($this->result);
+
+        return $array;
+    }
+    
+    function SetConnection($c)
+    {
+        $this->conn = $c;
+    }
+    
+    function SetSQL($sql)
+    {
+        $this->sql  = $sql;
+    }
+}
+
+?>

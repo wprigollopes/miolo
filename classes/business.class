@@ -1,0 +1,65 @@
+<?
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# @title
+#   Business
+#
+# @description
+#   This file contains 
+#
+# @see      miolo/database.class,
+#           miolo/postgres_connection.class
+#           miolo/postgres_query.class
+#
+# @topics   form, ui
+#
+# @created
+#   2002/09/14
+#
+# @organisation
+#   MIOLO - Miolo Development Team - UNIVATES Centro Universitario
+#
+# @legal
+#   CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+#   Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+#   further details)
+#
+# @contributors
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+# 
+# @maintainers
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#
+# @history
+#   See CVS history.
+#
+# @id $Id: business.class,v 1.2 2002/11/16 11:08:56 vgartner Exp $
+#---------------------------------------------------------------------
+
+class Business
+{
+    var $errors;
+    
+    function CheckError($db)
+    {
+        $err = $db->GetError();
+        
+        if ( $err )
+        {   
+            $this->errors[] = $err;
+        }
+        
+        return count($this->errors)>0;
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Obtains the last DB errors
+    #---------------------------------------------------------------------
+    function GetErrors()
+    {
+        return $this->errors;
+    }
+}
+
+?>

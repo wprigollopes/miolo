@@ -1,0 +1,226 @@
+<html xmlns:html="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>Source: Barcode</title>
+    <link rel="stylesheet" type="text/css" href="doc.css">
+  </head>
+  <body>
+    <h1>Documentação MIOLO</h1>
+    <h2>Barcode<br>
+      <font size="2">(201 linhas)</font>
+    </h2>
+    <div class="description">
+      <h3>Descrição:</h3>
+      <blockquote>
+  Barcode generation classes
+  </blockquote>
+    </div>
+    <div class="relations" align="right">
+         [<a href="?module=common&amp;action=main:doc:index:source&amp;item=/usr/local/miolo/classes/contrib/barcode.class">Codigo Fonte</a>]
+         [<a href="/doc/dia/contrib_barcode.dia">Diagrama UML</a>]
+      </div>
+    <div class="relations" align="right">
+            Tópicos relacionados:
+            <a href="?module=common&amp;action=main:doc:topic&amp;item=contributions">contributions</a>
+    </div>
+    <div class="classBlock">
+      <a name="BarcodeI25"></a>
+      <h2>Classe <span class="className">BarcodeI25</span></h2>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      Rotina para a gera&ccedil;&atilde;o de C&oacute;digo de Barra
+no padr&atilde;o Interleved 2 of 5 (Intercalado 2 de 5)
+utilizado para os documentos banc&aacute;rios conforme
+padr&atilde;o FEBRABAN.
+UNILASALLE
+      </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $codigo;       //SET: Código a converter em código de barras</dt>
+        <dt>var $ebf;          //SET: Espessura da barra fina: usar 1 até 2.</dt>
+        <dt>var $ebg;          //SET: Espessura da barra grossa: usar 2x a 3x da esp_barra_fn.</dt>
+        <dt>var $altb;         //SET: altura do código de barras</dt>
+        <dt>var $ipp;          //SET: Endereço completo da imagem do ponto PRETO p/compor o código de barras</dt>
+        <dt>var $ipb;          //SET: Endereço completo da imagem do ponto BRANCO p/compor o código de barras</dt>
+        <dt>var $tamanhoTotal; //Propriedade de RETORNO do tamanho total da imagem do código de barras</dt>
+        <dt>var $mixed_code;</dt>
+        <dt>var $bc = array();</dt>
+        <dt>var $bc_string;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#BarcodeI25::BarcodeI25">BarcodeI25</a>, <a href="#BarcodeI25::Generate">Generate</a>, <a href="#BarcodeI25::GetCode">GetCode</a>, <a href="#BarcodeI25::MixCode">MixCode</a>, <a href="#BarcodeI25::SetCode">SetCode</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="BarcodeI25::BarcodeI25"></a>
+        <dt><span class="functionName">
+            <a href="#$class">BarcodeI25</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função BarcodeI25</blockquote>
+          </div>
+          <div class="declaration">function BarcodeI25($code='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$code</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$code</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BarcodeI25::SetCode"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetCode</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetCode</blockquote>
+          </div>
+          <div class="declaration">function SetCode($code)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$code</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$code</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BarcodeI25::GetCode"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetCode</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetCode</blockquote>
+          </div>
+          <div class="declaration">function GetCode()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BarcodeI25::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="BarcodeI25::MixCode"></a>
+        <dt><span class="functionName">
+            <a href="#$class">MixCode</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função MixCode</blockquote>
+          </div>
+          <div class="declaration">function MixCode()</div>
+        </blockquote>
+      </div>
+    </div>
+    <hr>
+    <p>
+      <b>Caminho:</b>
+      <br>
+      <blockquote>/usr/local/miolo/classes/contrib/barcode.class</blockquote>
+    </p>
+    <p>
+      <b>Criado:</b>
+      <br>
+      <blockquote>2001/08/15</blockquote>
+    </p>
+    <p>
+      <b>Autor(es):</b>
+      <br>
+      <blockquote>
+        <table>
+          <tr>
+            <td>Rudinei Pereira Dias</td>
+            <td>author</td>
+            <td>
+              <a href="malto:rudinei@lasalle.tche.br">rudinei@lasalle.tche.br</a>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+      </blockquote>
+    </p>
+    <p>
+      <b>Mantido por:</b>
+      <br>
+      <blockquote>
+        <table>
+          <tr>
+            <td>Vilson Cristiano Gartner</td>
+            <td>author</td>
+            <td>
+              <a href="malto:vgartner@univates.br">vgartner@univates.br</a>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Thomas Spriestersbach</td>
+            <td>author</td>
+            <td>
+              <a href="malto:ts@interact2000.com.br">ts@interact2000.com.br</a>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+      </blockquote>
+    </p>
+    <p>
+      <b>Histórico:</b>
+      <br>
+      <blockquote style="text-align: preformatted">
+  
+    $Log: contrib_barcode.html,v $
+    Revision 1.1  2004/08/12 18:35:09  vgartner
+    Inserting Documentation.
+<br>
+      Revision 1.1  2002/10/03 19:14:05  vgartner<br>
+      Added barcode class.<br>
+  
+  </blockquote>
+    </p>
+    <div align="center" style="margin:10; border: solid 1 black;">
+      <cite></cite>
+    </div>
+    <div style="width: 95%; font-size: 9pt; text-align:right; background:#efefef; margin-top: 20px; border-top: #0000ff 1px solid; padding: 2px 20px 2px 20px;">
+  UNILASALLE
+  CopyLeft (L) 2001-2002 UNILASALLE, Canoas/RS - Brasil
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)
+  </div>
+  </body>
+</html>

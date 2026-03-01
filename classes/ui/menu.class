@@ -1,0 +1,216 @@
+<?php
+
+class BaseThemeMenu extends ThemeElement
+{
+    var $title;
+    var $home;
+    var $options;
+    var $style;
+    var $base;
+    
+    function BaseThemeMenu($title,$style='table',$base='',$home='main')
+    {
+        $this->title  = $title;
+        $this->style  = $style;
+        $this->base   = $base;
+        $this->home   = $home;
+    }
+    
+    function ClearOptions()
+    {
+      $this->options = null;
+    }
+    
+    function SetTitle($title)
+    {
+        $this->title = $title;
+    }
+    
+    function SetStyle($style)
+    {
+        $this->style = $style;
+    }
+    
+    function SetBase($base)
+    {
+        $this->base = $base;
+    }
+    
+    function AddLink($label,$link='#',$target='_self')
+    {
+        $this->options[] = Array('link',$label,$link,$target);
+    }
+    
+    function AddOption($label,$module='main',$action='',$item='')
+    {
+        $this->options[] = Array('option',$label,$module,$action,$item);
+    }
+
+    function AddUserOption($access,$label,$module='main',$action='',$item='')
+    { global $MIOLO;
+        
+        if ( $MIOLO->CheckAccess($module, $access))
+        {
+            $this->AddOption($label,$module,$action,$item);
+        }
+    }
+
+    function AddGroupOption($access,$label,$module='main',$action='',$item='')
+    { global $MIOLO;
+                                                                                                                             
+        if ( $MIOLO->CheckAccess($module, $access, false, true))
+
+        {
+            $this->AddOption($label,$module,$action,$item);
+        }
+    }
+
+    
+    function AddSeparator($name=null)
+    {
+        $this->options[] = $name;
+    }
+    
+    function AddMenu($label,$options)
+    {
+        $this->options[] = Array('menu',$label,$options);
+    }
+    
+    function Generate()
+    { 
+        if ( $this->style == 'table' || $this->style == 'default' )
+        {
+            $this->GenerateDefaultMenu();
+        } 
+        else
+        {
+            $this->GenerateNavigationMenu();
+        }
+    }
+}
+
+/**
+ *
+ */
+class ThemeMenu extends BaseThemeMenu
+{
+    /**
+     *
+     */
+    function ThemeMenu($title,$style='table',$base='',$home='main')
+    {
+        $this->BaseThemeMenu($title,$style,$base,$home);
+    }
+    
+    /**
+     *
+     */
+    function GenerateOptionList($options,$depth=0)
+    {   global $MIOLO;
+        
+        if ($this->options)
+        {
+            foreach ( $this->options as $o )
+            {
+                // $o represents a submenu
+                if ( $o[0]=='menu' )
+                {
+                    $content .= $this->GenerateOptionList($o[2]);
+                }
+                // $o represents a option list
+                else if ( $o[0]=='option' )
+                {
+                    $content .= str_repeat('&nbsp;&nbsp;',$depth);
+                    
+                    $href = $MIOLO->GetActionURL($o[2],$o[3],$o[4],$o[5]);
+                    
+                    $content .= "<a href=\"$href\">$o[1]</a><br>\n";
+                }
+                // $o represents an option list
+                else if ( $o[0]=='link' )
+                {
+                    $content .= str_repeat('&nbsp;&nbsp;',$depth);
+                    
+                    $content .= "<a href=\"$o[2]\" target=\"$o[3]\">$o[1]</a><br>\n";
+                }
+                // $o represents a string (not a link!)
+                else if ( $o )
+                {
+                    $content .= "$o<br>\n";
+                }
+                // $o represents a separator
+                else
+                {
+                    $content .= "<br>\n";
+                }
+            }
+        }
+        
+        return $content;
+    }
+    
+    /**
+     *
+     */
+    function GenerateDefaultMenu()
+    {
+      $content = $this->GenerateOptionList($this->options);
+        
+      MyMenuBox($this->title,$content);
+    }
+        
+    /**
+     *
+     */
+    function GenerateNavigationMenu()
+    {
+        if ($this->options)
+        {
+            $content .= "<a href=\"{$this->base}?module=$this->home\" class=\"topMenuLink\">" .
+                        "$this->title</a>\n";
+            
+            $count = count($this->options);
+            
+            foreach ( $this->options as $o )
+            {
+                $content .= " :: ";
+                
+                if ( --$count )
+                {
+                    if ( $o[0] == 'option' )
+                    {
+                        $content .= "<a href=\"{$this->base}" .
+                                    "?module=$o[2]&" .
+                                    "&action=$o[3]&" .
+                                    "&item=$o[4]\"" .
+                                    " class=\"topMenuLink\">$o[1]</a>";
+                    }
+                    
+                    else if ( $o[0] == 'link' )
+                    {
+                        $content .= "<a href=\"$o[2]\" target=\"$o[3]\"" .
+                                    "class=\"topMenuLink\">$o[1]</a>";
+                    }
+                    
+                    else
+                    {
+                        $content .= "$o[1]";
+                    }
+                }
+                
+                else
+                {
+                    $content .= "$o[1]";
+                }
+            }
+        }
+        
+        // root item
+        else
+          $content .= "$this->title\n";
+        
+        MyNavigationBox($content);
+    }
+}
+
+?>

@@ -1,0 +1,272 @@
+<html xmlns:html="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>Source: mysql_connection.class</title>
+    <link rel="stylesheet" type="text/css" href="doc.css">
+  </head>
+  <body>
+    <h1>Documentação MIOLO</h1>
+    <h2>
+            Source: <a href="?module=common&amp;action=main:doc:index:source&amp;item=/usr/local/miolo/classes/database/mysql_connection.class"><span class="sourceName">mysql_connection.class</span></a>
+      <br>
+      <font size="2">(186 linhas)</font>
+    </h2>
+    <div class="description">
+      <h3>Descrição:</h3>
+      <blockquote>
+            TODO: 
+          Descrição do arquivo mysql_connection.class.
+        </blockquote>
+    </div>
+    <div class="relations" align="right">
+         [<a href="?module=common&amp;action=main:doc:index:source&amp;item=/usr/local/miolo/classes/database/mysql_connection.class">Codigo Fonte</a>]
+         [<a href="/doc/dia/database_mysql_connection.dia">Diagrama UML</a>]
+      </div>
+    <div class="classBlock">
+      <a name="MysqlConnection"></a>
+      <h2>Classe <span class="className">MysqlConnection</span></h2>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe MysqlConnection.      
+          </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $conf;       // name of database configuration</dt>
+        <dt>var $id;         // the connection identifier</dt>
+        <dt>var $traceback;  // a list of transaction errors</dt>
+        <dt>var $level;      // a counter for the transaction level</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#MysqlConnection::Begin">Begin</a>, <a href="#MysqlConnection::CheckError">CheckError</a>, <a href="#MysqlConnection::Close">Close</a>, <a href="#MysqlConnection::CreateQuery">CreateQuery</a>, <a href="#MysqlConnection::Execute">Execute</a>, <a href="#MysqlConnection::Finish">Finish</a>, <a href="#MysqlConnection::GetError">GetError</a>, <a href="#MysqlConnection::GetErrorCount">GetErrorCount</a>, <a href="#MysqlConnection::GetErrors">GetErrors</a>, <a href="#MysqlConnection::MysqlConnection">MysqlConnection</a>, <a href="#MysqlConnection::Open">Open</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="MysqlConnection::MysqlConnection"></a>
+        <dt><span class="functionName">
+            <a href="#$class">MysqlConnection</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função MysqlConnection</blockquote>
+          </div>
+          <div class="declaration">function MysqlConnection($conf)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$conf</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$conf</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MysqlConnection::Open"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Open</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Open</blockquote>
+          </div>
+          <div class="declaration">function Open($dbhost,$dbname,$dbuser,$dbpass,$persistent=true)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$dbhost</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$dbhost</tt>
+            </dd>
+            <dt><span class="paramName">$dbname</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$dbname</tt>
+            </dd>
+            <dt><span class="paramName">$dbuser</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$dbuser</tt>
+            </dd>
+            <dt><span class="paramName">$dbpass</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$dbpass</tt>
+            </dd>
+            <dt><span class="paramName">$persistent</span> Default <span class="paramValue">true</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$persistent</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MysqlConnection::Close"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Close</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Close</blockquote>
+          </div>
+          <div class="declaration">function Close()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MysqlConnection::Begin"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Begin</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Begin</blockquote>
+          </div>
+          <div class="declaration">function Begin()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MysqlConnection::Finish"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Finish</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Finish</blockquote>
+          </div>
+          <div class="declaration">function Finish()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MysqlConnection::GetError"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetError</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetError</blockquote>
+          </div>
+          <div class="declaration">function GetError()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MysqlConnection::GetErrors"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetErrors</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetErrors</blockquote>
+          </div>
+          <div class="declaration">function GetErrors()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MysqlConnection::GetErrorCount"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetErrorCount</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetErrorCount</blockquote>
+          </div>
+          <div class="declaration">function GetErrorCount()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MysqlConnection::CheckError"></a>
+        <dt><span class="functionName">
+            <a href="#$class">CheckError</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função CheckError</blockquote>
+          </div>
+          <div class="declaration">function CheckError()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MysqlConnection::Execute"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Execute</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Execute</blockquote>
+          </div>
+          <div class="declaration">function Execute($sql)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$sql</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$sql</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MysqlConnection::CreateQuery"></a>
+        <dt><span class="functionName">
+            <a href="#$class">CreateQuery</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função CreateQuery</blockquote>
+          </div>
+          <div class="declaration">function CreateQuery($sql="")</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$sql</span> Default <span class="paramValue">""</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$sql</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+    </div>
+    <hr>
+    <div style="width: 95%; font-size: 9pt; text-align:right; background:#efefef; margin-top: 20px; border-top: #0000ff 1px solid; padding: 2px 20px 2px 20px;">
+            CopyLeft (L) 2001 - 2004 <i>MIOLO</i> Development Team  SOLIS/Univates - Lajeado - Rio Grande do Sul - Brasil
+        </div>
+  </body>
+</html>

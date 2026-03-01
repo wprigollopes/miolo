@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="autocomplete.class" path="/usr/local/miolo/modules/common/db/autocomplete.class" base="common_db_autocomplete" created="" lines="35">
+    <class name="BusinessCommonAutoComplete" base="" declaration="class BusinessCommonAutoComplete" line="6">
+        <function name="Query" attribute="default" declaration="function Query($sql)" line="8">
+            <param name="$sql" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetCampus" attribute="default" declaration="function GetCampus($id)" line="21">
+            <param name="$id" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetPessoa" attribute="default" declaration="function GetPessoa($id)" line="29">
+            <param name="$id" value="" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+</source>

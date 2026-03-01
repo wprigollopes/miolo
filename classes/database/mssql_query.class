@@ -1,0 +1,154 @@
+<?php
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# @title
+#   MsSQL Query
+#
+# @description
+#   This file contains de query class definitions
+#
+# @see      miolo/database.class,
+#           miolo/mssql_connection.class,
+#
+# @topics   db, business
+#
+# @created
+#   2001/08/14
+#
+# @organisation
+#   MIOLO - Miolo Development Team - UNIVATES Centro Universitario
+#   http://miolo.codigolivre.org.br
+#
+# @legal
+#   CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+#   Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+#   further details)
+#
+# @contributors
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#   Clausius Duque G. Reis            [clausius@ufv.br]
+#
+# @maintainers
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#   Clausius Duque G. Reis            [clausius@ufv.br]
+#
+# history: see miolo cvs.
+#
+# @id $Id: mssql_query.class,v 1.2 2003/09/12 11:18:00 clausius Exp $
+#---------------------------------------------------------------------
+
+/**
+ *
+ */
+class MssqlQuery
+{
+    var $conf;     // name of database configuration
+    var $conn;     // the connection id
+    var $sql;      // the SQL command string
+    var $result;   // the SQL command result set
+    var $row;      // the current row index
+    var $error;    // the query's error message from the query execution
+
+    function MssqlQuery($conf)
+    {
+        $this->conf = $conf;
+    }
+
+    function GetError()
+    {
+		return $this->error;
+    }
+
+    function Open()
+    {   global $MIOLO;
+
+        $MIOLO->LogSQL($this->sql,false,$this->conf);
+
+        ob_start();
+        $this->result = mssql_query($this->sql,$this->conn->id);
+        $this->row    = -1;
+
+        if (!$this->result) {
+            $sql_error=$this->conn->treat_mssql_error(ob_get_contents()); 
+            $this->error = $sql_error;
+            ob_end_clean(); 
+        }
+        ob_end_clean(); 
+
+        return $this->result != null;
+    }
+
+    function Close()
+    {
+        if ( $this->result != null )
+        {
+            mssql_free_result($this->result);
+
+            $this->result = null;
+        }
+    }
+
+    function MovePrev()
+    {
+        if ( $this->row >= 0 )
+        {
+            $this->row--;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    function MoveNext()
+    {
+        if ( $this->row + 1 < $this->GetRowCount() )
+        {
+            $this->row++;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    function GetRowCount()
+    {
+        if ($this->result != 0) {
+		  return mssql_num_rows($this->result);
+		}
+    }
+
+    function GetColumnCount()
+    {
+        return mssql_num_fields($this->result);
+    }
+
+    function GetColumnName($col)
+    {
+        return mssql_field_name($this->result,$col-1);
+    }
+
+    function GetValue($col)
+    {
+        return mssql_result($this->result,$this->row,$col-1);
+    }
+
+    function GetRowValues()
+    {
+        return mssql_fetch_row($this->result);
+    }
+
+    function SetConnection($c)
+    {
+        $this->conn = $c;
+    }
+
+    function SetSQL($sql)
+    {
+        $this->sql  = $sql;
+    }
+}
+
+?>

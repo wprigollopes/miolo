@@ -1,0 +1,133 @@
+<?php
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# @title
+#   MIOLO Configuration File
+#
+# @description
+#   This file contains the configuration for all the MIOLO's environment
+#   like paths, module's DB settings, login style
+#
+# @topics   miolo
+#
+# @created
+#   2001/08/14
+#
+# @organisation
+#   MIOLO - Miolo Development Team - UNIVATES Centro Universitario
+#
+# @legal
+#   CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+#   Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+#   further details)
+#
+# @contributors
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+# 
+# @maintainers
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#
+# @history
+#   See history in CVS repository:
+#   http://codigolivre.org.br/cvs/?group_id=70
+#
+# @Id $Id: miolo.conf.sample,v 1.3 2003/05/16 21:22:12 vgartner Exp $
+#---------------------------------------------------------------------
+
+//Standard settings
+$MIOLOCONF['home']['html']       = '/usr/local/miolo/html';
+$MIOLOCONF['home']['logs']       = '/usr/local/miolo/logs';
+$MIOLOCONF['home']['miolo']      = '/usr/local/miolo/classes';
+$MIOLOCONF['home']['modules']    = '/usr/local/miolo/modules';
+$MIOLOCONF['home']['themes']     = '/usr/local/miolo/html/themes';
+$MIOLOCONF['home']['url']        = 'http://www.miolo.localhost';
+$MIOLOCONF['home']['url.themes'] = '/themes';
+
+$MIOLOCONF['i18n']['language']   = 'pt_BR';
+$MIOLOCONF['i18n']['locale']     = '/usr/local/miolo/locale';
+
+//theme settings
+$MIOLOCONF['theme']['main']      = 'miolo';
+$MIOLOCONF['theme']['lookup']    = 'miolo';
+
+// PHP-Nuke themes wrapper sample
+// $MIOLOCONF['theme']['main']      = 'php-nuke';
+// $MIOLOCONF['theme']['lookup']    = 'vilson';
+// $MIOLOCONF['theme']['php-nuke']  = 'Univates';
+
+// dispatch - main dispatcher which is called from within generated URL's 
+$MIOLOCONF['options']['dispatch']   = 'handler.php';
+$MIOLOCONF['options']['index']      = 'index.html';
+
+// wether to show debug info or not 
+$MIOLOCONF['options']['debug']      = false;
+
+// whether to dump internal information or not; define any remote IP for
+// which you would like the debug output to appear
+$MIOLOCONF['options']['dump']['peer']     = array('127.0.0.1');
+// MIOLO sends debug messages though this port;
+// To disable this feature (needed when behind a firewall) use = 0
+$MIOLOCONF['trace_port']                  = 9999;
+
+$MIOLOCONF['options']['dump']['profile']  = false;
+$MIOLOCONF['options']['dump']['uses']     = false;
+$MIOLOCONF['options']['dump']['trace']    = false;
+$MIOLOCONF['options']['dump']['handlers'] = false;
+
+//BD access settings
+$MIOLOCONF['DB']['common']['system']      = 'postgres';
+$MIOLOCONF['DB']['common']['host']        = '127.0.0.1';
+$MIOLOCONF['DB']['common']['name']        = 'bis';
+$MIOLOCONF['DB']['common']['user']        = 'postgres';
+$MIOLOCONF['DB']['common']['password']    = 'REDACTED';
+
+// duplicate DB definitions like this:
+$MIOLOCONF['DB']['bis']  = $MIOLOCONF['DB']['common'];
+//$MIOLOCONF['DB']['sagu'] = $MIOLOCONF['DB']['common'];
+
+// TUTORIAL DB Config
+$MIOLOCONF['DB']['tutorial']['system']    = 'postgres';
+$MIOLOCONF['DB']['tutorial']['host']      = '127.0.0.1';
+$MIOLOCONF['DB']['tutorial']['name']      = 'tutorial';
+$MIOLOCONF['DB']['tutorial']['user']      = 'postgres';
+$MIOLOCONF['DB']['tutorial']['password']  = 'REDACTED';
+
+// DB Config for GnuTeca
+// GnuTeca is a GPL Software for Library Automation, 
+// including a Loan System, Catalog Collaboration, MARC Editing,...
+// See more at: http://gnuteca.codigolivre.org.br
+$MIOLOCONF['DB']['gnuteca']['system']     = 'postgres';
+$MIOLOCONF['DB']['gnuteca']['host']       = '127.0.0.1';
+$MIOLOCONF['DB']['gnuteca']['name']       = 'gnuteca';
+$MIOLOCONF['DB']['gnuteca']['user']       = 'postgres';
+$MIOLOCONF['DB']['gnuteca']['password']   = 'REDACTED';
+
+//
+// whether to check login or not  
+// whether to automatic login (and which) or not
+// 
+//  check    shared    auto     result
+//  -------------------------------------------------------------------
+//  true     true      false    user must exist in cmn_users (most cases use this)
+//  true     false     false    user must exist in DB and in cmn_users
+//  false    true      false    user not required in cmn_users
+//  true     true      true     user predefined user must exist in cmn_users
+//  false    true      true     user predefined user not required in cmn_users
+//
+$MIOLOCONF['login']['check']  = false;
+$MIOLOCONF['login']['shared'] = true;
+$MIOLOCONF['login']['auto']   = false;
+
+//$MIOLOCONF['login']['auto']                = 'public1';
+
+// predefined automatic logins
+$MIOLOCONF['login']['public1']['id']       = 'guest';
+$MIOLOCONF['login']['public1']['password'] = 'REDACTED';
+$MIOLOCONF['login']['public1']['name']     = 'Public Users';
+
+$MIOLOCONF['login']['public2']['id']       = 'user';
+$MIOLOCONF['login']['public2']['password'] = 'REDACTED';
+$MIOLOCONF['login']['public2']['name']     = "Developer Automatic Login";
+
+?>

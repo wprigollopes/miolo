@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="file.inc" path="/usr/local/bis/html/modules/common/handlers/doc/file.inc" base="modules_common_handlers_doc_file" created="" lines="254">
+  <title>file.inc</title>
+  <description>
+  <![CDATA[Handler for generating the source documentation]]>
+  </description>
+  <param name="" type="">
+    <![CDATA[item (string) the path to the source file]]>
+  </param>
+  <organisation>
+  <![CDATA[MIOLO - Miolo Development Team - UNIVATES Centro Universitario]]>
+  </organisation>
+  <legal>
+  <![CDATA[CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)]]>
+  </legal>
+  <contributors>
+    <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+  </contributors>
+    <class name="SourceDocumentation" base="ThemeElement" declaration="class SourceDocumentation extends ThemeElement" line="98">
+      <description>
+      <![CDATA[This class generates documentation for a PHP source file. It is
+assumed, that the documentation is included in special comment
+blocks.
+<br><br>
+In either case, a skeleton of the source code will be generated.]]>
+      </description>
+      <example>
+<![CDATA[#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Documentation comment block
+#-------------------------------------------------------------------
+
+<center><b>File Level Documentation Block</b></center>
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# <b>@title</b>
+#   Form and Form Elements
+#
+# <b>@description</b>
+#   This file contains the form and form elements definitions
+#
+# <b>@see</b>
+#           miolo/ui/tabbedform.class,
+#           miolo/ui/themepainter.class
+#
+# <b>@topics</b>   form, ui
+#
+# <b>@created</b> 2001/08/14
+#
+# <b>@organisation</b>
+#   MIOLO - Miolo Development Team - UNIVATES Centro Universitario
+#
+# <b>@legal</b>
+#   CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+#   Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+#   further details)
+#
+# <b>@contributors</b>
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#
+# <b>@maintainers</b>
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#
+# <b>@history</b>
+#   $Log: modules_common_handlers_doc_file.xml,v $
+#   Revision 1.2  2002/09/05 00:59:16  vgartner
+#   project maintenance for CVS
+#
+#
+# <b>@id</b> $Id: modules_common_handlers_doc_file.xml,v 1.2 2002/09/05 00:59:16 vgartner Exp $
+#-------------------------------------------------------------------
+
+<center><b>Class Level Documentation Block</b></center>
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Class level documentation block. At this level, one would provide
+# a generalized description of the class. Perhaps one would like
+# emphasize some methods or related classes.
+#
+# You can embed example code directly in the documentation block.
+# To achieve this, use the <code>@example</code> tag. The text in
+# this description is kind of an <i>example</i> tag.
+#-------------------------------------------------------------------
+
+<center><b>Method/Function Level Documentation Block</b></center>
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#
+#
+#
+#
+#
+#
+#-------------------------------------------------------------------]]>
+      </example>
+        <var name="source" declaration="var $source;" line="100">
+        </var>
+        <function name="SourceDocumentation" attribute="default" declaration="function SourceDocumentation($source)" line="109">
+            <param name="$source" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Constructor of the class.
+It takes as parameter <code>$source</code>
+a string containing the full path to a PHP source file, for which
+to generate the documentation.
+<br><br>]]>
+          </description>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="118">
+          <description>
+          <![CDATA[Overrides the ThemeElement's <code>Generate</code> function,
+which is used to produce the HTML output for this class.]]>
+          </description>
+        </function>
+        <function name="Update" attribute="default" declaration="function Update()" line="148">
+          <description>
+          <![CDATA[The <code>Update</code> method will generate the related
+documentation files or return the path to the static html file
+if nothing has changed in the meantime.
+<br><br>
+All parsing/processing to produce the documentation outout is
+done in this method.
+<br><br>
+In fact: this method produces three output files from parsing the
+php source:
+<ul>
+  <li>an XML file containing the skeleton of the source.
+  <li>an DIA file containing the UML diagram definition of the source
+      using the <code>doc2dia.xslt</code> stylesheet.
+  <li>an HTML file containing the HTML output of the applied
+      <code>doc2html.xslt</code> stylesheet.
+</ul>]]>
+          </description>
+        </function>
+    </class>
+</source>

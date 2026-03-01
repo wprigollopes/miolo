@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="context.class" path="/usr/local/bis/html/miolo/context.class" base="miolo_context" created="" lines="92">
+    <class name="Context" base="" declaration="class Context" line="25">
+        <var name="module" declaration="var $module;" line="27">
+        </var>
+        <var name="action" declaration="var $action;" line="28">
+        </var>
+        <var name="item" declaration="var $item;" line="29">
+        </var>
+        <var name="actionTokens" declaration="var $actionTokens;" line="30">
+        </var>
+        <var name="currentToken" declaration="var $currentToken;" line="31">
+        </var>
+        <function name="Context" attribute="default" declaration="function Context()" line="33">
+        </function>
+        <function name="Create" attribute="default" declaration="function Create($module,$action,$item)" line="41">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$action" value="" type=""><![CDATA[]]></param>
+            <param name="$item" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetAction" attribute="default" declaration="function GetAction($index=0)" line="54">
+            <param name="$index" value="0" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ShiftAction" attribute="default" declaration="function ShiftAction()" line="62">
+        </function>
+        <function name="PushAction" attribute="default" declaration="function PushAction($a)" line="73">
+            <param name="$a" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ComposeURL" attribute="default" declaration="function ComposeURL()" line="84">
+        </function>
+    </class>
+</source>

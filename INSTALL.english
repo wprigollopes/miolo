@@ -1,0 +1,73 @@
+MIOLO Version 1.0-Final INSTALLATION
+====================================
+
+Basically, to install MIOLO you must:
+
+- run the installation script (install.sh-english) and follow the steps. 
+
+or
+
+- run the QT based program and then create the database and tables with 
+  the create_db_pgsql or create_db_mysql script.
+
+
+CONFIGURATION:
+--------------
+After installing MIOLO, you must make some configurations in MIOLO's 
+configuration file:  /etc/miolo/miolo.conf :
+
+$MIOLOCONF['DB']['bis'] => put the correct database configurations 
+                           (IP, username, passoword)
+
+
+APACHE:
+-------
+You must also create an VirtualHost in the Apache Web Server like this:
+
+<VirtualHost *>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /usr/local/miolo/html
+    ServerName server.name
+    ErrorLog logs/server.name.error_log
+    CustomLog logs/server.name.access_log common
+
+    <Directory "/usr/local/miolo/html">
+        Options FollowSymLinks
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+</VirtualHost>
+
+Or, ir you want, change the Apache's DocumentRoot to /usr/local/miolo/html
+
+
+After this, you'll be able to access the MIOLO Environment in the browser. 
+You can access the administrative interface, using this user and password:
+
+user: miolo
+password: miolo
+
+
+Mailing List
+============
+You are welcome to subscribe and send your questions to the MIOLO-users list at:
+http://listas.codigolivre.org.br/mailman/listinfo/miolo-users
+
+Our development list is here available:
+http://listas.codigolivre.org.br/mailman/listinfo/miolo-devel
+
+We also need help in the i18n project. This is the list:
+http://listas.codigolivre.org.br/mailman/listinfo/miolo-i18n
+
+The classes and methods are mostly commented in english, but the information 
+regarding instalation is not that much yet. You are welcome to send any questions 
+directly to my mail.
+
+
+Vilson Cristiano Gärtner
+MIOLO Development Coordinator
+
+vilson@miolo.org.br
+http://www.miolo.org.br

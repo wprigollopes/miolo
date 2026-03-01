@@ -1,0 +1,1666 @@
+<html xmlns:html="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>Source: Theme and Theme Elements</title>
+    <link rel="stylesheet" type="text/css" href="doc.css">
+  </head>
+  <body>
+    <h1>Documentação MIOLO</h1>
+    <h2>Theme and Theme Elements<br>
+      <font size="2">(806 linhas)</font>
+    </h2>
+    <div class="description">
+      <h3>Descrição:</h3>
+      <blockquote>
+  This file contains the theme and theme elements definitions
+  </blockquote>
+    </div>
+    <div class="relations" align="right">
+         [<a href="?module=common&amp;action=main:doc:index:source&amp;item=/usr/local/miolo/classes/ui/theme.class">Codigo Fonte</a>]
+         [<a href="/doc/dia/ui_theme.dia">Diagrama UML</a>]
+      </div>
+    <div class="relations" align="right">
+            Veja também:
+            <a href="?module=common&amp;action=main:doc:index:file&amp;item=/usr/local/bis/html/miolo/ui/themepainter.class">miolo/ui/themepainter.class</a>
+    </div>
+    <div class="relations" align="right">
+            Tópicos relacionados:
+            <a href="?module=common&amp;action=main:doc:topic&amp;item=theme">theme</a>, <a href="?module=common&amp;action=main:doc:topic&amp;item=ui">ui</a>
+    </div>
+    <h3>Classes:</h3>
+    <blockquote>
+      <a href="#Container">Container</a>, <a href="#Content">Content</a>, <a href="#FileContent">FileContent</a>, <a href="#Theme">Theme</a>, <a href="#ThemeBox">ThemeBox</a>, <a href="#ThemeElement">ThemeElement</a>, <a href="#ThemeMenu">ThemeMenu</a>
+    </blockquote>
+    <div class="classBlock">
+      <a name="Theme"></a>
+      <h2>Classe <span class="className">Theme</span></h2>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      Theme Class
+      </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $styles;</dt>
+        <dt>var $scripts;</dt>
+        <dt>var $metas;</dt>
+        <dt>var $navbar;</dt>
+        <dt>var $menus;</dt>
+        <dt>var $content;</dt>
+        <dt>var $title;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#Theme::AddElement">AddElement</a>, <a href="#Theme::AddHttpEquiv">AddHttpEquiv</a>, <a href="#Theme::AddMeta">AddMeta</a>, <a href="#Theme::AddScript">AddScript</a>, <a href="#Theme::AddStyle">AddStyle</a>, <a href="#Theme::AppendContent">AppendContent</a>, <a href="#Theme::ClearContent">ClearContent</a>, <a href="#Theme::ClearMenus">ClearMenus</a>, <a href="#Theme::Commands">Commands</a>, <a href="#Theme::Content">Content</a>, <a href="#Theme::CreateMenu">CreateMenu</a>, <a href="#Theme::Generate">Generate</a>, <a href="#Theme::GetContent">GetContent</a>, <a href="#Theme::GetMainMenu">GetMainMenu</a>, <a href="#Theme::GetMenu">GetMenu</a>, <a href="#Theme::GetMenus">GetMenus</a>, <a href="#Theme::GetMetas">GetMetas</a>, <a href="#Theme::GetNavigationBar">GetNavigationBar</a>, <a href="#Theme::GetScripts">GetScripts</a>, <a href="#Theme::GetStatusBar">GetStatusBar</a>, <a href="#Theme::GetStyles">GetStyles</a>, <a href="#Theme::GetTitle">GetTitle</a>, <a href="#Theme::Help">Help</a>, <a href="#Theme::InsertContent">InsertContent</a>, <a href="#Theme::News">News</a>, <a href="#Theme::SetContent">SetContent</a>, <a href="#Theme::SetNavigationBar">SetNavigationBar</a>, <a href="#Theme::SetStatusBar">SetStatusBar</a>, <a href="#Theme::SetTitle">SetTitle</a>, <a href="#Theme::Status">Status</a>, <a href="#Theme::Theme">Theme</a>, <a href="#Theme::Title">Title</a>, <a href="#Theme::UseComponent">UseComponent</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="Theme::Theme"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Theme</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Theme</blockquote>
+          </div>
+          <div class="declaration">function Theme()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::AddStyle"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddStyle</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função AddStyle</blockquote>
+          </div>
+          <div class="declaration">function AddStyle($url)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$url</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$url</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::AddScript"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddScript</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função AddScript</blockquote>
+          </div>
+          <div class="declaration">function AddScript($url)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$url</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$url</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::AddMeta"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddMeta</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função AddMeta</blockquote>
+          </div>
+          <div class="declaration">function AddMeta($name,$content)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$content</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$content</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::AddHttpEquiv"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddHttpEquiv</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função AddHttpEquiv</blockquote>
+          </div>
+          <div class="declaration">function AddHttpEquiv($name,$content)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$content</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$content</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::GetStyles"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetStyles</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetStyles</blockquote>
+          </div>
+          <div class="declaration">function &amp; GetStyles()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::GetScripts"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetScripts</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetScripts</blockquote>
+          </div>
+          <div class="declaration">function &amp; GetScripts()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::GetMetas"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetMetas</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetMetas</blockquote>
+          </div>
+          <div class="declaration">function &amp; GetMetas()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::GetNavigationBar"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetNavigationBar</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetNavigationBar</blockquote>
+          </div>
+          <div class="declaration">function &amp; GetNavigationBar()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::SetNavigationBar"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetNavigationBar</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetNavigationBar</blockquote>
+          </div>
+          <div class="declaration">function SetNavigationBar(&amp;$bar)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">&amp;$bar</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>&amp;$bar</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::ClearMenus"></a>
+        <dt><span class="functionName">
+            <a href="#$class">ClearMenus</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função ClearMenus</blockquote>
+          </div>
+          <div class="declaration">function ClearMenus()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::GetMenus"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetMenus</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetMenus</blockquote>
+          </div>
+          <div class="declaration">function &amp; GetMenus()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::GetMainMenu"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetMainMenu</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetMainMenu</blockquote>
+          </div>
+          <div class="declaration">function &amp; GetMainMenu($title='Modules')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$title</span> Default <span class="paramValue">'Modules'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$title</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::GetMenu"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetMenu</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetMenu</blockquote>
+          </div>
+          <div class="declaration">function &amp; GetMenu($name)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::GetStatusBar"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetStatusBar</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetStatusBar</blockquote>
+          </div>
+          <div class="declaration">function &amp; GetStatusBar()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::SetStatusBar"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetStatusBar</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetStatusBar</blockquote>
+          </div>
+          <div class="declaration">function SetStatusBar(&amp;$bar)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">&amp;$bar</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>&amp;$bar</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::GetTitle"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetTitle</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetTitle</blockquote>
+          </div>
+          <div class="declaration">function &amp; GetTitle()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::SetTitle"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetTitle</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetTitle</blockquote>
+          </div>
+          <div class="declaration">function SetTitle(&amp;$title)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">&amp;$title</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>&amp;$title</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::ClearContent"></a>
+        <dt><span class="functionName">
+            <a href="#$class">ClearContent</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função ClearContent</blockquote>
+          </div>
+          <div class="declaration">function ClearContent()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::GetContent"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetContent</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetContent</blockquote>
+          </div>
+          <div class="declaration">function &amp; GetContent()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::SetContent"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetContent</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetContent</blockquote>
+          </div>
+          <div class="declaration">function SetContent(&amp;$content)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">&amp;$content</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>&amp;$content</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::InsertContent"></a>
+        <dt><span class="functionName">
+            <a href="#$class">InsertContent</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Inserts an element at the start of the content array
+          </blockquote>
+          </div>
+          <div class="declaration">function InsertContent(&amp;$element)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">&amp;$element</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>&amp;$element</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::AppendContent"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AppendContent</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Appends an element at the end of the content array
+          </blockquote>
+          </div>
+          <div class="declaration">function AppendContent(&amp;$element)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">&amp;$element</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>&amp;$element</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::AddElement"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddElement</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Adds a theme element to a specific <b>slot</b> within the theme
+          </blockquote>
+          </div>
+          <div class="declaration">function AddElement(&amp;$element, $location='content')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">&amp;$element</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>&amp;$element</tt>
+            </dd>
+            <dt><span class="paramName">$location</span> Default <span class="paramValue">'content'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$location</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::UseComponent"></a>
+        <dt><span class="functionName">
+            <a href="#$class">UseComponent</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Used to obtain an instance of a component. The function loads the
+implementation class of the specified component and returns an
+instance of the same.
+The component file must be located into the ./classes/components directory
+          </blockquote>
+          </div>
+          <div class="declaration">function &amp; UseComponent($name)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$name</span> (<span class="paramValue">string</span>)</dt>
+            <dd style="padding-top: 5">Nome da classe o modulo que sera acessado</dd>
+          </dl>
+          <div class="returns">
+            <h3>Retorna:</h3>
+            <blockquote>
+            (<tt>object</tt>) 
+           an instance of <code>ThemeElement</code>
+          </blockquote>
+          </div>
+          <h3>Exemplo:</h3>
+          <pre>
+$ticker = $theme-&gt;UseComponent('newsticker');
+// $ticker-&gt;SetTitle('The Latest News');
+$theme-&gt;AppendContent($ticker);
+          </pre>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::Content"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Content</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Content</blockquote>
+          </div>
+          <div class="declaration">function Content($content)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$content</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$content</tt>
+            </dd>
+          </dl>
+          <h3>Obsoleto:</h3>
+          <blockquote style="color:red;">
+          for compatibility only
+          </blockquote>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::Status"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Status</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Status</blockquote>
+          </div>
+          <div class="declaration">function Status($content)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$content</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$content</tt>
+            </dd>
+          </dl>
+          <h3>Obsoleto:</h3>
+          <blockquote style="color:red;">
+          for compatibility only
+          </blockquote>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+          <h3>Obsoleto:</h3>
+          <blockquote style="color:red;">
+          for compatibility only
+          </blockquote>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::Commands"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Commands</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Commands</blockquote>
+          </div>
+          <div class="declaration">function Commands($content)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$content</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$content</tt>
+            </dd>
+          </dl>
+          <h3>Obsoleto:</h3>
+          <blockquote style="color:red;">
+          for compatibility only
+          </blockquote>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::Title"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Title</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Title</blockquote>
+          </div>
+          <div class="declaration">function Title($content)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$content</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$content</tt>
+            </dd>
+          </dl>
+          <h3>Obsoleto:</h3>
+          <blockquote style="color:red;">
+          for compatibility only
+          </blockquote>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::News"></a>
+        <dt><span class="functionName">
+            <a href="#$class">News</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função News</blockquote>
+          </div>
+          <div class="declaration">function News($content)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$content</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$content</tt>
+            </dd>
+          </dl>
+          <h3>Obsoleto:</h3>
+          <blockquote style="color:red;">
+          for compatibility only
+          </blockquote>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::Help"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Help</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Help</blockquote>
+          </div>
+          <div class="declaration">function Help($content)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$content</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$content</tt>
+            </dd>
+          </dl>
+          <h3>Obsoleto:</h3>
+          <blockquote style="color:red;">
+          for compatibility only
+          </blockquote>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Theme::CreateMenu"></a>
+        <dt><span class="functionName">
+            <a href="#$class">CreateMenu</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função CreateMenu</blockquote>
+          </div>
+          <div class="declaration">function &amp; CreateMenu($name)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+          </dl>
+          <h3>Obsoleto:</h3>
+          <blockquote style="color:red;">
+          for compatibility only
+          </blockquote>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="ThemeElement"></a>
+      <h2>Classe <span class="className">ThemeElement</span></h2>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      The <code>ThemeElement</code> class is the base class for any element
+which can be put into a theme. Basically the implementation provides
+a <code>Generate</code> method, which will generate the appropriate
+HTML output when called.
+<br><br>
+Derived classes will likely override the <code>Generate</code>
+method to customize the output.
+      </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $html;</dt>
+        <dt>var $class;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#ThemeElement::Generate">Generate</a>, <a href="#ThemeElement::ThemeElement">ThemeElement</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="ThemeElement::ThemeElement"></a>
+        <dt><span class="functionName">
+            <a href="#$class">ThemeElement</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função ThemeElement</blockquote>
+          </div>
+          <div class="declaration">function ThemeElement($html='&amp;nbsp;',$class=null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$html</span> Default <span class="paramValue">'&amp;nbsp;'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$html</tt>
+            </dd>
+            <dt><span class="paramName">$class</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$class</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ThemeElement::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="Container"></a>
+      <h2>Classe <span class="className">Container</span></h2>
+      <blockquote>
+          extends <a href="#">ThemeElement</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      A general purpose container providing top,left,center,right,bottom
+positioning
+      </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $top;</dt>
+        <dt>var $left;</dt>
+        <dt>var $center;</dt>
+        <dt>var $right;</dt>
+        <dt>var $bottom;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#Container::AddElement">AddElement</a>, <a href="#Container::Generate">Generate</a>, <a href="#Container::GenerateElements">GenerateElements</a>, <a href="#Container::GetColumnCount">GetColumnCount</a>, <a href="#Container::GetRowCount">GetRowCount</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="Container::AddElement"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddElement</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Adds an element at the specified position
+          </blockquote>
+          </div>
+          <div class="declaration">function AddElement($element,$where='center')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$element</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$element</tt>
+            </dd>
+            <dt><span class="paramName">$where</span> Default <span class="paramValue">'center'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$where</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Container::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Generates the HTML output for this container
+          </blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Container::GetRowCount"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetRowCount</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Obtains the number of table rows
+          </blockquote>
+          </div>
+          <div class="declaration">function GetRowCount()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Container::GetColumnCount"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetColumnCount</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Obtains the number of table columns
+          </blockquote>
+          </div>
+          <div class="declaration">function GetColumnCount()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Container::GenerateElements"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GenerateElements</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Helper function to generate elements in a recursive manner (e.g.
+nested containers)
+          </blockquote>
+          </div>
+          <div class="declaration">function GenerateElements(&amp;$elements,$separator='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">&amp;$elements</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>&amp;$elements</tt>
+            </dd>
+            <dt><span class="paramName">$separator</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$separator</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="Content"></a>
+      <h2>Classe <span class="className">Content</span></h2>
+      <blockquote>
+          extends <a href="#">ThemeElement</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      Mostly used for including files directly into the content area
+      </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $path;</dt>
+        <dt>var $home;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#Content::Content">Content</a>, <a href="#Content::Generate">Generate</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="Content::Content"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Content</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Content</blockquote>
+          </div>
+          <div class="declaration">function Content($module=false,$name=false,$home=false)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$module</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$module</tt>
+            </dd>
+            <dt><span class="paramName">$name</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$home</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$home</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Content::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="FileContent"></a>
+      <h2>Classe <span class="className">FileContent</span></h2>
+      <blockquote>
+          extends <a href="#">ThemeElement</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      Mostly used for including files in the content area
+      </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $isSource;</dt>
+        <dt>var $home;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#FileContent::FileContent">FileContent</a>, <a href="#FileContent::Generate">Generate</a>, <a href="#FileContent::SetFile">SetFile</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="FileContent::FileContent"></a>
+        <dt><span class="functionName">
+            <a href="#$class">FileContent</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função FileContent</blockquote>
+          </div>
+          <div class="declaration">function FileContent($FileName=null,$isSource=false,$home=false)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$FileName</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$FileName</tt>
+            </dd>
+            <dt><span class="paramName">$isSource</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$isSource</tt>
+            </dd>
+            <dt><span class="paramName">$home</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$home</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="FileContent::SetFile"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetFile</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetFile</blockquote>
+          </div>
+          <div class="declaration">function SetFile($file)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$file</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$file</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="FileContent::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="ThemeMenu"></a>
+      <h2>Classe <span class="className">ThemeMenu</span></h2>
+      <blockquote>
+          extends <a href="#">ThemeElement</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      Default menu implementation
+      </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $title;</dt>
+        <dt>var $home;</dt>
+        <dt>var $options;</dt>
+        <dt>var $base;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#ThemeMenu::AddGroupOption">AddGroupOption</a>, <a href="#ThemeMenu::AddLink">AddLink</a>, <a href="#ThemeMenu::AddMenu">AddMenu</a>, <a href="#ThemeMenu::AddOption">AddOption</a>, <a href="#ThemeMenu::AddSeparator">AddSeparator</a>, <a href="#ThemeMenu::AddUserOption">AddUserOption</a>, <a href="#ThemeMenu::Clear">Clear</a>, <a href="#ThemeMenu::Generate">Generate</a>, <a href="#ThemeMenu::GetBase">GetBase</a>, <a href="#ThemeMenu::GetOptions">GetOptions</a>, <a href="#ThemeMenu::GetTitle">GetTitle</a>, <a href="#ThemeMenu::SetBase">SetBase</a>, <a href="#ThemeMenu::SetTitle">SetTitle</a>, <a href="#ThemeMenu::ThemeMenu">ThemeMenu</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="ThemeMenu::ThemeMenu"></a>
+        <dt><span class="functionName">
+            <a href="#$class">ThemeMenu</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função ThemeMenu</blockquote>
+          </div>
+          <div class="declaration">function ThemeMenu($title='',$base='',$home='main')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$title</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$title</tt>
+            </dd>
+            <dt><span class="paramName">$base</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$base</tt>
+            </dd>
+            <dt><span class="paramName">$home</span> Default <span class="paramValue">'main'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$home</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ThemeMenu::GetTitle"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetTitle</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetTitle</blockquote>
+          </div>
+          <div class="declaration">function GetTitle()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ThemeMenu::SetTitle"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetTitle</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetTitle</blockquote>
+          </div>
+          <div class="declaration">function SetTitle($title)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$title</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$title</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ThemeMenu::GetBase"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetBase</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetBase</blockquote>
+          </div>
+          <div class="declaration">function GetBase()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ThemeMenu::SetBase"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetBase</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetBase</blockquote>
+          </div>
+          <div class="declaration">function SetBase($base)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$base</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$base</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ThemeMenu::GetOptions"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetOptions</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetOptions</blockquote>
+          </div>
+          <div class="declaration">function &amp; GetOptions()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ThemeMenu::AddLink"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddLink</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função AddLink</blockquote>
+          </div>
+          <div class="declaration">function AddLink($label,$link='#',$target='_self')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$link</span> Default <span class="paramValue">'#'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$link</tt>
+            </dd>
+            <dt><span class="paramName">$target</span> Default <span class="paramValue">'_self'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$target</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ThemeMenu::AddOption"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddOption</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função AddOption</blockquote>
+          </div>
+          <div class="declaration">function AddOption($label,$module='main',$action='',$item='',$args=null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$module</span> Default <span class="paramValue">'main'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$module</tt>
+            </dd>
+            <dt><span class="paramName">$action</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$action</tt>
+            </dd>
+            <dt><span class="paramName">$item</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$item</tt>
+            </dd>
+            <dt><span class="paramName">$args</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$args</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ThemeMenu::AddUserOption"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddUserOption</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função AddUserOption</blockquote>
+          </div>
+          <div class="declaration">function AddUserOption($access,$label,$module='main',$action='',$item='',$args=null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$access</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$access</tt>
+            </dd>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$module</span> Default <span class="paramValue">'main'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$module</tt>
+            </dd>
+            <dt><span class="paramName">$action</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$action</tt>
+            </dd>
+            <dt><span class="paramName">$item</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$item</tt>
+            </dd>
+            <dt><span class="paramName">$args</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$args</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ThemeMenu::AddGroupOption"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddGroupOption</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função AddGroupOption</blockquote>
+          </div>
+          <div class="declaration">function AddGroupOption($access,$label,$module='main',$action='',$item='', $args=null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$access</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$access</tt>
+            </dd>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$module</span> Default <span class="paramValue">'main'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$module</tt>
+            </dd>
+            <dt><span class="paramName">$action</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$action</tt>
+            </dd>
+            <dt><span class="paramName">$item</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$item</tt>
+            </dd>
+            <dt><span class="paramName">$args</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$args</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ThemeMenu::AddSeparator"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddSeparator</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função AddSeparator</blockquote>
+          </div>
+          <div class="declaration">function AddSeparator($name=null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$name</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ThemeMenu::AddMenu"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddMenu</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função AddMenu</blockquote>
+          </div>
+          <div class="declaration">function AddMenu(&amp;$menu)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">&amp;$menu</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>&amp;$menu</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ThemeMenu::Clear"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Clear</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Clear</blockquote>
+          </div>
+          <div class="declaration">function Clear()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ThemeMenu::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="ThemeBox"></a>
+      <h2>Classe <span class="className">ThemeBox</span></h2>
+      <blockquote>
+          extends <a href="#">ThemeElement</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      Default box implementation
+      </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $title;</dt>
+        <dt>var $content;</dt>
+        <dt>var $width = '98%';</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#ThemeBox::Generate">Generate</a>, <a href="#ThemeBox::ThemeBox">ThemeBox</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="ThemeBox::ThemeBox"></a>
+        <dt><span class="functionName">
+            <a href="#$class">ThemeBox</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função ThemeBox</blockquote>
+          </div>
+          <div class="declaration">function ThemeBox($title, $content)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$title</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$title</tt>
+            </dd>
+            <dt><span class="paramName">$content</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$content</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ThemeBox::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <hr>
+    <p>
+      <b>Caminho:</b>
+      <br>
+      <blockquote>/usr/local/miolo/classes/ui/theme.class</blockquote>
+    </p>
+    <p>
+      <b>Criado:</b>
+      <br>
+      <blockquote>2001/08/14</blockquote>
+    </p>
+    <p>
+      <b>Autor(es):</b>
+      <br>
+      <blockquote>
+        <table>
+          <tr>
+            <td>Thomas Spriestersbach</td>
+            <td>author</td>
+            <td>
+              <a href="malto:ts@interact2000.com.br">ts@interact2000.com.br</a>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Vilson Cristiano Gartner</td>
+            <td>author</td>
+            <td>
+              <a href="malto:vgartner@univates.br">vgartner@univates.br</a>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+      </blockquote>
+    </p>
+    <p>
+      <b>Mantido por:</b>
+      <br>
+      <blockquote>
+        <table>
+          <tr>
+            <td>Thomas Spriestersbach</td>
+            <td>author</td>
+            <td>
+              <a href="malto:ts@interact2000.com.br">ts@interact2000.com.br</a>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Vilson Cristiano Gartner</td>
+            <td>author</td>
+            <td>
+              <a href="malto:vgartner@univates.br">vgartner@univates.br</a>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+      </blockquote>
+    </p>
+    <div align="center" style="margin:10; border: solid 1 black;">
+      <cite></cite>
+    </div>
+    <div style="width: 95%; font-size: 9pt; text-align:right; background:#efefef; margin-top: 20px; border-top: #0000ff 1px solid; padding: 2px 20px 2px 20px;">
+  CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)
+  </div>
+  </body>
+</html>

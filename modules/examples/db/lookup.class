@@ -1,0 +1,68 @@
+<?
+  class BusinessExamplesLookup
+  {
+    function AutocompleteLogin(&$context)
+    {
+      $context->SetContext('bis','select name from cmn_users  where login=?');
+    }
+
+
+    function LookupLogin(&$lookup)
+    {
+      //$related = $_REQUEST['related'];
+      //$value   = $_REQUEST['value'];
+      //$form    = $_REQUEST['form'];
+
+      $filterLogin  = Form::GetFormValue('filterLogin');
+      $filterNome   = $lookup->GetFilterValue('filterNome');
+      $filterEmail  = $lookup->GetFilterValue('filterEmail');
+      $filterClause = $lookup->GetFilterValue('filterClause');
+
+      $lookup->AddFilterField( new TextField('Login','filterLogin',$filterLogin,30) );
+      $lookup->AddFilterField( new TextField('Nome','filterNome',$filterNome,30) );
+      $lookup->AddFilterField( new TextField('E-Mail','filterEmail',$filterEmail,30) );
+
+      $lookup->AddFilterField( new Selection('Comparação','filterClause',$filterClause,
+                                              array('AND' => '- e -',
+                                                    'OR'  => '- ou -') ));
+
+      $lookup->SetListingTitle('Usuários Encontradas');
+
+      $lookup->SetLabels( array( new ListingColumn('Login'),
+                                 new ListingColumn('Nome do Usuário',null,'left'),
+				 new ListingColumn('E-mail',null,'left')));
+
+      $lookup->SetPageLength(25); // default 20 if not specified
+
+      $sql = " select login, name, email " .
+             "   from cmn_users";
+
+      if ( $filterLogin )
+      {
+        $where .= " where ( upper(login) like upper('%{$filterLogin}%') )";
+      }
+
+      if ( $filterNome )
+      {
+        $where .= " $filterClause ( upper(name) like upper('%{$filterNome}%') )";
+      }
+      
+      if ( $filterEmail )
+      {
+        $where .= " $filterClause ( upper(email) like upper('%{$filterEmail}%') )";
+      }
+
+      if ( $where )
+      {
+         $sql .= $where;
+      }
+
+      $sql .= " order by name";
+echo $sql;
+      $lookup->SetDatabase('bis');
+      $lookup->SetQuery($sql);
+    }
+
+  }
+
+?>

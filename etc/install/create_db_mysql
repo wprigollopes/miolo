@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Script para criação das Bases e Tabelas do MIOLO
+# Script for creating Base and Tables
+#
+# Author: Vilson Cristiano Gartner - vilson@miolo.org.br
+# Updated: 27 Aug. 2004
+#
+
+if [ $1 ]; then
+    echo "- Creating database 'bis'..."
+    /usr/local/mysql/bin/mysqladmin -u root create bis;
+       
+    echo
+    echo "- Creating tables and inserting data..."
+    /usr/local/mysql/bin/mysql -u root -p <  miolo/modules/common/sql/bis-mysql.sql
+else
+    echo "MISSING ARGUMENT 1 - Base not Created"
+fi

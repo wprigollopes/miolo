@@ -1,0 +1,806 @@
+<?php
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# @title
+#   Theme and Theme Elements
+#
+# @description
+#   This file contains the theme and theme elements definitions
+#
+# @see      miolo/ui/themepainter.class
+#
+# @topics   theme, ui
+#
+# @created
+#   2001/08/14
+#
+# @organisation
+#   MIOLO - Miolo Development Team - UNIVATES Centro Universitario
+#
+# @legal
+#   CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+#   Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+#   further details)
+#
+# @contributors
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+# 
+# @maintainers
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#
+# @id $Id: theme.class,v 1.11 2004/08/12 18:15:32 vgartner Exp $
+#---------------------------------------------------------------------
+
+define('MIOLO_MAIN_MENU','__miolo_main_menu');
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Theme Class
+#---------------------------------------------------------------------
+class Theme
+{
+    var $styles;
+    var $scripts;
+    var $metas;
+    var $navbar;
+    var $menus;
+    var $content;
+    var $title;
+    
+    function Theme()
+    {
+    }
+    
+    function AddStyle($url)
+    {   global $MIOLO;
+        
+        $url = $MIOLO->GetThemeURL($url);
+            
+        if ( ! $this->styles || ! in_array($url,$this->styles) )
+        {
+            $this->styles[] = $url;
+        }
+    }
+    
+    function AddScript($url)
+    {
+        if ( ! $this->scripts || ! in_array($url,$this->scripts) )
+        {
+            $this->scripts[] = $url;
+        }
+    }
+    
+    function AddMeta($name,$content)
+    {
+       $this->metas[] = "<meta name=\"$name\" content=\"$content\">\n";
+    }
+    
+    function AddHttpEquiv($name,$content)
+    {
+       $this->metas[] = "<meta http-equiv=\"$name\" content=\"$content\">\n";
+    }
+    
+    function & GetStyles()
+    {
+        return $this->styles;
+    }
+    
+    function & GetScripts()
+    {
+        return $this->scripts;
+    }
+    
+    function & GetMetas()
+    {
+        return $this->metas;
+    }
+    
+    function & GetNavigationBar()
+    {
+        if ( ! $this->navbar )
+        {
+            $this->navbar = new ThemeMenu();
+        }
+        
+        return $this->navbar;
+    }
+    
+    function SetNavigationBar(&$bar)
+    {
+        $this->navbar =& $bar;
+    }
+    
+    function ClearMenus()
+    {
+        unset($this->menus);
+    }
+    
+    
+    function & GetMenus()
+    {
+        return $this->menus;
+    }
+    
+    
+    function & GetMainMenu($title='Modules')
+    {
+        $menu =& $this->GetMenu(MIOLO_MAIN_MENU);
+        
+        $menu->SetTitle($title);
+        
+        /* 
+        if ( ! $menu->options )
+        {   global $MIOLOCONF;
+            
+            if ( isset($MIOLOCONF['menu']) )
+            {
+                foreach( $MIOLOCONF['menu'] as $module => $label )
+                {
+                    $menu->AddOption($label, $module,'main');
+                }
+            }
+            
+            $menu->SetTitle('Modules');
+        }        
+        */        
+        return $menu;
+    }
+
+
+    function & GetMenu($name)
+    {    
+        if ( ! $this->menus[$name] )
+        {
+            $this->menus[$name] = new ThemeMenu($name);
+        }
+
+        $menu =& $this->menus[$name];
+
+        $menu->SetTitle($name);
+        
+        return $menu;
+    }
+
+
+    function & GetStatusBar()
+    {
+        if ( ! $this->statusbar )
+        {   global $MIOLO;
+            
+            $login = $MIOLO->GetLogin();
+
+            $online = 0; // ( time() - $login->time ) / 60; 
+
+            $sb = new StatusBar();
+            $sb->AddInfo('<div align="center">'. _M('User:') . ' ' . ($login->id ? $login->id : '-') . '</div>');
+            $sb->AddInfo('<div align="center">'. _M('Login at:') . ' ' . ($login->id ? Date('H:i',$login->time) . 
+                         ' (' . sprintf('%02d:%02d',$online/60,$online%60) . ')' : '--:--') . '</div>');        
+            $sb->AddInfo('<div align="center">'. _M('Date:') .' '. ($login->id ? Date('d/m/Y',$login->time) : '--/--/----') . '</div>');        
+            $sb->AddInfo('<div align="center">MIOLO Version: ' . MIOLO_VERSION . '</div>');
+            
+            $this->statusbar = $sb;
+        }
+        
+        return $this->statusbar;
+    }
+    
+    function SetStatusBar(&$bar)
+    {
+        $this->statusbar =& $bar;
+    }
+    
+    function & GetTitle()
+    {
+        return $this->title;
+    }
+    
+    function SetTitle(&$title)
+    {
+        $this->title =& $title;
+    }
+    
+    function ClearContent()
+    {
+        unset($this->content);
+    }
+    
+    function & GetContent()
+    {
+        return $this->content;
+    }
+    
+    function SetContent(&$content)
+    {
+        $this->content =& $content;
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Inserts an element at the start of the content array
+    #---------------------------------------------------------------------
+    function InsertContent(&$element)
+    {
+        if ( $this->content )
+        {
+            // if we have already something set as our content, we have
+            // to check if it is already an array. If not, we have to
+            // convert the content into an array first and then append
+            // the new element
+            if ( ! is_array($this->content) )
+            {
+                $this->content = array($this->content);
+            }
+            
+            array_unshift($this->content,&$element);
+        }
+        
+        else
+        {
+            $this->content[] = &$element;
+        }
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Appends an element at the end of the content array
+    #---------------------------------------------------------------------
+    function AppendContent(&$element)
+    {
+        if ( $this->content )
+        {
+            // if we have already something set as our content, we have
+            // to check if it is already an array. If not, we have to
+            // convert the content into an array first and then append
+            // the new element
+            if ( ! is_array($this->content) )
+            {
+                $this->content = array($this->content);
+            }
+            
+            $this->content[] = &$element;
+        }
+        
+        else
+        {
+            $this->content[] = &$element;
+        }
+    }
+    
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Adds a theme element to a specific <b>slot</b> within the theme
+    #---------------------------------------------------------------------
+    function AddElement(&$element, $location='content')
+    {
+        switch ($location)
+        {
+            case 'menu':
+                $this->menus[]=&$element;
+                break;
+                
+            case 'content':
+                $this->content[]=&$element;
+                break;
+                
+            default:
+                eval("\$this->{$location}[]=&\$element;");
+                break;
+        }
+    }
+    
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Used to obtain an instance of a component. The function loads the
+    # implementation class of the specified component and returns an
+    # instance of the same.
+    # The component file must be located into the ./classes/components directory
+    #
+    # @returns (object) an instance of <code>ThemeElement</code>
+    #
+    # @example
+    # $ticker = $theme->UseComponent('newsticker');
+    # // $ticker->SetTitle('The Latest News');
+    # $theme->AppendContent($ticker);
+    #
+    # @param $name (string) Nome da classe o modulo que sera acessado
+    #---------------------------------------------------------------------
+    function & UseComponent($name)
+    {   global $MIOLO,$MIOLOCONF;
+        
+        $class = $MIOLOCONF['home']['miolo'] . '/components/' . $name . '.class'; 
+        $MIOLO->Assert(file_exists($class),"Class '$class' not found!");
+        
+        include_once($class);
+        eval("\$instance = new $name();");
+        
+        return $instance;
+    }
+
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # @deprecated for compatibility only
+    #---------------------------------------------------------------------
+    function Content($content)
+    {   global $MIOLO;
+        $MIOLO->LogMessage('[DEPRECATED] Call to $theme->Content() function! -- Use SetContent() instead.');
+        $this->SetContent($content);
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # @deprecated for compatibility only
+    #---------------------------------------------------------------------
+    function Status($content)
+    {   global $MIOLO;
+        $MIOLO->LogMessage('[DEPRECATED] Call to $theme->Status() function! -- Use SetStatusBar() instead.');
+        $this->SetStatusBar($content);
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # @deprecated for compatibility only
+    #---------------------------------------------------------------------
+    function Generate()
+    {   global $MIOLO;
+        $MIOLO->LogMessage('[DEPRECATED] Call to $theme->Generate() function! -- Use $MIOLO->GenerateTheme() instead.');
+        $MIOLO->GenerateTheme();
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # @deprecated for compatibility only
+    #---------------------------------------------------------------------
+    function Commands($content)
+    {   global $MIOLO;
+        $MIOLO->LogMessage('[DEPRECATED] Call to $theme->Commands() function! -- Use AddMenu() instead.');
+        // $this->SetStatusBar($content);
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # @deprecated for compatibility only
+    #---------------------------------------------------------------------
+    function Title($content)
+    {   global $MIOLO;
+        $MIOLO->LogMessage('[DEPRECATED] Call to $theme->Title() function! -- Use SetTitle() instead.');
+        $this->SetTitle($content);
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # @deprecated for compatibility only
+    #---------------------------------------------------------------------
+    function News($content)
+    {   global $MIOLO;
+        $MIOLO->LogMessage('[DEPRECATED] Call to $theme->News() function! -- Function does not exist anymore.');
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # @deprecated for compatibility only
+    #---------------------------------------------------------------------
+    function Help($content)
+    {   global $MIOLO;
+        $MIOLO->LogMessage('[DEPRECATED] Call to $theme->Help() function! -- Function does not yet implemented.');
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # @deprecated for compatibility only
+    #---------------------------------------------------------------------
+    function & CreateMenu($name)
+    {   global $MIOLO;
+        $MIOLO->LogMessage('[DEPRECATED] Call to $theme->CreateMenu($title) function! -- Use $MIOLO->GetMenu($name) instead.');
+        $menu =& $this->GetMenu($name);
+        $menu->SetTitle($name);
+        return $menu;
+    }
+}
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# The <code>ThemeElement</code> class is the base class for any element
+# which can be put into a theme. Basically the implementation provides
+# a <code>Generate</code> method, which will generate the appropriate
+# HTML output when called.
+# <br><br>
+# Derived classes will likely override the <code>Generate</code>
+# method to customize the output.
+#---------------------------------------------------------------------
+class ThemeElement
+{
+    var $html;
+    var $class;
+    
+    function ThemeElement($html='&nbsp;',$class=null)
+    {
+        $this->html = $html;
+    }
+    
+    function Generate()
+    {
+        if ( $this->class )
+        {
+            echo "<div class=\"{$this->class}\">$this->html</div>";
+        }
+        
+        else
+        {
+            echo $this->html;
+        }
+    }
+}
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# A general purpose container providing top,left,center,right,bottom
+# positioning
+#---------------------------------------------------------------------
+class Container extends ThemeElement
+{
+    var $top;
+    var $left;
+    var $center;
+    var $right;
+    var $bottom;
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Adds an element at the specified position
+    #---------------------------------------------------------------------
+    function AddElement($element,$where='center')
+    {   global $MIOLO;
+        
+        if ( $where == 'top' )
+        {
+            $this->top[] = $element;
+        }
+        
+        else if ( $where == 'left' )
+        {
+            $this->left[] = $element;
+        }
+        
+        else if ( $where == 'center' )
+        {
+            $this->center[] = $element;
+        }
+        
+        else if ( $where == 'right' )
+        {
+            $this->right[] = $element;
+        }
+        
+        else if ( $where == 'bottom' )
+        {
+            $this->bottom[] = $element;
+        }
+        
+        else
+        {
+            $MIOLO->Error("Container: Illegal positioning '$where' parameter!");
+        }
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Generates the HTML output for this container
+    #---------------------------------------------------------------------
+    function Generate()
+    {
+        $num_rows = $this->GetRowCount();
+        $num_cols = $this->GetColumnCount();
+        
+        if ( $num_rows && $num_cols )
+        {
+            echo "<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
+            if ( $this->top )
+            {
+                echo "  <tr>\n";
+                echo "    <td align=\"center\" colspan=\"$num_cols\">";
+                $this->GenerateElements($this->top,'&nbsp;');
+                echo "    </td>\n";
+                echo "  </tr>\n";
+            }
+            if ( $this->left || $this->center || $this->right )
+            {
+                echo "  <tr>\n";
+                if ( $this->left )
+                {
+                    echo "    <td align=\"center\" valign=\"top\">\n";
+                    $this->GenerateElements($this->left,'<br>');
+                    echo "    </td>\n";
+                }
+                if ( $this->center )
+                {
+                    echo "    <td width=\"100%\" align=\"center\" valign=\"top\">\n";
+                    $this->GenerateElements($this->center,'<br>');
+                    echo "    </td>\n";
+                }
+                if ( $this->right )
+                {
+                    echo "    <td align=\"center\" valign=\"top\">\n";
+                    $this->GenerateElements($this->right,'<br>');
+                    echo "    </td>\n";
+                }
+                echo "  </tr>\n";
+            }
+            if ( $this->bottom )
+            {
+                echo "  <tr>\n";
+                echo "    <td align=\"center\" colspan=\"$num_cols\">";
+                $this->GenerateElements($this->bottom,'&nbsp;');
+                echo "    </td>\n";
+                echo "  </tr>\n";
+            }
+            echo "</table>\n";
+        }
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Obtains the number of table rows
+    #---------------------------------------------------------------------
+    function GetRowCount()
+    {
+        $num_rows = 0;
+        
+        if ( $this->top )
+        {
+            $num_rows++;
+        }
+        
+        if ( $this->left || $this->center || $this->right )
+        {
+            $num_rows++;
+        }
+        
+        if ( $this->bottom )
+        {
+            $num_rows++;
+        }
+        
+        return $num_rows;
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Obtains the number of table columns
+    #---------------------------------------------------------------------
+    function GetColumnCount()
+    {
+        $num_cols = 0;
+        
+        if ( $this->left )
+        {
+            $num_cols++;
+        }
+        
+        if ( $this->center )
+        {
+            $num_cols++;
+        }
+        
+        if ( $this->right )
+        {
+            $num_cols++;
+        }
+        
+        if ( ! $num_cols )
+        {
+            if ( $this->top )
+            {
+                $num_cols++;
+            }
+            
+            else if ( $this->bottom )
+            {
+                $num_cols++;
+            }
+        }
+        
+        return $num_cols; 
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Helper function to generate elements in a recursive manner (e.g.
+    # nested containers)
+    #---------------------------------------------------------------------
+    function GenerateElements(&$elements,$separator='')
+    {
+        $count = 0;
+        
+        foreach ( $elements as $e )
+        {
+            if ( $count++ && $separator )
+            {
+                echo $separator;
+            }
+            
+            if ( is_object($e) )
+            {
+                $e->Generate();
+            }
+            
+            else if ( is_array($e) )
+            {
+                $this->GenerateElements($e,$separator);
+            }
+            
+            else
+            {
+                echo $e;
+            }
+        }
+    }
+}
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Mostly used for including files directly into the content area
+#---------------------------------------------------------------------
+class Content extends ThemeElement
+{
+    var $path;
+    var $home;
+    
+    function Content($module=false,$name=false,$home=false)
+    {   global $MIOLO;
+        
+        $this->path = $MIOLO->GetModulePath($module,'content/' . $name);
+        $this->home = $home;
+    }
+    
+    function Generate()
+    { 
+        include($this->path);
+    }
+}
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Mostly used for including files in the content area
+#---------------------------------------------------------------------
+class FileContent extends ThemeElement
+{
+    var $isSource;
+    var $home;
+    
+    function FileContent($FileName=null,$isSource=false,$home=false)
+    {
+        $this->FileName = $FileName;
+        $this->isSource = $isSource;
+        $this->home     = $home;
+    }
+       
+    function SetFile($file)
+    {
+        $this->FileName = $file;
+    }
+    
+    function Generate()
+    { 
+        $home = $this->home;
+            
+        if ( $this->isSource )
+        {
+            echo "<h2 align=\"center\">{$this->FileName}</h2>\n";
+            echo "<div style=\"background-color: #f7f7f7; padding: 8; border: 1px solid #00009f;\">\n";
+            highlight_file($this->FileName);
+            echo "</div>\n";
+        }
+        else
+        {
+            include($this->FileName);
+        }
+    }
+}
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Default menu implementation
+#---------------------------------------------------------------------
+class ThemeMenu extends ThemeElement
+{
+    var $title;
+    var $home;
+    var $options;
+    var $base;
+    
+    function ThemeMenu($title='',$base='',$home='main')
+    {
+        $this->title  = $title;
+        $this->base   = $base;
+        $this->home   = $home;
+    }
+    
+    function GetTitle()
+    {
+        return $this->title;
+    }
+    
+    function SetTitle($title)
+    {
+        $this->title = $title;
+    }
+    
+    function GetBase()
+    {
+        return $this->base;
+    }
+    
+    function SetBase($base)
+    {
+        $this->base = $base;
+    }
+    
+    function & GetOptions()
+    {
+        return $this->options;
+    }
+    
+    function AddLink($label,$link='#',$target='_self')
+    {
+        $this->options[] = Array('link',$label,$link,$target);
+    }
+    
+    function AddOption($label,$module='main',$action='',$item='',$args=null)
+    {
+        $this->options[] = Array('option',$label,$module,$action,$item,$args);
+    }
+
+    function AddUserOption($access,$label,$module='main',$action='',$item='',$args=null)
+    { global $MIOLO;
+        
+        if ( $MIOLO->CheckAccess($module, $access))
+        {
+            $this->AddOption($label,$module,$action,$item,$args);
+        }
+    }
+
+    function AddGroupOption($access,$label,$module='main',$action='',$item='', $args=null)
+    { global $MIOLO;
+                                                                                                                             
+        if ( $MIOLO->CheckAccess($module, $access, false, true))
+        {
+            $this->AddOption($label,$module,$action,$item,$args);
+        }
+    }
+
+    
+    function AddSeparator($name=null)
+    {
+        $this->options[] = $name;
+    }
+    
+    function AddMenu(&$menu)
+    {
+        $this->options[] = array('menu',$menu->title,$menu->options);
+    }
+
+    function Clear()
+    {
+        unset($this->options);
+    }
+    
+    function Generate()
+    {   
+        if ( count($this->options) )
+        {
+            global $MIOLO;
+            $painter =& $MIOLO->GetThemePainter();
+            $painter->GenerateMenu($this);
+        }
+    }
+}
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Default box implementation
+#---------------------------------------------------------------------
+class ThemeBox extends ThemeElement
+{
+    var $title;
+    var $content;
+    var $width = '98%';
+    
+    
+    function ThemeBox($title, $content)
+    {
+        $this->title   = $title;
+        $this->content = $content;
+    }
+    
+    
+    function Generate()
+    {   
+        global $MIOLO;
+        $painter =& $MIOLO->GetThemePainter();
+        $painter->GenerateBox($this);
+    }
+}
+
+
+
+?>

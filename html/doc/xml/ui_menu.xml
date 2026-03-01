@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="menu.class" path="/usr/local/miolo/classes/ui/menu.class" base="ui_menu" created="" lines="216">
+    <class name="BaseThemeMenu" base="ThemeElement" declaration="class BaseThemeMenu extends ThemeElement" line="3">
+        <var name="title" declaration="var $title;" line="5">
+        </var>
+        <var name="home" declaration="var $home;" line="6">
+        </var>
+        <var name="options" declaration="var $options;" line="7">
+        </var>
+        <var name="style" declaration="var $style;" line="8">
+        </var>
+        <var name="base" declaration="var $base;" line="9">
+        </var>
+        <function name="BaseThemeMenu" attribute="default" declaration="function BaseThemeMenu($title,$style='table',$base='',$home='main')" line="11">
+            <param name="$title" value="" type=""><![CDATA[]]></param>
+            <param name="$style" value="'table'" type=""><![CDATA[]]></param>
+            <param name="$base" value="''" type=""><![CDATA[]]></param>
+            <param name="$home" value="'main'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ClearOptions" attribute="default" declaration="function ClearOptions()" line="19">
+        </function>
+        <function name="SetTitle" attribute="default" declaration="function SetTitle($title)" line="24">
+            <param name="$title" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetStyle" attribute="default" declaration="function SetStyle($style)" line="29">
+            <param name="$style" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetBase" attribute="default" declaration="function SetBase($base)" line="34">
+            <param name="$base" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddLink" attribute="default" declaration="function AddLink($label,$link='#',$target='_self')" line="39">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$link" value="'#'" type=""><![CDATA[]]></param>
+            <param name="$target" value="'_self'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddOption" attribute="default" declaration="function AddOption($label,$module='main',$action='',$item='')" line="44">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$module" value="'main'" type=""><![CDATA[]]></param>
+            <param name="$action" value="''" type=""><![CDATA[]]></param>
+            <param name="$item" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddUserOption" attribute="default" declaration="function AddUserOption($access,$label,$module='main',$action='',$item='')" line="49">
+            <param name="$access" value="" type=""><![CDATA[]]></param>
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$module" value="'main'" type=""><![CDATA[]]></param>
+            <param name="$action" value="''" type=""><![CDATA[]]></param>
+            <param name="$item" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddGroupOption" attribute="default" declaration="function AddGroupOption($access,$label,$module='main',$action='',$item='')" line="58">
+            <param name="$access" value="" type=""><![CDATA[]]></param>
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$module" value="'main'" type=""><![CDATA[]]></param>
+            <param name="$action" value="''" type=""><![CDATA[]]></param>
+            <param name="$item" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddSeparator" attribute="default" declaration="function AddSeparator($name=null)" line="69">
+            <param name="$name" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddMenu" attribute="default" declaration="function AddMenu($label,$options)" line="74">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$options" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="79">
+        </function>
+    </class>
+    <class name="ThemeMenu" base="BaseThemeMenu" declaration="class ThemeMenu extends BaseThemeMenu" line="95">
+        <function name="ThemeMenu" attribute="default" declaration="function ThemeMenu($title,$style='table',$base='',$home='main')" line="100">
+            <param name="$title" value="" type=""><![CDATA[]]></param>
+            <param name="$style" value="'table'" type=""><![CDATA[]]></param>
+            <param name="$base" value="''" type=""><![CDATA[]]></param>
+            <param name="$home" value="'main'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GenerateOptionList" attribute="default" declaration="function GenerateOptionList($options,$depth=0)" line="108">
+            <param name="$options" value="" type=""><![CDATA[]]></param>
+            <param name="$depth" value="0" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GenerateDefaultMenu" attribute="default" declaration="function GenerateDefaultMenu()" line="155">
+        </function>
+        <function name="GenerateNavigationMenu" attribute="default" declaration="function GenerateNavigationMenu()" line="165">
+        </function>
+    </class>
+</source>

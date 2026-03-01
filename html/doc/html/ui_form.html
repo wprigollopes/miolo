@@ -1,0 +1,3454 @@
+<html xmlns:html="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>Source: Form and Form Elements</title>
+    <link rel="stylesheet" type="text/css" href="doc.css">
+  </head>
+  <body>
+    <h1>Documentação MIOLO</h1>
+    <h2>Form and Form Elements<br>
+      <font size="2">(2531 linhas)</font>
+    </h2>
+    <div class="description">
+      <h3>Descrição:</h3>
+      <blockquote>
+  This file contains the form and form elements definitions
+  </blockquote>
+    </div>
+    <div class="relations" align="right">
+         [<a href="?module=common&amp;action=main:doc:index:source&amp;item=/usr/local/miolo/classes/ui/form.class">Codigo Fonte</a>]
+         [<a href="/doc/dia/ui_form.dia">Diagrama UML</a>]
+      </div>
+    <div class="relations" align="right">
+            Veja também:
+            <a href="?module=common&amp;action=main:doc:index:file&amp;item=/usr/local/bis/html/miolo/ui/tabbedform.class">miolo/ui/tabbedform.class</a>, <a href="?module=common&amp;action=main:doc:index:file&amp;item=/usr/local/bis/html/miolo/ui/themepainter.class">miolo/ui/themepainter.class</a>
+    </div>
+    <div class="relations" align="right">
+            Tópicos relacionados:
+            <a href="?module=common&amp;action=main:doc:topic&amp;item=form">form</a>, <a href="?module=common&amp;action=main:doc:topic&amp;item=ui">ui</a>
+    </div>
+    <h3>Classes:</h3>
+    <blockquote>
+      <a href="#CheckBox">CheckBox</a>, <a href="#CheckBoxGroup">CheckBoxGroup</a>, <a href="#ComboBox">ComboBox</a>, <a href="#DateField">DateField</a>, <a href="#FileField">FileField</a>, <a href="#Form">Form</a>, <a href="#FormButton">FormButton</a>, <a href="#FormData">FormData</a>, <a href="#FormField">FormField</a>, <a href="#HiddenField">HiddenField</a>, <a href="#LookupField">LookupField</a>, <a href="#MultiChoiceField">MultiChoiceField</a>, <a href="#MultiSelection">MultiSelection</a>, <a href="#MultiTextField">MultiTextField</a>, <a href="#MultiTextField2">MultiTextField2</a>, <a href="#Option">Option</a>, <a href="#PasswordField">PasswordField</a>, <a href="#RadioButton">RadioButton</a>, <a href="#RadioButtonGroup">RadioButtonGroup</a>, <a href="#Selection">Selection</a>, <a href="#Separator">Separator</a>, <a href="#Text">Text</a>, <a href="#TextArea">TextArea</a>, <a href="#TextField">TextField</a>, <a href="#TextLabel">TextLabel</a>, <a href="#Validator">Validator</a>
+    </blockquote>
+    <div class="classBlock">
+      <a name="Form"></a>
+      <h2>Classe <span class="className">Form</span></h2>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      The form class is the base class to construct a HTML form. Along
+with this class, different form object classes are defined, such as
+input fields (TextField), choices (Selection), check and radio
+boxes.
+      </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $title;</dt>
+        <dt>var $name;</dt>
+        <dt>var $action;</dt>
+        <dt>var $method;</dt>
+        <dt>var $buttons;</dt>
+        <dt>var $fields;</dt>
+        <dt>var $return;</dt>
+        <dt>var $reset;</dt>
+        <dt>var $styles;</dt>
+        <dt>var $help;</dt>
+        <dt>var $footer;</dt>
+        <dt>var $width;</dt>
+        <dt>var $onsubmit;</dt>
+        <dt>var $showHints = true;</dt>
+        <dt>var $enctype;</dt>
+        <dt>var $validations;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#Form::AddButton">AddButton</a>, <a href="#Form::AddError">AddError</a>, <a href="#Form::AddField">AddField</a>, <a href="#Form::AddValidation">AddValidation</a>, <a href="#Form::CollectInput">CollectInput</a>, <a href="#Form::Error">Error</a>, <a href="#Form::EscapeValue">EscapeValue</a>, <a href="#Form::Form">Form</a>, <a href="#Form::Generate">Generate</a>, <a href="#Form::GenerateBody">GenerateBody</a>, <a href="#Form::GenerateErrors">GenerateErrors</a>, <a href="#Form::GenerateScript">GenerateScript</a>, <a href="#Form::GetBody">GetBody</a>, <a href="#Form::GetData">GetData</a>, <a href="#Form::GetField">GetField</a>, <a href="#Form::GetFieldList">GetFieldList</a>, <a href="#Form::_GetFieldList">_GetFieldList</a>, <a href="#Form::GetFields">GetFields</a>, <a href="#Form::GetFieldValue">GetFieldValue</a>, <a href="#Form::GetFooter">GetFooter</a>, <a href="#Form::GetFormValue">GetFormValue</a>, <a href="#Form::GetName">GetName</a>, <a href="#Form::GetShowHints">GetShowHints</a>, <a href="#Form::GetTitle">GetTitle</a>, <a href="#Form::HasErrors">HasErrors</a>, <a href="#Form::IsSubmitted">IsSubmitted</a>, <a href="#Form::LayoutFormFields">LayoutFormFields</a>, <a href="#Form::OnSubmit">OnSubmit</a>, <a href="#Form::_RegisterField">_RegisterField</a>, <a href="#Form::SetAction">SetAction</a>, <a href="#Form::SetButtonLabel">SetButtonLabel</a>, <a href="#Form::SetData">SetData</a>, <a href="#Form::_SetData">_SetData</a>, <a href="#Form::SetFields">SetFields</a>, <a href="#Form::SetFieldValue">SetFieldValue</a>, <a href="#Form::SetFooter">SetFooter</a>, <a href="#Form::SetFormValue">SetFormValue</a>, <a href="#Form::SetHelp">SetHelp</a>, <a href="#Form::SetTitle">SetTitle</a>, <a href="#Form::ShowHints">ShowHints</a>, <a href="#Form::ShowReset">ShowReset</a>, <a href="#Form::ShowReturn">ShowReturn</a>, <a href="#Form::Validate">Validate</a>, <a href="#Form::ValidateAll">ValidateAll</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="Form::Form"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Form</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          This is the constructor of the Form class. It takes a title and an
+action url as optional parameters. The action URL is typically
+obtained by calling the <code>MIOLO-&gt;GetActionURL()</code> method.
+          </blockquote>
+          </div>
+          <div class="declaration">function Form($title='',$action='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$title</span> (<span class="paramValue">string</span>) Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">the form's title string</dd>
+            <dt><span class="paramName">$action</span> (<span class="paramValue">string</span>) Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">the URL for the forms <code>ACTION</code>                attribute.</dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::AddValidation"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddValidation</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função AddValidation</blockquote>
+          </div>
+          <div class="declaration">function AddValidation(&amp;$field)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">&amp;$field</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>&amp;$field</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::GetName"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetName</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Obtains the name of this form.
+          </blockquote>
+          </div>
+          <div class="declaration">function GetName()</div>
+          <div class="returns">
+            <h3>Retorna:</h3>
+            <blockquote>
+            (<tt>String</tt>) 
+           the name of the form
+          </blockquote>
+          </div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::IsSubmitted"></a>
+        <dt><span class="functionName">
+            <a href="#$class">IsSubmitted</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Detects if a form has been submitted.
+          </blockquote>
+          </div>
+          <div class="declaration">function IsSubmitted()</div>
+          <div class="returns">
+            <h3>Retorna:</h3>
+            <blockquote>
+            (<tt>boolean</tt>) 
+           true if the form has been submitted otherwise
+                   false
+          </blockquote>
+          </div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::GetTitle"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetTitle</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Obtains the content of this form's title. Observe, that this
+can be anything other as a simple text string too, such as array of
+strings and an object implementing the <code>Generate()</code> method.
+          </blockquote>
+          </div>
+          <div class="declaration">function &amp; GetTitle()</div>
+          <div class="returns">
+            <h3>Retorna:</h3>
+            <blockquote>
+            (<tt>Mixed &amp;</tt>) 
+           a reference to the title of the form
+          </blockquote>
+          </div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::SetTitle"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetTitle</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Sets the form's title content
+          </blockquote>
+          </div>
+          <div class="declaration">function SetTitle($title)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$title</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$title</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::GetFooter"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetFooter</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Obtains the content title of this form's footer. Observe, that this
+can be anything other as a simple text string too, such as array of
+strings and an object implementing the <code>Generate()</code> method.
+          </blockquote>
+          </div>
+          <div class="declaration">function &amp; GetFooter()</div>
+          <div class="returns">
+            <h3>Retorna:</h3>
+            <blockquote>
+            (<tt>Mixed &amp;</tt>) 
+           a reference to the footer of the form
+          </blockquote>
+          </div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::SetFooter"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetFooter</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Sets the form's footer content
+          </blockquote>
+          </div>
+          <div class="declaration">function SetFooter($footer)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$footer</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$footer</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::GetFormValue"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetFormValue</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Obtains a submitted form field's value. This is a static function
+which takes in account that the Form class adds a prefix 'frm_' to
+all form variables. So when calling this function, the caller has
+to omit the prefix, using the same name, which was used in the
+field definition
+          </blockquote>
+          </div>
+          <div class="declaration">function GetFormValue($name,$value=false)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$value</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+          </dl>
+          <div class="returns">
+            <h3>Retorna:</h3>
+            <blockquote>
+            (<tt>mixed</tt>) 
+           value of field contained in <code>$_POST</code>
+          </blockquote>
+          </div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::SetFormValue"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetFormValue</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Sets the content of a form field to the specified value. The
+function does this by setting both, the field's value member and the
+global <code>$_REQUEST</code> to remain consistency between the values.
+It is expected, that the caller passes the same name as of the
+field definition (e.g. w/o 'frm_' prefix).
+          </blockquote>
+          </div>
+          <div class="declaration">function SetFormValue($name,$value)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$value</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::EscapeValue"></a>
+        <dt><span class="privateFunctionName">EscapeValue</span> (somente para uso interno)</dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Used to escapes special characters contained in a form field's value
+Currently, only simple and double quote characters are subsituted
+with their corresponding HTML entities.
+
+This function is used internally by some of the form's methods.
+          </blockquote>
+          </div>
+          <div class="declaration">function EscapeValue($value)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$value</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+          </dl>
+          <div class="returns">
+            <h3>Retorna:</h3>
+            <blockquote>
+            (<tt>string</tt>) 
+           the translated string
+          </blockquote>
+          </div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::OnSubmit"></a>
+        <dt><span class="functionName">
+            <a href="#$class">OnSubmit</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Adds JavaScript code which is to be executed, when the form is submitted.
+when the form is generated, and any JS code has been registered using
+this function, an <code>OnSubmit</code> handler is dynamically generated
+where the code is placed.
+<br><br>
+The generated code looks like the following where stmt stands for the
+registered statments
+          </blockquote>
+          </div>
+          <div class="declaration">function OnSubmit($jscode)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$jscode</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$jscode</tt>
+            </dd>
+          </dl>
+          <h3>Exemplo:</h3>
+          <pre>
+function _onSubmit()
+{
+  return stmt1 &amp;&amp;
+         stmt2 &amp;&amp;
+         ...
+         stmt#;
+}
+          </pre>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::SetAction"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetAction</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Sets the action URL for this form. This is the URL to which the
+form data will be submitted. Usually, the URL is obtained by the
+GetActionURL of the MIOLO class.
+          </blockquote>
+          </div>
+          <div class="declaration">function SetAction($action)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$action</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$action</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::SetHelp"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetHelp</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Sets an URL to a help document. This document will be opened via
+JavaScript in a new window. If this URL is set, the form will display
+a help button in it's title bar.
+          </blockquote>
+          </div>
+          <div class="declaration">function SetHelp($href)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$href</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$href</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::GetFields"></a>
+        <dt><span class="privateFunctionName">GetFields</span> (somente para uso interno)</dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Obtain the list of form fields.
+          </blockquote>
+          </div>
+          <div class="declaration">function GetFields()</div>
+          <div class="returns">
+            <h3>Retorna:</h3>
+            <blockquote>
+            (<tt>array</tt>) 
+           the list of form fields
+          </blockquote>
+          </div>
+          <h3>Obsoleto:</h3>
+          <blockquote style="color:red;">
+          this function will be changed in the near future, so
+don't use it anymore and keep in touch with the development team
+to figure out, what will be the replacement.
+          </blockquote>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::SetFields"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetFields</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          This function is used to set an array of fields for the form.
+          </blockquote>
+          </div>
+          <div class="declaration">function SetFields(&amp;$fields)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">&amp;$fields</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>&amp;$fields</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::_RegisterField"></a>
+        <dt><span class="privateFunctionName">_RegisterField</span> (somente para uso interno)</dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          This function is used internally of the form framework to
+<i>prepare</i> the form fields for the usage within the form
+framework.
+<br><br>
+The function basically renames all fields to 'frm_' + name and
+assigns the value from the global array <code>$_REQUEST</code>
+if the field has no value (null) assigned.
+          </blockquote>
+          </div>
+          <div class="declaration">function _RegisterField(&amp;$field)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">&amp;$field</span> (<span class="paramValue">reference</span>)</dt>
+            <dd style="padding-top: 5">to a single field or an array of fields               If an array of fields is passed, the function is called               recursively for each of the contained fields.</dd>
+          </dl>
+          <div class="returns">
+            <h3>Retorna:</h3>
+            <blockquote>
+            (<tt>nothing</tt>) 
+          
+          </blockquote>
+          </div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::AddField"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddField</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Adds a single field to the list of form fields and optionally adds
+a hint text for the field.
+          </blockquote>
+          </div>
+          <div class="declaration">function AddField(&amp;$field,$hint=false)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">&amp;$field</span> (<span class="paramValue">reference</span>)</dt>
+            <dd style="padding-top: 5">a reference to a form field object</dd>
+            <dt><span class="paramName">$hint</span> (<span class="paramValue">string</span>) Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">an optional hint for the form field</dd>
+          </dl>
+          <div class="returns">
+            <h3>Retorna:</h3>
+            <blockquote>
+            (<tt>nothing</tt>) 
+          
+          </blockquote>
+          </div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::AddButton"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddButton</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Adds a form button. The button is added to the list of form buttons.
+By default, the form framework arranges the buttons at the bottom
+of the form container from the left to the right.
+          </blockquote>
+          </div>
+          <div class="declaration">function AddButton($label,$name,$action)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span> (<span class="paramValue">string</span>)</dt>
+            <dd style="padding-top: 5">the text which will appear on the button</dd>
+            <dt><span class="paramName">$name</span> (<span class="paramValue">string</span>)</dt>
+            <dd style="padding-top: 5">the internal button name</dd>
+            <dt><span class="paramName">$action</span> (<span class="paramValue">string</span>)</dt>
+            <dd style="padding-top: 5">the action; 'SUBMIT', 'RESET' for the buttons                         type attribute or a JavaScript instruction for                         the button's onClick attribute</dd>
+          </dl>
+          <div class="relations" align="right">
+            Veja também:
+            <a href="?module=common&amp;action=main:doc:index:file&amp;item=/usr/local/bis/html/FormButton">FormButton</a>
+          </div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::SetButtonLabel"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetButtonLabel</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          This function is mainly used, to change the labels of the form's
+default buttons for submit and return.
+          </blockquote>
+          </div>
+          <div class="declaration">function SetButtonLabel($index,$label)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$index</span> (<span class="paramValue">integer</span>)</dt>
+            <dd style="padding-top: 5">the 0 based index of the button</dd>
+            <dt><span class="paramName">$label</span> (<span class="paramValue">string</span>)</dt>
+            <dd style="padding-top: 5">the new button label</dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::ShowReturn"></a>
+        <dt><span class="functionName">
+            <a href="#$class">ShowReturn</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          This function can be used to show or hide the form's return button.
+          </blockquote>
+          </div>
+          <div class="declaration">function ShowReturn($state)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$state</span> (<span class="paramValue">boolean</span>)</dt>
+            <dd style="padding-top: 5">the visible state of the return button</dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::ShowReset"></a>
+        <dt><span class="functionName">
+            <a href="#$class">ShowReset</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          This function can be used to show or hide the form's reset button.
+          </blockquote>
+          </div>
+          <div class="declaration">function ShowReset($state)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$state</span> (<span class="paramValue">boolean</span>)</dt>
+            <dd style="padding-top: 5">the visible state of the reset button</dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::GetShowHints"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetShowHints</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          This function returns the visibility of the form's hint texts.
+          </blockquote>
+          </div>
+          <div class="declaration">function GetShowHints()</div>
+          <div class="relations" align="right">
+            Veja também:
+            <a href="?module=common&amp;action=main:doc:index:file&amp;item=/usr/local/bis/html/ShowHints">ShowHints</a>
+          </div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::ShowHints"></a>
+        <dt><span class="functionName">
+            <a href="#$class">ShowHints</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          This function can be used to show or hide the form's hint texts.
+Each form element may have a hint text associated with it. Using
+this method, one can enable/disable the display of the texts. This
+may be useful for implementing kind of an beginner/expert mode.
+          </blockquote>
+          </div>
+          <div class="declaration">function ShowHints($state)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$state</span> (<span class="paramValue">boolean</span>)</dt>
+            <dd style="padding-top: 5">the visible state of the hint texts</dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::GetFieldList"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetFieldList</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          This is a placeholder function to bu the form's field list. It
+is excpected, that the form returns a scalar list of all defined
+fields which carry a form field value. Thus, form elements of
+decorative purpose only should be omitted.
+<br><br>
+Derived classes such as <code>TabbedForm</code> override this
+function to provide the list of fields independently of the form's
+layout.
+          </blockquote>
+          </div>
+          <div class="declaration">function GetFieldList()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::_GetFieldList"></a>
+        <dt><span class="privateFunctionName">_GetFieldList</span> (somente para uso interno)</dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Internal function which takes a list of form elements possibly
+consisting of single fields as well as arrays and returns a scalar
+the list of fields filtering out some known decorative form fields.
+          </blockquote>
+          </div>
+          <div class="declaration">function _GetFieldList($allfields)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$allfields</span> (<span class="paramValue">array</span>)</dt>
+            <dd style="padding-top: 5">an array of form fields</dd>
+          </dl>
+          <div class="returns">
+            <h3>Retorna:</h3>
+            <blockquote>
+            (<tt>array</tt>) 
+           a scalar array of form fields
+          </blockquote>
+          </div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::ValidateAll"></a>
+        <dt><span class="functionName">
+            <a href="#$class">ValidateAll</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Validates all form fields to have a non-empty content
+          </blockquote>
+          </div>
+          <div class="declaration">function ValidateAll($assert=true)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$assert</span> (<span class="paramValue">boolean</span>) Default <span class="paramValue">true</span></dt>
+            <dd style="padding-top: 5">flag how to handle invalid fields;<br>                if true, an error message will be shown<br>                if false no error message will be shown and the                caller can provide an appropriate action based on the                return value.</dd>
+          </dl>
+          <div class="returns">
+            <h3>Retorna:</h3>
+            <blockquote>
+            (<tt>boolean</tt>) 
+           <b>true</b> if all fields have a value;
+                   <b>false</b> if any of the fields has been left
+                   empty
+          </blockquote>
+          </div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::Validate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Validate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Validates data for the form fields. The validation is based on the
+parameter $required
+          </blockquote>
+          </div>
+          <div class="declaration">function Validate($required,$assert=true)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$required</span> (<span class="paramValue">array</span>)</dt>
+            <dd style="padding-top: 5">Fields names wich should be validated</dd>
+            <dt><span class="paramName">$assert</span> Default <span class="paramValue">true</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$assert</tt>
+            </dd>
+          </dl>
+          <div class="returns">
+            <h3>Retorna:</h3>
+            <blockquote>
+            (<tt>boolean</tt>) 
+           <b>true</b> if the fields have a value;
+                   <b>false</b> if any of the fields has been left
+                   empty
+          </blockquote>
+          </div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::Error"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Error</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          registrar um erro relacionado ao form
+          </blockquote>
+          </div>
+          <div class="declaration">function Error($err)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$err</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$err</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::AddError"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddError</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          registrar um erro relacionado ao form
+          </blockquote>
+          </div>
+          <div class="declaration">function AddError($err)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$err</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$err</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::HasErrors"></a>
+        <dt><span class="functionName">
+            <a href="#$class">HasErrors</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          returns the number of error messages or 0, if no errors exist
+          </blockquote>
+          </div>
+          <div class="declaration">function HasErrors()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::CollectInput"></a>
+        <dt><span class="functionName">
+            <a href="#$class">CollectInput</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Get form data and put it into the class members
+          </blockquote>
+          </div>
+          <div class="declaration">function CollectInput($data)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$data</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$data</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::GetData"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetData</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          obtains form fields in a FormData object
+          </blockquote>
+          </div>
+          <div class="declaration">function GetData()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::SetData"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetData</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Set form fields values. A subclassed form will likely override this
+method, in order to provide a specialized processing for the passed
+data object.
+<br><br>
+This method simply calls the <code>_SetData()</code> method of the
+<code>Form</code> class.
+          </blockquote>
+          </div>
+          <div class="declaration">function SetData($data)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$data</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$data</tt>
+            </dd>
+          </dl>
+          <h3>Exemplo:</h3>
+          <pre>
+$data = new FormData();
+$form-&gt;SetData($data);
+          </pre>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::_SetData"></a>
+        <dt><span class="privateFunctionName">_SetData</span> (somente para uso interno)</dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          This method sets the form field values in way, that it iterates
+thru the list of fields and sets the values of all fields matching
+the data object attribute names.
+<br><br>
+In short it does the following<br>
+<blockquote>
+<code>$frm_name = $data-&gt;name;</code>
+<blockquote>
+This implies that the form field names must be identical the data
+member names.
+          </blockquote>
+          </div>
+          <div class="declaration">function _SetData($data)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$data</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$data</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::GetFieldValue"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetFieldValue</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          obtains a form field's value
+          </blockquote>
+          </div>
+          <div class="declaration">function GetFieldValue($name,$value=false)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$value</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::SetFieldValue"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetFieldValue</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Set a form field's value
+          </blockquote>
+          </div>
+          <div class="declaration">function SetFieldValue($name,$value)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$value</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::GetField"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetField</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Get a form field's value
+          </blockquote>
+          </div>
+          <div class="declaration">function &amp; GetField($name)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::GetBody"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetBody</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          generates the form's body and returns the resulting HTML code
+          </blockquote>
+          </div>
+          <div class="declaration">function GetBody()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Generate entire input form
+          </blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::GenerateErrors"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GenerateErrors</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GenerateErrors</blockquote>
+          </div>
+          <div class="declaration">function GenerateErrors()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::GenerateBody"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GenerateBody</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Generate form body
+          </blockquote>
+          </div>
+          <div class="declaration">function GenerateBody()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::GenerateScript"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GenerateScript</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Generate form specific script code
+          </blockquote>
+          </div>
+          <div class="declaration">function GenerateScript()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Form::LayoutFormFields"></a>
+        <dt><span class="functionName">
+            <a href="#$class">LayoutFormFields</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Do Layout of (visible) fields within form area
+          </blockquote>
+          </div>
+          <div class="declaration">function LayoutFormFields($fields,&amp;$hidden)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$fields</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$fields</tt>
+            </dd>
+            <dt><span class="paramName">&amp;$hidden</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>&amp;$hidden</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="FormData"></a>
+      <h2>Classe <span class="className">FormData</span></h2>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      pseudo class to collect form field values
+      </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="FormField"></a>
+      <h2>Classe <span class="className">FormField</span></h2>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe FormField.      
+          </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $form;   // back reference to form object</dt>
+        <dt>var $label;</dt>
+        <dt>var $name;</dt>
+        <dt>var $value;</dt>
+        <dt>var $hint;</dt>
+        <dt>var $attrs;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#FormField::AddAttribute">AddAttribute</a>, <a href="#FormField::Attributes">Attributes</a>, <a href="#FormField::FormField">FormField</a>, <a href="#FormField::Generate">Generate</a>, <a href="#FormField::GetHint">GetHint</a>, <a href="#FormField::SetHint">SetHint</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="FormField::FormField"></a>
+        <dt><span class="functionName">
+            <a href="#$class">FormField</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função FormField</blockquote>
+          </div>
+          <div class="declaration">function FormField($label,$name,$value=null,$hint='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$value</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+            <dt><span class="paramName">$hint</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$hint</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="FormField::GetHint"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetHint</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetHint</blockquote>
+          </div>
+          <div class="declaration">function GetHint($hint)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$hint</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$hint</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="FormField::SetHint"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetHint</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetHint</blockquote>
+          </div>
+          <div class="declaration">function SetHint($hint)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$hint</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$hint</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="FormField::AddAttribute"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddAttribute</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função AddAttribute</blockquote>
+          </div>
+          <div class="declaration">function AddAttribute($name,$value)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$value</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="FormField::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="FormField::Attributes"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Attributes</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Attributes</blockquote>
+          </div>
+          <div class="declaration">function Attributes()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="FormButton"></a>
+      <h2>Classe <span class="className">FormButton</span></h2>
+      <blockquote>
+          extends <a href="#">FormField</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe FormButton.      
+          </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $label;</dt>
+        <dt>var $name;</dt>
+        <dt>var $action;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#FormButton::FormButton">FormButton</a>, <a href="#FormButton::Generate">Generate</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="FormButton::FormButton"></a>
+        <dt><span class="functionName">
+            <a href="#$class">FormButton</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função FormButton</blockquote>
+          </div>
+          <div class="declaration">function FormButton($label,$name,$action)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$action</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$action</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="FormButton::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="Separator"></a>
+      <h2>Classe <span class="className">Separator</span></h2>
+      <blockquote>
+          extends <a href="#">FormField</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe Separator.      
+          </blockquote>
+      </div>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#Separator::Generate">Generate</a>, <a href="#Separator::Separator">Separator</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="Separator::Separator"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Separator</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Separator</blockquote>
+          </div>
+          <div class="declaration">function Separator($label=null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Separator::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="Text"></a>
+      <h2>Classe <span class="className">Text</span></h2>
+      <blockquote>
+          extends <a href="#">FormField</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe Text.      
+          </blockquote>
+      </div>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#Text::Generate">Generate</a>, <a href="#Text::Text">Text</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="Text::Text"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Text</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Text</blockquote>
+          </div>
+          <div class="declaration">function Text($content)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$content</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$content</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Text::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="TextLabel"></a>
+      <h2>Classe <span class="className">TextLabel</span></h2>
+      <blockquote>
+          extends <a href="#">FormField</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe TextLabel.      
+          </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $label;</dt>
+        <dt>var $name;</dt>
+        <dt>var $value;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#TextLabel::Generate">Generate</a>, <a href="#TextLabel::TextLabel">TextLabel</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="TextLabel::TextLabel"></a>
+        <dt><span class="functionName">
+            <a href="#$class">TextLabel</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função TextLabel</blockquote>
+          </div>
+          <div class="declaration">function TextLabel($label,$value=null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$value</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="TextLabel::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="HiddenField"></a>
+      <h2>Classe <span class="className">HiddenField</span></h2>
+      <blockquote>
+          extends <a href="#">FormField</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe HiddenField.      
+          </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $type;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#HiddenField::Generate">Generate</a>, <a href="#HiddenField::HiddenField">HiddenField</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="HiddenField::HiddenField"></a>
+        <dt><span class="functionName">
+            <a href="#$class">HiddenField</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função HiddenField</blockquote>
+          </div>
+          <div class="declaration">function HiddenField($name,$value=null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$value</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="HiddenField::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="TextField"></a>
+      <h2>Classe <span class="className">TextField</span></h2>
+      <blockquote>
+          extends <a href="#">FormField</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe TextField.      
+          </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $size;</dt>
+        <dt>var $type;</dt>
+        <dt>var $validator;</dt>
+        <dt>var $autoSubmit;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#TextField::Generate">Generate</a>, <a href="#TextField::SetAutoSubmit">SetAutoSubmit</a>, <a href="#TextField::TextField">TextField</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="TextField::TextField"></a>
+        <dt><span class="functionName">
+            <a href="#$class">TextField</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função TextField</blockquote>
+          </div>
+          <div class="declaration">function TextField($label,$name,$value='',$size=10,$hint='',$validator=null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$value</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+            <dt><span class="paramName">$size</span> Default <span class="paramValue">10</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$size</tt>
+            </dd>
+            <dt><span class="paramName">$hint</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$hint</tt>
+            </dd>
+            <dt><span class="paramName">$validator</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$validator</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="TextField::SetAutoSubmit"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetAutoSubmit</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetAutoSubmit</blockquote>
+          </div>
+          <div class="declaration">function SetAutoSubmit($state)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$state</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$state</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="TextField::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="Validator"></a>
+      <h2>Classe <span class="className">Validator</span></h2>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe Validator.      
+          </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $name;</dt>
+        <dt>var $form;</dt>
+        <dt>var $field;</dt>
+        <dt>var $label;</dt>
+        <dt>var $min;</dt>
+        <dt>var $max;</dt>
+        <dt>var $type = 'required';  // ex. required | optional | ignore/ readonly</dt>
+        <dt>var $chars;</dt>
+        <dt>var $mask;</dt>
+        <dt>var $checker;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#Validator::CEPValidator">CEPValidator</a>, <a href="#Validator::CNPJValidator">CNPJValidator</a>, <a href="#Validator::CPFValidator">CPFValidator</a>, <a href="#Validator::DATEDMYValidator">DATEDMYValidator</a>, <a href="#Validator::DATEYMDValidator">DATEYMDValidator</a>, <a href="#Validator::EMAILValidator">EMAILValidator</a>, <a href="#Validator::Generate">Generate</a>, <a href="#Validator::MASKValidator">MASKValidator</a>, <a href="#Validator::PHONEValidator">PHONEValidator</a>, <a href="#Validator::TIMEValidator">TIMEValidator</a>, <a href="#Validator::Validator">Validator</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="Validator::Validator"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Validator</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Validator</blockquote>
+          </div>
+          <div class="declaration">function Validator()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Validator::MASKValidator"></a>
+        <dt><span class="functionName">
+            <a href="#$class">MASKValidator</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função MASKValidator</blockquote>
+          </div>
+          <div class="declaration">function MASKValidator($mask,$type = 'ignore')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$mask</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$mask</tt>
+            </dd>
+            <dt><span class="paramName">$type</span> Default <span class="paramValue">'ignore'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$type</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Validator::EMAILValidator"></a>
+        <dt><span class="functionName">
+            <a href="#$class">EMAILValidator</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função EMAILValidator</blockquote>
+          </div>
+          <div class="declaration">function EMAILValidator($type = 'optional')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$type</span> Default <span class="paramValue">'optional'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$type</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Validator::CEPValidator"></a>
+        <dt><span class="functionName">
+            <a href="#$class">CEPValidator</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função CEPValidator</blockquote>
+          </div>
+          <div class="declaration">function CEPValidator($type = 'optional')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$type</span> Default <span class="paramValue">'optional'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$type</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Validator::PHONEValidator"></a>
+        <dt><span class="functionName">
+            <a href="#$class">PHONEValidator</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função PHONEValidator</blockquote>
+          </div>
+          <div class="declaration">function PHONEValidator($type = 'optional')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$type</span> Default <span class="paramValue">'optional'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$type</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Validator::TIMEValidator"></a>
+        <dt><span class="functionName">
+            <a href="#$class">TIMEValidator</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função TIMEValidator</blockquote>
+          </div>
+          <div class="declaration">function TIMEValidator($type = 'optional')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$type</span> Default <span class="paramValue">'optional'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$type</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Validator::CPFValidator"></a>
+        <dt><span class="functionName">
+            <a href="#$class">CPFValidator</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função CPFValidator</blockquote>
+          </div>
+          <div class="declaration">function CPFValidator($type = 'optional')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$type</span> Default <span class="paramValue">'optional'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$type</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Validator::CNPJValidator"></a>
+        <dt><span class="functionName">
+            <a href="#$class">CNPJValidator</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função CNPJValidator</blockquote>
+          </div>
+          <div class="declaration">function CNPJValidator($type = 'optional')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$type</span> Default <span class="paramValue">'optional'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$type</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Validator::DATEDMYValidator"></a>
+        <dt><span class="functionName">
+            <a href="#$class">DATEDMYValidator</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função DATEDMYValidator</blockquote>
+          </div>
+          <div class="declaration">function DATEDMYValidator($type = 'optional',$sep='/')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$type</span> Default <span class="paramValue">'optional'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$type</tt>
+            </dd>
+            <dt><span class="paramName">$sep</span> Default <span class="paramValue">'/'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$sep</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Validator::DATEYMDValidator"></a>
+        <dt><span class="functionName">
+            <a href="#$class">DATEYMDValidator</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função DATEYMDValidator</blockquote>
+          </div>
+          <div class="declaration">function DATEYMDValidator($type = 'optional')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$type</span> Default <span class="paramValue">'optional'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$type</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Validator::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="PasswordField"></a>
+      <h2>Classe <span class="className">PasswordField</span></h2>
+      <blockquote>
+          extends <a href="#">TextField</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe PasswordField.      
+          </blockquote>
+      </div>
+      <h3>Métodos:</h3>
+      <div class="functionBlock">
+        <a name="PasswordField::PasswordField"></a>
+        <dt><span class="functionName">
+            <a href="#$class">PasswordField</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função PasswordField</blockquote>
+          </div>
+          <div class="declaration">function PasswordField($label,$name,$value,$size=10)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$value</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+            <dt><span class="paramName">$size</span> Default <span class="paramValue">10</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$size</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="TextArea"></a>
+      <h2>Classe <span class="className">TextArea</span></h2>
+      <blockquote>
+          extends <a href="#">FormField</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe TextArea.      
+          </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $rows;</dt>
+        <dt>var $cols;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#TextArea::Generate">Generate</a>, <a href="#TextArea::TextArea">TextArea</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="TextArea::TextArea"></a>
+        <dt><span class="functionName">
+            <a href="#$class">TextArea</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função TextArea</blockquote>
+          </div>
+          <div class="declaration">function TextArea($label,$name,$value,$cols=40,$rows=5)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$value</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+            <dt><span class="paramName">$cols</span> Default <span class="paramValue">40</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$cols</tt>
+            </dd>
+            <dt><span class="paramName">$rows</span> Default <span class="paramValue">5</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$rows</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="TextArea::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="CheckBox"></a>
+      <h2>Classe <span class="className">CheckBox</span></h2>
+      <blockquote>
+          extends <a href="#">FormField</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe CheckBox.      
+          </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $checked;</dt>
+        <dt>var $text;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#CheckBox::CheckBox">CheckBox</a>, <a href="#CheckBox::Generate">Generate</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="CheckBox::CheckBox"></a>
+        <dt><span class="functionName">
+            <a href="#$class">CheckBox</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função CheckBox</blockquote>
+          </div>
+          <div class="declaration">function CheckBox($label,$name,$value,$checked=false,$text=null,$hint='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$value</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+            <dt><span class="paramName">$checked</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$checked</tt>
+            </dd>
+            <dt><span class="paramName">$text</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$text</tt>
+            </dd>
+            <dt><span class="paramName">$hint</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$hint</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="CheckBox::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="Option"></a>
+      <h2>Classe <span class="className">Option</span></h2>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      A general purpos class for Options for usage with CheckboxGroup,
+ RadioButtonGroup and Selection
+      </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $label;</dt>
+        <dt>var $name;</dt>
+        <dt>var $value;</dt>
+        <dt>var $checked;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <div class="functionBlock">
+        <a name="Option::Option"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Option</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Option</blockquote>
+          </div>
+          <div class="declaration">function Option($label,$name,$value=null,$checked=false,$id=false)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$value</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+            <dt><span class="paramName">$checked</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$checked</tt>
+            </dd>
+            <dt><span class="paramName">$id</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$id</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="CheckBoxGroup"></a>
+      <h2>Classe <span class="className">CheckBoxGroup</span></h2>
+      <blockquote>
+          extends <a href="#">FormField</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      Implements a group of checkboxes
+      </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $options;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#CheckBoxGroup::CheckBoxGroup">CheckBoxGroup</a>, <a href="#CheckBoxGroup::Generate">Generate</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="CheckBoxGroup::CheckBoxGroup"></a>
+        <dt><span class="functionName">
+            <a href="#$class">CheckBoxGroup</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função CheckBoxGroup</blockquote>
+          </div>
+          <div class="declaration">function CheckBoxGroup($label,$name,$options,$hint='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$options</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$options</tt>
+            </dd>
+            <dt><span class="paramName">$hint</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$hint</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="CheckBoxGroup::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="RadioButtonGroup"></a>
+      <h2>Classe <span class="className">RadioButtonGroup</span></h2>
+      <blockquote>
+          extends <a href="#">FormField</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      Implements a group of radio buttons
+      </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $options;</dt>
+        <dt>var $default;</dt>
+        <dt>var $layout = 'horizontal';</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#RadioButtonGroup::Generate">Generate</a>, <a href="#RadioButtonGroup::RadioButtonGroup">RadioButtonGroup</a>, <a href="#RadioButtonGroup::SetHorizontalLayout">SetHorizontalLayout</a>, <a href="#RadioButtonGroup::SetVerticalLayout">SetVerticalLayout</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="RadioButtonGroup::RadioButtonGroup"></a>
+        <dt><span class="functionName">
+            <a href="#$class">RadioButtonGroup</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função RadioButtonGroup</blockquote>
+          </div>
+          <div class="declaration">function RadioButtonGroup($label,$name,$options,$default=false,$hint='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$options</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$options</tt>
+            </dd>
+            <dt><span class="paramName">$default</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$default</tt>
+            </dd>
+            <dt><span class="paramName">$hint</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$hint</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="RadioButtonGroup::SetVerticalLayout"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetVerticalLayout</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetVerticalLayout</blockquote>
+          </div>
+          <div class="declaration">function SetVerticalLayout()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="RadioButtonGroup::SetHorizontalLayout"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetHorizontalLayout</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetHorizontalLayout</blockquote>
+          </div>
+          <div class="declaration">function SetHorizontalLayout()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="RadioButtonGroup::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="Selection"></a>
+      <h2>Classe <span class="className">Selection</span></h2>
+      <blockquote>
+          extends <a href="#">FormField</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe Selection.      
+          </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $options;</dt>
+        <dt>var $showValues;</dt>
+        <dt>var $autoSubmit;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#Selection::Generate">Generate</a>, <a href="#Selection::Selection">Selection</a>, <a href="#Selection::SetAutoSubmit">SetAutoSubmit</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="Selection::Selection"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Selection</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Selection</blockquote>
+          </div>
+          <div class="declaration">function Selection($label,$name,$value,$options='',$showValues=false,$hint='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$value</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+            <dt><span class="paramName">$options</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$options</tt>
+            </dd>
+            <dt><span class="paramName">$showValues</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$showValues</tt>
+            </dd>
+            <dt><span class="paramName">$hint</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$hint</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Selection::SetAutoSubmit"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetAutoSubmit</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetAutoSubmit</blockquote>
+          </div>
+          <div class="declaration">function SetAutoSubmit($state)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$state</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$state</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Selection::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="MultiSelection"></a>
+      <h2>Classe <span class="className">MultiSelection</span></h2>
+      <blockquote>
+          extends <a href="#">FormField</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe MultiSelection.      
+          </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $options;</dt>
+        <dt>var $showValues;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#MultiSelection::Generate">Generate</a>, <a href="#MultiSelection::MultiSelection">MultiSelection</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="MultiSelection::MultiSelection"></a>
+        <dt><span class="functionName">
+            <a href="#$class">MultiSelection</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função MultiSelection</blockquote>
+          </div>
+          <div class="declaration">function MultiSelection($label='&amp;nbsp;', $name, $values=null, $options=null,$showValues=false,$hint='',$size='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span> Default <span class="paramValue">'&amp;nbsp;'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$values</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$values</tt>
+            </dd>
+            <dt><span class="paramName">$options</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$options</tt>
+            </dd>
+            <dt><span class="paramName">$showValues</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$showValues</tt>
+            </dd>
+            <dt><span class="paramName">$hint</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$hint</tt>
+            </dd>
+            <dt><span class="paramName">$size</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$size</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MultiSelection::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="ComboBox"></a>
+      <h2>Classe <span class="className">ComboBox</span></h2>
+      <blockquote>
+          extends <a href="#">FormField</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe ComboBox.      
+          </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $options;</dt>
+        <dt>var $autoSubmit;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#ComboBox::ComboBox">ComboBox</a>, <a href="#ComboBox::Generate">Generate</a>, <a href="#ComboBox::SetAutoSubmit">SetAutoSubmit</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="ComboBox::SetAutoSubmit"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetAutoSubmit</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetAutoSubmit</blockquote>
+          </div>
+          <div class="declaration">function SetAutoSubmit($state)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$state</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$state</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ComboBox::ComboBox"></a>
+        <dt><span class="functionName">
+            <a href="#$class">ComboBox</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função ComboBox</blockquote>
+          </div>
+          <div class="declaration">function ComboBox($label,$name,$value,$options,$hint='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$value</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+            <dt><span class="paramName">$options</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$options</tt>
+            </dd>
+            <dt><span class="paramName">$hint</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$hint</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ComboBox::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="LookupField"></a>
+      <h2>Classe <span class="className">LookupField</span></h2>
+      <blockquote>
+          extends <a href="#">FormField</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      
+      </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $action;</dt>
+        <dt>var $related;</dt>
+        <dt>var $module;</dt>
+        <dt>var $item;</dt>
+        <dt>var $info;</dt>
+        <dt>var $defaults;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#LookupField::Generate">Generate</a>, <a href="#LookupField::LookupField">LookupField</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="LookupField::LookupField"></a>
+        <dt><span class="functionName">
+            <a href="#$class">LookupField</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função LookupField</blockquote>
+          </div>
+          <div class="declaration">function LookupField($label,$name,$related,$module,$item,$value='',$hint='',$defaults=array())</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$related</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$related</tt>
+            </dd>
+            <dt><span class="paramName">$module</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$module</tt>
+            </dd>
+            <dt><span class="paramName">$item</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$item</tt>
+            </dd>
+            <dt><span class="paramName">$value</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+            <dt><span class="paramName">$hint</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$hint</tt>
+            </dd>
+            <dt><span class="paramName">$defaults</span> Default <span class="paramValue">array()</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$defaults</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="LookupField::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="MultiTextField"></a>
+      <h2>Classe <span class="className">MultiTextField</span></h2>
+      <blockquote>
+          extends <a href="#">FormField</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      Implements input field, which can have multiple input values
+relies on _MIOLO_MultiTextField_*() JavaScript support
+      </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $buttons;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#MultiTextField::Generate">Generate</a>, <a href="#MultiTextField::MultiTextField">MultiTextField</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="MultiTextField::MultiTextField"></a>
+        <dt><span class="functionName">
+            <a href="#$class">MultiTextField</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função MultiTextField</blockquote>
+          </div>
+          <div class="declaration">function MultiTextField($label,$name,$width=200,$value=null,$buttons=false,$hint='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$width</span> Default <span class="paramValue">200</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$width</tt>
+            </dd>
+            <dt><span class="paramName">$value</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+            <dt><span class="paramName">$buttons</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$buttons</tt>
+            </dd>
+            <dt><span class="paramName">$hint</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$hint</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MultiTextField::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="MultiTextField2"></a>
+      <h2>Classe <span class="className">MultiTextField2</span></h2>
+      <blockquote>
+          extends <a href="#">FormField</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      Implements input field, which can have multiple input values
+relies on _MIOLO_MultiTextField_*() JavaScript support
+      </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $buttons;</dt>
+        <dt>var $fields;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#MultiTextField2::Generate">Generate</a>, <a href="#MultiTextField2::MultiTextField2">MultiTextField2</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="MultiTextField2::MultiTextField2"></a>
+        <dt><span class="functionName">
+            <a href="#$class">MultiTextField2</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função MultiTextField2</blockquote>
+          </div>
+          <div class="declaration">function MultiTextField2($label,$name,$fields,$width=200,$value=null,$buttons=false,$hint='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$fields</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$fields</tt>
+            </dd>
+            <dt><span class="paramName">$width</span> Default <span class="paramValue">200</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$width</tt>
+            </dd>
+            <dt><span class="paramName">$value</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+            <dt><span class="paramName">$buttons</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$buttons</tt>
+            </dd>
+            <dt><span class="paramName">$hint</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$hint</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MultiTextField2::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="FileField"></a>
+      <h2>Classe <span class="className">FileField</span></h2>
+      <blockquote>
+          extends <a href="#">FormField</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe FileField.      
+          </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $size;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#FileField::FileField">FileField</a>, <a href="#FileField::Generate">Generate</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="FileField::FileField"></a>
+        <dt><span class="functionName">
+            <a href="#$class">FileField</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função FileField</blockquote>
+          </div>
+          <div class="declaration">function FileField($label,$name,$value,$size=40,$hint='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$value</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+            <dt><span class="paramName">$size</span> Default <span class="paramValue">40</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$size</tt>
+            </dd>
+            <dt><span class="paramName">$hint</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$hint</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="FileField::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="RadioButton"></a>
+      <h2>Classe <span class="className">RadioButton</span></h2>
+      <blockquote>
+          extends <a href="#">FormField</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe RadioButton.      
+          </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $checked;</dt>
+        <dt>var $text;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#RadioButton::Generate">Generate</a>, <a href="#RadioButton::RadioButton">RadioButton</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="RadioButton::RadioButton"></a>
+        <dt><span class="functionName">
+            <a href="#$class">RadioButton</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função RadioButton</blockquote>
+          </div>
+          <div class="declaration">function RadioButton($label,$name,$value,$checked=false,$text=null,$hint='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$value</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+            <dt><span class="paramName">$checked</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$checked</tt>
+            </dd>
+            <dt><span class="paramName">$text</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$text</tt>
+            </dd>
+            <dt><span class="paramName">$hint</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$hint</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="RadioButton::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="DateField"></a>
+      <h2>Classe <span class="className">DateField</span></h2>
+      <blockquote>
+          extends <a href="#">FormField</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe DateField.      
+          </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $size;</dt>
+        <dt>var $type;</dt>
+        <dt>var $validator;</dt>
+        <dt>var $separator;</dt>
+        <dt>var $style;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#DateField::DateField">DateField</a>, <a href="#DateField::Generate">Generate</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="DateField::DateField"></a>
+        <dt><span class="functionName">
+            <a href="#$class">DateField</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função DateField</blockquote>
+          </div>
+          <div class="declaration">function DateField($label,$name,$value='',$size=10,$hint='',$style='DMY',$separator='/')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$value</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+            <dt><span class="paramName">$size</span> Default <span class="paramValue">10</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$size</tt>
+            </dd>
+            <dt><span class="paramName">$hint</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$hint</tt>
+            </dd>
+            <dt><span class="paramName">$style</span> Default <span class="paramValue">'DMY'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$style</tt>
+            </dd>
+            <dt><span class="paramName">$separator</span> Default <span class="paramValue">'/'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$separator</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="DateField::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="MultiChoiceField"></a>
+      <h2>Classe <span class="className">MultiChoiceField</span></h2>
+      <blockquote>
+          extends <a href="#">FormField</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe MultiChoiceField.      
+          </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $buttons;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#MultiChoiceField::Generate">Generate</a>, <a href="#MultiChoiceField::MultiChoiceField">MultiChoiceField</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="MultiChoiceField::MultiChoiceField"></a>
+        <dt><span class="functionName">
+            <a href="#$class">MultiChoiceField</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função MultiChoiceField</blockquote>
+          </div>
+          <div class="declaration">function MultiChoiceField($label,$name,$width=200,$options=null,$values=null,$hint=null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$width</span> Default <span class="paramValue">200</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$width</tt>
+            </dd>
+            <dt><span class="paramName">$options</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$options</tt>
+            </dd>
+            <dt><span class="paramName">$values</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$values</tt>
+            </dd>
+            <dt><span class="paramName">$hint</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$hint</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MultiChoiceField::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <hr>
+    <p>
+      <b>Caminho:</b>
+      <br>
+      <blockquote>/usr/local/miolo/classes/ui/form.class</blockquote>
+    </p>
+    <p>
+      <b>Criado:</b>
+      <br>
+      <blockquote>2001/08/14</blockquote>
+    </p>
+    <p>
+      <b>Autor(es):</b>
+      <br>
+      <blockquote>
+        <table>
+          <tr>
+            <td>Vilson Cristiano Gartner</td>
+            <td>author</td>
+            <td>
+              <a href="malto:vilson@miolo.org.br">vilson@miolo.org.br</a>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Thomas Spriestersbach</td>
+            <td>author</td>
+            <td>
+              <a href="malto:ts@interact2000.com.br">ts@interact2000.com.br</a>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Nasair Junior da Silva</td>
+            <td>contributor</td>
+            <td>
+              <a href="malto:njunior@solis.coop.br">njunior@solis.coop.br</a>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+      </blockquote>
+    </p>
+    <p>
+      <b>Mantido por:</b>
+      <br>
+      <blockquote>
+        <table>
+          <tr>
+            <td>Vilson Cristiano Gartner</td>
+            <td>author</td>
+            <td>
+              <a href="malto:vilson@miolo.org.br">vilson@miolo.org.br</a>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Thomas Spriestersbach</td>
+            <td>author</td>
+            <td>
+              <a href="malto:ts@interact2000.com.br">ts@interact2000.com.br</a>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+      </blockquote>
+    </p>
+    <p>
+      <b>Histórico:</b>
+      <br>
+      <blockquote style="text-align: preformatted">
+  
+    See CVS history.<br>
+  
+  </blockquote>
+    </p>
+    <div align="center" style="margin:10; border: solid 1 black;">
+      <cite></cite>
+    </div>
+    <div style="width: 95%; font-size: 9pt; text-align:right; background:#efefef; margin-top: 20px; border-top: #0000ff 1px solid; padding: 2px 20px 2px 20px;">
+  CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)
+  </div>
+  </body>
+</html>

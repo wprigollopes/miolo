@@ -1,0 +1,934 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="form.class" path="/usr/local/miolo/classes/ui/form.class" base="ui_form" created="2001/08/14" lines="2531">
+  <title>Form and Form Elements</title>
+  <description>
+  <![CDATA[This file contains the form and form elements definitions]]>
+  </description>
+  <relations type="see-also">
+    <group name="miolo/ui/tabbedform.class"/>
+    <group name="miolo/ui/themepainter.class"/>
+  </relations>
+  <relations type="group">
+    <group name="form"/>
+    <group name="ui"/>
+  </relations>
+  <organisation>
+  <![CDATA[MIOLO - Miolo Development Team - UNIVATES Centro Universitario]]>
+  </organisation>
+  <legal>
+  <![CDATA[CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)]]>
+  </legal>
+  <contributors>
+    <author name="Vilson Cristiano Gartner" type="author" login="" email="vilson@miolo.org.br"></author>
+    <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+    <author name="Nasair Junior da Silva" type="contributor" login="" email="njunior@solis.coop.br"></author>
+  </contributors>
+  <maintainers>
+    <author name="Vilson Cristiano Gartner" type="author" login="" email="vilson@miolo.org.br"></author>
+    <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+  </maintainers>
+  <history>
+  <![CDATA[
+    See CVS history.<br>
+  ]]>
+  </history>
+    <class name="Form" base="" declaration="class Form" line="48">
+      <description>
+      <![CDATA[The form class is the base class to construct a HTML form. Along
+with this class, different form object classes are defined, such as
+input fields (TextField), choices (Selection), check and radio
+boxes.]]>
+      </description>
+        <var name="title" declaration="var $title;" line="50">
+        </var>
+        <var name="name" declaration="var $name;" line="51">
+        </var>
+        <var name="action" declaration="var $action;" line="52">
+        </var>
+        <var name="method" declaration="var $method;" line="53">
+        </var>
+        <var name="buttons" declaration="var $buttons;" line="54">
+        </var>
+        <var name="fields" declaration="var $fields;" line="55">
+        </var>
+        <var name="return" declaration="var $return;" line="56">
+        </var>
+        <var name="reset" declaration="var $reset;" line="57">
+        </var>
+        <var name="styles" declaration="var $styles;" line="58">
+        </var>
+        <var name="help" declaration="var $help;" line="59">
+        </var>
+        <var name="footer" declaration="var $footer;" line="60">
+        </var>
+        <var name="width" declaration="var $width;" line="61">
+        </var>
+        <var name="onsubmit" declaration="var $onsubmit;" line="62">
+        </var>
+        <var name="showHints" declaration="var $showHints = true;" line="63">
+        </var>
+        <var name="enctype" declaration="var $enctype;" line="64">
+        </var>
+        <var name="validations" declaration="var $validations;" line="65">
+        </var>
+        <function name="Form" attribute="default" declaration="function Form($title='',$action='')" line="76">
+            <param name="$title" value="''" type="string"><![CDATA[the form's title string]]></param>
+            <param name="$action" value="''" type="string"><![CDATA[the URL for the forms <code>ACTION</code>                attribute.]]></param>
+          <description>
+          <![CDATA[This is the constructor of the Form class. It takes a title and an
+action url as optional parameters. The action URL is typically
+obtained by calling the <code>MIOLO-&gt;GetActionURL()</code> method.]]>
+          </description>
+        </function>
+        <function name="AddValidation" attribute="default" declaration="function AddValidation(&amp;$field)" line="86">
+            <param name="&amp;$field" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetName" attribute="default" declaration="function GetName()" line="112">
+          <description>
+          <![CDATA[Obtains the name of this form.]]>
+          </description>
+          <returns type="String">
+          <![CDATA[ the name of the form]]>
+          </returns>
+        </function>
+        <function name="IsSubmitted" attribute="static" declaration="function IsSubmitted()" line="123">
+          <description>
+          <![CDATA[Detects if a form has been submitted.]]>
+          </description>
+          <returns type="boolean">
+          <![CDATA[ true if the form has been submitted otherwise
+                   false]]>
+          </returns>
+        </function>
+        <function name="GetTitle" attribute="default" declaration="function &amp; GetTitle()" line="135">
+          <description>
+          <![CDATA[Obtains the content of this form's title. Observe, that this
+can be anything other as a simple text string too, such as array of
+strings and an object implementing the <code>Generate()</code> method.]]>
+          </description>
+          <returns type="Mixed &amp;">
+          <![CDATA[ a reference to the title of the form]]>
+          </returns>
+        </function>
+        <function name="SetTitle" attribute="default" declaration="function SetTitle($title)" line="143">
+            <param name="$title" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Sets the form's title content]]>
+          </description>
+        </function>
+        <function name="GetFooter" attribute="default" declaration="function &amp; GetFooter()" line="155">
+          <description>
+          <![CDATA[Obtains the content title of this form's footer. Observe, that this
+can be anything other as a simple text string too, such as array of
+strings and an object implementing the <code>Generate()</code> method.]]>
+          </description>
+          <returns type="Mixed &amp;">
+          <![CDATA[ a reference to the footer of the form]]>
+          </returns>
+        </function>
+        <function name="SetFooter" attribute="default" declaration="function SetFooter($footer)" line="163">
+            <param name="$footer" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Sets the form's footer content]]>
+          </description>
+        </function>
+        <function name="GetFormValue" attribute="static" declaration="function GetFormValue($name,$value=false)" line="177">
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="false" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Obtains a submitted form field's value. This is a static function
+which takes in account that the Form class adds a prefix 'frm_' to
+all form variables. So when calling this function, the caller has
+to omit the prefix, using the same name, which was used in the
+field definition]]>
+          </description>
+          <returns type="mixed">
+          <![CDATA[ value of field contained in <code>$_POST</code>]]>
+          </returns>
+        </function>
+        <function name="SetFormValue" attribute="default" declaration="function SetFormValue($name,$value)" line="190">
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Sets the content of a form field to the specified value. The
+function does this by setting both, the field's value member and the
+global <code>$_REQUEST</code> to remain consistency between the values.
+It is expected, that the caller passes the same name as of the
+field definition (e.g. w/o 'frm_' prefix).]]>
+          </description>
+        </function>
+        <function name="EscapeValue" attribute="private" declaration="function EscapeValue($value)" line="226">
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Used to escapes special characters contained in a form field's value
+Currently, only simple and double quote characters are subsituted
+with their corresponding HTML entities.
+
+This function is used internally by some of the form's methods.]]>
+          </description>
+          <returns type="string">
+          <![CDATA[ the translated string]]>
+          </returns>
+        </function>
+        <function name="OnSubmit" attribute="default" declaration="function OnSubmit($jscode)" line="252">
+            <param name="$jscode" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Adds JavaScript code which is to be executed, when the form is submitted.
+when the form is generated, and any JS code has been registered using
+this function, an <code>OnSubmit</code> handler is dynamically generated
+where the code is placed.
+<br><br>
+The generated code looks like the following where stmt stands for the
+registered statments]]>
+          </description>
+          <example>
+<![CDATA[function _onSubmit()
+{
+  return stmt1 &amp;&amp;
+         stmt2 &amp;&amp;
+         ...
+         stmt#;
+}]]>
+          </example>
+        </function>
+        <function name="SetAction" attribute="default" declaration="function SetAction($action)" line="262">
+            <param name="$action" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Sets the action URL for this form. This is the URL to which the
+form data will be submitted. Usually, the URL is obtained by the
+GetActionURL of the MIOLO class.]]>
+          </description>
+        </function>
+        <function name="SetHelp" attribute="default" declaration="function SetHelp($href)" line="273">
+            <param name="$href" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Sets an URL to a help document. This document will be opened via
+JavaScript in a new window. If this URL is set, the form will display
+a help button in it's title bar.]]>
+          </description>
+        </function>
+        <function name="GetFields" attribute="private" declaration="function GetFields()" line="287">
+          <description>
+          <![CDATA[Obtain the list of form fields.]]>
+          </description>
+          <deprecated>
+          <![CDATA[this function will be changed in the near future, so
+don't use it anymore and keep in touch with the development team
+to figure out, what will be the replacement.]]>
+          </deprecated>
+          <returns type="array">
+          <![CDATA[ the list of form fields]]>
+          </returns>
+        </function>
+        <function name="SetFields" attribute="default" declaration="function SetFields(&amp;$fields)" line="296">
+            <param name="&amp;$fields" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[This function is used to set an array of fields for the form.]]>
+          </description>
+        </function>
+        <function name="_RegisterField" attribute="private" declaration="function _RegisterField(&amp;$field)" line="319">
+            <param name="&amp;$field" value="" type="reference"><![CDATA[to a single field or an array of fields               If an array of fields is passed, the function is called               recursively for each of the contained fields.]]></param>
+          <description>
+          <![CDATA[This function is used internally of the form framework to
+<i>prepare</i> the form fields for the usage within the form
+framework.
+<br><br>
+The function basically renames all fields to 'frm_' + name and
+assigns the value from the global array <code>$_REQUEST</code>
+if the field has no value (null) assigned.]]>
+          </description>
+          <returns type="nothing">
+          <![CDATA[]]>
+          </returns>
+        </function>
+        <function name="AddField" attribute="default" declaration="function AddField(&amp;$field,$hint=false)" line="373">
+            <param name="&amp;$field" value="" type="reference"><![CDATA[a reference to a form field object]]></param>
+            <param name="$hint" value="false" type="string"><![CDATA[an optional hint for the form field]]></param>
+          <description>
+          <![CDATA[Adds a single field to the list of form fields and optionally adds
+a hint text for the field.]]>
+          </description>
+          <returns type="nothing">
+          <![CDATA[]]>
+          </returns>
+        </function>
+        <function name="AddButton" attribute="default" declaration="function AddButton($label,$name,$action)" line="398">
+            <param name="$label" value="" type="string"><![CDATA[the text which will appear on the button]]></param>
+            <param name="$name" value="" type="string"><![CDATA[the internal button name]]></param>
+            <param name="$action" value="" type="string"><![CDATA[the action; 'SUBMIT', 'RESET' for the buttons                         type attribute or a JavaScript instruction for                         the button's onClick attribute]]></param>
+          <description>
+          <![CDATA[Adds a form button. The button is added to the list of form buttons.
+By default, the form framework arranges the buttons at the bottom
+of the form container from the left to the right.]]>
+          </description>
+          <relations type="see-also">
+            <group name="FormButton"/>
+          </relations>
+        </function>
+        <function name="SetButtonLabel" attribute="default" declaration="function SetButtonLabel($index,$label)" line="410">
+            <param name="$index" value="" type="integer"><![CDATA[the 0 based index of the button]]></param>
+            <param name="$label" value="" type="string"><![CDATA[the new button label]]></param>
+          <description>
+          <![CDATA[This function is mainly used, to change the labels of the form's
+default buttons for submit and return.]]>
+          </description>
+        </function>
+        <function name="ShowReturn" attribute="default" declaration="function ShowReturn($state)" line="419">
+            <param name="$state" value="" type="boolean"><![CDATA[the visible state of the return button]]></param>
+          <description>
+          <![CDATA[This function can be used to show or hide the form's return button.]]>
+          </description>
+        </function>
+        <function name="ShowReset" attribute="default" declaration="function ShowReset($state)" line="428">
+            <param name="$state" value="" type="boolean"><![CDATA[the visible state of the reset button]]></param>
+          <description>
+          <![CDATA[This function can be used to show or hide the form's reset button.]]>
+          </description>
+        </function>
+        <function name="GetShowHints" attribute="default" declaration="function GetShowHints()" line="437">
+          <description>
+          <![CDATA[This function returns the visibility of the form's hint texts.]]>
+          </description>
+          <relations type="see-also">
+            <group name="ShowHints"/>
+          </relations>
+        </function>
+        <function name="ShowHints" attribute="default" declaration="function ShowHints($state)" line="449">
+            <param name="$state" value="" type="boolean"><![CDATA[the visible state of the hint texts]]></param>
+          <description>
+          <![CDATA[This function can be used to show or hide the form's hint texts.
+Each form element may have a hint text associated with it. Using
+this method, one can enable/disable the display of the texts. This
+may be useful for implementing kind of an beginner/expert mode.]]>
+          </description>
+        </function>
+        <function name="GetFieldList" attribute="default" declaration="function GetFieldList()" line="464">
+          <description>
+          <![CDATA[This is a placeholder function to bu the form's field list. It
+is excpected, that the form returns a scalar list of all defined
+fields which carry a form field value. Thus, form elements of
+decorative purpose only should be omitted.
+<br><br>
+Derived classes such as <code>TabbedForm</code> override this
+function to provide the list of fields independently of the form's
+layout.]]>
+          </description>
+        </function>
+        <function name="_GetFieldList" attribute="private" declaration="function _GetFieldList($allfields)" line="476">
+            <param name="$allfields" value="" type="array"><![CDATA[an array of form fields]]></param>
+          <description>
+          <![CDATA[Internal function which takes a list of form elements possibly
+consisting of single fields as well as arrays and returns a scalar
+the list of fields filtering out some known decorative form fields.]]>
+          </description>
+          <returns type="array">
+          <![CDATA[ a scalar array of form fields]]>
+          </returns>
+        </function>
+        <function name="ValidateAll" attribute="default" declaration="function ValidateAll($assert=true)" line="518">
+            <param name="$assert" value="true" type="boolean"><![CDATA[flag how to handle invalid fields;<br>                if true, an error message will be shown<br>                if false no error message will be shown and the                caller can provide an appropriate action based on the                return value.]]></param>
+          <description>
+          <![CDATA[Validates all form fields to have a non-empty content]]>
+          </description>
+          <returns type="boolean">
+          <![CDATA[ <b>true</b> if all fields have a value;
+                   <b>false</b> if any of the fields has been left
+                   empty]]>
+          </returns>
+        </function>
+        <function name="Validate" attribute="default" declaration="function Validate($required,$assert=true)" line="542">
+            <param name="$required" value="" type="array"><![CDATA[Fields names wich should be validated]]></param>
+            <param name="$assert" value="true" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Validates data for the form fields. The validation is based on the
+parameter $required]]>
+          </description>
+          <returns type="boolean">
+          <![CDATA[ <b>true</b> if the fields have a value;
+                   <b>false</b> if any of the fields has been left
+                   empty]]>
+          </returns>
+        </function>
+        <function name="Error" attribute="default" declaration="function Error($err)" line="583">
+            <param name="$err" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[registrar um erro relacionado ao form]]>
+          </description>
+        </function>
+        <function name="AddError" attribute="default" declaration="function AddError($err)" line="592">
+            <param name="$err" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[registrar um erro relacionado ao form]]>
+          </description>
+        </function>
+        <function name="HasErrors" attribute="default" declaration="function HasErrors()" line="619">
+          <description>
+          <![CDATA[returns the number of error messages or 0, if no errors exist]]>
+          </description>
+        </function>
+        <function name="CollectInput" attribute="default" declaration="function CollectInput($data)" line="627">
+            <param name="$data" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Get form data and put it into the class members]]>
+          </description>
+        </function>
+        <function name="GetData" attribute="default" declaration="function GetData()" line="656">
+          <description>
+          <![CDATA[obtains form fields in a FormData object]]>
+          </description>
+        </function>
+        <function name="SetData" attribute="default" declaration="function SetData($data)" line="672">
+            <param name="$data" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Set form fields values. A subclassed form will likely override this
+method, in order to provide a specialized processing for the passed
+data object.
+<br><br>
+This method simply calls the <code>_SetData()</code> method of the
+<code>Form</code> class.]]>
+          </description>
+          <example>
+<![CDATA[$data = new FormData();
+$form-&gt;SetData($data);]]>
+          </example>
+        </function>
+        <function name="_SetData" attribute="private" declaration="function _SetData($data)" line="689">
+            <param name="$data" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[This method sets the form field values in way, that it iterates
+thru the list of fields and sets the values of all fields matching
+the data object attribute names.
+<br><br>
+In short it does the following<br>
+<blockquote>
+<code>$frm_name = $data-&gt;name;</code>
+<blockquote>
+This implies that the form field names must be identical the data
+member names.]]>
+          </description>
+        </function>
+        <function name="GetFieldValue" attribute="default" declaration="function GetFieldValue($name,$value=false)" line="713">
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="false" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[obtains a form field's value]]>
+          </description>
+        </function>
+        <function name="SetFieldValue" attribute="default" declaration="function SetFieldValue($name,$value)" line="732">
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Set a form field's value]]>
+          </description>
+        </function>
+        <function name="GetField" attribute="default" declaration="function &amp; GetField($name)" line="750">
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Get a form field's value]]>
+          </description>
+        </function>
+        <function name="GetBody" attribute="default" declaration="function GetBody()" line="767">
+          <description>
+          <![CDATA[generates the form's body and returns the resulting HTML code]]>
+          </description>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="779">
+          <description>
+          <![CDATA[Generate entire input form]]>
+          </description>
+        </function>
+        <function name="GenerateErrors" attribute="default" declaration="function GenerateErrors()" line="794">
+        </function>
+        <function name="GenerateBody" attribute="default" declaration="function GenerateBody()" line="816">
+          <description>
+          <![CDATA[Generate form body]]>
+          </description>
+        </function>
+        <function name="GenerateScript" attribute="default" declaration="function GenerateScript()" line="895">
+          <description>
+          <![CDATA[Generate form specific script code]]>
+          </description>
+        </function>
+        <function name="LayoutFormFields" attribute="default" declaration="function LayoutFormFields($fields,&amp;$hidden)" line="949">
+            <param name="$fields" value="" type=""><![CDATA[]]></param>
+            <param name="&amp;$hidden" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Do Layout of (visible) fields within form area]]>
+          </description>
+        </function>
+    </class>
+    <class name="FormData" base="" declaration="class FormData" line="1097">
+      <description>
+      <![CDATA[pseudo class to collect form field values]]>
+      </description>
+    </class>
+    <class name="FormField" base="" declaration="class FormField" line="1104">
+        <var name="form" declaration="var $form;   // back reference to form object" line="1106">
+        </var>
+        <var name="label" declaration="var $label;" line="1107">
+        </var>
+        <var name="name" declaration="var $name;" line="1108">
+        </var>
+        <var name="value" declaration="var $value;" line="1109">
+        </var>
+        <var name="hint" declaration="var $hint;" line="1110">
+        </var>
+        <var name="attrs" declaration="var $attrs;" line="1111">
+        </var>
+        <function name="FormField" attribute="default" declaration="function FormField($label,$name,$value=null,$hint='')" line="1113">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="null" type=""><![CDATA[]]></param>
+            <param name="$hint" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetHint" attribute="default" declaration="function GetHint($hint)" line="1121">
+            <param name="$hint" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetHint" attribute="default" declaration="function SetHint($hint)" line="1126">
+            <param name="$hint" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddAttribute" attribute="default" declaration="function AddAttribute($name,$value)" line="1131">
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="1136">
+        </function>
+        <function name="Attributes" attribute="default" declaration="function Attributes()" line="1151">
+        </function>
+    </class>
+    <class name="FormButton" base="FormField" declaration="class FormButton extends FormField" line="1173">
+        <var name="label" declaration="var $label;" line="1175">
+        </var>
+        <var name="name" declaration="var $name;" line="1176">
+        </var>
+        <var name="action" declaration="var $action;" line="1177">
+        </var>
+        <function name="FormButton" attribute="default" declaration="function FormButton($label,$name,$action)" line="1179">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$action" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="1186">
+        </function>
+    </class>
+    <class name="Separator" base="FormField" declaration="class Separator extends FormField" line="1219">
+        <function name="Separator" attribute="default" declaration="function Separator($label=null)" line="1221">
+            <param name="$label" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="1226">
+        </function>
+    </class>
+    <class name="Text" base="FormField" declaration="class Text extends FormField" line="1236">
+        <function name="Text" attribute="default" declaration="function Text($content)" line="1238">
+            <param name="$content" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="1243">
+        </function>
+    </class>
+    <class name="TextLabel" base="FormField" declaration="class TextLabel extends FormField" line="1253">
+        <var name="label" declaration="var $label;" line="1255">
+        </var>
+        <var name="name" declaration="var $name;" line="1256">
+        </var>
+        <var name="value" declaration="var $value;" line="1257">
+        </var>
+        <function name="TextLabel" attribute="default" declaration="function TextLabel($label,$value=null)" line="1259">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="1267">
+        </function>
+    </class>
+    <class name="HiddenField" base="FormField" declaration="class HiddenField extends FormField" line="1276">
+        <var name="type" declaration="var $type;" line="1278">
+        </var>
+        <function name="HiddenField" attribute="default" declaration="function HiddenField($name,$value=null)" line="1280">
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="1285">
+        </function>
+    </class>
+    <class name="TextField" base="FormField" declaration="class TextField extends FormField" line="1294">
+        <var name="size" declaration="var $size;" line="1296">
+        </var>
+        <var name="type" declaration="var $type;" line="1297">
+        </var>
+        <var name="validator" declaration="var $validator;" line="1298">
+        </var>
+        <var name="autoSubmit" declaration="var $autoSubmit;" line="1299">
+        </var>
+        <function name="TextField" attribute="default" declaration="function TextField($label,$name,$value='',$size=10,$hint='',$validator=null)" line="1301">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="''" type=""><![CDATA[]]></param>
+            <param name="$size" value="10" type=""><![CDATA[]]></param>
+            <param name="$hint" value="''" type=""><![CDATA[]]></param>
+            <param name="$validator" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetAutoSubmit" attribute="default" declaration="function SetAutoSubmit($state)" line="1312">
+            <param name="$state" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="1318">
+        </function>
+    </class>
+    <class name="Validator" base="" declaration="class Validator" line="1359">
+        <var name="name" declaration="var $name;" line="1361">
+        </var>
+        <var name="form" declaration="var $form;" line="1362">
+        </var>
+        <var name="field" declaration="var $field;" line="1363">
+        </var>
+        <var name="label" declaration="var $label;" line="1364">
+        </var>
+        <var name="min" declaration="var $min;" line="1365">
+        </var>
+        <var name="max" declaration="var $max;" line="1366">
+        </var>
+        <var name="type" declaration="var $type = 'required';  // ex. required | optional | ignore/ readonly" line="1367">
+        </var>
+        <var name="chars" declaration="var $chars;" line="1368">
+        </var>
+        <var name="mask" declaration="var $mask;" line="1369">
+        </var>
+        <var name="checker" declaration="var $checker;" line="1370">
+        </var>
+        <function name="Validator" attribute="default" declaration="function Validator()" line="1372">
+        </function>
+        <function name="MASKValidator" attribute="default" declaration="function MASKValidator($mask,$type = 'ignore')" line="1377">
+            <param name="$mask" value="" type=""><![CDATA[]]></param>
+            <param name="$type" value="'ignore'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="EMAILValidator" attribute="default" declaration="function EMAILValidator($type = 'optional')" line="1390">
+            <param name="$type" value="'optional'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="CEPValidator" attribute="default" declaration="function CEPValidator($type = 'optional')" line="1404">
+            <param name="$type" value="'optional'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="PHONEValidator" attribute="default" declaration="function PHONEValidator($type = 'optional')" line="1417">
+            <param name="$type" value="'optional'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="TIMEValidator" attribute="default" declaration="function TIMEValidator($type = 'optional')" line="1430">
+            <param name="$type" value="'optional'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="CPFValidator" attribute="default" declaration="function CPFValidator($type = 'optional')" line="1444">
+            <param name="$type" value="'optional'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="CNPJValidator" attribute="default" declaration="function CNPJValidator($type = 'optional')" line="1457">
+            <param name="$type" value="'optional'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="DATEDMYValidator" attribute="default" declaration="function DATEDMYValidator($type = 'optional',$sep='/')" line="1470">
+            <param name="$type" value="'optional'" type=""><![CDATA[]]></param>
+            <param name="$sep" value="'/'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="DATEYMDValidator" attribute="default" declaration="function DATEYMDValidator($type = 'optional')" line="1484">
+            <param name="$type" value="'optional'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="1498">
+        </function>
+    </class>
+    <class name="PasswordField" base="TextField" declaration="class PasswordField extends TextField" line="1523">
+        <function name="PasswordField" attribute="default" declaration="function PasswordField($label,$name,$value,$size=10)" line="1525">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+            <param name="$size" value="10" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+    <class name="TextArea" base="FormField" declaration="class TextArea extends FormField" line="1536">
+        <var name="rows" declaration="var $rows;" line="1538">
+        </var>
+        <var name="cols" declaration="var $cols;" line="1539">
+        </var>
+        <function name="TextArea" attribute="default" declaration="function TextArea($label,$name,$value,$cols=40,$rows=5)" line="1541">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+            <param name="$cols" value="40" type=""><![CDATA[]]></param>
+            <param name="$rows" value="5" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="1549">
+        </function>
+    </class>
+    <class name="CheckBox" base="FormField" declaration="class CheckBox extends FormField" line="1560">
+        <var name="checked" declaration="var $checked;" line="1562">
+        </var>
+        <var name="text" declaration="var $text;" line="1563">
+        </var>
+        <function name="CheckBox" attribute="default" declaration="function CheckBox($label,$name,$value,$checked=false,$text=null,$hint='')" line="1565">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+            <param name="$checked" value="false" type=""><![CDATA[]]></param>
+            <param name="$text" value="null" type=""><![CDATA[]]></param>
+            <param name="$hint" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="1573">
+        </function>
+    </class>
+    <class name="Option" base="" declaration="class Option" line="1595">
+      <description>
+      <![CDATA[A general purpos class for Options for usage with CheckboxGroup,
+ RadioButtonGroup and Selection]]>
+      </description>
+        <var name="label" declaration="var $label;" line="1597">
+        </var>
+        <var name="name" declaration="var $name;" line="1598">
+        </var>
+        <var name="value" declaration="var $value;" line="1599">
+        </var>
+        <var name="checked" declaration="var $checked;" line="1600">
+        </var>
+        <function name="Option" attribute="default" declaration="function Option($label,$name,$value=null,$checked=false,$id=false)" line="1602">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="null" type=""><![CDATA[]]></param>
+            <param name="$checked" value="false" type=""><![CDATA[]]></param>
+            <param name="$id" value="false" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+    <class name="CheckBoxGroup" base="FormField" declaration="class CheckBoxGroup extends FormField" line="1614">
+      <description>
+      <![CDATA[Implements a group of checkboxes]]>
+      </description>
+        <var name="options" declaration="var $options;" line="1616">
+        </var>
+        <function name="CheckBoxGroup" attribute="default" declaration="function CheckBoxGroup($label,$name,$options,$hint='')" line="1618">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$options" value="" type=""><![CDATA[]]></param>
+            <param name="$hint" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="1625">
+        </function>
+    </class>
+    <class name="RadioButtonGroup" base="FormField" declaration="class RadioButtonGroup extends FormField" line="1683">
+      <description>
+      <![CDATA[Implements a group of radio buttons]]>
+      </description>
+        <var name="options" declaration="var $options;" line="1685">
+        </var>
+        <var name="default" declaration="var $default;" line="1686">
+        </var>
+        <var name="layout" declaration="var $layout = 'horizontal';" line="1687">
+        </var>
+        <function name="RadioButtonGroup" attribute="default" declaration="function RadioButtonGroup($label,$name,$options,$default=false,$hint='')" line="1689">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$options" value="" type=""><![CDATA[]]></param>
+            <param name="$default" value="false" type=""><![CDATA[]]></param>
+            <param name="$hint" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetVerticalLayout" attribute="default" declaration="function SetVerticalLayout()" line="1697">
+        </function>
+        <function name="SetHorizontalLayout" attribute="default" declaration="function SetHorizontalLayout()" line="1702">
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="1707">
+        </function>
+    </class>
+    <class name="Selection" base="FormField" declaration="class Selection extends FormField" line="1776">
+        <var name="options" declaration="var $options;" line="1778">
+        </var>
+        <var name="showValues" declaration="var $showValues;" line="1779">
+        </var>
+        <var name="autoSubmit" declaration="var $autoSubmit;" line="1780">
+        </var>
+        <function name="Selection" attribute="default" declaration="function Selection($label,$name,$value,$options='',$showValues=false,$hint='')" line="1782">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+            <param name="$options" value="''" type=""><![CDATA[]]></param>
+            <param name="$showValues" value="false" type=""><![CDATA[]]></param>
+            <param name="$hint" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetAutoSubmit" attribute="default" declaration="function SetAutoSubmit($state)" line="1794">
+            <param name="$state" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="1802">
+        </function>
+    </class>
+    <class name="MultiSelection" base="FormField" declaration="class MultiSelection extends FormField" line="1869">
+        <var name="options" declaration="var $options;" line="1871">
+        </var>
+        <var name="showValues" declaration="var $showValues;" line="1872">
+        </var>
+        <function name="MultiSelection" attribute="default" declaration="function MultiSelection($label='&amp;nbsp;', $name, $values=null, $options=null,$showValues=false,$hint='',$size='')" line="1874">
+            <param name="$label" value="'&amp;nbsp;'" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$values" value="null" type=""><![CDATA[]]></param>
+            <param name="$options" value="null" type=""><![CDATA[]]></param>
+            <param name="$showValues" value="false" type=""><![CDATA[]]></param>
+            <param name="$hint" value="''" type=""><![CDATA[]]></param>
+            <param name="$size" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="1890">
+        </function>
+    </class>
+    <class name="ComboBox" base="FormField" declaration="class ComboBox extends FormField" line="1922">
+        <var name="options" declaration="var $options;" line="1924">
+        </var>
+        <var name="autoSubmit" declaration="var $autoSubmit;" line="1925">
+        </var>
+        <function name="SetAutoSubmit" attribute="default" declaration="function SetAutoSubmit($state)" line="1927">
+            <param name="$state" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ComboBox" attribute="default" declaration="function ComboBox($label,$name,$value,$options,$hint='')" line="1932">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+            <param name="$options" value="" type=""><![CDATA[]]></param>
+            <param name="$hint" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="1959">
+        </function>
+    </class>
+    <class name="LookupField" base="FormField" declaration="class LookupField extends FormField" line="2020">
+      <description>
+      <![CDATA[]]>
+      </description>
+        <var name="action" declaration="var $action;" line="2022">
+        </var>
+        <var name="related" declaration="var $related;" line="2023">
+        </var>
+        <var name="module" declaration="var $module;" line="2024">
+        </var>
+        <var name="item" declaration="var $item;" line="2025">
+        </var>
+        <var name="info" declaration="var $info;" line="2026">
+        </var>
+        <var name="defaults" declaration="var $defaults;" line="2027">
+        </var>
+        <function name="LookupField" attribute="default" declaration="function LookupField($label,$name,$related,$module,$item,$value='',$hint='',$defaults=array())" line="2029">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$related" value="" type=""><![CDATA[]]></param>
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$item" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="''" type=""><![CDATA[]]></param>
+            <param name="$hint" value="''" type=""><![CDATA[]]></param>
+            <param name="$defaults" value="array()" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="2044">
+        </function>
+    </class>
+    <class name="MultiTextField" base="FormField" declaration="class MultiTextField extends FormField" line="2102">
+      <description>
+      <![CDATA[Implements input field, which can have multiple input values
+relies on _MIOLO_MultiTextField_*() JavaScript support]]>
+      </description>
+        <var name="buttons" declaration="var $buttons;" line="2104">
+        </var>
+        <function name="MultiTextField" attribute="default" declaration="function MultiTextField($label,$name,$width=200,$value=null,$buttons=false,$hint='')" line="2106">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$width" value="200" type=""><![CDATA[]]></param>
+            <param name="$value" value="null" type=""><![CDATA[]]></param>
+            <param name="$buttons" value="false" type=""><![CDATA[]]></param>
+            <param name="$hint" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="2114">
+        </function>
+    </class>
+    <class name="MultiTextField2" base="FormField" declaration="class MultiTextField2 extends FormField" line="2164">
+      <description>
+      <![CDATA[Implements input field, which can have multiple input values
+relies on _MIOLO_MultiTextField_*() JavaScript support]]>
+      </description>
+        <var name="buttons" declaration="var $buttons;" line="2166">
+        </var>
+        <var name="fields" declaration="var $fields;" line="2167">
+        </var>
+        <function name="MultiTextField2" attribute="default" declaration="function MultiTextField2($label,$name,$fields,$width=200,$value=null,$buttons=false,$hint='')" line="2169">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$fields" value="" type=""><![CDATA[]]></param>
+            <param name="$width" value="200" type=""><![CDATA[]]></param>
+            <param name="$value" value="null" type=""><![CDATA[]]></param>
+            <param name="$buttons" value="false" type=""><![CDATA[]]></param>
+            <param name="$hint" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="2181">
+        </function>
+    </class>
+    <class name="FileField" base="FormField" declaration="class FileField extends FormField" line="2226">
+        <var name="size" declaration="var $size;" line="2228">
+        </var>
+        <function name="FileField" attribute="default" declaration="function FileField($label,$name,$value,$size=40,$hint='')" line="2230">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+            <param name="$size" value="40" type=""><![CDATA[]]></param>
+            <param name="$hint" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="2239">
+        </function>
+    </class>
+    <class name="RadioButton" base="FormField" declaration="class RadioButton extends FormField" line="2246">
+        <var name="checked" declaration="var $checked;" line="2248">
+        </var>
+        <var name="text" declaration="var $text;" line="2249">
+        </var>
+        <function name="RadioButton" attribute="default" declaration="function RadioButton($label,$name,$value,$checked=false,$text=null,$hint='')" line="2251">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+            <param name="$checked" value="false" type=""><![CDATA[]]></param>
+            <param name="$text" value="null" type=""><![CDATA[]]></param>
+            <param name="$hint" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="2260">
+        </function>
+    </class>
+    <class name="DateField" base="FormField" declaration="class DateField extends FormField" line="2279">
+        <var name="size" declaration="var $size;" line="2281">
+        </var>
+        <var name="type" declaration="var $type;" line="2282">
+        </var>
+        <var name="validator" declaration="var $validator;" line="2283">
+        </var>
+        <var name="separator" declaration="var $separator;" line="2284">
+        </var>
+        <var name="style" declaration="var $style;" line="2285">
+        </var>
+        <function name="DateField" attribute="default" declaration="function DateField($label,$name,$value='',$size=10,$hint='',$style='DMY',$separator='/')" line="2287">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="''" type=""><![CDATA[]]></param>
+            <param name="$size" value="10" type=""><![CDATA[]]></param>
+            <param name="$hint" value="''" type=""><![CDATA[]]></param>
+            <param name="$style" value="'DMY'" type=""><![CDATA[]]></param>
+            <param name="$separator" value="'/'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="2303">
+        </function>
+    </class>
+    <class name="MultiChoiceField" base="FormField" declaration="class MultiChoiceField extends FormField" line="2371">
+      <title>MultiChoice.class</title>
+      <organisation>
+      <![CDATA[SOLIS - Cooperativa de Solu&ccedil;&otilde;es Livres]]>
+      </organisation>
+      <legal>
+      <![CDATA[CopyLeft (L) 2004 SOLIS
+Licensed under GPL (for further details read the
+LICENSE file)]]>
+      </legal>
+      <contributors>
+        <author name="Daniel Afonso Heisler" type="dah" login="" email="daniel@solis.coop.br"></author>
+        <author name="Mauricio de Castro" type="mcastro" login="" email="mcastro@solis.coop.br"></author>
+      </contributors>
+        <var name="buttons" declaration="var $buttons;" line="2373">
+        </var>
+        <function name="MultiChoiceField" attribute="default" declaration="function MultiChoiceField($label,$name,$width=200,$options=null,$values=null,$hint=null)" line="2375">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$width" value="200" type=""><![CDATA[]]></param>
+            <param name="$options" value="null" type=""><![CDATA[]]></param>
+            <param name="$values" value="null" type=""><![CDATA[]]></param>
+            <param name="$hint" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="2401">
+        </function>
+    </class>
+</source>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="database.class" path="/usr/local/bis/html/miolo/database.class" base="miolo_database" created="" lines="218">
+    <class name="Database" base="" declaration="class Database" line="22">
+        <var name="conf" declaration="var $conf;" line="24">
+        </var>
+        <var name="system" declaration="var $system;" line="25">
+        </var>
+        <var name="host" declaration="var $host;" line="26">
+        </var>
+        <var name="db" declaration="var $db;" line="27">
+        </var>
+        <var name="user" declaration="var $user;" line="28">
+        </var>
+        <var name="pass" declaration="var $pass;" line="29">
+        </var>
+        <var name="conn" declaration="var $conn;" line="30">
+        </var>
+        <function name="Database" attribute="default" declaration="function Database($conf,$system,$host,$db,$user,$pass)" line="32">
+            <param name="$conf" value="" type=""><![CDATA[]]></param>
+            <param name="$system" value="" type=""><![CDATA[]]></param>
+            <param name="$host" value="" type=""><![CDATA[]]></param>
+            <param name="$db" value="" type=""><![CDATA[]]></param>
+            <param name="$user" value="" type=""><![CDATA[]]></param>
+            <param name="$pass" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Close" attribute="default" declaration="function Close()" line="53">
+        </function>
+        <function name="GetError" attribute="default" declaration="function GetError()" line="58">
+        </function>
+        <function name="GetErrors" attribute="default" declaration="function GetErrors()" line="65">
+        </function>
+        <function name="Execute" attribute="default" declaration="function Execute($sql)" line="70">
+            <param name="$sql" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ExecuteBatch" attribute="default" declaration="function ExecuteBatch($sql_array)" line="90">
+            <param name="$sql_array" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Query" attribute="default" declaration="function Query($sql,$maxrows=0)" line="107">
+            <param name="$sql" value="" type=""><![CDATA[]]></param>
+            <param name="$maxrows" value="0" type=""><![CDATA[]]></param>
+        </function>
+        <function name="QueryRange" attribute="default" declaration="function QueryRange($sql,&amp;$range)" line="112">
+            <param name="$sql" value="" type=""><![CDATA[]]></param>
+            <param name="&amp;$range" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="QueryChunk" attribute="default" declaration="function QueryChunk($sql, $maxrows, $offset, &amp;$total)" line="120">
+            <param name="$sql" value="" type=""><![CDATA[]]></param>
+            <param name="$maxrows" value="" type=""><![CDATA[]]></param>
+            <param name="$offset" value="" type=""><![CDATA[]]></param>
+            <param name="&amp;$total" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Assert" attribute="default" declaration="function Assert($info=false)" line="166">
+            <param name="$info" value="false" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+    <class name="Business" base="" declaration="class Business" line="193">
+        <var name="errors" declaration="var $errors;" line="195">
+        </var>
+        <function name="CheckError" attribute="default" declaration="function CheckError($db)" line="197">
+            <param name="$db" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetErrors" attribute="default" declaration="function GetErrors()" line="212">
+        </function>
+    </class>
+</source>

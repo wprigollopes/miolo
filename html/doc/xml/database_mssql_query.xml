@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="mssql_query.class" path="/usr/local/miolo/classes/database/mssql_query.class" base="database_mssql_query" created="" lines="154">
+    <class name="MssqlQuery" base="" declaration="class MssqlQuery" line="44">
+      <title>MsSQL Query</title>
+      <description>
+      <![CDATA[This file contains de query class definitions]]>
+      </description>
+      <relations type="see-also">
+        <group name="miolo/database.class"/>
+        <group name="miolo/mssql_connection.class"/>
+        <group name=""/>
+      </relations>
+      <relations type="group">
+        <group name="db"/>
+        <group name="business"/>
+      </relations>
+      <organisation>
+      <![CDATA[MIOLO - Miolo Development Team - UNIVATES Centro Universitario
+  http://miolo.codigolivre.org.br]]>
+      </organisation>
+      <legal>
+      <![CDATA[CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)]]>
+      </legal>
+      <contributors>
+        <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+        <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+        <author name="Clausius Duque G. Reis" type="clausius@ufv.br" login="" email=""></author>
+      </contributors>
+      <maintainers>
+        <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+        <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+        <author name="Clausius Duque G. Reis" type="clausius@ufv.br" login="" email=""></author>
+        <author name="history: see miolo cvs." type="" login="" email=""></author>
+      </maintainers>
+        <var name="conf" declaration="var $conf;     // name of database configuration" line="46">
+        </var>
+        <var name="conn" declaration="var $conn;     // the connection id" line="47">
+        </var>
+        <var name="sql" declaration="var $sql;      // the SQL command string" line="48">
+        </var>
+        <var name="result" declaration="var $result;   // the SQL command result set" line="49">
+        </var>
+        <var name="row" declaration="var $row;      // the current row index" line="50">
+        </var>
+        <var name="error" declaration="var $error;    // the query's error message from the query execution" line="51">
+        </var>
+        <function name="MssqlQuery" attribute="default" declaration="function MssqlQuery($conf)" line="53">
+            <param name="$conf" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetError" attribute="default" declaration="function GetError()" line="58">
+        </function>
+        <function name="Open" attribute="default" declaration="function Open()" line="63">
+        </function>
+        <function name="Close" attribute="default" declaration="function Close()" line="82">
+        </function>
+        <function name="MovePrev" attribute="default" declaration="function MovePrev()" line="92">
+        </function>
+        <function name="MoveNext" attribute="default" declaration="function MoveNext()" line="104">
+        </function>
+        <function name="GetRowCount" attribute="default" declaration="function GetRowCount()" line="116">
+        </function>
+        <function name="GetColumnCount" attribute="default" declaration="function GetColumnCount()" line="123">
+        </function>
+        <function name="GetColumnName" attribute="default" declaration="function GetColumnName($col)" line="128">
+            <param name="$col" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetValue" attribute="default" declaration="function GetValue($col)" line="133">
+            <param name="$col" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetRowValues" attribute="default" declaration="function GetRowValues()" line="138">
+        </function>
+        <function name="SetConnection" attribute="default" declaration="function SetConnection($c)" line="143">
+            <param name="$c" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetSQL" attribute="default" declaration="function SetSQL($sql)" line="148">
+            <param name="$sql" value="" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+</source>

@@ -1,0 +1,366 @@
+<html xmlns:html="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>Source: Dialogs classes</title>
+    <link rel="stylesheet" type="text/css" href="doc.css">
+  </head>
+  <body>
+    <h1>Documentação MIOLO</h1>
+    <h2>Dialogs classes<br>
+      <font size="2">(200 linhas)</font>
+    </h2>
+    <div class="description">
+      <h3>Descrição:</h3>
+      <blockquote>
+  Implementation of the prompt class for generating common dialogs.
+  </blockquote>
+    </div>
+    <div class="relations" align="right">
+         [<a href="?module=common&amp;action=main:doc:index:source&amp;item=/usr/local/miolo/classes/ui/prompt.class">Codigo Fonte</a>]
+         [<a href="/doc/dia/ui_prompt.dia">Diagrama UML</a>]
+      </div>
+    <div class="relations" align="right">
+            Veja também:
+            <a href="?module=common&amp;action=main:doc:index:file&amp;item=/usr/local/bis/html/miolo/ui/tabbedform.class">miolo/ui/tabbedform.class</a>, <a href="?module=common&amp;action=main:doc:index:file&amp;item=/usr/local/bis/html/miolo/ui/themepainter.class">miolo/ui/themepainter.class</a>
+    </div>
+    <div class="relations" align="right">
+            Tópicos relacionados:
+            <a href="?module=common&amp;action=main:doc:topic&amp;item=ui">ui</a>
+    </div>
+    <div class="classBlock">
+      <a name="Prompt"></a>
+      <h2>Classe <span class="className">Prompt</span></h2>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      This class implements common dialogs needed by an application.
+      </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $caption;</dt>
+        <dt>var $message;</dt>
+        <dt>var $buttons;</dt>
+        <dt>var $icon;</dt>
+        <dt>var $type     = 'prompt';</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#Prompt::AddButton">AddButton</a>, <a href="#Prompt::Confirmation">Confirmation</a>, <a href="#Prompt::Error">Error</a>, <a href="#Prompt::Generate">Generate</a>, <a href="#Prompt::Information">Information</a>, <a href="#Prompt::Prompt">Prompt</a>, <a href="#Prompt::Question">Question</a>, <a href="#Prompt::SetType">SetType</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="Prompt::Prompt"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Prompt</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          This is the constructor of the class.
+Use the <code>SetType</code> method to specify the type of the dialog.
+<br>caption
+          </blockquote>
+          </div>
+          <div class="declaration">function Prompt($caption=null, $message=null, $icon='/images/error.gif')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$caption</span> (<span class="paramValue">string</span>) Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">Title of the box @patam $message (string) Message for the prompt message</dd>
+            <dt><span class="paramName">$message</span> (<span class="paramValue">file url</span>) Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">Image to display on the message</dd>
+            <dt><span class="paramName">$icon</span> Default <span class="paramValue">'/images/error.gif'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$icon</tt>
+            </dd>
+          </dl>
+          <div class="returns">
+            <h3>Retorna:</h3>
+            <blockquote>
+            (<tt>nothing</tt>) 
+          
+          </blockquote>
+          </div>
+          <h3>Exemplo:</h3>
+          <pre>
+
+          </pre>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Prompt::Error"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Error</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Error</blockquote>
+          </div>
+          <div class="declaration">function Error($msg='',$goto='', $caption='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$msg</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$msg</tt>
+            </dd>
+            <dt><span class="paramName">$goto</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$goto</tt>
+            </dd>
+            <dt><span class="paramName">$caption</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$caption</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Prompt::Information"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Information</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Information</blockquote>
+          </div>
+          <div class="declaration">function Information($msg,$goto='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$msg</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$msg</tt>
+            </dd>
+            <dt><span class="paramName">$goto</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$goto</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Prompt::Confirmation"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Confirmation</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Confirmation</blockquote>
+          </div>
+          <div class="declaration">function Confirmation($msg,$gotoOK='',$gotoCancel='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$msg</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$msg</tt>
+            </dd>
+            <dt><span class="paramName">$gotoOK</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$gotoOK</tt>
+            </dd>
+            <dt><span class="paramName">$gotoCancel</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$gotoCancel</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Prompt::Question"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Question</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Question</blockquote>
+          </div>
+          <div class="declaration">function Question($msg,$gotoYes='',$gotoNo='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$msg</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$msg</tt>
+            </dd>
+            <dt><span class="paramName">$gotoYes</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$gotoYes</tt>
+            </dd>
+            <dt><span class="paramName">$gotoNo</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$gotoNo</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Prompt::SetType"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetType</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetType</blockquote>
+          </div>
+          <div class="declaration">function SetType($type)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$type</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$type</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Prompt::AddButton"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddButton</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função AddButton</blockquote>
+          </div>
+          <div class="declaration">function AddButton($label,$href)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$label</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$label</tt>
+            </dd>
+            <dt><span class="paramName">$href</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$href</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Prompt::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <hr>
+    <p>
+      <b>Caminho:</b>
+      <br>
+      <blockquote>/usr/local/miolo/classes/ui/prompt.class</blockquote>
+    </p>
+    <p>
+      <b>Criado:</b>
+      <br>
+      <blockquote>2001/08/14</blockquote>
+    </p>
+    <p>
+      <b>Autor(es):</b>
+      <br>
+      <blockquote>
+        <table>
+          <tr>
+            <td>Vilson Cristiano Gartner</td>
+            <td>author</td>
+            <td>
+              <a href="malto:vgartner@univates.br">vgartner@univates.br</a>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Thomas Spriestersbach</td>
+            <td>author</td>
+            <td>
+              <a href="malto:ts@interact2000.com.br">ts@interact2000.com.br</a>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+      </blockquote>
+    </p>
+    <p>
+      <b>Mantido por:</b>
+      <br>
+      <blockquote>
+        <table>
+          <tr>
+            <td>Vilson Cristiano Gartner</td>
+            <td>author</td>
+            <td>
+              <a href="malto:vgartner@univates.br">vgartner@univates.br</a>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Thomas Spriestersbach</td>
+            <td>author</td>
+            <td>
+              <a href="malto:ts@interact2000.com.br">ts@interact2000.com.br</a>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+      </blockquote>
+    </p>
+    <p>
+      <b>Histórico:</b>
+      <br>
+      <blockquote style="text-align: preformatted">
+  
+    $Log: ui_prompt.html,v $
+    Revision 1.1  2004/08/12 18:35:09  vgartner
+    Inserting Documentation.
+<br>
+      Revision 1.4  2002/11/16 11:08:56  vgartner<br>
+      Maintenance code<br>
+    <br>
+      Revision 1.3  2002/09/17 18:50:41  vgartner<br>
+      added 'component' support<br>
+    <br>
+      Revision 1.2  2002/09/05 00:59:16  vgartner<br>
+      project maintenance for CVS<br>
+  
+  </blockquote>
+    </p>
+    <div align="center" style="margin:10; border: solid 1 black;">
+      <cite></cite>
+    </div>
+    <div style="width: 95%; font-size: 9pt; text-align:right; background:#efefef; margin-top: 20px; border-top: #0000ff 1px solid; padding: 2px 20px 2px 20px;">
+  CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)
+  </div>
+  </body>
+</html>

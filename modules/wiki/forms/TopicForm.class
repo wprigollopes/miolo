@@ -1,0 +1,75 @@
+<?
+// +-----------------------------------------------------------------+
+// | Wiki Development Team UNIVATES - Centro Universitário           |
+// +-----------------------------------------------------------------+
+// |      Copyleft (l) 2002 UNIVATES, Lajeado/RS - Brasil            |
+// +-----------------------------------------------------------------+
+// | Licensed under GPL: see COPYING.TXT or FSF at www.fsf.org for   |
+// |                     further details                             |
+// |                                                                 |
+// | Site: http://wiki.codigolivre.org.br                            |
+// +-----------------------------------------------------------------+
+// | Created: 2002/12/16 Alexandre Heitor Schmidt xandehs@univates.br|
+// |                     Nasair Júnior da Silva   njunior@univates.br|
+// |                                                                 |
+// | History: Initial Revision                                       |
+// +-----------------------------------------------------------------+
+
+class TopicForm extends Form
+{
+    function TopicForm($data=null)
+    {
+        global $MIOLO, $module, $login;
+
+        $bus = $MIOLO->GetBusiness('common','admin');
+        $users = $bus->GetUsers();
+        $this->Form(_M("Topic edit",$module));
+        $fields[] = new TextField(null,'last_update',$data->last_update,0);
+
+        $fields[] = new TextField(_M("Project Id",$module),'project_id',$data->project_id,0);
+        $fields[] = new TextField(_M('Topic Id',$module) ,'topic_id',$data->topic_id,0);
+        $fields[] = new TextField(_M('Code',$module) ,'code',$data->code,20);
+        $fields[] = new TextField(_M('Title',$module) ,'title',$data->title,90);
+        $fields[] = new TextArea(_M('Body',$module) ,'body',$data->body,90,20);
+        $fields[] = new TextField(null,'user',$data->user,0);
+        $fields[] = new TextField(null,'review',$data->review,0);
+        $this->SetFields($fields);
+    }
+    
+    function SetData($data)
+    {
+        $this->_SetData($data);
+        
+        if ( ! $data->topic_id )
+        {
+            $f = & $this->GetField('topic_id');
+            
+            if ( $f )
+            {
+                $f->size = 20;
+                $f->type = 'text';
+            }
+            
+            $f = & $this->GetField('title');
+            
+            if ( $f )
+            {
+                unset($f->value);
+            }
+        }
+    }
+
+    function GetData()
+    {
+        $required = array('title');
+
+        if ( $this->Validate($required) )
+        {
+            $data = $this->CollectInput(new FormData);
+        }
+        
+        return $data;
+    }
+}
+
+?>

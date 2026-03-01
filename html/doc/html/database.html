@@ -1,0 +1,330 @@
+<html xmlns:html="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>Source: database.class</title>
+    <link rel="stylesheet" type="text/css" href="doc.css">
+  </head>
+  <body>
+    <h1>Documentação MIOLO</h1>
+    <h2>
+            Source: <a href="?module=common&amp;action=main:doc:index:source&amp;item=/usr/local/miolo/classes/database.class"><span class="sourceName">database.class</span></a>
+      <br>
+      <font size="2">(269 linhas)</font>
+    </h2>
+    <div class="description">
+      <h3>Descrição:</h3>
+      <blockquote>
+            TODO: 
+          Descrição do arquivo database.class.
+        </blockquote>
+    </div>
+    <div class="relations" align="right">
+         [<a href="?module=common&amp;action=main:doc:index:source&amp;item=/usr/local/miolo/classes/database.class">Codigo Fonte</a>]
+         [<a href="/doc/dia/database.dia">Diagrama UML</a>]
+      </div>
+    <div class="classBlock">
+      <a name="Database"></a>
+      <h2>Classe <span class="className">Database</span></h2>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      This file contains database abstraction class
+      </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $conf;</dt>
+        <dt>var $system;</dt>
+        <dt>var $host;</dt>
+        <dt>var $db;</dt>
+        <dt>var $user;</dt>
+        <dt>var $pass;</dt>
+        <dt>var $conn;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#Database::Assert">Assert</a>, <a href="#Database::Close">Close</a>, <a href="#Database::Database">Database</a>, <a href="#Database::Execute">Execute</a>, <a href="#Database::ExecuteBatch">ExecuteBatch</a>, <a href="#Database::GetError">GetError</a>, <a href="#Database::GetErrors">GetErrors</a>, <a href="#Database::Prepare">Prepare</a>, <a href="#Database::Query">Query</a>, <a href="#Database::QueryChunk">QueryChunk</a>, <a href="#Database::QueryRange">QueryRange</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="Database::Database"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Database</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Database</blockquote>
+          </div>
+          <div class="declaration">function Database($conf,$system,$host,$db,$user,$pass)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$conf</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$conf</tt>
+            </dd>
+            <dt><span class="paramName">$system</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$system</tt>
+            </dd>
+            <dt><span class="paramName">$host</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$host</tt>
+            </dd>
+            <dt><span class="paramName">$db</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$db</tt>
+            </dd>
+            <dt><span class="paramName">$user</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$user</tt>
+            </dd>
+            <dt><span class="paramName">$pass</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$pass</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Database::Close"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Close</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Close</blockquote>
+          </div>
+          <div class="declaration">function Close()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Database::GetError"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetError</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetError</blockquote>
+          </div>
+          <div class="declaration">function GetError()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Database::GetErrors"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetErrors</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetErrors</blockquote>
+          </div>
+          <div class="declaration">function GetErrors()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Database::Prepare"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Prepare</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Prepare</blockquote>
+          </div>
+          <div class="declaration">function Prepare($sql,$params)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$sql</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$sql</tt>
+            </dd>
+            <dt><span class="paramName">$params</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$params</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Database::Execute"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Execute</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Execute</blockquote>
+          </div>
+          <div class="declaration">function Execute($sql)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$sql</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$sql</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Database::ExecuteBatch"></a>
+        <dt><span class="functionName">
+            <a href="#$class">ExecuteBatch</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função ExecuteBatch</blockquote>
+          </div>
+          <div class="declaration">function ExecuteBatch($sql_array)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$sql_array</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$sql_array</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Database::Query"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Query</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Query</blockquote>
+          </div>
+          <div class="declaration">function Query($sql,$maxrows=0)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$sql</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$sql</tt>
+            </dd>
+            <dt><span class="paramName">$maxrows</span> Default <span class="paramValue">0</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$maxrows</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Database::QueryRange"></a>
+        <dt><span class="functionName">
+            <a href="#$class">QueryRange</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função QueryRange</blockquote>
+          </div>
+          <div class="declaration">function QueryRange($sql,&amp;$range)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$sql</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$sql</tt>
+            </dd>
+            <dt><span class="paramName">&amp;$range</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>&amp;$range</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Database::QueryChunk"></a>
+        <dt><span class="functionName">
+            <a href="#$class">QueryChunk</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função QueryChunk</blockquote>
+          </div>
+          <div class="declaration">function QueryChunk($sql, $maxrows, $offset, &amp;$total)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$sql</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$sql</tt>
+            </dd>
+            <dt><span class="paramName">$maxrows</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$maxrows</tt>
+            </dd>
+            <dt><span class="paramName">$offset</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$offset</tt>
+            </dd>
+            <dt><span class="paramName">&amp;$total</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>&amp;$total</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Database::Assert"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Assert</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Assert</blockquote>
+          </div>
+          <div class="declaration">function Assert($info=false)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$info</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$info</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+    </div>
+    <hr>
+    <div style="width: 95%; font-size: 9pt; text-align:right; background:#efefef; margin-top: 20px; border-top: #0000ff 1px solid; padding: 2px 20px 2px 20px;">
+            CopyLeft (L) 2001 - 2004 <i>MIOLO</i> Development Team  SOLIS/Univates - Lajeado - Rio Grande do Sul - Brasil
+        </div>
+  </body>
+</html>

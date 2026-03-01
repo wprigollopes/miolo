@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="ui.class" path="/usr/local/bis/html/miolo/ui.class" base="miolo_ui" created="">
+    <class name="UI" base="" declaration="class UI" line="22">
+        <function name="UI" attribute="default" declaration="function UI()" line="24">
+        </function>
+        <function name="Alert" attribute="default" declaration="function Alert($msg,$info,$href='')" line="36">
+            <param name="$msg" value=""></param>
+            <param name="$info" value=""></param>
+            <param name="$href" value="''"></param>
+        </function>
+        <function name="CreateForm" attribute="default" declaration="function CreateForm($title='')" line="42">
+            <param name="$title" value="''"></param>
+        </function>
+        <function name="GetForm" attribute="default" declaration="function GetForm($module,$name,$data=null)" line="47">
+            <param name="$module" value=""></param>
+            <param name="$name" value=""></param>
+            <param name="$data" value="null"></param>
+        </function>
+        <function name="GetMenu" attribute="default" declaration="function GetMenu($module='main',$name='UIMainMenu')" line="60">
+            <param name="$module" value="'main'"></param>
+            <param name="$name" value="'UIMainMenu'"></param>
+        </function>
+        <function name="GetImage" attribute="default" declaration="function GetImage($module,$nome)" line="70">
+            <param name="$module" value=""></param>
+            <param name="$nome" value=""></param>
+        </function>
+    </class>
+</source>

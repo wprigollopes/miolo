@@ -1,0 +1,242 @@
+<?
+// +-----------------------------------------------------------------+
+// | Wiki Development Team UNIVATES - Centro Universitário           |
+// +-----------------------------------------------------------------+
+// |      Copyleft (l) 2002 UNIVATES, Lajeado/RS - Brasil            |
+// +-----------------------------------------------------------------+
+// | Licensed under GPL: see COPYING.TXT or FSF at www.fsf.org for   |
+// |                     further details                             |
+// |                                                                 |
+// | Site: http://wiki.codigolivre.org.br                            |
+// +-----------------------------------------------------------------+
+// | Created: 2002/12/16 Alexandre Heitor Schmidt xandehs@univates.br|
+// |                     Nasair Júnior da Silva   njunior@univates.br|
+// |                                                                 |
+// | History: Initial Revision                                       |
+// +-----------------------------------------------------------------+
+
+class BusinessWikiProjects
+{
+
+    function GetDatabase($db_name=null)
+    {
+        global $module, $MIOLO;
+        if (!$db_name) $db_name = $module;
+        return $MIOLO->GetDatabase($db_name);
+    }
+    
+    function Add($data)
+    {   
+        if (is_array($data->responsible))
+        {
+            $data->responsible = implode(",",$data->responsible);
+        }
+        
+        $sql = "   INSERT INTO wik_projects ( ".
+               "               title, ".
+               "               creation, ".
+               "               responsible, ".
+               "               annonymous_read, ".
+               "               annonymous_write, ".
+               "               review, ".
+               "               status ".
+               "        ) VALUES ( ?, now(), ?, ?, ?, 0, 1 )";
+               
+        $db = $this->GetDatabase();
+        $result = $db->Execute($db->Prepare($sql,array($data->title,$data->responsible,$data->annonymous_read,$data->annonymous_write)));
+        $db->Close();
+        return $result;
+    }
+
+    function SetStatus($project_id,$status=null)
+    {
+        $sql = "UPDATE wik_projects SET status=? WHERE project_id = ?";
+        $db = $this->GetDatabase();
+        $result = $db->Execute($db->Prepare($sql,array($status,$project_id)));
+        $db->Close();
+        return $result;
+    }
+
+    function UpdateProject($data)
+    {
+        if (is_array($data->responsible))
+        {
+            $data->responsible = @implode(',', $data->responsible);
+        }
+        
+        $sql =  "UPDATE  wik_projects".
+                "   SET title = ?,".
+                "       annonymous_read  = ?,".
+                "       annonymous_write = ?,".
+                "       responsible = ?".
+                " WHERE project_id = ?";
+                
+        $db = $this->GetDatabase();
+        $result = $db->Execute($db->Prepare($sql,array($data->title,$data->annonymous_read,$data->annonymous_write,$data->responsible,$data->project_id)));
+        $db->Close();
+        return $result;
+    }
+
+    ##
+    #   obtaines a WikiProject identified by it's ID
+    #
+    function GetProject($project_id)
+    {
+        $sql = "SELECT  project_id,".
+               "        title,".
+               "        creation,".
+               "        annonymous_read,".
+               "        annonymous_write,".
+               "        responsible,".
+               "        review".
+               "   FROM wik_projects".
+               "  WHERE project_id = ?";
+               
+        $db = $this->GetDatabase();
+        $result = $db->Query($db->Prepare($sql,$project_id));
+        $db->Close();
+
+        return $this->Array2Obj($result[0]);
+    }
+
+    ##
+    #   converts a result set into an array of WikiProject objects
+    #
+    function Array2Obj($rs)
+    {
+        if ( is_array($rs[0]) )
+        {
+            foreach($rs as $i=>$r)
+            {
+                $projects[$i] = $this->Array2Obj($r);
+            }
+            
+            return $projects;
+        }
+        
+        else
+        {
+            $project = new WikiProject();
+            
+            list (  $project->project_id, 
+                    $project->title,
+                    $project->creation, 
+                    $project->annonymous_read,
+                    $project->annonymous_write,
+                    $project->responsible,
+                    $project->review ) = $rs;
+                    
+            $project->annonymous_read = ( $project->annonymous_read == 't' );
+            $project->annonymous_write = ( $project->annonymous_write == 't' );
+            $project->responsible = explode(',',$project->responsible);
+            
+            return $project;
+        }
+    }
+
+    ##
+    #   Obtains a range of projects
+    #
+    function GetAllProjects(&$range,$status=null)
+    {
+        global $MIOLO;
+        
+        $module = 'wiki';
+        
+        if (!$status)
+        { 
+            $status = ($MIOLO->CheckAccess($module,'admin',false)) ? null : 1;
+        }
+
+        $sql =  "select wik_projects.project_id," .
+                "       wik_projects.title," .
+                "       wik_projects.creation," .
+                "       'last_update'," .
+                "       'last_user'," .
+                "       wik_projects.responsible,".
+                "       wik_projects.review".
+                "  from wik_projects";
+
+        if ($status != null)
+        {
+            $sql .= " where wik_projects.status = ?";
+            $arg[] = $status;
+        }
+       
+        $sql .= "  order by wik_projects.title";
+        
+	    $db = $this->GetDatabase();
+        $rs = $db->QueryRange($db->Prepare($sql,$arg),$range);
+	    $db->close();
+
+        if ( $status && is_array($rs) )
+        {
+            $permissions = $MIOLO->GetBusiness($module,'Permissions');
+            
+            foreach($rs as $r)
+            {
+                if ($permissions->CheckAccess($r[0],'read',$MIOLO->login->id,null))
+                {
+                    $allowed[] = $r;
+                }
+            }
+            
+            return $allowed;
+        }
+
+        return $rs;
+    }
+
+    function GetLastUpdate($project)
+    {
+        $sql = "SELECT last_update FROM  wik_topics  WHERE  project_id = ?";
+        $db = $this->GetDatabase();
+        $result = $db->Query($db->Prepare($sql,$project));
+        $db->Close();
+        return $result[0][0];
+    }
+
+    function SetReview($project_id,$review=null)
+    {
+        $sql = "UPDATE    wik_projects".
+               "  SET     review = review + 1".
+               " WHERE    project_id = ?";
+        $db = $this->GetDatabase();
+        $result = $db->Execute($db->Prepare($sql,$project_id));
+        $db->Close();
+        return $result;
+    }
+    
+    ##
+    #   used to send image files to the project's files directory
+    #
+    function SendImage($project,$name,$file)
+    {
+        global $MIOLO;
+        
+        $module = 'wiki';
+        
+        $dir  = $MIOLO->GetModulePath($module,"files/$project");
+        $path = $dir . '/' . $name;
+        
+        if ( ! is_dir($dir) )
+        {
+            mkdir($dir);
+        }
+            
+        if ( file_exists($path) )
+        {
+            unlink($path);
+        }
+        
+        $rc = copy( $file, $path );
+        
+        // if filesize is 0, anything went wrong, so we remove the image 
+        if ( file_exists($path) && filesize($path) == 0 )
+        {
+            unlink($path);
+        }
+        
+        return $rc;
+    }
+}

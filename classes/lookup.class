@@ -1,0 +1,103 @@
+<?
+
+class Lookup
+{
+    var $listingTitle;
+    var $dbconf;
+    var $sql;
+    var $labels;
+    var $filterFields;
+    var $form;
+    var $pageLength = 20;
+    
+    function GetFilterValue($name='filter')
+    {   global $HTTP_GET_VARS;
+        
+        return Form::GetFormValue( $name ,$HTTP_GET_VARS[$name]);
+    }
+    
+    function AddFilterField(&$field)
+    {
+        $this->filterFields[] = $field->name;
+        
+        $this->form->AddField($field);
+    }
+    
+    function GetDatabase()
+    {
+        return $this->dbconf;
+    }
+    
+    function GetQuery()
+    {
+        return $this->sql;
+    }
+    
+    function GetPageLength()
+    {
+        return $this->pageLength;
+    }
+    
+    function & GetForm()
+    {
+        return $this->form;
+    }
+    
+    function GetFilterFields()
+    {
+        return $this->filterFields;
+    }
+    
+    function SetTitle($title)
+    {
+        $this->SetFilterTitle($title);
+        $this->SetListingTitle($title);
+    }
+    
+    function SetFilterTitle($title)
+    {
+        $this->form->SetTitle($title);
+    }
+    
+    function SetListingTitle($title)
+    {
+        $this->listingTitle = $title;
+    }
+
+    function SetDatabase($conf)
+    {
+        $this->dbconf = $conf;
+    }
+    
+    function SetQuery($sql)
+    {
+        $this->sql = $sql;
+    }
+    
+    function SetLabels($labels)
+    {
+        $this->labels = $labels;
+    }
+    
+    function SetPageLength($length)
+    {
+        $this->pageLength = $length;
+    }
+    
+    function SetForm(&$form)
+    {
+        $this->form = & $form;
+    }
+
+    function SetBusiness($module,$business,$method,$data=null)
+    {
+        $this->module   = $module;
+        $this->business = $business;
+        $this->method   = $method;
+        $this->data     = $data;
+    }
+
+    
+}
+
+?>

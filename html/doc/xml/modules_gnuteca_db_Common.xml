@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="Common.class" path="/usr/local/bis/html/modules/gnuteca/db/Common.class" base="modules_gnuteca_db_Common" created="">
+    <class name="BusinessGnutecaCommon" base="" declaration="class BusinessGnutecaCommon" line="6">
+        <var name="opcoes_cache" declaration="var $opcoes_cache;" line="8">
+        </var>
+        <function name="GetDatabase" attribute="default" declaration="function GetDatabase()" line="13">
+        </function>
+        <function name="GetOpcoes" attribute="default" declaration="function GetOpcoes($id)" line="26">
+            <param name="$id" value=""></param>
+        </function>
+        <function name="GetOpcoes2" attribute="default" declaration="function GetOpcoes2($id,&amp;$descricao,&amp;$default)" line="31">
+            <param name="$id" value=""></param>
+            <param name="&amp;$descricao" value=""></param>
+            <param name="&amp;$default" value=""></param>
+        </function>
+        <function name="GetListaPaises" attribute="default" declaration="function GetListaPaises()" line="85">
+        </function>
+        <function name="GetListaIdiomas" attribute="default" declaration="function GetListaIdiomas()" line="104">
+        </function>
+    </class>
+</source>

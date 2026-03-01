@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="theme.class" path="/usr/local/bis/html/miolo/themes/univates/theme.class" base="miolo_themes_univates_theme" created="">
+    <class name="MyThemePainter" base="ThemePainter" declaration="class MyThemePainter extends ThemePainter" line="3">
+        <function name="GenerateBody" attribute="default" declaration="function GenerateBody()" line="8">
+        </function>
+        <function name="GenerateTop" attribute="default" declaration="function GenerateTop()" line="40">
+        </function>
+        <function name="GenerateMenu" attribute="default" declaration="function GenerateMenu($menu)" line="50">
+            <param name="$menu" value=""></param>
+        </function>
+        <function name="GenerateForm" attribute="default" declaration="function GenerateForm($form)" line="86">
+            <param name="$form" value=""></param>
+        </function>
+        <function name="MyThemeHeader" attribute="default" declaration="function MyThemeHeader()" line="145">
+        </function>
+        <function name="MyNavigationBox" attribute="default" declaration="function MyNavigationBox($content)" line="150">
+            <param name="$content" value=""></param>
+        </function>
+        <function name="MyMenuBox" attribute="default" declaration="function MyMenuBox($title, $content)" line="159">
+            <param name="$title" value=""></param>
+            <param name="$content" value=""></param>
+        </function>
+        <function name="MyContentBox" attribute="default" declaration="function MyContentBox($content)" line="189">
+            <param name="$content" value=""></param>
+        </function>
+        <function name="MyStatusBox" attribute="default" declaration="function MyStatusBox($content)" line="198">
+            <param name="$content" value=""></param>
+        </function>
+        <function name="MyFormBox" attribute="default" declaration="function MyFormBox($title, $filter, $body, $footer)" line="203">
+            <param name="$title" value=""></param>
+            <param name="$filter" value=""></param>
+            <param name="$body" value=""></param>
+            <param name="$footer" value=""></param>
+        </function>
+        <function name="MyListingBox" attribute="default" declaration="function MyListingBox($title,$filter,$body,$footer)" line="249">
+            <param name="$title" value=""></param>
+            <param name="$filter" value=""></param>
+            <param name="$body" value=""></param>
+            <param name="$footer" value=""></param>
+        </function>
+    </class>
+</source>

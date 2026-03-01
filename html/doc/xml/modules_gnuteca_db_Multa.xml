@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="Multa.class" path="/usr/local/bis/html/modules/gnuteca/db/Multa.class" base="modules_gnuteca_db_Multa" created="" lines="215">
+    <class name="BusinessGnutecaMulta" base="" declaration="class BusinessGnutecaMulta" line="2">
+        <function name="GetDatabase" attribute="default" declaration="function GetDatabase()" line="4">
+        </function>
+        <function name="BusinessGnutecaMulta" attribute="default" declaration="function BusinessGnutecaMulta()" line="10">
+        </function>
+        <function name="TotalMultas" attribute="default" declaration="function TotalMultas($CodigoDaPessoa)" line="14">
+            <param name="$CodigoDaPessoa" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ObtemMultasPorPessoa" attribute="default" declaration="function ObtemMultasPorPessoa($CodigoDaPessoa)" line="31">
+            <param name="$CodigoDaPessoa" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="FinalizaMulta" attribute="default" declaration="function FinalizaMulta($CodigoDaMulta)" line="64">
+            <param name="$CodigoDaMulta" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="CalculaValor" attribute="default" declaration="function CalculaValor($Data, $Valor)" line="79">
+            <param name="$Data" value="" type=""><![CDATA[]]></param>
+            <param name="$Valor" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ProximoCodigo" attribute="default" declaration="function ProximoCodigo()" line="90">
+        </function>
+        <function name="NovaMulta" attribute="default" declaration="function NovaMulta($insertMulta)" line="105">
+            <param name="$insertMulta" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ListaMultas" attribute="default" declaration="function ListaMultas(&amp;$range)" line="128">
+            <param name="&amp;$range" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ListaMultasNaoPagas" attribute="default" declaration="function ListaMultasNaoPagas(&amp;$range)" line="140">
+            <param name="&amp;$range" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AlteraMulta" attribute="default" declaration="function AlteraMulta($objMulta)" line="155">
+            <param name="$objMulta" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ObtemMulta" attribute="default" declaration="function ObtemMulta($CodigoDaPessoa, $CodigoDoEmprestimo)" line="174">
+            <param name="$CodigoDaPessoa" value="" type=""><![CDATA[]]></param>
+            <param name="$CodigoDoEmprestimo" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ObtemMultaPorTombo" attribute="default" declaration="function ObtemMultaPorTombo($NumeroDoTombo)" line="197">
+            <param name="$NumeroDoTombo" value="" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+</source>

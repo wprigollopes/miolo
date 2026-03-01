@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="types.class" path="/usr/local/miolo/classes/types.class" base="types" created="" lines="19">
+    <class name="QueryRange" base="" declaration="class QueryRange" line="5">
+        <var name="offset" declaration="var $offset;" line="7">
+        </var>
+        <var name="rows" declaration="var $rows;" line="8">
+        </var>
+        <var name="total" declaration="var $total;" line="9">
+        </var>
+        <function name="QueryRange" attribute="default" declaration="function QueryRange($page,$rows,$total=0)" line="11">
+            <param name="$page" value="" type=""><![CDATA[]]></param>
+            <param name="$rows" value="" type=""><![CDATA[]]></param>
+            <param name="$total" value="0" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+</source>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="GroupForm.class" path="/usr/local/miolo/modules/common/forms/GroupForm.class" base="common_forms_GroupForm" created="" lines="33">
+    <class name="CommonGroupForm" base="Form" declaration="class CommonGroupForm extends Form" line="3">
+        <function name="CommonGroupForm" attribute="default" declaration="function CommonGroupForm($data=null)" line="5">
+            <param name="$data" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetData" attribute="default" declaration="function GetData()" line="21">
+        </function>
+    </class>
+</source>

@@ -1,0 +1,123 @@
+<?
+
+class Ticker extends ThemeElement
+{
+    var $messages;
+    var $width  = '100%';
+    var $height = 90;
+    
+    function Ticker()
+    {
+    }
+
+    function SetSize($w, $h)
+    {
+        $this->width  = $w;
+        $this->height = $h;
+    }
+    
+    function AddMessage($date,$text,$link)
+    {
+        $this->messages[] = "<b>$date:</b>&nbsp;<a href=\"$link\">$text</a>";
+    }
+    
+    function Generate()
+    {
+?>
+<script language="JavaScript">
+<!--
+//configure the below five variables to change the style of the scroller
+var tickerWidth='<?=$this->width?>';
+var tickerHeight=<?=$this->height?>;
+var scrollerbgcolor='lightyellow';
+//set below to '' if you don't wish to use a background image
+var tickerBackground='scrollerback.gif';
+
+//configure the below variable to change the contents of the scroller
+var messages=new Array(<?="'".implode("','",$this->messages)."'"?>);
+var tickerSpeed = 100;
+var tickerShift = 2;
+var tickerPos   = 0;
+
+function tickerStart()
+{
+    ring = Array(document.getElementById('ticker1'),
+                 document.getElementById('ticker2'));
+    
+    ring[0].style.top='0px';
+    ring[0].style.visibility='visible';
+    
+    ring[1].style.top=tickerHeight+'px';
+    ring[1].style.visibility='visible';
+    
+    messageIndex = 0;
+    
+    ring[0].innerHTML = messages[0];
+    
+    if ( messages.length > 1)
+    {
+        ring[1].innerHTML = messages[1];
+    
+        setTimeout("tickerScroll()",10*tickerSpeed);
+    }
+}
+
+function tickerScroll()
+{
+    tickerPos += tickerShift;
+    
+    if ( tickerPos >= tickerHeight )
+    {
+        tickerPos = 0;
+        
+        messageIndex++;
+        
+        if ( messageIndex >= messages.length )
+        {
+            messageIndex = 0;
+        }
+        
+        var u   = ring[0];
+        ring[0] = ring[1];
+        ring[1] = u;
+        
+        u.innerHTML = messages[messageIndex];
+    }
+    
+    ring[0].style.top = -tickerPos +'px';
+    ring[1].style.top = (tickerHeight - tickerPos) +'px';
+    
+    setTimeout("tickerScroll()",tickerSpeed);
+}
+
+window.onload=tickerStart
+
+//-->
+</script>
+<script language="JavaScript">
+<!--
+
+if ( true || document.all )
+{
+    document.writeln('<div id="tickerMain" style="position:relative;width:'+tickerWidth+';height:'+tickerHeight+';overflow:hidden;background-color:'+scrollerbgcolor+';background-image:url('+tickerBackground+'); z-index:1;">');
+    document.writeln('  <div id="ticker1" style="position:absolute;width:'+tickerWidth+';left:0;top:0;padding:8px;z-index:0;"></div>');
+    document.writeln('  <div id="ticker2" style="position:absolute;width:'+tickerWidth+';left:0;top:0;padding:8px;z-index:0;"></div>');
+    document.writeln('</div>');
+} 
+
+else 
+{
+    document.writeln("<table border=0 cellpadding=2 cellspacing=0 width=100% bgcolor=#ffffcc><tr><td>");
+    for ( var i=0; i<messages.length; i++ )
+    {
+        document.writeln(messages[i] + '<br>');
+    }
+    document.writeln("</td></tr></table>");
+}
+
+//-->
+</script>
+<?        
+    }
+}
+?>

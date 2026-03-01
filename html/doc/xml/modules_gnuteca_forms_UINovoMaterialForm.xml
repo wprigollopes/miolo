@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="UINovoMaterialForm.class" path="/usr/local/bis/html/modules/gnuteca/forms/UINovoMaterialForm.class" base="modules_gnuteca_forms_UINovoMaterialForm" created="" lines="1512">
+    <class name="GnutecaTextField" base="TextField" declaration="class GnutecaTextField extends TextField" line="5">
+        <var name="info" declaration="var $info;" line="7">
+        </var>
+        <function name="GnutecaTextField" attribute="default" declaration="function GnutecaTextField($label,$name,$value,$size=10,$info=false)" line="9">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+            <param name="$size" value="10" type=""><![CDATA[]]></param>
+            <param name="$info" value="false" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="16">
+        </function>
+    </class>
+    <class name="GnutecaSelection" base="Selection" declaration="class GnutecaSelection extends Selection" line="30">
+        <var name="info" declaration="var $info;" line="32">
+        </var>
+        <function name="GnutecaSelection" attribute="default" declaration="function GnutecaSelection($label,$name,$value,$options,$info=false)" line="34">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+            <param name="$options" value="" type=""><![CDATA[]]></param>
+            <param name="$info" value="false" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="41">
+        </function>
+    </class>
+    <class name="GnutecaCampoRepetitivo" base="MultiTextField" declaration="class GnutecaCampoRepetitivo extends MultiTextField" line="55">
+        <var name="info" declaration="var $info;" line="57">
+        </var>
+        <function name="GnutecaCampoRepetitivo" attribute="default" declaration="function GnutecaCampoRepetitivo($label,$name,$width=200,$value=false,$info=false)" line="59">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$width" value="200" type=""><![CDATA[]]></param>
+            <param name="$value" value="false" type=""><![CDATA[]]></param>
+            <param name="$info" value="false" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="66">
+        </function>
+    </class>
+    <class name="GnutecaCampoRepetitivo2" base="FormField" declaration="class GnutecaCampoRepetitivo2 extends FormField" line="80">
+        <var name="fields" declaration="var $fields;" line="82">
+        </var>
+        <var name="width" declaration="var $width;" line="83">
+        </var>
+        <var name="info" declaration="var $info;" line="84">
+        </var>
+        <function name="GnutecaCampoRepetitivo2" attribute="default" declaration="function GnutecaCampoRepetitivo2($label,$fields,$name,$width=200,$value=false,$info=false)" line="89">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$fields" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$width" value="200" type=""><![CDATA[]]></param>
+            <param name="$value" value="false" type=""><![CDATA[]]></param>
+            <param name="$info" value="false" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="103">
+        </function>
+    </class>
+    <class name="UINovoMaterialForm" base="TabbedForm" declaration="class UINovoMaterialForm extends TabbedForm" line="167">
+        <var name="leader" declaration="var $leader;" line="169">
+        </var>
+        <var name="type_material" declaration="var $type_material;" line="170">
+        </var>
+        <var name="data" declaration="var $data;" line="171">
+        </var>
+        <var name="op_nivel_bib" declaration="var $op_nivel_bib;" line="172">
+        </var>
+        <function name="UINovoMaterialForm" attribute="default" declaration="function UINovoMaterialForm($data=null)" line="177">
+            <param name="$data" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetLeader" attribute="default" declaration="function SetLeader($leader,$no_obra=false)" line="193">
+            <param name="$leader" value="" type=""><![CDATA[]]></param>
+            <param name="$no_obra" value="false" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetMaterialType" attribute="default" declaration="function GetMaterialType()" line="261">
+        </function>
+        <function name="CreateCustomPage" attribute="default" declaration="function CreateCustomPage($categoria,$nivel)" line="307">
+            <param name="$categoria" value="" type=""><![CDATA[]]></param>
+            <param name="$nivel" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="MergeCamposRepetitivos" attribute="default" declaration="function MergeCamposRepetitivos($ref,&amp;$fields,&amp;$grupo)" line="522">
+            <param name="$ref" value="" type=""><![CDATA[]]></param>
+            <param name="&amp;$fields" value="" type=""><![CDATA[]]></param>
+            <param name="&amp;$grupo" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetCurrentDate" attribute="default" declaration="function GetCurrentDate()" line="557">
+        </function>
+        <function name="GetBookFields" attribute="default" declaration="function GetBookFields()" line="572">
+        </function>
+        <function name="GetSerialFields" attribute="default" declaration="function GetSerialFields()" line="633">
+        </function>
+        <function name="GetMapFields" attribute="default" declaration="function GetMapFields()" line="688">
+        </function>
+        <function name="GetVisualMaterialFields" attribute="default" declaration="function GetVisualMaterialFields()" line="733">
+        </function>
+        <function name="GetMixedMaterialFields" attribute="default" declaration="function GetMixedMaterialFields()" line="769">
+        </function>
+        <function name="GetMusicFields" attribute="default" declaration="function GetMusicFields()" line="798">
+        </function>
+        <function name="GetComputerFileFields" attribute="default" declaration="function GetComputerFileFields()" line="845">
+        </function>
+        <function name="GetData" attribute="default" declaration="function GetData()" line="878">
+        </function>
+        <function name="ComposeTag008" attribute="default" declaration="function ComposeTag008()" line="893">
+        </function>
+        <function name="DecomposeTag008" attribute="default" declaration="function DecomposeTag008($tag)" line="1068">
+            <param name="$tag" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetTags" attribute="default" declaration="function GetTags()" line="1128">
+        </function>
+        <function name="SetTags" attribute="default" declaration="function SetTags($tags)" line="1274">
+            <param name="$tags" value="" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+    <class name="MARC" base="" declaration="class MARC" line="1404">
+        <function name="PadRight" attribute="default" declaration="function PadRight($str,$pad)" line="1406">
+            <param name="$str" value="" type=""><![CDATA[]]></param>
+            <param name="$pad" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ParseDate" attribute="default" declaration="function ParseDate($date)" line="1427">
+            <param name="$date" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="DecodeDate" attribute="default" declaration="function DecodeDate($date)" line="1439">
+            <param name="$date" value="" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+    <class name="TagReader" base="" declaration="class TagReader" line="1462">
+        <var name="tag" declaration="var $tag;" line="1464">
+        </var>
+        <var name="pos" declaration="var $pos;" line="1465">
+        </var>
+        <function name="TagReader" attribute="default" declaration="function TagReader($tag)" line="1470">
+            <param name="$tag" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetChunk" attribute="default" declaration="function GetChunk($len)" line="1479">
+            <param name="$len" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetDate" attribute="default" declaration="function GetDate()" line="1491">
+        </function>
+    </class>
+</source>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="tree.class" path="/usr/local/miolo/classes/tree.class" base="tree" created="" lines="77">
+    <class name="Tree" base="" declaration="class Tree" line="23">
+        <var name="root" declaration="var $root;  // an array of arrays of tree nodes" line="25">
+        </var>
+        <function name="Tree" attribute="default" declaration="function Tree()" line="30">
+        </function>
+        <function name="AddItem" attribute="default" declaration="function AddItem($id,$parent,$data)" line="37">
+            <param name="$id" value="" type=""><![CDATA[]]></param>
+            <param name="$parent" value="" type=""><![CDATA[]]></param>
+            <param name="$data" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="FindNode" attribute="default" declaration="function &amp; FindNode(&amp;$parent,$id)" line="50">
+            <param name="&amp;$parent" value="" type=""><![CDATA[]]></param>
+            <param name="$id" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="72">
+        </function>
+    </class>
+</source>

@@ -1,0 +1,51 @@
+<?
+
+class PessoaForm extends Form
+{
+    function PessoaForm($data=null)
+    {   global $MIOLO;
+        
+        // metodo construtor da classe
+        $this->Form('Cadastro de Pessoa');
+
+        $db = $MIOLO->GetBusiness('examples', 'city');
+        $cities = $db->GetCities();
+        $this->AddError( $db->GetErrors() );
+        $db->close;
+        
+        // adicionar os campos ao formulario
+        $this->AddField(new TextField('CPF','cpf',$data->cpf,12),
+                        'Informe o CPF da pessoa');
+        $this->AddField(new TextField('Nome','name',$data->name,40),
+                        'Digite o nome da pessoa');
+        $this->AddField(new TextField('Endereco','address',$data->address,40),
+                        'Digite o endereco completo da pessoa');
+        $this->AddField(new TextField('Bairro','address1',$data->address1,30),
+                        'Digite o bairro da rua');
+        $this->AddField(new Selection('Cidade','zip_city',$data->zip_city,$cities),
+                        'Selecione a cidade');
+        $this->AddField(new TextField('Fone','phone',$data->phone,30),
+                        'Digite o numero de telefone');
+        $this->AddField(new TextField('Email','email',$data->email,30),
+                        'Digite o endereco para email');
+                        
+        /*if ( $data )
+        {
+            $this->SetData($data);
+        }*/
+    }
+    
+    
+    function GetData()
+    {        
+        if ( $this->ValidateAll() )
+        {
+            return $this->CollectInput(new Person());
+        }
+        
+        return false;
+    }
+
+}
+
+?>

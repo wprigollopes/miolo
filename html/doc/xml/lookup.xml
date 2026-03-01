@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="lookup.class" path="/usr/local/miolo/classes/lookup.class" base="lookup" created="" lines="94">
+    <class name="Lookup" base="" declaration="class Lookup" line="3">
+        <var name="listingTitle" declaration="var $listingTitle;" line="5">
+        </var>
+        <var name="dbconf" declaration="var $dbconf;" line="6">
+        </var>
+        <var name="sql" declaration="var $sql;" line="7">
+        </var>
+        <var name="labels" declaration="var $labels;" line="8">
+        </var>
+        <var name="filterFields" declaration="var $filterFields;" line="9">
+        </var>
+        <var name="form" declaration="var $form;" line="10">
+        </var>
+        <var name="pageLength" declaration="var $pageLength = 20;" line="11">
+        </var>
+        <function name="GetFilterValue" attribute="default" declaration="function GetFilterValue($name='filter')" line="13">
+            <param name="$name" value="'filter'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddFilterField" attribute="default" declaration="function AddFilterField(&amp;$field)" line="19">
+            <param name="&amp;$field" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetDatabase" attribute="default" declaration="function GetDatabase()" line="26">
+        </function>
+        <function name="GetQuery" attribute="default" declaration="function GetQuery()" line="31">
+        </function>
+        <function name="GetPageLength" attribute="default" declaration="function GetPageLength()" line="36">
+        </function>
+        <function name="GetForm" attribute="default" declaration="function &amp; GetForm()" line="41">
+        </function>
+        <function name="GetFilterFields" attribute="default" declaration="function GetFilterFields()" line="46">
+        </function>
+        <function name="SetTitle" attribute="default" declaration="function SetTitle($title)" line="51">
+            <param name="$title" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetFilterTitle" attribute="default" declaration="function SetFilterTitle($title)" line="57">
+            <param name="$title" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetListingTitle" attribute="default" declaration="function SetListingTitle($title)" line="62">
+            <param name="$title" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetDatabase" attribute="default" declaration="function SetDatabase($conf)" line="67">
+            <param name="$conf" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetQuery" attribute="default" declaration="function SetQuery($sql)" line="72">
+            <param name="$sql" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetLabels" attribute="default" declaration="function SetLabels($labels)" line="77">
+            <param name="$labels" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetPageLength" attribute="default" declaration="function SetPageLength($length)" line="82">
+            <param name="$length" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetForm" attribute="default" declaration="function SetForm(&amp;$form)" line="87">
+            <param name="&amp;$form" value="" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+</source>

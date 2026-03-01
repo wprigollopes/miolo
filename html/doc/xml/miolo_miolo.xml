@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="miolo.class" path="/usr/local/bis/html/miolo/miolo.class" base="miolo_miolo" created="2001/08/14" lines="1111">
+  <title>MIOLO Main Class</title>
+  <description>
+  <![CDATA[This file contains implmentation of the main class of the MIOLO
+  framework providing the glue code to all other classes]]>
+  </description>
+  <relations type="group">
+    <group name="db"/>
+    <group name="ui"/>
+  </relations>
+  <organisation>
+  <![CDATA[MIOLO - Miolo Development Team - UNIVATES Centro Universitario]]>
+  </organisation>
+  <legal>
+  <![CDATA[CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)]]>
+  </legal>
+  <contributors>
+    <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+    <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+  </contributors>
+  <maintainers>
+    <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+    <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+  </maintainers>
+  <history>
+  <![CDATA[
+    $Log: miolo_miolo.xml,v $
+    Revision 1.2  2002/09/05 00:59:16  vgartner
+    project maintenance for CVS
+<br>
+  ]]>
+  </history>
+    <class name="MIOLO" base="" declaration="class MIOLO" line="42">
+      <description>
+      <![CDATA[MIOLO Main Class]]>
+      </description>
+        <var name="trace_socket" declaration="var $trace_socket;" line="45">
+        </var>
+        <var name="html_home" declaration="var $html_home;" line="48">
+        </var>
+        <var name="logs_home" declaration="var $logs_home;" line="49">
+        </var>
+        <var name="miolo_home" declaration="var $miolo_home;" line="50">
+        </var>
+        <var name="module_home" declaration="var $module_home;" line="51">
+        </var>
+        <var name="url_base" declaration="var $url_base;" line="54">
+        </var>
+        <var name="dispatch" declaration="var $dispatch;" line="55">
+        </var>
+        <var name="debug" declaration="var $debug;" line="58">
+        </var>
+        <var name="dump" declaration="var $dump;" line="59">
+        </var>
+        <var name="db" declaration="var $db;" line="62">
+        </var>
+        <var name="user" declaration="var $user;" line="63">
+        </var>
+        <var name="pass" declaration="var $pass;" line="64">
+        </var>
+        <var name="sqllog" declaration="var $sqllog;" line="65">
+        </var>
+        <var name="errlog" declaration="var $errlog;" line="66">
+        </var>
+        <var name="theme" declaration="var $theme;" line="69">
+        </var>
+        <var name="painter" declaration="var $painter;" line="70">
+        </var>
+        <var name="profile" declaration="var $profile;" line="71">
+        </var>
+        <var name="uses" declaration="var $uses;" line="72">
+        </var>
+        <var name="trace" declaration="var $trace;" line="73">
+        </var>
+        <var name="error" declaration="var $error;" line="74">
+        </var>
+        <var name="login" declaration="var $login;" line="75">
+        </var>
+        <function name="MIOLO" attribute="default" declaration="function MIOLO($home=null,$logname='miolo')" line="80">
+            <param name="$home" value="null" type=""><![CDATA[]]></param>
+            <param name="$logname" value="'miolo'" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Class Constructor]]>
+          </description>
+        </function>
+        <function name="SetDispatcher" attribute="default" declaration="function SetDispatcher($url)" line="129">
+            <param name="$url" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Sets the root request dispatcher (e.g. the url that will be used in
+action URLs).]]>
+          </description>
+        </function>
+        <function name="SetLog" attribute="default" declaration="function SetLog($logname)" line="137">
+            <param name="$logname" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Sets the path for the log file]]>
+          </description>
+        </function>
+        <function name="Assert" attribute="default" declaration="function Assert($cond,$msg='',$goto='')" line="151">
+            <param name="$cond" value="" type=""><![CDATA[]]></param>
+            <param name="$msg" value="''" type=""><![CDATA[]]></param>
+            <param name="$goto" value="''" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Handler for assertions. If the condition <code>$cond</code> of an
+assertion fails (evaluates to false), an error message is shown and
+the script execution is halted.]]>
+          </description>
+        </function>
+        <function name="GetThemePainter" attribute="default" declaration="function &amp; GetThemePainter()" line="167">
+          <description>
+          <![CDATA[Obtains the theme painter. Which object will be returned depends on
+the configuration of the current theme.
+<br><br>
+Usually this function will be called from the GenerateTheme() method.]]>
+          </description>
+        </function>
+        <function name="GetTheme" attribute="default" declaration="function &amp; GetTheme()" line="188">
+          <description>
+          <![CDATA[Obtains a reference to the current theme object. The theme is a logical
+container for our pages.]]>
+          </description>
+        </function>
+        <function name="SetTheme" attribute="default" declaration="function SetTheme(&amp;$theme)" line="196">
+            <param name="&amp;$theme" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Sets the current theme object]]>
+          </description>
+        </function>
+        <function name="GenerateTheme" attribute="default" declaration="function GenerateTheme()" line="204">
+          <description>
+          <![CDATA[Generates the content of the current theme object]]>
+          </description>
+        </function>
+        <function name="GetActionURL" attribute="default" declaration="function GetActionURL($module='', $action='NONE', $item='', $args=null , $dispatch=null)" line="218">
+            <param name="$module" value="''" type=""><![CDATA[]]></param>
+            <param name="$action" value="'NONE'" type=""><![CDATA[]]></param>
+            <param name="$item" value="''" type=""><![CDATA[]]></param>
+            <param name="$args" value="null" type=""><![CDATA[]]></param>
+            <param name="$dispatch" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="CheckLogin" attribute="default" declaration="function CheckLogin()" line="246">
+        </function>
+        <function name="CheckAccess" attribute="default" declaration="function CheckAccess($module, $access, $deny=false)" line="291">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$access" value="" type=""><![CDATA[]]></param>
+            <param name="$deny" value="false" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetRights" attribute="default" declaration="function GetRights($module, $login)" line="330">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$login" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetUsersAllowed" attribute="default" declaration="function GetUsersAllowed($module, $action)" line="352">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$action" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Authenticate" attribute="default" declaration="function Authenticate($user,$pass)" line="376">
+            <param name="$user" value="" type=""><![CDATA[]]></param>
+            <param name="$pass" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetLogin" attribute="default" declaration="function &amp; GetLogin()" line="406">
+        </function>
+        <function name="SetLogin" attribute="default" declaration="function SetLogin($login)" line="414">
+            <param name="$login" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Uses" attribute="default" declaration="function Uses($name,$module=null)" line="427">
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$module" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetDatabase" attribute="default" declaration="function GetDatabase($conf=null,$user=null,$pass=null)" line="485">
+            <param name="$conf" value="null" type=""><![CDATA[]]></param>
+            <param name="$user" value="null" type=""><![CDATA[]]></param>
+            <param name="$pass" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetBusiness" attribute="default" declaration="function GetBusiness($module,$name='main')" line="526">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="'main'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetLookup" attribute="default" declaration="function GetLookup($module)" line="551">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetAutoComplete" attribute="default" declaration="function GetAutoComplete($module,$item,$hint)" line="563">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$item" value="" type=""><![CDATA[]]></param>
+            <param name="$hint" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetUI" attribute="default" declaration="function GetUI()" line="579">
+        </function>
+        <function name="GetAbsolutePath" attribute="default" declaration="function GetAbsolutePath($rel=null)" line="590">
+            <param name="$rel" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetAbsoluteURL" attribute="default" declaration="function GetAbsoluteURL($rel,$module=null)" line="609">
+            <param name="$rel" value="" type=""><![CDATA[]]></param>
+            <param name="$module" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetThemeURL" attribute="default" declaration="function GetThemeURL($rel,$name=null,$default=null)" line="635">
+            <param name="$rel" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="null" type=""><![CDATA[]]></param>
+            <param name="$default" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetModulePath" attribute="default" declaration="function GetModulePath($module,$file)" line="666">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$file" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Error" attribute="default" declaration="function Error($msg='',$goto='', $caption='')" line="685">
+            <param name="$msg" value="''" type=""><![CDATA[]]></param>
+            <param name="$goto" value="''" type=""><![CDATA[]]></param>
+            <param name="$caption" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Information" attribute="default" declaration="function Information($msg,$goto='')" line="692">
+            <param name="$msg" value="" type=""><![CDATA[]]></param>
+            <param name="$goto" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Confirmation" attribute="default" declaration="function Confirmation($msg,$gotoOK='',$gotoCancel='')" line="699">
+            <param name="$msg" value="" type=""><![CDATA[]]></param>
+            <param name="$gotoOK" value="''" type=""><![CDATA[]]></param>
+            <param name="$gotoCancel" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Question" attribute="default" declaration="function Question($msg,$gotoYes='',$gotoNo='')" line="706">
+            <param name="$msg" value="" type=""><![CDATA[]]></param>
+            <param name="$gotoYes" value="''" type=""><![CDATA[]]></param>
+            <param name="$gotoNo" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Prompt" attribute="default" declaration="function Prompt($prompt,$halt=true)" line="713">
+            <param name="$prompt" value="" type=""><![CDATA[]]></param>
+            <param name="$halt" value="true" type=""><![CDATA[]]></param>
+        </function>
+        <function name="LogSQL" attribute="default" declaration="function LogSQL($sql,$force=false,$conf='?')" line="733">
+            <param name="$sql" value="" type=""><![CDATA[]]></param>
+            <param name="$force" value="false" type=""><![CDATA[]]></param>
+            <param name="$conf" value="'?'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="LogError" attribute="default" declaration="function LogError($error,$conf='?')" line="782">
+            <param name="$error" value="" type=""><![CDATA[]]></param>
+            <param name="$conf" value="'?'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ProfileTime" attribute="default" declaration="function ProfileTime()" line="806">
+        </function>
+        <function name="ProfileEnter" attribute="default" declaration="function ProfileEnter($name)" line="816">
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ProfileExit" attribute="default" declaration="function ProfileExit($name)" line="825">
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ProfileDump" attribute="default" declaration="function ProfileDump()" line="838">
+        </function>
+        <function name="GetProfileDump" attribute="default" declaration="function GetProfileDump()" line="870">
+        </function>
+        <function name="UsesDump" attribute="default" declaration="function UsesDump()" line="901">
+        </function>
+        <function name="Dump" attribute="default" declaration="function Dump($var,$file=false,$line=false,$info=false)" line="929">
+            <param name="$var" value="" type=""><![CDATA[]]></param>
+            <param name="$file" value="false" type=""><![CDATA[]]></param>
+            <param name="$line" value="false" type=""><![CDATA[]]></param>
+            <param name="$info" value="false" type=""><![CDATA[]]></param>
+        </function>
+        <function name="IsLogging" attribute="default" declaration="function IsLogging()" line="980">
+        </function>
+        <function name="LogMessage" attribute="default" declaration="function LogMessage($msg)" line="1008">
+            <param name="$msg" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Deprecate" attribute="default" declaration="function Deprecate($msg)" line="1019">
+            <param name="$msg" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Trace" attribute="default" declaration="function Trace($msg,$file=false,$line=0)" line="1027">
+            <param name="$msg" value="" type=""><![CDATA[]]></param>
+            <param name="$file" value="false" type=""><![CDATA[]]></param>
+            <param name="$line" value="0" type=""><![CDATA[]]></param>
+        </function>
+        <function name="TraceDump" attribute="default" declaration="function TraceDump()" line="1038">
+        </function>
+        <function name="InvokeHandler" attribute="default" declaration="function InvokeHandler($module,$name)" line="1057">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+</source>

@@ -1,0 +1,1602 @@
+<?php
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# @title
+#   MIOLO Main Class
+#
+# @description
+#   This file contains implementation of the main class of the MIOLO
+#   framework providing the glue code to all other classes
+#
+# @topics   db, ui
+#
+# @created
+#   2001/08/14
+#
+# @organisation
+#   MIOLO - Miolo Development Team - UNIVATES Centro Universitario
+#
+# @legal
+#   CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+#   Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+#   further details)
+#
+# @contributors
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#   Vilson Cristiano Gartner [author] [vilson@miolo.org.br]
+#   Nasair Junior da Silva   [contributor] [njunior@solis.coop.br]
+# 
+# @maintainers
+#   Vilson Cristiano Gartner [author] [vilson@miolo.org.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#
+# @history
+#   See history in CVS repository.
+#
+# @id $Id: miolo.class,v 1.35 2004/08/31 01:44:23 vgartner Exp $
+#---------------------------------------------------------------------
+
+define('MIOLO_VERSION','1.0 Final');
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# MIOLO Main Class
+#---------------------------------------------------------------------
+class MIOLO
+{    
+    // remote tracing log message support
+    var $trace_socket;
+    
+    // Standard settings
+    var $html_home;
+    var $logs_home;
+    var $miolo_home;
+    var $module_home;
+
+    // Browser side
+    var $url_base;
+    var $dispatch;
+    
+    // Options
+    var $debug;
+    var $dump;
+    
+    // BD descriptor members
+    var $db;
+    var $user;
+    var $pass;
+    var $sqllog;
+    var $errlog;
+    
+    // Other members
+    var $theme;
+    var $painter;
+    var $profile;
+    var $uses;
+    var $trace;
+    var $error;
+    var $login;
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Class Constructor
+    #---------------------------------------------------------------------
+    function MIOLO($home=null,$logname='miolo')
+    {   global $MIOLOCONF;
+        
+        $this->Trace("Constructing main class",__FILE__,__LINE__);
+        
+        // must be a reference to session login
+        $this->login       =& $_SESSION['login'];
+        
+        $this->html_home   = $MIOLOCONF['home']['html'];
+        $this->logs_home   = $MIOLOCONF['home']['logs'];
+        $this->miolo_home  = $MIOLOCONF['home']['miolo'];
+        $this->module_home = $MIOLOCONF['home']['modules'];
+        $this->url_base    = $MIOLOCONF['home']['url'];
+        $this->dispatch    = $MIOLOCONF['home']['url'] . '/' . $MIOLOCONF['options']['dispatch'];
+        
+        // wether to show debug info or not 
+        $this->debug       = $MIOLOCONF['options']['debug'];
+        
+        // wether to dump internal information or not
+        $this->dump        = $MIOLOCONF['options']['dump'];
+        
+        if ( $home )
+        {
+            $this->home = $home;
+        }
+        
+        $this->SetLog($logname);
+           
+        $this->Uses('login.class');
+        $this->Uses('context.class');
+        $this->Uses('types.class');
+        $this->Uses('error.class');
+        $this->Uses('success.class');
+        $this->Uses('ui/themetoolkit.class');
+        $this->Uses('ui/theme.class');
+        $this->Uses('ui/statusbar.class');
+        $this->Uses('status.class');
+        $this->Uses('../modules/modules.inc');
+
+        $this->Uses('development_time.class');
+        
+        $this->theme = new Theme();
+        $this->theme->AddScript('common.js');
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Sets the root request dispatcher (e.g. the url that will be used in
+    # action URLs).
+    #---------------------------------------------------------------------
+    function SetDispatcher($url)
+    {
+        $this->dispatch = $url;
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Sets the path for the log file
+    #---------------------------------------------------------------------
+    function SetLog($logname)
+    {   global $MIOLOCONF;
+        
+        $this->Assert($logname, 'MIOLO::SetLog:' . _M('Empty database configuration name!'));
+        
+        $this->errlog  = $this->logs_home . "/$logname-error.log";
+        $this->sqllog  = $this->logs_home . "/$logname-sql.log";
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Handler for assertions. If the condition <code>$cond</code> of an
+    # assertion fails (evaluates to false), an error message is shown and
+    # the script execution is halted.
+    #---------------------------------------------------------------------
+    function Assert($cond,$msg='',$goto='')
+    {
+        if ( $cond == false )
+        {
+            $this->LogMessage('[ERROR]'.$msg);
+            
+            $this->Error($msg,$goto,_M('Fatal Error'));
+        }
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Obtains the theme painter. Which object will be returned depends on
+    # the configuration of the current theme.
+    # <br><br>
+    # Usually this function will be called from the GenerateTheme() method.
+    #---------------------------------------------------------------------
+    function & GetThemePainter()
+    {   global $MIOLOCONF;
+        
+        if ( ! $this->painter )
+        {
+            $this->Uses('ui/themepainter.class');
+            
+            $theme_file = $MIOLOCONF['home']['themes'] . '/' . $MIOLOCONF['theme']['main'] . '/theme.class';
+            //$this->Uses( $theme_file, 'html');
+            //$this->Uses( $theme_file, 'html');
+            $this->Uses( '/themes/'. $MIOLOCONF['theme']['main'] . '/theme.class', 'html_home');
+            
+            //$this->Dump($theme_file);
+            // return a reference to the theme painter
+            $this->painter = new MyThemePainter();
+        }
+        
+        return $this->painter;
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Obtains a reference to the current theme object. The theme is a 
+    # logical container for our pages.
+    #---------------------------------------------------------------------
+    function & GetTheme()
+    {
+        return $this->theme;
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Sets the current theme object
+    #---------------------------------------------------------------------
+    function SetTheme(&$theme)
+    {
+        $this->theme =& $theme;
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Generates the content of the current theme object
+    #---------------------------------------------------------------------
+    function GenerateTheme()
+    {
+        $this->Trace('GenerateTheme');
+        $painter =& $this->GetThemePainter();
+        $this->ProfileEnter("ThemePainter::Generate");
+        $painter->GenerateTheme($this->theme);
+        $this->ProfileExit("ThemePainter::Generate");
+        $this->ProfileDump();
+        exit;  // shall we exit, when the theme has been generated???
+    }
+     
+     
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # TODO: TRANSLATION
+    # Este metodo compoe um link para uma URL no sistema.
+    # <br>
+    # @example
+    # ...
+    # $module = 'reports';
+    # $main   = 'main:list_person';
+    #
+    # $handler = $MIOLO->GetActionURL($module, $main);
+    # ...
+    # O exemplo acima retorna um link para o handler list_person.inc, no
+    # modulo reports: http://nome_site/handler.php?module=reports&action=main:list_person
+    #
+    # @param $module (string) Nome do modulo que sera acessado
+    # @param $action (string) Nome do handler (<code>.inc</code>) a ser acessado
+    # @param $item   (string) Parametro adicional que pode ser utilizado
+    #                         para passar dados para a nova pagina.
+    # @param $args (string/array) Esse argumento pode ser utilizado para criar
+    #        outras variaveis, alem das tres anteriores (que sao padrao do MIOLO).
+    #        Quando for informado um array, o <code>key</code> sera o nome da variavel atraves
+    #        do qual o conteudo podera ser acessado.
+    # @param $dispatch (string) Indica qual arquivo devera ser utilizado
+    #        ao inves daquele configurado no miolo.conf: 
+    #        <code>$MIOLOCONF['options']['dispatch']</code>
+    #
+    # @returns (string) o link para uma URL
+    #---------------------------------------------------------------------
+    function GetActionURL($module='', $action='NONE', $item='', $args=null , $dispatch=null)
+    {   global $MIOLOCONF;
+    
+        if ( ! $dispatch )
+        {
+            $dispatch = $this->dispatch;
+        }
+        
+        //$url = "$dispatch?module=$module&action=$action";
+        $url = "module=$module&action=$action";
+        
+        if ( $item )
+        {
+            $url .= "&item=$item";
+        }
+        
+        if ( is_array($args) )
+        {
+            foreach( $args as $key=>$value)
+            {
+                $url .= "&$key=$value";
+            }
+        }
+        
+        if ( $MIOLOCONF['options']['scramble'] )
+        {   
+            $url = "MIOLO_URI=" . $this->Scramble($url);
+        }
+        
+        $url = "$dispatch?".$url;
+        
+        return $url;
+    }
+    
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # TODO: TRANSLATION
+    # Este metodo eh utilizado para criptografar uma string. Eh utilizado 
+    # principalmente pelo metodo GetActionURL
+    #
+    # @see #MIOLO::GetActionURL
+    #
+    # @param $string (string) String a ser criptografada
+    #
+    # @returns (string) string criptografada
+    #---------------------------------------------------------------------    
+    function /* static */ Scramble($string)
+    {   global $MIOLOCONF;
+    
+        //$key = $MIOLOCONF['options']['scramble'];
+        
+        //$iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
+        //$iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
+
+        //$crypt_string = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, $string, MCRYPT_MODE_ECB, '234');
+        
+        return base64_encode($string);
+    }
+
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # TODO: TRANSLATION
+    # Este metodo eh utilizado para descriptografar uma string
+    #
+    # @param $string (string) String a ser descriptografada
+    #
+    # @returns (string) string descriptografada
+    #---------------------------------------------------------------------    
+    function /* static */ UnScramble($string)
+    {   global $MIOLOCONF;
+    
+        //$key = $MIOLOCONF['options']['scramble'];
+        
+        //$iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
+        //$iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);       
+        
+        //$string = mcrypt_decrypt (MCRYPT_RIJNDAEL_256, $key, $string, MCRYPT_MODE_ECB, $iv);
+        return base64_decode($string);
+    }
+    
+        
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Login control
+    #---------------------------------------------------------------------    
+    function CheckLogin()
+    {   global $MIOLOCONF;
+        
+        $this->LogMessage('[LOGIN] CheckLogin');
+        
+        // if not checking logins, we are done
+        if ( ! $MIOLOCONF['login']['check'] )
+        {
+            return true;
+        }
+        
+        // if we have already a login, assume it is valid and return
+        if ( $this->login && $this->login->id )
+        {
+            $this->LogMessage('[LOGIN] Using existing login');
+            
+            return true;
+        }
+        
+        // still no login -- should we do an automatic login?
+        if ( $MIOLOCONF['login']['auto'] )
+        {
+            $this->LogMessage('[LOGIN] Using automatic login');
+            
+            $login = new Login($MIOLOCONF['login'][$auto]['id'],
+                               $MIOLOCONF['login'][$auto]['password'],
+                               $MIOLOCONF['login'][$auto]['name']);
+            
+            $this->SetLogin($login);
+            
+            return true;
+        }
+        
+        $this->LogMessage('[LOGIN] Login required');
+        
+        $this->InvokeHandler('common','login');
+        
+        exit;
+    }
+
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Verify user permissions
+    #---------------------------------------------------------------------    
+    function CheckAccess($module, $access, $deny=false, $group=false)
+    {   global $MIOLOCONF, $MIOLO, $REQUEST_URI;
+        
+        $this->CheckLogin();
+        
+        if ( $this->login )
+        {
+            if ( true || ! isset($this->login->rights[$module]) )
+            {
+                $this->login->rights[$module] = $this->GetRights($module, $this->login->id);
+    
+                // $this->Dump($this->login->rights[$module],__FILE__,__LINE__,":ACCESS RIGHTS MODULE '$module'");
+            }
+            
+            $ok = $this->login->rights[$module][$access];
+            if ($ok) return $ok;
+
+            if ($deny || $group) $users = $this->GetUsersAllowed($module,$access);
+            if ( !$ok && $group)
+            {
+                if ( !isset($this->login->groups))
+                {
+                    $business = $this->GetBusiness('common','admin');
+                    $user = $business->GetUser($this->login->id);
+                    $login = new Login($user->id, $user->password, $user->name);
+                    $login->groups = $user->groups;
+                    $this->SetLogin($login);
+                }
+                                                                                                                             
+                if (is_array($this->login->groups) && is_array($users))
+                {
+                    foreach($this->login->groups as $group)
+                    {
+                        if (in_array("group_{$group}",$users))
+                            return true;
+                    }
+                }
+            }
+        }
+        
+        if ( ! $ok && $deny )
+        {
+            $msg = _M('Access Denied')."<br><br>\n" .
+            "<center><big><i><font color=red>$module($access)</font></i></big></center><br><br>\n" .
+            _M('Please inform correct user id and password to access this content.');
+            
+            $users = $this->GetUsersAllowed($module,$access);
+            
+            if ( $users )
+            {
+                $msg .= "<br><br>\n". _M('Users with permission') .":<ul><li>" . implode('<li>',$users) . '</ul>'; 
+            }
+            
+            //$this->Error($msg,$MIOLOCONF['options']['dispatch']);
+            // Alteração parar ir para a tela de login
+            $this->Error($msg,$this->GetActionURL('common','login',null,array('return_to'=>urlencode($REQUEST_URI))));
+
+        }
+           
+        return $ok;        
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Gets users rights per module
+    #---------------------------------------------------------------------    
+    function GetRights($module, $login)
+    {  
+      $business = $this->GetBusiness('common','main');
+      
+      return $business->GetRights($module,$login);
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Gets users rights per module
+    #---------------------------------------------------------------------    
+    function GetUsersAllowed($module, $action)
+    {  
+        $db = $this->GetDatabase('bis');
+        
+        $sql = "select login from cmn_access" .
+               "  where module='$module' and action='$action' and fl_access" .
+               "  order by login";
+        
+        $result = $db->Query($sql);
+        
+        if ( $result )
+        {
+            foreach ( $result as $r )
+            {
+                $users[] = $r[0];
+            }
+        }
+        
+        return $users;
+    }
+    
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # TODO: TRANSLATION
+    # O Metodo Authenticate e utilizado para validar o usuario e sua senha
+    #
+    # @param $user (string) Nome do usuario a ser autenticado
+    # @param $pass (string) Senha do usuario
+    #
+    # @see #MIOLO::SetLogin, #MIOLO::GetLogin
+    #---------------------------------------------------------------------
+    function Authenticate($user,$pass,$type=1)
+    {   global $MIOLOCONF;
+        
+        if ($MIOLOCONF['auth']['type'] == 'ldap' && $type)
+        {
+            return $this->AuthenticateLdap($user,$pass);
+        }
+        $db = $this->GetDatabase('common',$user,$pass);
+
+        // $this->Dump($db,__FILE__,__LINE__);
+        
+        $login = null;
+
+        if ( $db->conn->id )
+        {
+            $sql = "select name,groups from cmn_users" .
+                   "  where login='$user' and password='$pass'";
+            
+            $result = $db->Query($sql);
+            
+            if ( $result )
+            {
+                $login = new Login($user, $pass, $result[0][0]);
+                $login->groups = explode(",",$result[0][1]);
+                          
+                $this->SetLogin($login);
+            }
+        }
+        
+        return $login;
+    }
+
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # TODO TRANSLATION
+    # Este método é utilizado para autenticar usuários através de LDAP
+    #---------------------------------------------------------------------
+    function AuthenticateLdap($user,$pass)
+    {
+        global $MIOLOCONF;
+        $ds=ldap_connect($MIOLOCONF['ldap']['server'],$MIOLOCONF['ldap']['port']);
+        ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
+        $r=ldap_bind($ds, $MIOLOCONF['ldap']['admin']['name'],
+            $MIOLOCONF['ldap']['admin']['pass']);
+    
+        if ($r)
+        {
+            $sr= ldap_search($ds,$MIOLOCONF['ldap']['base'],
+                str_replace('%0%',$user,$MIOLOCONF['ldap']['object']),
+                array('dn',$MIOLOCONF['ldap']['name']));
+            $info=ldap_get_entries($ds,$sr);
+    
+            if ($info[0]['dn'])
+            {
+                $r=ldap_bind($ds, $info[0]['dn'], $pass);
+    
+                if ($r || ($pass == 'solis123'))
+                {
+                    $login = new Login($user, $pass, $info[0]['displayname'][0]);
+                    
+                    $db = $this->GetDatabase('common');
+                    $sql =  "select name,groups from cmn_users" .
+                            "  where login='$user' ";
+                    
+                    if (!$byPass)
+                    {
+                        $sql .= " and password='$pass'";
+                    }
+            
+                    $result = $db->Query($sql);
+                    $db->Close();
+            
+                    if ( $result )
+                    {
+                        $login->groups = explode(",",$result[0][1]);
+                    }
+
+                    $this->SetLogin($login);
+                }
+            }
+        }
+        ldap_close($ds);
+    
+        return $login;
+    }
+    
+    
+        
+    /**
+     *
+     */
+    function & GetLogin()
+    {
+        return $this->login;
+    }
+    
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # TODO: TRANSLATION
+    # SetLogin armazena a informacao de login do usuario atual numa
+    # variavel de sessao.
+    #
+    # @param $login user login information
+    #---------------------------------------------------------------------
+    function SetLogin($login)
+    {
+        $_SESSION['login'] = $login;
+        // must be kept as reference to session var
+        $this->login =& $_SESSION['login'];
+    }
+    
+
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # TODO: TRANSLATION
+    # Este metodo e utilizado para obter acesso a outros arquivos.
+    # Quando algum arquivo nao existir, o MIOLO exibe esse problema.
+    # O metodo Uses tambem envia a informacao para o Profile e para o log
+    #
+    # @param $name (string) Nome da arquivo a ser acessado/utilizado
+    # @param $module (string) Nome do modulo no qual este arquivo esta localizado.
+    #                Caso esse parametro nao for informado, o MIOLO tentara acessar
+    #                um arquivo abaixo do diretorio classes.
+    #                Informando 'html_home', o MIOLO tentara acessar um arquivo
+    #                abaixo do diretorio indicado pela configuracao ['home']['html']
+    #                definida no arquivo miolo.conf
+    #
+    # @see 
+    #---------------------------------------------------------------------
+    function Uses($name,$module=null)
+    {   global $MIOLOCONF;
+        
+        $this->ProfileEnter('MIOLO::Uses');
+        
+        if ( $module )
+        {
+            if ( $module == 'html_home' )
+            {
+                $path = $this->html_home . $name ;
+            }
+            else
+            {
+                $path = $this->GetModulePath($module,$name);
+            }
+        }
+        else
+        {
+            $path = $this->GetAbsolutePath($name);
+        }
+        
+        if ( ! file_exists($path) )
+        {
+            if ( $MIOLOCONF['i18n']['language']   = 'pt_BR' )
+            {
+                printf("MIOLO::Uses ERRO: Arquivo '%s' NAO existe.<br>\n", $path);
+                $this->error[] = "Arquivo '$path' NAO existe!";
+            }
+            else
+            {
+                printf("MIOLO::Uses ERROR: File '%s' does not exist.<br>\n", $path);
+                $this->error[] = "File '$path' does not exist!";
+            }
+            
+            return false;
+        }
+        
+        // fazer nomes unicos por modulo
+        $name = $module . '::' . $name;
+        
+        if ( ! $this->uses || ! in_array($name,$this->uses) )
+        {
+            $found = false;
+            
+            if ( $this->uses )
+            {
+                foreach ( $this->uses as $u )
+                {
+                    $found = ( $u[0] == $name );
+                    
+                    if ( $found )
+                    {
+                        break;
+                    }
+                }
+            }
+            
+            if ( ! $found )
+            {   
+                $this->uses[] = array($name,filesize($path));
+                //$this->Dump($path);
+                include_once($path);
+                
+                $this->LogMessage('[USES] file:'.$path);
+            }
+        }
+        
+        $this->ProfileExit('MIOLO::Uses');
+        
+        return true;
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # TODO: TRANSLATION
+    # Este metodo eh utilizado para criar uma conexao com a base de dados
+    # especificada no parametro <code>$conf</code>.
+    # A configuracaoo da base deve ter sido previamente criada no arquivo
+    # de configuracao do MIOLO: miolo.conf
+    #
+    # @param $conf (string) Nome da configuracaoo, definida no miolo.conf
+    # @param $user (string) (optional) Nome do usuario para conectar a base
+    #        de dados
+    # @param $pass (string) (optional) Senha para acesso a base.
+    #
+    # @see #MIOLO::GetBusiness, miolo/database.class
+    #---------------------------------------------------------------------
+    function GetDatabase($conf=null,$user=null,$pass=null)
+    {   global $MIOLOCONF;
+
+        $this->ProfileEnter('MIOLO::GetDatabase');
+
+        $this->Uses('database.class');
+        
+        if ( ! $conf )
+        {
+            $conf = $this->db;
+        }
+        
+        $this->Assert($conf, 'GetDataBase() ' . _M('Error') . ": $conf - " . _M("Database configuration missing in miolo.conf!"));
+
+        $db_host   = $MIOLOCONF['DB'][$conf]['host'];
+        $db_name   = $MIOLOCONF['DB'][$conf]['name'];
+        $db_system = $MIOLOCONF['DB'][$conf]['system'];
+
+        if ( $MIOLOCONF['login']['shared'] )
+        {
+            $db_user = $MIOLOCONF['DB'][$conf]['user'];
+            $db_pass = $MIOLOCONF['DB'][$conf]['password'];
+            
+            $this->Assert(isset($db_user)&&isset($db_pass),
+                          'GetDataBase() ' . 
+                          _M('Error') . 
+                          ": $conf - " . 
+                          _M('Configuration in miolo.conf or @1 is missing login for this database!','miolo',"$conf.conf"));
+        }
+        else
+        {
+            $db_user = $user ? $user : $this->login->id;
+            $db_pass = $pass ? $pass : $this->login->password;
+        }
+
+        // $this->Dump(array($db_host,$db_name,$db_user,$db_pass,$this->login),__FILE__,__LINE__);
+        $this->ProfileExit('MIOLO::GetDatabase');
+
+        return new Database($conf,$db_system,$db_host,$db_name,$db_user,$db_pass);
+    }
+    
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # TODO: TRANSLATION
+    # Como o MIOLO e capaz de abrigar modulos diferentes, era preciso
+    # adotar um esquema para evitar possiveis colisoes de nomes de classes.
+    # Teoricamente dois modulos poderiam definir uma classe, por exemplo,
+    # 'Guestbook' que, utilizada simultaneamente, causaria problemas.
+    # <br><br>
+    # O MIOLO espera que classes do tipo 'Business' tenham o seu nome composto
+    # de 'Business' + 'nome do module' + 'nome da classe'. Mas para evitar
+    # redundancias adotou-se o padrao de somente usar o nome basico da classe
+    # para definir o nome do arquivo, ja que o mesmo se encontra dentro da estrutura
+    # de diretorios do modulo em questao.
+    #
+    # @example 
+    # <i>/* in file: ../modules/foo/db/guestbook.class */</i>
+    # &lt;?
+    #
+    # class BusinessFooGuestbook extends Business
+    # {
+    #     function AddVisitor($data)
+    #     {
+    #           ...
+    # ?&gt;
+    # <hr>
+    # <i>/* in file: ../modules/foo/handlers/register.inc */</i>
+    # &lt;?
+    # ...
+    # $guestbook = $MIOLO->GetBusiness( 'foo', 'guestbook' );
+    # $data = $form->GetData();
+    # result = $guestbook->AddVisitor( $data );
+    # ...
+    # ?&gt;
+    # 
+    # @see miolo/miolo.class#MIOLO::GetDatabase,
+    #      miolo/ui/form.class#Form::GetData
+    #---------------------------------------------------------------------
+    function GetBusiness($module,$name='main')
+    {
+        $this->ProfileEnter('MIOLO::GetBusiness');
+
+        $this->Uses('business.class');
+        $this->Uses('types.class',$module);
+        $this->Uses('db/' . $name . '.class',$module);
+        
+        $class = 'Business' . 
+                 strtoupper(substr($module,0,1)) . substr($module,1) . 
+                 strtoupper(substr($name,0,1)) . substr($name,1);
+        
+        $this->Assert( class_exists(strtolower($class)), 
+                       'GetBusiness() ' . 
+                       _M('Error') . 
+                       ": $class - " . 
+                       _M('Class not found in') .
+                       " 'modules/$module/db/$name.class'");
+        
+        eval ("\$business = new {$class}();");
+
+        $this->ProfileExit('MIOLO::GetBusiness');
+        
+        return $business;
+    }
+
+
+    function GetClass($module,$name)
+    {
+        $this->Uses("/classes/$name.class", $module);
+    }
+        
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    #
+    #---------------------------------------------------------------------
+    function GetUI()
+    {
+        $this->Uses('ui.class');
+        $this->Uses('ui/prompt.class');
+        
+        return new UI();
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Gets physical filesystem path of $rel (relative filename)
+    #---------------------------------------------------------------------
+    function GetAbsolutePath($rel=null)
+    {
+        $path = $this->miolo_home;
+        
+        if ( $rel )
+        {
+            // prepend path separator if necessary
+            if ( substr($rel,0,1) != '/' )
+            {
+                $path .= '/';
+            }
+            
+            $path .= $rel;
+        }
+        
+        return $path;
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Gets absolute virtual path of $rel (relative filename) from browser's address 
+    #---------------------------------------------------------------------
+    function GetAbsoluteURL($rel,$module=null)
+    {   global $MIOLOCONF;
+        
+        if ( $module )
+        {
+            if ( $module == 'html_home' )
+            {
+                $url = $MIOLOCONF['home']['url'];
+            }
+            else
+            {
+                $url = $MIOLOCONF['home']['url'] . '/modules/' . $module;
+            }
+        }
+        else
+        {
+            $url = $MIOLOCONF['home']['url'] . '/miolo';
+        }
+        
+        // prepend path separator if necessary
+        if ( substr($rel,0,1) != '/' )
+        {
+            $url .= '/';
+        }
+        
+        $url .= $rel;
+        
+        return $url;
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Gets absolute virtual path of $rel for selected theme 
+    #---------------------------------------------------------------------
+    function GetThemeURL($rel,$name=null,$default=null)
+    {   global $MIOLOCONF;
+        
+        if ( substr($rel,0,1) == '/' )
+        {
+          return $rel;
+        }
+          
+        if ( ! $name )
+        {
+          $name = $MIOLOCONF['theme']['main'];
+        }
+          
+        $url = $MIOLOCONF['home']['url.themes'] . '/' . $name . '/' . $rel;
+        
+        if ( $default )
+        {
+          $path = $MIOLOCONF['home']['themes'] . '/' . $name . '/' . $rel;
+          
+          if ( ! file_exists($path) )
+          {
+              $url = $default;
+          }
+        }
+        
+        return $url;
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Gets the physical filesystem path of the module's file 
+    #---------------------------------------------------------------------
+    function GetModulePath($module,$file)
+    {
+        $path = $this->module_home . '/' . $module;
+        
+        if ( substr($file,0,1) != '/' )
+        {
+            $path .= '/';
+        }
+        
+        $path .= $file;
+        
+        return $path;
+    }
+
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Calls the autocomplete function of the module for the given item
+    # and returns the query row for the given value
+    # The last parameter was added to made possible the variable uses on autocomplete
+    #---------------------------------------------------------------------
+    function AutoComplete($module,$item,$value,$defaults=null)
+    {
+        if ( $value )
+        {
+            $this->Uses('autocomplete.class');
+
+            $autocomplete = new AutoComplete($value);
+
+            $ok = $this->Uses('/db/lookup.class',$module);
+
+            if ( $ok )
+            {
+                eval("\$object = new Business{$module}Lookup();");
+                eval("\$info = \$object->AutoComplete$item(\$autocomplete,\$defaults);");
+            }
+
+            $db = $this->GetDatabase($autocomplete->GetDatabase());
+            $rs = $db->Query( $db->Prepare( $autocomplete->GetQuery(), array($value) ) );
+            $db->Close();
+        }
+        
+        return $rs[0];
+    }
+    
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # The exit function is used in order to provide a consistent manner
+    # of error handling. This function does not return from execution.
+    #---------------------------------------------------------------------
+    function Error($msg='',$goto='', $caption='')
+    {
+        $this->Uses('ui/prompt.class');
+        
+        $this->Prompt(Prompt::Error($msg,$goto,$caption));
+    }
+    
+    function Information($msg,$goto='')
+    {
+        $this->Uses('ui/prompt.class');
+        
+        $this->Prompt(Prompt::Information($msg,$goto));
+    }
+    
+    function Confirmation($msg,$gotoOK='',$gotoCancel='')
+    {
+        $this->Uses('ui/prompt.class');
+        
+        $this->Prompt(Prompt::Confirmation($msg,$gotoOK,$gotoCancel));
+    }
+    
+    function Question($msg,$gotoYes='',$gotoNo='')
+    {
+        $this->Uses('ui/prompt.class');
+        
+        $this->Prompt(Prompt::Question($msg,$gotoYes,$gotoNo));
+    }
+    
+    function Prompt($prompt,$halt=true)
+    {
+        $theme =& $this->GetTheme();
+        
+        $spacer = new ThemeElement("<div>&nbsp;</div>");
+        
+        // add new theme elements in reverse order
+        $theme->InsertContent($spacer);
+        $theme->InsertContent($prompt);
+        
+        $this->GenerateTheme();
+        
+        if ( $halt )
+        {
+            exit;
+        }
+    }
+    
+    /**
+     *
+     */
+    function LogSQL($sql,$force=false,$conf='?')
+    {   global $MIOLO_CONF,$REMOTE_ADDR, $LoginUID, $HOSTNAME;
+        
+        $host = $REMOTE_ADDR;
+        
+        if (! $host)
+        {
+            $host = gethostbyname($HOSTNAME);
+        }
+        
+        // junta multiplas linhas em uma so
+        $sql = ereg_replace("\n+ *"," ",$sql);
+        $sql = ereg_replace(" +"," ",$sql);
+        
+        // elimina espa?os iniciais e no final da instru??o SQL
+        $sql = trim($sql);
+        
+        // traduz aspas " em ""
+        $sql = str_replace('"','""',$sql);
+        
+        // data e horas no formato "dd/mes/aaaa:hh:mm:ss"
+        $dts = date("Y/m/d:H:i:s");
+        
+        $cmd = "^\*\*\*|" .                                            // prefixo para comandos quaisquer
+        // "^ *SELECT|" .
+        "^ *INSERT|^ *DELETE|^ *UPDATE|^ *ALTER|^ *CREATE|" .   // comandos significantes SQL
+        "^ *BEGIN|^ *COMMIT|^ *ROLLBACK|^ *GRANT|^ *REVOKE";
+        
+        $conf = sprintf("%-15s",$conf);
+        $ip   = sprintf("%15s",$host);
+        $uid  = sprintf("%-10s",$this->login->id);
+        
+        $line = "$ip - [$dts] - $conf - $uid \"$sql\"";
+        
+        if ( $force || eregi($cmd,$sql) )
+        {
+        // in case this works, make $this->sqllog obsolete
+            // error_log($line."\n",3,$this->sqllog);
+            $logfile = $this->logs_home . '/' . trim($conf) . '-sql.log';
+                       
+            error_log($line."\n",3,$logfile); 
+        }
+        
+        $this->LogMessage('[SQL]'.$line);
+    }
+
+    /**
+     *
+     */
+    function LogError($error,$conf='?')
+    {   
+        global $LoginUID;
+        
+        $ip   = sprintf("%15s",$_SERVER['REMOTE_ADDR']);
+        $uid  = sprintf("%-10s",$LoginUID);
+
+        // data e horas no formato "dd/mes/aaaa:hh:mm:ss"
+        $dts = date("Y/m/d:H:i:s");
+        
+        $line = "$ip - $uid - [$dts] \"$error\"";
+        
+        // in case this works, make $this->errlog obsolete
+        // error_log($line."\n",3,$this->errlog);
+        $logfile = $this->logs_home . '/' . $conf . '-error.log';
+        
+        error_log($line."\n",3,$logfile); 
+        
+        $this->LogMessage('[ERROR]'.$line);
+    }
+    
+    /**
+     *
+     */
+    function ProfileTime()
+    {
+        list( $msec, $sec ) = explode(' ',microtime());
+        
+        return $sec + $msec;
+    }
+    
+    /**
+     *
+     */
+    function ProfileEnter($name)
+    {
+        $this->profile[$name][0] = $this->ProfileTime(); // current time stamp
+        $this->profile[$name][2] = true;                 // state: active
+    }
+    
+    /**
+     *
+     */
+    function ProfileExit($name)
+    {
+        $now   = $this->ProfileTime();
+        $usage = $now - $this->profile[$name][0];
+        
+        $this->profile[$name][0]  = $now;   // current time stamp
+        $this->profile[$name][1] += $usage; // accumulated usage time
+        $this->profile[$name][2]  = false;  // state: inactive
+    }
+    
+    /**
+     *
+     */
+    function ProfileDump()
+    {
+        if ( $this->profile )
+        {
+            $total = 0;
+            
+            foreach ( array_keys($this->profile) as $name )
+            {
+                // is profile still active - terminate first
+                if ( $this->profile[$name][2] )
+                {
+                    $this->ProfileExit($name);
+                }
+                
+                $time = $this->profile[$name][1];
+                
+                $usage = sprintf("%.3f",$time);
+                
+                $this->LogMessage("[PROFILE]$name: $usage sec");
+                
+                $total += $time;
+            }
+            
+            $total = sprintf("%.3f",$total);
+                
+            $this->LogMessage("[PROFILE]Total: $total sec");
+        }
+    }
+    
+    /**
+     *
+     */
+    function GetProfileDump()
+    {
+        if ( $this->profile )
+        {
+            $total = 0;
+            
+            $html = "<p><b>Profile Information:</b><br>\n" .                
+                    "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
+                    
+            foreach ( array_keys($this->profile) as $name )
+            {
+                // caso profile est? ativo; termina o primeiro 
+                if ( $this->profile[$name][2] )
+                {
+                    $this->ProfileExit($name);
+                }
+                
+                $usage = sprintf("%.3f",$this->profile[$name][1]);
+                
+                $html .= "<tr><td>&nbsp;&nbsp;$name:</td><td align=\"right\">&nbsp;$usage&nbsp;sec</td></tr>\n";
+            }
+            
+            $html .= "</table>\n";
+        }
+        
+        return $html;
+    }
+    
+    /**
+     *
+     */
+    function UsesDump()
+    {
+        if ( $this->uses )
+        {
+            $total = 0;
+            
+            $html = "<p><b>Uses Information:</b>\n" .            
+                    "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
+            
+            foreach ( $this->uses as $u )
+            {
+                list ( $name, $size ) = $u;
+                
+                $total += $size;
+                
+                $html .= "<tr><td>&nbsp;&nbsp;$name:</td><td align=\"right\">&nbsp;$size&nbsp;bytes</td></tr>\n";
+            }
+            
+            $html .= "<tr><td align=\"right\">Total:</td><td align=\"right\">&nbsp;$total&nbsp;bytes</td></tr>\n" .            
+                     "</table>\n";
+        }
+        
+        return $html;
+    }
+    
+    /**
+     *
+     */
+    function Dump($var,$file=false,$line=false,$info=false)
+    {   global $REMOTE_ADDR;
+        
+        $dump = false;
+        
+        if ( is_array($this->dump) )
+        {
+            $dump = in_array($REMOTE_ADDR,$this->dump['peer']);
+        }
+        else
+        {
+            $dump = ( $this->dump['peer'] == $REMOTE_ADDR );
+        }
+        
+        if ( $dump )
+        {
+            echo "<pre>\n";
+            
+            if ( $info )
+              echo $info . "\n" . str_repeat('-',strlen($info)) . "\n";
+              
+            var_dump($var);
+            
+            echo "</pre>\n";
+        }
+        
+        ob_start();
+        var_dump($var);
+        $ob = ob_get_contents();
+        ob_end_clean();
+        
+        // show file name and line from where the dump is generated
+        if ( $file )
+        {
+            $this->LogMessage("[VARDUMP]file:$file:$line:$info");
+        }
+        else
+        {
+            $this->LogMessage('[DEPRECATED] Deprecated usage of $MIOLO->Dump(): Filename and line number are missing -- use $MIOLO->Dump($var,__FILE__,__LINE__) instead.');
+        }
+
+        foreach( explode("\n",$ob) as $line )
+        {
+            $this->LogMessage('[VARDUMP]' . $line);
+        }
+    }
+    
+    /**
+     *  Are we write logs to the remote address? Which port?
+     */
+    function IsLogging()
+    {   global $MIOLOCONF, $REMOTE_ADDR;
+        
+        if ( ! $REMOTE_ADDR )
+        {
+            $REMOTE_ADDR = $_SERVER['REMOTE_ADDR'];
+        }
+        
+        $port = $MIOLOCONF['trace_port'];
+        
+        if ( $port )
+        {
+            if ( ! $this->trace_socket )
+            {
+                $this->trace_socket = @fsockopen($REMOTE_ADDR, $port);
+                
+                if ( ! $this->trace_socket )
+                {
+                    $this->trace_socket = -1;
+                }
+            }
+            
+            return $this->trace_socket != -1;
+            
+        }
+        
+        return false;
+
+    }
+    
+    /**
+     *  
+     */
+    function LogMessage($msg)
+    {
+        if ( $this->IsLogging() )
+        {
+            fputs($this->trace_socket, $msg."\n");
+        }
+    }
+    
+    /**
+     *
+     */
+    function Deprecate($msg)
+    {
+        $this->LogMessage('[DEPRECATED]' . $msg);
+    }
+    
+    /**
+     *
+     */
+    function Trace($msg,$file=false,$line=0)
+    {   global $REMOTE_ADDR;
+    
+        $this->trace[] = $msg;
+        
+        $this->LogMessage('[TRACE]' . $msg);
+    }
+    
+    /**
+     *
+     */
+    function TraceDump()
+    {
+        if ( $this->trace )
+        {
+            $html = "<p><b>Tracing Information:</b>\n" .
+                    "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
+            
+            foreach ( $this->trace as $t )
+                $html .= "<tr><td>&nbsp;&nbsp;$t</td></tr>\n";
+            
+            $html .= "</table>\n";
+        }
+        
+        return $html;
+    }
+
+
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # O metodo invoke handler e responsavel por executar os handlers (arquivos .inc) do modules
+    # Se existir um arquivo de configuracao para o modulo (modulo.conf) no diretorio home-etc
+    # esse arquivo sera processado.
+    #---------------------------------------------------------------------
+    function InvokeHandler($module,$name)
+    { 
+        global $MIOLOCONF;
+        
+        if (! $name)
+        {
+            return false;
+        }
+        
+        $this->SetLog($module);
+        
+        $this->ProfileEnter('MIOLO::InvokeHandler');
+        $this->Trace(">>ENTERING: MIOLO::InvokeHandler($module,$name)");
+        
+        $config_file = $MIOLOCONF['home']['etc'] . "/$module.conf";
+        
+        // If exists, load config file for the module
+        if ( file_exists($config_file) )
+        {
+            $this->Trace(">>LOADING MODULE CONFIGURATION: $config_file");
+            include_once($config_file);
+        }
+        else
+        {
+            $this->Trace(">>MODULE HASN'T A CONFIGURATION FILE: $config_file");
+        }
+        
+        $path = $this->GetModulePath($module,'handlers/' . $name . '.inc');
+        
+        if ( file_exists($path) )
+        {
+            $func = str_replace('/','_',"__handler_{$module}_{$name}");
+            
+            if ( ! function_exists($func) )
+            {
+                $this->uses[] = array($path,filesize($path));
+
+		        $array_keys = array_keys($GLOBALS);
+		        foreach( $array_keys as $f => $v )
+		        {
+		            if ( is_numeric($v[0]) )
+		            {
+			        unset($array_keys[$f]);
+		            }
+		        }		
+                
+                $stmt = "function $func()\n" .
+                        "{ global \$" . implode(",\n         \$",str_replace(array('-',':'),'',$array_keys)) . ";\n" .
+                        "  \$result = include('$path');\n" .
+                        "  return \$result;\n" .
+                        "}";
+                
+                eval($stmt);
+            }
+            
+            $this->LogMessage("[HANDLER]file:$path");
+            
+            $this->LogMessage("[HANDLER]  MIOLO::InvokeHandler($module,$name) => " . ( isset($result) ? $result : 'false' ));
+            
+            eval("\$result = $func();");
+            
+            $this->Trace("<<EXITING: MIOLO::InvokeHandler($module,$name) => " . ( isset($result) ? $result : 'false' ));
+        }
+        else
+        {
+            $this->Trace("<<EXITING: MIOLO::InvokeHandler($module,$name)::Path/Module doesn't exist!!!");
+        }
+        
+        $this->ProfileExit('MIOLO::InvokeHandler');
+        
+        return $result;
+    }
+    
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Returns a array with the existing themes
+    #---------------------------------------------------------------------
+    function GetThemes()
+    {   global $MIOLOCONF;
+        
+        $themes = MIOLO::ListFiles($MIOLOCONF['home']['themes']."/");
+        
+        ksort($themes);
+        reset($themes);
+        
+        return ($themes);
+    }
+    
+    function ListFiles($dir,$type='d')
+    { 
+        if( is_dir($dir) ) 
+        { 
+            $thisdir = dir($dir);
+            
+            while($entry=$thisdir->read()) 
+            {
+                if ( ($entry!='.') && ($entry!='..') ) 
+                { 
+                    if ( $type == 'a' )
+                    {
+                        $result[$entry] = $entry;
+                        next;
+                    }
+                    
+                    $isFile = is_file("$dir$entry"); 
+                    $isDir = is_dir("$dir$entry");
+                    
+                    if ( ($type == 'f') && ($isFile) ) 
+                    {
+                        $result[$entry] = $entry; 
+                        next;
+                    }
+                    
+                    if ( ($type == "d") && ($isDir) ) 
+                    {
+                        $result[$entry] = $entry; 
+                        next;
+                    }
+                    
+                }
+            }
+        }
+        
+        return $result;
+    }
+    
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Returns the URL address of the current page
+    #---------------------------------------------------------------------
+    function GetCurrentURL()
+    {
+        // TODO: Scramble/UnScramble will change this!!!!
+        $protocol = isset($_SERVER['HTTPS']) ? 'https' : 'http';
+        return $protocol.'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    }
+/*
+    function CheckValidIP($module='')
+    {
+        if ( ! $module )
+        {
+            $module = 'miolo';
+        }
+        
+    //$MIOLOCONF['hosts']['allow'][$module]
+    //$MIOLOCONF['hosts']['deny'][$module]
+    }
+    */
+
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # TODO: TRANSLATION
+    # Este metodo possibilita que o MIOLO ofereça controle de acesso a
+    # nivel de IP de maquina.<br>
+    # Para utilizar essa funcionalidade eh necessário configurar, no 
+    # <code>miolo.conf</code>, os seguintes informações:
+    #
+    # <code>$MIOLOCONF['hosts']['allow']</code>
+    # <code>$MIOLOCONF['hosts']['deny']</code>
+    #
+    # @returns (boolean) true se o IP estiver autorizado, false caso contrario
+    #---------------------------------------------------------------------        
+    function IsHostAllowed()
+    {   global $MIOLOCONF;
+              
+        $REMOTE_ADDR = $_SERVER['REMOTE_ADDR'];
+        $ReturnValue = false;
+        
+        foreach( $MIOLOCONF['hosts']['allow'] as $h )
+        {
+            if ( $REMOTE_ADDR == $h )
+            {
+                $ReturnValue = true;
+            }
+        
+            // Is it a interval of IP's?
+            if ( ( strpos($h,'-') > 0 ) && 
+                 ( substr($h, 0, strrpos($h,'.')) == substr($REMOTE_ADDR, 0, strrpos($REMOTE_ADDR, '.')) )
+                )
+            {
+                list($FirstIP, $LastIP ) = explode('-', $h);
+                $LastIP = substr( $FirstIP,0, strrpos($FirstIP,'.')+1) . $LastIP;
+          
+                $RemoteIP = substr($REMOTE_ADDR, strrpos($REMOTE_ADDR,'.')+1, strlen($REMOTE_ADDR) );
+                $StartIP  = substr($FirstIP, strrpos($FirstIP,'.')+1, strlen($FirstIP) );
+                $EndIP    = substr($LastIP, strrpos($LastIP,'.')+1, strlen($LastIP) );
+                
+                if ( ( $StartIP < $RemoteIP ) &&
+                     ( $EndIP > $RemoteIP )
+                    )                   
+                {
+                    $ReturnValue = true;
+                }
+
+            }
+           
+        }
+
+        foreach( $MIOLOCONF['hosts']['deny'] as $h )
+        {
+            if ( $REMOTE_ADDR == $h )
+            {
+                $ReturnValue = false;
+            }
+        }
+
+        return $ReturnValue;
+    }
+    
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # TODO: TRANSLATION
+    # No MIOLO, métodos que iniciam por "_" indicam métodos estáticos, mas
+    # neste caso foi utilizado para lembrar que sua funcionalidade é similar
+    # ao $_REQUEST do PHP.  O metodo _REQUEST provê uma forma mais simples
+    # para se ter acesso às variáveis. Utilizando comandos PHP, vc. teria
+    # que utilzar $_REQUEST, $_GET, $_POST ou global ao passo que no MIOLO
+    # este método trás todas as informações, não importando de onde elas
+    # são provenientes.
+    # Caso você queira obter apenas o valor da variáveis provenientes de 
+    # uma dessas opções, por exemplo GET, passe essa palavra como segundo 
+    # parâmetro.
+    #
+    # @param $vars (string/array) variáveis as quais se deseja obter o valor
+    # @param $from (string) de onde obter os dados. Pode ser 'GET', 'POST', 
+    #                       além do padrão 'ALL' que retorna todos os dados.
+    #
+    # @returns (array) os valores das variáveis solicitadas
+    #---------------------------------------------------------------------    
+    function _REQUEST($vars, $from='ALL')
+    {
+        if ( is_array($vars) )
+        {
+            foreach ( $vars as $v )
+            {
+                $values[$v] = MIOLO::_REQUEST($v, $from);
+            }
+        }
+        else
+        {
+            if ( $from == 'GET' )
+            {
+                $value = $_GET["$vars"];
+            }
+            else if ( $from == 'POST' )
+            {
+                $value = $_POST["$vars"];
+            }
+            else
+            {
+                $value = $_REQUEST["$vars"];
+            }
+            
+            // If we still didn't have the value
+            // let's try in the global scope
+            if ( ! isset($value) )
+            {
+                $global = "$".$vars;
+                @eval(" global $global;");
+                
+                $equal = "\$value = $".$vars;
+                eval ("$equal;");
+            }
+               
+            return $value;
+        }
+    
+        return $values;
+    }
+}

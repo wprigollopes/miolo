@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="lookuptheme.class" path="/usr/local/miolo/classes/ui/lookuptheme.class" base="ui_lookuptheme" created="" lines="77">
+    <class name="LookupTheme" base="Theme" declaration="class LookupTheme extends Theme" line="22">
+        <var name="title" declaration="var $title;" line="24">
+        </var>
+        <var name="content" declaration="var $content;" line="25">
+        </var>
+        <var name="footer" declaration="var $footer;" line="26">
+        </var>
+        <function name="LookupTheme" attribute="default" declaration="function LookupTheme()" line="28">
+        </function>
+        <function name="Lookup" attribute="default" declaration="function Lookup($title,$module,$item,$data,$labels,$filtro,$total,$page,$lines)" line="38">
+            <param name="$title" value="" type=""><![CDATA[]]></param>
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$item" value="" type=""><![CDATA[]]></param>
+            <param name="$data" value="" type=""><![CDATA[]]></param>
+            <param name="$labels" value="" type=""><![CDATA[]]></param>
+            <param name="$filtro" value="" type=""><![CDATA[]]></param>
+            <param name="$total" value="" type=""><![CDATA[]]></param>
+            <param name="$page" value="" type=""><![CDATA[]]></param>
+            <param name="$lines" value="" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+</source>

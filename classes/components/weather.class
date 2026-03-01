@@ -1,0 +1,105 @@
+<?php
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# @title
+#   Weather Class
+#
+# @description
+#   This class can be used to return the weather information from the
+#   Yahoo Weather site (http://weather.yahoo.com)
+#
+# @topics   components
+#
+# @organisation
+#   MIOLO - Miolo Development Team - SOLIS/UNIVATES
+#
+# @legal
+#   CopyLeft (L) 2002-2003 SOLIS, Lajeado/RS - Brasil
+#   Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+#   further details)
+#
+# @contributors
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+# 
+# @maintainers
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#
+# @history
+#   See history in CVS repository.
+#
+# @id $Id: weather.class,v 1.4 2003/06/17 20:04:57 vgartner Exp $
+#---------------------------------------------------------------------
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Important: All components must extends ThemeElement
+#---------------------------------------------------------------------
+class Weather extends ThemeElement
+{
+    var $code;
+    var $proxy;
+    
+    // constructor
+    function Weather()
+    {
+        $this->title = "O Tempo";
+    }
+    
+    // When behind a proxy
+    function SetProxy($host=null)
+    {
+        $this->proxy = $host;
+    }
+
+    // Cities codes can be found at Yahoo Weather
+    function SetCode($code)
+    {
+        $this->code = $code;
+    }
+    
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # This method creates the weather content
+    # Important: All components must have this method
+    #---------------------------------------------------------------------
+    function Generate()
+    {
+        $tmpfile = "/tmp/MIOLO.weather." . $this->code;
+        
+        $must_reload = ! file_exists($tmpfile);
+        
+        if ( ! $must_reload )
+        {
+            $st = stat($tmpfile);
+            
+            $must_reload = $st[9] < time() + 60 * 60;
+        }
+        
+        if ( $must_reload )
+        {
+            if ( $this->proxy )
+            {
+                putenv("http_proxy={$this->proxy}");
+            }
+            
+            $cmd = "/usr/bin/wget \"http://weather.yahoo.com/forecast/{$this->code}_c.html?force_units=1\" -O $tmpfile";
+            system($cmd);
+        }
+        
+        $html     = implode('',file($tmpfile));
+        
+        $start    = strpos($html,"<!--CURCON-->");
+        $end      = strpos($html,"<!--END CURCON-->");
+        $current  = substr($html,$start,$end-$start);
+        $start    = strpos($html,"<!----------------------- NEW FORECAST HEADER------------------------->");
+        $end      = strpos($html,"<!--ENDFC-->");
+        $forecast = substr($html,$start,$end-$start);
+
+        echo $current;
+        echo '<br>';
+        echo $forecast;
+        echo "<br><div align=\"right\"><font size=-2><a href=\"http://weather.yahoo.com/forecast/{$this->code}_c.html?force_units=1\" target=\"_new\">Powered by Yahoo Weather</a></font></div>";
+    }
+}
+
+?>

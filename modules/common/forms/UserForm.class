@@ -1,0 +1,38 @@
+<?
+
+class CommonUserForm extends Form
+{
+    function CommonUserForm($data=null)
+    { //  global $MIOLO;
+        
+        $this->Form($data?_M('Update User'):_M('Insert User'));
+        
+        $themes = MIOLO::GetThemes();
+        
+        $this->AddField( new TextField( _M('Login'), 'login', null, $data?0:20, 'Login name for the user') );
+        $this->AddField( new PasswordField( _M('Password'), 'password', null, 20), "User's Password"  );
+        $this->AddField( new TextField( _M('Name') , 'name' , null, 40, 'Full user name') );
+        $this->AddField( new TextField( _M('Alias'), 'nickname', null, 20, 'Nickname') );
+        $this->AddField( new TextField( _M('EMail'), 'email', null, 40,"User's e-mail", Validator::EMAILValidator()) );
+        //$this->AddField( new Selection( _M('Theme')  , 'theme',$data->theme,$themes),
+        //                                _M('Select theme'));
+        
+        if ( $data )
+        {
+            $this->SetData($data);
+        }
+    }
+    
+    function GetData()
+    {   
+        if ( $this->ValidateAll() )
+        {
+            return $this->CollectInput( new CommonUser() );
+        }
+        
+        return false;
+    }
+
+}
+
+?>

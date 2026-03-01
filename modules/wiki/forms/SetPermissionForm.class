@@ -1,0 +1,104 @@
+<?
+// +-----------------------------------------------------------------+
+// | Wiki Development Team - UNIVATES Centro Universitário           |
+// +-----------------------------------------------------------------+
+// | Copyleft (l) 2002 UNIVATES, Lajeado/RS - Brasil                 |
+// +-----------------------------------------------------------------+
+// | Licensed under GPL: see COPYING.TXT or FSF at www.fsf.org for   |
+// |                     further details                             |
+// |                                                                 |
+// | Site: http://fred.codigolivre.org.br                            |
+// | E-mail: njunior@univates.br                                     |
+// +-----------------------------------------------------------------+
+// | Abstract: This file contains a form class definitions           |
+// |                                                                 |
+// | Created: 2002/08/15 Nasair Junior da Silva  njunior@univates.br |
+// |                     Joice Käfer             joicek@univates.br  |
+// |                     Viviane Berner          viviane@univates.br |
+// |                     Vilson C. Ghärtner      vgartner@univates.br|
+// |                                                                 |
+// | History: Initial Revision                                       |
+// +-----------------------------------------------------------------+
+
+class SetPermissionForm extends Form
+{   
+    function SetPermissionForm($project_id=null)
+    {
+		global $MIOLO, $module;
+        $this->Form(_M('Permissions',$module)."-$project_id");
+        
+        $Bus_Perm = $MIOLO->GetBusiness($module,'Permissions');
+        $Bus_Common = $MIOLO->GetBusiness('common','admin');
+        $users = $Bus_Common->GetUsers();
+        
+        $types = array('read','write');
+        $fields[] = new TextField(null,'project_id',$project_id,0);
+        
+        if (is_array($users))
+        foreach($users as $user)
+        {
+            unset($values);
+            $name = 'user_'.str_replace("-","_",$user[0]);
+            foreach ($types as $k_typ=>$type)
+            {
+                $var = 'frm_'.$name.'_'.$k_typ;
+                eval('global $'.$var.';');
+                //$valor = $HTTP_POST_VARS[$var];
+                if ( !$project_id ) //isset($HTTP_POST_VARS[$var]) )
+                {
+                    $valor = isset($$var) ? 1 : 0;
+                }
+                else
+                    $valor = $Bus_Perm->CheckAccess($project_id,$type,$user[0],false);
+                
+                //var_dump('<li>',$var,$name,$valor);
+                $values[] = array(_M($type,$module),$valor);
+            }
+            
+            $fields[] = new CheckBoxGroup(   $user[1],
+                                            $name,
+                                            $values);
+        }
+        $this->SetFields($fields);
+        
+        $this->AddButton(_M('Check All',$module),'checka',$this->CheckAll("true"));
+        $this->AddButton(_M('Uncheck All',$module),'ucheck',$this->CheckAll("false"));
+
+    }
+
+    function CheckAll($status="true")
+    {
+        global $MIOLO, $module, $MIOLOCONF;
+        $fields = $this->GetFieldList();
+        if ($status=="true") $value = "1";
+        else $value="0";
+        
+        $string= "javascript:";
+        if (is_array($fields))
+        foreach ($fields as $field)
+        {
+            $class = get_class($field);
+            if ($class == 'checkboxgroup')
+            {
+                $name = str_replace("-","_",$field->name);
+                $script.="\n    document.{$this->name}.{$name}_0.checked={$status};";
+                $script.="\n    document.{$this->name}.{$name}_0.value={$value};";
+                $script.="\n    document.{$this->name}.{$name}_1.checked={$status};";
+                $script.="\n    document.{$this->name}.{$name}_1.value={$value};";
+            }
+        }
+        
+        return $script;
+    }
+
+    function GetData()
+    {
+//        $required = array(null);
+//        if ( $this->Validate($required) )
+        {
+           $data = $this->CollectInput(new SetPermissionForm);
+        }
+        return $data;
+    }
+}
+?>

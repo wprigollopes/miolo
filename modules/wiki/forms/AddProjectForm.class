@@ -1,0 +1,54 @@
+<?
+// +-----------------------------------------------------------------+
+// | Wiki Development Team UNIVATES - Centro Universitário           |  
+// +-----------------------------------------------------------------+
+// |      Copyleft (l) 2002 UNIVATES, Lajeado/RS - Brasil            |
+// +-----------------------------------------------------------------+
+// | Licensed under GPL: see COPYING.TXT or FSF at www.fsf.org for   |
+// |                     further details                             |
+// |                                                                 |
+// | Site: http://wiki.codigolivre.org.br                            |
+// +-----------------------------------------------------------------+
+// | Created: 2002/12/16 Alexandre Heitor Schmidt xandehs@univates.br|
+// |                     Nasair Júnior da Silva   njunior@univates.br|
+// |                                                                 |
+// | History: Initial Revision                                       |
+// +-----------------------------------------------------------------+
+
+class AddProjectForm extends Form
+{
+    function AddProjectForm($data=null)
+    {
+        global $MIOLO, $module, $login;
+        $bus = $MIOLO->GetBusiness('common','admin');
+        $users = $bus->GetUsers();
+
+        $this->Form($data->project_id ? _M("Edit a Project",$module) : _M("Create New Project",$module) );
+        if ($data->project_id)
+            $fields[] = new TextField(_M("Project Id",$module),'project_id',$data->project_id,0);
+        else 
+            $fields[] = new TextField(null,'project_id',$data->project_id,0);
+
+        $fields[] = new TextField(_M('Project title',$module) ,'title'      ,$data->title,100);
+        $fields[] = new Selection(_M('Allow annonymous read',$module)   ,'annonymous_read',$data->annonymous_read);
+        $fields[] = new Selection(_M('Allow annonymous write',$module)  ,'annonymous_write',$data->annonymous_write);
+        if (!is_array($data->responsible)) 
+            $data->responsible = array($data->responsible);
+        $fields[] = new MultiSelection(_M('Responsible',$module)   ,'responsible',$data->responsible,$users,true,'',4);
+			
+        $this->SetFields($fields);
+    }
+
+    function GetData()
+    {
+        $required = array('title');
+
+        if ( $this->Validate($required) )
+        {
+            $data = $this->CollectInput(new FormData);
+        }
+        return $data;
+    }
+}
+
+?>

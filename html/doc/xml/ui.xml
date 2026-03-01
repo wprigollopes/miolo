@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="ui.class" path="/usr/local/miolo/classes/ui.class" base="ui" created="" lines="131">
+    <class name="UI" base="" declaration="class UI" line="49">
+      <title>Database</title>
+      <description>
+      <![CDATA[This file contains database abstraction class]]>
+      </description>
+      <relations type="see-also">
+        <group name="miolo/postgres_connection.class"/>
+        <group name="miolo/postgres_query.class"/>
+        <group name="miolo/mysql_connection.class"/>
+        <group name="miolo/mysql_querry.class"/>
+      </relations>
+      <relations type="group">
+        <group name="db"/>
+        <group name="business"/>
+      </relations>
+      <organisation>
+      <![CDATA[MIOLO - Miolo Development Team - UNIVATES Centro Universitario]]>
+      </organisation>
+      <legal>
+      <![CDATA[CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)]]>
+      </legal>
+      <contributors>
+        <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+        <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+      </contributors>
+      <maintainers>
+        <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+        <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+      </maintainers>
+      <history>
+      <![CDATA[
+        $Log: ui.xml,v $
+        Revision 1.1  2004/08/12 18:35:09  vgartner
+        Inserting Documentation.
+<br>
+          Revision 1.4  2003/06/17 20:04:57  vgartner<br>
+          A lot of changes: documentation, new classes (TabbedForm2), directory changes,....<br>
+        <br>
+          Revision 1.3  2002/10/29 19:40:35  vgartner<br>
+          Added new files to MIOLO<br>
+        <br>
+          Revision 1.2  2002/09/30 21:24:19  vgartner<br>
+          Corrected a little bug.<br>
+      ]]>
+      </history>
+        <function name="UI" attribute="default" declaration="function UI()" line="51">
+        </function>
+        <function name="Alert" attribute="default" declaration="function Alert($msg,$info,$href='')" line="64">
+            <param name="$msg" value="" type=""><![CDATA[]]></param>
+            <param name="$info" value="" type=""><![CDATA[]]></param>
+            <param name="$href" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="CreateForm" attribute="default" declaration="function CreateForm($title='')" line="70">
+            <param name="$title" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetForm" attribute="default" declaration="function GetForm($module,$name,$data=null)" line="75">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$data" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetMenu" attribute="default" declaration="function GetMenu($module='main',$name='UIMainMenu')" line="109">
+            <param name="$module" value="'main'" type=""><![CDATA[]]></param>
+            <param name="$name" value="'UIMainMenu'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetImage" attribute="default" declaration="function GetImage($module,$nome)" line="119">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$nome" value="" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+</source>

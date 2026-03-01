@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="tabbedform2.class" path="/usr/local/miolo/classes/ui/tabbedform2.class" base="ui_tabbedform2" created="" lines="186">
+    <class name="TabbedForm2" base="Form" declaration="class TabbedForm2 extends Form" line="37">
+      <title>Tabbed Form 2</title>
+      <description>
+      <![CDATA[]]>
+      </description>
+      <relations type="group">
+        <group name="form"/>
+        <group name="tabbedform"/>
+      </relations>
+      <organisation>
+      <![CDATA[MIOLO - Miolo Development Team - SOLIS/UNIVATES]]>
+      </organisation>
+      <legal>
+      <![CDATA[CopyLeft (L) 2003 SOLIS - Cooperativa de Solucoes Livres
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)]]>
+      </legal>
+      <contributors>
+        <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+      </contributors>
+      <maintainers>
+        <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+        <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+      </maintainers>
+      <history>
+      <![CDATA[
+        See history in CVS repository:<br>
+          http://codigolivre.org.br/cvs/?group_id=70<br>
+        <br>
+        @Id $Id: ui_tabbedform2.xml,v 1.1 2004/08/12 18:35:09 vgartner Exp $<br>
+      ]]>
+      </history>
+        <var name="pages" declaration="var $pages;" line="40">
+        </var>
+        <var name="css" declaration="var $css='tab';" line="41">
+        </var>
+        <function name="TabbedForm2" attribute="default" declaration="function TabbedForm2($title='',$action='')" line="44">
+            <param name="$title" value="''" type=""><![CDATA[]]></param>
+            <param name="$action" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetCSS" attribute="default" declaration="function SetCSS($file='')" line="50">
+            <param name="$file" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddPage" attribute="default" declaration="function AddPage($title, $fields)" line="61">
+            <param name="$title" value="" type=""><![CDATA[]]></param>
+            <param name="$fields" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetFieldList" attribute="default" declaration="function GetFieldList()" line="93">
+        </function>
+        <function name="GenerateBody" attribute="default" declaration="function GenerateBody()" line="109">
+        </function>
+    </class>
+</source>

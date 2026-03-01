@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="index.inc" path="/usr/local/bis/html/modules/common/handlers/doc/index.inc" base="modules_common_handlers_doc_index" created="">
+  <title>index.inc</title>
+  <description>
+  <![CDATA[Handler for generating the documentation index]]>
+  </description>
+  <organisation>
+  <![CDATA[MIOLO - Miolo Development Team - UNIVATES Centro Universitario]]>
+  </organisation>
+  <legal>
+  <![CDATA[CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)]]>
+  </legal>
+  <contributors>
+    <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+  </contributors>
+    <class name="DocumentationIndex" base="FormField" declaration="class DocumentationIndex extends FormField" line="28">
+      <description>
+      <![CDATA[This class generates documentation index]]>
+      </description>
+        <var name="context" declaration="var $context;" line="30">
+        </var>
+        <function name="DocumentationIndex" attribute="default" declaration="function DocumentationIndex($label,$value='miolo')" line="32">
+            <param name="$label" value=""></param>
+            <param name="$value" value="'miolo'"></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="37">
+        </function>
+        <function name="ListFiles" attribute="default" declaration="function ListFiles($dir)" line="63">
+            <param name="$dir" value=""></param>
+        </function>
+    </class>
+</source>

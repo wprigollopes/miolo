@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="mssql_connection.class" path="/usr/local/miolo/classes/database/mssql_connection.class" base="database_mssql_connection" created="" lines="240">
+    <class name="MssqlConnection" base="" declaration="class MssqlConnection" line="43">
+      <title>MsSQL Connection</title>
+      <description>
+      <![CDATA[This file contains MsSQL connection functions]]>
+      </description>
+      <relations type="see-also">
+        <group name="miolo/database.class"/>
+        <group name="miolo/mssql_query.class"/>
+        <group name=""/>
+      </relations>
+      <relations type="group">
+        <group name="db"/>
+        <group name="business"/>
+      </relations>
+      <organisation>
+      <![CDATA[MIOLO - Miolo Development Team - UNIVATES Centro Universitario
+  http://miolo.codigolivre.org.br]]>
+      </organisation>
+      <legal>
+      <![CDATA[CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)]]>
+      </legal>
+      <contributors>
+        <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+        <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+        <author name="Clausius Duque G. Reis" type="user" login="" email="clausius@ufv.br"></author>
+      </contributors>
+      <maintainers>
+        <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+        <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+        <author name="history: see miolo cvs." type="" login="" email=""></author>
+      </maintainers>
+        <var name="conf" declaration="var $conf;       // name of database configuration" line="45">
+        </var>
+        <var name="id" declaration="var $id;         // the connection identifier" line="46">
+        </var>
+        <var name="traceback" declaration="var $traceback;  // a list of transaction errors" line="47">
+        </var>
+        <var name="level" declaration="var $level;      // a counter for the transaction level" line="48">
+        </var>
+        <function name="MssqlConnection" attribute="default" declaration="function MssqlConnection($conf)" line="50">
+            <param name="$conf" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Open" attribute="default" declaration="function Open($dbhost,$LoginDB,$LoginUID,$LoginPWD,$persistent=true)" line="59">
+            <param name="$dbhost" value="" type=""><![CDATA[]]></param>
+            <param name="$LoginDB" value="" type=""><![CDATA[]]></param>
+            <param name="$LoginUID" value="" type=""><![CDATA[]]></param>
+            <param name="$LoginPWD" value="" type=""><![CDATA[]]></param>
+            <param name="$persistent" value="true" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Close" attribute="default" declaration="function Close()" line="88">
+        </function>
+        <function name="Begin" attribute="default" declaration="function Begin()" line="101">
+        </function>
+        <function name="Finish" attribute="default" declaration="function Finish()" line="108">
+        </function>
+        <function name="GetError" attribute="default" declaration="function GetError()" line="129">
+        </function>
+        <function name="GetErrors" attribute="default" declaration="function GetErrors()" line="149">
+        </function>
+        <function name="GetErrorCount" attribute="default" declaration="function GetErrorCount()" line="154">
+        </function>
+        <function name="CheckError" attribute="default" declaration="function CheckError()" line="159">
+        </function>
+        <function name="Execute" attribute="default" declaration="function Execute($sql)" line="182">
+            <param name="$sql" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="CreateQuery" attribute="default" declaration="function CreateQuery($sql=&quot;&quot;)" line="211">
+            <param name="$sql" value="&quot;&quot;" type=""><![CDATA[]]></param>
+        </function>
+        <function name="treat_mssql_error" attribute="default" declaration="function treat_mssql_error($buffer)" line="231">
+            <param name="$buffer" value="" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+</source>

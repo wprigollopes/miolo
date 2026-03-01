@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="ModuleForm.class" path="/usr/local/miolo/modules/common/forms/ModuleForm.class" base="common_forms_ModuleForm" created="" lines="31">
+    <class name="CommonModuleForm" base="Form" declaration="class CommonModuleForm extends Form" line="3">
+        <function name="CommonModuleForm" attribute="default" declaration="function CommonModuleForm($data=null)" line="5">
+            <param name="$data" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetData" attribute="default" declaration="function GetData()" line="19">
+        </function>
+    </class>
+</source>

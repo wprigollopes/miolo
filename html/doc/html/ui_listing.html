@@ -1,0 +1,1129 @@
+<html xmlns:html="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>Source: listing.class</title>
+    <link rel="stylesheet" type="text/css" href="doc.css">
+  </head>
+  <body>
+    <h1>Documentação MIOLO</h1>
+    <h2>
+            Source: <a href="?module=common&amp;action=main:doc:index:source&amp;item=/usr/local/miolo/classes/ui/listing.class"><span class="sourceName">listing.class</span></a>
+      <br>
+      <font size="2">(632 linhas)</font>
+    </h2>
+    <div class="description">
+      <h3>Descrição:</h3>
+      <blockquote>
+            TODO: 
+          Descrição do arquivo listing.class.
+        </blockquote>
+    </div>
+    <div class="relations" align="right">
+         [<a href="?module=common&amp;action=main:doc:index:source&amp;item=/usr/local/miolo/classes/ui/listing.class">Codigo Fonte</a>]
+         [<a href="/doc/dia/ui_listing.dia">Diagrama UML</a>]
+      </div>
+    <h3>Classes:</h3>
+    <blockquote>
+      <a href="#ActionRenderer">ActionRenderer</a>, <a href="#CellRenderer">CellRenderer</a>, <a href="#IconAction">IconAction</a>, <a href="#ListFilter">ListFilter</a>, <a href="#Listing">Listing</a>, <a href="#ListingAction">ListingAction</a>, <a href="#ListingColumn">ListingColumn</a>, <a href="#TextAction">TextAction</a>
+    </blockquote>
+    <div class="classBlock">
+      <a name="ListingColumn"></a>
+      <h2>Classe <span class="className">ListingColumn</span></h2>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      This file contains the listing elements definitions
+      </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $title;    # listing title</dt>
+        <dt>var $footer;   # optional listing footer</dt>
+        <dt>var $options;  # array for mapping of data value to display value</dt>
+        <dt>var $align;    # alignment left,center,right</dt>
+        <dt>var $nowrap;   # flag to specify that the cell value may not be wrapped</dt>
+        <dt>var $width;    # column width in pixels or percent</dt>
+        <dt>var $visible;  # flag to hide/show column</dt>
+        <dt>var $renderer; # custom value cell renderer, must a subclass of ListingRenderer</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#ListingColumn::Generate">Generate</a>, <a href="#ListingColumn::ListingColumn">ListingColumn</a>, <a href="#ListingColumn::SetRenderer">SetRenderer</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="ListingColumn::ListingColumn"></a>
+        <dt><span class="functionName">
+            <a href="#$class">ListingColumn</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função ListingColumn</blockquote>
+          </div>
+          <div class="declaration">function ListingColumn($title,$options=null,$align=null,$nowrap=false,$width=0)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$title</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$title</tt>
+            </dd>
+            <dt><span class="paramName">$options</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$options</tt>
+            </dd>
+            <dt><span class="paramName">$align</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$align</tt>
+            </dd>
+            <dt><span class="paramName">$nowrap</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$nowrap</tt>
+            </dd>
+            <dt><span class="paramName">$width</span> Default <span class="paramValue">0</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$width</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ListingColumn::SetRenderer"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetRenderer</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetRenderer</blockquote>
+          </div>
+          <div class="declaration">function SetRenderer($renderer)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$renderer</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$renderer</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ListingColumn::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate($value='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$value</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="CellRenderer"></a>
+      <h2>Classe <span class="className">CellRenderer</span></h2>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe CellRenderer.      
+          </blockquote>
+      </div>
+      <h3>Métodos:</h3>
+      <div class="functionBlock">
+        <a name="CellRenderer::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate(&amp;$listing,$row,$column,$value)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">&amp;$listing</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>&amp;$listing</tt>
+            </dd>
+            <dt><span class="paramName">$row</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$row</tt>
+            </dd>
+            <dt><span class="paramName">$column</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$column</tt>
+            </dd>
+            <dt><span class="paramName">$value</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="ActionRenderer"></a>
+      <h2>Classe <span class="className">ActionRenderer</span></h2>
+      <blockquote>
+          extends <a href="#">CellRenderer</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe ActionRenderer.      
+          </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $actions;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#ActionRenderer::ActionRenderer">ActionRenderer</a>, <a href="#ActionRenderer::AddAction">AddAction</a>, <a href="#ActionRenderer::Generate">Generate</a>, <a href="#ActionRenderer::GetImage">GetImage</a>, <a href="#ActionRenderer::SetActions">SetActions</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="ActionRenderer::ActionRenderer"></a>
+        <dt><span class="functionName">
+            <a href="#$class">ActionRenderer</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função ActionRenderer</blockquote>
+          </div>
+          <div class="declaration">function ActionRenderer($action=null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$action</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$action</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ActionRenderer::AddAction"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddAction</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função AddAction</blockquote>
+          </div>
+          <div class="declaration">function AddAction($a)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$a</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$a</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ActionRenderer::SetActions"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetActions</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetActions</blockquote>
+          </div>
+          <div class="declaration">function SetActions($actions)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$actions</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$actions</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ActionRenderer::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate(&amp;$listing,$row,$column,$value)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">&amp;$listing</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>&amp;$listing</tt>
+            </dd>
+            <dt><span class="paramName">$row</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$row</tt>
+            </dd>
+            <dt><span class="paramName">$column</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$column</tt>
+            </dd>
+            <dt><span class="paramName">$value</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ActionRenderer::GetImage"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetImage</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetImage</blockquote>
+          </div>
+          <div class="declaration">function GetImage($src)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$src</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$src</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="ListingAction"></a>
+      <h2>Classe <span class="className">ListingAction</span></h2>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe ListingAction.      
+          </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $type;   // text or img</dt>
+        <dt>var $value;  // image or text label</dt>
+        <dt>var $href;   // link pattern</dt>
+        <dt>var $alt;    // optional image description</dt>
+        <dt>var $index;  // deprecated</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <div class="functionBlock">
+        <a name="ListingAction::ListingAction"></a>
+        <dt><span class="functionName">
+            <a href="#$class">ListingAction</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função ListingAction</blockquote>
+          </div>
+          <div class="declaration">function ListingAction($type,$alt,$value,$href,$index=null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$type</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$type</tt>
+            </dd>
+            <dt><span class="paramName">$alt</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$alt</tt>
+            </dd>
+            <dt><span class="paramName">$value</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+            <dt><span class="paramName">$href</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$href</tt>
+            </dd>
+            <dt><span class="paramName">$index</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$index</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="IconAction"></a>
+      <h2>Classe <span class="className">IconAction</span></h2>
+      <blockquote>
+          extends <a href="#">ListingAction</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe IconAction.      
+          </blockquote>
+      </div>
+      <h3>Métodos:</h3>
+      <div class="functionBlock">
+        <a name="IconAction::IconAction"></a>
+        <dt><span class="functionName">
+            <a href="#$class">IconAction</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função IconAction</blockquote>
+          </div>
+          <div class="declaration">function IconAction($value,$href,$alt=null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$value</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+            <dt><span class="paramName">$href</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$href</tt>
+            </dd>
+            <dt><span class="paramName">$alt</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$alt</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="TextAction"></a>
+      <h2>Classe <span class="className">TextAction</span></h2>
+      <blockquote>
+          extends <a href="#">ListingAction</a>
+      </blockquote>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe TextAction.      
+          </blockquote>
+      </div>
+      <h3>Métodos:</h3>
+      <div class="functionBlock">
+        <a name="TextAction::TextAction"></a>
+        <dt><span class="functionName">
+            <a href="#$class">TextAction</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função TextAction</blockquote>
+          </div>
+          <div class="declaration">function TextAction($value,$href)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$value</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+            <dt><span class="paramName">$href</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$href</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="ListFilter"></a>
+      <h2>Classe <span class="className">ListFilter</span></h2>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe ListFilter.      
+          </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $text;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#ListFilter::Generate">Generate</a>, <a href="#ListFilter::ListFilter">ListFilter</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="ListFilter::ListFilter"></a>
+        <dt><span class="functionName">
+            <a href="#$class">ListFilter</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função ListFilter</blockquote>
+          </div>
+          <div class="declaration">function ListFilter($text = null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$text</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$text</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="ListFilter::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <div class="classBlock">
+      <a name="Listing"></a>
+      <h2>Classe <span class="className">Listing</span></h2>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+            TODO: 
+                Escrever documentação da classe Listing.      
+          </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $titulo;    // table display title</dt>
+        <dt>var $filter;    // filter line</dt>
+        <dt>var $labels;    // column headings</dt>
+        <dt>var $dados;     // table data cells</dt>
+        <dt>var $actions;   // array with actions</dt>
+        <dt>var $showid;    // flag whether to show ids or not</dt>
+        <dt>var $home;</dt>
+        <dt>var $icons;</dt>
+        <dt>var $errors;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#Listing::AddAction">AddAction</a>, <a href="#Listing::AddActionIcon">AddActionIcon</a>, <a href="#Listing::AddActionText">AddActionText</a>, <a href="#Listing::AddError">AddError</a>, <a href="#Listing::Generate">Generate</a>, <a href="#Listing::GenerateBody">GenerateBody</a>, <a href="#Listing::GenerateErrors">GenerateErrors</a>, <a href="#Listing::GetBody">GetBody</a>, <a href="#Listing::GetColumnCount">GetColumnCount</a>, <a href="#Listing::GetFooter">GetFooter</a>, <a href="#Listing::GetLabel">GetLabel</a>, <a href="#Listing::GetRowCount">GetRowCount</a>, <a href="#Listing::GetTitle">GetTitle</a>, <a href="#Listing::GetValue">GetValue</a>, <a href="#Listing::HasErrors">HasErrors</a>, <a href="#Listing::Listing">Listing</a>, <a href="#Listing::QueryData">QueryData</a>, <a href="#Listing::SetCellRenderer">SetCellRenderer</a>, <a href="#Listing::SetData">SetData</a>, <a href="#Listing::SetFilter">SetFilter</a>, <a href="#Listing::SetFooter">SetFooter</a>, <a href="#Listing::SetLabels">SetLabels</a>, <a href="#Listing::SetTitle">SetTitle</a>, <a href="#Listing::SetValue">SetValue</a>, <a href="#Listing::ShowID">ShowID</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="Listing::Listing"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Listing</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Listing</blockquote>
+          </div>
+          <div class="declaration">function Listing()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::GetTitle"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetTitle</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetTitle</blockquote>
+          </div>
+          <div class="declaration">function &amp; GetTitle()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::GetFooter"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetFooter</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetFooter</blockquote>
+          </div>
+          <div class="declaration">function &amp; GetFooter()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::GetLabel"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetLabel</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetLabel</blockquote>
+          </div>
+          <div class="declaration">function &amp; GetLabel($i)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$i</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$i</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::SetTitle"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetTitle</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetTitle</blockquote>
+          </div>
+          <div class="declaration">function SetTitle($titulo)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$titulo</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$titulo</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::SetCellRenderer"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetCellRenderer</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetCellRenderer</blockquote>
+          </div>
+          <div class="declaration">function SetCellRenderer($column,$renderer)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$column</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$column</tt>
+            </dd>
+            <dt><span class="paramName">$renderer</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$renderer</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::SetFilter"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetFilter</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetFilter</blockquote>
+          </div>
+          <div class="declaration">function SetFilter($filter)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$filter</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$filter</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::SetFooter"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetFooter</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetFooter</blockquote>
+          </div>
+          <div class="declaration">function SetFooter($footer)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$footer</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$footer</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::SetLabels"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetLabels</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetLabels</blockquote>
+          </div>
+          <div class="declaration">function SetLabels($labels)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$labels</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$labels</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::SetData"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetData</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetData</blockquote>
+          </div>
+          <div class="declaration">function SetData($dados)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$dados</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$dados</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::GetValue"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetValue</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetValue</blockquote>
+          </div>
+          <div class="declaration">function GetValue($row,$col)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$row</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$row</tt>
+            </dd>
+            <dt><span class="paramName">$col</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$col</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::SetValue"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetValue</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função SetValue</blockquote>
+          </div>
+          <div class="declaration">function SetValue($row,$col,$value)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$row</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$row</tt>
+            </dd>
+            <dt><span class="paramName">$col</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$col</tt>
+            </dd>
+            <dt><span class="paramName">$value</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::GetColumnCount"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetColumnCount</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetColumnCount</blockquote>
+          </div>
+          <div class="declaration">function GetColumnCount()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::GetRowCount"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetRowCount</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetRowCount</blockquote>
+          </div>
+          <div class="declaration">function GetRowCount()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::AddAction"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddAction</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função AddAction</blockquote>
+          </div>
+          <div class="declaration">function AddAction($alt,$icon,$href,$index=0)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$alt</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$alt</tt>
+            </dd>
+            <dt><span class="paramName">$icon</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$icon</tt>
+            </dd>
+            <dt><span class="paramName">$href</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$href</tt>
+            </dd>
+            <dt><span class="paramName">$index</span> Default <span class="paramValue">0</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$index</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::AddActionIcon"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddActionIcon</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função AddActionIcon</blockquote>
+          </div>
+          <div class="declaration">function AddActionIcon($alt,$icon,$href,$index=0)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$alt</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$alt</tt>
+            </dd>
+            <dt><span class="paramName">$icon</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$icon</tt>
+            </dd>
+            <dt><span class="paramName">$href</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$href</tt>
+            </dd>
+            <dt><span class="paramName">$index</span> Default <span class="paramValue">0</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$index</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::AddActionText"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddActionText</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função AddActionText</blockquote>
+          </div>
+          <div class="declaration">function AddActionText($alt,$text,$href,$index=0)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$alt</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$alt</tt>
+            </dd>
+            <dt><span class="paramName">$text</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$text</tt>
+            </dd>
+            <dt><span class="paramName">$href</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$href</tt>
+            </dd>
+            <dt><span class="paramName">$index</span> Default <span class="paramValue">0</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$index</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::AddError"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AddError</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função AddError</blockquote>
+          </div>
+          <div class="declaration">function AddError($err)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$err</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$err</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::ShowID"></a>
+        <dt><span class="functionName">
+            <a href="#$class">ShowID</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função ShowID</blockquote>
+          </div>
+          <div class="declaration">function ShowID($state)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$state</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$state</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::QueryData"></a>
+        <dt><span class="functionName">
+            <a href="#$class">QueryData</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função QueryData</blockquote>
+          </div>
+          <div class="declaration">function QueryData($sql)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$sql</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$sql</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::HasErrors"></a>
+        <dt><span class="functionName">
+            <a href="#$class">HasErrors</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função HasErrors</blockquote>
+          </div>
+          <div class="declaration">function HasErrors()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::GenerateErrors"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GenerateErrors</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GenerateErrors</blockquote>
+          </div>
+          <div class="declaration">function GenerateErrors()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::GenerateBody"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GenerateBody</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GenerateBody</blockquote>
+          </div>
+          <div class="declaration">function GenerateBody()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::GetBody"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetBody</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetBody</blockquote>
+          </div>
+          <div class="declaration">function GetBody()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="Listing::Generate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Generate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Generate</blockquote>
+          </div>
+          <div class="declaration">function Generate()</div>
+        </blockquote>
+      </div>
+    </div>
+    <hr>
+    <div style="width: 95%; font-size: 9pt; text-align:right; background:#efefef; margin-top: 20px; border-top: #0000ff 1px solid; padding: 2px 20px 2px 20px;">
+            CopyLeft (L) 2001 - 2004 <i>MIOLO</i> Development Team  SOLIS/Univates - Lajeado - Rio Grande do Sul - Brasil
+        </div>
+  </body>
+</html>

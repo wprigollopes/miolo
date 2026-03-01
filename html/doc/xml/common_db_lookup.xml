@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="lookup.class" path="/usr/local/miolo/modules/common/db/lookup.class" base="common_db_lookup" created="" lines="55">
+    <class name="BusinessCommonLookup" base="" declaration="class BusinessCommonLookup" line="6">
+        <function name="LookupPessoa" attribute="private" declaration="function LookupPessoa(&amp;$lookup)" line="12">
+            <param name="&amp;$lookup" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="LookupInstituicoes" attribute="default" declaration="function LookupInstituicoes($filtro,$items,$page,&amp;$total)" line="34">
+            <param name="$filtro" value="" type=""><![CDATA[]]></param>
+            <param name="$items" value="" type=""><![CDATA[]]></param>
+            <param name="$page" value="" type=""><![CDATA[]]></param>
+            <param name="&amp;$total" value="" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+</source>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="Pesquisa.class" path="/usr/local/bis/html/modules/gnuteca/db/Pesquisa.class" base="modules_gnuteca_db_Pesquisa" created="">
+    <class name="BusinessGnutecaPesquisa" base="" declaration="class BusinessGnutecaPesquisa" line="3">
+        <function name="GetDatabase" attribute="default" declaration="function GetDatabase()" line="6">
+        </function>
+        <function name="BusinessGnutecaPesquisa" attribute="default" declaration="function BusinessGnutecaPesquisa()" line="12">
+        </function>
+        <function name="PreparaTermo" attribute="default" declaration="function PreparaTermo($Termo)" line="17">
+            <param name="$Termo" value=""></param>
+        </function>
+        <function name="BuscaObrasPorTermo" attribute="default" declaration="function BuscaObrasPorTermo(&amp;$range,$Termo)" line="33">
+            <param name="&amp;$range" value=""></param>
+            <param name="$Termo" value=""></param>
+        </function>
+        <function name="BuscaObrasPorTermoExato" attribute="default" declaration="function BuscaObrasPorTermoExato($Termo)" line="45">
+            <param name="$Termo" value=""></param>
+        </function>
+        <function name="RetornaConteudosPorObra" attribute="default" declaration="function RetornaConteudosPorObra($NumeroDaObra)" line="57">
+            <param name="$NumeroDaObra" value=""></param>
+        </function>
+    </class>
+</source>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="prompt.class" path="/usr/local/miolo/classes/ui/prompt.class" base="ui_prompt" created="2001/08/14" lines="200">
+  <title>Dialogs classes</title>
+  <description>
+  <![CDATA[Implementation of the prompt class for generating common dialogs.]]>
+  </description>
+  <relations type="see-also">
+    <group name="miolo/ui/tabbedform.class"/>
+    <group name="miolo/ui/themepainter.class"/>
+  </relations>
+  <relations type="group">
+    <group name="ui"/>
+  </relations>
+  <organisation>
+  <![CDATA[MIOLO - Miolo Development Team - UNIVATES Centro Universitario]]>
+  </organisation>
+  <legal>
+  <![CDATA[CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)]]>
+  </legal>
+  <contributors>
+    <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+    <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+  </contributors>
+  <maintainers>
+    <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+    <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+  </maintainers>
+  <history>
+  <![CDATA[
+    $Log: ui_prompt.xml,v $
+    Revision 1.1  2004/08/12 18:35:09  vgartner
+    Inserting Documentation.
+<br>
+      Revision 1.4  2002/11/16 11:08:56  vgartner<br>
+      Maintenance code<br>
+    <br>
+      Revision 1.3  2002/09/17 18:50:41  vgartner<br>
+      added 'component' support<br>
+    <br>
+      Revision 1.2  2002/09/05 00:59:16  vgartner<br>
+      project maintenance for CVS<br>
+  ]]>
+  </history>
+    <class name="Prompt" base="" declaration="class Prompt" line="53">
+      <description>
+      <![CDATA[This class implements common dialogs needed by an application.]]>
+      </description>
+        <var name="caption" declaration="var $caption;" line="55">
+        </var>
+        <var name="message" declaration="var $message;" line="56">
+        </var>
+        <var name="buttons" declaration="var $buttons;" line="57">
+        </var>
+        <var name="icon" declaration="var $icon;" line="58">
+        </var>
+        <var name="type" declaration="var $type     = 'prompt';" line="59">
+        </var>
+        <function name="Prompt" attribute="default" declaration="function Prompt($caption=null, $message=null, $icon='/images/error.gif')" line="74">
+            <param name="$caption" value="null" type="string"><![CDATA[Title of the box @patam $message (string) Message for the prompt message]]></param>
+            <param name="$message" value="null" type="file url"><![CDATA[Image to display on the message]]></param>
+            <param name="$icon" value="'/images/error.gif'" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[This is the constructor of the class.
+Use the <code>SetType</code> method to specify the type of the dialog.
+<br>caption]]>
+          </description>
+          <example>
+<![CDATA[]]>
+          </example>
+          <returns type="nothing">
+          <![CDATA[]]>
+          </returns>
+        </function>
+        <function name="Error" attribute="static" declaration="function Error($msg='',$goto='', $caption='')" line="91">
+            <param name="$msg" value="''" type=""><![CDATA[]]></param>
+            <param name="$goto" value="''" type=""><![CDATA[]]></param>
+            <param name="$caption" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Information" attribute="static" declaration="function Information($msg,$goto='')" line="109">
+            <param name="$msg" value="" type=""><![CDATA[]]></param>
+            <param name="$goto" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Confirmation" attribute="static" declaration="function Confirmation($msg,$gotoOK='',$gotoCancel='')" line="122">
+            <param name="$msg" value="" type=""><![CDATA[]]></param>
+            <param name="$gotoOK" value="''" type=""><![CDATA[]]></param>
+            <param name="$gotoCancel" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Question" attribute="static" declaration="function Question($msg,$gotoYes='',$gotoNo='')" line="133">
+            <param name="$msg" value="" type=""><![CDATA[]]></param>
+            <param name="$gotoYes" value="''" type=""><![CDATA[]]></param>
+            <param name="$gotoNo" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetType" attribute="default" declaration="function SetType($type)" line="144">
+            <param name="$type" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddButton" attribute="default" declaration="function AddButton($label,$href)" line="149">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$href" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="154">
+        </function>
+    </class>
+</source>

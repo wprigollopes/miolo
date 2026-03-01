@@ -1,0 +1,29 @@
+<?
+
+class CommonUser
+{
+    var $login;
+    var $password;
+    var $name;
+    var $nickname;
+    var $email;
+    var $theme;
+}
+
+class CommonModule
+{
+    var $name;
+    var $description;
+    var $rights;
+}
+
+class CommonGroup
+{
+    var $id;
+    var $description;
+    var $module;
+}
+
+?>
+
+

@@ -1,0 +1,53 @@
+<?
+// +-----------------------------------------------------------------+
+// | Wiki Development Team UNIVATES - Centro Universitário           |  
+// +-----------------------------------------------------------------+
+// |      Copyleft (l) 2002 UNIVATES, Lajeado/RS - Brasil            |
+// +-----------------------------------------------------------------+
+// | Licensed under GPL: see COPYING.TXT or FSF at www.fsf.org for   |
+// |                     further details                             |
+// |                                                                 |
+// | Site: http://wiki.codigolivre.org.br                            |
+// +-----------------------------------------------------------------+
+// | Created: 2002/12/16 Alexandre Heitor Schmidt xandehs@univates.br|
+// |                     Nasair Júnior da Silva   njunior@univates.br|
+// |                                                                 |
+// | History: Initial Revision                                       |
+// +-----------------------------------------------------------------+
+
+class CommentForm extends Form
+{
+    function CommentForm($data=null)
+    {
+        global $MIOLO, $module;
+
+        $this->Form(_M("Add a Comment",$module));
+
+        if ($MIOLO->login)
+        {
+            $data->name = $MIOLO->login->user;
+            $data->email = $MIOLO->login->email ? $MIOLO->login->email : $MIOLO->login->id;
+        }
+
+        $fields[] = new TextField(_M("Project Id",$module),'project_id',$data->project_id,0);
+        $fields[] = new TextField(_M('Comment Id',$module) ,'topic_id',$data->topic_id,0);
+        $fields[] = new TextField(_M('Name',$module)    ,'name', $data->name,50);
+        $fields[] = new TextField(_M('Email',$module)   ,'email',$data->email,30);
+        $fields[] = new TextArea(_M('Comments',$module) ,'comments',null,90,7);
+        
+        $this->SetFields($fields);
+    }
+
+    function GetData()
+    {
+        $required = array('name','email','comments');
+
+        if ( $this->Validate($required) )
+        {
+            $data = $this->CollectInput(new FormData);
+        }
+        return $data;
+    }
+}
+
+?>

@@ -1,0 +1,33 @@
+<?
+
+class CommonGroupForm extends Form
+{
+    function CommonGroupForm($data=null)
+    {
+        global $MIOLO;
+        $this->Form($data?_M('Update Group'):_M('Insert Group'));
+        $business = $MIOLO->GetBusiness('common','admin');
+        
+        $this->AddField( new TextField( _M('Id'), 'id', null, $data?0:20) );
+        $this->AddField( new TextField( _M('Description') , 'description' , null, 40) );
+        $this->AddField( new Selection( _M('Module'), 'module', null, $business->GetModules()) );
+        
+        if ( $data )
+        {
+            $this->SetData($data);
+        }
+    }
+    
+    function GetData()
+    {   
+        if ( $this->ValidateAll() )
+        {
+            return $this->CollectInput( new CommonGroup() );
+        }
+        
+        return false;
+    }
+
+}
+
+?>

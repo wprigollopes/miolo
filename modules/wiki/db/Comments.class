@@ -1,0 +1,152 @@
+<?
+// +-----------------------------------------------------------------+
+// | Wiki Development Team UNIVATES - Centro Universitário           |  
+// +-----------------------------------------------------------------+
+// |      Copyleft (l) 2002 UNIVATES, Lajeado/RS - Brasil            |
+// +-----------------------------------------------------------------+
+// | Licensed under GPL: see COPYING.TXT or FSF at www.fsf.org for   |
+// |                     further details                             |
+// |                                                                 |
+// | Site: http://wiki.codigolivre.org.br                            |
+// +-----------------------------------------------------------------+
+// | Created: 2002/12/16 Alexandre Heitor Schmidt xandehs@univates.br|
+// |                     Nasair Júnior da Silva   njunior@univates.br|
+// |                                                                 |
+// | History: Initial Revision                                       |
+// +-----------------------------------------------------------------+
+
+class BusinessWikiComments
+{
+
+    function GetDatabase()
+    {
+        global $MIOLO;
+        return $MIOLO->GetDatabase('wiki');
+    }
+    
+    function AddComment($data)
+    {
+        global $REMOTE_ADDR, $MIOLO, $module;
+        $Bus_set = $MIOLO->GetBusiness($module,'Settings');
+        $settings = $Bus_set->GetSettings();
+        if ($settings->need_comment_aproval === true)
+            $status = 0;
+        else
+            $status = 1;
+        $select =   "   INSERT INTO wik_comments ( ".
+                    "               project_id, ".
+                    "               topic_id, ".
+                    "               name, ".
+                    "               email, ".
+                    "               comments, ".
+                    "               \"date\", ".
+                    "               ip, ".
+                    "               status ".
+                    "   )   VALUES ( ".
+                    "       '{$data->project_id}', ".
+                    "       '{$data->topic_id}', ".
+                    "       '{$data->name}', ".
+                    "       '{$data->email}', ".
+                    "       '{$data->comments}', ".
+                    "       now(), ".
+                    "       '{$REMOTE_ADDR}', ".
+                    "       '{$status}' )  ";
+        $db = $this->GetDatabase();
+        $result = $db->Query($select);
+        $db->Close();
+        return $result;
+    }
+
+    function GetComments($project_id, $topic_id='main')
+    {
+        global $MIOLO;
+        
+        $module = 'wiki';
+        
+        $sql = "SELECT  comment_id,".
+               "        project_id,".
+               "        topic_id,".
+               "        name,".
+               "        email,".
+               "        comments,".
+               "        ip,".
+               "        status,".
+               "        date".
+               "   FROM wik_comments".
+               "  WHERE project_id = ?".
+               "    AND topic_id = ?";
+               
+        if ( !$MIOLO->CheckAccess($module,'admin',false) )
+        {
+            $sql .= " AND status = '1'";
+        }
+        
+        $sql .= " ORDER BY date, name";
+                    
+        $db = $this->GetDatabase();
+        $rs = $db->Query($db->Prepare($sql,array($project_id, $topic_id)));
+        $db->Close();
+        
+        return count($rs) ? $this->Array2Obj($rs) : null;
+    }
+
+    function DeleteComment($project_id, $topic_id, $comment_id)
+    {
+        $select =   "   DELETE FROM wik_comments ".
+                    "       WHERE   project_id  = '{$project_id}' ".
+                    "           AND topic_id    = '{$topic_id}' ".
+                    "           AND comment_id  = '{$comment_id}' ";
+        $db = $this->GetDatabase();
+        $result = $db->Query($select);
+        $db->Close();
+        return $result;
+    }
+
+    function AproveComment($project_id, $topic_id, $comment_id, $status)
+    {
+        $select =   "   UPDATE wik_comments ".
+                    "       SET     status = '{$status}' ".
+                    "       WHERE   project_id  = '{$project_id}' ".
+                    "           AND topic_id    = '{$topic_id}' ".
+                    "           AND comment_id  = '{$comment_id}' ";
+        $db = $this->GetDatabase();
+        $result = $db->Query($select);
+        $db->Close();
+        return $result;
+    }
+
+    ##
+    #   converts a comment result set into an array of WikiComment objects  
+    #
+    function Array2Obj($rs)
+    {
+        if ( is_array($rs[0]) )
+        {
+            foreach($rs as $i=>$r)
+            {
+                $comments[$i] = $this->Array2Obj($r);
+            }
+            
+            return $comments;
+        }
+        
+        else
+        {
+            $comment = new WikiComment();
+            
+            list (  $comment->comment_id,
+                    $comment->project_id,
+                    $comment->topic_id, 
+                    $comment->name, 
+                    $comment->email, 
+                    $comment->comments, 
+                    $comment->ip,
+                    $comment->status,
+                    $comment->date ) = $rs;
+                    
+            return $comment;
+        }
+    }
+}
+
+?>

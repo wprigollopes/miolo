@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="listing.class" path="/usr/local/miolo/classes/ui/listing.class" base="ui_listing" created="" lines="632">
+    <class name="ListingColumn" base="" declaration="class ListingColumn" line="39">
+      <title>Listing and Listing Elements</title>
+      <description>
+      <![CDATA[This file contains the listing elements definitions]]>
+      </description>
+      <relations type="group">
+        <group name="listing"/>
+        <group name="ui"/>
+      </relations>
+      <organisation>
+      <![CDATA[MIOLO - Miolo Development Team - UNIVATES Centro Universitario]]>
+      </organisation>
+      <legal>
+      <![CDATA[CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)]]>
+      </legal>
+      <contributors>
+        <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+        <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+      </contributors>
+      <maintainers>
+        <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+        <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+      </maintainers>
+      <history>
+      <![CDATA[
+        See CVS history.<br>
+      ]]>
+      </history>
+        <var name="title" declaration="var $title;    # listing title" line="41">
+        </var>
+        <var name="footer" declaration="var $footer;   # optional listing footer" line="42">
+        </var>
+        <var name="options" declaration="var $options;  # array for mapping of data value to display value" line="43">
+        </var>
+        <var name="align" declaration="var $align;    # alignment left,center,right" line="44">
+        </var>
+        <var name="nowrap" declaration="var $nowrap;   # flag to specify that the cell value may not be wrapped" line="45">
+        </var>
+        <var name="width" declaration="var $width;    # column width in pixels or percent" line="46">
+        </var>
+        <var name="visible" declaration="var $visible;  # flag to hide/show column" line="47">
+        </var>
+        <var name="renderer" declaration="var $renderer; # custom value cell renderer, must a subclass of ListingRenderer" line="48">
+        </var>
+        <function name="ListingColumn" attribute="default" declaration="function ListingColumn($title,$options=null,$align=null,$nowrap=false,$width=0)" line="53">
+            <param name="$title" value="" type=""><![CDATA[]]></param>
+            <param name="$options" value="null" type=""><![CDATA[]]></param>
+            <param name="$align" value="null" type=""><![CDATA[]]></param>
+            <param name="$nowrap" value="false" type=""><![CDATA[]]></param>
+            <param name="$width" value="0" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetRenderer" attribute="default" declaration="function SetRenderer($renderer)" line="64">
+            <param name="$renderer" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate($value='')" line="72">
+            <param name="$value" value="''" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+    <class name="CellRenderer" base="" declaration="class CellRenderer" line="81">
+        <function name="Generate" attribute="default" declaration="function Generate(&amp;$listing,$row,$column,$value)" line="83">
+            <param name="&amp;$listing" value="" type=""><![CDATA[]]></param>
+            <param name="$row" value="" type=""><![CDATA[]]></param>
+            <param name="$column" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+    <class name="ActionRenderer" base="CellRenderer" declaration="class ActionRenderer extends CellRenderer" line="92">
+        <var name="actions" declaration="var $actions;" line="94">
+        </var>
+        <function name="ActionRenderer" attribute="default" declaration="function ActionRenderer($action=null)" line="96">
+            <param name="$action" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddAction" attribute="default" declaration="function AddAction($a)" line="101">
+            <param name="$a" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetActions" attribute="default" declaration="function SetActions($actions)" line="106">
+            <param name="$actions" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate(&amp;$listing,$row,$column,$value)" line="111">
+            <param name="&amp;$listing" value="" type=""><![CDATA[]]></param>
+            <param name="$row" value="" type=""><![CDATA[]]></param>
+            <param name="$column" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetImage" attribute="default" declaration="function GetImage($src)" line="185">
+            <param name="$src" value="" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+    <class name="ListingAction" base="" declaration="class ListingAction" line="222">
+        <var name="type" declaration="var $type;   // text or img" line="224">
+        </var>
+        <var name="value" declaration="var $value;  // image or text label" line="225">
+        </var>
+        <var name="href" declaration="var $href;   // link pattern" line="226">
+        </var>
+        <var name="alt" declaration="var $alt;    // optional image description" line="227">
+        </var>
+        <var name="index" declaration="var $index;  // deprecated" line="228">
+        </var>
+        <function name="ListingAction" attribute="default" declaration="function ListingAction($type,$alt,$value,$href,$index=null)" line="230">
+            <param name="$type" value="" type=""><![CDATA[]]></param>
+            <param name="$alt" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+            <param name="$href" value="" type=""><![CDATA[]]></param>
+            <param name="$index" value="null" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+    <class name="IconAction" base="ListingAction" declaration="class IconAction extends ListingAction" line="249">
+        <function name="IconAction" attribute="default" declaration="function IconAction($value,$href,$alt=null)" line="251">
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+            <param name="$href" value="" type=""><![CDATA[]]></param>
+            <param name="$alt" value="null" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+    <class name="TextAction" base="ListingAction" declaration="class TextAction extends ListingAction" line="260">
+        <function name="TextAction" attribute="default" declaration="function TextAction($value,$href)" line="262">
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+            <param name="$href" value="" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+    <class name="ListFilter" base="" declaration="class ListFilter" line="271">
+        <var name="text" declaration="var $text;" line="273">
+        </var>
+        <function name="ListFilter" attribute="default" declaration="function ListFilter($text = null)" line="275">
+            <param name="$text" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="280">
+        </function>
+    </class>
+    <class name="Listing" base="" declaration="class Listing" line="289">
+        <var name="titulo" declaration="var $titulo;    // table display title" line="291">
+        </var>
+        <var name="filter" declaration="var $filter;    // filter line" line="292">
+        </var>
+        <var name="labels" declaration="var $labels;    // column headings" line="293">
+        </var>
+        <var name="dados" declaration="var $dados;     // table data cells" line="294">
+        </var>
+        <var name="actions" declaration="var $actions;   // array with actions" line="295">
+        </var>
+        <var name="showid" declaration="var $showid;    // flag whether to show ids or not" line="296">
+        </var>
+        <var name="home" declaration="var $home;" line="297">
+        </var>
+        <var name="icons" declaration="var $icons;" line="298">
+        </var>
+        <var name="errors" declaration="var $errors;" line="299">
+        </var>
+        <function name="Listing" attribute="default" declaration="function Listing()" line="301">
+        </function>
+        <function name="GetTitle" attribute="default" declaration="function &amp; GetTitle()" line="305">
+        </function>
+        <function name="GetFooter" attribute="default" declaration="function &amp; GetFooter()" line="310">
+        </function>
+        <function name="GetLabel" attribute="default" declaration="function &amp; GetLabel($i)" line="315">
+            <param name="$i" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetTitle" attribute="default" declaration="function SetTitle($titulo)" line="320">
+            <param name="$titulo" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetCellRenderer" attribute="default" declaration="function SetCellRenderer($column,$renderer)" line="325">
+            <param name="$column" value="" type=""><![CDATA[]]></param>
+            <param name="$renderer" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetFilter" attribute="default" declaration="function SetFilter($filter)" line="330">
+            <param name="$filter" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetFooter" attribute="default" declaration="function SetFooter($footer)" line="335">
+            <param name="$footer" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetLabels" attribute="default" declaration="function SetLabels($labels)" line="340">
+            <param name="$labels" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetData" attribute="default" declaration="function SetData($dados)" line="369">
+            <param name="$dados" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetValue" attribute="default" declaration="function GetValue($row,$col)" line="374">
+            <param name="$row" value="" type=""><![CDATA[]]></param>
+            <param name="$col" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetValue" attribute="default" declaration="function SetValue($row,$col,$value)" line="379">
+            <param name="$row" value="" type=""><![CDATA[]]></param>
+            <param name="$col" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetColumnCount" attribute="default" declaration="function GetColumnCount()" line="384">
+        </function>
+        <function name="GetRowCount" attribute="default" declaration="function GetRowCount()" line="389">
+        </function>
+        <function name="AddAction" attribute="default" declaration="function AddAction($alt,$icon,$href,$index=0)" line="394">
+            <param name="$alt" value="" type=""><![CDATA[]]></param>
+            <param name="$icon" value="" type=""><![CDATA[]]></param>
+            <param name="$href" value="" type=""><![CDATA[]]></param>
+            <param name="$index" value="0" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddActionIcon" attribute="default" declaration="function AddActionIcon($alt,$icon,$href,$index=0)" line="402">
+            <param name="$alt" value="" type=""><![CDATA[]]></param>
+            <param name="$icon" value="" type=""><![CDATA[]]></param>
+            <param name="$href" value="" type=""><![CDATA[]]></param>
+            <param name="$index" value="0" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddActionText" attribute="default" declaration="function AddActionText($alt,$text,$href,$index=0)" line="407">
+            <param name="$alt" value="" type=""><![CDATA[]]></param>
+            <param name="$text" value="" type=""><![CDATA[]]></param>
+            <param name="$href" value="" type=""><![CDATA[]]></param>
+            <param name="$index" value="0" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddError" attribute="default" declaration="function AddError($err)" line="412">
+            <param name="$err" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ShowID" attribute="default" declaration="function ShowID($state)" line="436">
+            <param name="$state" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="QueryData" attribute="default" declaration="function QueryData($sql)" line="441">
+            <param name="$sql" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="HasErrors" attribute="default" declaration="function HasErrors()" line="447">
+        </function>
+        <function name="GenerateErrors" attribute="default" declaration="function GenerateErrors()" line="452">
+        </function>
+        <function name="GenerateBody" attribute="default" declaration="function GenerateBody()" line="471">
+        </function>
+        <function name="GetBody" attribute="default" declaration="function GetBody()" line="606">
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="615">
+        </function>
+    </class>
+</source>

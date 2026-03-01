@@ -1,0 +1,970 @@
+<?
+// +-----------------------------------------------------------------+
+// | Wiki Development Team UNIVATES - Centro Universitário           |
+// +-----------------------------------------------------------------+
+// |      Copyleft (l) 2002 UNIVATES, Lajeado/RS - Brasil            |
+// +-----------------------------------------------------------------+
+// | Licensed under GPL: see COPYING.TXT or FSF at www.fsf.org for   |
+// |                     further details                             |
+// |                                                                 |
+// | Site: http://wiki.codigolivre.org.br                            |
+// +-----------------------------------------------------------------+
+// | Created: 2002/12/16 Alexandre Heitor Schmidt xandehs@univates.br|
+// |                     Nasair Júnior da Silva   njunior@univates.br|
+// |                                                                 |
+// | History: Initial Revision                                       |
+// +-----------------------------------------------------------------+
+
+##
+#
+#
+class BusinessWikiTopics extends Business
+{
+    function GetDatabase($name='wiki')
+    {   global $MIOLO;
+        
+        return $MIOLO->GetDatabase($name);
+    }
+
+    ##
+    #
+    #
+    function GetTopic($project_id,$topic_id)
+    {   global $MIOLO;
+        
+        $module = 'wiki';
+        
+        $db = $this->GetDatabase();
+        
+        $sql = "   SELECT  topic_id, ".
+               "           project_id, ".
+               "           code, ".
+               "           title, ".
+               "           body, ".
+               "           creation, ".
+               "           last_update, ".
+               "           \"user\", ".
+               "           review, ".
+               "           wik_projects.title ".
+               "      FROM wik_topics ".
+               "     WHERE topic_id = ?".
+               "       AND project_id = ?".
+               "       AND wik_projects.project_id = ?";
+               
+        $rs = $db->Query($db->Prepare($sql,array($topic_id,$project_id,$project_id)));
+
+        return count($rs) ? $this->Array2Obj($rs[0]) : null;
+    }
+
+    ##
+    #   returns a two-dimensional result set into an array of Topic objects
+    #
+    function Array2Obj($rs)
+    {
+        if ( is_array($rs[0]) )
+        {
+            foreach ($rs as $i=>$a)
+            {
+                $topics[$i] = $this->Array2Obj($a);
+            }
+            
+            return $topics;
+        }
+
+        else
+        {
+            $topic = new WikiTopic();
+            
+            list(   $topic->topic_id,
+                    $topic->project_id,
+                    $topic->code,
+                    $topic->title,
+                    $topic->body,
+                    $topic->creation,
+                    $topic->last_update,
+                    $topic->user,
+                    $topic->review,
+                    $topic->project_title) = $rs;
+                    
+            return $topic;
+        }
+    }
+
+    ##
+    #   Checks if a topic exists or not
+    #
+    function IsExistingTopic($project_id,$topic_id)
+    {
+        $db = $this->GetDatabase();
+        $r = $db->Query($db->Prepare("select 1 from wik_topics where project_id=? and topic_id=?",
+                                     array($project_id,$topic_id)));
+        $db->Close();
+        return $r[0][0] == 1;
+    }
+    
+    ##
+    #   Updates an existing topic
+    #
+    function UpdateTopic($data)
+    {   global $MIOLO;
+        
+        $module = 'wiki';
+        
+        $MIOLO->Assert($data->project_id,_M('Missing @1',$module,'project_id'));
+        $MIOLO->Assert($data->topic_id,_M('Missing @1',$module,'topic_id'));
+        $MIOLO->Assert($data->body,_M('Missing @1',$module,'body'));
+        $MIOLO->Assert($this->IsExistingTopic($data->project_id,$data->topic_id),
+                       _M('Topic @1 does not exist',$module,$data->topic_id));
+        
+        $db = $this->GetDatabase();
+        
+        $sql   = "   INSERT INTO wik_history (".
+                 "               topic_id,".
+                 "               project_id,".
+                 "               code,".
+                 "               title,".
+                 "               body,".
+                 "               last_update,".
+                 "               \"user\",".
+                 "               review ".
+                 "     ) ( SELECT    topic_id,".
+                 "                   project_id,".
+                 "                   code,".
+                 "                   title,".
+                 "                   body,".
+                 "                   last_update,".
+                 "                   \"user\",".
+                 "                   review".
+                 "              FROM wik_topics".
+                 "             WHERE topic_id = ?".
+                 "               AND project_id = ?) ";
+                    
+        $batch[] = $db->Prepare($sql,array($data->topic_id,$data->project_id));
+        
+        $sql = "   UPDATE  wik_topics SET ".
+               "           code = ?,".
+               "           title = ?,".
+               "           body = ?,".
+               "           \"user\" = ?,".
+               "           review = review + 1 ," .
+               "           last_update = now()".
+               "     WHERE topic_id = ?".
+               "       AND project_id = ?";
+
+        $batch[] = $db->Prepare($sql,array($data->code,$data->title,$data->body,$MIOLO->login->id,$data->topic_id,$data->project_id));
+        
+        $sql =  " UPDATE wik_projects SET review = review + 1 WHERE project_id = ?";
+                
+        $batch[] = $db->Prepare($sql,array($data->project_id));
+        
+        $result = $db->Execute($batch);
+        
+        $db->Assert();
+        
+        $db->Close();
+        
+        return $result;
+    }
+
+    ##
+    #   Adds a new topic to the project
+    #
+    function AddTopic($data)
+    {   global $MIOLO;
+        
+        $module = 'wiki';
+        
+        $MIOLO->Assert($data->project_id,_M('Missing @1',$module,'project_id'));
+        $MIOLO->Assert($data->topic_id,_M('Missing @1',$module,'topic_id'));
+        $MIOLO->Assert($data->body,_M('Missing @1',$module,'body'));
+        $MIOLO->Assert(!$this->IsExistingTopic($data->project_id,$data->topic_id),
+                       _M('Topic @1 already exists',$module,$data->topic_id));
+
+        $tr = array("<" =>"&#60;",
+                    ">" =>"&#62;",
+                    "[["=>"&#91;",
+                    "]]"=>"&#93;",
+                    "    "=>"\t",
+                    "'"   =>'&#39;');
+                    
+        $data->body = strtr($data->body,$tr);
+        $data->title = strtr($data->title,$tr);
+        
+        $sql = "   INSERT INTO wik_topics (".
+               "               topic_id, ".
+               "               project_id, ".
+               "               code,".
+               "               title,".
+               "               body, ".
+               "               creation, ".
+               "               last_update, ".
+               "               \"user\", ".
+               "               review ".
+               "       ) VALUES ( ?, ?, ?, ?, ?, now(), now(), ?, 0 ) ";
+                  
+        $db = $this->GetDatabase();        
+        $result = $db->Execute($db->Prepare($sql,array($data->topic_id,$data->project_id,$data->code,$data->title,$data->body,$MIOLO->login->id)));
+        $db->close();
+        return $result;
+    }
+
+    ##
+    #
+    #
+    function RenumberTopic($project_id,$topic_id,$code)
+    {   global $MIOLO;
+        
+        $module = 'wiki';
+        
+        $MIOLO->Assert($project_id,_M('Missing @1',$module,'project_id'));
+        $MIOLO->Assert($topic_id,_M('Missing @1',$module,'topic_id'));
+        $MIOLO->Assert($code,_M('Missing @1',$module,'code'));
+        $MIOLO->Assert($this->IsExistingTopic($project_id,$topic_id),
+                       _M('Topic @1 not found',$module,$topic_id));
+
+        $sql = "update wik_topics set code=? where project_id=? and topic_id=?";
+        
+        $db = $this->GetDatabase();        
+        $result = $db->Execute($db->Prepare($sql,array($code,$project_id,$topic_id)));
+        $db->close();
+        
+        return $result;
+    }
+    
+    function Search($data)
+    {   global $MIOLO;
+        
+        $module = 'wiki';
+        
+        if ($data->search_on == 0)
+        {
+            $search =   " WHERE (title ILIKE '%{$data->text}%' ".
+                        "   OR  body ILIKE '%{$data->text}%') ".
+                        "   OR  ( wik_comments.comments ILIKE '%{$data->text}%' ".
+                        "   AND (wik_comments.topic_id = wik_topics.topic_id".
+                        "   AND wik_comments.project_id = wik_topics.project_id) ) " ;
+        }
+        
+        else if ($data->search_on == 1)
+        {
+            $search =   " WHERE title ILIKE '%{$data->text}%' ";
+        }
+        
+        else if ($data->search_on == 2)
+        {
+            $search =   " WHERE  body ILIKE '%{$data->text}%' ";
+        }
+        
+        else if ($data->search_on == 3)
+        {
+            $search =   " WHERE  ( wik_comments.comments ILIKE '%{$data->text}%' ".
+                        "   AND (wik_comments.topic_id = wik_topics.topic_id".
+                        "   AND wik_comments.project_id = wik_topics.project_id) ) " ;
+        }
+
+        $sql  = "SELECT  DISTINCT ". 
+                "        topic_id, ".
+                "        project_id,".
+                "        code, ".
+                "        title, ".
+                "        body, ".
+                "        creation, ".
+                "        last_update, ".
+                "        \"user\", ".
+                "        review, ".
+                "        project_title(project_id) as project_title ".
+                "   FROM wik_topics ".
+                $search ;
+                
+        if ($data->project)
+        {
+            $sql .= " AND project_id = '$data->project' ";
+        }
+        
+        $sql .= " ORDER BY project_title ";
+        
+        $db = $this->GetDatabase();
+        $result = $db->Query($sql);
+        $db->Close();
+        
+        if ($result)
+        {
+            $result = $this->Array2Obj($result);
+        }
+        
+        $text = "<br>"._M("Topics Found",$module).' :';
+        
+        if ($result)
+        {
+            foreach($result as $res)
+            {
+                $url = $MIOLO->GetActionURL($module,"main:topic&item=$res->project_id&topic=$res->topic_id");
+                if ($project != $res->project_id)
+                {
+                    if ($project) 
+                    {
+                        $text.= "</dl>";
+                    }
+                    $text .= "<dl><dt><a href=\"".$MIOLO->GetActionURL($module,"main:topic&item={$res->project_id}")."\">".$res->project_title."</a><dd>";
+                    $project = $res->project_id;
+                }
+                $text .= "<br>"._M("Title",$module).": <a href=\"$url\">$res->title</a>";
+            }
+        }
+        else 
+        {
+            return "<br>"._M("No topics found.",$module);
+        }
+        
+        return $text."</dl>";
+    }
+
+    function GetGlossary(&$topic)
+    {   global $MIOLO;
+        
+        $module = 'wiki';
+        
+        $body = $topic->body;
+        
+        while ( ($start=strpos($body,'[glossary:')) !== false) 
+        {
+            $body_ = substr($body,$start+10);
+            $end   = strpos($body_,']');
+            if ( $end === false ) 
+            {
+                break;
+            }
+            $gloss_ = substr($body_,0,$end);
+            $gloss  = explode("|",$gloss_);
+            if (is_array($gloss))
+            {
+                $text = "<glossentry><glossterm>{$gloss[0]}</glossterm><glossdef><para>{$gloss[1]}</para></glossdef></glossentry>";
+            }
+            $body = str_replace("[glossary:" . $gloss_ . "]",$text);
+            $glossaries[] = $gloss;
+        }
+        $topic->body = $body;
+        return $glossaries;
+    }
+
+    function GetIndexTerms(&$topic)
+    {   global $MIOLO;
+        
+        $module = 'wiki';
+        
+        $body = $topic->body;
+        $this->GetImages(&$topic);
+        $this->Links(&$topic);
+        while ( ($start=strpos($body,'[index:')) !== false) 
+        {
+            $body_ = substr($body,$start+7);
+            $end   = strpos($body_,']');
+            if ($end===false) break;
+            $index_ = substr($body_,0,$end);
+            $index  = explode("|",$index_);
+            if (is_array($index))
+            {
+                $text = "<indexterm>".
+                        "<primary>{$index[0]}</primary>";
+                if ($index[1]) $text .= "<secondary>{$index[1]}</secondary>";
+                if ($index[2]) $text .= "<tertiary>{$index[2]}</tertiary>";
+            }
+
+            $body = str_replace("[index:" . $index_ . "]",$text);
+            $indexes[] = $index;
+        }
+        $topic->body = $body;
+        return $indexes;
+    }
+
+    function GetLinks($topic,$lang='html',$comment=false,$return=true)
+    {   global $MIOLO;
+        
+        $module = 'wiki';
+        
+        $Bus_Perm = $MIOLO->GetBusiness($module,'Permissions');
+        
+        $tr = array("[["=>"&#91;",
+                    "]]"=>"&#93;",
+                    "    "=>"\t",
+                    "\["  =>"&#91;",
+                    "\]"  =>"&#93;");
+       
+        $this->GetImages(&$topic,$lang);
+        $body = strtr($topic->body,$tr);
+        $protocols = array ('http://','mailto:','ftp://','gopher://');
+        while ( ($start=strpos($body,'[')) !== false) 
+        {
+            $body_ = substr($body,$start+1);
+            $end   = strpos($body_,']');
+            if ($end===false)
+            {
+                break;
+            }
+            $link_ = substr($body_,0,$end);
+            $link  = explode("|",$link_);
+            if ($link[1])
+            {
+                $title = $link[0];
+                $link = $link[1];
+            }
+            else
+	        {
+                $link = $title = $link[0];
+	        }
+            $external_link = false;
+    	    foreach ($protocols as $protocol)
+	        {
+                if ( substr($link,0,strlen($protocol)) == $protocol )
+                {
+		            $external_link = true;
+        		    break;
+		        }
+            }
+            unset($comp);
+    	    if ( $external_link == false )
+	        {
+                $link = substr($link,0,20);
+	            $topic_ = $this->GetTopic($topic->project_id,$link,'getdata');
+                $link = $MIOLO->GetActionURL($module,"main:topic&item={$topic_->project_id}&topic={$topic_->topic_id}&topic_old={$topic->topic_id}");
+                if (!$topic_->body && $comment===false) 
+                {
+                    $comp = "<u>$title</u>";
+                    $title = '?';
+                    if (!$Bus_Perm->CheckAccess($topic->project_id,$topic->topic_id,$MIOLO->login->id))
+                    {
+                        unset($link);
+                    }
+                }
+                $links[] = array($title,$link,$topic_);
+            }
+            if ($comment)
+            {
+                $body = str_replace("[" . $link_ . "]",$title,$body);
+            }
+            else
+            {
+                if ($lang == 'html')
+                {
+                    $body = str_replace("[" . $link_ . "]",$comp."<a href=\"$link\">$title</a>",$body);
+                }
+                else if ($lang == 'sgml')
+                {
+                    $body = str_replace("[" . $link_ . "]",$comp."<ulink url=\"$link\">$title</ulink>",$body);
+                }
+            }
+        }
+        
+        $topic->body = $body;
+        
+        return $links;
+    }
+
+    function GetIndex($project_id,$topic_id='main', $level='',$domain=true)
+    {   global $MIOLO;
+        
+        $module = 'wiki';
+        
+        $lang = 'html';
+        
+        $topic = $this->GetTopic($project_id,$topic_id,'getdata');
+        
+        $images= $this->GetImages(&$topic,$lang);
+        $links = $this->GetLinks(&$topic,$lang);
+
+        $level_ = explode('.',$level);
+        
+        for ($i =0; $i<sizeof($level_)-1; $i++)
+        {
+            if ($i != 0)
+            {
+                $level2 .= '.';
+            }
+            
+            $level2 .= $level_[$i];
+        }
+        
+        $level2 .= '&nbsp;&nbsp;';
+        
+        if ($domain===true)
+        {
+            $ln = $MIOLO->GetActionURL($module,"main:topic&item=$project_id&topic=$topic_id");
+        }
+        else
+        {
+            $ln = '#'.$topic_id;
+        }
+
+        if (is_array($links))
+        {
+            $text = "\n\t<dl><dt>$level2 <a href=\"{$ln}\">".$this->Format($topic->title,$lang)."</a>";
+            
+            foreach($links as $id=>$link)
+            {
+                $text .= "\n\t\t<dd>".$this->GetIndex($project_id,$link[2]->topic_id,$level.($id+1).'.',$domain);
+            }
+            
+            $text .= "</dl>";
+        }
+        else
+        {
+            if ($level)
+            {
+                return $level2."<a href=\"{$ln}\">".$this->Format($topic->title,$lang)."</a>";
+            }
+        }
+        
+        return $text;
+    }
+
+    function GenerateContent($project_id,$topic_id='main', $level='', $t="\n", $visiteds=null, $domain=true, $lang='html')
+    {   global $MIOLO;
+        
+        $module = 'wiki';
+        
+        $lang = 'html';
+       
+        $topic = $this->GetTopic($project_id,$topic_id,'getdata');
+       
+        $tr = array("<" =>"&#60;",
+                    ">" =>"&#62;",
+                    "[["=>"&#91;",
+                    "]]"=>"&#93;",
+                    "    "=>"\t",
+                    "\["  =>"&#91;",
+                    "\]"  =>"&#93;");
+                    
+        $topic->body = strtr($topic->body,$tr);
+        //$topic->title = strtr($topic->title,$tr);
+        
+        $images =  $this->GetImages($topic,$lang);
+        
+        if (is_array($visiteds))
+        {
+            if ( !in_array($topic->topic_id,$visiteds))
+            {
+                $links = $this->GetLinks($topic,$lang,false,false);
+            }
+            //else
+            //    return null;
+        }
+        else
+        {
+            $links = $this->GetLinks($topic,$lang,false,false);
+        }
+        
+        $visiteds[] = $topic->topic_id;
+        
+        $level_ = explode(".",$level);
+        if (sizeof($level_) == 1 )
+        {   
+            if (!$t)
+            {
+                $t = "\n\t";
+            }
+            $format = "chapter";
+        }
+        elseif (sizeof($level_) == 2 )
+        {   
+            if (!$t)
+            {
+                $t = "\n\t";
+            }
+            $format = "chapter";
+        }
+        elseif (sizeof($level_) == 3 )
+        {   
+            if (!$t)
+            {
+                $t = "\n\t\t";
+            }
+            $format = "section";
+        }
+        else
+        {   //$t = "\n\t\t\t";
+            $format = "section";
+        }
+
+        for ($i =0; $i<sizeof($level_)-1; $i++)
+        {
+            if ($i != 0)
+            {
+                $level2 .= '.';
+            }
+            $level2 .= $level_[$i];
+        }
+        
+        if ($lang == 'html')
+        {
+            $level2 .= '&nbsp;&nbsp;';
+        }
+        
+        else 
+        {
+            $level2 .= '  ';
+        }
+        
+        if ($domain===true)
+        {
+            $ln = $MIOLO->GetActionURL($module,"main:topic&item=$project_id&topic=$topic_id");
+        }
+        else
+        {
+            $ln = $topic_id;
+        }
+            
+        if (is_array($links))
+        {   
+            $cont = $this->FormatTopic(&$topic,$lang,$t."\t");
+            
+            if ($lang == 'html')
+            {
+                $text .= $t."<a name=\"{$topic->topic_id}\">{$t}\t<dl><dt>{$level2}{$topic->title}</a>{$t}\t<dd>".$cont;
+                
+                foreach($links as $id=>$link)
+                {
+                    $text .= $t."\t<dd>".$this->GenerateContent($project_id,$link[2]->topic_id,$level.($id+1).'.',$t."\t",$visiteds,$domain,$lang);
+                }
+            }
+            else if ($lang == 'sgml')
+            {
+                $text .= "{$t}<$format id=\"{$topic->topic_id}\">{$t}\t<title>{$level2}{$topic->title}</title>{$t}\t".$cont;
+                
+                if (sizeof($level_)==1)
+                {
+                    $text .= "{$t}</{$format}>";
+                }
+                
+                foreach($links as $id=>$link)
+                {
+                    $text .= "\n\t\t".$this->GenerateSgmlContent($project_id,$link[2]->topic_id,$level.($id+1).'.',$t."\t",$visiteds);
+                }
+            }
+        }
+        else
+        {
+            //if ($level)
+            {
+                $cont = $this->FormatTopic(&$topic,$lang,$t."\t");
+                
+                if ($lang == 'html')
+                {
+                    $text .= $t." <a name=\"{$topic->topic_id}\">{$t}\t<dl><dt>{$level2}{$topic->title}</a>{$t}\t<dd>".$cont;
+                }
+                else if ($lang == 'sgml')
+                {
+                    $text .= "{$t}<$format id=\"{$topic->topic_id}\">{$t}\t<title>{$level2}{$topic->title}</title>{$t}\t".$this->FormatTopic(&$topic,$lang,$t."\t");
+                }
+            } 
+        }
+        
+        if ($level_ != '')
+        {
+            if ($lang == 'sgml')
+            {
+                $text .= "{$t}</{$format}>";
+            }
+            
+            else if ($lang == 'html')
+            {
+                $text .= $t."</dl>";
+            }
+        }
+
+        return $text;
+    }
+
+    function GenerateHtml($project)
+    {   global $MIOLO, $MIOLOCONF;
+        
+        $module = 'wiki';
+        
+        $index = $this->GetIndex($project->project_id,'main','',false);
+        
+        $html = $this->GenerateContent($project->project_id,'main','','',null,false,'html');
+        $file = $MIOLO->GetAbsoluteURL("files/".urlencode(str_replace(" ","_",$project->title)),$module);
+        if (strpos($file,'http') !== false)
+        {
+            $file = str_replace($MIOLOCONF['home']['url'],"",$file);
+        }
+        $file_ = $MIOLOCONF['home']['html'].urldecode($file);
+
+        $fp = fopen("{$file_}.html",'w+');
+        fwrite($fp,$index."<br><br><br><br><br>".$html);
+        fclose($fp);
+        system("/usr/bin/perl /usr/local/bin/html2ps -n {$file_}.html > {$file_}.ps");
+        return  array('html' => $file.'.html');
+    }
+ 
+    function GenerateSgmlContent($project_id,$topic_id='main', $level='', $t="\n",$visiteds=null)
+    {   global $MIOLO;
+        
+        $module = 'wiki';
+        
+        $topic = $this->GetTopic($project_id,$topic_id,'getdata');
+        $tr = array("<" =>"&#60;",
+                    ">" =>"&#62;",
+                    "[["=>"&#91;",
+                    "]]"=>"&#93;",
+                    "    "=>"\t",
+                    "\["  =>"&#91;",
+                    "\]"  =>"&#93;");
+                    
+        $topic->body = strtr($topic->body,$tr);
+        $topic->title = strtr($topic->title,$tr);
+
+	    $images = $this->GetImages(&$topic,'sgml');
+        
+        if (is_array($visiteds))
+        {
+            if ( !in_array($topic->topic_id,$visiteds))
+            {
+               $links = $this->GetLinks(&$topic,'sgml');
+            }
+        }
+        else
+        {
+            $links = $this->GetLinks(&$topic,'sgml');
+        }
+
+        $visiteds[] = $topic->topic_id;
+
+        $level_ = explode(".",$level);
+        
+        if (sizeof($level_) == 1 )
+        {   $t = "\n\t";
+            $format = "chapter";
+        }
+        elseif (sizeof($level_) == 2 )
+        {   $t = "\n\t";
+            $format = "chapter";
+        }
+        elseif (sizeof($level_) == 3 )
+        {   $t = "\n\t\t";
+            $format = "section";
+        }
+        else
+        {   //$t = "\n\t\t\t";
+            $format = "section";
+        }
+        for ($i =0; $i<sizeof($level_)-1; $i++)
+        {
+            if ($i != 0)
+            {
+                $level2 .= '.';
+            }
+            $level2 .= $level_[$i];
+        }
+        $level2 .= '  ';
+
+        $ln = $MIOLO->GetActionURL($module,"main:topic&item=$project_id&topic=$topic_id");
+        if (is_array($links))
+        {   $text .= "{$t}<$format id=\"{$topic->topic_id}\">{$t}\t<title>{$level2}{$topic->title}</title>{$t}\t".$this->FormatTopic($topic,'sgml',$t."\t");
+            if (sizeof($level_)==1)
+            {
+                $text .= "{$t}</{$format}>";
+            }
+            
+            foreach($links as $id=>$link)
+            {
+                $text .= "\n\t\t".$this->GenerateSgmlContent($project_id,$link[2]->topic_id,$level.($id+1).'.',$t."\t",$visiteds);
+            }
+        }
+        else
+        {
+            if ($level)
+            {
+                $text .= "{$t}<$format id=\"{$topic->topic_id}\">{$t}\t<title>{$level2}{$topic->title}</title>{$t}\t".$this->FormatTopic($topic,'sgml',$t."\t");
+            }
+        }
+        if (sizeof($level_)!=1)
+        {
+            $text .= "{$t}</{$format}>";
+        }
+        return $text;
+    }
+   
+    function GenerateSgml($project)
+    {   global $MIOLO, $MIOLOCONF;
+        
+        $module = 'wiki';
+        
+        $text = "\n<!doctype book public '-//Conectiva SA//DTD DocBook Conectiva variant V2.0//EN'>".
+                "\n<!Generate By Wiki>".
+                "\n<book id=\"{$project->project_id}\">".
+                "\n\t<bookinfo>".
+                "\n\t\t<title>{$project->title}</title>".
+                "\n\t\t<responsible>{$project->responsible}</responsible>".
+                "\n\t\t<review>{$project->review}</review>".
+                "\n\t\t<update>{$project->last_update}</update>".
+                "\n\t</bookinfo>";
+        $text.= $this->GenerateSgmlContent($project->project_id);
+        $text.= "\n</book>\n";
+        
+        $file = $MIOLO->GetAbsoluteURL("files/".urlencode(str_replace(" ","_",$project->title)),$module,false);
+        $file_ = $MIOLOCONF['home']['html'].urldecode($file);
+
+        $fp = fopen("{$file_}.sgml",'w+');
+        fwrite($fp,$text);
+        fclose($fp);
+        return $file;
+    }
+    
+    function GenerateDocBook($project,$format="all")
+    {   global $MIOLO, $MIOLOCONF;
+        
+        $module = 'wiki';
+        
+        $file_usr = urldecode($this->GenerateSgml($project));
+        $file = $MIOLOCONF['home']['html'].$file_usr;
+        $file_ = $project->title;
+
+	    ob_start();
+	
+    	if ($format == 'sgml' || $format == 'all')
+	    {
+		    if (file_exists("{$file}.sgml"))
+            {
+			    $array["SGML"] =  "{$file_usr}.sgml";
+            }
+    	}
+
+	    if ($format == 'docbook' || $format == 'all' || $format=='online' || $format=='tar.gz')
+    	{
+	        if (!file_exists($file))
+            {
+                @system("/bin/mkdir $file");
+            }
+            
+	    	@system("docbook2html $file.sgml -o $file");
+            
+		    if (file_exists("{$file}/book1.html"))
+            {
+			    $array["Online"] =  "{$file_usr}/book1.html";
+            }
+        }
+	
+    	if ($format == 'tar.gz' || $format == 'all')
+	    {
+            if (is_array($array))
+            {
+	    	    @system("cd {$file}/..; /bin/tar zcfs {$file}/{$file_}.tar.gz {$file_}");
+                
+    	    	if (file_exists("{$file}/{$file_}.tar.gz")) 
+                {
+	    	    	$array["TarGz"] =  "{$file_usr}/{$file_}.tar.gz";
+                }
+	        }
+        }
+
+	    if ($format == 'tex' || $format == 'all')
+    	{
+            @system("docbook2tex    $file.sgml -o $file");
+            
+		    if (file_exists("{$file}/{$file_}.tex"))
+            {
+			    $array["Latex"] = "{$file_usr}/{$file_}.tex";
+            }
+	    }
+
+	    if ($format == 'dvi' || $format == 'all')
+	    {
+            @system("docbook2dvi    $file.sgml -o $file");
+            
+		    if (file_exists("{$file}/{$file_}.dvi"))
+            {
+			    $array["DVI"] = "{$file_usr}/{$file_}.dvi";
+            }
+	    }
+
+	    if ($format == 'txt' || $format == 'all')
+	    {
+            @system("docbook2txt    $file.sgml >  {$file}/{$file_}.txt 2> /dev/null ");
+            
+		    if (file_exists("{$file}/{$file_}.txt"))
+            {
+		    	$array["Text"] = "{$file_usr}/{$file_}.txt";
+            }
+	    }
+
+	    if ($format == 'ps' || $format == 'all' || $format=='pdf')
+	    {
+            //@system("docbook2ps  $file.sgml -o $file");
+		    if (file_exists("{$file}/{$file_}.ps"))
+            {
+		        $array["ps"] = "{$file_usr}/{$file_}.ps";
+            }
+	    }
+	    if ( $format == 'all' || $format=='pdf')
+	    {
+		    if (file_exists("{$file}/{$file_}.ps")) 
+            {
+            	@system("/usr/bin/ps2pdf {$file}/{$file_}.ps");
+                
+		        if (file_exists("{$file}/{$file_}.pdf"))
+                {
+			        $array["pdf"] = "{$file_usr}/{$file_}.pdf";
+                }
+	        }
+        }
+
+	    if ($format == 'xml' || $format == 'all')
+	    {
+        	system("sgml2xml       $file.sgml >  {$file}/{$file_}.xml");
+            
+		    if (file_exists("{$file}/{$file_}.xml"))
+            {
+			    $array["XML"] = "{$file_usr}/{$file_}.xml";
+            }
+	    }
+
+	    if ($format == 'rtf' || $format == 'all')
+	    {
+        	@system("docbook2rtf    $file.sgml -o $file");
+            
+		    if (file_exists("{$file}/{$file_}.rtf")) 
+            {
+			    $array["RichTextFormat"] = "{$file_usr}/{$file_}.rtf";
+            }
+	    }
+        
+	    ob_end_clean();
+        
+        return $array;
+    }
+    
+    function GetParent($topic,$topic_=null)
+    {   global $MIOLO;
+        
+        if ($topic->topic_id == 'main')
+        {
+            return false;
+        }
+        if (!$topic_)
+        {
+            $topic_ = $this->GetTopic($topic->project_id, 'main','getdata');
+        }
+        $links = $this->GetLinks($topic_);
+        
+        if (is_array($links))
+        {
+            foreach ($links as $link)
+            {
+                if ($link[2]->topic_id == $topic->topic_id)
+                {   
+                    return $topic_->topic_id;
+                }
+                
+                $result = $this->GetParent($topic,$link[2]);
+                
+                if ($result) 
+                {
+                    return $result;
+                }
+            }
+        }
+        
+        return $result;
+    }
+}
+?>

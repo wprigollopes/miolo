@@ -1,0 +1,947 @@
+/*
+################################################################
+################################################################
+##															  ##
+## Alterado Por: Darlan Gomes - darlan@fasb.edu.br.			  ##
+## Data: 21/08/2003.										  ##
+##															  ##
+################################################################
+################################################################
+*/
+
+
+/******************************************************************************
+ * Containers:
+ * ----------------------------------------------------------------------------
+ *      titleContainer
+ *      menuContainer
+ *      contentContainer
+ *      bottomContainer
+ *      topMenu
+ *
+ * Links:
+ * ----------------------------------------------------------------------------
+ *	menuLink(link,visited,hover,active)
+ *	topMenuLink(link,visited,hover,active)
+ *      tabPageLink(link,visited,hover,active)
+ *      pageNavigatorLink(link,visited,hover,active)
+ *	listingLink(link,visited,hover,active)
+ *
+ * Prompts:
+ * ----------------------------------------------------------------------------
+ * 	informationBox
+ * 	informationTitle
+ *	informationText
+ * 	confirmationBox
+ *	confirmationTitle
+ *	confirmationText
+ * 	errorBox
+ * 	errorTitle
+ *	errorText
+ *
+ * Form:
+ * ----------------------------------------------------------------------------
+ *	formTitle
+ *  formBody
+ *	formTitleText
+ *	formLabel
+ *  formInstruction
+ *
+ * Tabbed Form:
+ * ----------------------------------------------------------------------------
+ *      tabFormBody
+ *
+ * Listing:
+ * ----------------------------------------------------------------------------
+ *      listingTitle
+ *      (listingFilter)
+ *      listingBody
+ *  	listingRowHead
+ *	listingRow1
+ *	listingRow2
+ *	listingCol1
+ *	listingCol2
+ *
+ * StatusBar:
+ * ----------------------------------------------------------------------------
+ *	statusBarRow
+ *	statusBarCell
+ *
+ * Ticker
+ * ----------------------------------------------------------------------------
+ * tickerMain
+ * ticker1
+ * ticker2
+ * tickerTab
+ * tickerTab2
+ *
+ * Form componentes
+ * ------------------------------------------------------------------------
+ * inputBotao
+ * inputRadio
+ * input
+ * textarea
+ * select
+ *
+ * DHTML
+ * ------------------------------------------------------------------------
+ * dynamic-tab-pane-control.tab-pane
+ * dynamic-tab-pane-control .tab-row .tab
+ * dynamic-tab-pane-control .tab-row .tab.selected
+ * dynamic-tab-pane-control .tab-row .tab a
+ * dynamic-tab-pane-control .tab-row .tab.hover
+ * dynamic-tab-pane-control .tab-page
+ * dynamic-tab-pane-control .tab-row
+ *
+ * Componentes
+ * ------------------------------------------------------------------------
+ *
+ ******************************************************************************/
+BODY
+{
+    font-family:   		Arial,Tahoma,Verdana,Helvetica,Sans-Serif;
+    font-size:     		10pt;
+    margin:        		0px;
+    padding:       		0px;
+	background-color:    #ffffff;
+}
+
+.topContainer
+{
+	background-color:   #0164A7;
+}
+
+.menuContainer
+{
+  /* height:           	640px;*/
+   padding:          	8px;
+   background-color:    #ffffff;
+}
+
+.contentContainer
+{
+    margin-left:   		4px;
+    margin-right:  		8px;
+    margin-top:    		8px;
+    margin-bottom: 		4px;
+	background-color:		#ffffff;
+    width:				97%;
+}
+
+.bottomContainer
+{
+    margin: 			  0px;
+	background-color:   #FFFFF2;
+}
+
+.menuLink
+{
+	color:           	  #FFFFFF;
+	font-weight:     	  bold;
+	text-decoration: 	  none;
+	font-size:          10px;
+	font-family:        verdana;
+}
+
+.menuLink:link
+{
+	color:           	#FFFFFF;
+	font-weight:     	bold;
+	text-decoration: 	none;
+	font-size:          10px;
+	font-family:        verdana;
+}
+
+.menuLink:visited
+{
+	color:           	#FFFFFF;
+	font-weight:     	bold;
+	text-decoration: 	none;
+	font-size:          10px;
+    font-family:        verdana;
+}
+
+.menuLink:hover
+{
+	color:           	#FFFF00;
+	font-weight:     	bold;
+	text-decoration: 	none;
+	font-size:          10px;
+	font-family:        verdana;
+}
+
+.menuLink:active
+{
+	color:        		#FFFFC0;
+	font-weight:     	bold;
+	text-decoration: 	underline
+	font-size:          10px;
+	font-family:        verdana;
+}
+
+.themeBody
+{
+ /*	background-image: 	url("univates-bg.gif"); */
+	_background-color:	#ffffff;
+	margin:           	0px;
+	padding:          	0px;
+    border:            	solid #1C4D8F 2pt;
+}
+
+.themePage
+{
+
+}
+
+.themeContent
+{
+	width:            	100%;
+	height:           	100%;
+	vertical-align:   	top;
+	text-align:       	center;
+	background-color:   #FFFFF2;
+}
+
+.themeBox
+{
+	padding:          	0px;
+	border:           	1px solid #777777;
+	color:           	#FFFFF2;
+	background-color:   #0164A7;
+}
+
+.boxTitle
+{
+	background-color:	#0164A7;
+	padding:          	2px;
+	font-size:        	12px;
+	font-weight:      	bold;
+	color:          	#ff0000;
+	text-align:       	center;
+}
+
+.boxTitleText
+{
+	font-size:        	12px;
+	font-weight:      	bold;
+	color:            	#ffffff;
+	background-color:   #0164A7;
+}
+
+.boxContent
+{
+	/*  background-image: url("images/bg2.jpg");*/
+	padding:         	8px;
+	border:            	solid #0164A7 2pt;
+	color:           	#0164A7;
+	background-color:   #FFFFF2;
+}
+
+.topMenu2
+{
+	background-color:   #0164A7;
+	color:           	#FFFFFF;
+	padding:         	2px;
+	font-size:       	10px;
+	font-weight:     	normal;
+}
+
+.topMenu
+{
+	background-image: url(images/fundo_m_top.gif);
+	color:           	#FFFFC0;
+	padding:         	2px;
+	font-size:       	10px;
+	font-weight:     	normal;
+}
+
+.topMenuLink
+{
+    font-weight:     	bold;
+	text-decoration: 	none;
+	font-size:          10px;
+	color:              #FFFFFF;
+	font-family:        verdana;
+}
+
+.topMenuLink:link
+{
+	font-weight:     	bold;
+	text-decoration: 	none;
+	font-size:          10px;
+	color:              #FFFFFF;
+	font-family:        verdana;
+}
+
+.topMenuLink:visited
+{
+	font-weight:     	bold;
+	text-decoration: 	none;
+	font-size:          10px;
+	color:              #FFFFFF;
+	font-family:        verdana;
+}
+
+.topMenuLink:active
+{
+	font-weight:     	bold;
+	text-decoration: 	none;
+	font-size:          10px;
+	color:              #FFFFC0;
+	font-family:        verdana;
+	text-decoration: 	underline;
+}
+
+.topMenuLink:hover
+{
+    font-weight:     	bold;
+	text-decoration: 	none;
+	font-size:          10px;
+	color:              #FFFF00;
+	font-family:        verdana;
+	text-transform:		uppercase;
+}
+
+.tabPageText
+{
+	color:           	#0164A7;
+	font-weight:     	bold;
+	text-decoration: 	none;
+	font-family:        verdana;
+    font-size:          12px;
+
+}
+.tabPageLink
+{
+	color:           	#0164A7;
+	font-weight:     	bold;
+	text-decoration: 	none;
+	font-family:        verdana;
+    font-size:          10px;
+
+}
+
+.tabPageLink:link
+{
+	color:           	#800000;
+	font-weight:     	bold;
+	text-decoration: 	none;
+/*	background-color:   #BBBBBB; */
+   	font-family:        verdana;
+    font-size:          10px;
+}
+
+
+.tabPageLink:active
+{
+	color:           	#990000;
+	font-weight:     	bold;
+	text-decoration: 	none;
+	font-family:        verdana;
+    font-size:          10px;
+}
+
+.tabPageLink:hover
+{
+	color:           	#800000;
+	font-weight:     	bold;
+	text-decoration: 	none;
+	font-family:        verdana;
+    font-size:          10px;
+}
+
+.pageNavigator
+{
+	color:           	#FFFFF2;
+	background-color:   #0164A7;
+	padding:          	2px;
+	border:           	solid #B0B0B0 2px;
+	font-family:        verdana;
+    font-size:          10px;
+    width:				100%;
+}
+
+.pageNavigatorLink
+{
+	color:           	#ffffff;
+	font-weight:     	bold;
+	text-decoration: 	none;
+	font-family:        verdana;
+}
+
+.pageNavigatorLink:link
+{
+	color:           	#FFFFF2;
+	font-weight:     	bold;
+	text-decoration: 	none;
+	font-family:        verdana;
+}
+
+.pageNavigatorLink:visited
+{
+	color:           	#FFFFF2;
+	font-weight:     	bold;
+	text-decoration: 	none;
+	font-family:        verdana;
+}
+
+.pageNavigatorLink:active
+{
+	color:           	#ffffff;
+	font-weight:     	bold;
+	text-decoration: 	underline;
+	font-family:        verdana;
+}
+
+.pageNavigatorLink:hover
+{
+	color:           	#FFFFF2;
+	font-weight:     	bold;
+	text-decoration: 	underline;
+	font-size:			10px;
+	font-family:      verdana;
+}
+
+
+/***************************   P R O M P T S   **************************/
+
+.informationBox
+{
+	background-color: 	#0164A7;
+	border:           	1px solid #0164A7;
+}
+
+.informationTitle
+{
+	background-color: 	#0164A7;
+	color:            	#FFFFF2;
+	text-align:       	center;
+	font-size:        	16px;
+	font-weight:      	bold;
+}
+
+.informationText
+{
+	font-size:        	12px;
+  	font-weight:      	bold;
+  	color:				#0164A7;
+  	background-color: 	#FFFFF2;
+}
+
+.confirmationBox
+{
+	background-color: 	#FFFFF2;
+	border:           	1px solid #0164A7;
+}
+
+.confirmationTitle
+{
+	background-color: 	#0164A7;
+	color:            	#FFFFF2;
+	text-align:       	center;
+	font-size:        	16px;
+	font-weight:      	bold;
+}
+
+.confirmationText
+{
+	font-size:        	12px;
+  	color:            	#0164A7;
+	background-color: 	#FFFFF2;
+}
+
+.errorBox
+{
+	background-color: 	#FFFFF2;
+	color:            	#0164A7;
+	border:           	1px solid #0164A7;
+}
+
+.errorTitle
+{
+	background-color: 	#0164A7;
+	color:            	#FFFFF2;
+	text-align:       	center;
+	font-size:        	16px;
+	font-weight:      	bold;
+}
+
+.errorText
+{
+	background-color: 	#FFFFF2;
+	color:            	#0164A7;
+	font-size:        	12px;
+}
+
+/***************************   F O R M   ********************************/
+.formTitle
+{
+	background-color: 	#0000ff;
+	color:            	#FFFFF2;
+}
+
+.formBody
+{
+	background-color: 	#FFFFF2;
+	border: 			#FFFFF2;
+	color:            	#0164A7;
+}
+
+.formTitleText
+{
+
+	color:            	#FFFFFF;
+    font-weight:        bold;
+    font-size:          14px;
+}
+
+.formLabel
+{
+/*	font-style:       	oblique;	*/
+	background-color: 	#FFFFF2;
+	color:            	#000000;
+	font-family:        verdana;
+	font-size:          10px;
+	margin-top:       	1px;
+	margin-bottom     	1px;
+	vertical-align:   	top;
+}
+
+.formHint
+{
+	margin:           	4px;
+	background-color: 	#fff0e0;
+	color:            	#0164A7;
+	font-size:        	8pt;
+    font-style:         oblique;
+    border:             solid #7f7f6f 1px;
+	padding:          	2px;
+}
+
+.tabFormBody
+{
+	background-color: 	#FFFFF2;
+	color:            	#0164A7;
+	border-left:      	solid #0164A7 1pt;
+	border-right:     	solid #0164A7 3pt;
+	border-bottom:    	solid #0164A7 3pt;
+}
+
+/************************   L I S T I N G   *****************************/
+
+.listingTitle
+{
+	background-color: 	#FFFFF2;
+	color:            	#0164A7;
+	font-weight:      	bold;  
+	font-size:        	16px;
+	padding:          	4pt;
+}
+
+.listingBody
+{
+	background-color: 	#FFFFF2;
+	color:            	#0164A7;
+	border-top:       	solid #0164A7 1pt;
+	border-bottom:    	solid #0164A7 1pt;
+	border-left:      	solid #0164A7 1pt;
+	border-right:     	solid #0164A7 1pt;
+    width:				100%;
+	padding:          	8pt;
+}
+
+.listingRowHead
+{
+	background-color: 	#FFFFF2;
+/*	font-style:       	oblique; */
+	font-weight:      	bold;
+	background-color: 	#0164A7;
+	color:            	#FFFFF2;
+	font-family:        verdana;
+	padding:          	10px;
+	font-size:          10px;
+	text-align:       	center;
+}
+
+.listingRow1
+{
+	background-color: 	#FFFFF2;
+  	color:            	#0164A7;
+	text-decoration: 	none;
+	font-size:			12px;
+	font-family:      verdana;
+}
+
+.listingRow2
+{
+	background-color: 	#F7F7F7;
+  	color:            	#0164A7;
+	text-decoration: 	none;
+	font-size:			12px;
+	font-family:      verdana;
+}
+
+.listingCol1
+{
+	background-color: 	#FFFFF2;
+	color:            	#0164A7;
+	text-decoration: 	none;
+	font-size:			12px;
+	font-family:      verdana;
+}
+
+.listingCol2
+{
+	background-color: 	#FFFFF2;
+	color:            	#0164A7;
+	text-decoration: 	none;
+	font-size:			12px;
+	font-family:      verdana;
+}
+
+.listingFooter
+{
+	background-color: 	#0164A7;
+	color:            	#FFFFF2;
+/*	font-style:       	oblique; */
+	font-weight:      	bold;  
+	padding:          	10px;
+	font-family:        verdana;
+    width:				100%;
+}
+
+.listingName
+{
+	color:           	#0164A7;
+	font-weight:     	no;
+	text-decoration: 	none;
+	font-size:			10px;
+	font-family:      verdana;
+}
+
+.listingLink
+{
+	color:           	#0164A7;
+	font-weight:     	bold;
+	text-decoration: 	none;
+	font-size:			10px;
+	font-family:      verdana;
+}
+
+.listingLink:link
+{
+	color:          	#0164A7;
+	font-weight:     	bold;
+	text-decoration: 	none;
+	font-size:			10px;
+	font-family:      verdana;
+}
+
+.listingLink:visited
+{
+	color:           	#0164A7;
+	font-weight:     	bold;
+	text-decoration: 	none;
+	font-size:			10px;
+	font-family:      verdana;
+}
+
+.listingLink:hover
+{
+	color:           	#0164A7;
+	font-weight:     	bold;
+	text-decoration: 	underline;
+	font-size:			10px;
+	font-family:        verdana;
+}
+
+.listingLink:active
+{
+	color:           	#0164A7;
+	font-weight:     	bold;
+	text-decoration: 	underline;
+	font-size:			10px;
+	font-family:      verdana;
+}
+
+/************************   S T A T U S B A R   *************************/
+
+.statusBar
+{
+    border:1px dashed #000000;
+    margin:5px;
+	background-color: 	#FFFFF2;
+    
+}
+.statusBarRow
+{
+}
+
+.statusBarCell
+{
+	vertical-align:   	top;
+	font-size:        	10pt;
+/*	font-style:       	oblique; */
+	font-weight:      	normal;  
+	color:            	#0164A7;
+	padding:          	3pt;
+    font-family:        verdana;
+}
+
+.currentPageNumber
+{
+	background-color: 	#0164A7;
+	color:            	#FFFFF2;
+	font-weight:      	bold;
+}
+
+.errorText
+{
+	color:            	#0164A7;
+	font-weight:      	bold;
+}
+
+.statisticsText
+{
+
+	background-color: 	#FFFFF2;
+	color:            	#0164A7;
+
+	border-top:       solid #555555 1pt;
+	border-bottom:    solid #ffffff 1pt;
+	border-left:      solid #555555 1pt;
+	border-right:     solid #ffffff 1pt;
+	
+	vertical-align:   top;
+	
+	font-size:        10pt;
+	font-style:       normal;
+	font-weight:      normal;  
+	padding:          4pt;  
+}
+
+/*************************** div - Components **************************/
+
+.divTitle
+{
+    height:		 22px;
+    width:               100%;
+    color:               #FFFFFF;
+    background-color:    #0164A7;
+    border:              1px solid #0164A7;
+    padding:             2px;
+    font-weight:         bold;
+    text-align:          center;
+    font-family:         verdana;
+    font-size:           12px; 
+}
+
+.divText
+{
+
+    width:               100%; 
+    color:               #0164A7;
+    background-color:    #FFFFF2;
+    border-bottom:       solid #0164A7 1pt;
+    border-left:         solid #0164A7 1pt;
+    border-right:        solid #0164A7 1pt;
+    padding:             2px;
+    font-weight:         bold;
+    text-align:          center;
+    font-family:         verdana;
+    font-size:           12px; 
+}
+/************************************* Ticker ****************************/
+
+.tickerMain
+{
+    position:            relative;
+	font-family:			verdana;
+	font-size:	  			10px;
+    width:               100%;
+    height:              70px;
+    overflow:            hidden;
+    background-color:    #FFFFF2;
+ /*   background-image:    url(); */
+    z-index:             1;
+}
+
+.ticker1
+{
+    position:            absolute;
+    width:               100%;
+	font-family:			verdana;
+	font-size:	  			10px;
+    left:                0;
+    top:                 0;
+    padding:             8px;
+    z-index:             0;
+}
+.ticker2
+{
+    position:            absolute;
+    width:               100%;
+	font-family:			verdana;
+	font-size:	  			10px;
+    left:                0;
+    top:                 0;
+    padding:             8px;
+    z-index:             0;
+}
+.tickerTab
+{
+	width:					98%;
+	font-family:			verdana;
+	font-size:	  			12px;
+	color:					#ffffff;
+	background-color:		#0164A7;
+	border:					1px solid #0164A7;
+	padding:				2px;
+	font-weight:			bold;
+	text-align:			center;
+}
+
+.tickerTab2
+{
+	width:					98%;
+	padding:				2px;
+	border:					1px solid #0164A7;
+	font-family:			verdana;
+	font-size:	  			12px;
+	color:					#000000;
+	background-color:		#fffff2;
+}
+
+/*-------------------------- Form componentes   ----------------------------------*/
+
+.inputBotao
+{
+	font-family: Verdana;
+	font-weight:         bold;
+	font-size: 10px;
+	color: #FFFFFF;
+    background-image: url("images/fundo.gif");
+	background-color: #0164A7;
+	border: 2px solid #0164A7;
+}
+
+.inputRadio
+{
+	color: #0164A7;
+	border: 0px solid;
+}
+
+input
+{
+	font-family: Verdana;
+	font-size: 10px;
+	color: #0164A7;
+	background-color: #F7F7F7;
+	border: 1px solid #0164A7;
+}
+textarea
+{
+	font-family: Verdana;
+	font-size: 10px;
+	color: #0164A7;
+	background-color: #F7F7F7;
+	border: 1px solid #0164A7;
+}
+
+select
+{
+	font-family: Verdana;
+	font-size: 10px;
+	color: #0164A7;
+	background-color: #F7F7F7;
+	border: 1px solid #0164A7;
+}
+
+
+/************************* DHTML  ******************************************/
+/*
+.dynamic-tab-pane-control.tab-pane {
+	position:	relative;
+	width:		100%;		/* width needed weird IE bug 
+	margin-right:	-2px;	/* to make room for the shadow 
+}
+
+.dynamic-tab-pane-control .tab-row .tab {
+
+	width:				70px;
+	height:				16px;
+	background-image:	url( "images/tab.png" );
+
+	position:		relative;
+	top:			0;
+	display:		inline;
+	float:			left;
+	overflow:		hidden;
+
+	cursor:			Default;
+
+	margin:			1px -1px 1px 2px;
+	padding:		2px 0px 0px 0px;
+	border:			0;
+
+	z-index:		1;
+	font:			11px Tahoma;
+	white-space:	nowrap;
+	text-align:		center;
+}
+
+.dynamic-tab-pane-control .tab-row .tab.selected {
+	width:				74px !important;
+	height:				18px !important;
+	background-image:	url( "images/tab.active.png" ) !important;
+	background-repaet:	no-repeat;
+
+	border-bottom-width:	0;
+	z-index:		3;
+	padding:		2px 0 0px 0;
+	margin:			1px -3px -3px 0px;
+	top:			-2px;
+	font:				11px Tahoma;
+}
+
+.dynamic-tab-pane-control .tab-row .tab a {
+	font:				11px Tahoma;
+	color:				Black;
+	text-decoration:	none;
+	cursor:				default;
+}
+
+.dynamic-tab-pane-control .tab-row .tab.hover {
+	font:				11px Tahoma;
+	width:				70px;
+	height:				16px;
+	background-image:	url( "images/tab.hover.png" );
+	background-repaet:	no-repeat;
+}
+
+
+.dynamic-tab-pane-control .tab-page {
+	clear:			both;
+	border:			1px solid rgb( 145, 155, 156 );
+	background:		rgb( 252, 252, 254 );
+	z-index:		2;
+	position:		relative;
+	top:			-2px;
+
+	font:				11px Tahoma;
+	color:				Black;
+
+	filter:			progid:DXImageTransform.Microsoft.Gradient(StartColorStr=#fffcfcfe, EndColorStr=#fff4f3ee, GradientType=0)
+					progid:DXImageTransform.Microsoft.Shadow(Color=#ff919899, Strength=2, Direction=135);
+
+	/*244, 243, 238*/
+	/* 145, 155, 156*/
+
+	/*padding:		10px;
+}
+
+.dynamic-tab-pane-control .tab-row {
+	z-index:		1;
+	white-space:	nowrap;
+}
+*/

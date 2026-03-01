@@ -1,0 +1,16 @@
+<?
+// neste arquivo são definidas as classes que identificam os
+// campos das tabelas. Estas classes são utilizadas para formatar
+// os dados para facilitar sua manipulação nos programas
+class Person
+{
+    var $cpf;
+    var $name;
+    var $adress;
+    var $adress1;
+    var $zip_city;
+    var $phone;
+    var $email;
+};
+
+?>

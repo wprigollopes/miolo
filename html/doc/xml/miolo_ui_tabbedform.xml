@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+
+<source name="tabbedform.class" path="/usr/local/bis/html/miolo/ui/tabbedform.class" base="miolo_ui_tabbedform" created="" lines="351">
+    <class name="TabbedForm" base="Form" declaration="class TabbedForm extends Form" line="22">
+        <var name="pages" declaration="var $pages;" line="25">
+        </var>
+        <function name="TabbedForm" attribute="default" declaration="function TabbedForm($title='',$action='')" line="28">
+            <param name="$title" value="''" type=""><![CDATA[]]></param>
+            <param name="$action" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="IsSubmitted" attribute="default" declaration="function IsSubmitted()" line="34">
+        </function>
+        <function name="AddField" attribute="default" declaration="function AddField()" line="39">
+        </function>
+        <function name="AddPage" attribute="default" declaration="function AddPage($title, $fields)" line="45">
+            <param name="$title" value="" type=""><![CDATA[]]></param>
+            <param name="$fields" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetFieldValue" attribute="default" declaration="function GetFieldValue($name,$value=false)" line="77">
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="false" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetFormValue" attribute="default" declaration="function SetFormValue($name,$value)" line="113">
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GenerateFormTabs" attribute="default" declaration="function GenerateFormTabs($currpage)" line="149">
+            <param name="$currpage" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetCurrentPage" attribute="default" declaration="function GetCurrentPage()" line="197">
+        </function>
+        <function name="GetFieldList" attribute="default" declaration="function GetFieldList()" line="205">
+        </function>
+        <function name="GenerateBody" attribute="default" declaration="function GenerateBody()" line="220">
+        </function>
+    </class>
+</source>

@@ -1,0 +1,86 @@
+<?
+
+class InputGridColumn
+{
+    var $label;
+    var $name;
+    var $width;
+    var $value;
+    
+    function InputGridColumn($label,$name,$width=0,$value='')
+    {
+        $this->label = $label;
+        $this->name  = $name;
+        $this->width = $width;
+        $this->value = $value;
+    }
+}
+
+class InputGrid extends FormField
+{
+    var $cols;  // array of column definitions
+    var $rows;  // the number of rows
+    
+    function InputGrid($label,$name,$rows=0)
+    {
+        $this->FormField($label,$name);
+        $this->numRows = $rows;
+    }
+    
+    function GetRowCount()
+    {
+        return $this->numRows;
+    }
+    
+    function SetRowCount($rows)
+    {
+        $this->numRows = $rows;
+    }
+    
+    function AddColumn($label,$name,$width=0,$value='')
+    {
+        $this->cols[] = new InputGridColumn($label,$name,$width,$value);
+    }
+    
+    function Generate()
+    {   global $HTTP_POST_VARS;
+        
+        echo "<table>\n";
+        echo "  <tr>\n";
+        echo "    <td class=\"tabPageText\" align=\"right\">Nº</td>\n";
+        foreach($this->cols as $c)
+        {
+            echo "    <td class=\"tabPageText\">{$c->label}</td>\n";
+        }
+        echo "  </tr>\n";
+        for ( $i=0; $i<$this->numRows; $i++ )
+        {
+            echo "  <tr>\n";
+            echo "    <td class=\"tabPageText\" align=\"right\">" . ($i+1) . ":</td>\n";
+            foreach($this->cols as $c)
+            {
+                $name = $this->name . '_' . $c->name;
+                
+                $value = isset($HTTP_POST_VARS[$name]) ? $HTTP_POST_VARS[$name][$i] : $c->value;
+                
+                echo "  <td><input name=\"{$name}[]\" type=\"text\" value=\"{$value}\" size=\"{$c->width}\"></td>\n";
+            }
+            echo "  </tr>\n";
+        }
+        echo "</table>\n";
+    }
+    
+    function GetValue($col,$row,$default='')
+    {
+        return InputGrid::GetGridValue($this->name,$col,$row,$default);
+    }
+    
+    function /* static */ GetGridValue($name,$col,$row,$default='')
+    {   
+        $value = Form::GetFormValue($name.'_'.$col);
+        
+        return isset($value) ? $value[$row] : $default;
+    }
+}
+
+?>

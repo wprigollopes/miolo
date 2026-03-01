@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="error.class" path="/usr/local/miolo/classes/error.class" base="error" created="" lines="81">
+    <class name="Error" base="" declaration="class Error" line="22">
+        <var name="msg" declaration="var $msg;" line="24">
+        </var>
+        <var name="info" declaration="var $info;" line="25">
+        </var>
+        <var name="href" declaration="var $href;" line="26">
+        </var>
+        <function name="Error" attribute="default" declaration="function Error($msg=null,$info=null,$href=null)" line="28">
+            <param name="$msg" value="null" type=""><![CDATA[]]></param>
+            <param name="$info" value="null" type=""><![CDATA[]]></param>
+            <param name="$href" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="49">
+        </function>
+    </class>
+</source>

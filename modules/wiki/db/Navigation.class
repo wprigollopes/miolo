@@ -1,0 +1,46 @@
+<?
+// +-----------------------------------------------------------------+
+// | Wiki Development Team UNIVATES - Centro Universitário           |  
+// +-----------------------------------------------------------------+
+// |      Copyleft (l) 2002 UNIVATES, Lajeado/RS - Brasil            |
+// +-----------------------------------------------------------------+
+// | Licensed under GPL: see COPYING.TXT or FSF at www.fsf.org for   |
+// |                     further details                             |
+// |                                                                 |
+// | Site: http://wiki.codigolivre.org.br                            |
+// +-----------------------------------------------------------------+
+// | Created: 2002/12/16 Alexandre Heitor Schmidt xandehs@univates.br|
+// |                     Nasair Júnior da Silva   njunior@univates.br|
+// |                                                                 |
+// | History: Initial Revision                                       |
+// +-----------------------------------------------------------------+
+
+class BusinessWikiNavigation
+{
+
+   function GetDatabase()
+   {
+      global $MIOLO;
+      return $MIOLO->GetDatabase('wiki');
+   }
+   
+   function GetAllProjects(&$range)
+   {
+      $db = $this->GetDatabase();
+
+      $sql = "select project_id," .
+             "       title," .
+             "       to_char(creation,'dd/mm/yyyy hh24:mi:ss')," .
+             "       to_char(last_update,'dd/mm/yyyy hh24:mi:ss')" .
+             " from  projects" .
+             " order by last_update";
+
+		$result = $db->QueryRange($sql,$range);
+		$db->close();
+
+      return $result;
+
+   }   
+}
+
+?>

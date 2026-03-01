@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="ticker.class" path="/usr/local/miolo/classes/components/ticker.class" base="components_ticker" created="" lines="123">
+    <class name="Ticker" base="ThemeElement" declaration="class Ticker extends ThemeElement" line="3">
+        <var name="messages" declaration="var $messages;" line="5">
+        </var>
+        <var name="width" declaration="var $width  = '100%';" line="6">
+        </var>
+        <var name="height" declaration="var $height = 90;" line="7">
+        </var>
+        <function name="Ticker" attribute="default" declaration="function Ticker()" line="9">
+        </function>
+        <function name="SetSize" attribute="default" declaration="function SetSize($w, $h)" line="13">
+            <param name="$w" value="" type=""><![CDATA[]]></param>
+            <param name="$h" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddMessage" attribute="default" declaration="function AddMessage($date,$text,$link)" line="19">
+            <param name="$date" value="" type=""><![CDATA[]]></param>
+            <param name="$text" value="" type=""><![CDATA[]]></param>
+            <param name="$link" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="24">
+            <var name="ickerWidth" declaration="var tickerWidth='&lt;?=$this-&gt;width?&gt;';" line="30">
+            </var>
+            <var name="ickerHeight" declaration="var tickerHeight=&lt;?=$this-&gt;height?&gt;;" line="31">
+            </var>
+            <var name="crollerbgcolor" declaration="var scrollerbgcolor='lightyellow';" line="32">
+            </var>
+            <var name="ickerBackground" declaration="var tickerBackground='scrollerback.gif';" line="34">
+            </var>
+            <var name="essages" declaration="var messages=new Array(&lt;?=&quot;'&quot;.implode(&quot;','&quot;,$this-&gt;messages).&quot;'&quot;?&gt;);" line="37">
+            </var>
+            <var name="ickerSpeed" declaration="var tickerSpeed = 100;" line="38">
+            </var>
+            <var name="ickerShift" declaration="var tickerShift = 2;" line="39">
+            </var>
+            <var name="ickerPos" declaration="var tickerPos   = 0;" line="40">
+            </var>
+        </function>
+        <function name="tickerStart" attribute="default" declaration="function tickerStart()" line="42">
+        </function>
+        <function name="tickerScroll" attribute="default" declaration="function tickerScroll()" line="65">
+            <var name="" declaration="var u   = ring[0];" line="80">
+            </var>
+        </function>
+    </class>
+</source>

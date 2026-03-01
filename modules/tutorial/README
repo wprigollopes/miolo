@@ -1,0 +1,37 @@
+Olá,
+
+este pequeno tutorial tem por objetivo exemplificar a utilização das classes e métodos do MIOLO. Obviamente este é um passo inicial para aprender os conceitos e sistemática básicos do MIOLO.
+Os arquivos deste tutorial estão exaustivamente comentados, para que esses conceitos sejam facilmente entendidos.
+
+Neste tutorial existem 2 cadastros básicos: cidades e pessoas.
+O cadastro de cidades, exemplifica a forma mais simples de utilizar o MIOLO, uma vez que a definição e criação de formulários são feitos nos próprios manipuladores (arquivos .inc)
+Já o cadastro de pessoas extende um pouco sua funcionalidade, exemplificando como é possível definir externamente as classes de formulários e as classes de comandos/instruções da base de dados e de que maneira é possível ter acesso às mesmas.
+
+Siga este roteiro para análise dos arquivos do tutorial:
+- No diretório handlers: main.inc -> arquivos city_*.inc -> arquivos person_*.inc
+- Em seguida, dê uma olhada nos arquivos dos diretórios db e forms.
+
+
+A seguinte configuração deve ser colocada no arquivo /etc/miolo/miolo.conf ou no /etc/miolo/tutorial.conf:
+
+$MIOLOCONF['DB']['tutorial']['system']     = 'postgres'; // tipo de base de dados
+$MIOLOCONF['DB']['tutorial']['host']       = '127.0.0.1'; // IP da máquina na qual está a base de dados
+$MIOLOCONF['DB']['tutorial']['name']       = 'tutorial'; // o nome da base deve ser igual à que mantém as tabelas
+$MIOLOCONF['DB']['tutorial']['user']       = 'nome_user'; // nome do usuário com direito a acessar a base
+$MIOLOCONF['DB']['tutorial']['password']   = 'passwd_user'; // senha do respectivo usuário
+
+
+Adicione a seguinte linha no arquivo ...modules/menu.inc, para que apareca uma opção no menu principal do site.
+
+$menu->AddOption('Tutorial', 'tutorial', 'main');
+
+
+Participe e tire suas dúvidas na lista miolo-users, veja em http://www.miolo.org.br. Todas as dúvidas, questões pertinentes à programação com o MIOLO e idéias circulam nessa lista.
+Existe também a lista miolo-devel, voltada mais aos aspectos relativos ao desenvolvimento do próprio MIOLO.
+
+Vilson Cristiano Gärtner
+MIOLO Development Coordinator
+   vilson@miolo.org.br
+
+
+

@@ -1,0 +1,54 @@
+<?
+
+class CommonGroupPermissionsForm extends Form
+{
+    var $whichModule;
+    
+    function CommonGroupPermissionsForm($data=null)
+    {   global $MIOLO;
+        
+        $this->Form('Update Group Permissions');
+        
+        $MIOLO->Assert($data,_M('CommonGroupPermissionsForm Error: Parameter @1 cannot be null!','miolo','(CommonGroup) data'));
+        
+        $module = Form::GetFormValue('module',$data->module);
+        $business = $MIOLO->GetBusiness('common','admin');
+        $this->whichModule = $business->GetModule($module);
+        
+        $MIOLO->Assert($this->whichModule,
+                       _M('Module @1 is not defined!','miolo',$this->whichModule));
+                       
+        $MIOLO->Assert(is_array($this->whichModule->rights),
+                       _M('Module @1 does not have permissions defined!','miolo',$whichModule->name));
+        
+        $this->AddField(new TextField(_M('Id'),'id',$data->id,0));
+        $this->AddField(new TextField(_M('Description'),'description',$data->description,0));
+        $this->AddField(new TextField(_M('Module'),'module',$module,0));
+        $this->AddField(new Separator('Permissions'));
+        
+        $permissions = $MIOLO->GetRights($this->whichModule->name,"group_".$data->id);
+
+        foreach ( $this->whichModule->rights as $r )
+        {
+            $this->AddField(new CheckBox($r,'perm_'.$r,'t',Form::GetFormValue('perm_'.$r,$permissions[$r])));
+        }
+    }
+
+    function GetData($data)
+    {
+        $data = $this->CollectInput($data);
+        
+        $data->module = $this->whichModule->name;
+        
+        unset($data->permissions);
+        
+        foreach ( $this->whichModule->rights as $r )
+        {
+            $data->permissions[$r] = ( Form::GetFormValue('perm_'.$r) != null );
+        }
+        
+        return $data;
+    }
+}
+
+?>

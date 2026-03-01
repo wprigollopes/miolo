@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="barcode.class" path="/usr/local/miolo/classes/contrib/barcode.class" base="contrib_barcode" created="2001/08/15" lines="201">
+  <title>Barcode</title>
+  <description>
+  <![CDATA[Barcode generation classes]]>
+  </description>
+  <relations type="group">
+    <group name="contributions"/>
+  </relations>
+  <organisation>
+  <![CDATA[UNILASALLE]]>
+  </organisation>
+  <legal>
+  <![CDATA[UNILASALLE
+  CopyLeft (L) 2001-2002 UNILASALLE, Canoas/RS - Brasil
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)]]>
+  </legal>
+  <contributors>
+    <author name="Rudinei Pereira Dias" type="author" login="" email="rudinei@lasalle.tche.br"></author>
+  </contributors>
+  <maintainers>
+    <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+    <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+  </maintainers>
+  <history>
+  <![CDATA[
+    $Log: contrib_barcode.xml,v $
+    Revision 1.1  2004/08/12 18:35:09  vgartner
+    Inserting Documentation.
+<br>
+      Revision 1.1  2002/10/03 19:14:05  vgartner<br>
+      Added barcode class.<br>
+  ]]>
+  </history>
+    <class name="BarcodeI25" base="" declaration="class BarcodeI25" line="46">
+      <description>
+      <![CDATA[Rotina para a gera&ccedil;&atilde;o de C&oacute;digo de Barra
+no padr&atilde;o Interleved 2 of 5 (Intercalado 2 de 5)
+utilizado para os documentos banc&aacute;rios conforme
+padr&atilde;o FEBRABAN.
+UNILASALLE]]>
+      </description>
+        <var name="codigo" declaration="var $codigo;       //SET: Código a converter em código de barras" line="49">
+        </var>
+        <var name="ebf" declaration="var $ebf;          //SET: Espessura da barra fina: usar 1 até 2." line="50">
+        </var>
+        <var name="ebg" declaration="var $ebg;          //SET: Espessura da barra grossa: usar 2x a 3x da esp_barra_fn." line="51">
+        </var>
+        <var name="altb" declaration="var $altb;         //SET: altura do código de barras" line="52">
+        </var>
+        <var name="ipp" declaration="var $ipp;          //SET: Endereço completo da imagem do ponto PRETO p/compor o código de barras" line="53">
+        </var>
+        <var name="ipb" declaration="var $ipb;          //SET: Endereço completo da imagem do ponto BRANCO p/compor o código de barras" line="54">
+        </var>
+        <var name="tamanhoTotal" declaration="var $tamanhoTotal; //Propriedade de RETORNO do tamanho total da imagem do código de barras" line="55">
+        </var>
+        <var name="mixed_code" declaration="var $mixed_code;" line="58">
+        </var>
+        <var name="bc" declaration="var $bc = array();" line="59">
+        </var>
+        <var name="bc_string" declaration="var $bc_string;" line="60">
+        </var>
+        <function name="BarcodeI25" attribute="default" declaration="function BarcodeI25($code='')" line="62">
+            <param name="$code" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetCode" attribute="default" declaration="function SetCode($code)" line="80">
+            <param name="$code" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetCode" attribute="default" declaration="function GetCode()" line="92">
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="97">
+        </function>
+        <function name="MixCode" attribute="default" declaration="function MixCode()" line="171">
+        </function>
+    </class>
+</source>

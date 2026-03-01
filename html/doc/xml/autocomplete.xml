@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="autocomplete.class" path="/usr/local/miolo/classes/autocomplete.class" base="autocomplete" created="" lines="51">
+    <class name="AutoComplete" base="" declaration="class AutoComplete" line="3">
+        <var name="value" declaration="var $value;" line="5">
+        </var>
+        <var name="config" declaration="var $config;" line="6">
+        </var>
+        <var name="sql" declaration="var $sql;" line="7">
+        </var>
+        <function name="AutoComplete" attribute="default" declaration="function AutoComplete($value)" line="9">
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetContext" attribute="default" declaration="function SetContext($config,$sql)" line="14">
+            <param name="$config" value="" type=""><![CDATA[]]></param>
+            <param name="$sql" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetValue" attribute="default" declaration="function GetValue()" line="20">
+        </function>
+        <function name="GetDatabase" attribute="default" declaration="function GetDatabase()" line="25">
+        </function>
+        <function name="GetQuery" attribute="default" declaration="function GetQuery()" line="30">
+        </function>
+        <function name="SetValue" attribute="default" declaration="function SetValue($value)" line="35">
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetDatabase" attribute="default" declaration="function SetDatabase($config)" line="40">
+            <param name="$config" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetQuery" attribute="default" declaration="function SetQuery($sql)" line="45">
+            <param name="$sql" value="" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+</source>

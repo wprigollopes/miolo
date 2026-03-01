@@ -1,0 +1,51 @@
+<?
+
+class AutoComplete
+{
+    var $value;
+    var $config;
+    var $sql;
+    
+    function AutoComplete($value)
+    {
+        $this->value = $value;
+    }
+    
+    function SetContext($config,$sql)
+    {
+        $this->config = $config;
+        $this->sql    = $sql;
+    }
+    
+    function GetValue()
+    {
+        return $this->value;
+    }
+    
+    function GetDatabase()
+    {
+        return $this->config;
+    }
+    
+    function GetQuery()
+    {
+        return $this->sql;
+    }
+    
+    function SetValue($value)
+    {
+        $this->value = $value;
+    }
+    
+    function SetDatabase($config)
+    {
+        $this->config = $config;
+    }
+    
+    function SetQuery($sql)
+    {
+        $this->sql = $sql;
+    }
+}
+
+?>

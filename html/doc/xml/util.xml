@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="util.class" path="/usr/local/miolo/classes/util.class" base="util" created="" lines="102">
+    <class name="VarDump" base="" declaration="class VarDump" line="22">
+        <var name="var" declaration="var $var;" line="24">
+        </var>
+        <function name="VarDump" attribute="default" declaration="function VarDump(&amp;$var)" line="26">
+            <param name="&amp;$var" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="31">
+        </function>
+    </class>
+    <class name="InvertDate" base="" declaration="class InvertDate" line="42">
+        <var name="date" declaration="var $date;" line="45">
+        </var>
+        <function name="InvertDate" attribute="default" declaration="function InvertDate($date=null)" line="47">
+            <param name="$date" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ymd2dmy" attribute="default" declaration="function ymd2dmy($date=null)" line="56">
+            <param name="$date" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="dmy2ymd" attribute="default" declaration="function dmy2ymd($date=null)" line="64">
+            <param name="$date" value="null" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+    <class name="FormatValue" base="" declaration="class FormatValue" line="90">
+        <var name="value" declaration="var $value;" line="92">
+        </var>
+        <function name="FormatValue" attribute="default" declaration="function FormatValue($value,$precision=2)" line="94">
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+            <param name="$precision" value="2" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+</source>

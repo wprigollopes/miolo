@@ -1,0 +1,547 @@
+<?
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# @title
+#   Tabbed Form
+#
+# @description
+#   This file contains the form and form elements definitions
+#
+# @see      miolo/ui/form.class,
+#           miolo/ui/themepainter.class
+#
+# @topics   tabbedform, ui 
+#
+# @created
+#   2001/11/21
+#
+# @organisation
+#   MIOLO - Miolo Development Team - UNIVATES Centro Universitario
+#
+# @legal
+#   CopyLeft (L) 2001-2003 UNIVATES, Lajeado/RS - Brasil
+#   Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+#   further details)
+#
+# @contributors
+#   Vilson Cristiano Gartner [author] [vilson@miolo.org.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+# 
+# @maintainers
+#   Vilson Cristiano Gartner [author] [vilson@miolo.org.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#
+# @history
+#   See CVS history.
+#
+# @id $Id: tabbedform.class,v 1.6 2004/08/23 18:29:44 vgartner Exp $
+#---------------------------------------------------------------------
+
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# TODO: TRANSLATION
+# O tabbedform é extendida da classe form class e difere, principalmente
+# na forma como os dados são apresentados.
+# Com o tabbedform, é possível criar páginas nas quais os campos serão 
+# apresentados. Vale ressaltar que, quando uma página não está ativa,
+# os campos do formulátio são do tipo hidden. 
+#---------------------------------------------------------------------
+class TabbedForm extends Form
+{
+    // member variables
+    var $pages;
+
+    // class constructor
+    function TabbedForm($title='',$action='')
+    {
+        $this->Form($title,$action);
+    }
+    
+    function AddField()
+    { global $MIOLO;
+        
+      $MIOLO->Assert(false,"Tabbed form doesn't yet support AddField Function!!!");
+    }
+    
+    function AddPage($title, $fields)
+    {   global $HTTP_POST_VARS;
+        
+        $n = count($fields);
+        
+        //Add prefix 'frm_' which identifies form variables and 
+        //distinguishes them from other possible variables
+        for ( $i=0; $i<$n; $i++ )
+        { 
+            if ( $fields[$i]->name )
+            {
+                $fields[$i]->name  = 'frm_' . $fields[$i]->name;
+                
+                if ( is_subclass_of($fields[$i],'radiobutton') || is_subclass_of($fields[$i],'checkbox') )
+                {
+                    $fields[$i]->checked = ( $HTTP_POST_VARS[$fields[$i]->name] == "{$fields[$i]->value}" );
+                }
+                else if ( ! isset($fields[$i]->value) )
+                {
+                    $fields[$i]->value = $HTTP_POST_VARS[$fields[$i]->name];
+                }
+                
+                $fields[$i]->value = $this->EscapeValue($fields[$i]->value);
+            }
+        }
+        
+        $this->pages[$title] = $fields;
+    }
+   
+        
+        
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Obtains a form field's value
+    #---------------------------------------------------------------------
+    function GetFieldValue($name,$value=false)
+    {   
+        $name = 'frm_' . $name;
+        
+        foreach ( $this->pages as $page )
+        {
+            foreach ( $page as $f )
+            {
+                if ( is_array($f) )
+                {
+                    foreach ( $f as $a )
+                    {
+                      if ( $name == $a->name )
+                      {
+                          return $a->value;
+                      }
+                    }
+                }
+                
+                else
+                {
+                  if ( $name == $f->name )
+                  {
+                      return $f->value;
+                  }
+                }
+            }
+        }
+        
+        return $value;
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # sets a form field to the specified value. In addition, a global variable
+    # 'frm_' + name is also set to the specified value
+    #---------------------------------------------------------------------
+    function SetFormValue($name,$value)
+    {   global $HTTP_POST_VARS;
+        
+        $value = $this->EscapeValue($value);
+        
+        // the name of the global variable referring the field
+        $name = 'frm_' . $name;  
+        
+        foreach ( array_keys($this->pages) as $page )
+        {
+            $n = count($this->pages[$page]);
+            
+            for ( $i=0; $i<$n; $i++ )
+            { 
+                if ( $this->pages[$page][$i]->name == $name )
+                {
+                    $class = get_class($this->pages[$page][$i]);
+                    
+                    if ( $class == 'checkbox' || $class == 'radiobutton' )
+                    {
+                        $this->pages[$page][$i]->checked = $value;
+                    }
+                    else
+                    {
+                        $this->pages[$page][$i]->value = $value;
+                    }
+                }
+            }
+        }
+        
+        $_REQUEST[$name] = $value;
+    }
+
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Generate form tabs
+    #---------------------------------------------------------------------
+    function GenerateFormTabs($currpage)
+    {
+    	global $MIOLO,$MIOLOCONF;
+        $theme = $MIOLOCONF['theme']['main'];
+        $home = $MIOLO->GetThemeUrl('',$theme);
+
+        // $MIOLOCONF['home']['themes']
+        $tabLeftFront   = $MIOLO->GetThemeURL('tab_left_front.png',null,$home.'/images/tab_leftfront.png');
+        $tabCenterFront = $MIOLO->GetThemeURL('tab_center_front.png',null,$home.'/images/tab_centerfront.png');
+        $tabRightFront  = $MIOLO->GetThemeURL('tab_right_front.png',null,$home.'/images/tab_rightfront.png');
+
+        $tabLeftBack    = $MIOLO->GetThemeURL('tab_left_back.png',null,$home.'/images/tab_leftback.png');
+        $tabCenterBack  = $MIOLO->GetThemeURL('tab_center_back.png',null,$home.'/images/tab_centerback.png');
+        $tabRightBack   = $MIOLO->GetThemeURL('tab_right_back.png',null,$home.'/images/tab_rightback.png');
+
+        $tabLeft        = $MIOLO->GetThemeURL('tab_left_spacer.png',null,$home.'/images/tab_leftspacer.png');
+        $tabRight       = $MIOLO->GetThemeURL('tab_right_spacer.png',null,$home.'/images/tab_rightspacer.png');
+
+        echo "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\n";
+        echo "  <tr>\n";
+        echo "    <td><img src=\"$tabLeft\"></td> \n";
+        
+        foreach(array_keys($this->pages) as $page)
+        {
+            if ( $page == $currpage )
+            {
+                echo '<td><img src="' . $tabLeftFront . '"></td>' .
+                     '<td background="' . $tabCenterFront . '" nowrap>' .
+                     '<span class="tabPageLink">' . $currpage . '</span></td>' .
+                     '<td><img src="' . $tabRightFront . '"></td>';
+            }
+            
+            else
+            {
+                $href = "javascript:_MIOLO_TabbedForm_GotoPage('{$this->name}','$page')";
+                
+                echo '<td><img src="' . $tabLeftBack . '"></td>' .
+                     '<td background="' . $tabCenterBack . '" nowrap><a class="tabPageLink" href="' . 
+                     $href . '">' . $page . '</a></td>' .
+                     '<td><img src="' . $tabRightBack . '"></td>';
+            }
+        }
+        
+        echo "    <td width=\"100%\" background=\"$tabRight\"><img src=\"$tabRight\"></td>\n";        
+        echo "  </tr>\n";
+        echo("</table>\n");
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Returns the label of the current page
+    #---------------------------------------------------------------------
+    function GetCurrentPage()
+    {
+        return MIOLO::_Request('frm_currpage_');
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Returns a plain list of all fields contained in the form
+    #---------------------------------------------------------------------
+    function GetFieldList()
+    {
+        $fields = array();
+        
+        foreach($this->pages as $page)
+        {
+            $fields = array_merge($fields,$this->_GetFieldList($page));
+        }
+        
+        return $fields;
+    }
+
+    function GenerateHiddenFields($f)
+    {
+        if (is_array($f))
+        {
+            foreach($f as $field)
+            {
+                $this->GenerateHiddenFields($field);
+            }
+        }
+        else
+        {
+            if ( is_array($f->value) )
+            {
+                foreach ( $f->value as $v )
+                {
+                    echo("      <input type=\"hidden\" name=\"{$f->name}[]\" value=\"$v\">\n");
+                }
+            }
+            else
+            {
+                $class = get_class($f);
+
+                if ($class == 'formbutton')
+                {
+                    return false;
+                }
+                elseif ( ( $class == 'radiobutton' || $class == 'checkbox' ) )
+                {
+                    if ( $f->checked )
+                    {
+                        echo("      <input type=\"hidden\" name=\"{$f->name}\" value=\"{$f->value}\">\n");
+                    }
+                }
+                elseif($class == 'checkboxgroup' || $class == 'fredcheckboxgroup' )
+                {
+                    if (is_array($f->options))
+                    {
+                        foreach($f->options as $id=>$value)
+                        {
+                            $name = "{$f->name}_$id";
+                            $checked = MIOLO::_Request($name) || $value[2] ? $value[1] : '0';
+                            echo("      <input type=\"hidden\" name=\"{$name}\" value=\"{$checked}\">\n");
+                        }
+                    }
+                }
+                else
+                {
+                    echo("      <input type=\"hidden\" name=\"{$f->name}\" value=\"{$f->value}\">\n");
+                }
+            }
+        }
+    }
+    
+    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Generate form body
+    #---------------------------------------------------------------------
+    function GenerateBody()
+    {   global $HTTP_POST_VARS;
+        
+        // optionally generate errors
+        if ( $this->HasErrors() )
+        {
+            $this->GenerateErrors();
+        }
+        
+        $hidden = null;
+        
+        $currpage = $HTTP_POST_VARS['frm_currpage_'];
+        
+        if ( ! $currpage )
+        {
+            reset($this->pages);
+            
+            $currpage = key($this->pages);
+        }
+        
+        echo "<form name=\"{$this->name}\" method=\"{$this->method}\" action=\"{$this->action}\"" .
+             " onSubmit=\"return {$this->name}_onSubmit();\">\n";
+        echo "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">\n";
+        
+        echo "  <tr>\n";
+        echo("    <td colspan=\"2\">\n");
+        
+        $this->GenerateFormTabs($currpage);
+        
+        echo("    </td>\n");
+        echo "  </tr>\n";
+        
+        echo "  <tr>\n";
+        echo "    <td colspan=\"2\" class=\"tabFormBody\">\n";
+        
+        $this->LayoutFormFields($this->pages[$currpage],&$hidden);        
+        
+        echo "    </td>\n";
+        echo "  </tr>\n";
+                
+        echo("  <tr>\n");
+        echo("    <td colspan=\"2\"><hr size=\"1\" noshade></td>\n");
+        echo("  </tr>\n");
+        echo("  <tr>\n");
+        echo("    <td colspan=\"2\"><center><br>\n");
+        
+        if ( $this->buttons )
+        {
+            foreach ( $this->buttons as $b )
+            {
+                $b->Generate();
+            }
+        }
+        
+        if ( $this->reset )
+        {
+            echo("      <input type=\"reset\">\n");
+        }
+        
+        if ( $this->return )
+        {
+            echo("      <input name=\"return\"  type=\"button\" value=\"Retornar\" onclick=\"javascript:history.go(-1)\">\n");
+        }
+        
+        //
+        // generate hidden fields
+        //
+        
+        echo("\n<!-- START OF HIDDEN FIELDS -->\n\n");
+        
+        if ( $hidden )
+        {
+            foreach ( $hidden as $f )
+            {
+                echo("      ");
+                $f->Generate();
+                echo("\n");
+            }
+        }
+        
+        // generates 'HIDDEN' fields for pages wich are not visible 
+        foreach($this->pages as $page=>$fields)
+        {
+            if ($page != $currpage)
+            {
+                $this->GenerateHiddenFields($fields);
+            }
+        }
+
+        echo "      <input type=\"hidden\" name=\"frm_currpage_\" value=\"$currpage\">\n";
+//        echo "      <input type=\"hidden\" name=\"frm_submit_\"   value=\"1\">\n";
+        
+        echo "\n<!-- END OF HIDDEN FIELDS -->\n\n";
+        
+        echo "   </center> </td>\n";
+        echo "  </tr>\n";
+        echo "</table>\n";
+        echo "</form>\n";
+        echo "<br>\n";
+        
+        $this->GenerateScript();
+    }
+
+    
+    function SetButtons( $prev_='Previous', $next_='Next', $next__='Finish' )
+    {
+        $buttons = $this->buttons;
+        
+        $prev_ = _M("$prev_");
+        $next_ = _M("$next_");
+        $next__= _M("$next__");
+        
+        $taba = "javascript:_MIOLO_TabbedForm_GotoPage('{$this->name}','";
+        $tabb = "')";
+        $a = array_keys($this->pages);
+                                                                                                    
+        $currpage = $this->GetFormValue('currpage_');
+        
+        if (!$currpage) 
+        {
+            $currpage = $a[0];    
+        }
+                                                                                                    
+        $size = count($a);
+        
+        foreach( $a as $id=>$page )
+        {
+            if ( $page == $currpage )
+            {
+                if ($id == 0)
+                {
+                    $prev = "javascript:history.go(-1)";
+                }
+                else
+                {
+                    $prev = $taba . $a[$id-1] . $tabb;
+                }
+                                                                                                    
+                if ($id == $size-1) 
+                {
+                    unset($next);
+                }
+                else 
+                {
+                    $next = $taba . $a[$id+1] . $tabb;
+                }
+            }
+        }
+
+        if ($prev)
+        {
+            $this->AddButton($prev_,'return',$prev);
+            $buttons[0] = $this->buttons[count($this->buttons)-1];
+        }
+                                                                                                    
+        $this->buttons = $buttons;
+        
+        if ($next)
+        {
+            $this->AddButton($next_,'ahead',$next);
+        }
+        else
+        {
+            $this->AddButton($next__,'final','submit');
+            $this->buttons[sizeof($this->buttons)-1]->type = 'submit';
+        }
+
+
+    }
+}
+
+
+class PageButton
+{
+    var $label;
+    var $btn_label;
+    var $name;
+    var $action;
+
+    function PageButton($label,$btn_label,$name,$action)
+    {
+        $this->label= $label;
+        $this->btn_label= $btn_label;
+        $this->name= $name;
+        $this->action= $action;
+    }
+
+    function Generate()
+    {
+        if ( is_array($this->btn_label) )
+        {
+            $x = 0;
+            unset($html);
+            foreach ( $this->btn_label as $row )
+            {
+
+                $html .= "      <input name=\"{$this->name[$x]}\"";
+
+                if ( strtoupper($this->action[$x]) == 'SUBMIT' )
+                {
+                    $html .= "  type=\"submit\"";
+                }
+                else if ( strtoupper($this->action[$x]) == 'RESET' )
+                {
+                    $html .= "  type=\"reset\"";
+                }
+                else
+                {
+                    $html .= "  type=\"button\" onclick=\"{$this->action[$x]}\"";
+                }
+
+                if ( $row )
+                {
+                    $html .= "  value=\"$row\"";
+                }
+
+                $html .= ">\n";
+                $x++;
+            }
+        }
+        else
+        {
+            $html = "      <input name=\"$this->name\"";
+
+            if ( strtoupper($this->action) == 'SUBMIT' )
+            {
+                $html .= "  type=\"submit\"";
+            }
+            else if ( strtoupper($this->action) == 'RESET' )
+            {
+                $html .= "  type=\"reset\"";
+            }
+            else
+            {
+                $html .= "  type=\"button\" onclick=\"$this->action\"";
+            }
+
+            if ( $this->btn_label )
+            {
+                $html .= "  value=\"$this->btn_label\"";
+            }
+
+            $html .= ">\n";
+        }
+        echo $html;
+    }
+}
+
+
+?>

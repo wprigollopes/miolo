@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="indexedform.class" path="/usr/local/miolo/classes/ui/indexedform.class" base="ui_indexedform" created="" lines="169">
+    <class name="IndexedForm" base="Form" declaration="class IndexedForm extends Form" line="22">
+        <var name="pages" declaration="var $pages;" line="25">
+        </var>
+        <function name="IndexedForm" attribute="default" declaration="function IndexedForm($title='',$action='')" line="28">
+            <param name="$title" value="''" type=""><![CDATA[]]></param>
+            <param name="$action" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddPage" attribute="default" declaration="function AddPage($title, $fields)" line="33">
+            <param name="$title" value="" type=""><![CDATA[]]></param>
+            <param name="$fields" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GenerateIndexPage" attribute="default" declaration="function GenerateIndexPage()" line="53">
+        </function>
+        <function name="GenerateBody" attribute="default" declaration="function GenerateBody()" line="68">
+        </function>
+    </class>
+</source>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="statusbar.class" path="/usr/local/miolo/classes/ui/statusbar.class" base="ui_statusbar" created="" lines="53">
+    <class name="StatusBar" base="" declaration="class StatusBar" line="22">
+        <var name="cols" declaration="var $cols;" line="24">
+        </var>
+        <function name="StatuBar" attribute="default" declaration="function StatuBar($cols=null)" line="26">
+            <param name="$cols" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddInfo" attribute="default" declaration="function AddInfo($info)" line="31">
+            <param name="$info" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="36">
+        </function>
+    </class>
+</source>

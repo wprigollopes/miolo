@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="theme.class" path="/usr/local/miolo/classes/ui/theme.class" base="ui_theme" created="2001/08/14" lines="806">
+  <title>Theme and Theme Elements</title>
+  <description>
+  <![CDATA[This file contains the theme and theme elements definitions]]>
+  </description>
+  <relations type="see-also">
+    <group name="miolo/ui/themepainter.class"/>
+  </relations>
+  <relations type="group">
+    <group name="theme"/>
+    <group name="ui"/>
+  </relations>
+  <organisation>
+  <![CDATA[MIOLO - Miolo Development Team - UNIVATES Centro Universitario]]>
+  </organisation>
+  <legal>
+  <![CDATA[CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)]]>
+  </legal>
+  <contributors>
+    <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+    <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+  </contributors>
+  <maintainers>
+    <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+    <author name="Vilson Cristiano Gartner" type="author" login="" email="vgartner@univates.br"></author>
+  </maintainers>
+    <class name="Theme" base="" declaration="class Theme" line="41">
+      <description>
+      <![CDATA[Theme Class]]>
+      </description>
+        <var name="styles" declaration="var $styles;" line="43">
+        </var>
+        <var name="scripts" declaration="var $scripts;" line="44">
+        </var>
+        <var name="metas" declaration="var $metas;" line="45">
+        </var>
+        <var name="navbar" declaration="var $navbar;" line="46">
+        </var>
+        <var name="menus" declaration="var $menus;" line="47">
+        </var>
+        <var name="content" declaration="var $content;" line="48">
+        </var>
+        <var name="title" declaration="var $title;" line="49">
+        </var>
+        <function name="Theme" attribute="default" declaration="function Theme()" line="51">
+        </function>
+        <function name="AddStyle" attribute="default" declaration="function AddStyle($url)" line="55">
+            <param name="$url" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddScript" attribute="default" declaration="function AddScript($url)" line="66">
+            <param name="$url" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddMeta" attribute="default" declaration="function AddMeta($name,$content)" line="74">
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$content" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddHttpEquiv" attribute="default" declaration="function AddHttpEquiv($name,$content)" line="79">
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+            <param name="$content" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetStyles" attribute="default" declaration="function &amp; GetStyles()" line="84">
+        </function>
+        <function name="GetScripts" attribute="default" declaration="function &amp; GetScripts()" line="89">
+        </function>
+        <function name="GetMetas" attribute="default" declaration="function &amp; GetMetas()" line="94">
+        </function>
+        <function name="GetNavigationBar" attribute="default" declaration="function &amp; GetNavigationBar()" line="99">
+        </function>
+        <function name="SetNavigationBar" attribute="default" declaration="function SetNavigationBar(&amp;$bar)" line="109">
+            <param name="&amp;$bar" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ClearMenus" attribute="default" declaration="function ClearMenus()" line="114">
+        </function>
+        <function name="GetMenus" attribute="default" declaration="function &amp; GetMenus()" line="120">
+        </function>
+        <function name="GetMainMenu" attribute="default" declaration="function &amp; GetMainMenu($title='Modules')" line="126">
+            <param name="$title" value="'Modules'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetMenu" attribute="default" declaration="function &amp; GetMenu($name)" line="151">
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetStatusBar" attribute="default" declaration="function &amp; GetStatusBar()" line="166">
+        </function>
+        <function name="SetStatusBar" attribute="default" declaration="function SetStatusBar(&amp;$bar)" line="188">
+            <param name="&amp;$bar" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetTitle" attribute="default" declaration="function &amp; GetTitle()" line="193">
+        </function>
+        <function name="SetTitle" attribute="default" declaration="function SetTitle(&amp;$title)" line="198">
+            <param name="&amp;$title" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ClearContent" attribute="default" declaration="function ClearContent()" line="203">
+        </function>
+        <function name="GetContent" attribute="default" declaration="function &amp; GetContent()" line="208">
+        </function>
+        <function name="SetContent" attribute="default" declaration="function SetContent(&amp;$content)" line="213">
+            <param name="&amp;$content" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="InsertContent" attribute="default" declaration="function InsertContent(&amp;$element)" line="221">
+            <param name="&amp;$element" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Inserts an element at the start of the content array]]>
+          </description>
+        </function>
+        <function name="AppendContent" attribute="default" declaration="function AppendContent(&amp;$element)" line="246">
+            <param name="&amp;$element" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Appends an element at the end of the content array]]>
+          </description>
+        </function>
+        <function name="AddElement" attribute="default" declaration="function AddElement(&amp;$element, $location='content')" line="272">
+            <param name="&amp;$element" value="" type=""><![CDATA[]]></param>
+            <param name="$location" value="'content'" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Adds a theme element to a specific <b>slot</b> within the theme]]>
+          </description>
+        </function>
+        <function name="UseComponent" attribute="default" declaration="function &amp; UseComponent($name)" line="306">
+            <param name="$name" value="" type="string"><![CDATA[Nome da classe o modulo que sera acessado]]></param>
+          <description>
+          <![CDATA[Used to obtain an instance of a component. The function loads the
+implementation class of the specified component and returns an
+instance of the same.
+The component file must be located into the ./classes/components directory]]>
+          </description>
+          <returns type="object">
+          <![CDATA[ an instance of <code>ThemeElement</code>]]>
+          </returns>
+          <example>
+<![CDATA[$ticker = $theme-&gt;UseComponent('newsticker');
+// $ticker-&gt;SetTitle('The Latest News');
+$theme-&gt;AppendContent($ticker);]]>
+          </example>
+        </function>
+        <function name="Content" attribute="default" declaration="function Content($content)" line="321">
+            <param name="$content" value="" type=""><![CDATA[]]></param>
+          <deprecated>
+          <![CDATA[for compatibility only]]>
+          </deprecated>
+        </function>
+        <function name="Status" attribute="default" declaration="function Status($content)" line="330">
+            <param name="$content" value="" type=""><![CDATA[]]></param>
+          <deprecated>
+          <![CDATA[for compatibility only]]>
+          </deprecated>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="339">
+          <deprecated>
+          <![CDATA[for compatibility only]]>
+          </deprecated>
+        </function>
+        <function name="Commands" attribute="default" declaration="function Commands($content)" line="348">
+            <param name="$content" value="" type=""><![CDATA[]]></param>
+          <deprecated>
+          <![CDATA[for compatibility only]]>
+          </deprecated>
+        </function>
+        <function name="Title" attribute="default" declaration="function Title($content)" line="357">
+            <param name="$content" value="" type=""><![CDATA[]]></param>
+          <deprecated>
+          <![CDATA[for compatibility only]]>
+          </deprecated>
+        </function>
+        <function name="News" attribute="default" declaration="function News($content)" line="366">
+            <param name="$content" value="" type=""><![CDATA[]]></param>
+          <deprecated>
+          <![CDATA[for compatibility only]]>
+          </deprecated>
+        </function>
+        <function name="Help" attribute="default" declaration="function Help($content)" line="374">
+            <param name="$content" value="" type=""><![CDATA[]]></param>
+          <deprecated>
+          <![CDATA[for compatibility only]]>
+          </deprecated>
+        </function>
+        <function name="CreateMenu" attribute="default" declaration="function &amp; CreateMenu($name)" line="382">
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+          <deprecated>
+          <![CDATA[for compatibility only]]>
+          </deprecated>
+        </function>
+    </class>
+    <class name="ThemeElement" base="" declaration="class ThemeElement" line="400">
+      <description>
+      <![CDATA[The <code>ThemeElement</code> class is the base class for any element
+which can be put into a theme. Basically the implementation provides
+a <code>Generate</code> method, which will generate the appropriate
+HTML output when called.
+<br><br>
+Derived classes will likely override the <code>Generate</code>
+method to customize the output.]]>
+      </description>
+        <var name="html" declaration="var $html;" line="402">
+        </var>
+        <var name="class" declaration="var $class;" line="403">
+        </var>
+        <function name="ThemeElement" attribute="default" declaration="function ThemeElement($html='&amp;nbsp;',$class=null)" line="405">
+            <param name="$html" value="'&amp;nbsp;'" type=""><![CDATA[]]></param>
+            <param name="$class" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="410">
+        </function>
+    </class>
+    <class name="Container" base="ThemeElement" declaration="class Container extends ThemeElement" line="428">
+      <description>
+      <![CDATA[A general purpose container providing top,left,center,right,bottom
+positioning]]>
+      </description>
+        <var name="top" declaration="var $top;" line="430">
+        </var>
+        <var name="left" declaration="var $left;" line="431">
+        </var>
+        <var name="center" declaration="var $center;" line="432">
+        </var>
+        <var name="right" declaration="var $right;" line="433">
+        </var>
+        <var name="bottom" declaration="var $bottom;" line="434">
+        </var>
+        <function name="AddElement" attribute="default" declaration="function AddElement($element,$where='center')" line="439">
+            <param name="$element" value="" type=""><![CDATA[]]></param>
+            <param name="$where" value="'center'" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Adds an element at the specified position]]>
+          </description>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="476">
+          <description>
+          <![CDATA[Generates the HTML output for this container]]>
+          </description>
+        </function>
+        <function name="GetRowCount" attribute="default" declaration="function GetRowCount()" line="530">
+          <description>
+          <![CDATA[Obtains the number of table rows]]>
+          </description>
+        </function>
+        <function name="GetColumnCount" attribute="default" declaration="function GetColumnCount()" line="555">
+          <description>
+          <![CDATA[Obtains the number of table columns]]>
+          </description>
+        </function>
+        <function name="GenerateElements" attribute="default" declaration="function GenerateElements(&amp;$elements,$separator='')" line="594">
+            <param name="&amp;$elements" value="" type=""><![CDATA[]]></param>
+            <param name="$separator" value="''" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Helper function to generate elements in a recursive manner (e.g.
+nested containers)]]>
+          </description>
+        </function>
+    </class>
+    <class name="Content" base="ThemeElement" declaration="class Content extends ThemeElement" line="626">
+      <description>
+      <![CDATA[Mostly used for including files directly into the content area]]>
+      </description>
+        <var name="path" declaration="var $path;" line="628">
+        </var>
+        <var name="home" declaration="var $home;" line="629">
+        </var>
+        <function name="Content" attribute="default" declaration="function Content($module=false,$name=false,$home=false)" line="631">
+            <param name="$module" value="false" type=""><![CDATA[]]></param>
+            <param name="$name" value="false" type=""><![CDATA[]]></param>
+            <param name="$home" value="false" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="638">
+        </function>
+    </class>
+    <class name="FileContent" base="ThemeElement" declaration="class FileContent extends ThemeElement" line="647">
+      <description>
+      <![CDATA[Mostly used for including files in the content area]]>
+      </description>
+        <var name="isSource" declaration="var $isSource;" line="649">
+        </var>
+        <var name="home" declaration="var $home;" line="650">
+        </var>
+        <function name="FileContent" attribute="default" declaration="function FileContent($FileName=null,$isSource=false,$home=false)" line="652">
+            <param name="$FileName" value="null" type=""><![CDATA[]]></param>
+            <param name="$isSource" value="false" type=""><![CDATA[]]></param>
+            <param name="$home" value="false" type=""><![CDATA[]]></param>
+        </function>
+        <function name="SetFile" attribute="default" declaration="function SetFile($file)" line="659">
+            <param name="$file" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="664">
+        </function>
+    </class>
+    <class name="ThemeMenu" base="ThemeElement" declaration="class ThemeMenu extends ThemeElement" line="685">
+      <description>
+      <![CDATA[Default menu implementation]]>
+      </description>
+        <var name="title" declaration="var $title;" line="687">
+        </var>
+        <var name="home" declaration="var $home;" line="688">
+        </var>
+        <var name="options" declaration="var $options;" line="689">
+        </var>
+        <var name="base" declaration="var $base;" line="690">
+        </var>
+        <function name="ThemeMenu" attribute="default" declaration="function ThemeMenu($title='',$base='',$home='main')" line="692">
+            <param name="$title" value="''" type=""><![CDATA[]]></param>
+            <param name="$base" value="''" type=""><![CDATA[]]></param>
+            <param name="$home" value="'main'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetTitle" attribute="default" declaration="function GetTitle()" line="699">
+        </function>
+        <function name="SetTitle" attribute="default" declaration="function SetTitle($title)" line="704">
+            <param name="$title" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetBase" attribute="default" declaration="function GetBase()" line="709">
+        </function>
+        <function name="SetBase" attribute="default" declaration="function SetBase($base)" line="714">
+            <param name="$base" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetOptions" attribute="default" declaration="function &amp; GetOptions()" line="719">
+        </function>
+        <function name="AddLink" attribute="default" declaration="function AddLink($label,$link='#',$target='_self')" line="724">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$link" value="'#'" type=""><![CDATA[]]></param>
+            <param name="$target" value="'_self'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddOption" attribute="default" declaration="function AddOption($label,$module='main',$action='',$item='',$args=null)" line="729">
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$module" value="'main'" type=""><![CDATA[]]></param>
+            <param name="$action" value="''" type=""><![CDATA[]]></param>
+            <param name="$item" value="''" type=""><![CDATA[]]></param>
+            <param name="$args" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddUserOption" attribute="default" declaration="function AddUserOption($access,$label,$module='main',$action='',$item='',$args=null)" line="734">
+            <param name="$access" value="" type=""><![CDATA[]]></param>
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$module" value="'main'" type=""><![CDATA[]]></param>
+            <param name="$action" value="''" type=""><![CDATA[]]></param>
+            <param name="$item" value="''" type=""><![CDATA[]]></param>
+            <param name="$args" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddGroupOption" attribute="default" declaration="function AddGroupOption($access,$label,$module='main',$action='',$item='', $args=null)" line="743">
+            <param name="$access" value="" type=""><![CDATA[]]></param>
+            <param name="$label" value="" type=""><![CDATA[]]></param>
+            <param name="$module" value="'main'" type=""><![CDATA[]]></param>
+            <param name="$action" value="''" type=""><![CDATA[]]></param>
+            <param name="$item" value="''" type=""><![CDATA[]]></param>
+            <param name="$args" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddSeparator" attribute="default" declaration="function AddSeparator($name=null)" line="753">
+            <param name="$name" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="AddMenu" attribute="default" declaration="function AddMenu(&amp;$menu)" line="758">
+            <param name="&amp;$menu" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Clear" attribute="default" declaration="function Clear()" line="763">
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="768">
+        </function>
+    </class>
+    <class name="ThemeBox" base="ThemeElement" declaration="class ThemeBox extends ThemeElement" line="782">
+      <description>
+      <![CDATA[Default box implementation]]>
+      </description>
+        <var name="title" declaration="var $title;" line="784">
+        </var>
+        <var name="content" declaration="var $content;" line="785">
+        </var>
+        <var name="width" declaration="var $width = '98%';" line="786">
+        </var>
+        <function name="ThemeBox" attribute="default" declaration="function ThemeBox($title, $content)" line="789">
+            <param name="$title" value="" type=""><![CDATA[]]></param>
+            <param name="$content" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Generate" attribute="default" declaration="function Generate()" line="796">
+        </function>
+    </class>
+</source>

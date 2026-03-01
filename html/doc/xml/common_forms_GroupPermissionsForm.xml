@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="GroupPermissionsForm.class" path="/usr/local/miolo/modules/common/forms/GroupPermissionsForm.class" base="common_forms_GroupPermissionsForm" created="" lines="54">
+    <class name="CommonGroupPermissionsForm" base="Form" declaration="class CommonGroupPermissionsForm extends Form" line="3">
+        <var name="whichModule" declaration="var $whichModule;" line="5">
+        </var>
+        <function name="CommonGroupPermissionsForm" attribute="default" declaration="function CommonGroupPermissionsForm($data=null)" line="7">
+            <param name="$data" value="null" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetData" attribute="default" declaration="function GetData($data)" line="37">
+            <param name="$data" value="" type=""><![CDATA[]]></param>
+        </function>
+    </class>
+</source>

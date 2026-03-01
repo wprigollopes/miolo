@@ -1,0 +1,1572 @@
+<html xmlns:html="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>Source: MIOLO Main Class</title>
+    <link rel="stylesheet" type="text/css" href="doc.css">
+  </head>
+  <body>
+    <h1>Documentação MIOLO</h1>
+    <h2>MIOLO Main Class<br>
+      <font size="2">(1537 linhas)</font>
+    </h2>
+    <div class="description">
+      <h3>Descrição:</h3>
+      <blockquote>
+  This file contains implementation of the main class of the MIOLO
+  framework providing the glue code to all other classes
+  </blockquote>
+    </div>
+    <div class="relations" align="right">
+         [<a href="?module=common&amp;action=main:doc:index:source&amp;item=/usr/local/miolo/classes/miolo.class">Codigo Fonte</a>]
+         [<a href="/doc/dia/miolo.dia">Diagrama UML</a>]
+      </div>
+    <div class="relations" align="right">
+            Tópicos relacionados:
+            <a href="?module=common&amp;action=main:doc:topic&amp;item=db">db</a>, <a href="?module=common&amp;action=main:doc:topic&amp;item=ui">ui</a>
+    </div>
+    <div class="classBlock">
+      <a name="MIOLO"></a>
+      <h2>Classe <span class="className">MIOLO</span></h2>
+      <div class="description">
+        <h3>Descrição:</h3>
+        <blockquote>
+      MIOLO Main Class
+      </blockquote>
+      </div>
+      <h3>Atributos:</h3>
+      <dl>
+        <dt>var $trace_socket;</dt>
+        <dt>var $html_home;</dt>
+        <dt>var $logs_home;</dt>
+        <dt>var $miolo_home;</dt>
+        <dt>var $module_home;</dt>
+        <dt>var $url_base;</dt>
+        <dt>var $dispatch;</dt>
+        <dt>var $debug;</dt>
+        <dt>var $dump;</dt>
+        <dt>var $db;</dt>
+        <dt>var $user;</dt>
+        <dt>var $pass;</dt>
+        <dt>var $sqllog;</dt>
+        <dt>var $errlog;</dt>
+        <dt>var $theme;</dt>
+        <dt>var $painter;</dt>
+        <dt>var $profile;</dt>
+        <dt>var $uses;</dt>
+        <dt>var $trace;</dt>
+        <dt>var $error;</dt>
+        <dt>var $login;</dt>
+      </dl>
+      <h3>Métodos:</h3>
+      <blockquote>
+        <a href="#MIOLO::Assert">Assert</a>, <a href="#MIOLO::Authenticate">Authenticate</a>, <a href="#MIOLO::AutoComplete">AutoComplete</a>, <a href="#MIOLO::CheckAccess">CheckAccess</a>, <a href="#MIOLO::CheckLogin">CheckLogin</a>, <a href="#MIOLO::CheckValidIP">CheckValidIP</a>, <a href="#MIOLO::Confirmation">Confirmation</a>, <a href="#MIOLO::Deprecate">Deprecate</a>, <a href="#MIOLO::Dump">Dump</a>, <a href="#MIOLO::Error">Error</a>, <a href="#MIOLO::GenerateTheme">GenerateTheme</a>, <a href="#MIOLO::GetAbsolutePath">GetAbsolutePath</a>, <a href="#MIOLO::GetAbsoluteURL">GetAbsoluteURL</a>, <a href="#MIOLO::GetActionURL">GetActionURL</a>, <a href="#MIOLO::GetBusiness">GetBusiness</a>, <a href="#MIOLO::GetClass">GetClass</a>, <a href="#MIOLO::GetCurrentURL">GetCurrentURL</a>, <a href="#MIOLO::GetDatabase">GetDatabase</a>, <a href="#MIOLO::GetLogin">GetLogin</a>, <a href="#MIOLO::GetModulePath">GetModulePath</a>, <a href="#MIOLO::GetProfileDump">GetProfileDump</a>, <a href="#MIOLO::GetRights">GetRights</a>, <a href="#MIOLO::GetTheme">GetTheme</a>, <a href="#MIOLO::GetThemePainter">GetThemePainter</a>, <a href="#MIOLO::GetThemes">GetThemes</a>, <a href="#MIOLO::GetThemeURL">GetThemeURL</a>, <a href="#MIOLO::GetUI">GetUI</a>, <a href="#MIOLO::GetUsersAllowed">GetUsersAllowed</a>, <a href="#MIOLO::Information">Information</a>, <a href="#MIOLO::InvokeHandler">InvokeHandler</a>, <a href="#MIOLO::IsHostAllowed">IsHostAllowed</a>, <a href="#MIOLO::IsLogging">IsLogging</a>, <a href="#MIOLO::ListFiles">ListFiles</a>, <a href="#MIOLO::LogError">LogError</a>, <a href="#MIOLO::LogMessage">LogMessage</a>, <a href="#MIOLO::LogSQL">LogSQL</a>, <a href="#MIOLO::MIOLO">MIOLO</a>, <a href="#MIOLO::ProfileDump">ProfileDump</a>, <a href="#MIOLO::ProfileEnter">ProfileEnter</a>, <a href="#MIOLO::ProfileExit">ProfileExit</a>, <a href="#MIOLO::ProfileTime">ProfileTime</a>, <a href="#MIOLO::Prompt">Prompt</a>, <a href="#MIOLO::Question">Question</a>, <a href="#MIOLO::_REQUEST">_REQUEST</a>, <a href="#MIOLO::Scramble">Scramble</a>, <a href="#MIOLO::SetDispatcher">SetDispatcher</a>, <a href="#MIOLO::SetLog">SetLog</a>, <a href="#MIOLO::SetLogin">SetLogin</a>, <a href="#MIOLO::SetTheme">SetTheme</a>, <a href="#MIOLO::Trace">Trace</a>, <a href="#MIOLO::TraceDump">TraceDump</a>, <a href="#MIOLO::UnScramble">UnScramble</a>, <a href="#MIOLO::Uses">Uses</a>, <a href="#MIOLO::UsesDump">UsesDump</a>
+      </blockquote>
+      <div class="functionBlock">
+        <a name="MIOLO::MIOLO"></a>
+        <dt><span class="functionName">
+            <a href="#$class">MIOLO</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Class Constructor
+          </blockquote>
+          </div>
+          <div class="declaration">function MIOLO($home=null,$logname='miolo')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$home</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$home</tt>
+            </dd>
+            <dt><span class="paramName">$logname</span> Default <span class="paramValue">'miolo'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$logname</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::SetDispatcher"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetDispatcher</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Sets the root request dispatcher (e.g. the url that will be used in
+action URLs).
+          </blockquote>
+          </div>
+          <div class="declaration">function SetDispatcher($url)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$url</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$url</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::SetLog"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetLog</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Sets the path for the log file
+          </blockquote>
+          </div>
+          <div class="declaration">function SetLog($logname)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$logname</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$logname</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::Assert"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Assert</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Handler for assertions. If the condition <code>$cond</code> of an
+assertion fails (evaluates to false), an error message is shown and
+the script execution is halted.
+          </blockquote>
+          </div>
+          <div class="declaration">function Assert($cond,$msg='',$goto='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$cond</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$cond</tt>
+            </dd>
+            <dt><span class="paramName">$msg</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$msg</tt>
+            </dd>
+            <dt><span class="paramName">$goto</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$goto</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::GetThemePainter"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetThemePainter</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Obtains the theme painter. Which object will be returned depends on
+the configuration of the current theme.
+<br><br>
+Usually this function will be called from the GenerateTheme() method.
+          </blockquote>
+          </div>
+          <div class="declaration">function &amp; GetThemePainter()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::GetTheme"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetTheme</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Obtains a reference to the current theme object. The theme is a
+logical container for our pages.
+          </blockquote>
+          </div>
+          <div class="declaration">function &amp; GetTheme()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::SetTheme"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetTheme</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Sets the current theme object
+          </blockquote>
+          </div>
+          <div class="declaration">function SetTheme(&amp;$theme)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">&amp;$theme</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>&amp;$theme</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::GenerateTheme"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GenerateTheme</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Generates the content of the current theme object
+          </blockquote>
+          </div>
+          <div class="declaration">function GenerateTheme()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::GetActionURL"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetActionURL</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          TODO: TRANSLATION
+Este metodo compoe um link para uma URL no sistema.
+<br>
+          </blockquote>
+          </div>
+          <div class="declaration">function GetActionURL($module='', $action='NONE', $item='', $args=null , $dispatch=null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$module</span> (<span class="paramValue">string</span>) Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">Nome do modulo que sera acessado</dd>
+            <dt><span class="paramName">$action</span> (<span class="paramValue">string</span>) Default <span class="paramValue">'NONE'</span></dt>
+            <dd style="padding-top: 5">Nome do handler (<code>.inc</code>) a ser acessado</dd>
+            <dt><span class="paramName">$item</span> (<span class="paramValue">string</span>) Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">Parametro adicional que pode ser utilizado                         para passar dados para a nova pagina.</dd>
+            <dt><span class="paramName">$args</span> (<span class="paramValue">string/array</span>) Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">Esse argumento pode ser utilizado para criar        outras variaveis, alem das tres anteriores (que sao padrao do MIOLO).        Quando for informado um array, o <code>key</code> sera o nome da variavel atraves        do qual o conteudo podera ser acessado.</dd>
+            <dt><span class="paramName">$dispatch</span> (<span class="paramValue">string</span>) Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">Indica qual arquivo devera ser utilizado        ao inves daquele configurado no miolo.conf:        <code>$MIOLOCONF['options']['dispatch']</code></dd>
+          </dl>
+          <div class="returns">
+            <h3>Retorna:</h3>
+            <blockquote>
+            (<tt>string</tt>) 
+           o link para uma URL
+          </blockquote>
+          </div>
+          <h3>Exemplo:</h3>
+          <pre>
+...
+$module = 'reports';
+$main   = 'main:list_person';
+
+$handler = $MIOLO-&gt;GetActionURL($module, $main);
+...
+O exemplo acima retorna um link para o handler list_person.inc, no
+modulo reports: http://nome_site/handler.php?module=reports&amp;action=main:list_person
+          </pre>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::Scramble"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Scramble</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          TODO: TRANSLATION
+Este metodo eh utilizado para criptografar uma string. Eh utilizado
+principalmente pelo metodo GetActionURL
+          </blockquote>
+          </div>
+          <div class="declaration">function Scramble($string)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$string</span> (<span class="paramValue">string</span>)</dt>
+            <dd style="padding-top: 5">String a ser criptografada</dd>
+          </dl>
+          <div class="returns">
+            <h3>Retorna:</h3>
+            <blockquote>
+            (<tt>string</tt>) 
+           string criptografada
+          </blockquote>
+          </div>
+          <div class="relations" align="right">
+            Veja também:
+            <a href="?module=common&amp;action=main:doc:index:file&amp;item=/usr/local/bis/html/miolo.class#MIOLO::GetActionURL">miolo.class#MIOLO::GetActionURL</a>
+          </div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::UnScramble"></a>
+        <dt><span class="functionName">
+            <a href="#$class">UnScramble</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          TODO: TRANSLATION
+Este metodo eh utilizado para descriptografar uma string
+          </blockquote>
+          </div>
+          <div class="declaration">function UnScramble($string)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$string</span> (<span class="paramValue">string</span>)</dt>
+            <dd style="padding-top: 5">String a ser descriptografada</dd>
+          </dl>
+          <div class="returns">
+            <h3>Retorna:</h3>
+            <blockquote>
+            (<tt>string</tt>) 
+           string descriptografada
+          </blockquote>
+          </div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::CheckLogin"></a>
+        <dt><span class="functionName">
+            <a href="#$class">CheckLogin</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Login control
+          </blockquote>
+          </div>
+          <div class="declaration">function CheckLogin()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::CheckAccess"></a>
+        <dt><span class="functionName">
+            <a href="#$class">CheckAccess</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Verify user permissions
+          </blockquote>
+          </div>
+          <div class="declaration">function CheckAccess($module, $access, $deny=false, $group=false)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$module</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$module</tt>
+            </dd>
+            <dt><span class="paramName">$access</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$access</tt>
+            </dd>
+            <dt><span class="paramName">$deny</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$deny</tt>
+            </dd>
+            <dt><span class="paramName">$group</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$group</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::GetRights"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetRights</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Gets users rights per module
+          </blockquote>
+          </div>
+          <div class="declaration">function GetRights($module, $login)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$module</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$module</tt>
+            </dd>
+            <dt><span class="paramName">$login</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$login</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::GetUsersAllowed"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetUsersAllowed</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Gets users rights per module
+          </blockquote>
+          </div>
+          <div class="declaration">function GetUsersAllowed($module, $action)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$module</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$module</tt>
+            </dd>
+            <dt><span class="paramName">$action</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$action</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::Authenticate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Authenticate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          TODO: TRANSLATION
+O Metodo Authenticate e utilizado para validar o usuario e sua senha
+          </blockquote>
+          </div>
+          <div class="declaration">function Authenticate($user,$pass)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$user</span> (<span class="paramValue">string</span>)</dt>
+            <dd style="padding-top: 5">Nome do usuario a ser autenticado</dd>
+            <dt><span class="paramName">$pass</span> (<span class="paramValue">string</span>)</dt>
+            <dd style="padding-top: 5">Senha do usuario</dd>
+          </dl>
+          <div class="relations" align="right">
+            Veja também:
+            <a href="?module=common&amp;action=main:doc:index:file&amp;item=/usr/local/bis/html/miolo.class#MIOLO::SetLogin">miolo.class#MIOLO::SetLogin</a>, <a href="?module=common&amp;action=main:doc:index:file&amp;item=/usr/local/bis/html/miolo.class#MIOLO::GetLogin">miolo.class#MIOLO::GetLogin</a>
+          </div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::GetLogin"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetLogin</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetLogin</blockquote>
+          </div>
+          <div class="declaration">function &amp; GetLogin()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::SetLogin"></a>
+        <dt><span class="functionName">
+            <a href="#$class">SetLogin</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          TODO: TRANSLATION
+SetLogin armazena a informacao de login do usuario atual numa
+variavel de sessao.
+          </blockquote>
+          </div>
+          <div class="declaration">function SetLogin($login)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$login</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$login</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::Uses"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Uses</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          TODO: TRANSLATION
+Este metodo e utilizado para obter acesso a outros arquivos.
+Quando algum arquivo nao existir, o MIOLO exibe esse problema.
+O metodo Uses tambem envia a informacao para o Profile e para o log
+          </blockquote>
+          </div>
+          <div class="declaration">function Uses($name,$module=null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$name</span> (<span class="paramValue">string</span>)</dt>
+            <dd style="padding-top: 5">Nome da arquivo a ser acessado/utilizado</dd>
+            <dt><span class="paramName">$module</span> (<span class="paramValue">string</span>) Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">Nome do modulo no qual este arquivo esta localizado.                Caso esse parametro nao for informado, o MIOLO tentara acessar                um arquivo abaixo do diretorio classes.                Informando 'html_home', o MIOLO tentara acessar um arquivo                abaixo do diretorio indicado pela configuracao ['home']['html']                definida no arquivo miolo.conf</dd>
+          </dl>
+          <div class="relations" align="right">
+            Veja também:
+            <a href="?module=common&amp;action=main:doc:index:file&amp;item=/usr/local/bis/html/"></a>
+          </div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::GetDatabase"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetDatabase</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          TODO: TRANSLATION
+Este metodo eh utilizado para criar uma conexao com a base de dados
+especificada no parametro <code>$conf</code>.
+A configuracaoo da base deve ter sido previamente criada no arquivo
+de configuracao do MIOLO: miolo.conf
+          </blockquote>
+          </div>
+          <div class="declaration">function GetDatabase($conf=null,$user=null,$pass=null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$conf</span> (<span class="paramValue">string</span>) Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">Nome da configuracaoo, definida no miolo.conf</dd>
+            <dt><span class="paramName">$user</span> (<span class="paramValue">string</span>) Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">(optional) Nome do usuario para conectar a base        de dados</dd>
+            <dt><span class="paramName">$pass</span> (<span class="paramValue">string</span>) Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">(optional) Senha para acesso a base.</dd>
+          </dl>
+          <div class="relations" align="right">
+            Veja também:
+            <a href="?module=common&amp;action=main:doc:index:file&amp;item=/usr/local/bis/html/miolo.class#MIOLO::GetBusiness">miolo.class#MIOLO::GetBusiness</a>, <a href="?module=common&amp;action=main:doc:index:file&amp;item=/usr/local/bis/html/miolo/database.class">miolo/database.class</a>
+          </div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::GetBusiness"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetBusiness</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          TODO: TRANSLATION
+Como o MIOLO e capaz de abrigar modulos diferentes, era preciso
+adotar um esquema para evitar possiveis colisoes de nomes de classes.
+Teoricamente dois modulos poderiam definir uma classe, por exemplo,
+'Guestbook' que, utilizada simultaneamente, causaria problemas.
+<br><br>
+O MIOLO espera que classes do tipo 'Business' tenham o seu nome composto
+de 'Business' + 'nome do module' + 'nome da classe'. Mas para evitar
+redundancias adotou-se o padrao de somente usar o nome basico da classe
+para definir o nome do arquivo, ja que o mesmo se encontra dentro da estrutura
+de diretorios do modulo em questao.
+          </blockquote>
+          </div>
+          <div class="declaration">function GetBusiness($module,$name='main')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$module</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$module</tt>
+            </dd>
+            <dt><span class="paramName">$name</span> Default <span class="paramValue">'main'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+          </dl>
+          <h3>Exemplo:</h3>
+          <pre>
+<i>/* in file: ../modules/foo/db/guestbook.class */</i>
+&lt;?
+
+class BusinessFooGuestbook extends Business
+{
+    function AddVisitor($data)
+    {
+          ...
+?&gt;
+<hr>
+<i>/* in file: ../modules/foo/handlers/register.inc */</i>
+&lt;?
+...
+$guestbook = $MIOLO-&gt;GetBusiness( 'foo', 'guestbook' );
+$data = $form-&gt;GetData();
+result = $guestbook-&gt;AddVisitor( $data );
+...
+?&gt;
+          </pre>
+          <div class="relations" align="right">
+            Veja também:
+            <a href="?module=common&amp;action=main:doc:index:file&amp;item=/usr/local/bis/html/miolo/miolo.class#MIOLO::GetDatabase">miolo/miolo.class#MIOLO::GetDatabase</a>, <a href="?module=common&amp;action=main:doc:index:file&amp;item=/usr/local/bis/html/miolo/ui/form.class#Form::GetData">miolo/ui/form.class#Form::GetData</a>
+          </div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::GetClass"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetClass</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetClass</blockquote>
+          </div>
+          <div class="declaration">function GetClass($module,$name)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$module</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$module</tt>
+            </dd>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::GetUI"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetUI</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          
+          </blockquote>
+          </div>
+          <div class="declaration">function GetUI()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::GetAbsolutePath"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetAbsolutePath</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Gets physical filesystem path of $rel (relative filename)
+          </blockquote>
+          </div>
+          <div class="declaration">function GetAbsolutePath($rel=null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$rel</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$rel</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::GetAbsoluteURL"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetAbsoluteURL</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Gets absolute virtual path of $rel (relative filename) from browser's address
+          </blockquote>
+          </div>
+          <div class="declaration">function GetAbsoluteURL($rel,$module=null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$rel</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$rel</tt>
+            </dd>
+            <dt><span class="paramName">$module</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$module</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::GetThemeURL"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetThemeURL</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Gets absolute virtual path of $rel for selected theme
+          </blockquote>
+          </div>
+          <div class="declaration">function GetThemeURL($rel,$name=null,$default=null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$rel</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$rel</tt>
+            </dd>
+            <dt><span class="paramName">$name</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+            <dt><span class="paramName">$default</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$default</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::GetModulePath"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetModulePath</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Gets the physical filesystem path of the module's file
+          </blockquote>
+          </div>
+          <div class="declaration">function GetModulePath($module,$file)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$module</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$module</tt>
+            </dd>
+            <dt><span class="paramName">$file</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$file</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::AutoComplete"></a>
+        <dt><span class="functionName">
+            <a href="#$class">AutoComplete</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Calls the autocomplete function of the module for the given item
+and returns the query row for the given value
+The last parameter was added to made possible the variable uses on autocomplete
+          </blockquote>
+          </div>
+          <div class="declaration">function AutoComplete($module,$item,$value,$defaults=null)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$module</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$module</tt>
+            </dd>
+            <dt><span class="paramName">$item</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$item</tt>
+            </dd>
+            <dt><span class="paramName">$value</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$value</tt>
+            </dd>
+            <dt><span class="paramName">$defaults</span> Default <span class="paramValue">null</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$defaults</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::Error"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Error</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          The exit function is used in order to provide a consistent manner
+of error handling. This function does not return from execution.
+          </blockquote>
+          </div>
+          <div class="declaration">function Error($msg='',$goto='', $caption='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$msg</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$msg</tt>
+            </dd>
+            <dt><span class="paramName">$goto</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$goto</tt>
+            </dd>
+            <dt><span class="paramName">$caption</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$caption</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::Information"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Information</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Information</blockquote>
+          </div>
+          <div class="declaration">function Information($msg,$goto='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$msg</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$msg</tt>
+            </dd>
+            <dt><span class="paramName">$goto</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$goto</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::Confirmation"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Confirmation</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Confirmation</blockquote>
+          </div>
+          <div class="declaration">function Confirmation($msg,$gotoOK='',$gotoCancel='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$msg</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$msg</tt>
+            </dd>
+            <dt><span class="paramName">$gotoOK</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$gotoOK</tt>
+            </dd>
+            <dt><span class="paramName">$gotoCancel</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$gotoCancel</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::Question"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Question</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Question</blockquote>
+          </div>
+          <div class="declaration">function Question($msg,$gotoYes='',$gotoNo='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$msg</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$msg</tt>
+            </dd>
+            <dt><span class="paramName">$gotoYes</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$gotoYes</tt>
+            </dd>
+            <dt><span class="paramName">$gotoNo</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$gotoNo</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::Prompt"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Prompt</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Prompt</blockquote>
+          </div>
+          <div class="declaration">function Prompt($prompt,$halt=true)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$prompt</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$prompt</tt>
+            </dd>
+            <dt><span class="paramName">$halt</span> Default <span class="paramValue">true</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$halt</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::LogSQL"></a>
+        <dt><span class="functionName">
+            <a href="#$class">LogSQL</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função LogSQL</blockquote>
+          </div>
+          <div class="declaration">function LogSQL($sql,$force=false,$conf='?')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$sql</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$sql</tt>
+            </dd>
+            <dt><span class="paramName">$force</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$force</tt>
+            </dd>
+            <dt><span class="paramName">$conf</span> Default <span class="paramValue">'?'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$conf</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::LogError"></a>
+        <dt><span class="functionName">
+            <a href="#$class">LogError</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função LogError</blockquote>
+          </div>
+          <div class="declaration">function LogError($error,$conf='?')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$error</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$error</tt>
+            </dd>
+            <dt><span class="paramName">$conf</span> Default <span class="paramValue">'?'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$conf</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::ProfileTime"></a>
+        <dt><span class="functionName">
+            <a href="#$class">ProfileTime</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função ProfileTime</blockquote>
+          </div>
+          <div class="declaration">function ProfileTime()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::ProfileEnter"></a>
+        <dt><span class="functionName">
+            <a href="#$class">ProfileEnter</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função ProfileEnter</blockquote>
+          </div>
+          <div class="declaration">function ProfileEnter($name)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::ProfileExit"></a>
+        <dt><span class="functionName">
+            <a href="#$class">ProfileExit</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função ProfileExit</blockquote>
+          </div>
+          <div class="declaration">function ProfileExit($name)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::ProfileDump"></a>
+        <dt><span class="functionName">
+            <a href="#$class">ProfileDump</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função ProfileDump</blockquote>
+          </div>
+          <div class="declaration">function ProfileDump()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::GetProfileDump"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetProfileDump</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função GetProfileDump</blockquote>
+          </div>
+          <div class="declaration">function GetProfileDump()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::UsesDump"></a>
+        <dt><span class="functionName">
+            <a href="#$class">UsesDump</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função UsesDump</blockquote>
+          </div>
+          <div class="declaration">function UsesDump()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::Dump"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Dump</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Dump</blockquote>
+          </div>
+          <div class="declaration">function Dump($var,$file=false,$line=false,$info=false)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$var</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$var</tt>
+            </dd>
+            <dt><span class="paramName">$file</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$file</tt>
+            </dd>
+            <dt><span class="paramName">$line</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$line</tt>
+            </dd>
+            <dt><span class="paramName">$info</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$info</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::IsLogging"></a>
+        <dt><span class="functionName">
+            <a href="#$class">IsLogging</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função IsLogging</blockquote>
+          </div>
+          <div class="declaration">function IsLogging()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::LogMessage"></a>
+        <dt><span class="functionName">
+            <a href="#$class">LogMessage</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função LogMessage</blockquote>
+          </div>
+          <div class="declaration">function LogMessage($msg)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$msg</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$msg</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::Deprecate"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Deprecate</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Deprecate</blockquote>
+          </div>
+          <div class="declaration">function Deprecate($msg)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$msg</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$msg</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::Trace"></a>
+        <dt><span class="functionName">
+            <a href="#$class">Trace</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função Trace</blockquote>
+          </div>
+          <div class="declaration">function Trace($msg,$file=false,$line=0)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$msg</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$msg</tt>
+            </dd>
+            <dt><span class="paramName">$file</span> Default <span class="paramValue">false</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$file</tt>
+            </dd>
+            <dt><span class="paramName">$line</span> Default <span class="paramValue">0</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$line</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::TraceDump"></a>
+        <dt><span class="functionName">
+            <a href="#$class">TraceDump</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função TraceDump</blockquote>
+          </div>
+          <div class="declaration">function TraceDump()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::InvokeHandler"></a>
+        <dt><span class="functionName">
+            <a href="#$class">InvokeHandler</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          O metodo invoke handler e responsavel por executar os handlers (arquivos .inc) do modules
+Se existir um arquivo de configuracao para o modulo (modulo.conf) no diretorio home-etc
+esse arquivo sera processado.
+          </blockquote>
+          </div>
+          <div class="declaration">function InvokeHandler($module,$name)</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$module</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$module</tt>
+            </dd>
+            <dt><span class="paramName">$name</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$name</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::GetThemes"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetThemes</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Returns a array with the existing themes
+          </blockquote>
+          </div>
+          <div class="declaration">function GetThemes()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::ListFiles"></a>
+        <dt><span class="functionName">
+            <a href="#$class">ListFiles</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função ListFiles</blockquote>
+          </div>
+          <div class="declaration">function ListFiles($dir,$type='d')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$dir</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$dir</tt>
+            </dd>
+            <dt><span class="paramName">$type</span> Default <span class="paramValue">'d'</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$type</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::GetCurrentURL"></a>
+        <dt><span class="functionName">
+            <a href="#$class">GetCurrentURL</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          Returns the URL address of the current page
+          </blockquote>
+          </div>
+          <div class="declaration">function GetCurrentURL()</div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::CheckValidIP"></a>
+        <dt><span class="functionName">
+            <a href="#$class">CheckValidIP</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+            TODO: 
+              Descrição da função CheckValidIP</blockquote>
+          </div>
+          <div class="declaration">function CheckValidIP($module='')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$module</span> Default <span class="paramValue">''</span></dt>
+            <dd style="padding-top: 5">
+                Descrição do parametro <tt>$module</tt>
+            </dd>
+          </dl>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::IsHostAllowed"></a>
+        <dt><span class="functionName">
+            <a href="#$class">IsHostAllowed</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          TODO: TRANSLATION
+Este metodo possibilita que o MIOLO ofere&ccedil;a controle de acesso a
+nivel de IP de maquina.<br>
+Para utilizar essa funcionalidade eh necess&aacute;rio configurar, no
+<code>miolo.conf</code>, os seguintes informa&ccedil;&otilde;es:
+
+<code>$MIOLOCONF['hosts']['allow']</code>
+<code>$MIOLOCONF['hosts']['deny']</code>
+          </blockquote>
+          </div>
+          <div class="declaration">function IsHostAllowed()</div>
+          <div class="returns">
+            <h3>Retorna:</h3>
+            <blockquote>
+            (<tt>boolean</tt>) 
+           true se o IP estiver autorizado, false caso contrario
+          </blockquote>
+          </div>
+        </blockquote>
+      </div>
+      <div class="functionBlock">
+        <a name="MIOLO::_REQUEST"></a>
+        <dt><span class="functionName">
+            <a href="#$class">_REQUEST</a>
+          </span>
+        </dt>
+        <blockquote>
+          <div class="description">
+            <h3>Descrição:</h3>
+            <blockquote>
+          TODO: TRANSLATION
+No MIOLO, m&eacute;todos que iniciam por &quot;_&quot; indicam m&eacute;todos est&aacute;ticos, mas
+neste caso foi utilizado para lembrar que sua funcionalidade &eacute; similar
+ao $_REQUEST do PHP.  O metodo _REQUEST prov&ecirc; uma forma mais simples
+para se ter acesso &agrave;s vari&aacute;veis. Utilizando comandos PHP, vc. teria
+que utilzar $_REQUEST, $_GET, $_POST ou global ao passo que no MIOLO
+este m&eacute;todo tr&aacute;s todas as informa&ccedil;&otilde;es, n&atilde;o importando de onde elas
+s&atilde;o provenientes.
+Caso voc&ecirc; queira obter apenas o valor da vari&aacute;veis provenientes de
+uma dessas op&ccedil;&otilde;es, por exemplo GET, passe essa palavra como segundo
+par&acirc;metro.
+          </blockquote>
+          </div>
+          <div class="declaration">function _REQUEST($vars, $from='ALL')</div>
+          <h3>Parâmetros:</h3>
+          <dl>
+            <dt><span class="paramName">$vars</span> (<span class="paramValue">string/array</span>)</dt>
+            <dd style="padding-top: 5">vari&aacute;veis as quais se deseja obter o valor</dd>
+            <dt><span class="paramName">$from</span> (<span class="paramValue">string</span>) Default <span class="paramValue">'ALL'</span></dt>
+            <dd style="padding-top: 5">de onde obter os dados. Pode ser 'GET', 'POST',                       al&eacute;m do padr&atilde;o 'ALL' que retorna todos os dados.</dd>
+          </dl>
+          <div class="returns">
+            <h3>Retorna:</h3>
+            <blockquote>
+            (<tt>array</tt>) 
+           os valores das vari&aacute;veis solicitadas
+          </blockquote>
+          </div>
+        </blockquote>
+      </div>
+    </div>
+    <hr>
+    <p>
+      <b>Caminho:</b>
+      <br>
+      <blockquote>/usr/local/miolo/classes/miolo.class</blockquote>
+    </p>
+    <p>
+      <b>Criado:</b>
+      <br>
+      <blockquote>2001/08/14</blockquote>
+    </p>
+    <p>
+      <b>Autor(es):</b>
+      <br>
+      <blockquote>
+        <table>
+          <tr>
+            <td>Thomas Spriestersbach</td>
+            <td>author</td>
+            <td>
+              <a href="malto:ts@interact2000.com.br">ts@interact2000.com.br</a>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Vilson Cristiano Gartner</td>
+            <td>author</td>
+            <td>
+              <a href="malto:vilson@miolo.org.br">vilson@miolo.org.br</a>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Nasair Junior da Silva</td>
+            <td>contributor</td>
+            <td>
+              <a href="malto:njunior@solis.coop.br">njunior@solis.coop.br</a>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+      </blockquote>
+    </p>
+    <p>
+      <b>Mantido por:</b>
+      <br>
+      <blockquote>
+        <table>
+          <tr>
+            <td>Vilson Cristiano Gartner</td>
+            <td>author</td>
+            <td>
+              <a href="malto:vilson@miolo.org.br">vilson@miolo.org.br</a>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Thomas Spriestersbach</td>
+            <td>author</td>
+            <td>
+              <a href="malto:ts@interact2000.com.br">ts@interact2000.com.br</a>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+      </blockquote>
+    </p>
+    <p>
+      <b>Histórico:</b>
+      <br>
+      <blockquote style="text-align: preformatted">
+  
+    See history in CVS repository.<br>
+  
+  </blockquote>
+    </p>
+    <div align="center" style="margin:10; border: solid 1 black;">
+      <cite></cite>
+    </div>
+    <div style="width: 95%; font-size: 9pt; text-align:right; background:#efefef; margin-top: 20px; border-top: #0000ff 1px solid; padding: 2px 20px 2px 20px;">
+  CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)
+  </div>
+  </body>
+</html>

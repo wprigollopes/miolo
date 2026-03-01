@@ -1,0 +1,569 @@
+<?
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# @title
+#   ThemePainter
+#
+# @description
+#   This file contains the default themepainter implementation
+#
+# @see      miolo/ui/theme.class
+#
+# @topics   theme, ui
+#
+# @created
+#   2001/08/14
+#
+# @organisation
+#   MIOLO - Miolo Development Team - UNIVATES Centro Universitario
+#
+# @legal
+#   CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+#   Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+#   further details)
+#
+# @contributors
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#
+# @maintainers
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#
+# @id $Id: themepainter.class,v 1.6 2004/08/23 18:29:44 vgartner Exp $
+#---------------------------------------------------------------------
+
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# The ThemePainter class is responsible for generating a HTML page 
+# containing all elements of the MIOLO Theme class or only those in
+# which the customized theme is interested in.
+#
+# Each theme should provide a subclass of the ThemePainter named 
+# '<name>ThemePainter' where <name> represents the theme's name.
+# 
+# Examples: UnivatesThemePainter, SlashThemePainter, PhpNukeThemePainter
+#----------------------------------------------------------------------
+class ThemePainter
+{
+    var $theme;
+    
+    // things we might customize here
+    var $bgcolor = "#ffffff";
+    var $bgimage = '';
+    var $fgcolor = "white";
+    
+    #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Determines if any of the theme's menus have at least on option. This
+    # function may be used to see if a menu container is to be painted or
+    # not.
+    #----------------------------------------------------------------------
+    function HasMenuOptions()
+    {
+        $menus = & $this->theme->GetMenus();
+        
+        if ( $menus )
+        {
+            foreach($menus as $m)
+            {
+                if ( count($m->options) )
+                {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # This function finally generates the output page
+    # which will be send to the client
+    #----------------------------------------------------------------------
+    function GenerateTheme(&$theme)
+    {   global $MIOLO;
+        
+        // we must have a theme
+        $MIOLO->Assert($theme);
+        
+        // make theme a class member, so that other methods can access it
+        $this->theme =& $theme;
+        
+        $this->theme->AddHttpEquiv('Content-Type','text/html; charset=ISO-8859-1');
+        $this->theme->AddMeta('Generator','MIOLO Version '. MIOLO_VERSION . '; http://miolo.codigolivre.org.br');
+        $this->theme->AddStyle('theme.css');
+        
+        echo "<html>\n";
+        $this->GenerateHeader();
+        $this->GenerateBody();
+        echo "</html>\n";
+    }
+    
+    #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # This function generates the page's header, containing scripts,
+    # styles, meta-tags, page title etc.
+    #----------------------------------------------------------------------
+    function GenerateHeader()
+    {
+        echo "<!-- START OF THEME HEADER -->\n";
+        echo "<head>\n";
+        
+        $this->GenerateStyles();
+        $this->GenerateScripts();
+        $this->GenerateMetas();
+
+        $title =& $this->theme->GetTitle();
+        
+        echo "<title>$title</title>\n";
+        
+        echo "</head>\n";
+        echo "\n<!-- END OF THEME HEADER -->\n";
+    }
+    
+    #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # This function generates the page's body
+    #----------------------------------------------------------------------
+    function GenerateBody()
+    {
+        echo "<body class=\"themeBody\">\n";
+        echo "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
+        echo "  <tr>\n";
+        echo "    <td>\n";
+        $this->GenerateTop();            // generate theme heading
+        echo "    </td>\n";
+        echo "  </tr>\n";
+        echo "  <tr>\n";
+        echo "    <td>\n";
+        echo "      <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
+        echo "        <tr>\n";
+        echo "          <td valign=\"top\">\n";
+        $this->GenerateMenuBar();        // generate menu bar container
+        echo "          </td>\n";
+        echo "          <td width=\"70%\" height=\"100%\" valign=\"top\">\n";
+        $this->GenerateContent();        // generate center content
+        echo "          </td>\n";
+        echo "        </tr>\n";
+        echo "      </table>\n";
+        echo "    </td>\n";
+        echo "  </tr>\n";
+        echo "  <tr>\n";
+        echo "    <td>\n";
+        $this->GenerateBottom();         // generate theme footer
+        echo "    </td>\n";
+        echo "  </tr>\n";
+        echo "</table>\n";
+        echo "</body>\n";
+        echo "</html>\n";
+    }
+    
+    #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    #  Generate output of CSS styles 
+    #----------------------------------------------------------------------
+    function GenerateStyles()
+    {
+        $styles =& $this->theme->GetStyles();
+        
+        if ( count($styles) )
+        {
+            echo "<!-- START OF STYLE SHEETS -->\n";
+            
+            // $styles[] = $MIOLO->GetAbsoluteURL('/themes/default/theme.css');
+            
+            // include optional stylesheets
+            foreach ( $styles as $s )
+            {
+                echo "<link rel=\"stylesheet\" href=\"$s\">\n";
+            }
+            
+            echo "<!-- END OF STYLE SHEETS -->\n";
+        }
+    }
+    
+    #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Generate output of client-side scripts
+    #----------------------------------------------------------------------
+    function GenerateScripts()
+    {   global $MIOLOCONF, $MIOLO;
+        
+        $scripts =& $this->theme->GetScripts();
+        
+        if ( count($scripts) )
+        {
+            echo "<!-- START OF SCRIPTS -->\n";
+            
+            foreach ( $scripts as $s )
+            {
+                $url = $MIOLO->GetAbsoluteURL('scripts/'.$s, 'html_home');
+                
+                echo "<script language=\"JavaScript\" src=\"$url\"></script>\n";
+            }
+            
+            echo "<!-- END OF SCRIPTS -->\n";
+        }
+    }
+    
+    #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Generate output of meta information tags
+    #----------------------------------------------------------------------
+    function GenerateMetas()
+    {
+        $metas =& $this->theme->GetMetas();
+        
+        if ( count($metas) )
+        {
+            echo "<!-- START OF META INFORATION -->\n";
+                        
+            foreach ( $metas as $m )
+            {
+                echo $m;
+            }
+            
+            echo "<!-- END OF META INFORMATION -->\n";
+        }
+    }
+    
+    #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Generate theme heading
+    #----------------------------------------------------------------------
+    function GenerateTop()
+    {
+        $this->GenerateNavigationBar();
+    }
+    
+    #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Generate theme content area
+    #----------------------------------------------------------------------
+    function GenerateContent()
+    {
+        echo "<div class=\"contentContainer\">\n";
+        $this->GenerateElements($this->theme->GetContent());
+        echo "</div>\n";
+    }
+    
+    #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Generate theme footer
+    #----------------------------------------------------------------------
+    function GenerateBottom()
+    {
+        echo "<div class=\"bottomContainer\">\n";
+        $this->GenerateElements($this->theme->GetStatusBar());
+        echo "</div>\n";
+    }
+    
+    #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Generates the menus into a menu container
+    #----------------------------------------------------------------------
+    function GenerateMenuBar()
+    {
+        echo "<div class=\"menuContainer\">\n";
+        $this->GenerateElements($this->theme->GetMenus());
+        echo "</div>\n";
+    }
+    
+    #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # This function is called from a form to paint itself
+    #----------------------------------------------------------------------
+    function GenerateForm(&$form)
+    {   global $MIOLO;
+        
+        $MIOLO->ProfileEnter('ThemePainter::GenerateForm()');
+        
+        $title  = & $form->GetTitle();
+        $body   = & $form->GetBody();
+        $footer = & $form->GetFooter();
+        
+        echo "<div class=\"formContainer\">\n";
+            echo "<div class=\"formTitle\">\n";
+                $this->GenerateElements( $title );
+            echo "</div>\n";
+            echo "<div class=\"formBody\">\n";
+                $this->GenerateElements( $body );
+            echo "</div>\n";
+            echo "<div class=\"formFooter\">\n";
+                $this->GenerateElements( $footer );
+            echo "</div>\n";
+        echo "</div>\n";
+        
+        $MIOLO->ProfileExit('ThemePainter::GenerateForm()');
+    }
+    
+    #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # This function is called from a listing to paint itself
+    #----------------------------------------------------------------------
+    function GenerateListing(&$listing)
+    {   global $MIOLO;
+        
+        $MIOLO->ProfileEnter('ThemePainter::GenerateListing()');
+        
+        $title  = & $listing->GetTitle();
+        $body   = & $listing->GetBody();
+        $footer = & $listing->GetFooter();
+        
+        echo "<div class=\"listingContainer\">\n";
+            echo "<div class=\"listingTitle\">\n";
+                $this->GenerateElements( $title );
+            echo "</div>\n";
+            echo "<div class=\"listingBody\">\n";
+                $this->GenerateElements( $body );
+            echo "</div>\n";
+            echo "<div class=\"listingFooter\">\n";
+                $this->GenerateElements( $footer );
+            echo "</div>\n";
+        echo "</div>\n";
+        
+        $MIOLO->ProfileExit('ThemePainter::GenerateListing()');
+    }
+    
+    #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # A helper function, which generates an array of theme elements.
+    # This function is called recursively, when an array elements
+    # contains another array.
+    #----------------------------------------------------------------------
+    function GenerateElements(&$elements)
+    {
+        if ( is_array($elements) )
+        {
+            foreach ( $elements as $e )
+            {
+                $this->GenerateElements($e);
+            }
+        }
+        
+        else if ( is_object($elements) )
+        {
+            if ( method_exists($elements,'generate') )
+            {
+                $elements->Generate();
+            }
+        }
+        
+        else if ( $elements )
+        {
+            echo($elements);
+        }
+    }
+
+    #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # This function is called to generate a single box
+    #----------------------------------------------------------------------
+    function GenerateBox($box)
+    {
+/*        echo "<table width=\"{$box->width}\" cellspacing=\"1\" cellpadding=\"2\" border=\"0\" bgcolor=\"#00007f\">\n";
+        echo "  <tr>\n";
+        echo "    <td align=\"center\">\n";
+        echo "      <font color=\"#ffffff\"><b>{$box->title}</b></font>\n";
+        echo "    </td>\n";
+        echo "  </tr>\n";
+        echo "  <tr bgcolor=\"#ffffff\">\n";
+        echo "    <td>\n";
+        $this->GenerateElements($box->content);
+        echo "    </td>\n";
+        echo "  </tr>\n";
+        echo "</table>\n";
+        */
+        echo "<div class=\"divTitle\">{$box->title}</div>";
+        echo "<div class=\"divText\">";
+        $this->GenerateElements($box->content);
+        echo "</div>";
+    }
+    
+    #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # This function is called to generate a menu's option list
+    #----------------------------------------------------------------------
+    function GenerateMenu($menu)
+    {
+        $this->GenerateOptionList($menu->options);
+    }
+        
+    #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Implementation of a navigation bar
+    #----------------------------------------------------------------------
+    function GenerateNavigationBar()
+    {   global $MIOLOCONF;
+        
+        $navbar =& $this->theme->GetNavigationBar();
+        
+        if ( $navbar->base )
+        {
+            $base = $navbar->base;
+        }
+        else
+        {
+            $base = $MIOLOCONF['options']['dispatch'];
+        }
+        
+        echo '<div class="topMenu">';
+            
+        if ($navbar->options)
+        {
+            echo "<a href=\"{$base}?module={$navbar->home}\" class=\"topMenuLink\">{$navbar->title}</a>\n";
+            
+            $count = count($navbar->options);
+            
+            foreach ( $navbar->options as $o )
+            {
+                echo ' :: ';
+                
+                if ( --$count )
+                {
+                    if ( $o[0] == 'option' )
+                    {
+                        $href = "$base?module=$o[2]&action=$o[3]";
+                        
+                        if ( isset($o[4]) )
+                        {
+                            $href .= "&item=$o[4]";
+                        }
+                        
+                        if ( is_array($o[5]) )
+                        {
+                            foreach( $o[5] as $key=>$value)
+                            {
+                                $href .= "&$key=$value";
+                            }
+                        }
+                        
+                        echo "<a href=\"$href\" class=\"topMenuLink\">$o[1]</a>";
+                    }
+                    
+                    else if ( $o[0] == 'link' )
+                    {
+                        echo "<a href=\"$o[2]\" target=\"$o[3]\" class=\"topMenuLink\">$o[1]</a>";
+                    }
+                    
+                    else
+                    {
+                        echo $o[1];
+                    }
+                }
+                
+                else
+                {
+                    echo $o[1];
+                }
+            }
+        }
+
+        // root item
+        else
+        {
+            echo $navbar->title;
+        }
+
+        echo '</div>';
+    }
+    
+    #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Internal function used to generate some useful informations for the
+    # MIOLO developer
+    #----------------------------------------------------------------------
+    function GenerateTraceStatus()
+    {   global $MIOLO;
+        
+        $status = $MIOLO->GetTraceStatus();
+        
+        if ( $this->traceStatus )
+        {
+            if ( is_object($status) || ( $status && ! is_array($status) ) )
+            {
+                $status = array($status);
+            }
+            
+            if ( is_array($this->traceStatus) )
+            {
+                if ($status)
+                {
+                    $status = array_merge($status,$this->traceStatus);
+                }
+                    
+                else
+                {
+                    $status = $this->traceStatus;
+                }
+            }
+            
+            else
+            {
+                $status[] = $this->traceStatus;
+            }
+        }
+    }
+    
+    #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Generates an option list which may contain nested option lists itself
+    #----------------------------------------------------------------------
+    function GenerateOptionList($options,$depth=0)
+    {   global $MIOLO;
+        
+    	global $MIOLO,$MIOLOCONF;
+        $theme = $MIOLOCONF['theme']['main'];
+        $home = $MIOLO->GetThemeUrl('',$theme);
+
+        //$MIOLO->Dump($options,__FILE__,__LINE__);
+
+        if ( count($options) )
+        {
+            foreach ( $options as $o )
+            {
+                // $o representa um submenu
+                if ( $o[0]=='menu' )
+                {
+                    echo "<div style=\"margin-top: 8;\"><img src=\"$home/images/submenu.gif\"> <b>{$o[1]}</b><br>\n";
+                    echo "<div style=\"margin-left: 16;\">\n";
+                    echo $this->GenerateOptionList($o[2]);
+                    echo "</div></div>\n";
+                }
+
+                // $o representa uma list de opções
+                else if ( $o[0]=='option' )
+                {
+                    echo str_repeat('&nbsp;&nbsp;',$depth);
+                    
+                    $href = $MIOLO->GetActionURL($o[2],$o[3],$o[4],$o[5]);
+                    
+                    echo "<a href=\"$href\" class=\"menuLink\">$o[1]</a><br>\n";
+                }
+                
+                // $o representa uma list de opções 
+                else if ( $o[0]=='link' )
+                {
+                    echo str_repeat('&nbsp;&nbsp;',$depth);
+                    
+                    echo "<a href=\"$o[2]\" class=\"menuLink\" target=\"$o[3]\">$o[1]</a><br>\n";
+                }
+                
+                // $o representa uma string (não link!) 
+                else if ( $o )
+                {
+                    if ( $o == '-' )
+                    {
+                        echo "<hr size=\"1\" noshade>\n";
+                    }
+                    else
+                    {
+                        echo "<b>$o</b><br>\n";
+                    }
+                }
+                
+                // $o representa um separador
+                else
+                {
+                  echo "<br>\n";
+                }
+            }
+        }
+    }
+    
+    #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # Convenience function to capture the output of an element's 
+    # <code>Generate</code> function as HTML string.
+    #----------------------------------------------------------------------
+    function GenerateToString(&$element)
+    {
+        ob_start();
+        $this->GenerateElements($element);
+        $html = ob_get_contents();
+        ob_end_clean();
+        return $html;
+    }
+}
+
+?>

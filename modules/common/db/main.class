@@ -1,0 +1,58 @@
+<?php
+
+class BusinessCommonMain extends Business
+{
+    function GetDatabase()
+    {   global $MIOLO;
+        
+        return $MIOLO->GetDatabase('common');
+    }
+    
+    function GetUser($login)
+    {
+        $db = $this->GetDatabase();
+        
+        $sql = "select login, password, name, nickname, email, groups" .
+               "  from cmn_users" .
+               " where login=?"; 
+        
+        $result = $db->Query($db->Prepare($sql,$login));
+        
+        // CommonUser is defined in ../types.inc
+        $user = new CommonUser;
+        
+        list ( $user->login,
+               $user->password,
+               $user->name,
+               $user->nickname,
+               $user->email,
+               $user->groups ) = $result[0];
+        
+        $this->CheckError($db);
+        
+        return $user;
+    }
+    
+    function GetRights($module,$login)
+    {
+        $db = $this->GetDatabase('bis');
+      
+        $sql = "select action,fl_access from cmn_access where module=? and login=?";
+             
+        $result = $db->Query($db->Prepare($sql,array($module,$login)));
+      
+        if ( $result )
+        {
+            foreach ( $result as $r )
+            {
+                $rights[$r[0]] = ($r[1] == 't');
+            }
+        }
+        
+        $this->CheckError($db);        
+        
+        return $rights;
+    }
+}
+
+?>

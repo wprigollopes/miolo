@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="logout.inc" path="/usr/local/miolo/modules/common/handlers/logout.inc" base="common_handlers_logout" created="" lines="9">
+</source>

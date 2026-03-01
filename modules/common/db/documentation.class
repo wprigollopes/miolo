@@ -1,0 +1,98 @@
+<?
+
+/*
+create table cmn_sources
+(
+  id         int          primary key,
+  path       varchar(255) not null
+);
+
+create table cmn_classes
+(
+  id         int          primary key,
+  ref_source int          not null,
+  name       varchar(255) not null
+);
+
+create table cmn_functions
+(
+  id         int          primary key,
+  ref_source int          not null,
+  ref_class  int          not null,
+  name       varchar(255) not null
+);
+*/
+
+class BusinessCommonDocumentation extends Business
+{
+    function GetDatabase()
+    {   global $MIOLO;
+        return $MIOLO->GetDatabase('common');
+    }
+    
+    function ClearAll()
+    {
+        $db = $this->GetDatabase();
+        $db->Execute("delete from cmn_functions");
+        $db->Execute("delete from cmn_classes");
+        $db->Execute("delete from cmn_sources");
+        $db->Close();
+    }
+    
+    function RegisterSource($path)
+    {   global $MIOLOCONF;
+        $home = $MIOLOCONF['home']['html'];
+        if ( strpos($path,$home) === 0 )
+        {
+            $path = substr($path,strlen($home)+1);
+        }
+        $db = $this->GetDatabase();
+        $rs = $db->Query("select id from cmn_sources where path='$path'");
+        $id = $rs[0][0];
+        if ( $id )
+        {
+            $db->Execute("delete from cmn_classes where ref_source=$id");
+            $db->Execute("delete from cmn_functions where ref_source=$id");
+        }
+        else
+        {
+            $rs = $db->Query("select max(id) from cmn_sources");
+            $id = $rs[0][0] + 1;
+            $db->Execute("insert into cmn_sources (id,path) values ($id,'$path')");
+        }
+        $db->Close();
+        return $id;
+    }
+    
+    function RegisterClass($ref_source,$name)
+    {
+        $db = $this->GetDatabase();
+        $rs = $db->Query("select max(id) from cmn_classes");
+        $id = $rs[0][0] + 1;
+        $db->Execute("insert into cmn_classes (id,ref_source,name) values ($id,$ref_source,'$name')");
+        $db->Close();
+        return $id;
+    }
+    
+    function RegisterFunction($ref_source,$ref_class,$name)
+    {
+        $db = $this->GetDatabase();
+        $rs = $db->Query("select max(id) from cmn_functions");
+        $id = $rs[0][0] + 1;
+        $db->Execute("insert into cmn_functions (id,ref_source,ref_class,name) values ($id,$ref_source,$ref_class,'$name')");
+        $db->Close();
+        return $id;
+    }
+    
+    function QueryFunctionList()
+    {
+        $sql = "select S.path, C.name, F.name from cmn_sources S, cmn_classes C, cmn_functions F" .
+               "  where F.ref_source=S.id and F.ref_class=C.id order by F.name, C.name";
+        $db = $this->GetDatabase();
+        $rs = $db->Query($sql);
+        $db->Close();
+        return $rs;
+    }
+}
+
+?>

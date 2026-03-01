@@ -1,0 +1,144 @@
+<?php
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# @title
+#   Postgres Query
+#
+# @description
+#   This file contains de query class definitions
+#
+# @see      miolo/database.class,
+#           miolo/postgres_connection.class,
+#
+# @topics   db, business
+#
+# @created
+#   2001/08/14
+#
+# @organisation
+#   MIOLO - Miolo Development Team - UNIVATES Centro Universitario
+#   http://miolo.codigolivre.org.br
+#
+# @legal
+#   CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+#   Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+#   further details)
+#
+# @contributors
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+# 
+# @maintainers
+#   Vilson Cristiano Gartner [author] [vgartner@univates.br]
+#   Thomas Spriestersbach    [author] [ts@interact2000.com.br]
+#
+# history: see miolo cvs.
+#
+# @id $Id: postgres_query.class,v 1.1 2003/06/17 20:04:57 vgartner Exp $
+#---------------------------------------------------------------------
+
+/**
+ *
+ */
+class PostgresQuery
+{
+    var $conf;     // name of database configuration
+    var $conn;     // the connection id
+    var $sql;      // the SQL command string
+    var $result;   // the SQL command result set
+    var $row;      // the current row index
+    var $error;    // the query's error message from the query execution
+    
+    function PostgresQuery($conf)
+    {
+        $this->conf = $conf;
+    }
+    
+    function GetError()
+    {
+        return $this->error;
+    }
+    
+    function Open()
+    {   global $MIOLO;
+        
+        $MIOLO->LogSQL($this->sql,false,$this->conf);
+        
+        $this->result = pg_exec($this->conn->id,$this->sql);
+        $this->row    = -1;
+        
+        $this->error = pg_errormessage();
+        
+        return $this->result != null;
+    }
+    
+    function Close()
+    {
+        if ( $this->result != null )
+        {
+            pg_freeresult($this->result);
+            
+            $this->result = null;
+        }
+    }
+    
+    function MovePrev()
+    {
+        if ( $this->row >= 0 )
+        {
+            $this->row--;
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    function MoveNext()
+    {
+        if ( $this->row + 1 < $this->GetRowCount() )
+        {
+            $this->row++;
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    function GetRowCount()
+    {
+        return pg_numrows($this->result);
+    }
+    
+    function GetColumnCount()
+    {
+        return pg_numfields($this->result);
+    }
+    
+    function GetColumnName($col)
+    {
+        return pg_fieldname($this->result,$col-1);
+    }
+    
+    function GetValue($col)
+    {
+        return pg_result($this->result,$this->row,$col-1);
+    }
+    
+    function GetRowValues()
+    {
+        return pg_fetch_row($this->result,$this->row);
+    }
+    
+    function SetConnection($c)
+    {
+        $this->conn = $c;
+    }
+    
+    function SetSQL($sql)
+    {
+        $this->sql  = $sql;
+    }
+}
+
+?>

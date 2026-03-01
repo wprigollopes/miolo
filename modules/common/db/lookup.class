@@ -1,0 +1,55 @@
+<?php
+
+    /**
+     * Informações da pesquisa SQL que será utilizada em handlers/lookup.inc
+     */
+    class BusinessCommonLookup
+    {
+
+      /**
+       * Lookup de Pessoas
+       */
+      function /*PRIVATE*/ LookupPessoa(&$lookup)
+      { 
+          $filter = $lookup->GetFilter();
+          
+          if ( $filter )
+          {
+              $sql = "select id,nome " .
+                     "  from pessoas" .
+                     " where upper(nome) like upper('%{$filtro}%') " .
+                     " order by nome";
+          }
+          else
+          {
+              $sql = "select id,nome from pessoas order by nome";
+          }
+                 
+          $lookup->SetQuery($sql);
+      }
+      
+      /**
+       * Lookup de Instituições
+       */
+      function LookupInstituicoes($filtro,$items,$page,&$total)
+      { global $MIOLO;
+            
+        $db = $MIOLO->GetDatabase();
+        
+        if ( $filtro )
+          $sql = "select id,nome ".
+                 "  from instituicoes " .
+                 " where upper(nome) like upper('%{$filtro}%') " .
+                 " order by nome";
+          
+        else
+          $sql = "select id,nome from instituicoes order by nome";
+        
+        $rs  = $db->QueryChunk($sql,$items+1,$page*$items,$total);        
+        
+        return $rs;	
+      }
+      
+   }
+   
+?>

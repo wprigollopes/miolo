@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<source name="miolo.class" path="/usr/local/miolo/classes/miolo.class" base="miolo" created="2001/08/14" lines="1537">
+  <title>MIOLO Main Class</title>
+  <description>
+  <![CDATA[This file contains implementation of the main class of the MIOLO
+  framework providing the glue code to all other classes]]>
+  </description>
+  <relations type="group">
+    <group name="db"/>
+    <group name="ui"/>
+  </relations>
+  <organisation>
+  <![CDATA[MIOLO - Miolo Development Team - UNIVATES Centro Universitario]]>
+  </organisation>
+  <legal>
+  <![CDATA[CopyLeft (L) 2001-2002 UNIVATES, Lajeado/RS - Brasil
+  Licensed under GPL (see COPYING.TXT or FSF at www.fsf.org for
+  further details)]]>
+  </legal>
+  <contributors>
+    <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+    <author name="Vilson Cristiano Gartner" type="author" login="" email="vilson@miolo.org.br"></author>
+    <author name="Nasair Junior da Silva" type="contributor" login="" email="njunior@solis.coop.br"></author>
+  </contributors>
+  <maintainers>
+    <author name="Vilson Cristiano Gartner" type="author" login="" email="vilson@miolo.org.br"></author>
+    <author name="Thomas Spriestersbach" type="author" login="" email="ts@interact2000.com.br"></author>
+  </maintainers>
+  <history>
+  <![CDATA[
+    See history in CVS repository.<br>
+  ]]>
+  </history>
+    <class name="MIOLO" base="" declaration="class MIOLO" line="43">
+      <description>
+      <![CDATA[MIOLO Main Class]]>
+      </description>
+        <var name="trace_socket" declaration="var $trace_socket;" line="46">
+        </var>
+        <var name="html_home" declaration="var $html_home;" line="49">
+        </var>
+        <var name="logs_home" declaration="var $logs_home;" line="50">
+        </var>
+        <var name="miolo_home" declaration="var $miolo_home;" line="51">
+        </var>
+        <var name="module_home" declaration="var $module_home;" line="52">
+        </var>
+        <var name="url_base" declaration="var $url_base;" line="55">
+        </var>
+        <var name="dispatch" declaration="var $dispatch;" line="56">
+        </var>
+        <var name="debug" declaration="var $debug;" line="59">
+        </var>
+        <var name="dump" declaration="var $dump;" line="60">
+        </var>
+        <var name="db" declaration="var $db;" line="63">
+        </var>
+        <var name="user" declaration="var $user;" line="64">
+        </var>
+        <var name="pass" declaration="var $pass;" line="65">
+        </var>
+        <var name="sqllog" declaration="var $sqllog;" line="66">
+        </var>
+        <var name="errlog" declaration="var $errlog;" line="67">
+        </var>
+        <var name="theme" declaration="var $theme;" line="70">
+        </var>
+        <var name="painter" declaration="var $painter;" line="71">
+        </var>
+        <var name="profile" declaration="var $profile;" line="72">
+        </var>
+        <var name="uses" declaration="var $uses;" line="73">
+        </var>
+        <var name="trace" declaration="var $trace;" line="74">
+        </var>
+        <var name="error" declaration="var $error;" line="75">
+        </var>
+        <var name="login" declaration="var $login;" line="76">
+        </var>
+        <function name="MIOLO" attribute="default" declaration="function MIOLO($home=null,$logname='miolo')" line="81">
+            <param name="$home" value="null" type=""><![CDATA[]]></param>
+            <param name="$logname" value="'miolo'" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Class Constructor]]>
+          </description>
+        </function>
+        <function name="SetDispatcher" attribute="default" declaration="function SetDispatcher($url)" line="130">
+            <param name="$url" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Sets the root request dispatcher (e.g. the url that will be used in
+action URLs).]]>
+          </description>
+        </function>
+        <function name="SetLog" attribute="default" declaration="function SetLog($logname)" line="138">
+            <param name="$logname" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Sets the path for the log file]]>
+          </description>
+        </function>
+        <function name="Assert" attribute="default" declaration="function Assert($cond,$msg='',$goto='')" line="152">
+            <param name="$cond" value="" type=""><![CDATA[]]></param>
+            <param name="$msg" value="''" type=""><![CDATA[]]></param>
+            <param name="$goto" value="''" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Handler for assertions. If the condition <code>$cond</code> of an
+assertion fails (evaluates to false), an error message is shown and
+the script execution is halted.]]>
+          </description>
+        </function>
+        <function name="GetThemePainter" attribute="default" declaration="function &amp; GetThemePainter()" line="168">
+          <description>
+          <![CDATA[Obtains the theme painter. Which object will be returned depends on
+the configuration of the current theme.
+<br><br>
+Usually this function will be called from the GenerateTheme() method.]]>
+          </description>
+        </function>
+        <function name="GetTheme" attribute="default" declaration="function &amp; GetTheme()" line="192">
+          <description>
+          <![CDATA[Obtains a reference to the current theme object. The theme is a
+logical container for our pages.]]>
+          </description>
+        </function>
+        <function name="SetTheme" attribute="default" declaration="function SetTheme(&amp;$theme)" line="200">
+            <param name="&amp;$theme" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Sets the current theme object]]>
+          </description>
+        </function>
+        <function name="GenerateTheme" attribute="default" declaration="function GenerateTheme()" line="208">
+          <description>
+          <![CDATA[Generates the content of the current theme object]]>
+          </description>
+        </function>
+        <function name="GetActionURL" attribute="default" declaration="function GetActionURL($module='', $action='NONE', $item='', $args=null , $dispatch=null)" line="248">
+            <param name="$module" value="''" type="string"><![CDATA[Nome do modulo que sera acessado]]></param>
+            <param name="$action" value="'NONE'" type="string"><![CDATA[Nome do handler (<code>.inc</code>) a ser acessado]]></param>
+            <param name="$item" value="''" type="string"><![CDATA[Parametro adicional que pode ser utilizado                         para passar dados para a nova pagina.]]></param>
+            <param name="$args" value="null" type="string/array"><![CDATA[Esse argumento pode ser utilizado para criar        outras variaveis, alem das tres anteriores (que sao padrao do MIOLO).        Quando for informado um array, o <code>key</code> sera o nome da variavel atraves        do qual o conteudo podera ser acessado.]]></param>
+            <param name="$dispatch" value="null" type="string"><![CDATA[Indica qual arquivo devera ser utilizado        ao inves daquele configurado no miolo.conf:        <code>$MIOLOCONF['options']['dispatch']</code>]]></param>
+          <description>
+          <![CDATA[TODO: TRANSLATION
+Este metodo compoe um link para uma URL no sistema.
+<br>]]>
+          </description>
+          <example>
+<![CDATA[...
+$module = 'reports';
+$main   = 'main:list_person';
+
+$handler = $MIOLO-&gt;GetActionURL($module, $main);
+...
+O exemplo acima retorna um link para o handler list_person.inc, no
+modulo reports: http://nome_site/handler.php?module=reports&amp;action=main:list_person]]>
+          </example>
+          <returns type="string">
+          <![CDATA[ o link para uma URL]]>
+          </returns>
+        </function>
+        <function name="Scramble" attribute="static" declaration="function Scramble($string)" line="294">
+            <param name="$string" value="" type="string"><![CDATA[String a ser criptografada]]></param>
+          <description>
+          <![CDATA[TODO: TRANSLATION
+Este metodo eh utilizado para criptografar uma string. Eh utilizado
+principalmente pelo metodo GetActionURL]]>
+          </description>
+          <relations type="see-also">
+            <group name="miolo.class#MIOLO::GetActionURL"/>
+          </relations>
+          <returns type="string">
+          <![CDATA[ string criptografada]]>
+          </returns>
+        </function>
+        <function name="UnScramble" attribute="static" declaration="function UnScramble($string)" line="316">
+            <param name="$string" value="" type="string"><![CDATA[String a ser descriptografada]]></param>
+          <description>
+          <![CDATA[TODO: TRANSLATION
+Este metodo eh utilizado para descriptografar uma string]]>
+          </description>
+          <returns type="string">
+          <![CDATA[ string descriptografada]]>
+          </returns>
+        </function>
+        <function name="CheckLogin" attribute="default" declaration="function CheckLogin()" line="332">
+          <description>
+          <![CDATA[Login control]]>
+          </description>
+        </function>
+        <function name="CheckAccess" attribute="default" declaration="function CheckAccess($module, $access, $deny=false, $group=false)" line="375">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$access" value="" type=""><![CDATA[]]></param>
+            <param name="$deny" value="false" type=""><![CDATA[]]></param>
+            <param name="$group" value="false" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Verify user permissions]]>
+          </description>
+        </function>
+        <function name="GetRights" attribute="default" declaration="function GetRights($module, $login)" line="440">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$login" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Gets users rights per module]]>
+          </description>
+        </function>
+        <function name="GetUsersAllowed" attribute="default" declaration="function GetUsersAllowed($module, $action)" line="450">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$action" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Gets users rights per module]]>
+          </description>
+        </function>
+        <function name="Authenticate" attribute="default" declaration="function Authenticate($user,$pass)" line="481">
+            <param name="$user" value="" type="string"><![CDATA[Nome do usuario a ser autenticado]]></param>
+            <param name="$pass" value="" type="string"><![CDATA[Senha do usuario]]></param>
+          <description>
+          <![CDATA[TODO: TRANSLATION
+O Metodo Authenticate e utilizado para validar o usuario e sua senha]]>
+          </description>
+          <relations type="see-also">
+            <group name="miolo.class#MIOLO::SetLogin"/>
+            <group name="miolo.class#MIOLO::GetLogin"/>
+          </relations>
+        </function>
+        <function name="GetLogin" attribute="default" declaration="function &amp; GetLogin()" line="514">
+        </function>
+        <function name="SetLogin" attribute="default" declaration="function SetLogin($login)" line="527">
+            <param name="$login" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[TODO: TRANSLATION
+SetLogin armazena a informacao de login do usuario atual numa
+variavel de sessao.]]>
+          </description>
+        </function>
+        <function name="Uses" attribute="default" declaration="function Uses($name,$module=null)" line="551">
+            <param name="$name" value="" type="string"><![CDATA[Nome da arquivo a ser acessado/utilizado]]></param>
+            <param name="$module" value="null" type="string"><![CDATA[Nome do modulo no qual este arquivo esta localizado.                Caso esse parametro nao for informado, o MIOLO tentara acessar                um arquivo abaixo do diretorio classes.                Informando 'html_home', o MIOLO tentara acessar um arquivo                abaixo do diretorio indicado pela configuracao ['home']['html']                definida no arquivo miolo.conf]]></param>
+          <description>
+          <![CDATA[TODO: TRANSLATION
+Este metodo e utilizado para obter acesso a outros arquivos.
+Quando algum arquivo nao existir, o MIOLO exibe esse problema.
+O metodo Uses tambem envia a informacao para o Profile e para o log]]>
+          </description>
+          <relations type="see-also">
+            <group name=""/>
+          </relations>
+        </function>
+        <function name="GetDatabase" attribute="default" declaration="function GetDatabase($conf=null,$user=null,$pass=null)" line="637">
+            <param name="$conf" value="null" type="string"><![CDATA[Nome da configuracaoo, definida no miolo.conf]]></param>
+            <param name="$user" value="null" type="string"><![CDATA[(optional) Nome do usuario para conectar a base        de dados]]></param>
+            <param name="$pass" value="null" type="string"><![CDATA[(optional) Senha para acesso a base.]]></param>
+          <description>
+          <![CDATA[TODO: TRANSLATION
+Este metodo eh utilizado para criar uma conexao com a base de dados
+especificada no parametro <code>$conf</code>.
+A configuracaoo da base deve ter sido previamente criada no arquivo
+de configuracao do MIOLO: miolo.conf]]>
+          </description>
+          <relations type="see-also">
+            <group name="miolo.class#MIOLO::GetBusiness"/>
+            <group name="miolo/database.class"/>
+          </relations>
+        </function>
+        <function name="GetBusiness" attribute="default" declaration="function GetBusiness($module,$name='main')" line="715">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="'main'" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[TODO: TRANSLATION
+Como o MIOLO e capaz de abrigar modulos diferentes, era preciso
+adotar um esquema para evitar possiveis colisoes de nomes de classes.
+Teoricamente dois modulos poderiam definir uma classe, por exemplo,
+'Guestbook' que, utilizada simultaneamente, causaria problemas.
+<br><br>
+O MIOLO espera que classes do tipo 'Business' tenham o seu nome composto
+de 'Business' + 'nome do module' + 'nome da classe'. Mas para evitar
+redundancias adotou-se o padrao de somente usar o nome basico da classe
+para definir o nome do arquivo, ja que o mesmo se encontra dentro da estrutura
+de diretorios do modulo em questao.]]>
+          </description>
+          <example>
+<![CDATA[<i>/* in file: ../modules/foo/db/guestbook.class */</i>
+&lt;?
+
+class BusinessFooGuestbook extends Business
+{
+    function AddVisitor($data)
+    {
+          ...
+?&gt;
+<hr>
+<i>/* in file: ../modules/foo/handlers/register.inc */</i>
+&lt;?
+...
+$guestbook = $MIOLO-&gt;GetBusiness( 'foo', 'guestbook' );
+$data = $form-&gt;GetData();
+result = $guestbook-&gt;AddVisitor( $data );
+...
+?&gt;]]>
+          </example>
+          <relations type="see-also">
+            <group name="miolo/miolo.class#MIOLO::GetDatabase"/>
+            <group name="miolo/ui/form.class#Form::GetData"/>
+          </relations>
+        </function>
+        <function name="GetClass" attribute="default" declaration="function GetClass($module,$name)" line="742">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetUI" attribute="default" declaration="function GetUI()" line="750">
+          <description>
+          <![CDATA[]]>
+          </description>
+        </function>
+        <function name="GetAbsolutePath" attribute="default" declaration="function GetAbsolutePath($rel=null)" line="761">
+            <param name="$rel" value="null" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Gets physical filesystem path of $rel (relative filename)]]>
+          </description>
+        </function>
+        <function name="GetAbsoluteURL" attribute="default" declaration="function GetAbsoluteURL($rel,$module=null)" line="782">
+            <param name="$rel" value="" type=""><![CDATA[]]></param>
+            <param name="$module" value="null" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Gets absolute virtual path of $rel (relative filename) from browser's address]]>
+          </description>
+        </function>
+        <function name="GetThemeURL" attribute="default" declaration="function GetThemeURL($rel,$name=null,$default=null)" line="815">
+            <param name="$rel" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="null" type=""><![CDATA[]]></param>
+            <param name="$default" value="null" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Gets absolute virtual path of $rel for selected theme]]>
+          </description>
+        </function>
+        <function name="GetModulePath" attribute="default" declaration="function GetModulePath($module,$file)" line="846">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$file" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Gets the physical filesystem path of the module's file]]>
+          </description>
+        </function>
+        <function name="AutoComplete" attribute="default" declaration="function AutoComplete($module,$item,$value,$defaults=null)" line="866">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$item" value="" type=""><![CDATA[]]></param>
+            <param name="$value" value="" type=""><![CDATA[]]></param>
+            <param name="$defaults" value="null" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[Calls the autocomplete function of the module for the given item
+and returns the query row for the given value
+The last parameter was added to made possible the variable uses on autocomplete]]>
+          </description>
+        </function>
+        <function name="Error" attribute="default" declaration="function Error($msg='',$goto='', $caption='')" line="895">
+            <param name="$msg" value="''" type=""><![CDATA[]]></param>
+            <param name="$goto" value="''" type=""><![CDATA[]]></param>
+            <param name="$caption" value="''" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[The exit function is used in order to provide a consistent manner
+of error handling. This function does not return from execution.]]>
+          </description>
+        </function>
+        <function name="Information" attribute="default" declaration="function Information($msg,$goto='')" line="902">
+            <param name="$msg" value="" type=""><![CDATA[]]></param>
+            <param name="$goto" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Confirmation" attribute="default" declaration="function Confirmation($msg,$gotoOK='',$gotoCancel='')" line="909">
+            <param name="$msg" value="" type=""><![CDATA[]]></param>
+            <param name="$gotoOK" value="''" type=""><![CDATA[]]></param>
+            <param name="$gotoCancel" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Question" attribute="default" declaration="function Question($msg,$gotoYes='',$gotoNo='')" line="916">
+            <param name="$msg" value="" type=""><![CDATA[]]></param>
+            <param name="$gotoYes" value="''" type=""><![CDATA[]]></param>
+            <param name="$gotoNo" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Prompt" attribute="default" declaration="function Prompt($prompt,$halt=true)" line="923">
+            <param name="$prompt" value="" type=""><![CDATA[]]></param>
+            <param name="$halt" value="true" type=""><![CDATA[]]></param>
+        </function>
+        <function name="LogSQL" attribute="default" declaration="function LogSQL($sql,$force=false,$conf='?')" line="944">
+            <param name="$sql" value="" type=""><![CDATA[]]></param>
+            <param name="$force" value="false" type=""><![CDATA[]]></param>
+            <param name="$conf" value="'?'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="LogError" attribute="default" declaration="function LogError($error,$conf='?')" line="993">
+            <param name="$error" value="" type=""><![CDATA[]]></param>
+            <param name="$conf" value="'?'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ProfileTime" attribute="default" declaration="function ProfileTime()" line="1017">
+        </function>
+        <function name="ProfileEnter" attribute="default" declaration="function ProfileEnter($name)" line="1027">
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ProfileExit" attribute="default" declaration="function ProfileExit($name)" line="1036">
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="ProfileDump" attribute="default" declaration="function ProfileDump()" line="1049">
+        </function>
+        <function name="GetProfileDump" attribute="default" declaration="function GetProfileDump()" line="1081">
+        </function>
+        <function name="UsesDump" attribute="default" declaration="function UsesDump()" line="1112">
+        </function>
+        <function name="Dump" attribute="default" declaration="function Dump($var,$file=false,$line=false,$info=false)" line="1140">
+            <param name="$var" value="" type=""><![CDATA[]]></param>
+            <param name="$file" value="false" type=""><![CDATA[]]></param>
+            <param name="$line" value="false" type=""><![CDATA[]]></param>
+            <param name="$info" value="false" type=""><![CDATA[]]></param>
+        </function>
+        <function name="IsLogging" attribute="default" declaration="function IsLogging()" line="1190">
+        </function>
+        <function name="LogMessage" attribute="default" declaration="function LogMessage($msg)" line="1223">
+            <param name="$msg" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Deprecate" attribute="default" declaration="function Deprecate($msg)" line="1234">
+            <param name="$msg" value="" type=""><![CDATA[]]></param>
+        </function>
+        <function name="Trace" attribute="default" declaration="function Trace($msg,$file=false,$line=0)" line="1242">
+            <param name="$msg" value="" type=""><![CDATA[]]></param>
+            <param name="$file" value="false" type=""><![CDATA[]]></param>
+            <param name="$line" value="0" type=""><![CDATA[]]></param>
+        </function>
+        <function name="TraceDump" attribute="default" declaration="function TraceDump()" line="1253">
+        </function>
+        <function name="InvokeHandler" attribute="default" declaration="function InvokeHandler($module,$name)" line="1275">
+            <param name="$module" value="" type=""><![CDATA[]]></param>
+            <param name="$name" value="" type=""><![CDATA[]]></param>
+          <description>
+          <![CDATA[O metodo invoke handler e responsavel por executar os handlers (arquivos .inc) do modules
+Se existir um arquivo de configuracao para o modulo (modulo.conf) no diretorio home-etc
+esse arquivo sera processado.]]>
+          </description>
+        </function>
+        <function name="GetThemes" attribute="default" declaration="function GetThemes()" line="1344">
+          <description>
+          <![CDATA[Returns a array with the existing themes]]>
+          </description>
+        </function>
+        <function name="ListFiles" attribute="default" declaration="function ListFiles($dir,$type='d')" line="1355">
+            <param name="$dir" value="" type=""><![CDATA[]]></param>
+            <param name="$type" value="'d'" type=""><![CDATA[]]></param>
+        </function>
+        <function name="GetCurrentURL" attribute="default" declaration="function GetCurrentURL()" line="1397">
+          <description>
+          <![CDATA[Returns the URL address of the current page]]>
+          </description>
+        </function>
+        <function name="CheckValidIP" attribute="default" declaration="function CheckValidIP($module='')" line="1403">
+            <param name="$module" value="''" type=""><![CDATA[]]></param>
+        </function>
+        <function name="IsHostAllowed" attribute="default" declaration="function IsHostAllowed()" line="1428">
+          <description>
+          <![CDATA[TODO: TRANSLATION
+Este metodo possibilita que o MIOLO ofere&ccedil;a controle de acesso a
+nivel de IP de maquina.<br>
+Para utilizar essa funcionalidade eh necess&aacute;rio configurar, no
+<code>miolo.conf</code>, os seguintes informa&ccedil;&otilde;es:
+
+<code>$MIOLOCONF['hosts']['allow']</code>
+<code>$MIOLOCONF['hosts']['deny']</code>]]>
+          </description>
+          <returns type="boolean">
+          <![CDATA[ true se o IP estiver autorizado, false caso contrario]]>
+          </returns>
+        </function>
+        <function name="_REQUEST" attribute="default" declaration="function _REQUEST($vars, $from='ALL')" line="1495">
+            <param name="$vars" value="" type="string/array"><![CDATA[vari&aacute;veis as quais se deseja obter o valor]]></param>
+            <param name="$from" value="'ALL'" type="string"><![CDATA[de onde obter os dados. Pode ser 'GET', 'POST',                       al&eacute;m do padr&atilde;o 'ALL' que retorna todos os dados.]]></param>
+          <description>
+          <![CDATA[TODO: TRANSLATION
+No MIOLO, m&eacute;todos que iniciam por &quot;_&quot; indicam m&eacute;todos est&aacute;ticos, mas
+neste caso foi utilizado para lembrar que sua funcionalidade &eacute; similar
+ao $_REQUEST do PHP.  O metodo _REQUEST prov&ecirc; uma forma mais simples
+para se ter acesso &agrave;s vari&aacute;veis. Utilizando comandos PHP, vc. teria
+que utilzar $_REQUEST, $_GET, $_POST ou global ao passo que no MIOLO
+este m&eacute;todo tr&aacute;s todas as informa&ccedil;&otilde;es, n&atilde;o importando de onde elas
+s&atilde;o provenientes.
+Caso voc&ecirc; queira obter apenas o valor da vari&aacute;veis provenientes de
+uma dessas op&ccedil;&otilde;es, por exemplo GET, passe essa palavra como segundo
+par&acirc;metro.]]>
+          </description>
+          <returns type="array">
+          <![CDATA[ os valores das vari&aacute;veis solicitadas]]>
+          </returns>
+        </function>
+    </class>
+</source>
