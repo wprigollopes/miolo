@@ -15,7 +15,7 @@ modern ORMs would later standardize.
 - **PDO** (PHP Data Objects) — arrived in PHP 5.1 (2005)
 - **Doctrine DBAL** — first release 2006, mature by 2010
 - **Eloquent ORM** — Laravel, 2011
-- **Prepared statements** — not available in PHP until PDO/MySQLi (2004-2005)
+- **Prepared statements** — not available in PHP until PDO (PHP 5.1, 2005) and MySQLi
 - **Migration tools** — Rails migrations (2005) pioneered the concept;
   PHP equivalents came much later (Phinx 2012, Doctrine Migrations 2010)
 - **Connection pooling** — not available in PHP's share-nothing model
@@ -51,27 +51,180 @@ No way to switch databases without rewriting every query call.
 
 ## How MIOLO Solved It
 
-### The Abstract Connection Layer
+### Version 1.0: No Base Class at All
 
-**File:** `classes/database/mconnection.class.php`
+**SVN branch:** `branches/1.0` (contains CVS `$Id` tags — this code
+predates SVN itself)
 
-MIOLO defined an abstract base class that every driver must implement:
+In version 1.0, there was **no base connection class**. Each database
+driver was a completely standalone class. `PostgresConnection`,
+`MysqlConnection`, `MssqlConnection`, and `SqliteConnection` each
+implemented `Open()`, `Close()`, `Execute()`, and `CreateQuery()`
+independently, with no shared parent:
 
 ```php
-abstract class MConnection
+// Version 1.0: PostgresConnection — standalone, NO inheritance
+// $Id: postgres_connection.class,v 1.4 2004/08/23 18:29:44 vgartner Exp $
+class PostgresConnection
 {
-    abstract public function _connect($dbhost, $loginDB, $loginUID, $loginPWD, $persistent);
-    abstract public function _close();
-    abstract public function _error();
-    abstract public function _execute($sql);
-    abstract public function _createquery();
-    abstract public function _chartotimestamp($timestamp);
+    var $conf;       // name of database configuration
+    var $id;         // the connection identifier
+    var $traceback;  // a list of transaction errors
+    var $level;      // a counter for the transaction level
+
+    function PostgresConnection($conf)   // PHP 4 constructor
+    {   global $MIOLO;
+        $this->conf = $conf;
+        $MIOLO->Uses('database/postgres_query.class');
+    }
+
+    function Open($dbhost, $LoginDB, $LoginUID, $LoginPWD, $persistent = true)
+    {   global $MIOLO;
+        if ($this->id) { Close(); }
+        $arg = "host=$dbhost dbname=$LoginDB port=5432 user=$LoginUID password=$LoginPWD";
+        $this->id = pg_Connect($arg);
+        if (!$this->id) {
+            $this->traceback[] = "Unable to estabilish DataBase Conection";
+        }
+        return $this->id;
+    }
+
+    function Close()  { pg_close($this->id); $this->id = 0; }
+    function Begin()  { $this->Execute("begin transaction"); $this->level++; }
+}
+```
+
+```php
+// Version 1.0: MysqlConnection — ALSO standalone, same interface by convention
+class MysqlConnection
+{
+    var $conf;
+    var $id;
+    var $traceback;
+    var $level;
+
+    function MysqlConnection($conf)   // PHP 4 constructor
+    {   global $MIOLO;
+        $this->conf = $conf;
+        $MIOLO->Uses('database/mysql_query.class');
+    }
+
+    function Open($dbhost, $dbname, $dbuser, $dbpass, $persistent = true)
+    {   global $MIOLO;
+        $arg = $dbhost . ':' . ($mysql_sock ? $mysql_sock : '/tmp/mysql.sock');
+        $this->id = mysql_pconnect($arg, $dbuser, $dbpass);
+        $rc = mysql_select_db($dbname, $this->id);
+        return $this->id;
+    }
+
+    function Close()  { mysql_close($this->id); $this->id = 0; }
+}
+```
+
+The drivers shared no code. They had the same method names (`Open`,
+`Close`, `Execute`, `CreateQuery`) purely by **developer convention** —
+there was no interface, no base class, no contract. The directory was
+flat: `database/postgres_connection.class`, `database/mysql_connection.class`,
+`database/mssql_connection.class`, `database/sqlite_connection.class`.
+Note the `.class` extension — not `.class.php`.
+
+The `Database` factory class loaded the correct driver file at runtime
+and instantiated it using PHP 4's string-based class construction —
+a workaround because variable class names weren't reliable for
+direct instantiation:
+
+```php
+// Version 1.0: Database factory
+// $Id: database.class,v 1.8 2005/01/21 21:47:05 thomas Exp $
+class Database
+{
+    var $conn;
+
+    function Database($conf, $system, $host, $db, $user, $pass)
+    {   global $MIOLO;
+        $MIOLO->Uses('database/' . $system . '_connection.class');
+        // Constructs the driver class name from config and instantiates it
+        // at runtime — e.g., creates a new PostgresConnection or MysqlConnection
+        // using PHP 4's string-to-class-name mechanism
+        $this->conn->Open($host, $db, $user, $pass);
+    }
+}
+```
+
+### Version 2.0: The Base Class Emerges
+
+**SVN tag:** `2.0.01` (the earliest 2.0 release)
+
+The 2.0 rewrite introduced `MConnection` — a base class with empty
+stub methods that every driver was expected to override. This was a
+complete architectural overhaul: the directory structure changed to
+subdirectories (`database/postgres/`, `database/mysql/`), classes gained
+the `M` prefix convention, and the constructor moved to PHP 5's
+`__construct()`.
+
+```php
+// Version 2.0.01: MConnection — a plain class, NOT abstract
+// The comment says: "Virtual methods - to be implemented by the specific drivers"
+class MConnection
+{
+    var $db;
+    var $id;
+    var $traceback = array();
+    var $affectedrows;
+
+    function __construct($db)   // PHP 5 constructor
+    {
+        $this->db = $db;
+        $this->_miolo = $this->db->_miolo;
+    }
+
+    // "Virtual methods" — empty stubs, overridden by each driver
+    public function _connect($dbhost, $LoginDB, $LoginUID, $LoginPWD, $persistent = true, $port='')
+    {
+    }
+    public function _close()    {}
+    public function _error()    {}
+    public function _execute($sql) {}
+    public function _createquery() {}
+
+    // Concrete: the algorithm skeleton that calls the stubs
+    function Open($dbhost, $LoginDB, $LoginUID, $LoginPWD, $persistent = true)
+    {
+        if ($this->id) { $this->Close(); }
+        $this->_connect($dbhost, $LoginDB, $LoginUID, $LoginPWD, $persistent);
+        return $this->id;
+    }
+
+    function Execute($sql)
+    {
+        $this->_miolo->LogSQL($sql, false, $this->db->conf);
+        if (!($success = $this->_execute($sql))) {
+            throw new EDatabaseExecException($this->GetError());
+        }
+        return $success;
+    }
 }
 ```
 
 This is the **Template Method** pattern — the base class defines the
-algorithm skeleton, and concrete drivers implement the steps. PDO would
-later solve the same problem, but at the C extension level.
+algorithm skeleton (`Open`, `Execute`), and concrete drivers implement
+the steps (`_connect`, `_execute`). The `abstract` keyword was added
+later during the PHP 5 migration; the design intent was always there,
+enforced by convention rather than by the language. PDO would later
+solve the same problem at the C extension level.
+
+### The Three-Stage Evolution
+
+| Stage | Version | Base class | Constructor | Driver files | Factory |
+|---|---|---|---|---|---|
+| **Standalone** | 1.0 (2001-2005) | None | PHP 4: `function PostgresConnection()` | Flat: `postgres_connection.class` | String-based instantiation |
+| **Convention-based** | 2.0 (earliest tag: 2.0.01) | `MConnection` (plain class, empty stubs) | PHP 5: `__construct()` | Subdirs: `postgres/mconnection.class` | Dynamic class name |
+| **Language-enforced** | Later 2.x | `abstract class MConnection` | PHP 5: `__construct()` | Same as 2.0 | Dynamic class name |
+
+The progression mirrors PHP's own evolution: from a language that
+couldn't express abstract contracts, through one that could, to one
+that enforced them. The design intent was Template Method all along —
+the language just hadn't caught up yet.
 
 ### Driver Implementations
 
@@ -302,16 +455,28 @@ text file or email.
 
 ## What This Tells Us
 
-MIOLO's database layer is a working implementation of the abstractions
-that PDO later standardized at the C level. The patterns — abstract
-connection, driver factory, query builder, error mapping — are identical.
-The difference is that MIOLO had to implement them in userland PHP,
-maintaining five separate driver implementations, while PDO pushed this
-complexity into the engine itself.
+MIOLO's database layer evolved through three distinct architectural
+stages that mirror PHP's own maturation: standalone drivers with no
+shared code (1.0), a convention-based base class with empty stubs
+(2.0), and finally a language-enforced abstract class (later 2.x).
+
+The SVN evidence reveals something important: the version 1.0 drivers
+(preserved in CVS `$Id` tags dating to 2004, with `.cvsignore` files
+confirming CVS predated SVN) had **no abstraction layer at all**. Four
+standalone classes implemented the same interface purely by developer
+discipline. The `Database` factory dynamically constructed the driver
+name as a string — a PHP 4 workaround for what would later become
+trivial with `new $className()`.
+
+The 2.0 rewrite was a complete architectural overhaul: base class,
+subdirectory structure, `M` prefix naming convention, PHP 5
+constructors. The patterns — Template Method, Factory, error mapping —
+were introduced here, not in 1.0. PDO would later standardize the same
+abstractions at the C extension level.
 
 The 500-line SQLSTATE switch statement in the PostgreSQL driver is
 particularly telling: MIOLO's developers read the PostgreSQL error code
 documentation and mapped every possible failure mode to a meaningful
 exception. This is the kind of work that library maintainers do so
 application developers don't have to — and it was done by hand, in
-southern Brazil, with PHP 4.
+southern Brazil, with PHP 4 and 5.
