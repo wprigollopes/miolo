@@ -578,17 +578,17 @@ class MIOLOUpdater extends MIOLOConsole
             fclose($this->logFile);
         }
 
-        // Restore miolo.conf backup
+        // Restore miolo.php backup
         $MIOLO_PATH = $this->MIOLO->getConf('home.miolo');
-        $confBackup = "$this->backupDir/miolo.conf";
+        $confBackup = "$this->backupDir/miolo.php";
         if ( file_exists($confBackup) )
         {
-            $cmd = "cp $confBackup $MIOLO_PATH/etc/miolo.conf";
+            $cmd = "cp $confBackup $MIOLO_PATH/etc/miolo.php";
             exec($cmd, $output, $return);
 
             if ( $return !== 0 )
             {
-                $this->error(_M('Could not restore miolo.conf backup. Backup file in "@1".', NULL, $confBackup));
+                $this->error(_M('Could not restore miolo.php backup. Backup file in "@1".', NULL, $confBackup));
             }
         }
 

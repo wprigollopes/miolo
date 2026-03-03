@@ -1,4 +1,7 @@
 <?php
+
+namespace App\Services;
+
 /**
  * MService class.
  */
@@ -14,6 +17,8 @@ class MService
      */
     public function __construct()
     {
-        $this->manager = MIOLO::getInstance();
+        $this->manager = \MIOLO::getInstance();
     }
 }
+
+class_alias(MService::class, 'MService');

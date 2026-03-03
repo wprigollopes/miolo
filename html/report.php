@@ -1,5 +1,5 @@
 <?php
-    include_once '../etc/miolo/miolo.conf';
+    include_once '../etc/miolo/miolo.php';
 
     $fname = $MIOLOCONF['home']['url.reports'] . '/' . $_REQUEST['fname'] . '.pdf';
 ?>

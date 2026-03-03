@@ -150,6 +150,54 @@ This is an active modernization effort. The work so far:
 
 ---
 
+## Documentation
+
+### Framework Reference
+
+Comprehensive technical documentation converted from the original legacy guides
+(DOC, ODT, PDF) into markdown. Covers architecture, configuration, development
+patterns, UI controls, database access, persistence, AJAX, reports, and API
+signatures.
+
+**[docs/reference/](docs/reference/index.md)** — Full table of contents:
+
+| # | Topic |
+|---|-------|
+| [01](docs/reference/01-introduction.md) | Introduction & Architecture |
+| [02](docs/reference/02-configuration.md) | Installation & Configuration |
+| [03](docs/reference/03-development.md) | Development Guide |
+| [04](docs/reference/04-ui-controls.md) | UI Controls (Widgets) |
+| [05](docs/reference/05-database.md) | Database Access (DAO) |
+| [06](docs/reference/06-persistence.md) | Object Persistence |
+| [07](docs/reference/07-ajax-dialogs-windows.md) | AJAX, Dialogs & Windows |
+| [08](docs/reference/08-reports.md) | Reports & PDF Generation |
+| [09](docs/reference/09-api-reference.md) | API Reference |
+| [10](docs/reference/10-tutorials.md) | Tutorials |
+| [11](docs/reference/11-i18n.md) | Internationalization (i18n) |
+
+### Internationalization
+
+MIOLO uses GNU gettext for i18n. The `_M()` function wraps all translatable
+strings, with `.po`/`.mo` catalogs organized per module and language under
+`locale/`. See the [i18n reference](docs/reference/11-i18n.md) for full details,
+or the [locale README](locale/README.md) for a quick-start tutorial.
+
+### Legacy Source Documents
+
+The reference documentation above was compiled from the original guides shipped
+with MIOLO, authored by Vilson Gärtner, Ely Edison Matos, and the SOLIS team:
+
+- **MIOLO 2.5 UserGuide** (ODT/PDF) — Comprehensive narrative guide (v0.1, 2008)
+- **MIOLO 2.5 Fundamentals** (ODT/PDF) — Architecture and concepts
+- **MIOLO 2.5 Quick Reference** (ODT) — API method signatures
+- **MIOLO 2.0 Reference Guide** (DOC) — Class-by-class reference (v0.1, 2005)
+- **MIOLO 2.0 Components** (ODT) — DAO, Persistence, AJAX, DOMPDF
+- **Hello World / Hangman / Example Module Tutorials** (DOC/PDF)
+- **Installation Manual** (ODT/PDF, pt-BR) — CLI tool and setup (Solis, 2012)
+- **Course Material** (PDF, Mar 2009) — Module creation with PostgreSQL
+
+---
+
 ## Project Structure
 
 ```

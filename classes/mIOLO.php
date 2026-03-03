@@ -1,4 +1,7 @@
 <?php
+
+namespace App;
+
 define('MIOLO_VERSION_NUMBER', 2.6);
 define('MIOLO_VERSION','Miolo 2.6');
 define('MIOLO_AUTHOR','Miolo Team');
@@ -7,12 +10,10 @@ define('OP_INS', 'INS');
 define('OP_UPD', 'UPD');
 define('OP_DEL', 'DEL');
 
-require_once __DIR__ . '/utils/mSimpleXml.php';
-require_once __DIR__ . '/utils/mConfigLoader.php';
-require_once __DIR__ . '/services/mService.php';
-require_once __DIR__ . '/services/mContext.php';
-require_once __DIR__ . '/services/mRequest.php';
-require_once __DIR__ . '/services/mResponse.php';
+use App\Utils\MConfigLoader;
+use App\Services\MContext;
+use App\Services\MRequest;
+use App\Services\MResponse;
 
 class MIOLO
 {
@@ -187,9 +188,10 @@ class MIOLO
         // Initialize some object's variables
         $this->initialize();
 
-        if ( !isset($GLOBALS['MIOLO_UPDATER']) && file_exists($this->getConf('home.miolo') . '/.down') )
+        $homeMiolo = $this->getConf('home.miolo');
+        if ( !isset($GLOBALS['MIOLO_UPDATER']) && file_exists($homeMiolo . '/.down') )
         {
-            $theme = trim(file_get_contents($this->getConf('home.miolo') . '/.down'));
+            $theme = trim(file_get_contents($homeMiolo . '/.down'));
             include "themes/$theme/down.php";
             die();
         }
@@ -216,7 +218,7 @@ class MIOLO
             if ($ext == 'tpl')
             {
                 include ('utils/mTemplate.php');
-                $tpl = new MTemplate($fileName);
+                $tpl = new \MTemplate($fileName);
                 $this->sendText($tpl->text, $tpl->mimeType, $fileName);
             }
             elseif ($ext == 'php')
@@ -251,14 +253,14 @@ class MIOLO
                 $this->page->stdout = ob_get_contents();
                 ob_end_clean(); 
 
-                if ( MUtil::getBooleanValue($this->getConf('options.debug')) && MUtil::isAjaxEvent() && trim($this->page->stdout) )
+                if ( \MUtil::getBooleanValue($this->getConf('options.debug')) && \MUtil::isAjaxEvent() && trim($this->page->stdout) )
                 {
                     $this->page->ajax->setResponseControls($this->page->stdout, "stdout");
                 }
 
                 $this->terminate();
             }
-            catch( EMioloException $e )
+            catch( \EMioloException $e )
             {
                 $msg = $e->getMessage();
                 $msg = _M('Fatal error') . ": [$msg]";
@@ -408,18 +410,9 @@ class MIOLO
      */
     public function init( $home = NULL, $logname = 'miolo')
     {
-        global $autoload;
-
-        include ( 'flow/eMioloException.php' );
-        include ( 'utils/mXMLTree.php' );
-        include ( 'compatibility/mCompatibility.php' );
-        include ( 'utils/mAutoload.php' );
-
         $this->handlers = array();
         $this->uses     = array();
         $this->import   = array();
-        $this->getObject('autoload');
-        $autoload = $this->autoload;
         $this->setLog($logname);
 
         $this->logMessage('[RESET_LOG_MESSAGES]');
@@ -451,7 +444,7 @@ class MIOLO
         $this->formSubmit = self::_REQUEST('__FORMSUBMIT');
 
         // MAjax handlers Ajax 
-        $this->ajax = new MAjax();
+        $this->ajax = new \MAjax();
         // if it is a AJAX call, initialize mcpaint
         if (self::_REQUEST('__ISAJAXCALL') != '')
         {
@@ -466,7 +459,7 @@ class MIOLO
 
         $this->loadExtensions();
 
-        $this->persistence = new PersistentManagerFactory();
+        $this->persistence = new \PersistentManagerFactory();
         $this->persistence->setConfigLoader('XML');
         
         /**
@@ -484,7 +477,7 @@ class MIOLO
 
         $this->profileEnter('MIOLO::prepare');
 
-        // getting the module.conf
+        // getting the module.php
         if (!is_null($this->context->module))
         {
             $this->conf->loadConf($this->context->module);
@@ -492,7 +485,6 @@ class MIOLO
 
         // base module/handler
         $this->startup = $this->getConf('options.startup') != NULL ? $this->getConf('options.startup') : 'admin';
-mdump($this->startup);
 
         if ($this->startup != $this->context->module)
         {
@@ -509,7 +501,6 @@ mdump($this->startup);
             $this->conf->loadConf($common);
         }
 
-mdump($this->getConf("options.fileextension"));
         // what is the Miolo files extensions (.php or '')?
         $this->php = $this->getConf("options.fileextension") == '2' ? '' : '.php';
 
@@ -562,7 +553,7 @@ mdump($this->getConf("options.fileextension"));
                     "</script>";
             }
         }
-        catch( EMioloException $e )
+        catch( \EMioloException $e )
         {
             $msg = $e->getMessage();
             if ( $this->getConf('options.message.error') && $e->getCode() === 0 )
@@ -694,7 +685,7 @@ mdump($this->getConf("options.fileextension"));
     public function scramble($text)
     {
         $pwd = $this->getConf('options.scramble.password');
-        $rc4 = new MRC4Crypt;
+        $rc4 = new \MRC4Crypt;
         $crypto = base64_encode($rc4->rc4($pwd,$text));
         $result = urlencode($crypto);
         return $result;
@@ -703,7 +694,7 @@ mdump($this->getConf("options.fileextension"));
     public function unScramble($text)
     {
         $pwd = $this->getConf('options.scramble.password');
-        $rc4 = new MRC4Crypt;
+        $rc4 = new \MRC4Crypt;
         $crypto = urldecode($text);
         $result = $rc4->rc4($pwd,base64_decode($crypto));
         return $result;
@@ -820,17 +811,36 @@ mdump($this->getConf("options.fileextension"));
 
     public function loadExtensions()
     {
+        static $registered = false;
+        if ($registered) return;
+        $registered = true;
+
         $extensions = array_filter((array) $this->getConf('extensions.extension'));
-        
         $dir = $this->getConf('home.extensions');
-        
+        $extDirs = [];
+
         foreach ($extensions as $extension)
         {
-            $autoload = $dir . '/' . $extension . '/autoload.xml';
-            if (file_exists($autoload))
+            $extDir = $dir . '/' . $extension;
+            if (is_dir($extDir))
             {
-                $this->autoload->loadFile($autoload);
+                $extDirs[] = $extDir;
             }
+        }
+
+        if ($extDirs)
+        {
+            spl_autoload_register(function($class) use ($extDirs) {
+                foreach ($extDirs as $extDir)
+                {
+                    $file = $extDir . '/' . $class . '.php';
+                    if (file_exists($file))
+                    {
+                        include_once $file;
+                        return;
+                    }
+                }
+            });
         }
     }
 
@@ -866,7 +876,7 @@ mdump($this->getConf("options.fileextension"));
 
             if ( ! file_exists( $path ) )
             {
-                throw new EUsesException( $path );
+                throw new \EUsesException( $path );
             }
 
             $this->uses[$unique] = array( $name, filesize($path) );
@@ -909,7 +919,7 @@ mdump($this->getConf("options.fileextension"));
         // receive an eval error
            if ( ! ( $this->import('modules::' . $module . '::business::'. $name, $class, $this->php) ) )
            {
-               throw new EUsesException($this->getConf('home.modules') . '/' . $module . "/db/$name.php ",  _M('Error in UsesBusiness: Class not Found! <BR>Class name: ') );
+               throw new \EUsesException($this->getConf('home.modules') . '/' . $module . "/db/$name.php ",  _M('Error in UsesBusiness: Class not Found! <BR>Class name: ') );
            }
 
            $class = strtolower($class);
@@ -943,7 +953,7 @@ mdump($this->getConf("options.fileextension"));
      *        Quando for informado um array, o <code>key</code> sera o nome da variavel atraves
      *        do qual o conteudo podera ser acessado.
      * @param $dispatch (string) Indica qual arquivo devera ser utilizado
-     *        ao inves daquele configurado no miolo.conf:
+     *        ao inves daquele configurado no miolo.php:
      *        <code>$MIOLOCONF['options']['dispatch']</code>
      * @param $scramble (boolean) Indica se o link deve ser
      *
@@ -1471,9 +1481,9 @@ mdump($this->getConf("options.fileextension"));
     # This method is used to create a connection to the database
     # specified in the <code>$conf</code> parameter.
     # The database configuration must have been previously created in the
-    # MIOLO configuration file: miolo.conf
+    # MIOLO configuration file: miolo.php
     #
-    # @param $conf (string) Configuration name, defined in miolo.conf
+    # @param $conf (string) Configuration name, defined in miolo.php
     # @param $user (string) (optional) Username to connect to the database
     #
     # @param $pass (string) (optional) Password for database access.
@@ -1513,7 +1523,7 @@ mdump($this->getConf("options.fileextension"));
                 if (!$conf)
                 {
                     $this->traceStack();
-                    throw new EDatabaseException($conf,"Database configuration missing in miolo.conf!");
+                    throw new \EDatabaseException($conf,"Database configuration missing in miolo.php!");
                 }
 
                 $db_host = $this->getConf("db.$conf.host");
@@ -1528,13 +1538,13 @@ mdump($this->getConf("options.fileextension"));
                 {
                     $db_user = $this->getConf("db.$conf.user");
 
-                    $this->conf->loadConf('','../etc/passwd.conf');
+                    $this->conf->loadConf('','../etc/passwd.php');
 
                     $db_pass = $this->getConf("db.$conf.password");
 
                     if (!(isset($db_user) && isset($db_pass)))
                     {
-                        throw new EDatabaseException($conf,"Configuration in miolo.conf is missing login for this database!");
+                        throw new \EDatabaseException($conf,"Configuration in miolo.php is missing login for this database!");
                     }
                 }
                 else
@@ -1543,15 +1553,15 @@ mdump($this->getConf("options.fileextension"));
                     $db_pass = $pass ? $pass : $this->login->password;
                 }
                 
-                if ( MUtil::getBooleanValue($this->getConf('login.dbuser')) && strlen($this->login->id) )
+                if ( \MUtil::getBooleanValue($this->getConf('login.dbuser')) && strlen($this->login->id) )
                 {
                     $db_user = $this->login->id;
                 }
 
-                $db = new MDatabase($conf, $db_system, $db_host, $db_name, $db_user, $db_pass, $db_persistent,'','', $db_jdbc_driver, $db_jdbc_db, $db_port);
+                $db = new \MDatabase($conf, $db_system, $db_host, $db_name, $db_user, $db_pass, $db_persistent,'','', $db_jdbc_driver, $db_jdbc_db, $db_port);
                 $this->dbconf[$conf] = $db;
             }
-            catch( Exception $e )
+            catch( \Exception $e )
             {
                 throw $e;
             }
@@ -1636,12 +1646,12 @@ mdump($this->getConf("options.fileextension"));
                 $this->uses($name.'.class', $module);
                 if ( ! $this->import('modules::' . $module . '::business::'. $name, $class, $this->php, true) )
                 {
-                    throw new EBusinessException( _M('Error in getBusiness: Class not Found! <BR>Class name: ') . $class . '<BR/><BR/>This class should exist in file ' . $this->getConf('home.modules') . '/' . $module . "/db/$name" . $this->php);
+                    throw new \EBusinessException( _M('Error in getBusiness: Class not Found! <BR>Class name: ') . $class . '<BR/><BR/>This class should exist in file ' . $this->getConf('home.modules') . '/' . $module . "/db/$name" . $this->php);
                 }
             }
             else
             {
-                throw new EBusinessException( _M('Error in getBusiness: Class not Found! <BR>Class name: ') . $class . '<BR/><BR/>This class should exist in file ' . $this->getConf('home.modules') . '/' . $module . "/db/$name" . $this->php);
+                throw new \EBusinessException( _M('Error in getBusiness: Class not Found! <BR>Class name: ') . $class . '<BR/><BR/>This class should exist in file ' . $this->getConf('home.modules') . '/' . $module . "/db/$name" . $this->php);
 	    }
         }
 
@@ -1702,7 +1712,7 @@ mdump($this->getConf("options.fileextension"));
         }
         else
         {
-            throw new EFileNotFoundException( $file, "UI::getWebService() :" );
+            throw new \EFileNotFoundException( $file, "UI::getWebService() :" );
         }
     }
     
@@ -1758,7 +1768,7 @@ mdump($this->getConf("options.fileextension"));
     {
         if ( is_null($this->painter) )
         {
-            $this->painter = new MHtmlPainter();
+            $this->painter = new \MHtmlPainter();
         }
 
         return $this->painter;
@@ -1787,7 +1797,7 @@ mdump($this->getConf("options.fileextension"));
      */
     public function error($msg = '', $goto = '', $caption = '', $event = '', $halt = true)
     {
-        $this->prompt(MPrompt::error($msg, $goto, $caption, $event), $halt);
+        $this->prompt(\MPrompt::error($msg, $goto, $caption, $event), $halt);
     }
 
     /**
@@ -1804,7 +1814,7 @@ mdump($this->getConf("options.fileextension"));
      */
     public function information($msg, $goto = '', $event = '', $halt = true)
     {
-        $this->prompt(MPrompt::information($msg, $goto, $event), $halt);
+        $this->prompt(\MPrompt::information($msg, $goto, $event), $halt);
     }
 
     /**
@@ -1823,7 +1833,7 @@ mdump($this->getConf("options.fileextension"));
      */
     public function confirmation($msg, $gotoOK = '', $gotoCancel = '', $eventOk = '', $eventCancel = '', $halt = true)
     {
-        $this->prompt(MPrompt::confirmation($msg, $gotoOK, $gotoCancel, $eventOk, $eventCancel), $halt);
+        $this->prompt(\MPrompt::confirmation($msg, $gotoOK, $gotoCancel, $eventOk, $eventCancel), $halt);
     }
 
     /**
@@ -1842,7 +1852,7 @@ mdump($this->getConf("options.fileextension"));
      */
     public function question($msg, $gotoYes = '', $gotoNo = '', $eventYes = '', $eventNo = '', $halt = true)
     {
-        $this->prompt(MPrompt::question($msg, $gotoYes, $gotoNo, $eventYes, $eventNo), $halt);
+        $this->prompt(\MPrompt::question($msg, $gotoYes, $gotoNo, $eventYes, $eventNo), $halt);
     }
 
     /**
@@ -1855,7 +1865,7 @@ mdump($this->getConf("options.fileextension"));
      */
     public function alert($msg, $goto = '', $event = '', $halt = true)
     {
-        $this->prompt(MPrompt::alert($msg, $goto, $event), $halt);
+        $this->prompt(\MPrompt::alert($msg, $goto, $event), $halt);
     }
 
     /**
@@ -1870,7 +1880,7 @@ mdump($this->getConf("options.fileextension"));
      */
     public function prompt($prompt, $halt = true)
     {
-        $spacer = new MSpacer();
+        $spacer = new \MSpacer();
         $this->theme->insertContent($spacer);
         $this->theme->insertContent($prompt);
         $this->theme->setHalted($halt);
@@ -2236,8 +2246,8 @@ mdump($this->getConf("options.fileextension"));
      */
     public static function vd($variable, $forceType=null)
     {
-        MUtil::debug('DEPRECATED: MIOLO::vd is deprecated, use MUtil::debug instead.');
-        MUtil::debug($variable, $forceType);
+        \MUtil::debug('DEPRECATED: MIOLO::vd is deprecated, use MUtil::debug instead.');
+        \MUtil::debug($variable, $forceType);
     }
 
     /**
@@ -2331,7 +2341,7 @@ mdump($this->getConf("options.fileextension"));
         {
             $conn = $this->dbconf[$module];
             
-            if ( $conn instanceof MConnection )
+            if ( $conn instanceof \MConnection )
             {
                 $conn->_close();
             }
@@ -2345,3 +2355,5 @@ mdump($this->getConf("options.fileextension"));
         return MIOLO_VERSION_NUMBER;
     }
 }
+
+class_alias(MIOLO::class, 'MIOLO');

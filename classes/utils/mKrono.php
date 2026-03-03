@@ -156,24 +156,29 @@ class MKrono
 	{
         $MIOLO = MIOLO::getInstance();
         
-        $this->path = $MIOLO->getConf('home.etc') . '/mkrono.conf';    
-        $xml = new MSimpleXML($this->path);
-		$this->lan = (string)$xml->xml->language;
-		$this->dateFormat = (string)$xml->xml->dateFormat;
-		$this->separator = (string)$xml->xml->separator;
-        $this->timeFormat = (string)$xml->xml->timeFormat;
-        $this->error='';
+        $this->path = $MIOLO->getConf('home.etc') . '/mkrono.php';
+        $data = require $this->path;
 
-		$this->_checkIniFile();
+        $this->lan = $data['language'];
+        $this->dateFormat = $data['dateFormat'];
+        $this->separator = $data['separator'];
+        $this->timeFormat = $data['timeFormat'];
+        $this->error = '';
 
-        $array = $xml->toArray($conf, $xml->xml->longDay);
-        foreach($array as $k=>$v) $this->dayNameExt[$k] = $v['day'];
-		$array = $xml->toArray($conf, $xml->xml->shortDay);
-        foreach($array as $k=>$v) $this->dayNameCon[$k] = $v['day'];
-		$array = $xml->toArray($conf, $xml->xml->longMonth);
-        foreach($array as $k=>$v) $this->monthNameExt[$k] = $v['month'];
-		$array = $xml->toArray($conf, $xml->xml->shortMonth);
-        foreach($array as $k=>$v) $this->monthNameCon[$k] = $v['month'];
+        $this->_checkIniFile();
+
+        $lan = $this->lan;
+        $this->dayNameExt[$lan] = $data['longDay'][$lan];
+        $this->dayNameCon[$lan] = $data['shortDay'][$lan];
+        $this->monthNameExt[$lan] = $data['longMonth'][$lan];
+        $this->monthNameCon[$lan] = $data['shortMonth'][$lan];
+
+        if (isset($data['longDay']['en'])) {
+            $this->dayNameExt['en'] = $data['longDay']['en'];
+            $this->dayNameCon['en'] = $data['shortDay']['en'];
+            $this->monthNameExt['en'] = $data['longMonth']['en'];
+            $this->monthNameCon['en'] = $data['shortMonth']['en'];
+        }
 
 /*        
         $this->dayNameExt=parse_ini_file($this->path.'_long_day.ini', TRUE);

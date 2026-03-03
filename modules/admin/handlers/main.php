@@ -34,7 +34,7 @@ $cmPanel->addAction( _M('Transactions', $module)  , $ui->getImage($module, 'proc
 $cmPanel->addAction( _M('Users', $module)  , $ui->getImage($module, 'user-32x32.png')  , $module, 'main:users');
 $cmPanel->addAction( _M('Groups', $module) , $ui->getImage($module, 'groups-32x32.png'), $module, 'main:groups');
 $cmPanel->addAction( _M('Database Dump', $module) , $ui->getImage($module, 'dbdump-32x32.png'), $module, 'main:dbdump');
-$cmPanel->addAction( _M('Configuration (miolo.conf)', $module) , $ui->getImage($module, 'conf-32x32.png'), $module, 'main:conf');
+$cmPanel->addAction( _M('Configuration (miolo.php)', $module) , $ui->getImage($module, 'conf-32x32.png'), $module, 'main:conf');
 $cmPanel->addAction( _M('Logs', $module) , $ui->getImage($module, 'log-32x32.png'), $module, 'main:log');
 $cmPanel->addAction( _M('Logout', $module) , $ui->getImage($module, 'logout-32x32.png'), $odule, 'logout');
 $handled = $MIOLO->invokeHandler($module,$a);

@@ -31,7 +31,7 @@ if ( $argv[1] == 'configure' )
     exit("Created initial configuration file successfully!\n");
 }
 
-if ( !file_exists('../etc/miolo.conf') )
+if ( !file_exists('../etc/miolo.php') )
 {
     MioloAdmin::configure();
     $admin = new MioloAdmin();
@@ -187,17 +187,17 @@ switch ($argv[1])
                 break;
 
             case 'setconfig':
-                echo "Sets the given value to the given configuration parameter of miolo.conf (or module.conf if module is given).\n";
+                echo "Sets the given value to the given configuration parameter of miolo.php (or module.php if module is given).\n";
                 echo "Usage: {$argv[0]} setconfig <config> <value> [module]\n";
                 break;
 
             case 'getconfig':
-                echo "Gets the value of the given configuration parameter of miolo.conf (or module.conf if module is given).\n";
+                echo "Gets the value of the given configuration parameter of miolo.php (or module.php if module is given).\n";
                 echo "Usage: {$argv[0]} getconfig <config> [module]\n";
                 break;
 
             case 'removeconfig':
-                echo "Removes the given configuration parameter of miolo.conf (or module.conf if module is given).\n";
+                echo "Removes the given configuration parameter of miolo.php (or module.php if module is given).\n";
                 echo "Usage: {$argv[0]} removeconfig <config> [module]\n";
                 break;
 

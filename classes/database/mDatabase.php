@@ -1,13 +1,13 @@
 <?php
 class MDatabase
 {
-    public $conf;       // identifies db configuration in miolo.conf
+    public $conf;       // identifies db configuration in miolo.php
     public $system;     // what driver?
     public $host;       // host configuration
     public $port;       // port configuration
-    public $db;         // db identifier in miolo.conf
-    public $user;       // user in miolo.conf
-    public $pass;       // password in miolo.conf
+    public $db;         // db identifier in miolo.php
+    public $user;       // user in miolo.php
+    public $pass;       // password in miolo.php
 
     /**
      * @var MConnection Connection handler.

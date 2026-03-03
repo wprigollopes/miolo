@@ -1,7 +1,0 @@
-<conf>
-    <db>
-       <miolo>
-           <password>CHANGE_ME</password>
-       </miolo>
-    </db>
-</conf>

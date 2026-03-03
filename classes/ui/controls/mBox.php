@@ -11,7 +11,7 @@ class MBox extends MContainerControl
     /**
      * MBox constructor.
      * Even if the close parameter is true, the button is only generated if the 
-     * configuration at miolo.conf (or module.conf) is enabled (true).
+     * configuration at miolo.php (or module.php) is enabled (true).
      *
      * @param string $caption Title string.
      * @param string $close Close action.
