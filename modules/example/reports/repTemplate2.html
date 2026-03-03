@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15">
+<style>
+table {
+ font-family: Verdana;
+ width:200mm;
+ font-size: 8pt;
+ font-weight: normal;
+ color: #000;
+}
+
+tbody {
+  background-color: #ffffff;
+}
+
+table.header {
+ margin-top: 2em;
+}
+
+table.footer {
+}
+
+table.body th {
+ background-color: #EEE;  
+}
+
+.row0 {
+ background-color: #fff;  
+}
+
+.row1 {
+ background-color: #DDD;  
+}
+
+td.logo {
+  width: 10mm;
+}
+
+td.header {
+  width: 150mm;
+}
+
+td.pagenum {
+  width: 30mm;
+}
+
+.col1 {
+  text-align: left;
+  width: 75mm;
+}
+.col2 {
+  text-align: center;
+  width: 15mm;
+}
+.col3 {
+  text-align: right;
+  width: 25mm;
+}
+.col4 {
+  text-align: left;
+  width: 45mm;
+}
+
+div.footer {
+ text-align: right; 
+}
+
+div.content {
+ margin: 0 0 0 5mm;
+ font-size: 10pt;
+}
+
+div.doctitle {
+ font-size: 10pt;
+ font-weight: bold;
+}
+
+div.pagenum {
+ text-align: right;
+}
+
+div.newpage {
+ page-break-before:always;
+}
+</style>
+</head>
+<!--
+<?php
+$pageNum = 1;
+$numPages = count($data);
+?>
+-->
+
+<body>
+<?php
+$i = 0;
+while ($i < $numPages):
+?>
+<table class="header">
+<tbody>
+<tr>
+	<td class="logo">
+	   <img SRC=<?=$logo?> border="0" alt="">
+	</td>
+	<td class="header">
+	   <div class="header">UFJF - Universidade Federal de Juiz de Fora</div> 
+	   <div class="header">CGCO - Centro de GestÃ£o do Conhecimento Organizacional</div> 
+	   <div class="header">SIGA - Sistema Integrado de GestÃ£o AcadÃªmica</div> 
+	   <div class="header">MÃ³dulo: Nome do MÃ³dulo</div> 
+	</td>
+	<td class="pagenum" >
+	   <div class="pagenum">PÃ¡gina: <?=$pageNum?>/<?=$numPages?></div> 
+    </td>
+</tr>
+<tr>
+	<td colspan=3>
+	   <div class="doctitle">TÃTULO DO RELATÃRIO EM DESTAQUE</div> 
+	</td>
+</tr>
+<tr>
+	<td colspan=3>
+	   <div class="header">Setor: Nome do Setor</div> 
+	</td>
+</tr>
+</tbody>
+</table>
+<table class="body">
+<tr>
+<th class="col1">Nome</th>
+<th class="col2">Sexo</th>
+<th class="col3">Telefone</th>
+<th class="col4">Curso</th>
+</tr>
+</thead>
+<tbody>
+<?php
+ echo $data[$i];
+?>
+</tbody>
+</table>
+<table class="footer">
+<tbody>
+<tr>
+	<td>
+	   <div class="footer">UFJF/CGCO - <?=$timestamp?></div>
+	</td>
+</tbody>
+</table>
+<?php
+++$i;
+++$pageNum;
+echo ($i < $limit) ? "<div class=\"newpage\"></div>" : "";
+endwhile;
+?>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<module>
+  <name>hangman</name>
+  <description>Hangman game</description>
+  <menu_text>Hangman</menu_text>
+  <version>1.0</version>
+  <maintainer>Miolo Team - Ely Matos</maintainer>
+  <home_page>http://www.miolo.org.br</home_page>
+  <email>miolo@solis.coop.br</email>
+  <update_url>http://www.miolo.org.br</update_url>
+</module>

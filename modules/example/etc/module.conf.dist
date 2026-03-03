@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?> 
+<conf>
+    <namespace>
+        <business>/db</business>
+    </namespace>
+    <options>
+       <startup>example</startup>
+    </options>
+    <db>
+       <tutorial>
+           <system>sqlite</system>
+           <host>localhost</host>
+           <name>/var/www/miolo/modules/example/sql/tutorial.sqlite</name>
+           <user>miolo</user>
+           <password>miolo</password>
+       </tutorial>
+       <example>
+           <system>sqlite</system>
+           <host>localhost</host>
+           <name>/var/www/miolo/modules/example/sql/example.sqlite</name>
+           <user>miolo</user>
+           <password>miolo</password>
+       </example>
+       <persistence>
+           <system>sqlite</system>
+           <host>localhost</host>
+           <name>/var/www/miolo/modules/example/sql/persistence.sqlite</name>
+           <user>miolo</user>
+           <password>miolo</password>
+       </persistence>
+    </db>
+    <theme>
+       <module></module>
+       <main>modern</main>
+       <lookup>modern</lookup>
+       <title>Miolo Web Application - Examples</title>
+       <company>MIOLO - Object-oriented Web Framework</company>
+       <system>Example - A Demo Module</system>
+       <logo>logo_miolo.png</logo>
+       <email>miolo@miolo.org.br</email>
+    <options>
+      <close>true</close>
+      <minimize>false</minimize>
+      <help>false</help>
+      <move>false</move>
+    </options>
+    </theme>
+    <login>
+        <check>0</check>
+    </login>
+</conf>

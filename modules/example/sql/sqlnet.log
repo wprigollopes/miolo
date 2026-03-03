@@ -1,0 +1,41 @@
+
+
+***********************************************************************
+Fatal NI connect error 12560, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=200.17.69.90)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ufjf)(CID=(PROGRAM=)(HOST=corinto)(USER=root))))
+
+  VERSION INFORMATION:
+	TNS for Linux: Version 8.1.7.0.0 - Development
+	TCP/IP NT Protocol Adapter for Linux: Version 8.1.7.0.0 - Production
+  Time: 03-NOV-2005 15:41:45
+  Tracing not turned on.
+  Tns error struct:
+    nr err code: 0
+    ns main err code: 12560
+    TNS-12560: TNS:protocol adapter error
+    ns secondary err code: 0
+    nt main err code: 530
+    TNS-00530: Protocol adapter error
+    nt secondary err code: 113
+    nt OS err code: 0
+
+
+***********************************************************************
+Fatal NI connect error 12545, connecting to:
+ (DESCRIPTION=(ADDRESS=(PROTOCOL=beq)(PROGRAM=/home/oracle/product/8.1.7/bin/oracle)(ARGV0=oracleUFJF)(ARGS='(DESCRIPTION=(LOCAL=YES)(ADDRESS=(PROTOCOL=beq)))')(DETACH=NO))(CONNECT_DATA=(CID=(PROGRAM=)(HOST=corinto)(USER=root))))
+
+  VERSION INFORMATION:
+	TNS for Linux: Version 8.1.7.0.0 - Development
+	Oracle Bequeath NT Protocol Adapter for Linux: Version 8.1.7.0.0 - Development
+	TCP/IP NT Protocol Adapter for Linux: Version 8.1.7.0.0 - Production
+  Time: 08-NOV-2005 04:31:15
+  Tracing not turned on.
+  Tns error struct:
+    nr err code: 0
+    ns main err code: 12545
+    TNS-12545: Connect failed because target host or object does not exist
+    ns secondary err code: 12560
+    nt main err code: 515
+    TNS-00515: Connect failed because target host or object does not exist
+    nt secondary err code: 2
+    nt OS err code: 0

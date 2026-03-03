@@ -1,0 +1,540 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MIOLO25: /var/docker/solisge-devel/www/solisge/miolo25/classes/utils/mutil.class.php</title>
+<link rel="icon" href="miolo_icon.png" type="image/x-icon" />
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MIOLO25
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Localizar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_2var_2docker_2solisge-devel_2www_2solisge_2miolo25_2classes_2utils_2mutil_8class_8php-example.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Carregando...</div>
+<div class="SRStatus" id="Searching">Procurando...</div>
+<div class="SRStatus" id="NoMatches">Nenhuma entrada encontrada</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">/var/docker/solisge-devel/www/solisge/miolo25/classes/utils/mutil.class.php</div></div>
+</div><!--header-->
+<div class="contents">
+<p>Generates a formatted var_dump output. This method uses Kwaku Otchere's dBug.class.php which dumps/displays the contents of a variable in a colored tabular format based on the idea, javascript and css code of Macromedia's ColdFusion cfdump tag <br  />
+</p>
+<p><code> ... <a class="el" href="classMUtil.html#a335044e572a507f9bffb0a72a96c7723">MUtil::debug</a>($varName); <a class="el" href="classMUtil.html#a335044e572a507f9bffb0a72a96c7723">MUtil::debug</a>($myVariable, 'array'); ... </code></p>
+<p>$myVariable will be treated and dumped as an array type, even though it might originally have been a string type, etc. NOTE! $forceType is REQUIRED for dumping an xml string or xml file <code>MIOLO::debug($strXml, "xml");</code></p>
+<dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$variable</td><td>Variable to be shown. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$forceType</td><td>Optional parameter. If it's given, the variable supplied to the function is forced to have that given type.</td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line">&lt;?php</div>
+<div class="line"> </div>
+<div class="line">$MIOLO = <a id="a0" name="a0"></a><a class="code hl_function" href="classMIOLO.html#ac93fbec81f07e5d15f80db907e63dc10">MIOLO::getInstance</a>();</div>
+<div class="line">$MIOLO-&gt;page-&gt;addScript(<span class="stringliteral">&#39;m_util.js&#39;</span>);</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">class </span><a id="_a1" name="_a1"></a><a class="code hl_class" href="classMUtil.html">MUtil</a></div>
+<div class="line">{</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a id="a2" name="a2"></a><a class="code hl_function" href="classMUtil.html#a9de8ba2cb7b5d448b9b827a7ec041108">clog</a>($args)</div>
+<div class="line">    {</div>
+<div class="line">        $MIOLO = <a class="code hl_function" href="classMIOLO.html#ac93fbec81f07e5d15f80db907e63dc10">MIOLO::getInstance</a>();</div>
+<div class="line">        $result = MUtil::dataforFirebugConsole(func_get_args());</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">if</span> ( is_array($result) )</div>
+<div class="line">        {</div>
+<div class="line">            $clogs = <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line">            <span class="keywordflow">foreach</span> ( $result as $line =&gt; $info )</div>
+<div class="line">            {</div>
+<div class="line">                $clogs .= <span class="stringliteral">&#39;console.log(\&#39;&#39;</span> . $info . <span class="charliteral">&#39;\&#39;</span>);<span class="stringliteral">&#39;;</span></div>
+<div class="line"><span class="stringliteral">            }</span></div>
+<div class="line"><span class="stringliteral">            $MIOLO-&gt;page-&gt;addJsCode($clogs);</span></div>
+<div class="line"><span class="stringliteral">            $MIOLO-&gt;trace(&#39;</span>[CLOG] <span class="stringliteral">&#39; . var_export(func_get_args(), true));</span></div>
+<div class="line"><span class="stringliteral">        }</span></div>
+<div class="line"><span class="stringliteral">    }</span></div>
+<div class="line"><span class="stringliteral"></span> </div>
+<div class="line">    public static function cerror($args)</div>
+<div class="line">    {</div>
+<div class="line">        $MIOLO = MIOLO::getInstance();</div>
+<div class="line">        $result = MUtil::dataforFirebugConsole(func_get_args());</div>
+<div class="line"> </div>
+<div class="line">        if ( is_array($result) )</div>
+<div class="line">        {</div>
+<div class="line">            foreach ( $result as $line =&gt; $info )</div>
+<div class="line">            {</div>
+<div class="line">                $MIOLO-&gt;page-&gt;onload(&#39;console.error(\<span class="stringliteral">&#39;&#39;</span> . $info . <span class="charliteral">&#39;\&#39;</span>);<span class="stringliteral">&#39;);</span></div>
+<div class="line"><span class="stringliteral">            }</span></div>
+<div class="line"><span class="stringliteral">            $MIOLO-&gt;trace(&#39;</span>[CERROR] <span class="stringliteral">&#39; . var_export(func_get_args(), true));</span></div>
+<div class="line"><span class="stringliteral">        }</span></div>
+<div class="line"><span class="stringliteral">    }</span></div>
+<div class="line"><span class="stringliteral"></span> </div>
+<div class="line">    private static function dataforFirebugConsole($array)</div>
+<div class="line">    {</div>
+<div class="line">        $MIOLO = MIOLO::getInstance();</div>
+<div class="line"> </div>
+<div class="line">        if ( is_array($array) )</div>
+<div class="line">        {</div>
+<div class="line">            foreach ( $array as $line =&gt; $info )</div>
+<div class="line">            {</div>
+<div class="line">                if ( !is_string($info) )</div>
+<div class="line">                {</div>
+<div class="line">                    $info = print_r($info, 1);</div>
+<div class="line">                }</div>
+<div class="line">                $info = str_replace(&quot;\n&quot;, &#39;\n<span class="stringliteral">&#39;, $info); // changes new line from php to js</span></div>
+<div class="line"><span class="stringliteral">                $info = str_replace(&quot;&#39;</span><span class="stringliteral">&quot;, &quot;</span>\<span class="stringliteral">&#39;&quot;, $info); // removes &#39;</span> to avoid js syntax errors</div>
+<div class="line">                $result[] = $info;</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">return</span> $result;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a id="a3" name="a3"></a><a class="code hl_function" href="classMUtil.html#a2733638cbf8e0e0edc42fc3a531e128e">flog</a>()</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">if</span> ( file_exists(<span class="stringliteral">&#39;/tmp/flog&#39;</span>) )</div>
+<div class="line">        {</div>
+<div class="line">            $numArgs = func_num_args();</div>
+<div class="line">            $dump = <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line">            <span class="keywordflow">for</span> ( $i = 0; $i &lt; $numArgs; $i++ )</div>
+<div class="line">            {</div>
+<div class="line">                $dump .= var_export(func_get_arg($i), <span class="keyword">true</span>) . <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line">            }</div>
+<div class="line"> </div>
+<div class="line">            $f = fopen(<span class="stringliteral">&#39;/tmp/flog&#39;</span>, <span class="charliteral">&#39;a&#39;</span>);</div>
+<div class="line">            fwrite($f, $dump);</div>
+<div class="line">            fclose($f);</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a id="a4" name="a4"></a><a class="code hl_function" href="classMUtil.html#a09660d5ddd8ab36640befe1117eb99bb">NVL</a>($value1, $value2)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> ($value1 != NULL) ? $value1 : $value2;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a id="a5" name="a5"></a><a class="code hl_function" href="classMUtil.html#aa981bd5a46fb3403941c9ecb472d2dab">ifNull</a>($value1, $value2, $value3)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> ($value1 == NULL) ? $value2 : $value3;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a id="a6" name="a6"></a><a class="code hl_function" href="classMUtil.html#ad6d7ef9321c697bbad507f9dde0e82b5">setIfNull</a>(&amp;$value1, $value2)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">if</span> ( $value1 == NULL ) $value1 = $value2;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a id="a7" name="a7"></a><a class="code hl_function" href="classMUtil.html#af8ac435d4abe6b9ee087032f8bd5c7f0">setIfNotNull</a>(&amp;$value1, $value2)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">if</span> ( $value2 != NULL ) $value1 = $value2;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a id="a8" name="a8"></a><a class="code hl_function" href="classMUtil.html#a9deac24c83d5b68afe4433a924118045">getBooleanValue</a>($value)</div>
+<div class="line">    {</div>
+<div class="line">        $trues = array( <span class="charliteral">&#39;t&#39;</span>, <span class="charliteral">&#39;1&#39;</span>, <span class="stringliteral">&#39;true&#39;</span>, <span class="stringliteral">&#39;True&#39;</span> );</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">if</span> ( is_bool($value) )</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">return</span> $value;</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">return</span> in_array($value, $trues);</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a id="a9" name="a9"></a><a class="code hl_function" href="classMUtil.html#a4f8952ce34c78c71e387b41abc1aeed3">removeSpaceChars</a>($value)</div>
+<div class="line">    {</div>
+<div class="line">        $blanks = array( <span class="stringliteral">&quot;\r&quot;</span> =&gt; <span class="stringliteral">&#39;&#39;</span>, <span class="stringliteral">&quot;\t&quot;</span> =&gt; <span class="stringliteral">&#39;&#39;</span>, <span class="stringliteral">&quot;\n&quot;</span> =&gt; <span class="stringliteral">&#39;&#39;</span>, <span class="stringliteral">&#39;&amp;nbsp;&#39;</span> =&gt; <span class="stringliteral">&#39;&#39;</span>, <span class="charliteral">&#39; &#39;</span> =&gt; <span class="stringliteral">&#39;&#39;</span> );</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">return</span> strtr($value, $blanks);</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a id="a10" name="a10"></a><a class="code hl_function" href="classMUtil.html#ae2fb75162818323a0d57dbe76c506881">copyDirectory</a>($sourceDir, $destinDir)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">if</span> ( file_exists($sourceDir) &amp;&amp; file_exists($destinDir) )</div>
+<div class="line">        {</div>
+<div class="line">            $open_dir = opendir($sourceDir);</div>
+<div class="line"> </div>
+<div class="line">            <span class="keywordflow">while</span> ( <span class="keyword">false</span> !== ( $file = readdir($open_dir) ) )</div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">if</span> ( $file != <span class="stringliteral">&quot;.&quot;</span> &amp;&amp; $file != <span class="stringliteral">&quot;..&quot;</span> )</div>
+<div class="line">                {</div>
+<div class="line">                    $aux = explode(<span class="charliteral">&#39;.&#39;</span>, $file);</div>
+<div class="line"> </div>
+<div class="line">                    <span class="keywordflow">if</span> ( $aux[0] != <span class="stringliteral">&quot;&quot;</span> )</div>
+<div class="line">                    {</div>
+<div class="line">                        <span class="keywordflow">if</span> ( file_exists($destinDir . <span class="stringliteral">&quot;/&quot;</span> . $file) &amp;&amp;</div>
+<div class="line">                                filetype($destinDir . <span class="stringliteral">&quot;/&quot;</span> . $file) != <span class="stringliteral">&quot;dir&quot;</span> )</div>
+<div class="line">                        {</div>
+<div class="line">                            unlink($destinDir . <span class="stringliteral">&quot;/&quot;</span> . $file);</div>
+<div class="line">                        }</div>
+<div class="line">                        <span class="keywordflow">if</span> ( filetype($sourceDir . <span class="stringliteral">&quot;/&quot;</span> . $file) == <span class="stringliteral">&quot;dir&quot;</span> )</div>
+<div class="line">                        {</div>
+<div class="line">                            <span class="keywordflow">if</span> ( !file_exists($destinDir . <span class="stringliteral">&quot;/&quot;</span> . $file) )</div>
+<div class="line">                            {</div>
+<div class="line">                                mkdir($destinDir . <span class="stringliteral">&quot;/&quot;</span> . $file . <span class="stringliteral">&quot;/&quot;</span>);</div>
+<div class="line">                                <a class="code hl_function" href="classMUtil.html#ae2fb75162818323a0d57dbe76c506881">self::copyDirectory</a>($sourceDir . <span class="stringliteral">&quot;/&quot;</span> . $file, $destinDir . <span class="stringliteral">&quot;/&quot;</span> . $file);</div>
+<div class="line">                            }</div>
+<div class="line">                        }</div>
+<div class="line">                        <span class="keywordflow">else</span></div>
+<div class="line">                        {</div>
+<div class="line">                            copy($sourceDir . <span class="stringliteral">&quot;/&quot;</span> . $file, $destinDir . <span class="stringliteral">&quot;/&quot;</span> . $file);</div>
+<div class="line">                        }</div>
+<div class="line">                    }</div>
+<div class="line">                }</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a id="a11" name="a11"></a><a class="code hl_function" href="classMUtil.html#a715d8c3466be7b7d97de7ce54c0cece9">removeDirectory</a>($directory, $empty=FALSE)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">if</span> ( substr($directory, -1) == <span class="charliteral">&#39;/&#39;</span> )</div>
+<div class="line">        {</div>
+<div class="line">            $directory = substr($directory, 0, -1);</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">if</span> ( !file_exists($directory) || !is_dir($directory) )</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">return</span> FALSE;</div>
+<div class="line">        }</div>
+<div class="line">        elseif ( is_readable($directory) )</div>
+<div class="line">        {</div>
+<div class="line">            $handle = opendir($directory);</div>
+<div class="line"> </div>
+<div class="line">            <span class="keywordflow">while</span> ( FALSE !== ( $item = readdir($handle) ) )</div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">if</span> ( $item != <span class="charliteral">&#39;.&#39;</span> &amp;&amp; $item != <span class="stringliteral">&#39;..&#39;</span> )</div>
+<div class="line">                {</div>
+<div class="line">                    $path = $directory . <span class="charliteral">&#39;/&#39;</span> . $item;</div>
+<div class="line"> </div>
+<div class="line">                    <span class="keywordflow">if</span> ( is_dir($path) )</div>
+<div class="line">                    {</div>
+<div class="line">                        <a class="code hl_function" href="classMUtil.html#a715d8c3466be7b7d97de7ce54c0cece9">self::removeDirectory</a>($path);</div>
+<div class="line">                    }</div>
+<div class="line">                    <span class="keywordflow">else</span></div>
+<div class="line">                    {</div>
+<div class="line">                        unlink($path);</div>
+<div class="line">                    }</div>
+<div class="line">                }</div>
+<div class="line">            }</div>
+<div class="line"> </div>
+<div class="line">            closedir($handle);</div>
+<div class="line"> </div>
+<div class="line">            <span class="keywordflow">if</span> ( $empty == FALSE )</div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">if</span> ( !rmdir($directory) )</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keywordflow">return</span> FALSE;</div>
+<div class="line">                }</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">return</span> TRUE;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a id="a12" name="a12"></a><a class="code hl_function" href="classMUtil.html#a9454b25dfcbd5d822d2426876d094a6b">getSystemTempDir</a>()</div>
+<div class="line">    {</div>
+<div class="line">        $tempFile = tempnam(md5(uniqid(rand(), TRUE)), <span class="stringliteral">&#39;&#39;</span>);</div>
+<div class="line">        <span class="keywordflow">if</span> ( $tempFile )</div>
+<div class="line">        {</div>
+<div class="line">            $tempDir = realpath(dirname($tempFile));</div>
+<div class="line">            unlink($tempFile);</div>
+<div class="line"> </div>
+<div class="line">            <span class="keywordflow">return</span> $tempDir;</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">else</span></div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">return</span> <span class="stringliteral">&#39;/tmp&#39;</span>;</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a id="a13" name="a13"></a><a class="code hl_function" href="classMUtil.html#a90cc3cce0939c24a6229ab95eb7540f8">array_search_recursive</a>($needle, $haystack)</div>
+<div class="line">    {</div>
+<div class="line">        $found = FALSE;</div>
+<div class="line">        $result = FALSE;</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">foreach</span> ( $haystack as $k =&gt; $v )</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">if</span> ( is_array($v) )</div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">for</span> ( $i = 0; $i &lt; count($v); $i++ )</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keywordflow">if</span> ( $v[$i] === $needle )</div>
+<div class="line">                    {</div>
+<div class="line">                        $result = $v[0];</div>
+<div class="line">                        $found = TRUE;</div>
+<div class="line">                        <span class="keywordflow">break</span>;</div>
+<div class="line">                    }</div>
+<div class="line">                }</div>
+<div class="line">            }</div>
+<div class="line">            <span class="keywordflow">else</span></div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">if</span> ( $found = ($v === $needle) )</div>
+<div class="line">                {</div>
+<div class="line">                    $result = $k;</div>
+<div class="line">                }</div>
+<div class="line">            }</div>
+<div class="line"> </div>
+<div class="line">            <span class="keywordflow">if</span> ( $found == TRUE )</div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">break</span>;</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">return</span> $result;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a id="a14" name="a14"></a><a class="code hl_function" href="classMUtil.html#ab41266da8d1273d458f63ec9761062b0">getAjaxAction</a>($event, $args=<span class="stringliteral">&#39;&#39;</span>)</div>
+<div class="line">    {</div>
+<div class="line">        $MIOLO = <a class="code hl_function" href="classMIOLO.html#ac93fbec81f07e5d15f80db907e63dc10">MIOLO::getInstance</a>();</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">if</span> ( is_object($args) )</div>
+<div class="line">        {</div>
+<div class="line">            $args = (array) $args;</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">if</span> ( is_array($args) )</div>
+<div class="line">        {</div>
+<div class="line">            $strArgs = <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line">            <span class="keywordflow">foreach</span> ( $args as $param =&gt; $value )</div>
+<div class="line">            {</div>
+<div class="line">                $param = rawurlencode($param);</div>
+<div class="line">                $value = rawurlencode($value);</div>
+<div class="line">                $strArgs .= <span class="stringliteral">&quot;$param=$value&amp;&quot;</span>;</div>
+<div class="line">            }</div>
+<div class="line"> </div>
+<div class="line">            $args = $strArgs;</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">return</span> <span class="stringliteral">&quot;miolo.doAjax(&#39;$event&#39;,&#39;$args&#39;,&#39;{$MIOLO-&gt;page-&gt;getFormId()}&#39;);&quot;</span>;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a id="a15" name="a15"></a><a class="code hl_function" href="classMUtil.html#ad80e1ad337699c71f1e03c77e35d7ff3">getAjaxActionArgs</a>()</div>
+<div class="line">    {</div>
+<div class="line">        $MIOLO = <a class="code hl_function" href="classMIOLO.html#ac93fbec81f07e5d15f80db907e63dc10">MIOLO::getInstance</a>();</div>
+<div class="line">        $requestId = $MIOLO-&gt;page-&gt;getFormId() . <span class="stringliteral">&#39;__EVENTARGUMENT&#39;</span>;</div>
+<div class="line">        $ajaxArgs = array( );</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">if</span> ( $_REQUEST[$requestId] )</div>
+<div class="line">        {</div>
+<div class="line">            $url = rawurldecode($_REQUEST[$requestId]);</div>
+<div class="line">            $args = explode(<span class="charliteral">&#39;&amp;&#39;</span>, $url);</div>
+<div class="line"> </div>
+<div class="line">            <span class="keywordflow">foreach</span> ( $args as $a )</div>
+<div class="line">            {</div>
+<div class="line">                $param = explode(<span class="charliteral">&#39;=&#39;</span>, $a);</div>
+<div class="line">                $ajaxArgs[$param[0]] = $param[1];</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">return</span> (<span class="keywordtype">object</span>) array_merge($_REQUEST, $ajaxArgs);</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a id="a16" name="a16"></a><a class="code hl_function" href="classMUtil.html#af3e5610de6995fdc5d2c912bbd6cf2e6">isFirstAccessToPage</a>()</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> ((<span class="stringliteral">&#39;http://&#39;</span>.$_SERVER[<span class="stringliteral">&#39;SERVER_NAME&#39;</span>] . $_SERVER[<span class="stringliteral">&#39;REQUEST_URI&#39;</span>]) == $_SERVER[<span class="stringliteral">&#39;HTTP_REFERER&#39;</span>]) &amp;&amp; <a id="a17" name="a17"></a><a class="code hl_function" href="classMUtil.html#aa40dde4e79436aef2662c66f3051fb10">self::isFirstAccessToForm</a>();</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a class="code hl_function" href="classMUtil.html#aa40dde4e79436aef2662c66f3051fb10">isFirstAccessToForm</a>()</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> !<a id="a18" name="a18"></a><a class="code hl_function" href="classMUtil.html#a784910cc92181f2919504bb71ed4bb62">self::isAjaxEvent</a>();</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a class="code hl_function" href="classMUtil.html#a784910cc92181f2919504bb71ed4bb62">isAjaxEvent</a>()</div>
+<div class="line">    {</div>
+<div class="line">        $MIOLO = <a class="code hl_function" href="classMIOLO.html#ac93fbec81f07e5d15f80db907e63dc10">MIOLO::getInstance</a>();</div>
+<div class="line">        $eventA = <a id="a19" name="a19"></a><a class="code hl_function" href="classMIOLO.html#a983be8c4839f264e10b03f7f8c162e92">MIOLO::_REQUEST</a>(<span class="stringliteral">&#39;__EVENTTARGETVALUE&#39;</span>);</div>
+<div class="line">        $eventB = <a id="a20" name="a20"></a><a class="code hl_function" href="classMUtil.html#a7da37a21fef01f9eecfe104484847043">self::getDefaultEventValue</a>();</div>
+<div class="line">        <span class="keywordflow">return</span> ( $eventA || $eventB );</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a id="a21" name="a21"></a><a class="code hl_function" href="classMUtil.html#a4f048f3b895d5f08109166bf10101084">getDefaultEvent</a>()</div>
+<div class="line">    {</div>
+<div class="line">        $MIOLO = <a class="code hl_function" href="classMIOLO.html#ac93fbec81f07e5d15f80db907e63dc10">MIOLO::getInstance</a>();</div>
+<div class="line">        <span class="keywordflow">return</span> <span class="stringliteral">&quot;{$MIOLO-&gt;page-&gt;getFormId()}__EVENTTARGETVALUE&quot;</span>;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a class="code hl_function" href="classMUtil.html#a7da37a21fef01f9eecfe104484847043">getDefaultEventValue</a>()</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code hl_function" href="classMIOLO.html#a983be8c4839f264e10b03f7f8c162e92">MIOLO::_REQUEST</a>(self::getDefaultEvent());</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a id="a22" name="a22"></a><a class="code hl_function" href="classMUtil.html#aa80ba0ab24f6ede1e32d6242508afc36">getURLParameters</a>()</div>
+<div class="line">    {</div>
+<div class="line">        $MIOLO = <a class="code hl_function" href="classMIOLO.html#ac93fbec81f07e5d15f80db907e63dc10">MIOLO::getInstance</a>();</div>
+<div class="line">        $vars = $MIOLO-&gt;getContext()-&gt;getVars();</div>
+<div class="line"> </div>
+<div class="line">        unset($vars[<span class="stringliteral">&#39;module&#39;</span>]);</div>
+<div class="line">        unset($vars[<span class="stringliteral">&#39;action&#39;</span>]);</div>
+<div class="line">        unset($vars[<span class="stringliteral">&#39;function&#39;</span>]);</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">return</span> $vars;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a id="a23" name="a23"></a><a class="code hl_function" href="classMUtil.html#a335044e572a507f9bffb0a72a96c7723">debug</a>($variable, $forceType=<span class="keyword">null</span>)</div>
+<div class="line">    {</div>
+<div class="line">        $MIOLO = <a class="code hl_function" href="classMIOLO.html#ac93fbec81f07e5d15f80db907e63dc10">MIOLO::getInstance</a>();</div>
+<div class="line">        $MIOLO-&gt;uses(<span class="stringliteral">&#39;contrib/dbug.class.php&#39;</span>);</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">if</span> ( $forceType != <span class="keyword">null</span> )</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keyword">new</span> <a id="_a24" name="_a24"></a><a class="code hl_class" href="classdBug.html">dBug</a>($variable);</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">else</span></div>
+<div class="line">        {</div>
+<div class="line">            <span class="keyword">new</span> <a class="code hl_class" href="classdBug.html">dBug</a>($variable, <span class="stringliteral">&quot;$forceType&quot;</span>);</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a id="a25" name="a25"></a><a class="code hl_function" href="classMUtil.html#aea95185def31ec30c09772ea9bbf063f">setRightClickAjaxAction</a>($control, $action)</div>
+<div class="line">    {</div>
+<div class="line">        $MIOLO = <a class="code hl_function" href="classMIOLO.html#ac93fbec81f07e5d15f80db907e63dc10">MIOLO::getInstance</a>();</div>
+<div class="line">        $MIOLO-&gt;page-&gt;onload(<span class="stringliteral">&quot;mutil.setRightClickAjaxAction(&#39;{$MIOLO-&gt;page-&gt;getFormId()}&#39;, &#39;$control-&gt;id&#39;, &#39;$action&#39;);&quot;</span>);</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a id="a26" name="a26"></a><a class="code hl_function" href="classMUtil.html#a643347f0ed503e123bbfea9fc9de5418">debugBacktrace</a>($limit=4)</div>
+<div class="line">    {</div>
+<div class="line">        $backtrace = debug_backtrace(<span class="keyword">false</span>);</div>
+<div class="line"> </div>
+<div class="line">        <span class="comment">// Removes MUtil::debugBacktrace line.</span></div>
+<div class="line">        unset($backtrace[0]);</div>
+<div class="line"> </div>
+<div class="line">        $i = 0;</div>
+<div class="line">        $traces = array();</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">foreach</span> ( $backtrace as $trace )</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">if</span> ( $i == $limit ) <span class="keywordflow">break</span>;</div>
+<div class="line"> </div>
+<div class="line">            $traces[] = array(</div>
+<div class="line">                _M(<span class="stringliteral">&#39;File&#39;</span>) =&gt; $trace[<span class="stringliteral">&#39;file&#39;</span>] . <span class="charliteral">&#39;:&#39;</span> . $trace[<span class="stringliteral">&#39;line&#39;</span>],</div>
+<div class="line">                _M(<span class="stringliteral">&#39;Class&#39;</span>) =&gt; $trace[<span class="stringliteral">&#39;class&#39;</span>],</div>
+<div class="line">                _M(<span class="stringliteral">&#39;Function&#39;</span>) =&gt; $trace[<span class="stringliteral">&#39;function&#39;</span>]</div>
+<div class="line">            );</div>
+<div class="line"> </div>
+<div class="line">            $i++;</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        <a class="code hl_function" href="classMUtil.html#a335044e572a507f9bffb0a72a96c7723">self::debug</a>($traces);</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a id="a27" name="a27"></a><a class="code hl_function" href="classMUtil.html#a11d85ea7c9c0e00588748377988ac8c3">centralizedDiv</a>($content, $id=NULL)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> <span class="keyword">new</span> <a id="_a28" name="_a28"></a><a class="code hl_class" href="classMDiv.html">MDiv</a>($id, $content, NULL, <span class="stringliteral">&#39;align=&quot;center&quot;&#39;</span>);</div>
+<div class="line">    }</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line">?&gt;</div>
+<div class="ttc" id="aclassMDiv_html"><div class="ttname"><a href="classMDiv.html">MDiv</a></div><div class="ttdef"><b>Definição</b> _blockcontrols.class.php:24</div></div>
+<div class="ttc" id="aclassMIOLO_html_a983be8c4839f264e10b03f7f8c162e92"><div class="ttname"><a href="classMIOLO.html#a983be8c4839f264e10b03f7f8c162e92">MIOLO\_REQUEST</a></div><div class="ttdeci">static _REQUEST( $vars, $from='ALL', $order='')</div><div class="ttdef"><b>Definição</b> miolo.class.php:1203</div></div>
+<div class="ttc" id="aclassMIOLO_html_ac93fbec81f07e5d15f80db907e63dc10"><div class="ttname"><a href="classMIOLO.html#ac93fbec81f07e5d15f80db907e63dc10">MIOLO\getInstance</a></div><div class="ttdeci">static getInstance()</div><div class="ttdef"><b>Definição</b> miolo.class.php:148</div></div>
+<div class="ttc" id="aclassMUtil_html"><div class="ttname"><a href="classMUtil.html">MUtil</a></div><div class="ttdef"><b>Definição</b> mutil.class.php:32</div></div>
+<div class="ttc" id="aclassMUtil_html_a09660d5ddd8ab36640befe1117eb99bb"><div class="ttname"><a href="classMUtil.html#a09660d5ddd8ab36640befe1117eb99bb">MUtil\NVL</a></div><div class="ttdeci">static NVL($value1, $value2)</div><div class="ttdef"><b>Definição</b> mutil.class.php:123</div></div>
+<div class="ttc" id="aclassMUtil_html_a11d85ea7c9c0e00588748377988ac8c3"><div class="ttname"><a href="classMUtil.html#a11d85ea7c9c0e00588748377988ac8c3">MUtil\centralizedDiv</a></div><div class="ttdeci">static centralizedDiv($content, $id=NULL)</div><div class="ttdef"><b>Definição</b> mutil.class.php:554</div></div>
+<div class="ttc" id="aclassMUtil_html_a2733638cbf8e0e0edc42fc3a531e128e"><div class="ttname"><a href="classMUtil.html#a2733638cbf8e0e0edc42fc3a531e128e">MUtil\flog</a></div><div class="ttdeci">static flog()</div><div class="ttdef"><b>Definição</b> mutil.class.php:106</div></div>
+<div class="ttc" id="aclassMUtil_html_a335044e572a507f9bffb0a72a96c7723"><div class="ttname"><a href="classMUtil.html#a335044e572a507f9bffb0a72a96c7723">MUtil\debug</a></div><div class="ttdeci">static debug($variable, $forceType=null)</div><div class="ttdef"><b>Definição</b> mutil.class.php:489</div></div>
+<div class="ttc" id="aclassMUtil_html_a4f048f3b895d5f08109166bf10101084"><div class="ttname"><a href="classMUtil.html#a4f048f3b895d5f08109166bf10101084">MUtil\getDefaultEvent</a></div><div class="ttdeci">static getDefaultEvent()</div><div class="ttdef"><b>Definição</b> mutil.class.php:438</div></div>
+<div class="ttc" id="aclassMUtil_html_a4f8952ce34c78c71e387b41abc1aeed3"><div class="ttname"><a href="classMUtil.html#a4f8952ce34c78c71e387b41abc1aeed3">MUtil\removeSpaceChars</a></div><div class="ttdeci">static removeSpaceChars($value)</div><div class="ttdef"><b>Definição</b> mutil.class.php:175</div></div>
+<div class="ttc" id="aclassMUtil_html_a643347f0ed503e123bbfea9fc9de5418"><div class="ttname"><a href="classMUtil.html#a643347f0ed503e123bbfea9fc9de5418">MUtil\debugBacktrace</a></div><div class="ttdeci">static debugBacktrace($limit=4)</div><div class="ttdef"><b>Definição</b> mutil.class.php:521</div></div>
+<div class="ttc" id="aclassMUtil_html_a715d8c3466be7b7d97de7ce54c0cece9"><div class="ttname"><a href="classMUtil.html#a715d8c3466be7b7d97de7ce54c0cece9">MUtil\removeDirectory</a></div><div class="ttdeci">static removeDirectory($directory, $empty=FALSE)</div><div class="ttdef"><b>Definição</b> mutil.class.php:239</div></div>
+<div class="ttc" id="aclassMUtil_html_a784910cc92181f2919504bb71ed4bb62"><div class="ttname"><a href="classMUtil.html#a784910cc92181f2919504bb71ed4bb62">MUtil\isAjaxEvent</a></div><div class="ttdeci">static isAjaxEvent()</div><div class="ttdef"><b>Definição</b> mutil.class.php:427</div></div>
+<div class="ttc" id="aclassMUtil_html_a7da37a21fef01f9eecfe104484847043"><div class="ttname"><a href="classMUtil.html#a7da37a21fef01f9eecfe104484847043">MUtil\getDefaultEventValue</a></div><div class="ttdeci">static getDefaultEventValue()</div><div class="ttdef"><b>Definição</b> mutil.class.php:447</div></div>
+<div class="ttc" id="aclassMUtil_html_a90cc3cce0939c24a6229ab95eb7540f8"><div class="ttname"><a href="classMUtil.html#a90cc3cce0939c24a6229ab95eb7540f8">MUtil\array_search_recursive</a></div><div class="ttdeci">static array_search_recursive($needle, $haystack)</div><div class="ttdef"><b>Definição</b> mutil.class.php:315</div></div>
+<div class="ttc" id="aclassMUtil_html_a9454b25dfcbd5d822d2426876d094a6b"><div class="ttname"><a href="classMUtil.html#a9454b25dfcbd5d822d2426876d094a6b">MUtil\getSystemTempDir</a></div><div class="ttdeci">static getSystemTempDir()</div><div class="ttdef"><b>Definição</b> mutil.class.php:292</div></div>
+<div class="ttc" id="aclassMUtil_html_a9de8ba2cb7b5d448b9b827a7ec041108"><div class="ttname"><a href="classMUtil.html#a9de8ba2cb7b5d448b9b827a7ec041108">MUtil\clog</a></div><div class="ttdeci">static clog($args)</div><div class="ttdef"><b>Definição</b> mutil.class.php:39</div></div>
+<div class="ttc" id="aclassMUtil_html_a9deac24c83d5b68afe4433a924118045"><div class="ttname"><a href="classMUtil.html#a9deac24c83d5b68afe4433a924118045">MUtil\getBooleanValue</a></div><div class="ttdeci">static getBooleanValue($value)</div><div class="ttdef"><b>Definição</b> mutil.class.php:154</div></div>
+<div class="ttc" id="aclassMUtil_html_aa40dde4e79436aef2662c66f3051fb10"><div class="ttname"><a href="classMUtil.html#aa40dde4e79436aef2662c66f3051fb10">MUtil\isFirstAccessToForm</a></div><div class="ttdeci">static isFirstAccessToForm()</div><div class="ttdef"><b>Definição</b> mutil.class.php:419</div></div>
+<div class="ttc" id="aclassMUtil_html_aa80ba0ab24f6ede1e32d6242508afc36"><div class="ttname"><a href="classMUtil.html#aa80ba0ab24f6ede1e32d6242508afc36">MUtil\getURLParameters</a></div><div class="ttdeci">static getURLParameters()</div><div class="ttdef"><b>Definição</b> mutil.class.php:455</div></div>
+<div class="ttc" id="aclassMUtil_html_aa981bd5a46fb3403941c9ecb472d2dab"><div class="ttname"><a href="classMUtil.html#aa981bd5a46fb3403941c9ecb472d2dab">MUtil\ifNull</a></div><div class="ttdeci">static ifNull($value1, $value2, $value3)</div><div class="ttdef"><b>Definição</b> mutil.class.php:128</div></div>
+<div class="ttc" id="aclassMUtil_html_ab41266da8d1273d458f63ec9761062b0"><div class="ttname"><a href="classMUtil.html#ab41266da8d1273d458f63ec9761062b0">MUtil\getAjaxAction</a></div><div class="ttdeci">static getAjaxAction($event, $args='')</div><div class="ttdef"><b>Definição</b> mutil.class.php:359</div></div>
+<div class="ttc" id="aclassMUtil_html_ad6d7ef9321c697bbad507f9dde0e82b5"><div class="ttname"><a href="classMUtil.html#ad6d7ef9321c697bbad507f9dde0e82b5">MUtil\setIfNull</a></div><div class="ttdeci">static setIfNull(&amp;$value1, $value2)</div><div class="ttdef"><b>Definição</b> mutil.class.php:133</div></div>
+<div class="ttc" id="aclassMUtil_html_ad80e1ad337699c71f1e03c77e35d7ff3"><div class="ttname"><a href="classMUtil.html#ad80e1ad337699c71f1e03c77e35d7ff3">MUtil\getAjaxActionArgs</a></div><div class="ttdeci">static getAjaxActionArgs()</div><div class="ttdef"><b>Definição</b> mutil.class.php:387</div></div>
+<div class="ttc" id="aclassMUtil_html_ae2fb75162818323a0d57dbe76c506881"><div class="ttname"><a href="classMUtil.html#ae2fb75162818323a0d57dbe76c506881">MUtil\copyDirectory</a></div><div class="ttdeci">static copyDirectory($sourceDir, $destinDir)</div><div class="ttdef"><b>Definição</b> mutil.class.php:192</div></div>
+<div class="ttc" id="aclassMUtil_html_aea95185def31ec30c09772ea9bbf063f"><div class="ttname"><a href="classMUtil.html#aea95185def31ec30c09772ea9bbf063f">MUtil\setRightClickAjaxAction</a></div><div class="ttdeci">static setRightClickAjaxAction($control, $action)</div><div class="ttdef"><b>Definição</b> mutil.class.php:510</div></div>
+<div class="ttc" id="aclassMUtil_html_af3e5610de6995fdc5d2c912bbd6cf2e6"><div class="ttname"><a href="classMUtil.html#af3e5610de6995fdc5d2c912bbd6cf2e6">MUtil\isFirstAccessToPage</a></div><div class="ttdeci">static isFirstAccessToPage()</div><div class="ttdef"><b>Definição</b> mutil.class.php:411</div></div>
+<div class="ttc" id="aclassMUtil_html_af8ac435d4abe6b9ee087032f8bd5c7f0"><div class="ttname"><a href="classMUtil.html#af8ac435d4abe6b9ee087032f8bd5c7f0">MUtil\setIfNotNull</a></div><div class="ttdeci">static setIfNotNull(&amp;$value1, $value2)</div><div class="ttdef"><b>Definição</b> mutil.class.php:138</div></div>
+<div class="ttc" id="aclassdBug_html"><div class="ttname"><a href="classdBug.html">dBug</a></div><div class="ttdef"><b>Definição</b> dbug.class.php:39</div></div>
+</div><!-- fragment --> </div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Gerado por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

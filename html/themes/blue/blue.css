@@ -1,0 +1,12 @@
+/******************************************************************************
+ * dijitTree images template
+ ******************************************************************************/
+/* Template 0 */
+.dijitFolderOpened0 { background: url(images/folderOpened0.gif) no-repeat; }
+.dijitFolderClosed0 { background: url(images/folderClosed0.gif) no-repeat; }
+.dijitLeaf0 { background: url(images/leaf0.gif) no-repeat; }
+
+/* Template 1 */
+.dijitFolderOpened1 { background: url(images/folderOpened1.gif) no-repeat; }
+.dijitFolderClosed1 { background: url(images/folderClosed1.gif) no-repeat; }
+.dijitLeaf1 { background: url(images/leaf1.gif) no-repeat; }

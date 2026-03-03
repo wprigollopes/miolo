@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<mainmenu>
+  <menu>
+    <caption>Hello World</caption>
+    <module>helloworld</module>
+    <action></action>
+    <icon>helloworld-16x16.png</icon>
+    <description>Miolo Hello World</description>
+  </menu>
+  <menu>
+    <caption>Hangman</caption>
+    <module>hangman</module>
+    <action>main</action>
+    <icon>hangman-16x16.png</icon>
+    <description>Miolo Hangman</description>
+  </menu>
+</mainmenu>

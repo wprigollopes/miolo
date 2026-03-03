@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15">
+<style>
+
+table {
+ font-family: Verdana;
+ width:200mm;
+ font-size: 8pt;
+ font-weight: normal;
+ color: #000;
+}
+
+tbody {
+  background-color: #ffffff;
+}
+
+table.main {
+ margin-top: 2em;
+ border-collapse: collapse;
+}
+
+table.main td {
+  vertical-align: top;
+  padding-left: 3px;
+  border: 0.5pt solid black;  
+}
+
+table.internal {
+ margin: 0px;
+ width:100%;
+}
+
+table.internal td {
+  vertical-align: top;
+  padding: 0px;
+  border: 0pt solid black;  
+  text-align:center;
+}
+
+td.header {
+  width: 150mm;
+}
+
+td.numero {
+  width: 50mm;
+}
+
+td.div1 {
+  width: 140mm;
+}
+
+td.div2 {
+  width: 50mm;
+}
+
+div.title {
+ font-size: 8pt;
+ margin: 0px;
+}
+
+div.header {
+ margin: 0 0 0 5mm;
+}
+
+div.content {
+ margin: 0 0 0 5mm;
+ font-size: 10pt;
+}
+
+div.doctitle {
+ margin: 0 0 0 5mm;
+ font-size: 10pt;
+ font-weight: bold;
+}
+
+div.numero {
+ height: 20mm;
+ font-size: 14pt;
+ font-weight: bold;
+ text-align: center;
+ margin: 5mm 0 0 0;
+}
+
+div.obs {
+ color: #000;
+ font-size: 8pt;
+}
+</style>
+</head>
+<?php
+global $var;
+$MIOLO = MIOLO::getInstance();
+?>
+
+<body>
+<table class="main">
+<tbody>
+<tr>
+	<td class="header">
+	   <div class="header">UFJF - Universidade Federal de Juiz de Fora</div> 
+	   <div class="header">CGCO - Centro de GestÃ£o do Conhecimento Organizacional</div> 
+	   <div class="header">SIGA - Sistema Integrado de GestÃ£o AcadÃªmica</div> 
+	   <div class="header">MÃ³dulo Administrativo - Setor de FinanÃ§as</div> 
+	   <div class="header">Unidade OrÃ§amentÃ¡ria: <?=$var->uo?></div> 
+	   <div class="doctitle">REQUISIÃÃO DE TRANSPORTE RODOVIÃRIO</div> 
+	</td>
+	<td class="numero" >
+	   <div class="title">NÃºmero</div> 
+	   <div class="numero"><?=$var->numero?></div> 
+    </td>
+</tr>
+<tr>
+	<td colspan=2>
+	   <div class="title">Empresa</div> 
+	   <div class="content"><?=$var->empresa?></div> 
+	</td>
+</tr>
+<tr>
+	<td class="div1">
+	   <div class="title">NÃºmero de Passagens</div> 
+	   <div class="content"><?=$var->passagens?></div> 
+	</td>
+	<td class="div2">
+	   <div class="title">Rubrica</div> 
+	   <div class="content"><?=$var->rubrica?></div> 
+	</td>
+</tr>
+<tr>
+	<td class="div1">
+	   <div class="title">Origem</div> 
+	   <div class="content"><?=$var->origem?></div> 
+	</td>
+	<td rowspan=2 class="div2">
+	   <div class="content">(<?=($var->tipo == '0'?'X':'&nbsp;')?>) Convencional</div> 
+	   <div class="content">(<?=($var->tipo == '1'?'X':'&nbsp;')?>) Executivo</div> 
+	</td>
+</tr>
+<tr>
+	<td class="div1">
+	   <div class="title">Destino</div> 
+	   <div class="content"><?=$var->destino?></div> 
+	</td>
+</tr>
+<tr>
+	<td class="div1">
+	   <div class="title">UsuÃ¡rio</div> 
+	   <div class="content"><?=$var->usuario?></div> 
+	</td>
+	<td class="div2">
+	   <div class="title">Identidade</div> 
+	   <div class="content"><?=$var->identidade?></div> 
+	</td>
+</tr>
+<tr>
+	<td colspan=2>
+         <div class="header">Em <?php echo $MIOLO->getSysTime('d/m/Y')?></div> 
+         <div class="header" style="height:15mm">&nbsp;</div> 
+		 <div>
+     	   <table class="internal">
+	    	  <tr>
+		         <td width="120mm"><?=str_repeat('.',90)?></td>
+		         <td width="10mm">&nbsp;</td>
+		         <td width="60mm"><?=str_repeat('.',50)?></td>
+		      </tr>
+		      <tr>
+		         <td width="120mm">CARIMBO E ASSINATURA DO SECRETÃRIO OU CHEFIA</td>
+		         <td width="10mm">&nbsp;</td>
+		         <td width="60mm">ASSINATURA DO USUÃRIO</td>
+		      </tr>
+           </table>
+		 </div>
+	</td>
+</tr>
+<tr>
+	<td colspan=2>
+	   <div class="obs">OBS: 1) O CONTROLE E A NUMERAÃÃO DA REQUISIÃÃO SÃO DE RESPONSABILIDADE DA UNIDADE REQUERENTE</div> 
+	</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

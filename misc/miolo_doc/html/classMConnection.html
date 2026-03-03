@@ -1,0 +1,866 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MIOLO25: Referência à classe MConnection</title>
+<link rel="icon" href="miolo_icon.png" type="image/x-icon" />
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MIOLO25
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Localizar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('classMConnection.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Carregando...</div>
+<div class="SRStatus" id="Searching">Procurando...</div>
+<div class="SRStatus" id="NoMatches">Nenhuma entrada encontrada</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Membros públicos</a> &#124;
+<a href="#pub-attribs">Campos de Dados</a>  </div>
+  <div class="headertitle"><div class="title">Referência à classe MConnection</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Diagrama de heranças da classe MConnection</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classMConnection.png" usemap="#MConnection_map" alt=""/>
+  <map id="MConnection_map" name="MConnection_map">
+<area href="classFirebirdConnection.html" alt="FirebirdConnection" shape="rect" coords="0,56,125,80"/>
+<area href="classMSSQLConnection.html" alt="MSSQLConnection" shape="rect" coords="135,56,260,80"/>
+<area href="classMysqlConnection.html" alt="MysqlConnection" shape="rect" coords="270,56,395,80"/>
+<area href="classODBCConnection.html" alt="ODBCConnection" shape="rect" coords="405,56,530,80"/>
+<area href="classOracle8Connection.html" alt="Oracle8Connection" shape="rect" coords="540,56,665,80"/>
+<area href="classPostgresConnection.html" alt="PostgresConnection" shape="rect" coords="675,56,800,80"/>
+<area href="classSQLiteConnection.html" alt="SQLiteConnection" shape="rect" coords="810,56,935,80"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Membros públicos</h2></td></tr>
+<tr class="memitem:a800f8efee13692788b13ee57c5960092" id="r_a800f8efee13692788b13ee57c5960092"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a800f8efee13692788b13ee57c5960092">__construct</a> ($db)</td></tr>
+<tr class="separator:a800f8efee13692788b13ee57c5960092"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef7ca0223c84f343348d26d7c6212626" id="r_aef7ca0223c84f343348d26d7c6212626"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef7ca0223c84f343348d26d7c6212626">_connect</a> ($dbhost, $loginDB, $loginUID, $loginPWD, $persistent=TRUE, $parameters=NULL)</td></tr>
+<tr class="separator:aef7ca0223c84f343348d26d7c6212626"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d9082658000e5ede8312067c6dda9db" id="r_a4d9082658000e5ede8312067c6dda9db"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d9082658000e5ede8312067c6dda9db">_close</a> ()</td></tr>
+<tr class="separator:a4d9082658000e5ede8312067c6dda9db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9856567f5164604276e5ddb469191faf" id="r_a9856567f5164604276e5ddb469191faf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9856567f5164604276e5ddb469191faf">_error</a> ()</td></tr>
+<tr class="separator:a9856567f5164604276e5ddb469191faf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cdf36e9f2f24d3a6ec96257ec5b39fe" id="r_a7cdf36e9f2f24d3a6ec96257ec5b39fe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7cdf36e9f2f24d3a6ec96257ec5b39fe">_escape</a> ($<a class="el" href="classsql.html">sql</a>)</td></tr>
+<tr class="separator:a7cdf36e9f2f24d3a6ec96257ec5b39fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a114ab675d89bf8324a41785fb475e86d" id="r_a114ab675d89bf8324a41785fb475e86d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a114ab675d89bf8324a41785fb475e86d">_execute</a> ($<a class="el" href="classsql.html">sql</a>)</td></tr>
+<tr class="separator:a114ab675d89bf8324a41785fb475e86d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedb079bd64f97c5bc52bbc381fa6922a" id="r_aedb079bd64f97c5bc52bbc381fa6922a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aedb079bd64f97c5bc52bbc381fa6922a">_createquery</a> ()</td></tr>
+<tr class="separator:aedb079bd64f97c5bc52bbc381fa6922a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af81276031746cf7fa70ab5ce77c5d65c" id="r_af81276031746cf7fa70ab5ce77c5d65c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af81276031746cf7fa70ab5ce77c5d65c">_chartotimestamp</a> ($timestamp)</td></tr>
+<tr class="separator:af81276031746cf7fa70ab5ce77c5d65c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae33fa7850eda4b8facc79a9d96aa445d" id="r_ae33fa7850eda4b8facc79a9d96aa445d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae33fa7850eda4b8facc79a9d96aa445d">_chartodate</a> ($date)</td></tr>
+<tr class="separator:ae33fa7850eda4b8facc79a9d96aa445d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b5696a050c08a87eaf992df4e414681" id="r_a0b5696a050c08a87eaf992df4e414681"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0b5696a050c08a87eaf992df4e414681">_timestamptochar</a> ($timestamp)</td></tr>
+<tr class="separator:a0b5696a050c08a87eaf992df4e414681"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a347d6d9914f05a508304171be458afc6" id="r_a347d6d9914f05a508304171be458afc6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a347d6d9914f05a508304171be458afc6">_datetochar</a> ($date)</td></tr>
+<tr class="separator:a347d6d9914f05a508304171be458afc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a6a4b46c9c679fb6a3905204af215af" id="r_a0a6a4b46c9c679fb6a3905204af215af"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0a6a4b46c9c679fb6a3905204af215af">open</a> ($dbhost, $loginDB, $loginUID, $loginPWD, $persistent=TRUE, $parameters=NULL, $port=NULL)</td></tr>
+<tr class="separator:a0a6a4b46c9c679fb6a3905204af215af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa69c8bf1f1dcf4e72552efff1fe3e87e" id="r_aa69c8bf1f1dcf4e72552efff1fe3e87e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa69c8bf1f1dcf4e72552efff1fe3e87e">close</a> ()</td></tr>
+<tr class="separator:aa69c8bf1f1dcf4e72552efff1fe3e87e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24ada5decce3d1b79cd82f5a90ccf404" id="r_a24ada5decce3d1b79cd82f5a90ccf404"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24ada5decce3d1b79cd82f5a90ccf404">getError</a> ()</td></tr>
+<tr class="separator:a24ada5decce3d1b79cd82f5a90ccf404"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e548ebf2656742bfd19939ead923ed2" id="r_a6e548ebf2656742bfd19939ead923ed2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6e548ebf2656742bfd19939ead923ed2">getErrors</a> ()</td></tr>
+<tr class="separator:a6e548ebf2656742bfd19939ead923ed2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20e663e9d39779d1c343740f36c3137a" id="r_a20e663e9d39779d1c343740f36c3137a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a20e663e9d39779d1c343740f36c3137a">getErrorCount</a> ()</td></tr>
+<tr class="separator:a20e663e9d39779d1c343740f36c3137a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b1626447a9950da9a1b066304ad6e49" id="r_a4b1626447a9950da9a1b066304ad6e49"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b1626447a9950da9a1b066304ad6e49">checkError</a> ()</td></tr>
+<tr class="separator:a4b1626447a9950da9a1b066304ad6e49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24bba973a1b68c97d2e04175fb4a344b" id="r_a24bba973a1b68c97d2e04175fb4a344b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24bba973a1b68c97d2e04175fb4a344b">execute</a> ($<a class="el" href="classsql.html">sql</a>)</td></tr>
+<tr class="separator:a24bba973a1b68c97d2e04175fb4a344b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb6a1087adc49e46a85a95d7b4b1a3e7" id="r_aeb6a1087adc49e46a85a95d7b4b1a3e7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeb6a1087adc49e46a85a95d7b4b1a3e7">parse</a> ($<a class="el" href="classsql.html">sql</a>)</td></tr>
+<tr class="separator:aeb6a1087adc49e46a85a95d7b4b1a3e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf17da533ea616434b944b6ea8ce7553" id="r_aaf17da533ea616434b944b6ea8ce7553"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaf17da533ea616434b944b6ea8ce7553">bind</a> ($<a class="el" href="classsql.html">sql</a>, $parameters)</td></tr>
+<tr class="separator:aaf17da533ea616434b944b6ea8ce7553"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83ea5a789225223bbcb87f2a6aa33892" id="r_a83ea5a789225223bbcb87f2a6aa33892"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a83ea5a789225223bbcb87f2a6aa33892">getQuery</a> ($<a class="el" href="classsql.html">sql</a>, $maxrows=NULL, $offset=NULL, $fetchType=NULL)</td></tr>
+<tr class="separator:a83ea5a789225223bbcb87f2a6aa33892"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3ca1fda32bd59854da99a19f124fc34" id="r_ac3ca1fda32bd59854da99a19f124fc34"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac3ca1fda32bd59854da99a19f124fc34">getQueryCommand</a> ($sqlCommand, $maxrows=NULL, $offset=NULL, $fetchType=NULL)</td></tr>
+<tr class="separator:ac3ca1fda32bd59854da99a19f124fc34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Campos de Dados</h2></td></tr>
+<tr class="memitem:a1fa3127fc82f96b1436d871ef02be319" id="r_a1fa3127fc82f96b1436d871ef02be319"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1fa3127fc82f96b1436d871ef02be319">$db</a></td></tr>
+<tr class="separator:a1fa3127fc82f96b1436d871ef02be319"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae97941710d863131c700f069b109991e" id="r_ae97941710d863131c700f069b109991e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae97941710d863131c700f069b109991e">$id</a></td></tr>
+<tr class="separator:ae97941710d863131c700f069b109991e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6275b52e7060c3604855fea449dd85f9" id="r_a6275b52e7060c3604855fea449dd85f9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6275b52e7060c3604855fea449dd85f9">$traceback</a> = array()</td></tr>
+<tr class="separator:a6275b52e7060c3604855fea449dd85f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57b671b7d327cf036dfc04c726f8640b" id="r_a57b671b7d327cf036dfc04c726f8640b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57b671b7d327cf036dfc04c726f8640b">$affectedrows</a></td></tr>
+<tr class="separator:a57b671b7d327cf036dfc04c726f8640b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a8cb8ad25d42946e2938d7894f3e74a" id="r_a4a8cb8ad25d42946e2938d7894f3e74a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a8cb8ad25d42946e2938d7894f3e74a">$_miolo</a></td></tr>
+<tr class="separator:a4a8cb8ad25d42946e2938d7894f3e74a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Documentação dos Construtores &amp; Destrutor</h2>
+<a id="a800f8efee13692788b13ee57c5960092" name="a800f8efee13692788b13ee57c5960092"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a800f8efee13692788b13ee57c5960092">&#9670;&#160;</a></span>__construct()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__construct </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$db</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p><a class="el" href="classMConnection.html">MConnection</a> constructor.</p>
+<dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="classMDatabase.html">MDatabase</a></td><td class="paramname">$db</td><td><a class="el" href="classDatabase.html">Database</a> object. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplementado em <a class="el" href="classFirebirdConnection.html#afe541ae0482352e532ac58d5b8eefe73">FirebirdConnection</a>, <a class="el" href="classMSSQLConnection.html#afe541ae0482352e532ac58d5b8eefe73">MSSQLConnection</a>, <a class="el" href="classMysqlConnection.html#afe541ae0482352e532ac58d5b8eefe73">MysqlConnection</a>, <a class="el" href="classODBCConnection.html#afe541ae0482352e532ac58d5b8eefe73">ODBCConnection</a>, <a class="el" href="classOracle8Connection.html#afe541ae0482352e532ac58d5b8eefe73">Oracle8Connection</a>, <a class="el" href="classPostgresConnection.html#afe541ae0482352e532ac58d5b8eefe73">PostgresConnection</a> e <a class="el" href="classSQLiteConnection.html#afe541ae0482352e532ac58d5b8eefe73">SQLiteConnection</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentação das funções</h2>
+<a id="ae33fa7850eda4b8facc79a9d96aa445d" name="ae33fa7850eda4b8facc79a9d96aa445d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae33fa7850eda4b8facc79a9d96aa445d">&#9670;&#160;</a></span>_chartodate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_chartodate </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$date</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">abstract</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$date</td><td>string Date to convert. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Retorna</dt><dd>string SQL instruction. </dd></dl>
+
+<p>Reimplementado em <a class="el" href="classFirebirdConnection.html#ae33fa7850eda4b8facc79a9d96aa445d">FirebirdConnection</a>, <a class="el" href="classMysqlConnection.html#ae33fa7850eda4b8facc79a9d96aa445d">MysqlConnection</a>, <a class="el" href="classODBCConnection.html#ae33fa7850eda4b8facc79a9d96aa445d">ODBCConnection</a> e <a class="el" href="classSQLiteConnection.html#ae33fa7850eda4b8facc79a9d96aa445d">SQLiteConnection</a>.</p>
+
+</div>
+</div>
+<a id="af81276031746cf7fa70ab5ce77c5d65c" name="af81276031746cf7fa70ab5ce77c5d65c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af81276031746cf7fa70ab5ce77c5d65c">&#9670;&#160;</a></span>_chartotimestamp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_chartotimestamp </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$timestamp</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">abstract</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$timestamp</td><td>string Timestamp to convert. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Retorna</dt><dd>string SQL instruction. </dd></dl>
+
+<p>Reimplementado em <a class="el" href="classFirebirdConnection.html#af81276031746cf7fa70ab5ce77c5d65c">FirebirdConnection</a>, <a class="el" href="classMysqlConnection.html#af81276031746cf7fa70ab5ce77c5d65c">MysqlConnection</a>, <a class="el" href="classODBCConnection.html#af81276031746cf7fa70ab5ce77c5d65c">ODBCConnection</a> e <a class="el" href="classSQLiteConnection.html#af81276031746cf7fa70ab5ce77c5d65c">SQLiteConnection</a>.</p>
+
+</div>
+</div>
+<a id="a4d9082658000e5ede8312067c6dda9db" name="a4d9082658000e5ede8312067c6dda9db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d9082658000e5ede8312067c6dda9db">&#9670;&#160;</a></span>_close()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_close </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">abstract</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplementado em <a class="el" href="classFirebirdConnection.html#a4d9082658000e5ede8312067c6dda9db">FirebirdConnection</a>, <a class="el" href="classMSSQLConnection.html#a4d9082658000e5ede8312067c6dda9db">MSSQLConnection</a>, <a class="el" href="classMysqlConnection.html#a4d9082658000e5ede8312067c6dda9db">MysqlConnection</a>, <a class="el" href="classODBCConnection.html#a4d9082658000e5ede8312067c6dda9db">ODBCConnection</a>, <a class="el" href="classOracle8Connection.html#a4d9082658000e5ede8312067c6dda9db">Oracle8Connection</a>, <a class="el" href="classPostgresConnection.html#a4d9082658000e5ede8312067c6dda9db">PostgresConnection</a> e <a class="el" href="classSQLiteConnection.html#a4d9082658000e5ede8312067c6dda9db">SQLiteConnection</a>.</p>
+
+</div>
+</div>
+<a id="aef7ca0223c84f343348d26d7c6212626" name="aef7ca0223c84f343348d26d7c6212626"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef7ca0223c84f343348d26d7c6212626">&#9670;&#160;</a></span>_connect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_connect </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$dbhost</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$loginDB</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$loginUID</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$loginPWD</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$persistent</em><span class="paramdefsep"> = </span><span class="paramdefval">TRUE</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$parameters</em><span class="paramdefsep"> = </span><span class="paramdefval">NULL</span></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">abstract</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplementado em <a class="el" href="classFirebirdConnection.html#aef7ca0223c84f343348d26d7c6212626">FirebirdConnection</a>, <a class="el" href="classMSSQLConnection.html#aef7ca0223c84f343348d26d7c6212626">MSSQLConnection</a>, <a class="el" href="classMysqlConnection.html#aef7ca0223c84f343348d26d7c6212626">MysqlConnection</a>, <a class="el" href="classODBCConnection.html#aef7ca0223c84f343348d26d7c6212626">ODBCConnection</a>, <a class="el" href="classOracle8Connection.html#aef7ca0223c84f343348d26d7c6212626">Oracle8Connection</a>, <a class="el" href="classPostgresConnection.html#aef7ca0223c84f343348d26d7c6212626">PostgresConnection</a> e <a class="el" href="classSQLiteConnection.html#aef7ca0223c84f343348d26d7c6212626">SQLiteConnection</a>.</p>
+
+</div>
+</div>
+<a id="aedb079bd64f97c5bc52bbc381fa6922a" name="aedb079bd64f97c5bc52bbc381fa6922a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedb079bd64f97c5bc52bbc381fa6922a">&#9670;&#160;</a></span>_createquery()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_createquery </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">abstract</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Retorna</dt><dd><a class="el" href="classMQuery.html">MQuery</a> Query instance. </dd></dl>
+
+<p>Reimplementado em <a class="el" href="classFirebirdConnection.html#aedb079bd64f97c5bc52bbc381fa6922a">FirebirdConnection</a>, <a class="el" href="classMSSQLConnection.html#aedb079bd64f97c5bc52bbc381fa6922a">MSSQLConnection</a>, <a class="el" href="classMysqlConnection.html#aedb079bd64f97c5bc52bbc381fa6922a">MysqlConnection</a>, <a class="el" href="classODBCConnection.html#aedb079bd64f97c5bc52bbc381fa6922a">ODBCConnection</a>, <a class="el" href="classOracle8Connection.html#aedb079bd64f97c5bc52bbc381fa6922a">Oracle8Connection</a>, <a class="el" href="classPostgresConnection.html#aedb079bd64f97c5bc52bbc381fa6922a">PostgresConnection</a> e <a class="el" href="classSQLiteConnection.html#aedb079bd64f97c5bc52bbc381fa6922a">SQLiteConnection</a>.</p>
+
+</div>
+</div>
+<a id="a347d6d9914f05a508304171be458afc6" name="a347d6d9914f05a508304171be458afc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a347d6d9914f05a508304171be458afc6">&#9670;&#160;</a></span>_datetochar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_datetochar </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$date</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">abstract</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$date</td><td>string Date to convert. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Retorna</dt><dd>string SQL instruction. </dd></dl>
+
+<p>Reimplementado em <a class="el" href="classFirebirdConnection.html#a347d6d9914f05a508304171be458afc6">FirebirdConnection</a>, <a class="el" href="classMysqlConnection.html#a347d6d9914f05a508304171be458afc6">MysqlConnection</a>, <a class="el" href="classODBCConnection.html#a347d6d9914f05a508304171be458afc6">ODBCConnection</a> e <a class="el" href="classSQLiteConnection.html#a347d6d9914f05a508304171be458afc6">SQLiteConnection</a>.</p>
+
+</div>
+</div>
+<a id="a9856567f5164604276e5ddb469191faf" name="a9856567f5164604276e5ddb469191faf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9856567f5164604276e5ddb469191faf">&#9670;&#160;</a></span>_error()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_error </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">abstract</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplementado em <a class="el" href="classMysqlConnection.html#a9856567f5164604276e5ddb469191faf">MysqlConnection</a>.</p>
+
+</div>
+</div>
+<a id="a7cdf36e9f2f24d3a6ec96257ec5b39fe" name="a7cdf36e9f2f24d3a6ec96257ec5b39fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cdf36e9f2f24d3a6ec96257ec5b39fe">&#9670;&#160;</a></span>_escape()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">_escape </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$sql</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reimplementado em <a class="el" href="classOracle8Connection.html#a7cdf36e9f2f24d3a6ec96257ec5b39fe">Oracle8Connection</a>.</p>
+
+</div>
+</div>
+<a id="a114ab675d89bf8324a41785fb475e86d" name="a114ab675d89bf8324a41785fb475e86d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a114ab675d89bf8324a41785fb475e86d">&#9670;&#160;</a></span>_execute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_execute </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$sql</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">abstract</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplementado em <a class="el" href="classFirebirdConnection.html#a114ab675d89bf8324a41785fb475e86d">FirebirdConnection</a>, <a class="el" href="classMSSQLConnection.html#a114ab675d89bf8324a41785fb475e86d">MSSQLConnection</a>, <a class="el" href="classMysqlConnection.html#a114ab675d89bf8324a41785fb475e86d">MysqlConnection</a>, <a class="el" href="classODBCConnection.html#a114ab675d89bf8324a41785fb475e86d">ODBCConnection</a>, <a class="el" href="classOracle8Connection.html#a114ab675d89bf8324a41785fb475e86d">Oracle8Connection</a>, <a class="el" href="classPostgresConnection.html#a114ab675d89bf8324a41785fb475e86d">PostgresConnection</a> e <a class="el" href="classSQLiteConnection.html#a114ab675d89bf8324a41785fb475e86d">SQLiteConnection</a>.</p>
+
+</div>
+</div>
+<a id="a0b5696a050c08a87eaf992df4e414681" name="a0b5696a050c08a87eaf992df4e414681"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b5696a050c08a87eaf992df4e414681">&#9670;&#160;</a></span>_timestamptochar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_timestamptochar </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$timestamp</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">abstract</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$timestamp</td><td>string Timestamp to convert. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Retorna</dt><dd>string SQL instruction. </dd></dl>
+
+<p>Reimplementado em <a class="el" href="classFirebirdConnection.html#a0b5696a050c08a87eaf992df4e414681">FirebirdConnection</a>, <a class="el" href="classMysqlConnection.html#a0b5696a050c08a87eaf992df4e414681">MysqlConnection</a>, <a class="el" href="classODBCConnection.html#a0b5696a050c08a87eaf992df4e414681">ODBCConnection</a> e <a class="el" href="classSQLiteConnection.html#a0b5696a050c08a87eaf992df4e414681">SQLiteConnection</a>.</p>
+
+</div>
+</div>
+<a id="aaf17da533ea616434b944b6ea8ce7553" name="aaf17da533ea616434b944b6ea8ce7553"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf17da533ea616434b944b6ea8ce7553">&#9670;&#160;</a></span>bind()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bind </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$sql</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$parameters</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4b1626447a9950da9a1b066304ad6e49" name="a4b1626447a9950da9a1b066304ad6e49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b1626447a9950da9a1b066304ad6e49">&#9670;&#160;</a></span>checkError()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">checkError </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa69c8bf1f1dcf4e72552efff1fe3e87e" name="aa69c8bf1f1dcf4e72552efff1fe3e87e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa69c8bf1f1dcf4e72552efff1fe3e87e">&#9670;&#160;</a></span>close()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">close </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a24bba973a1b68c97d2e04175fb4a344b" name="a24bba973a1b68c97d2e04175fb4a344b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24bba973a1b68c97d2e04175fb4a344b">&#9670;&#160;</a></span>execute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">execute </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$sql</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a24ada5decce3d1b79cd82f5a90ccf404" name="a24ada5decce3d1b79cd82f5a90ccf404"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24ada5decce3d1b79cd82f5a90ccf404">&#9670;&#160;</a></span>getError()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getError </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a20e663e9d39779d1c343740f36c3137a" name="a20e663e9d39779d1c343740f36c3137a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20e663e9d39779d1c343740f36c3137a">&#9670;&#160;</a></span>getErrorCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getErrorCount </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6e548ebf2656742bfd19939ead923ed2" name="a6e548ebf2656742bfd19939ead923ed2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e548ebf2656742bfd19939ead923ed2">&#9670;&#160;</a></span>getErrors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getErrors </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a83ea5a789225223bbcb87f2a6aa33892" name="a83ea5a789225223bbcb87f2a6aa33892"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83ea5a789225223bbcb87f2a6aa33892">&#9670;&#160;</a></span>getQuery()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getQuery </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$sql</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$maxrows</em><span class="paramdefsep"> = </span><span class="paramdefval">NULL</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$offset</em><span class="paramdefsep"> = </span><span class="paramdefval">NULL</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$fetchType</em><span class="paramdefsep"> = </span><span class="paramdefval">NULL</span></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac3ca1fda32bd59854da99a19f124fc34" name="ac3ca1fda32bd59854da99a19f124fc34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3ca1fda32bd59854da99a19f124fc34">&#9670;&#160;</a></span>getQueryCommand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getQueryCommand </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$sqlCommand</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$maxrows</em><span class="paramdefsep"> = </span><span class="paramdefval">NULL</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$offset</em><span class="paramdefsep"> = </span><span class="paramdefval">NULL</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$fetchType</em><span class="paramdefsep"> = </span><span class="paramdefval">NULL</span></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0a6a4b46c9c679fb6a3905204af215af" name="a0a6a4b46c9c679fb6a3905204af215af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a6a4b46c9c679fb6a3905204af215af">&#9670;&#160;</a></span>open()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">open </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$dbhost</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$loginDB</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$loginUID</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$loginPWD</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$persistent</em><span class="paramdefsep"> = </span><span class="paramdefval">TRUE</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$parameters</em><span class="paramdefsep"> = </span><span class="paramdefval">NULL</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$port</em><span class="paramdefsep"> = </span><span class="paramdefval">NULL</span></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Open a connection to the specified data source.</p>
+<dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$dbhost</td><td><a class="el" href="classDatabase.html">Database</a> host. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$loginDB</td><td><a class="el" href="classDatabase.html">Database</a> login. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$loginUID</td><td><a class="el" href="classDatabase.html">Database</a> user. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$loginPWD</td><td><a class="el" href="classDatabase.html">Database</a> user password. </td></tr>
+    <tr><td class="paramtype">boolean</td><td class="paramname">$persistent</td><td>Whether the connection must be persistent. </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$parameters</td><td>Parameters. </td></tr>
+    <tr><td class="paramtype">integer</td><td class="paramname">$port</td><td>Port number. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Retorna</dt><dd>string Connection identifier. </dd></dl>
+
+</div>
+</div>
+<a id="aeb6a1087adc49e46a85a95d7b4b1a3e7" name="aeb6a1087adc49e46a85a95d7b4b1a3e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb6a1087adc49e46a85a95d7b4b1a3e7">&#9670;&#160;</a></span>parse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">parse </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$sql</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Documentação dos campos e atributos</h2>
+<a id="a4a8cb8ad25d42946e2938d7894f3e74a" name="a4a8cb8ad25d42946e2938d7894f3e74a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a8cb8ad25d42946e2938d7894f3e74a">&#9670;&#160;</a></span>$_miolo</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">$_miolo</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a57b671b7d327cf036dfc04c726f8640b" name="a57b671b7d327cf036dfc04c726f8640b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57b671b7d327cf036dfc04c726f8640b">&#9670;&#160;</a></span>$affectedrows</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">$affectedrows</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1fa3127fc82f96b1436d871ef02be319" name="a1fa3127fc82f96b1436d871ef02be319"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fa3127fc82f96b1436d871ef02be319">&#9670;&#160;</a></span>$db</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">$db</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae97941710d863131c700f069b109991e" name="ae97941710d863131c700f069b109991e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae97941710d863131c700f069b109991e">&#9670;&#160;</a></span>$id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">$id</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6275b52e7060c3604855fea449dd85f9" name="a6275b52e7060c3604855fea449dd85f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6275b52e7060c3604855fea449dd85f9">&#9670;&#160;</a></span>$traceback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">$traceback = array()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>A documentação para esta classe foi gerada a partir do seguinte ficheiro:<ul>
+<li>/var/docker/solisge-devel/www/solisge/miolo25/classes/database/<b>mconnection.class.php</b></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="classMConnection.html">MConnection</a></li>
+    <li class="footer">Gerado por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

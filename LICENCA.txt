@@ -1,0 +1,37 @@
+﻿CONDIÇÕES DO LICENCIAMENTO DO SOFTWARE
+
+1.1 A SOLIS (aqui denominada de CONTRATADA) licencia à CONTRATANTE, em caráter perpétuo e sem exclusividade, o software Gnuteca (aqui denominado de software), nas condições ora contratadas.
+
+1.2 Uma licença de uso compreende a execução de uma instância do software licenciado, seja em ambiente virtualizado ou não virtualizado, sendo que compreende-se como instância uma imagem de software criada a partir da execução do procedimento de instalação, ou pela duplicação de uma instância existente. 
+
+1.3 Uma instância do software estará em execução quando o mesmo estiver carregado na memória do computador e para o qual uma ou mais de suas instruções foram executadas. Depois que estiver sendo executada, uma instância será considerada em execução, independentemente se suas instruções continuarem ou não a ser executadas, até ela ser removida da memória.
+
+1.4 A CONTRATANTE poderá executar até duas instâncias do software, sendo uma delas para o ambiente de realização de testes e homologações, e a outra no ambiente oficial de produção, onde são realizadas e registradas as informações e transações oficiais do negócio do cliente.
+
+1.5 Embora os códigos fontes sejam fornecidos, o software é de propriedade da CONTRATADA, não sendo permitido à CONTRATANTE efetuar a sua revenda, empréstimo ou cessão (onerosa ou não) à terceiros. Também não é permitido à CONTRATANTE, a qualquer título e tempo, promover no software qualquer tipo de alienação, reprodução, distribuição, divulgação, registro, licenciamento, transferência ou qualquer outro ato que prejudique ou comprometa os direitos de propriedade de software, o nome e a imagem da sua proprietária e do próprio software, além de configurar concorrência à CONTRATADA. 
+
+1.6 A presente venda de licença não engloba qualquer tipo de treinamento, manutenção, suporte, adaptação ou atualização. Todos estes serviços podem ser objeto de contratação, sendo que o suporte oficial ao produto é prestado exclusivamente pela CONTRATADA ou através de terceiros indicados por ela.
+
+1.7 No caso de contratação dos serviços de suporte oficial, a CONTRATANTE terá acesso, durante a vigência desta contratação de serviços, a todas as novas versões e atualizações no software licenciado. Em uma eventual interrupção ou cancelamento dos serviços de suporte, a CONTRATANTE permanece com a licença de uso perpétua, sendo que o software não mais será atualizado, permanecendo na versão instalada no servidor naquele momento.
+
+1.8 A CONTRATANTE terá acesso a todos os módulos disponíveis no software licenciado, embora tenha direito ao suporte oficial apenas para os quais contratar esse serviço. 
+
+1.9 A CONTRATANTE poderá propor mudanças no software, mesmo que alterem o seu comportamento ou sua forma de funcionamento (usabilidade), bem como poderá solicitar também novas funcionalidades. Todas estas proposições serão analisadas e consideradas pela CONTRATADA, sendo que, caso sejam viáveis tecnicamente, poderão vir a ser implementadas no software a título de melhoria do produto, no entanto, sem prazo definido para a sua disponibilização e sem compromisso de execução por parte da CONTRATADA.
+
+1.10 É facultado ao CONTRATANTE solicitar à CONTRATADA mudanças no funcionamento do software licenciado, mediante viabilidade técnica e aporte financeiro a ser acordado entre as partes, pois trata-se de serviço específico a ser desenvolvido pela CONTRATADA, não contemplado no escopo do presente licenciamento de software.
+
+1.11 A CONTRATANTE, com o acesso ao código fonte do software, terá o direito de promover mudanças no respectivo código. No entanto, nas situações em que a mesma promover a contratação de suporte oficial junto à CONTRATADA, não poderá promover mudanças no código fonte, sob pena de perda do referido suporte.
+
+1.12 A CONTRATADA adotará as medidas legais cabíveis caso a CONTRATANTE utilizar o software fora dos limites fixados no presente instrumento.
+
+1.13 A CONTRATADA não se responsabiliza:
+a) pelo uso do software pela CONTRATANTE, nem por eventuais perdas e danos sofridos ou causados à CONTRATANTE ou a terceiros durante a utilização do software;
+b) pelos danos e prejuízos de toda e qualquer natureza que possam derivar da má utilização do software;
+c) por atualizações nas plataformas de Hardware e/ou Software utilizados pelo software licenciado realizadas pela CONTRATANTE (ou por terceiro com a sua anuência) e que prejudiquem de alguma forma o funcionamento do software licenciado.
+d) por problemas oriundos do serviço de hospedagem do software, como, por exemplo, queda de conexão, manutenção do servidor, má configuração do servidor, perda ou violação de arquivos por parte da administração do servidor ou terceiros e demais questões envolvendo os serviços de hospedagem.
+
+1.14 Cabe à CONTRATANTE observar as disposições contidas neste CONTRATO, sob pena da CONTRATADA, a seu exclusivo critério, ao detectar conduta e/ou método contrário às mesmas, optar por rescindir o contrato, interromper o licenciamento temporariamente e/ou notificar o CONTRATANTE para que sane, corrija ou regularize a situação.
+
+1.15 A CONTRATANTE também deverá assumir todos os ônus e responsabilidades decorrentes de seus atos e de sua conduta como USUÁRIO do software respondendo, ainda, pelos atos que terceiros praticarem em seu nome.
+
+1.16 A CONTRATADA poderá utilizar a logomarca da CONTRATANTE, e vice-versa, sem necessidade de autorização prévia, para expor no seu site na listagem de clientes/fornecedores, bem como em estudos de caso com o objetivo de demonstrar o sucesso da utilização do software por meio de mídia eletrônica ou impressa.

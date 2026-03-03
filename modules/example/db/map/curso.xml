@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?> 
+<map>
+   <moduleName>example</moduleName>
+   <className>curso</className>
+   <tableName>curso</tableName>
+   <databaseName>example</databaseName>
+   <attribute>
+      <attributeName>idCurso</attributeName>
+	  <columnName>idcurso</columnName>
+	  <key>primary</key>
+	  <idgenerator>seq_curso</idgenerator>
+   </attribute>
+   <attribute>
+      <attributeName>nome</attributeName>
+	  <columnName>nome</columnName>
+   </attribute>
+   <attribute>
+      <attributeName>idSala</attributeName>
+	  <columnName>idsala</columnName>
+   </attribute>
+   <attribute>
+      <attributeName>sala</attributeName>
+   </attribute>
+   <attribute>
+      <attributeName>alunos</attributeName>
+   </attribute>
+
+   <association>
+      <toClassModule>example</toClassModule>
+      <toClassName>sala</toClassName>
+      <cardinality>oneToOne</cardinality>
+      <target>sala</target>
+	  <retrieveAutomatic>true</retrieveAutomatic>
+	  <saveAutomatic>false</saveAutomatic>
+	  <deleteAutomatic>false</deleteAutomatic>
+	  <entry>
+	     <fromAttribute>idSala</fromAttribute>
+	     <toAttribute>idSala</toAttribute>
+      </entry>
+   </association>
+
+   <association>
+      <toClassModule>example</toClassModule>
+      <toClassName>aluno</toClassName>
+      <cardinality>oneToMany</cardinality>
+      <target>alunos</target>
+	  <retrieveAutomatic>false</retrieveAutomatic>
+	  <saveAutomatic>false</saveAutomatic>
+	  <deleteAutomatic>false</deleteAutomatic>
+	  <entry>
+	     <fromAttribute>idCurso</fromAttribute>
+	     <toAttribute>idCurso</toAttribute>
+      </entry>
+   </association>
+
+</map>
