@@ -238,9 +238,12 @@ GitHub:
 - [**Henrique Gravina**](https://github.com/Henriquegravina) — Contributed
   Mac OS X compatibility documentation and authored the MIOLO architecture
   presentation.
-- **Jamiel Spezia** — Long-term maintainer (9+ years) and current CEO of
-  SOLIS (2025). JSON fixes, PHP 8 migration, jQuery plugins, deprecated
-  dependency removal.
+- **Thomas Sprietersbach** — Co-creator of MIOLO alongside Vilson Gärtner.
+  Worked directly with Rasmus Lerdorf during his 2001 visit to Lajeado.
+  Designed the first SOLIS logo and co-founded the cooperative.
+- [**Jamiel Spezia**](https://github.com/jamielspezia) — Long-term maintainer
+  (9+ years) and current CEO of SOLIS (2025). JSON fixes, PHP 8 migration,
+  jQuery plugins, deprecated dependency removal.
 
 This is a 27-year-old software project that is still in development —
 I certainly forgot a lot of names. If you contributed to MIOLO and don't
