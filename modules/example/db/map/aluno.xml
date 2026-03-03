@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?> 
+<map>
+   <moduleName>example</moduleName>
+   <className>aluno</className>
+   <tableName>aluno</tableName>
+   <databaseName>example</databaseName>
+   <attribute>
+      <attributeName>idAluno</attributeName>
+	  <columnName>idaluno</columnName>
+	  <key>primary</key>
+	  <idgenerator>seq_aluno</idgenerator>
+   </attribute>
+   <attribute>
+      <attributeName>nome</attributeName>
+	  <columnName>nome</columnName>
+   </attribute>
+   <attribute>
+      <attributeName>sexo</attributeName>
+	  <columnName>sexo</columnName>
+   </attribute>
+   <attribute>
+      <attributeName>telefone</attributeName>
+	  <columnName>telefone</columnName>
+   </attribute>
+   <attribute>
+      <attributeName>idCurso</attributeName>
+	  <columnName>idcurso</columnName>
+   </attribute>
+   <attribute>
+      <attributeName>curso</attributeName>
+   </attribute>
+
+   <association>
+      <toClassModule>example</toClassModule>
+      <toClassName>curso</toClassName>
+      <cardinality>oneToOne</cardinality>
+      <target>curso</target>
+	  <retrieveAutomatic>false</retrieveAutomatic>
+	  <saveAutomatic>false</saveAutomatic>
+	  <deleteAutomatic>false</deleteAutomatic>
+	  <entry>
+	     <fromAttribute>idCurso</fromAttribute>
+	     <toAttribute>idCurso</toAttribute>
+      </entry>
+   </association>
+
+</map>

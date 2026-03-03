@@ -1,0 +1,1442 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MIOLO26: /var/docker/solisge-devel/www/solisge/miolo26/classes/ui/controls/mbaseform.class.php</title>
+<link rel="icon" href="miolo_icon.png" type="image/x-icon" />
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MIOLO26
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Localizar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_2var_2docker_2solisge-devel_2www_2solisge_2miolo26_2classes_2ui_2controls_2mbaseform_8class_8php-example.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Carregando...</div>
+<div class="SRStatus" id="Searching">Procurando...</div>
+<div class="SRStatus" id="NoMatches">Nenhuma entrada encontrada</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">/var/docker/solisge-devel/www/solisge/miolo26/classes/ui/controls/mbaseform.class.php</div></div>
+</div><!--header-->
+<div class="contents">
+<p>Set data on the form fields. Set form fields values. A subclassed form will likely override this method, in order to provide a specialized processing for the passed data object. <br  />
+<br  />
+ This method simply calls the <code>_setData()</code> method of the <code><a class="el" href="classForm.html">Form</a></code> class.</p>
+<p>$data = new <a class="el" href="classFormData.html">FormData()</a>; $form-&gt;setData( $data );</p>
+<dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$data</td><td>(<a class="el" href="classMBusiness.html">MBusiness</a> Object) object containing the field values</td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line">&lt;?php</div>
+<div class="line"> </div>
+<div class="line">define (<span class="stringliteral">&#39;FORM_SUBMIT_BTN_NAME&#39;</span>, <span class="stringliteral">&#39;submit_button&#39;</span>);</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">class </span><a id="_a0" name="_a0"></a><a class="code hl_class" href="classMBaseForm.html">MBaseForm</a> <span class="keyword">extends</span> <a id="_a1" name="_a1"></a><a class="code hl_class" href="classMContainerControl.html">MContainerControl</a></div>
+<div class="line">{</div>
+<div class="line">    <span class="keyword">protected</span> <a id="a2" name="a2"></a><a class="code hl_variable" href="classMBaseForm.html#aa698a3e72116e8e778be0e95d908ee30">$action</a>;</div>
+<div class="line">    <span class="keyword">public</span> <a id="a3" name="a3"></a><a class="code hl_variable" href="classMBaseForm.html#a12661b2fc0f57f97e30a1620889ce9c6">$method</a>;</div>
+<div class="line">    <span class="keyword">public</span> <a id="a4" name="a4"></a><a class="code hl_variable" href="classMBaseForm.html#a248b27dba8425c24776276443dc10615">$buttons</a>;</div>
+<div class="line">    <span class="keyword">public</span> <a id="a5" name="a5"></a><a class="code hl_variable" href="classMBaseForm.html#ab2303c817e3b402b77b7f99627b9c319">$fields</a> = array();</div>
+<div class="line">    <span class="keyword">public</span> <a id="a6" name="a6"></a><a class="code hl_variable" href="classMBaseForm.html#a9e8633cf48f7c5fc8cc9f5fa31450b99">$return</a>;</div>
+<div class="line">    <span class="keyword">public</span> <a id="a7" name="a7"></a><a class="code hl_variable" href="classMBaseForm.html#a8ce36ea943153596f82b8c93f4091f7d">$reset</a>;</div>
+<div class="line">    <span class="keyword">public</span> <a id="a8" name="a8"></a><a class="code hl_variable" href="classMBaseForm.html#a920c320068535c09e154c6707eb42ded">$styles</a>;</div>
+<div class="line">    <span class="keyword">public</span> <a id="a9" name="a9"></a><a class="code hl_variable" href="classMBaseForm.html#a5795120b4b324bc4ca83f1e6fdce7d57">$width</a>;</div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <a id="a10" name="a10"></a><a class="code hl_variable" href="classMBaseForm.html#a54e9f4f97e3b87c747d6a45f4c2d3ac8">$showHints</a> = <span class="keyword">true</span>;</div>
+<div class="line">    <span class="keyword">public</span> <a id="a11" name="a11"></a><a class="code hl_variable" href="classMBaseForm.html#ad3d60f1ef71cf9864f370b83d04d1adc">$enctype</a>;</div>
+<div class="line">    <span class="keyword">public</span> <a id="a12" name="a12"></a><a class="code hl_variable" href="classMBaseForm.html#a98905a5069c1fd89d56b6ab2af8a74ae">$validations</a>;</div>
+<div class="line">    <span class="keyword">public</span> <a id="a13" name="a13"></a><a class="code hl_variable" href="classMBaseForm.html#a4d2debe9f55c2cf05e0c2edf1c71330d">$defaultButton</a>;</div>
+<div class="line">    <span class="keyword">public</span> <a id="a14" name="a14"></a><a class="code hl_variable" href="classMBaseForm.html#ab24faf4aa647cdcee494fc48524ad4ff">$errors</a> = array();</div>
+<div class="line">    <span class="keyword">public</span> <a id="a15" name="a15"></a><a class="code hl_variable" href="classMBaseForm.html#af24aefa35fa703a1521c8145fe8fa082">$infos</a> = array();</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <a id="a16" name="a16"></a><a class="code hl_variable" href="classMBaseForm.html#ad631b5aa097c1e875d8a8fbd6aebea8c">$alerts</a> = array();</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">static</span> <a id="a17" name="a17"></a><a class="code hl_variable" href="classMBaseForm.html#abcf8f9a85ad04c8827542f86ebb042fc">$fieldNum</a> = 0;</div>
+<div class="line">    <span class="keyword">public</span> <a id="a18" name="a18"></a><a class="code hl_variable" href="classMBaseForm.html#a2b0d08e73a90b9443ce37506b7c6a544">$layout</a>;</div>
+<div class="line">    <span class="keyword">public</span> <a id="a19" name="a19"></a><a class="code hl_variable" href="classMBaseForm.html#ae9ecf136d3e7297cc6c21d2ef3c925e8">$zebra</a> = <span class="keyword">false</span>;</div>
+<div class="line">    <span class="keyword">public</span> <a id="a20" name="a20"></a><a class="code hl_variable" href="classMBaseForm.html#a389e8db75a90ca2b0cd72f07a6937c88">$labelWidth</a> = NULL;</div>
+<div class="line">    <span class="keyword">public</span> <a id="a21" name="a21"></a><a class="code hl_variable" href="classMBaseForm.html#a4d3d18e082f32469479ba80573be45c5">$focus</a> = <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line">    <span class="keyword">public</span> <a id="a22" name="a22"></a><a class="code hl_variable" href="classMBaseForm.html#acf9b4eabceb162a0d757e5665fa38acb">$ajax</a>;</div>
+<div class="line">    <span class="keyword">public</span> <a id="a23" name="a23"></a><a class="code hl_variable" href="classMBaseForm.html#a526f919ae9d3195efcec3cea9d55f443">$cp</a>; <span class="comment">// compatibility -&gt; $cp = $ajax;</span></div>
+<div class="line">    <span class="keyword">public</span> <a id="a24" name="a24"></a><a class="code hl_variable" href="classMBaseForm.html#a09ddd69c8d89442c174432f2cff33bda">$cssForm</a> = <span class="keyword">false</span>;</div>
+<div class="line">    <span class="keyword">public</span> <a id="a25" name="a25"></a><a class="code hl_variable" href="classMBaseForm.html#afe30056dda1a3d4a4f6c0273f679d311">$cssButtons</a>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">private</span> $jsValidationEnabled = <span class="keyword">true</span>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a26" name="a26"></a><a class="code hl_function" href="classMBaseForm.html#ad1243f622cfe61efcba13720ede8c975">__construct</a>(<a class="code hl_variable" href="classMBaseForm.html#aa698a3e72116e8e778be0e95d908ee30">$action</a>=<span class="stringliteral">&#39;&#39;</span>)</div>
+<div class="line">    {</div>
+<div class="line">        parent::__construct();</div>
+<div class="line">        $this-&gt;<a id="a27" name="a27"></a><a class="code hl_function" href="classMControl.html#a87313ad678fb2a2a8efb435cf0bdb9a0">setId</a>(<span class="stringliteral">&#39;frm&#39;</span> . uniqid()); </div>
+<div class="line">        $this-&gt;method = <span class="stringliteral">&#39;post&#39;</span>;</div>
+<div class="line">        $this-&gt;<span class="keywordflow">return</span> = <span class="keyword">false</span>;</div>
+<div class="line">        $this-&gt;width  = <span class="stringliteral">&#39;95%&#39;</span>;</div>
+<div class="line">        $this-&gt;defaultButton = <span class="keyword">true</span>;</div>
+<div class="line">        $this-&gt;fields = array();</div>
+<div class="line">        $this-&gt;validations = array();</div>
+<div class="line">        $this-&gt;ajax = $this-&gt;manager-&gt;ajax;</div>
+<div class="line">        $this-&gt;cp = <a class="code hl_variable" href="classMBaseForm.html#acf9b4eabceb162a0d757e5665fa38acb">$this-&gt;ajax</a>;</div>
+<div class="line">        $this-&gt;<a id="a28" name="a28"></a><a class="code hl_function" href="classMBaseForm.html#ad532ac8f1666ce996638bee8dd2fb8ad">createFields</a>();</div>
+<div class="line">        <span class="keywordflow">if</span> ($this-&gt;page-&gt;isPostBack)</div>
+<div class="line">        { </div>
+<div class="line">            $this-&gt;<a id="a29" name="a29"></a><a class="code hl_function" href="classMBaseForm.html#a88b649a35158a108b33a421eb9166956">getFormFields</a>(); <span class="comment">// set the fields array with form post/get values</span></div>
+<div class="line">        }</div>
+<div class="line">        $this-&gt;<a id="a30" name="a30"></a><a class="code hl_function" href="classMBaseForm.html#ae7c95f4b1a110303e6a457ccafc7706b">onLoad</a>();</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a31" name="a31"></a><a class="code hl_function" href="classMBaseForm.html#a83c2703c91959192f759992ad5640b67">__set</a>(<a id="a32" name="a32"></a><a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>, $value)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a> == <span class="stringliteral">&#39;form&#39;</span>) <span class="keywordflow">return</span>;</div>
+<div class="line">        $this-&gt;<a id="a33" name="a33"></a><a class="code hl_function" href="classMContainerControl.html#a252ce99978f02f21c1b0f90997ad63e5">addControl</a>($value);</div>
+<div class="line">        $this-&gt;fields[<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>] = $value;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a34" name="a34"></a><a class="code hl_function" href="classMBaseForm.html#abc8e9e31bb15c8a44c3210ec551407c8">__get</a>(<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> $this-&gt;fields[<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>];</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classMBaseForm.html#ae7c95f4b1a110303e6a457ccafc7706b">onLoad</a>()</div>
+<div class="line">    {</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classMBaseForm.html#ad532ac8f1666ce996638bee8dd2fb8ad">createFields</a>()</div>
+<div class="line">    {</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a35" name="a35"></a><a class="code hl_function" href="classMBaseForm.html#a41f66be9447dcb5870e5a22d2d163193">isAjaxCall</a>()</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> ($this-&gt;manager-&gt;getIsAjaxCall());</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a36" name="a36"></a><a class="code hl_function" href="classMBaseForm.html#a3a9723d5fbf7915599a1efc6bb8a6c3d">registerMethod</a>()</div>
+<div class="line">    {</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a37" name="a37"></a><a class="code hl_function" href="classMBaseForm.html#a40fa2a2b1f852e491b45d447e0a5cfe3">addValidator</a>($validator)</div>
+<div class="line">    {</div>
+<div class="line">        $field = $this-&gt;{$validator-&gt;field};</div>
+<div class="line">        <a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a> = <span class="stringliteral">&#39;_validator_&#39;</span> . $this-&gt;name . <span class="charliteral">&#39;_&#39;</span> . $validator-&gt;id . <span class="charliteral">&#39;_&#39;</span> . $validator-&gt;field;</div>
+<div class="line">        $validator-&gt;name  = <a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>;</div>
+<div class="line">        $validator-&gt;form  = <a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$this-&gt;name</a>;</div>
+<div class="line">        $validator-&gt;label = ($validator-&gt;label == <span class="stringliteral">&#39;&#39;</span>) ? $field-&gt;label : $validator-&gt;label;</div>
+<div class="line">        $validator-&gt;max = $validator-&gt;max ? $validator-&gt;max : $field-&gt;size;</div>
+<div class="line">        $this-&gt;validations[] = $validator;</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">if</span> ( !$field-&gt;validator )</div>
+<div class="line">        {</div>
+<div class="line">            $field-&gt;validator = $validator;</div>
+<div class="line">        }</div>
+<div class="line">        elseif ( ($validator-&gt;type == <span class="stringliteral">&#39;required&#39;</span>) &amp;&amp; ($field-&gt;validator instanceof <a id="_a38" name="_a38"></a><a class="code hl_class" href="classMValidator.html">MValidator</a>) )</div>
+<div class="line">        {</div>
+<div class="line">            $field-&gt;validator-&gt;type = $validator-&gt;type;</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a39" name="a39"></a><a class="code hl_function" href="classMBaseForm.html#a9f11010606d877173f7b5c0fe228152d">setValidators</a>($validators)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">if</span> (is_array($validators))</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">foreach</span> ($validators as $v)</div>
+<div class="line">            {</div>
+<div class="line">                $this-&gt;<a class="code hl_function" href="classMBaseForm.html#a40fa2a2b1f852e491b45d447e0a5cfe3">addValidator</a>($v);</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line">        elseif (is_subclass_of($validators, <span class="stringliteral">&#39;validator&#39;</span>))</div>
+<div class="line">        {</div>
+<div class="line">            $this-&gt;<a class="code hl_function" href="classMBaseForm.html#a40fa2a2b1f852e491b45d447e0a5cfe3">addValidator</a>($validators);</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a40" name="a40"></a><a class="code hl_function" href="classMBaseForm.html#afdde1a69f1fd323f04c354234e66dfd2">setAjaxFields</a>(<a class="code hl_variable" href="classMBaseForm.html#ab2303c817e3b402b77b7f99627b9c319">$fields</a>, $responseControl)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">foreach</span> (<a class="code hl_variable" href="classMBaseForm.html#ab2303c817e3b402b77b7f99627b9c319">$fields</a> as $key =&gt; $f)</div>
+<div class="line">        {</div>
+<div class="line">            $validator = $this-&gt;<a id="a41" name="a41"></a><a class="code hl_function" href="classMBaseForm.html#a04e9df10ef51087b79250b9203ae1042">getFieldValidator</a>($f-&gt;id);</div>
+<div class="line">            <span class="keywordflow">if</span> ( $validator )</div>
+<div class="line">            {</div>
+<div class="line">                 $f-&gt;validator = $validator;</div>
+<div class="line">            }</div>
+<div class="line">            </div>
+<div class="line">            <a class="code hl_variable" href="classMBaseForm.html#ab2303c817e3b402b77b7f99627b9c319">$fields</a>[$key] = $this-&gt;<a id="a42" name="a42"></a><a class="code hl_function" href="classMBaseForm.html#a13f374babab4e1395d9cd452a3ebe6b3">generateLayoutField</a>($f);</div>
+<div class="line">        }</div>
+<div class="line">        $this-&gt;<a id="a43" name="a43"></a><a class="code hl_function" href="classMBaseForm.html#a59afb66c7747ea97f24f81b983cf7b06">setResponse</a>(<a class="code hl_variable" href="classMBaseForm.html#ab2303c817e3b402b77b7f99627b9c319">$fields</a>, $responseControl);</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a44" name="a44"></a><a class="code hl_function" href="classMBaseForm.html#a7d0b3725c4f68a1d9f57160d6f13c7b0">isSubmitted</a>()</div>
+<div class="line">    {   </div>
+<div class="line">        $isSubmitted = $this-&gt;defaultButton &amp;&amp; <a id="a45" name="a45"></a><a class="code hl_function" href="classMBaseForm.html#a2a616c151b783fbd70869e877deb94cd">MForm::getFormValue</a>(FORM_SUBMIT_BTN_NAME);</div>
+<div class="line">        <span class="keywordflow">if</span> (isset($this-&gt;buttons))</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">foreach</span>($this-&gt;buttons as $b)</div>
+<div class="line">            {</div>
+<div class="line">                $isSubmitted = $isSubmitted || <a class="code hl_function" href="classMBaseForm.html#a2a616c151b783fbd70869e877deb94cd">MForm::getFormValue</a>($b-&gt;name);</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">return</span> $isSubmitted;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a46" name="a46"></a><a class="code hl_function" href="classMBaseForm.html#adc58f6ba07d171977d32258f3d9d69fb">setAlternate</a>($color0, $color1)</div>
+<div class="line">    {</div>
+<div class="line">        $this-&gt;zebra = array($color0, $color1);</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a47" name="a47"></a><a class="code hl_function" href="classMBaseForm.html#a511db96ef105802795b765993c043ef4">setFocus</a>($fieldName)</div>
+<div class="line">    {</div>
+<div class="line">        $this-&gt;focus = $fieldName;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classMBaseForm.html#a88b649a35158a108b33a421eb9166956">getFormFields</a>()</div>
+<div class="line">    {   </div>
+<div class="line">       $this-&gt;<a id="a48" name="a48"></a><a class="code hl_function" href="classMBaseForm.html#a0b630eb1f42caf7974aec876676d8a24">_getFormFieldValue</a>($this-&gt;fields);</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">protected</span> <span class="keyword">function</span> <a class="code hl_function" href="classMBaseForm.html#a0b630eb1f42caf7974aec876676d8a24">_getFormFieldValue</a>($field)</div>
+<div class="line">    {   </div>
+<div class="line">        <span class="keywordflow">if</span> ( is_array($field) )</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">foreach</span>($field as $f)</div>
+<div class="line">            {</div>
+<div class="line">                $this-&gt;<a class="code hl_function" href="classMBaseForm.html#a0b630eb1f42caf7974aec876676d8a24">_getFormFieldValue</a>($f);</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">else</span></div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">if</span> ($field instanceof <a id="_a49" name="_a49"></a><a class="code hl_class" href="classMFormControl.html">MFormControl</a>)</div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">if</span> ( $field-&gt;name )</div>
+<div class="line">                {</div>
+<div class="line">                    $field-&gt;setSubmittedValue();</div>
+<div class="line">                }</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classMBaseForm.html#a2a616c151b783fbd70869e877deb94cd">getFormValue</a>(<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>, $value = NULL)</div>
+<div class="line">    { </div>
+<div class="line">        $result = <span class="stringliteral">&#39;&#39;</span>;</div>
+<div class="line">        <span class="keywordflow">if</span> ( (<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a> != <span class="stringliteral">&#39;&#39;</span>) &amp;&amp; ((strpos(<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>,<span class="charliteral">&#39;[&#39;</span>)) === <span class="keyword">false</span>))</div>
+<div class="line">        {</div>
+<div class="line">            $result = isset($_REQUEST[<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>]) ? $_REQUEST[<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>] : <span class="keyword">null</span>;</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">if</span> (! isset($result))</div>
+<div class="line">        {</div>
+<div class="line">            $result = $value;</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">return</span> $result;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">       </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a50" name="a50"></a><a class="code hl_function" href="classMBaseForm.html#a2ca3a7e20e6dcf04a18f8bfd41f5211b">setFormValue</a>(<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>, $value)</div>
+<div class="line">    {   </div>
+<div class="line">        $value = MForm::escapeValue($value);</div>
+<div class="line">        <span class="keywordflow">if</span> (isset($this-&gt;<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>))</div>
+<div class="line">        {</div>
+<div class="line">            $this-&gt;<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>-&gt;setValue($value);</div>
+<div class="line">        }</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// If the fields</span></div>
+<div class="line">        <span class="keywordflow">if</span> (isset($this-&gt;fields[<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>]))</div>
+<div class="line">        {</div>
+<div class="line">            $this-&gt;fields[<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>] = $value;</div>
+<div class="line">        }</div>
+<div class="line">        </div>
+<div class="line">        $_REQUEST[<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>] = $value;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">private</span> <span class="keyword">function</span> <span class="comment">/* PRIVATE */</span> escapeValue($value)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">if</span> ( is_array($value) )</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">for</span> ( $i=0, $n = count($value); $i &lt; $n; $i++ )</div>
+<div class="line">            {</div>
+<div class="line">                $value[$i] = $this-&gt;escapeValue($value[$i]);</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">else</span></div>
+<div class="line">        {</div>
+<div class="line">            $value = str_replace(<span class="charliteral">&#39;\&quot;&#39;</span>,<span class="stringliteral">&#39;&amp;quot;&#39;</span>,$value);</div>
+<div class="line">            $value = str_replace(<span class="charliteral">&#39;&quot;&#39;</span>,<span class="stringliteral">&#39;&amp;quot;&#39;</span>,$value);</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">return</span> $value;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a51" name="a51"></a><a class="code hl_function" href="classMBaseForm.html#ac2f1620e4c0edbafa4aea755b2063cd4">onSubmit</a>($jscode)</div>
+<div class="line">    {</div>
+<div class="line">        $this-&gt;page-&gt;onSubmit($jscode);</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a52" name="a52"></a><a class="code hl_function" href="classMBaseForm.html#ad0add467d6f468f7c217674e0bbcf118">addJsCode</a>($jscode)</div>
+<div class="line">    {</div>
+<div class="line">        $this-&gt;page-&gt;addJsCode($jscode);</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a53" name="a53"></a><a class="code hl_function" href="classMBaseForm.html#a0366b3b0db0bd90abfc461c372f86599">setAction</a>(<a class="code hl_variable" href="classMBaseForm.html#aa698a3e72116e8e778be0e95d908ee30">$action</a>)</div>
+<div class="line">    {</div>
+<div class="line">        $this-&gt;action = <a class="code hl_variable" href="classMBaseForm.html#aa698a3e72116e8e778be0e95d908ee30">$action</a>;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">   </div>
+<div class="line">    <span class="keyword">private</span> <span class="keyword">function</span> <span class="comment">/*PRIVATE*/</span> getFields()</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code hl_variable" href="classMBaseForm.html#ab2303c817e3b402b77b7f99627b9c319">$this-&gt;fields</a>;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a54" name="a54"></a><a class="code hl_function" href="classMBaseForm.html#a8f620c0faa56979783c41f5a5e7c9e21">setFields</a>(<a class="code hl_variable" href="classMBaseForm.html#ab2303c817e3b402b77b7f99627b9c319">$fields</a>)</div>
+<div class="line">    {</div>
+<div class="line">        $this-&gt;fields = array();</div>
+<div class="line">        <span class="keywordflow">if</span> (!is_array(<a class="code hl_variable" href="classMBaseForm.html#ab2303c817e3b402b77b7f99627b9c319">$fields</a>))</div>
+<div class="line">        {</div>
+<div class="line">            <a class="code hl_variable" href="classMBaseForm.html#ab2303c817e3b402b77b7f99627b9c319">$fields</a> = array(<a class="code hl_variable" href="classMBaseForm.html#ab2303c817e3b402b77b7f99627b9c319">$fields</a>);</div>
+<div class="line">        }</div>
+<div class="line">        $this-&gt;layout = <a class="code hl_variable" href="classMBaseForm.html#ab2303c817e3b402b77b7f99627b9c319">$fields</a>;</div>
+<div class="line">        $this-&gt;_registerField(<a class="code hl_variable" href="classMBaseForm.html#ab2303c817e3b402b77b7f99627b9c319">$fields</a>);</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">private</span> <span class="keyword">function</span> <span class="comment">/*PRIVATE*/</span> _registerField($field)</div>
+<div class="line">    {   </div>
+<div class="line">        <span class="keywordflow">if</span> ( is_array($field) )</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">foreach</span> ( $field as $i =&gt; $f )</div>
+<div class="line">            {</div>
+<div class="line">                $this-&gt;_RegisterField($f);</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line">        elseif (is_object($field))</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">if</span> ($field instanceof <a class="code hl_class" href="classMFormControl.html">MFormControl</a>)</div>
+<div class="line">            {</div>
+<div class="line">                $field-&gt;form = $this;</div>
+<div class="line">            }</div>
+<div class="line"> </div>
+<div class="line">            <span class="keywordflow">if</span> ($field instanceof <a id="_a55" name="_a55"></a><a class="code hl_class" href="classMFileField.html">MFileField</a>)</div>
+<div class="line">            {</div>
+<div class="line">                $this-&gt;enctype=<span class="stringliteral">&#39;multipart/form-data&#39;</span>;</div>
+<div class="line">                $this-&gt;page-&gt;setEnctype($this-&gt;enctype);</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordflow">if</span> ( <a id="a56" name="a56"></a><a class="code hl_function" href="classMUtil.html#a784910cc92181f2919504bb71ed4bb62">MUtil::isAjaxEvent</a>() )</div>
+<div class="line">                {</div>
+<div class="line">                    $this-&gt;page-&gt;onload(<span class="stringliteral">&quot;miolo.getForm(&#39;{$this-&gt;page-&gt;getFormId()}&#39;).setEnctype(&#39;$this-&gt;enctype&#39;);&quot;</span>);</div>
+<div class="line">                }</div>
+<div class="line">            }</div>
+<div class="line">            </div>
+<div class="line">            <span class="comment">// Não daria para sempre considerar apenas o $field-&gt;id?</span></div>
+<div class="line">            $namefield = ($field-&gt;name == $field-&gt;id) ? $field-&gt;name : $field-&gt;id;</div>
+<div class="line">            <span class="keywordflow">if</span> ($namefield)</div>
+<div class="line">            {</div>
+<div class="line">                $this-&gt;manager-&gt;assert(!isset($this-&gt;$namefield), _M(<span class="stringliteral">&quot;Err: property [$namefield] already in use in the form [$this-&gt;title]! Choose another name to [$namefield].&quot;</span>));</div>
+<div class="line">                $this-&gt;$namefield = $field;</div>
+<div class="line">            }</div>
+<div class="line">            </div>
+<div class="line">            $value = $this-&gt;page-&gt;request($field-&gt;name);</div>
+<div class="line">            <span class="keywordflow">if</span> ($field instanceof <a class="code hl_class" href="classMFormControl.html">MFormControl</a>)</div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">if</span> ( ($field instanceof <a id="_a57" name="_a57"></a><a class="code hl_class" href="classMCheckBox.html">MCheckBox</a>) || ($field instanceof <a id="_a58" name="_a58"></a><a class="code hl_class" href="classMRadioButton.html">MRadioButton</a>) )</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="comment">// set checked flag of checkbox or radiobutton if the value matches</span></div>
+<div class="line">                    $field-&gt;checked = $this-&gt;page-&gt;isPostBack() ? (isset($value) ? ($value == $field-&gt;value) : $field-&gt;checked) : $field-&gt;checked;</div>
+<div class="line">                }</div>
+<div class="line">                elseif ( ($field instanceof <a id="_a59" name="_a59"></a><a class="code hl_class" href="classMIndexedControl.html">MIndexedControl</a>) )</div>
+<div class="line">                {</div>
+<div class="line">                    $this-&gt;<a id="a60" name="a60"></a><a class="code hl_function" href="classMBaseForm.html#aabc512165e977cf6fe28035285440cc7">addFields</a>($field-&gt;controls);</div>
+<div class="line">                    $field-&gt;setValue($value);</div>
+<div class="line">                }</div>
+<div class="line">                elseif (($field instanceof <a id="_a61" name="_a61"></a><a class="code hl_class" href="classMInputGrid.html">MInputGrid</a>))</div>
+<div class="line">                {</div>
+<div class="line">                    $field-&gt;setValue($value);</div>
+<div class="line">                }</div>
+<div class="line">                elseif ($field instanceof <a id="_a62" name="_a62"></a><a class="code hl_class" href="classMInputControl.html">MInputControl</a>) </div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keywordflow">if</span>( $field-&gt;value == <span class="stringliteral">&#39;&#39;</span> )</div>
+<div class="line">                    {</div>
+<div class="line">                        $field-&gt;setValue($value);</div>
+<div class="line">                    }</div>
+<div class="line">                }</div>
+<div class="line">            }</div>
+<div class="line">            elseif ($field instanceof <a id="_a63" name="_a63"></a><a class="code hl_class" href="classMContainer.html">MContainer</a>)</div>
+<div class="line">            {</div>
+<div class="line">                $this-&gt;_registerField($field-&gt;getControls());</div>
+<div class="line">                <span class="keywordflow">if</span> ($field instanceof <a id="_a64" name="_a64"></a><a class="code hl_class" href="classMRadioButtonGroup.html">MRadioButtonGroup</a>)</div>
+<div class="line">                {</div>
+<div class="line">                    $field-&gt;setValue($value);</div>
+<div class="line">                }</div>
+<div class="line">        </div>
+<div class="line">            }</div>
+<div class="line">            elseif ($field instanceof <a id="_a65" name="_a65"></a><a class="code hl_class" href="classMDiv.html">MDiv</a>)</div>
+<div class="line">            {</div>
+<div class="line">                $this-&gt;_registerField($field-&gt;getInner());</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a66" name="a66"></a><a class="code hl_function" href="classMBaseForm.html#ae395ff6bcfc9cd89514292e53725bde9">addField</a>($field,<a id="a67" name="a67"></a><a class="code hl_variable" href="classMControl.html#ac40d3d27b2d848f906775623025116d7">$hint</a>=<span class="keyword">false</span>)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">if</span> ( <a class="code hl_variable" href="classMControl.html#ac40d3d27b2d848f906775623025116d7">$hint</a> )</div>
+<div class="line">        {</div>
+<div class="line">            $field-&gt;setHint(<a class="code hl_variable" href="classMControl.html#ac40d3d27b2d848f906775623025116d7">$hint</a>);</div>
+<div class="line">        }</div>
+<div class="line">        $this-&gt;_RegisterField($field);</div>
+<div class="line">        $this-&gt;layout[] = $field;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classMBaseForm.html#aabc512165e977cf6fe28035285440cc7">addFields</a>(<a class="code hl_variable" href="classMBaseForm.html#ab2303c817e3b402b77b7f99627b9c319">$fields</a>)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">if</span> ( is_array(<a class="code hl_variable" href="classMBaseForm.html#ab2303c817e3b402b77b7f99627b9c319">$fields</a>) )</div>
+<div class="line">        {</div>
+<div class="line">           <span class="keywordflow">foreach</span>(<a class="code hl_variable" href="classMBaseForm.html#ab2303c817e3b402b77b7f99627b9c319">$fields</a> as $f)</div>
+<div class="line">           {</div>
+<div class="line">              $this-&gt;<a class="code hl_function" href="classMBaseForm.html#ae395ff6bcfc9cd89514292e53725bde9">addField</a>($f);</div>
+<div class="line">           }</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a68" name="a68"></a><a class="code hl_function" href="classMBaseForm.html#a74d900d2dafb121e0c0049d84bf47ac3">addButton</a>($button)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">if</span> (strtoupper($button-&gt;action == <span class="stringliteral">&#39;REPORT&#39;</span>))</div>
+<div class="line">        {</div>
+<div class="line">           $this-&gt;page-&gt;hasReport = <span class="keyword">true</span>;</div>
+<div class="line">        }</div>
+<div class="line">        $button-&gt;form = $this;</div>
+<div class="line">        $this-&gt;buttons[] = $this-&gt;{$button-&gt;getId()} = $button;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a69" name="a69"></a><a class="code hl_function" href="classMBaseForm.html#ab8dac7378cc13e08516ffe7af961482d">setButtons</a>(<a class="code hl_variable" href="classMBaseForm.html#a248b27dba8425c24776276443dc10615">$buttons</a>)</div>
+<div class="line">    {</div>
+<div class="line">        $this-&gt;<a id="a70" name="a70"></a><a class="code hl_function" href="classMBaseForm.html#a8e2768374fbf78cd3382b61323932953">clearButtons</a>();</div>
+<div class="line">        </div>
+<div class="line">        <span class="keywordflow">if</span> ( is_array(<a class="code hl_variable" href="classMBaseForm.html#a248b27dba8425c24776276443dc10615">$buttons</a>) )</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">for</span> ( $i=0, $n = count(<a class="code hl_variable" href="classMBaseForm.html#a248b27dba8425c24776276443dc10615">$buttons</a>); $i &lt; $n; $i++ )</div>
+<div class="line">            {</div>
+<div class="line">                $this-&gt;<a class="code hl_function" href="classMBaseForm.html#a74d900d2dafb121e0c0049d84bf47ac3">addButton</a>(<a class="code hl_variable" href="classMBaseForm.html#a248b27dba8425c24776276443dc10615">$buttons</a>[$i]);</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">else</span></div>
+<div class="line">        {</div>
+<div class="line">           $this-&gt;<a class="code hl_function" href="classMBaseForm.html#a74d900d2dafb121e0c0049d84bf47ac3">addButton</a>(<a class="code hl_variable" href="classMBaseForm.html#a248b27dba8425c24776276443dc10615">$buttons</a>);</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a71" name="a71"></a><a class="code hl_function" href="classMBaseForm.html#afb034ff11b492b0a9cf5733264c68ef9">setButtonLabel</a>( $index, $label )</div>
+<div class="line">    {</div>
+<div class="line">        $this-&gt;buttons[$index]-&gt;label = $label;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a72" name="a72"></a><a class="code hl_function" href="classMBaseForm.html#a2d2efac332e731afffef5eb48e2a91e1">showReturn</a>( $state )</div>
+<div class="line">    {</div>
+<div class="line">        $this-&gt;<a id="a73" name="a73"></a><a class="code hl_function" href="classMBaseForm.html#a887fa82eefc8b9b41694fa05433e18b6">setShowReturnButton</a>( $state );</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classMBaseForm.html#a887fa82eefc8b9b41694fa05433e18b6">setShowReturnButton</a>( $state )</div>
+<div class="line">    {</div>
+<div class="line">        $this-&gt;<span class="keywordflow">return</span> = $state;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a74" name="a74"></a><a class="code hl_function" href="classMBaseForm.html#add080290c7be20bb737ad6ec17d7ab1d">setShowPostButton</a>( $state )</div>
+<div class="line">    {</div>
+<div class="line">        $this-&gt;defaultButton = $state;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a75" name="a75"></a><a class="code hl_function" href="classMBaseForm.html#a83510bc571d9497905017440cce63730">showReset</a>( $state )</div>
+<div class="line">    {</div>
+<div class="line">        $this-&gt;<a id="a76" name="a76"></a><a class="code hl_function" href="classMBaseForm.html#a839b07978a156a5559ab9e7d234b6c7c">setShowResetButton</a>( $state );</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classMBaseForm.html#a839b07978a156a5559ab9e7d234b6c7c">setShowResetButton</a>( $state )</div>
+<div class="line">    {</div>
+<div class="line">        $this-&gt;reset = $state;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a77" name="a77"></a><a class="code hl_function" href="classMBaseForm.html#a894a7d492de312935832e55f69925052">getShowHints</a>()</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code hl_variable" href="classMBaseForm.html#a54e9f4f97e3b87c747d6a45f4c2d3ac8">self::$showHints</a>;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a78" name="a78"></a><a class="code hl_function" href="classMBaseForm.html#ab0dde9a40ba8f916559569051c75e39a">setShowHints</a>( $state )</div>
+<div class="line">    {</div>
+<div class="line">        self::$showHints = $state;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a79" name="a79"></a><a class="code hl_function" href="classMBaseForm.html#a2e0fb5a73fc99c359847fe6a1480c585">showHints</a>( $state )</div>
+<div class="line">    {</div>
+<div class="line">        $this-&gt;<a class="code hl_function" href="classMBaseForm.html#ab0dde9a40ba8f916559569051c75e39a">setShowHints</a> ( $state );</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a80" name="a80"></a><a class="code hl_function" href="classMBaseForm.html#a8afaa963e5e4fa6d307be433120a5617">getFieldList</a>()</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> $this-&gt;_getFieldList($this-&gt;fields);</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">private</span> <span class="keyword">function</span> _getFieldList($allfields)</div>
+<div class="line">    {</div>
+<div class="line">        <a class="code hl_variable" href="classMBaseForm.html#ab2303c817e3b402b77b7f99627b9c319">$fields</a> = array();</div>
+<div class="line">        <span class="keywordflow">foreach</span> ($allfields as $f )</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">if</span> ( is_array($f) )</div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">foreach</span> ( $f as $a )</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keywordflow">if</span> (is_a($a,<span class="stringliteral">&#39;MBaseLabel&#39;</span>)) <span class="keywordflow">continue</span>;</div>
+<div class="line">                    <a class="code hl_variable" href="classMBaseForm.html#ab2303c817e3b402b77b7f99627b9c319">$fields</a>[] = $a;</div>
+<div class="line">                }</div>
+<div class="line">            }</div>
+<div class="line">            <span class="keywordflow">else</span></div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">if</span> ( is_a($f,<span class="stringliteral">&#39;MBaseLabel&#39;</span>) || is_null($f-&gt;value) ) <span class="keywordflow">continue</span>;</div>
+<div class="line">                <a class="code hl_variable" href="classMBaseForm.html#ab2303c817e3b402b77b7f99627b9c319">$fields</a>[] = $f;</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line">        </div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code hl_variable" href="classMBaseForm.html#ab2303c817e3b402b77b7f99627b9c319">$fields</a>;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a81" name="a81"></a><a class="code hl_function" href="classMBaseForm.html#ab7db85b6c219ab690cb6c65f048bb118">clearFields</a>()</div>
+<div class="line">    {</div>
+<div class="line">        $this-&gt;fields = NULL;</div>
+<div class="line">        $this-&gt;layout = NULL;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a82" name="a82"></a><a class="code hl_function" href="classMBaseForm.html#a21e6e519eb5c6ad735f75d83d47e75a6">clearField</a>(<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>)</div>
+<div class="line">    {</div>
+<div class="line">        $f = $this-&gt;fields[<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>];</div>
+<div class="line">        $f-&gt;addStyle(<span class="stringliteral">&#39;display&#39;</span>,<span class="stringliteral">&#39;none&#39;</span>);</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classMBaseForm.html#a8e2768374fbf78cd3382b61323932953">clearButtons</a>()</div>
+<div class="line">    {</div>
+<div class="line">        $this-&gt;buttons = NULL;</div>
+<div class="line">        $this-&gt;defaultButton = <span class="keyword">false</span>;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a83" name="a83"></a><a class="code hl_function" href="classMBaseForm.html#a184909dab34698899937d810a9f5d393">validate</a>()</div>
+<div class="line">    {</div>
+<div class="line">        $MIOLO = <a id="a84" name="a84"></a><a class="code hl_function" href="classMIOLO.html#ac93fbec81f07e5d15f80db907e63dc10">MIOLO::getInstance</a>();</div>
+<div class="line">        $this-&gt;errors = array();</div>
+<div class="line"> </div>
+<div class="line">        $data = $this-&gt;getAjaxData();</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">foreach</span> ( $this-&gt;validations as $validator )</div>
+<div class="line">        {</div>
+<div class="line">            eval(<span class="stringliteral">&quot;\$value = \$data-&gt;{$validator-&gt;field};&quot;</span>);</div>
+<div class="line"> </div>
+<div class="line">            <span class="keywordflow">if</span> ( !$validator-&gt;validate($value) )</div>
+<div class="line">            {</div>
+<div class="line">                $this-&gt;errors[$validator-&gt;field] = $validator-&gt;getError();</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        $js = <span class="stringliteral">&#39;mvalidator.removeAllErrors();&#39;</span>;</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">if</span> ( count($this-&gt;errors) &gt; 0 )</div>
+<div class="line">        {</div>
+<div class="line">            <a id="a85" name="a85"></a><a class="code hl_variable" href="classMControl.html#a30a54267ead73d3911e7eadc5a85a88d">$formId</a> = $MIOLO-&gt;getPage()-&gt;getFormId();</div>
+<div class="line"> </div>
+<div class="line">            <span class="keywordflow">foreach</span> ( $this-&gt;errors as $field =&gt; $error )</div>
+<div class="line">            {</div>
+<div class="line">                <span class="comment">// Add the error message</span></div>
+<div class="line">                $error = str_replace(<span class="stringliteral">&quot;\n&quot;</span>, <span class="charliteral">&#39;\n&#39;</span>, $error); <span class="comment">//troca linha nova do php para javascript</span></div>
+<div class="line">                $error = str_replace(<span class="stringliteral">&quot;&#39;&quot;</span>, <span class="stringliteral">&quot;\&#39;&quot;</span>, $error); <span class="comment">// retira &#39; para evitar erros de sintaxe js</span></div>
+<div class="line">                $js .= <span class="stringliteral">&quot;mvalidator.addErrorToField(&#39;$error&#39;, &#39;$field&#39;);&quot;</span>;</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        $MIOLO-&gt;page-&gt;onload($js);</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">return</span> count($this-&gt;errors) == 0;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a86" name="a86"></a><a class="code hl_function" href="classMBaseForm.html#a0c2cd65360fefb364dfccefc717b76ac">error</a>( $err )</div>
+<div class="line">    {   </div>
+<div class="line">        $this-&gt;manager-&gt;logMessage(_M(<span class="stringliteral">&quot;[DEPRECATED] Call method Form::error() is deprecated -- use Form::addError() instead!&quot;</span>));</div>
+<div class="line">        $this-&gt;<a id="a87" name="a87"></a><a class="code hl_function" href="classMBaseForm.html#af94b7f8d7868cb953ec7facb7bbb5597">addError</a>( $err );</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classMBaseForm.html#af94b7f8d7868cb953ec7facb7bbb5597">addError</a>($err)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">if</span> ( $err )</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">if</span> ( is_array($err) )</div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">if</span> ( $this-&gt;errors )</div>
+<div class="line">                {</div>
+<div class="line">                    $this-&gt;errors = array_merge($this-&gt;errors,$err);</div>
+<div class="line">                }</div>
+<div class="line">                </div>
+<div class="line">                <span class="keywordflow">else</span></div>
+<div class="line">                {</div>
+<div class="line">                    $this-&gt;errors = $err;</div>
+<div class="line">                }</div>
+<div class="line">            }</div>
+<div class="line">            <span class="keywordflow">else</span></div>
+<div class="line">            {</div>
+<div class="line">                $this-&gt;errors[] = $err;</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a88" name="a88"></a><a class="code hl_function" href="classMBaseForm.html#aada71735dcc56f4cae3b82c55e090e8d">hasErrors</a>()</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> count($this-&gt;errors);</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a89" name="a89"></a><a class="code hl_function" href="classMBaseForm.html#ab3d8f6423bc614a787785cf75ba17bb8">addInfo</a>($info)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">if</span> ( $info )</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">if</span> ( is_array($info) )</div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">if</span> ( $this-&gt;infos )</div>
+<div class="line">                {</div>
+<div class="line">                    $this-&gt;infos = array_merge($this-&gt;infos,$info);</div>
+<div class="line">                }</div>
+<div class="line">                </div>
+<div class="line">                <span class="keywordflow">else</span></div>
+<div class="line">                {</div>
+<div class="line">                    $this-&gt;infos = $info;</div>
+<div class="line">                }</div>
+<div class="line">            }</div>
+<div class="line">            <span class="keywordflow">else</span></div>
+<div class="line">            {</div>
+<div class="line">                $this-&gt;infos[] = $info;</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a90" name="a90"></a><a class="code hl_function" href="classMBaseForm.html#ab93e07dcdb7c39e5a9d524366198db59">hasInfos</a>()</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> count($this-&gt;infos);</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a91" name="a91"></a><a class="code hl_function" href="classMBaseForm.html#a363642ed0281017782105c1eb9c7d12f">addAlert</a>($alert)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">if</span> ( $alert )</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">if</span> ( is_array($alert) )</div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">if</span> ( $this-&gt;alerts )</div>
+<div class="line">                {</div>
+<div class="line">                    $this-&gt;alerts = array_merge($this-&gt;alerts,$alert);</div>
+<div class="line">                }</div>
+<div class="line">                <span class="keywordflow">else</span></div>
+<div class="line">                {</div>
+<div class="line">                    $this-&gt;alerts = $alert;</div>
+<div class="line">                }</div>
+<div class="line">            }</div>
+<div class="line">            <span class="keywordflow">else</span></div>
+<div class="line">            {</div>
+<div class="line">                $this-&gt;alerts[] = $alert;</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a92" name="a92"></a><a class="code hl_function" href="classMBaseForm.html#a3a7c3b9b422f6c9f56ba49e07e408f85">hasAlerts</a>()</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> count($this-&gt;alerts);</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a93" name="a93"></a><a class="code hl_function" href="classMBaseForm.html#a201e1b94a78a39c34269448644bbe3cc">collectInput</a>($data)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">foreach</span> ( $this-&gt;<a class="code hl_function" href="classMBaseForm.html#a8afaa963e5e4fa6d307be433120a5617">getFieldList</a>() as $f )</div>
+<div class="line">        {</div>
+<div class="line">            $field = $f-&gt;name;</div>
+<div class="line">            <span class="keywordflow">if</span> ( $field != <span class="stringliteral">&#39;&#39;</span> )</div>
+<div class="line">            {</div>
+<div class="line">                <span class="comment">// Remove [] from the end of the name</span></div>
+<div class="line">                <span class="keywordflow">if</span> ( substr($field, strlen($field) - 2) == <span class="stringliteral">&#39;[]&#39;</span> )</div>
+<div class="line">                {</div>
+<div class="line">                    $field = substr($field, 0, strlen($field) - 2);</div>
+<div class="line">                }</div>
+<div class="line"> </div>
+<div class="line">                $value = $this-&gt;<a class="code hl_function" href="classMBaseForm.html#a2a616c151b783fbd70869e877deb94cd">getFormValue</a>($field);</div>
+<div class="line"> </div>
+<div class="line">                $data-&gt;$field = $value;</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">return</span> $data;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a94" name="a94"></a><a class="code hl_function" href="classMBaseForm.html#a81a67162a6288d78fc4c55283325f0b4">getData</a>()</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="classMBaseForm.html#a201e1b94a78a39c34269448644bbe3cc">collectInput</a>( <span class="keyword">new</span> <a id="_a95" name="_a95"></a><a class="code hl_class" href="classFormData.html">FormData</a>() );</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a96" name="a96"></a><a class="code hl_function" href="classMBaseForm.html#aff3b8a2df188fd84209f86f9c10af106">setData</a>( <a id="_a97" name="_a97"></a><a class="code hl_class" href="classMBusiness.html">MBusiness</a> $data)</div>
+<div class="line">    {</div>
+<div class="line">        $this-&gt;_setData($data);</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">private</span> <span class="keyword">function</span> _setData($data)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">foreach</span> ( $this-&gt;fields as $field=&gt;<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>)</div>
+<div class="line">        {</div>
+<div class="line">            <a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a> = $this-&gt;fields[$field]-&gt;name;</div>
+<div class="line">            <span class="keywordflow">if</span> ( <a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a> )</div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">if</span> ( ($this-&gt;fields[$field] instanceof <a class="code hl_class" href="classMRadioButton.html">MRadioButton</a>) || </div>
+<div class="line">                     ($this-&gt;fields[$field] instanceof <a class="code hl_class" href="classMCheckBox.html">MCheckBox</a>) )</div>
+<div class="line">                {</div>
+<div class="line">                    $this-&gt;fields[$field]-&gt;checked = ( $data-&gt;$name == $this-&gt;fields[$field]-&gt;value );</div>
+<div class="line">                }</div>
+<div class="line">                <span class="keywordflow">else</span></div>
+<div class="line">                { </div>
+<div class="line">                    $value = $data-&gt;$name;</div>
+<div class="line">                    </div>
+<div class="line">                    <span class="keywordflow">if</span> ( ($this-&gt;fields[$field] instanceof <a class="code hl_class" href="classMFormControl.html">MFormControl</a>) &amp;&amp;</div>
+<div class="line">                         (isset($value)) )</div>
+<div class="line">                    {</div>
+<div class="line">                        $this-&gt;fields[$field]-&gt;setValue($value);</div>
+<div class="line">                        $_POST[<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>] = $value;</div>
+<div class="line">                    }</div>
+<div class="line">                }</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a98" name="a98"></a><a class="code hl_function" href="classMBaseForm.html#a70521e17395fe1ecab7c00725f8120c9">getFieldValue</a>(<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>,$value=<span class="keyword">false</span>)</div>
+<div class="line">    {   </div>
+<div class="line">        $field = $this-&gt;fields[<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>];</div>
+<div class="line">        <span class="keywordflow">return</span> ($field ? $field-&gt;getValue() : NULL);</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a99" name="a99"></a><a class="code hl_function" href="classMBaseForm.html#ab46534a79033e5c1d65885582d57e9e1">setFieldValue</a>(<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>,$value)</div>
+<div class="line">    {   </div>
+<div class="line">        $field = $this-&gt;fields[<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>];</div>
+<div class="line">        $field-&gt;setValue($value);</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a100" name="a100"></a><a class="code hl_function" href="classMBaseForm.html#a6de87e319ecf8f3c40567b7e06e5e6bd">setFieldValidator</a>(<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>,$value)</div>
+<div class="line">    {   </div>
+<div class="line">        <span class="keywordflow">for</span> ( $i=0, $n = count($field); $i &lt; $n; $i++ )</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">if</span> ( <a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a> == $this-&gt;fields[$i]-&gt;name )</div>
+<div class="line">            {</div>
+<div class="line">                $this-&gt;fields[$i]-&gt;validator = $value;</div>
+<div class="line">                <span class="keywordflow">break</span>;</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> &amp; <a id="a101" name="a101"></a><a class="code hl_function" href="classMBaseForm.html#a558495d2f5913f347d4aeb467158cf98">getField</a>(<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> $this-&gt;fields[<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>];</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> &amp; <a id="a102" name="a102"></a><a class="code hl_function" href="classMBaseForm.html#af1cc3ef4649aa988bd42857a036413fe">getButton</a>(<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">for</span> ( $i=0, $n = count($this-&gt;buttons); $i &lt; $n; $i++ )</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">if</span> ( <a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a> == $this-&gt;buttons[$i]-&gt;name )</div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">return</span> $this-&gt;buttons[$i];</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> &amp; <a id="a103" name="a103"></a><a class="code hl_function" href="classMBaseForm.html#a221d5484cf6f662bf06fdc04f4595c45">getPage</a>()</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> <a id="a104" name="a104"></a><a class="code hl_variable" href="classMComponent.html#a0a44e6760141442bb439b1ab1395d8ff">$this-&gt;page</a>;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a105" name="a105"></a><a class="code hl_function" href="classMBaseForm.html#a2dffbdff8d3cad39021cb6d9b82192cb">setPage</a>(<a class="code hl_variable" href="classMComponent.html#a0a44e6760141442bb439b1ab1395d8ff">$page</a>)</div>
+<div class="line">    {</div>
+<div class="line">        $this-&gt;page = <a class="code hl_variable" href="classMComponent.html#a0a44e6760141442bb439b1ab1395d8ff">$page</a>;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a106" name="a106"></a><a class="code hl_function" href="classMBaseForm.html#a9c081d900f9ea0525f8bbc800dc8af25">setFieldAttr</a>(<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>,$attr,$value)</div>
+<div class="line">    {   </div>
+<div class="line">        $this-&gt;fields[<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>]-&gt;$attr = $value; </div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a107" name="a107"></a><a class="code hl_function" href="classMBaseForm.html#af7df965c47b252a19f9ee8c1bd1dcf9c">getFieldAttr</a>(<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>,$attr, $index=NULL)</div>
+<div class="line">    {   </div>
+<div class="line">        $field = $this-&gt;fields[<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>];</div>
+<div class="line">        <span class="keywordflow">if</span> ( is_array($field-&gt;$attr) )</div>
+<div class="line">        {</div>
+<div class="line">            $a = $field-&gt;$attr;</div>
+<div class="line">            $value = $a[$index];</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">else</span></div>
+<div class="line">        {</div>
+<div class="line">          $value = $field-&gt;$attr;</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">return</span> $value;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a108" name="a108"></a><a class="code hl_function" href="classMBaseForm.html#a3eb9c86c64884259f9d9aa2760cdcc79">setButtonAttr</a>(<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>,$attr,$value)</div>
+<div class="line">    {   </div>
+<div class="line">        $button = &amp;$this-&gt;<a class="code hl_function" href="classMBaseForm.html#af1cc3ef4649aa988bd42857a036413fe">getButton</a>(<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>);</div>
+<div class="line">        $button-&gt;$attr = $value;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classMBaseForm.html#a59afb66c7747ea97f24f81b983cf7b06">setResponse</a>(<a id="a109" name="a109"></a><a class="code hl_variable" href="classMContainerControl.html#a7dadab6ef3dfad10dd60b0d9b27363b4">$controls</a>, $element=<span class="stringliteral">&#39;&#39;</span>, $generateFormLayout=<span class="keyword">false</span>)</div>
+<div class="line">    { </div>
+<div class="line">        <span class="keywordflow">if</span> ($element == <span class="stringliteral">&#39;&#39;</span>)</div>
+<div class="line">        {</div>
+<div class="line">            $element = $this-&gt;manager-&gt;_request(<span class="stringliteral">&#39;__FORMSUBMIT&#39;</span>) . <span class="stringliteral">&#39;_content&#39;</span>;</div>
+<div class="line">        }</div>
+<div class="line">        $this-&gt;manager-&gt;ajax-&gt;setResponseControls(<a class="code hl_variable" href="classMContainerControl.html#a7dadab6ef3dfad10dd60b0d9b27363b4">$controls</a>, $element, $generateFormLayout);</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a110" name="a110"></a><a class="code hl_function" href="classMBaseForm.html#a598039d4b2fea3e02dc1d54fad0f5f97">getCloseWindow</a>()</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> $this-&gt;manager-&gt;getUI()-&gt;closeWindow();</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">   <span class="keyword">public</span> <span class="keyword">function</span> <a id="a111" name="a111"></a><a class="code hl_function" href="classMBaseForm.html#a2d73f2d5e4b9361320832d13efbf6621">setLabelWidth</a>(<a class="code hl_variable" href="classMBaseForm.html#a5795120b4b324bc4ca83f1e6fdce7d57">$width</a>)</div>
+<div class="line">   {</div>
+<div class="line">        <span class="keywordflow">if</span> ( (strpos(<a class="code hl_variable" href="classMBaseForm.html#a5795120b4b324bc4ca83f1e6fdce7d57">$width</a>, <span class="charliteral">&#39;%&#39;</span>) === <span class="keyword">false</span>) &amp;&amp; (strpos(<a class="code hl_variable" href="classMBaseForm.html#a5795120b4b324bc4ca83f1e6fdce7d57">$width</a>, <span class="stringliteral">&#39;px&#39;</span>) === <span class="keyword">false</span>) )</div>
+<div class="line">        {</div>
+<div class="line">            <a class="code hl_variable" href="classMBaseForm.html#a5795120b4b324bc4ca83f1e6fdce7d57">$width</a> = <span class="stringliteral">&quot;{$value}%&quot;</span>;</div>
+<div class="line">        }</div>
+<div class="line">        $this-&gt;labelWidth = <a class="code hl_variable" href="classMBaseForm.html#a5795120b4b324bc4ca83f1e6fdce7d57">$width</a>; </div>
+<div class="line">   } </div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a112" name="a112"></a><a class="code hl_function" href="classMBaseForm.html#a90938b0535637a5a7a106cb958e451c4">setFieldsReadOnly</a>($readOnly=<span class="keyword">true</span>)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">foreach</span> ( (array) $this-&gt;fields as $field )</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">if</span> ( $field instanceof <a id="_a113" name="_a113"></a><a class="code hl_class" href="classMTabbedBaseGroup.html">MTabbedBaseGroup</a> )</div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">foreach</span> ( (array) $field-&gt;getTabs() as $tab )</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keywordflow">foreach</span> ( (array) $tab-&gt;getControls() as $control )</div>
+<div class="line">                    {</div>
+<div class="line">                        $this-&gt;<a id="a114" name="a114"></a><a class="code hl_function" href="classMBaseForm.html#ac40413d69fdb7303215076ca8586eaee">setFieldReadOnly</a>($control, $readOnly);</div>
+<div class="line">                    }</div>
+<div class="line">                }</div>
+<div class="line">            }</div>
+<div class="line">            elseif ( $field instanceof <a class="code hl_class" href="classMContainer.html">MContainer</a> )</div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">foreach</span> ( (array) $field-&gt;getControls() as $control )</div>
+<div class="line">                {</div>
+<div class="line">                    $this-&gt;<a class="code hl_function" href="classMBaseForm.html#ac40413d69fdb7303215076ca8586eaee">setFieldReadOnly</a>($control, $readOnly);</div>
+<div class="line">                }</div>
+<div class="line">            }</div>
+<div class="line">            elseif ( $field instanceof <a class="code hl_class" href="classMDiv.html">MDiv</a> )</div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">foreach</span> ( (array) $field-&gt;getInner() as $control )</div>
+<div class="line">                {</div>
+<div class="line">                    $this-&gt;<a class="code hl_function" href="classMBaseForm.html#ac40413d69fdb7303215076ca8586eaee">setFieldReadOnly</a>($control, $readOnly);</div>
+<div class="line">                }</div>
+<div class="line">            }</div>
+<div class="line">            <span class="keywordflow">else</span></div>
+<div class="line">            {</div>
+<div class="line">                $this-&gt;<a class="code hl_function" href="classMBaseForm.html#ac40413d69fdb7303215076ca8586eaee">setFieldReadOnly</a>($field, $readOnly);</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classMBaseForm.html#ac40413d69fdb7303215076ca8586eaee">setFieldReadOnly</a>($field, $readOnly=<span class="keyword">true</span>)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">if</span> ( is_object($field) &amp;&amp; method_exists($field, <span class="stringliteral">&#39;setReadOnly&#39;</span>) )</div>
+<div class="line">        {</div>
+<div class="line">            $field-&gt;setReadOnly($readOnly);</div>
+<div class="line">        }</div>
+<div class="line">        elseif ( is_object($field) )</div>
+<div class="line">        {</div>
+<div class="line">            $field-&gt;readonly = $readOnly;</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">   <span class="keyword">public</span> <span class="keyword">function</span> <a id="a115" name="a115"></a><a class="code hl_function" href="classMBaseForm.html#a998c226cdcd23b1753031e6b36d3d8df">submit_button</a>()</div>
+<div class="line">   {</div>
+<div class="line">        $this-&gt;<a class="code hl_function" href="classMBaseForm.html#a59afb66c7747ea97f24f81b983cf7b06">setResponse</a>(<span class="keyword">new</span> stdClass,<span class="stringliteral">&#39;&#39;</span>);</div>
+<div class="line">   }</div>
+<div class="line">   </div>
+<div class="line">   <span class="keyword">public</span> <span class="keyword">function</span> <a id="a116" name="a116"></a><a class="code hl_function" href="classMBaseForm.html#a9f3e8975c2f47bfeb6f2a519d1b6b625">generateErrors</a>()</div>
+<div class="line">   {    </div>
+<div class="line">        $prompt = <a id="a117" name="a117"></a><a class="code hl_function" href="classMPrompt.html#acee1b70484270ff6cabae7dc9b9d67c9">MPrompt::error</a>($this-&gt;errors,<span class="stringliteral">&#39;NONE&#39;</span>,_M(<span class="stringliteral">&#39;Errors&#39;</span>));</div>
+<div class="line">        <span class="keywordflow">return</span> $prompt;</div>
+<div class="line">   }</div>
+<div class="line">   </div>
+<div class="line">   </div>
+<div class="line">   <span class="keyword">public</span> <span class="keyword">function</span> <a id="a118" name="a118"></a><a class="code hl_function" href="classMBaseForm.html#a48625fab83d2a7385e1c00fd8b0b09e1">generateInfos</a>()</div>
+<div class="line">   {    </div>
+<div class="line">        $prompt = <a id="a119" name="a119"></a><a class="code hl_function" href="classMPrompt.html#ac8469d13bcd7619da8ce9098fd6a26a6">MPrompt::information</a>($this-&gt;infos,<span class="stringliteral">&#39;NONE&#39;</span>,_M(<span class="stringliteral">&#39;Information&#39;</span>));</div>
+<div class="line">        <span class="keywordflow">return</span> $prompt;</div>
+<div class="line">   }</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a120" name="a120"></a><a class="code hl_function" href="classMBaseForm.html#a31c379342fe969b7a7abeafe3e61cebe">generateAlerts</a>()</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> <a id="a121" name="a121"></a><a class="code hl_function" href="classMPrompt.html#a18692c5663ece59764f61153434d740a">MPrompt::alert</a>($this-&gt;alerts, <span class="stringliteral">&#39;NONE&#39;</span>, _M(<span class="stringliteral">&#39;Alerts&#39;</span>));</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">   <span class="keyword">public</span> <span class="keyword">function</span> <a id="a122" name="a122"></a><a class="code hl_function" href="classMBaseForm.html#a4e1d18ef0adec5670686efab9b1b37d2">generateBody</a>()</div>
+<div class="line">   {  </div>
+<div class="line">        $row = 0;</div>
+<div class="line">        $t = array();</div>
+<div class="line"> </div>
+<div class="line">        <span class="comment">// optionally generate errors</span></div>
+<div class="line">        <span class="keywordflow">if</span> ( $this-&gt;<a class="code hl_function" href="classMBaseForm.html#aada71735dcc56f4cae3b82c55e090e8d">hasErrors</a>() )</div>
+<div class="line">        {</div>
+<div class="line">            $t[] = $this-&gt;<a class="code hl_function" href="classMBaseForm.html#a9f3e8975c2f47bfeb6f2a519d1b6b625">generateErrors</a>();</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">if</span> ( $this-&gt;<a class="code hl_function" href="classMBaseForm.html#ab93e07dcdb7c39e5a9d524366198db59">hasInfos</a>() )</div>
+<div class="line">        {</div>
+<div class="line">            $t[] = $this-&gt;<a class="code hl_function" href="classMBaseForm.html#a48625fab83d2a7385e1c00fd8b0b09e1">generateInfos</a>();</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">if</span> ( $this-&gt;<a class="code hl_function" href="classMBaseForm.html#a3a7c3b9b422f6c9f56ba49e07e408f85">hasAlerts</a>() )</div>
+<div class="line">        {</div>
+<div class="line">            $t[] = $this-&gt;<a class="code hl_function" href="classMBaseForm.html#a31c379342fe969b7a7abeafe3e61cebe">generateAlerts</a>();</div>
+<div class="line">        }</div>
+<div class="line">        $hidden = <span class="keyword">null</span>;</div>
+<div class="line">        $t = array_merge($t, $this-&gt;<a id="a123" name="a123"></a><a class="code hl_function" href="classMBaseForm.html#abd1f490b638ce312b358199008f1f696">generateLayoutFields</a>($hidden));</div>
+<div class="line">        </div>
+<div class="line">        <span class="keywordflow">if</span>( method_exists($this-&gt;page,<span class="stringliteral">&#39;getLayout&#39;</span>) )</div>
+<div class="line">        {</div>
+<div class="line">            <a class="code hl_variable" href="classMBaseForm.html#a2b0d08e73a90b9443ce37506b7c6a544">$layout</a> = $this-&gt;page-&gt;theme-&gt;getLayout();</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">else</span></div>
+<div class="line">        {</div>
+<div class="line">            <a class="code hl_variable" href="classMBaseForm.html#a2b0d08e73a90b9443ce37506b7c6a544">$layout</a> = $this-&gt;manager-&gt;theme-&gt;getLayout();</div>
+<div class="line">        }</div>
+<div class="line">        </div>
+<div class="line">        <span class="keywordflow">if</span> ( <a class="code hl_variable" href="classMBaseForm.html#a2b0d08e73a90b9443ce37506b7c6a544">$layout</a> != <span class="stringliteral">&#39;print&#39;</span>)</div>
+<div class="line">        {</div>
+<div class="line">            <a class="code hl_variable" href="classMBaseForm.html#a248b27dba8425c24776276443dc10615">$buttons</a> = $this-&gt;<a id="a124" name="a124"></a><a class="code hl_function" href="classMBaseForm.html#a4e5ac68da0914639d928cabd17404370">generateButtons</a>();</div>
+<div class="line">            <span class="keywordflow">if</span> (<a class="code hl_variable" href="classMBaseForm.html#a248b27dba8425c24776276443dc10615">$buttons</a>)</div>
+<div class="line">            {</div>
+<div class="line">                $t = array_merge($t,array(<a class="code hl_variable" href="classMBaseForm.html#a248b27dba8425c24776276443dc10615">$buttons</a>));</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">if</span> ($this-&gt;action == <span class="stringliteral">&#39;&#39;</span>)</div>
+<div class="line">        {</div>
+<div class="line">           $this-&gt;action = $this-&gt;page-&gt;action;</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        $hidden[] = <span class="keyword">new</span> <a id="_a125" name="_a125"></a><a class="code hl_class" href="classMHiddenField.html">MHiddenField</a>($this-&gt;<a id="a126" name="a126"></a><a class="code hl_function" href="classMControl.html#a12251d0c022e9e21c137a105ff683f13">getId</a>() . <span class="stringliteral">&#39;_action&#39;</span>, preg_replace(<span class="stringliteral">&quot;/https?:/&quot;</span>, <span class="stringliteral">&#39;&#39;</span>, $this-&gt;action));</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">if</span> ( $hidden )</div>
+<div class="line">        {</div>
+<div class="line">           $t = array_merge($t,$this-&gt;<a id="a127" name="a127"></a><a class="code hl_function" href="classMBaseForm.html#a10305869ebd4c3baf7f7c8637c997293">generateHiddenFields</a>($hidden));</div>
+<div class="line">        }</div>
+<div class="line">        $t = array_merge($t,$this-&gt;<a id="a128" name="a128"></a><a class="code hl_function" href="classMBaseForm.html#a8989cbe5341cab7479be1353a2f625e6">generateScript</a>());</div>
+<div class="line">        $body = <span class="keyword">new</span> <a class="code hl_class" href="classMDiv.html">MDiv</a>(<span class="stringliteral">&#39;&#39;</span>,$t);</div>
+<div class="line">        <span class="keywordflow">return</span> $body;</div>
+<div class="line">   }</div>
+<div class="line">   </div>
+<div class="line">    </div>
+<div class="line">   <span class="keyword">public</span> <span class="keyword">function</span> <a id="a129" name="a129"></a><a class="code hl_function" href="classMBaseForm.html#ad261ae08ecbba651954976583f8c715b">generateFooter</a>()</div>
+<div class="line">   {</div>
+<div class="line">   }</div>
+<div class="line">   </div>
+<div class="line">    </div>
+<div class="line">   <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classMBaseForm.html#abd1f490b638ce312b358199008f1f696">generateLayoutFields</a>(&amp;$hidden)</div>
+<div class="line">   {  </div>
+<div class="line">       $line = 0;  </div>
+<div class="line">       <a class="code hl_variable" href="classMBaseForm.html#ae9ecf136d3e7297cc6c21d2ef3c925e8">$zebra</a> = is_array($this-&gt;zebra);</div>
+<div class="line">       $t = array();</div>
+<div class="line">       <span class="keywordflow">if</span> (is_array($this-&gt;layout))</div>
+<div class="line">       {</div>
+<div class="line">           <span class="keywordflow">foreach</span> ( $this-&gt;layout as $f )</div>
+<div class="line">           {</div>
+<div class="line">               <span class="keywordflow">if</span> ( $f-&gt;validator != NULL)</div>
+<div class="line">               {</div>
+<div class="line">                    <span class="keywordflow">if</span> ($f-&gt;validator instanceof <a class="code hl_class" href="classMValidator.html">MValidator</a>)</div>
+<div class="line">                    {</div>
+<div class="line">                        $this-&gt;<a class="code hl_function" href="classMBaseForm.html#a40fa2a2b1f852e491b45d447e0a5cfe3">addValidator</a>($f-&gt;validator);</div>
+<div class="line">                    }</div>
+<div class="line">               }</div>
+<div class="line">               <span class="keywordflow">else</span></div>
+<div class="line">               {</div>
+<div class="line">                    <span class="keywordflow">foreach</span>($this-&gt;validations as $validator)</div>
+<div class="line">                    {</div>
+<div class="line">                        <span class="keywordflow">if</span>($validator-&gt;field == $f-&gt;name)</div>
+<div class="line">                        {</div>
+<div class="line">                            $f-&gt;validator = $validator;</div>
+<div class="line">                        }</div>
+<div class="line">                    }</div>
+<div class="line">               }</div>
+<div class="line">               $row = $t[] = $this-&gt;<a class="code hl_function" href="classMBaseForm.html#a13f374babab4e1395d9cd452a3ebe6b3">generateLayoutField</a>($f, $hidden);</div>
+<div class="line">               <span class="keywordflow">if</span> (<a class="code hl_variable" href="classMBaseForm.html#ae9ecf136d3e7297cc6c21d2ef3c925e8">$zebra</a>)</div>
+<div class="line">               {</div>
+<div class="line">                   $row-&gt;addStyle(<span class="stringliteral">&#39;background-color&#39;</span>, $this-&gt;zebra[($line++) % 2]);</div>
+<div class="line">               }</div>
+<div class="line">           }</div>
+<div class="line">       }</div>
+<div class="line">       <span class="keywordflow">return</span> $t;</div>
+<div class="line">   }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classMBaseForm.html#a04e9df10ef51087b79250b9203ae1042">getFieldValidator</a>(<a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a>)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">foreach</span>($this-&gt;validations as $validator)</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">if</span>( $validator &amp;&amp; $validator-&gt;field == <a class="code hl_variable" href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">$name</a> )</div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">return</span> $validator;</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line">    }</div>
+<div class="line">   </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classMBaseForm.html#a13f374babab4e1395d9cd452a3ebe6b3">generateLayoutField</a>($f, &amp;$hidden=array())</div>
+<div class="line">    {  </div>
+<div class="line">        <span class="keywordflow">if</span> ( is_array($f) )</div>
+<div class="line">        {</div>
+<div class="line">            $c = array();</div>
+<div class="line">            <span class="keywordflow">foreach</span>($f as $fld)</div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">if</span> ($fld-&gt;visible)</div>
+<div class="line">                {</div>
+<div class="line">                    $c[] = $fld;</div>
+<div class="line">                }</div>
+<div class="line">            }</div>
+<div class="line">            $f = <span class="keyword">new</span> <a id="_a130" name="_a130"></a><a class="code hl_class" href="classMHContainer.html">MHContainer</a>(<span class="stringliteral">&#39;&#39;</span>,$c);</div>
+<div class="line">            $f-&gt;showLabel = <span class="keyword">true</span>;</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">if</span> ( ! $f-&gt;visible )</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">return</span>;</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        $rowContent = NULL;</div>
+<div class="line">        $label = $f-&gt;label;</div>
+<div class="line">        <span class="keywordflow">if</span> ( ( ( ($f-&gt;className == <span class="stringliteral">&#39;textfield&#39;</span>) || ($f-&gt;className == <span class="stringliteral">&#39;mtextfield&#39;</span>))  &amp;&amp; ($f-&gt;size==0) ) || ($f instanceof  <a class="code hl_class" href="classMHiddenField.html">MHiddenField</a>) )</div>
+<div class="line">        {</div>
+<div class="line">            $hidden[] = $f;</div>
+<div class="line">            <span class="keywordflow">return</span>;</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">if</span> ( ( $f-&gt;readonly || $f-&gt;maintainstate) )</div>
+<div class="line">        {</div>
+<div class="line">            $hidden[] = $f;</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">if</span> ( $f-&gt;cssp )</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">return</span> $f;</div>
+<div class="line">        }</div>
+<div class="line">   </div>
+<div class="line">        <span class="keywordflow">if</span> (($f-&gt;formMode != <a id="a131" name="a131"></a><a class="code hl_variable" href="classMControl.html#ae9006b8a77bfd0c2d371f8ac1a79ae4b">MFormControl::FORM_MODE_SHOW_SIDE</a>) || </div>
+<div class="line">           (($f-&gt;formMode == <a class="code hl_variable" href="classMControl.html#ae9006b8a77bfd0c2d371f8ac1a79ae4b">MFormControl::FORM_MODE_SHOW_SIDE</a>) &amp;&amp; (! $label)))</div>
+<div class="line">        {</div>
+<div class="line">            $rowContent[] = $f;</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">else</span></div>
+<div class="line">        {</div>
+<div class="line"> </div>
+<div class="line">            <span class="keywordflow">if</span> ( $label != <span class="stringliteral">&#39;&#39;</span> &amp;&amp; $label != <span class="stringliteral">&#39;&amp;nbsp;&#39;</span> )</div>
+<div class="line">            {</div>
+<div class="line">                $label .= <span class="charliteral">&#39;:&#39;</span>;</div>
+<div class="line">            }</div>
+<div class="line">            $tf = array();</div>
+<div class="line">            <span class="keywordflow">if</span> ($label != <span class="stringliteral">&#39;&#39;</span>) </div>
+<div class="line">            {  </div>
+<div class="line">                <span class="keywordflow">if</span> ($f-&gt;id != <span class="stringliteral">&#39;&#39;</span>)</div>
+<div class="line">                { </div>
+<div class="line">                    $lbl = <span class="keyword">new</span> <a id="_a132" name="_a132"></a><a class="code hl_class" href="classMFieldLabel.html">MFieldLabel</a>($f-&gt;id,$label);</div>
+<div class="line"> </div>
+<div class="line">                    <span class="keywordflow">if</span>($f-&gt;validator &amp;&amp; $f-&gt;validator-&gt;type == <span class="stringliteral">&#39;required&#39;</span>)</div>
+<div class="line">                    {</div>
+<div class="line">                        $lbl-&gt;setClass(<span class="stringliteral">&#39;mCaptionRequired&#39;</span>);</div>
+<div class="line">                    }</div>
+<div class="line">                    <span class="keywordflow">else</span></div>
+<div class="line">                    {</div>
+<div class="line">                        $lbl-&gt;setClass(<span class="stringliteral">&#39;mCaption&#39;</span>);</div>
+<div class="line">                    }</div>
+<div class="line">                }</div>
+<div class="line">                <span class="keywordflow">else</span></div>
+<div class="line">                {</div>
+<div class="line">                    $lbl = <span class="keyword">new</span> <a id="_a133" name="_a133"></a><a class="code hl_class" href="classMSpan.html">MSpan</a>(<span class="stringliteral">&#39;&#39;</span>,$label,<span class="stringliteral">&#39;mCaption&#39;</span>);</div>
+<div class="line">                }</div>
+<div class="line"> </div>
+<div class="line">                $slbl = $rowContent[] = <span class="keyword">new</span> <a class="code hl_class" href="classMSpan.html">MSpan</a>(<span class="stringliteral">&#39;&#39;</span>,$lbl,<span class="stringliteral">&#39;label&#39;</span>);</div>
+<div class="line">                <span class="keywordflow">if</span> ($this-&gt;labelWidth != NULL)</div>
+<div class="line">                {</div>
+<div class="line">                    $slbl-&gt;addStyle(<span class="stringliteral">&#39;width&#39;</span>,$this-&gt;labelWidth);</div>
+<div class="line">                }</div>
+<div class="line">            }</div>
+<div class="line"> </div>
+<div class="line">            $rowContent[] = <span class="keyword">new</span> <a class="code hl_class" href="classMSpan.html">MSpan</a>(<span class="stringliteral">&#39;&#39;</span>,$f,<span class="stringliteral">&#39;field&#39;</span>);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">/*</span></div>
+<div class="line"><span class="comment">            if ($this-&gt;labelWidth != NULL)</span></div>
+<div class="line"><span class="comment">            {</span></div>
+<div class="line"><span class="comment">                $sfld-&gt;addStyle(&#39;width&#39;, (95 - $this-&gt;labelWidth).&#39;%&#39;);</span></div>
+<div class="line"><span class="comment">            }</span></div>
+<div class="line"><span class="comment">*/</span></div>
+<div class="line"> </div>
+<div class="line">        }</div>
+<div class="line"><span class="comment">//        $rowContent[] = new MSpacer();</span></div>
+<div class="line">        $rowContent[] = <span class="keyword">new</span> <a class="code hl_class" href="classMDiv.html">MDiv</a>(<span class="stringliteral">&#39;&#39;</span>,<span class="stringliteral">&#39;&#39;</span>,<span class="stringliteral">&#39;clear&#39;</span>);</div>
+<div class="line">        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="classMDiv.html">MDiv</a>(<span class="stringliteral">&#39;&#39;</span>,$rowContent, <span class="stringliteral">&quot;mFormRow&quot;</span>);</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a134" name="a134"></a><a class="code hl_function" href="classMBaseForm.html#a0de1288a45a0bfae38f09f68b3c7e237">setJsValidationEnabled</a>($jsValidationEnabled)</div>
+<div class="line">    {</div>
+<div class="line">        $this-&gt;jsValidationEnabled = $jsValidationEnabled;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a135" name="a135"></a><a class="code hl_function" href="classMBaseForm.html#aabeb34907455b989995533ea375feec7">getJsValidationEnabled</a>()</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> $this-&gt;jsValidationEnabled;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classMBaseForm.html#a4e5ac68da0914639d928cabd17404370">generateButtons</a>()</div>
+<div class="line">    {</div>
+<div class="line">        $ul = <span class="keyword">new</span> MUnorderedList();</div>
+<div class="line">        <a class="code hl_variable" href="classMBaseForm.html#a248b27dba8425c24776276443dc10615">$buttons</a> = array();</div>
+<div class="line">        $c = array();</div>
+<div class="line">        <span class="keywordflow">if</span> (isset($this-&gt;buttons) )</div>
+<div class="line">        {</div>
+<div class="line">            $c[] = <span class="keyword">new</span> <a id="_a136" name="_a136"></a><a class="code hl_class" href="classMHr.html">MHr</a>;</div>
+<div class="line">            <span class="keywordflow">foreach</span> ( $this-&gt;buttons as $b )</div>
+<div class="line">            {</div>
+<div class="line">                <span class="keywordflow">if</span> ($b-&gt;visible) <a class="code hl_variable" href="classMBaseForm.html#a248b27dba8425c24776276443dc10615">$buttons</a>[] = $b;</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">if</span> ( $this-&gt;reset )</div>
+<div class="line">        {</div>
+<div class="line">            <a class="code hl_variable" href="classMBaseForm.html#a248b27dba8425c24776276443dc10615">$buttons</a>[] = <span class="keyword">new</span> <a id="_a137" name="_a137"></a><a class="code hl_class" href="classMButton.html">MButton</a>(<span class="stringliteral">&#39;_reset&#39;</span>,_M(<span class="stringliteral">&quot;Clear&quot;</span>),<span class="stringliteral">&#39;RESET&#39;</span>);</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">if</span> ( $this-&gt;<span class="keywordflow">return</span> )</div>
+<div class="line">        {</div>
+<div class="line">            <a class="code hl_variable" href="classMBaseForm.html#a248b27dba8425c24776276443dc10615">$buttons</a>[] = <span class="keyword">new</span> <a class="code hl_class" href="classMButton.html">MButton</a>(<span class="stringliteral">&#39;_return&#39;</span>,_M(<span class="stringliteral">&quot;Back&quot;</span>),<span class="stringliteral">&#39;RETURN&#39;</span>);</div>
+<div class="line">        }</div>
+<div class="line">        $temaLTE = $this-&gt;manager-&gt;getConf(<span class="stringliteral">&#39;theme.main&#39;</span>);</div>
+<div class="line">        <span class="keywordflow">if</span> ( $temaLTE !=<span class="stringliteral">&#39;adminLTE&#39;</span>)</div>
+<div class="line">        {</div>
+<div class="line">            $ul-&gt;addOption(<span class="keyword">new</span> <a class="code hl_class" href="classMDiv.html">MDiv</a>(<span class="stringliteral">&#39;&#39;</span>,<a class="code hl_variable" href="classMBaseForm.html#a248b27dba8425c24776276443dc10615">$buttons</a>));</div>
+<div class="line">            $d = (count($ul-&gt;options) ? <span class="keyword">new</span> <a class="code hl_class" href="classMDiv.html">MDiv</a>(<span class="stringliteral">&#39;&#39;</span>,array($c,$ul),<span class="stringliteral">&#39;mFormButtonBox&#39;</span>) : NULL);</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">return</span> ($d ? <span class="keyword">new</span> <a class="code hl_class" href="classMDiv.html">MDiv</a>(<span class="stringliteral">&#39;&#39;</span>,$d,<span class="stringliteral">&#39;mFormRow&#39;</span>) : NULL);</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classMBaseForm.html#a10305869ebd4c3baf7f7c8637c997293">generateHiddenFields</a>($hidden)</div>
+<div class="line">    {</div>
+<div class="line">        $f[] = <span class="stringliteral">&quot;\n&lt;!-- START OF HIDDEN FIELDS --&gt;&quot;</span>;</div>
+<div class="line">        <span class="keywordflow">foreach</span> ( $hidden as $h )</div>
+<div class="line">        {</div>
+<div class="line">            $f[] = <span class="keyword">new</span> <a class="code hl_class" href="classMHiddenField.html">MHiddenField</a>($h-&gt;name,$h-&gt;value);</div>
+<div class="line">        }</div>
+<div class="line">        $f[] = <span class="stringliteral">&quot;\n&lt;!-- END OF HIDDEN FIELDS --&gt;&quot;</span>;</div>
+<div class="line">        <span class="keywordflow">return</span> $f;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classMBaseForm.html#a8989cbe5341cab7479be1353a2f625e6">generateScript</a>()</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">if</span> ($this-&gt;focus != <span class="stringliteral">&#39;&#39;</span>)</div>
+<div class="line">        {</div>
+<div class="line">            $jsCode = <span class="stringliteral">&quot; element = miolo.getElementById(&#39;{$this-&gt;focus}&#39;);</span></div>
+<div class="line"><span class="stringliteral">                        if ( element )</span></div>
+<div class="line"><span class="stringliteral">                        {</span></div>
+<div class="line"><span class="stringliteral">                            element.focus();</span></div>
+<div class="line"><span class="stringliteral">                        } &quot;</span>;</div>
+<div class="line">            $this-&gt;page-&gt;onLoad($jsCode);</div>
+<div class="line">        }</div>
+<div class="line">        $f = array();</div>
+<div class="line">        <span class="keywordflow">if</span> ( $this-&gt;validations &amp;&amp; $this-&gt;jsValidationEnabled )</div>
+<div class="line">        {</div>
+<div class="line">            <a id="a138" name="a138"></a><a class="code hl_function" href="classMValidator.html#a1f94f16948172e3e19e9b224f455af9f">MValidator::generateJSValidators</a>($this-&gt;validations);</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">return</span> $f;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span> <span class="keyword">function</span> <a id="a139" name="a139"></a><a class="code hl_function" href="classMBaseForm.html#a3bd7efe3ada4e0456fe46233b65e3ebc">generateInner</a>()</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">if</span> (!isset($this-&gt;buttons))</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">if</span> ($this-&gt;defaultButton)</div>
+<div class="line">            {</div>
+<div class="line">                $this-&gt;buttons[] = <span class="keyword">new</span> <a class="code hl_class" href="classMButton.html">MButton</a>(FORM_SUBMIT_BTN_NAME, _M(<span class="stringliteral">&quot;Send&quot;</span>), <span class="stringliteral">&#39;SUBMIT&#39;</span>);</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">if</span> ($this-&gt;cssForm)</div>
+<div class="line">        {</div>
+<div class="line">            $body = $this-&gt;<a class="code hl_function" href="classMBaseForm.html#a4e1d18ef0adec5670686efab9b1b37d2">generateBody</a>();</div>
+<div class="line">            $this-&gt;<a id="a140" name="a140"></a><a class="code hl_function" href="classMContainerControl.html#a5c7d876f1cfb21fb8800550916b3644e">setControls</a>(array($body));</div>
+<div class="line">            $this-&gt;<a id="a141" name="a141"></a><a class="code hl_function" href="classMControl.html#a7aca792d28f49797d666f32ca78c009c">setClass</a>(<span class="stringliteral">&#39;mFormCSS&#39;</span>);</div>
+<div class="line">            <span class="keywordflow">return</span> $this-&gt;<a id="a142" name="a142"></a><a class="code hl_function" href="classMDiv.html#a913873cf89f388d70a28de0b77d68884">generate</a>();</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">else</span></div>
+<div class="line">        {</div>
+<div class="line">            $body = <span class="keyword">new</span> <a class="code hl_class" href="classMDiv.html">MDiv</a>(<span class="stringliteral">&#39;&#39;</span>,$this-&gt;<a class="code hl_function" href="classMBaseForm.html#a4e1d18ef0adec5670686efab9b1b37d2">generateBody</a>(),<span class="stringliteral">&#39;mFormBody&#39;</span>);</div>
+<div class="line">            <span class="keywordflow">if</span> (!is_null($this-&gt;bgColor))</div>
+<div class="line">            {</div>
+<div class="line">                $body-&gt;addStyle(<span class="stringliteral">&#39;background-color&#39;</span>,$this-&gt;bgColor);</div>
+<div class="line">            }</div>
+<div class="line"> </div>
+<div class="line">            $this-&gt;inner = $body;</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">class </span><a class="code hl_class" href="classFormData.html">FormData</a></div>
+<div class="line">{</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line">?&gt;</div>
+<div class="ttc" id="aclassFormData_html"><div class="ttname"><a href="classFormData.html">FormData</a></div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1688</div></div>
+<div class="ttc" id="aclassMBaseForm_html"><div class="ttname"><a href="classMBaseForm.html">MBaseForm</a></div><div class="ttdef"><b>Definição</b> mbaseform.class.php:36</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a0366b3b0db0bd90abfc461c372f86599"><div class="ttname"><a href="classMBaseForm.html#a0366b3b0db0bd90abfc461c372f86599">MBaseForm\setAction</a></div><div class="ttdeci">setAction($action)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:451</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a04e9df10ef51087b79250b9203ae1042"><div class="ttname"><a href="classMBaseForm.html#a04e9df10ef51087b79250b9203ae1042">MBaseForm\getFieldValidator</a></div><div class="ttdeci">getFieldValidator($name)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1464</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a09ddd69c8d89442c174432f2cff33bda"><div class="ttname"><a href="classMBaseForm.html#a09ddd69c8d89442c174432f2cff33bda">MBaseForm\$cssForm</a></div><div class="ttdeci">$cssForm</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:64</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a0b630eb1f42caf7974aec876676d8a24"><div class="ttname"><a href="classMBaseForm.html#a0b630eb1f42caf7974aec876676d8a24">MBaseForm\_getFormFieldValue</a></div><div class="ttdeci">_getFormFieldValue($field)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:314</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a0c2cd65360fefb364dfccefc717b76ac"><div class="ttname"><a href="classMBaseForm.html#a0c2cd65360fefb364dfccefc717b76ac">MBaseForm\error</a></div><div class="ttdeci">error( $err)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:874</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a0de1288a45a0bfae38f09f68b3c7e237"><div class="ttname"><a href="classMBaseForm.html#a0de1288a45a0bfae38f09f68b3c7e237">MBaseForm\setJsValidationEnabled</a></div><div class="ttdeci">setJsValidationEnabled($jsValidationEnabled)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1580</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a10305869ebd4c3baf7f7c8637c997293"><div class="ttname"><a href="classMBaseForm.html#a10305869ebd4c3baf7f7c8637c997293">MBaseForm\generateHiddenFields</a></div><div class="ttdeci">generateHiddenFields($hidden)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1624</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a12661b2fc0f57f97e30a1620889ce9c6"><div class="ttname"><a href="classMBaseForm.html#a12661b2fc0f57f97e30a1620889ce9c6">MBaseForm\$method</a></div><div class="ttdeci">$method</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:38</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a13f374babab4e1395d9cd452a3ebe6b3"><div class="ttname"><a href="classMBaseForm.html#a13f374babab4e1395d9cd452a3ebe6b3">MBaseForm\generateLayoutField</a></div><div class="ttdeci">generateLayoutField($f, &amp;$hidden=array())</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1483</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a184909dab34698899937d810a9f5d393"><div class="ttname"><a href="classMBaseForm.html#a184909dab34698899937d810a9f5d393">MBaseForm\validate</a></div><div class="ttdeci">validate()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:830</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a201e1b94a78a39c34269448644bbe3cc"><div class="ttname"><a href="classMBaseForm.html#a201e1b94a78a39c34269448644bbe3cc">MBaseForm\collectInput</a></div><div class="ttdeci">collectInput($data)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1002</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a21e6e519eb5c6ad735f75d83d47e75a6"><div class="ttname"><a href="classMBaseForm.html#a21e6e519eb5c6ad735f75d83d47e75a6">MBaseForm\clearField</a></div><div class="ttdeci">clearField($name)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:807</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a221d5484cf6f662bf06fdc04f4595c45"><div class="ttname"><a href="classMBaseForm.html#a221d5484cf6f662bf06fdc04f4595c45">MBaseForm\getPage</a></div><div class="ttdeci">&amp; getPage()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1159</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a248b27dba8425c24776276443dc10615"><div class="ttname"><a href="classMBaseForm.html#a248b27dba8425c24776276443dc10615">MBaseForm\$buttons</a></div><div class="ttdeci">$buttons</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:39</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a2a616c151b783fbd70869e877deb94cd"><div class="ttname"><a href="classMBaseForm.html#a2a616c151b783fbd70869e877deb94cd">MBaseForm\getFormValue</a></div><div class="ttdeci">getFormValue($name, $value=NULL)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:342</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a2b0d08e73a90b9443ce37506b7c6a544"><div class="ttname"><a href="classMBaseForm.html#a2b0d08e73a90b9443ce37506b7c6a544">MBaseForm\$layout</a></div><div class="ttdeci">$layout</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:58</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a2ca3a7e20e6dcf04a18f8bfd41f5211b"><div class="ttname"><a href="classMBaseForm.html#a2ca3a7e20e6dcf04a18f8bfd41f5211b">MBaseForm\setFormValue</a></div><div class="ttdeci">setFormValue($name, $value)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:366</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a2d2efac332e731afffef5eb48e2a91e1"><div class="ttname"><a href="classMBaseForm.html#a2d2efac332e731afffef5eb48e2a91e1">MBaseForm\showReturn</a></div><div class="ttdeci">showReturn( $state)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:671</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a2d73f2d5e4b9361320832d13efbf6621"><div class="ttname"><a href="classMBaseForm.html#a2d73f2d5e4b9361320832d13efbf6621">MBaseForm\setLabelWidth</a></div><div class="ttdeci">setLabelWidth($width)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1234</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a2dffbdff8d3cad39021cb6d9b82192cb"><div class="ttname"><a href="classMBaseForm.html#a2dffbdff8d3cad39021cb6d9b82192cb">MBaseForm\setPage</a></div><div class="ttdeci">setPage($page)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1168</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a2e0fb5a73fc99c359847fe6a1480c585"><div class="ttname"><a href="classMBaseForm.html#a2e0fb5a73fc99c359847fe6a1480c585">MBaseForm\showHints</a></div><div class="ttdeci">showHints( $state)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:745</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a31c379342fe969b7a7abeafe3e61cebe"><div class="ttname"><a href="classMBaseForm.html#a31c379342fe969b7a7abeafe3e61cebe">MBaseForm\generateAlerts</a></div><div class="ttdeci">generateAlerts()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1339</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a363642ed0281017782105c1eb9c7d12f"><div class="ttname"><a href="classMBaseForm.html#a363642ed0281017782105c1eb9c7d12f">MBaseForm\addAlert</a></div><div class="ttdeci">addAlert($alert)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:965</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a389e8db75a90ca2b0cd72f07a6937c88"><div class="ttname"><a href="classMBaseForm.html#a389e8db75a90ca2b0cd72f07a6937c88">MBaseForm\$labelWidth</a></div><div class="ttdeci">$labelWidth</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:60</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a3a7c3b9b422f6c9f56ba49e07e408f85"><div class="ttname"><a href="classMBaseForm.html#a3a7c3b9b422f6c9f56ba49e07e408f85">MBaseForm\hasAlerts</a></div><div class="ttdeci">hasAlerts()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:993</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a3a9723d5fbf7915599a1efc6bb8a6c3d"><div class="ttname"><a href="classMBaseForm.html#a3a9723d5fbf7915599a1efc6bb8a6c3d">MBaseForm\registerMethod</a></div><div class="ttdeci">registerMethod()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:175</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a3bd7efe3ada4e0456fe46233b65e3ebc"><div class="ttname"><a href="classMBaseForm.html#a3bd7efe3ada4e0456fe46233b65e3ebc">MBaseForm\generateInner</a></div><div class="ttdeci">generateInner()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1658</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a3eb9c86c64884259f9d9aa2760cdcc79"><div class="ttname"><a href="classMBaseForm.html#a3eb9c86c64884259f9d9aa2760cdcc79">MBaseForm\setButtonAttr</a></div><div class="ttdeci">setButtonAttr($name, $attr, $value)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1205</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a40fa2a2b1f852e491b45d447e0a5cfe3"><div class="ttname"><a href="classMBaseForm.html#a40fa2a2b1f852e491b45d447e0a5cfe3">MBaseForm\addValidator</a></div><div class="ttdeci">addValidator($validator)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:189</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a41f66be9447dcb5870e5a22d2d163193"><div class="ttname"><a href="classMBaseForm.html#a41f66be9447dcb5870e5a22d2d163193">MBaseForm\isAjaxCall</a></div><div class="ttdeci">isAjaxCall()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:163</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a48625fab83d2a7385e1c00fd8b0b09e1"><div class="ttname"><a href="classMBaseForm.html#a48625fab83d2a7385e1c00fd8b0b09e1">MBaseForm\generateInfos</a></div><div class="ttdeci">generateInfos()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1327</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a4d2debe9f55c2cf05e0c2edf1c71330d"><div class="ttname"><a href="classMBaseForm.html#a4d2debe9f55c2cf05e0c2edf1c71330d">MBaseForm\$defaultButton</a></div><div class="ttdeci">$defaultButton</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:48</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a4d3d18e082f32469479ba80573be45c5"><div class="ttname"><a href="classMBaseForm.html#a4d3d18e082f32469479ba80573be45c5">MBaseForm\$focus</a></div><div class="ttdeci">$focus</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:61</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a4e1d18ef0adec5670686efab9b1b37d2"><div class="ttname"><a href="classMBaseForm.html#a4e1d18ef0adec5670686efab9b1b37d2">MBaseForm\generateBody</a></div><div class="ttdeci">generateBody()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1352</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a4e5ac68da0914639d928cabd17404370"><div class="ttname"><a href="classMBaseForm.html#a4e5ac68da0914639d928cabd17404370">MBaseForm\generateButtons</a></div><div class="ttdeci">generateButtons()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1593</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a511db96ef105802795b765993c043ef4"><div class="ttname"><a href="classMBaseForm.html#a511db96ef105802795b765993c043ef4">MBaseForm\setFocus</a></div><div class="ttdeci">setFocus($fieldName)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:291</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a526f919ae9d3195efcec3cea9d55f443"><div class="ttname"><a href="classMBaseForm.html#a526f919ae9d3195efcec3cea9d55f443">MBaseForm\$cp</a></div><div class="ttdeci">$cp</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:63</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a54e9f4f97e3b87c747d6a45f4c2d3ac8"><div class="ttname"><a href="classMBaseForm.html#a54e9f4f97e3b87c747d6a45f4c2d3ac8">MBaseForm\$showHints</a></div><div class="ttdeci">static $showHints</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:45</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a558495d2f5913f347d4aeb467158cf98"><div class="ttname"><a href="classMBaseForm.html#a558495d2f5913f347d4aeb467158cf98">MBaseForm\getField</a></div><div class="ttdeci">&amp; getField($name)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1135</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a5795120b4b324bc4ca83f1e6fdce7d57"><div class="ttname"><a href="classMBaseForm.html#a5795120b4b324bc4ca83f1e6fdce7d57">MBaseForm\$width</a></div><div class="ttdeci">$width</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:44</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a598039d4b2fea3e02dc1d54fad0f5f97"><div class="ttname"><a href="classMBaseForm.html#a598039d4b2fea3e02dc1d54fad0f5f97">MBaseForm\getCloseWindow</a></div><div class="ttdeci">getCloseWindow()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1224</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a59afb66c7747ea97f24f81b983cf7b06"><div class="ttname"><a href="classMBaseForm.html#a59afb66c7747ea97f24f81b983cf7b06">MBaseForm\setResponse</a></div><div class="ttdeci">setResponse($controls, $element='', $generateFormLayout=false)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1214</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a6de87e319ecf8f3c40567b7e06e5e6bd"><div class="ttname"><a href="classMBaseForm.html#a6de87e319ecf8f3c40567b7e06e5e6bd">MBaseForm\setFieldValidator</a></div><div class="ttdeci">setFieldValidator($name, $value)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1119</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a70521e17395fe1ecab7c00725f8120c9"><div class="ttname"><a href="classMBaseForm.html#a70521e17395fe1ecab7c00725f8120c9">MBaseForm\getFieldValue</a></div><div class="ttdeci">getFieldValue($name, $value=false)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1099</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a74d900d2dafb121e0c0049d84bf47ac3"><div class="ttname"><a href="classMBaseForm.html#a74d900d2dafb121e0c0049d84bf47ac3">MBaseForm\addButton</a></div><div class="ttdeci">addButton($button)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:619</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a7d0b3725c4f68a1d9f57160d6f13c7b0"><div class="ttname"><a href="classMBaseForm.html#a7d0b3725c4f68a1d9f57160d6f13c7b0">MBaseForm\isSubmitted</a></div><div class="ttdeci">isSubmitted()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:266</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a81a67162a6288d78fc4c55283325f0b4"><div class="ttname"><a href="classMBaseForm.html#a81a67162a6288d78fc4c55283325f0b4">MBaseForm\getData</a></div><div class="ttdeci">getData()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1028</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a83510bc571d9497905017440cce63730"><div class="ttname"><a href="classMBaseForm.html#a83510bc571d9497905017440cce63730">MBaseForm\showReset</a></div><div class="ttdeci">showReset( $state)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:701</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a839b07978a156a5559ab9e7d234b6c7c"><div class="ttname"><a href="classMBaseForm.html#a839b07978a156a5559ab9e7d234b6c7c">MBaseForm\setShowResetButton</a></div><div class="ttdeci">setShowResetButton( $state)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:712</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a83c2703c91959192f759992ad5640b67"><div class="ttname"><a href="classMBaseForm.html#a83c2703c91959192f759992ad5640b67">MBaseForm\__set</a></div><div class="ttdeci">__set($name, $value)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:110</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a887fa82eefc8b9b41694fa05433e18b6"><div class="ttname"><a href="classMBaseForm.html#a887fa82eefc8b9b41694fa05433e18b6">MBaseForm\setShowReturnButton</a></div><div class="ttdeci">setShowReturnButton( $state)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:682</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a88b649a35158a108b33a421eb9166956"><div class="ttname"><a href="classMBaseForm.html#a88b649a35158a108b33a421eb9166956">MBaseForm\getFormFields</a></div><div class="ttdeci">getFormFields()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:300</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a894a7d492de312935832e55f69925052"><div class="ttname"><a href="classMBaseForm.html#a894a7d492de312935832e55f69925052">MBaseForm\getShowHints</a></div><div class="ttdeci">getShowHints()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:723</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a8989cbe5341cab7479be1353a2f625e6"><div class="ttname"><a href="classMBaseForm.html#a8989cbe5341cab7479be1353a2f625e6">MBaseForm\generateScript</a></div><div class="ttdeci">generateScript()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1639</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a8afaa963e5e4fa6d307be433120a5617"><div class="ttname"><a href="classMBaseForm.html#a8afaa963e5e4fa6d307be433120a5617">MBaseForm\getFieldList</a></div><div class="ttdeci">getFieldList()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:764</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a8ce36ea943153596f82b8c93f4091f7d"><div class="ttname"><a href="classMBaseForm.html#a8ce36ea943153596f82b8c93f4091f7d">MBaseForm\$reset</a></div><div class="ttdeci">$reset</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:42</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a8e2768374fbf78cd3382b61323932953"><div class="ttname"><a href="classMBaseForm.html#a8e2768374fbf78cd3382b61323932953">MBaseForm\clearButtons</a></div><div class="ttdeci">clearButtons()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:817</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a8f620c0faa56979783c41f5a5e7c9e21"><div class="ttname"><a href="classMBaseForm.html#a8f620c0faa56979783c41f5a5e7c9e21">MBaseForm\setFields</a></div><div class="ttdeci">setFields($fields)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:477</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a90938b0535637a5a7a106cb958e451c4"><div class="ttname"><a href="classMBaseForm.html#a90938b0535637a5a7a106cb958e451c4">MBaseForm\setFieldsReadOnly</a></div><div class="ttdeci">setFieldsReadOnly($readOnly=true)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1248</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a920c320068535c09e154c6707eb42ded"><div class="ttname"><a href="classMBaseForm.html#a920c320068535c09e154c6707eb42ded">MBaseForm\$styles</a></div><div class="ttdeci">$styles</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:43</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a98905a5069c1fd89d56b6ab2af8a74ae"><div class="ttname"><a href="classMBaseForm.html#a98905a5069c1fd89d56b6ab2af8a74ae">MBaseForm\$validations</a></div><div class="ttdeci">$validations</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:47</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a998c226cdcd23b1753031e6b36d3d8df"><div class="ttname"><a href="classMBaseForm.html#a998c226cdcd23b1753031e6b36d3d8df">MBaseForm\submit_button</a></div><div class="ttdeci">submit_button()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1301</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a9c081d900f9ea0525f8bbc800dc8af25"><div class="ttname"><a href="classMBaseForm.html#a9c081d900f9ea0525f8bbc800dc8af25">MBaseForm\setFieldAttr</a></div><div class="ttdeci">setFieldAttr($name, $attr, $value)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1177</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a9e8633cf48f7c5fc8cc9f5fa31450b99"><div class="ttname"><a href="classMBaseForm.html#a9e8633cf48f7c5fc8cc9f5fa31450b99">MBaseForm\$return</a></div><div class="ttdeci">$return</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:41</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a9f11010606d877173f7b5c0fe228152d"><div class="ttname"><a href="classMBaseForm.html#a9f11010606d877173f7b5c0fe228152d">MBaseForm\setValidators</a></div><div class="ttdeci">setValidators($validators)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:221</div></div>
+<div class="ttc" id="aclassMBaseForm_html_a9f3e8975c2f47bfeb6f2a519d1b6b625"><div class="ttname"><a href="classMBaseForm.html#a9f3e8975c2f47bfeb6f2a519d1b6b625">MBaseForm\generateErrors</a></div><div class="ttdeci">generateErrors()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1313</div></div>
+<div class="ttc" id="aclassMBaseForm_html_aa698a3e72116e8e778be0e95d908ee30"><div class="ttname"><a href="classMBaseForm.html#aa698a3e72116e8e778be0e95d908ee30">MBaseForm\$action</a></div><div class="ttdeci">$action</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:37</div></div>
+<div class="ttc" id="aclassMBaseForm_html_aabc512165e977cf6fe28035285440cc7"><div class="ttname"><a href="classMBaseForm.html#aabc512165e977cf6fe28035285440cc7">MBaseForm\addFields</a></div><div class="ttdeci">addFields($fields)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:598</div></div>
+<div class="ttc" id="aclassMBaseForm_html_aabeb34907455b989995533ea375feec7"><div class="ttname"><a href="classMBaseForm.html#aabeb34907455b989995533ea375feec7">MBaseForm\getJsValidationEnabled</a></div><div class="ttdeci">getJsValidationEnabled()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1588</div></div>
+<div class="ttc" id="aclassMBaseForm_html_aada71735dcc56f4cae3b82c55e090e8d"><div class="ttname"><a href="classMBaseForm.html#aada71735dcc56f4cae3b82c55e090e8d">MBaseForm\hasErrors</a></div><div class="ttdeci">hasErrors()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:914</div></div>
+<div class="ttc" id="aclassMBaseForm_html_ab0dde9a40ba8f916559569051c75e39a"><div class="ttname"><a href="classMBaseForm.html#ab0dde9a40ba8f916559569051c75e39a">MBaseForm\setShowHints</a></div><div class="ttdeci">setShowHints( $state)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:737</div></div>
+<div class="ttc" id="aclassMBaseForm_html_ab2303c817e3b402b77b7f99627b9c319"><div class="ttname"><a href="classMBaseForm.html#ab2303c817e3b402b77b7f99627b9c319">MBaseForm\$fields</a></div><div class="ttdeci">$fields</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:40</div></div>
+<div class="ttc" id="aclassMBaseForm_html_ab24faf4aa647cdcee494fc48524ad4ff"><div class="ttname"><a href="classMBaseForm.html#ab24faf4aa647cdcee494fc48524ad4ff">MBaseForm\$errors</a></div><div class="ttdeci">$errors</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:49</div></div>
+<div class="ttc" id="aclassMBaseForm_html_ab3d8f6423bc614a787785cf75ba17bb8"><div class="ttname"><a href="classMBaseForm.html#ab3d8f6423bc614a787785cf75ba17bb8">MBaseForm\addInfo</a></div><div class="ttdeci">addInfo($info)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:925</div></div>
+<div class="ttc" id="aclassMBaseForm_html_ab46534a79033e5c1d65885582d57e9e1"><div class="ttname"><a href="classMBaseForm.html#ab46534a79033e5c1d65885582d57e9e1">MBaseForm\setFieldValue</a></div><div class="ttdeci">setFieldValue($name, $value)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1109</div></div>
+<div class="ttc" id="aclassMBaseForm_html_ab7db85b6c219ab690cb6c65f048bb118"><div class="ttname"><a href="classMBaseForm.html#ab7db85b6c219ab690cb6c65f048bb118">MBaseForm\clearFields</a></div><div class="ttdeci">clearFields()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:801</div></div>
+<div class="ttc" id="aclassMBaseForm_html_ab8dac7378cc13e08516ffe7af961482d"><div class="ttname"><a href="classMBaseForm.html#ab8dac7378cc13e08516ffe7af961482d">MBaseForm\setButtons</a></div><div class="ttdeci">setButtons($buttons)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:638</div></div>
+<div class="ttc" id="aclassMBaseForm_html_ab93e07dcdb7c39e5a9d524366198db59"><div class="ttname"><a href="classMBaseForm.html#ab93e07dcdb7c39e5a9d524366198db59">MBaseForm\hasInfos</a></div><div class="ttdeci">hasInfos()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:954</div></div>
+<div class="ttc" id="aclassMBaseForm_html_abc8e9e31bb15c8a44c3210ec551407c8"><div class="ttname"><a href="classMBaseForm.html#abc8e9e31bb15c8a44c3210ec551407c8">MBaseForm\__get</a></div><div class="ttdeci">__get($name)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:127</div></div>
+<div class="ttc" id="aclassMBaseForm_html_abcf8f9a85ad04c8827542f86ebb042fc"><div class="ttname"><a href="classMBaseForm.html#abcf8f9a85ad04c8827542f86ebb042fc">MBaseForm\$fieldNum</a></div><div class="ttdeci">static $fieldNum</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:57</div></div>
+<div class="ttc" id="aclassMBaseForm_html_abd1f490b638ce312b358199008f1f696"><div class="ttname"><a href="classMBaseForm.html#abd1f490b638ce312b358199008f1f696">MBaseForm\generateLayoutFields</a></div><div class="ttdeci">generateLayoutFields(&amp;$hidden)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1428</div></div>
+<div class="ttc" id="aclassMBaseForm_html_ac2f1620e4c0edbafa4aea755b2063cd4"><div class="ttname"><a href="classMBaseForm.html#ac2f1620e4c0edbafa4aea755b2063cd4">MBaseForm\onSubmit</a></div><div class="ttdeci">onSubmit($jscode)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:423</div></div>
+<div class="ttc" id="aclassMBaseForm_html_ac40413d69fdb7303215076ca8586eaee"><div class="ttname"><a href="classMBaseForm.html#ac40413d69fdb7303215076ca8586eaee">MBaseForm\setFieldReadOnly</a></div><div class="ttdeci">setFieldReadOnly($field, $readOnly=true)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1289</div></div>
+<div class="ttc" id="aclassMBaseForm_html_acf9b4eabceb162a0d757e5665fa38acb"><div class="ttname"><a href="classMBaseForm.html#acf9b4eabceb162a0d757e5665fa38acb">MBaseForm\$ajax</a></div><div class="ttdeci">$ajax</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:62</div></div>
+<div class="ttc" id="aclassMBaseForm_html_ad0add467d6f468f7c217674e0bbcf118"><div class="ttname"><a href="classMBaseForm.html#ad0add467d6f468f7c217674e0bbcf118">MBaseForm\addJsCode</a></div><div class="ttdeci">addJsCode($jscode)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:438</div></div>
+<div class="ttc" id="aclassMBaseForm_html_ad1243f622cfe61efcba13720ede8c975"><div class="ttname"><a href="classMBaseForm.html#ad1243f622cfe61efcba13720ede8c975">MBaseForm\__construct</a></div><div class="ttdeci">__construct($action='')</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:80</div></div>
+<div class="ttc" id="aclassMBaseForm_html_ad261ae08ecbba651954976583f8c715b"><div class="ttname"><a href="classMBaseForm.html#ad261ae08ecbba651954976583f8c715b">MBaseForm\generateFooter</a></div><div class="ttdeci">generateFooter()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1414</div></div>
+<div class="ttc" id="aclassMBaseForm_html_ad3d60f1ef71cf9864f370b83d04d1adc"><div class="ttname"><a href="classMBaseForm.html#ad3d60f1ef71cf9864f370b83d04d1adc">MBaseForm\$enctype</a></div><div class="ttdeci">$enctype</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:46</div></div>
+<div class="ttc" id="aclassMBaseForm_html_ad532ac8f1666ce996638bee8dd2fb8ad"><div class="ttname"><a href="classMBaseForm.html#ad532ac8f1666ce996638bee8dd2fb8ad">MBaseForm\createFields</a></div><div class="ttdeci">createFields()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:152</div></div>
+<div class="ttc" id="aclassMBaseForm_html_ad631b5aa097c1e875d8a8fbd6aebea8c"><div class="ttname"><a href="classMBaseForm.html#ad631b5aa097c1e875d8a8fbd6aebea8c">MBaseForm\$alerts</a></div><div class="ttdeci">$alerts</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:55</div></div>
+<div class="ttc" id="aclassMBaseForm_html_adc58f6ba07d171977d32258f3d9d69fb"><div class="ttname"><a href="classMBaseForm.html#adc58f6ba07d171977d32258f3d9d69fb">MBaseForm\setAlternate</a></div><div class="ttdeci">setAlternate($color0, $color1)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:285</div></div>
+<div class="ttc" id="aclassMBaseForm_html_add080290c7be20bb737ad6ec17d7ab1d"><div class="ttname"><a href="classMBaseForm.html#add080290c7be20bb737ad6ec17d7ab1d">MBaseForm\setShowPostButton</a></div><div class="ttdeci">setShowPostButton( $state)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:693</div></div>
+<div class="ttc" id="aclassMBaseForm_html_ae395ff6bcfc9cd89514292e53725bde9"><div class="ttname"><a href="classMBaseForm.html#ae395ff6bcfc9cd89514292e53725bde9">MBaseForm\addField</a></div><div class="ttdeci">addField($field, $hint=false)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:587</div></div>
+<div class="ttc" id="aclassMBaseForm_html_ae7c95f4b1a110303e6a457ccafc7706b"><div class="ttname"><a href="classMBaseForm.html#ae7c95f4b1a110303e6a457ccafc7706b">MBaseForm\onLoad</a></div><div class="ttdeci">onLoad()</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:140</div></div>
+<div class="ttc" id="aclassMBaseForm_html_ae9ecf136d3e7297cc6c21d2ef3c925e8"><div class="ttname"><a href="classMBaseForm.html#ae9ecf136d3e7297cc6c21d2ef3c925e8">MBaseForm\$zebra</a></div><div class="ttdeci">$zebra</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:59</div></div>
+<div class="ttc" id="aclassMBaseForm_html_af1cc3ef4649aa988bd42857a036413fe"><div class="ttname"><a href="classMBaseForm.html#af1cc3ef4649aa988bd42857a036413fe">MBaseForm\getButton</a></div><div class="ttdeci">&amp; getButton($name)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1144</div></div>
+<div class="ttc" id="aclassMBaseForm_html_af24aefa35fa703a1521c8145fe8fa082"><div class="ttname"><a href="classMBaseForm.html#af24aefa35fa703a1521c8145fe8fa082">MBaseForm\$infos</a></div><div class="ttdeci">$infos</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:50</div></div>
+<div class="ttc" id="aclassMBaseForm_html_af7df965c47b252a19f9ee8c1bd1dcf9c"><div class="ttname"><a href="classMBaseForm.html#af7df965c47b252a19f9ee8c1bd1dcf9c">MBaseForm\getFieldAttr</a></div><div class="ttdeci">getFieldAttr($name, $attr, $index=NULL)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1186</div></div>
+<div class="ttc" id="aclassMBaseForm_html_af94b7f8d7868cb953ec7facb7bbb5597"><div class="ttname"><a href="classMBaseForm.html#af94b7f8d7868cb953ec7facb7bbb5597">MBaseForm\addError</a></div><div class="ttdeci">addError($err)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:885</div></div>
+<div class="ttc" id="aclassMBaseForm_html_afb034ff11b492b0a9cf5733264c68ef9"><div class="ttname"><a href="classMBaseForm.html#afb034ff11b492b0a9cf5733264c68ef9">MBaseForm\setButtonLabel</a></div><div class="ttdeci">setButtonLabel( $index, $label)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:663</div></div>
+<div class="ttc" id="aclassMBaseForm_html_afdde1a69f1fd323f04c354234e66dfd2"><div class="ttname"><a href="classMBaseForm.html#afdde1a69f1fd323f04c354234e66dfd2">MBaseForm\setAjaxFields</a></div><div class="ttdeci">setAjaxFields($fields, $responseControl)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:245</div></div>
+<div class="ttc" id="aclassMBaseForm_html_afe30056dda1a3d4a4f6c0273f679d311"><div class="ttname"><a href="classMBaseForm.html#afe30056dda1a3d4a4f6c0273f679d311">MBaseForm\$cssButtons</a></div><div class="ttdeci">$cssButtons</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:65</div></div>
+<div class="ttc" id="aclassMBaseForm_html_aff3b8a2df188fd84209f86f9c10af106"><div class="ttname"><a href="classMBaseForm.html#aff3b8a2df188fd84209f86f9c10af106">MBaseForm\setData</a></div><div class="ttdeci">setData(MBusiness $data)</div><div class="ttdef"><b>Definição</b> mbaseform.class.php:1046</div></div>
+<div class="ttc" id="aclassMBusiness_html"><div class="ttname"><a href="classMBusiness.html">MBusiness</a></div><div class="ttdef"><b>Definição</b> mbusiness.class.php:4</div></div>
+<div class="ttc" id="aclassMButton_html"><div class="ttname"><a href="classMButton.html">MButton</a></div><div class="ttdef"><b>Definição</b> mbutton.class.php:4</div></div>
+<div class="ttc" id="aclassMCheckBox_html"><div class="ttname"><a href="classMCheckBox.html">MCheckBox</a></div><div class="ttdef"><b>Definição</b> mcheckbox.class.php:4</div></div>
+<div class="ttc" id="aclassMComponent_html_a0a44e6760141442bb439b1ab1395d8ff"><div class="ttname"><a href="classMComponent.html#a0a44e6760141442bb439b1ab1395d8ff">MComponent\$page</a></div><div class="ttdeci">$page</div><div class="ttdef"><b>Definição</b> mcomponent.class.php:12</div></div>
+<div class="ttc" id="aclassMComponent_html_ab2fc40d43824ea3e1ce5d86dee0d763b"><div class="ttname"><a href="classMComponent.html#ab2fc40d43824ea3e1ce5d86dee0d763b">MComponent\$name</a></div><div class="ttdeci">$name</div><div class="ttdef"><b>Definição</b> mcomponent.class.php:22</div></div>
+<div class="ttc" id="aclassMContainerControl_html"><div class="ttname"><a href="classMContainerControl.html">MContainerControl</a></div><div class="ttdef"><b>Definição</b> mcontainercontrol.class.php:4</div></div>
+<div class="ttc" id="aclassMContainerControl_html_a252ce99978f02f21c1b0f90997ad63e5"><div class="ttname"><a href="classMContainerControl.html#a252ce99978f02f21c1b0f90997ad63e5">MContainerControl\addControl</a></div><div class="ttdeci">addControl($control)</div><div class="ttdef"><b>Definição</b> mcontainercontrol.class.php:74</div></div>
+<div class="ttc" id="aclassMContainerControl_html_a5c7d876f1cfb21fb8800550916b3644e"><div class="ttname"><a href="classMContainerControl.html#a5c7d876f1cfb21fb8800550916b3644e">MContainerControl\setControls</a></div><div class="ttdeci">setControls($controls)</div><div class="ttdef"><b>Definição</b> mcontainercontrol.class.php:89</div></div>
+<div class="ttc" id="aclassMContainerControl_html_a7dadab6ef3dfad10dd60b0d9b27363b4"><div class="ttname"><a href="classMContainerControl.html#a7dadab6ef3dfad10dd60b0d9b27363b4">MContainerControl\$controls</a></div><div class="ttdeci">$controls</div><div class="ttdef"><b>Definição</b> mcontainercontrol.class.php:5</div></div>
+<div class="ttc" id="aclassMContainer_html"><div class="ttname"><a href="classMContainer.html">MContainer</a></div><div class="ttdef"><b>Definição</b> mcontainer.class.php:3</div></div>
+<div class="ttc" id="aclassMControl_html_a12251d0c022e9e21c137a105ff683f13"><div class="ttname"><a href="classMControl.html#a12251d0c022e9e21c137a105ff683f13">MControl\getId</a></div><div class="ttdeci">getId()</div><div class="ttdef"><b>Definição</b> mcontrol.class.php:223</div></div>
+<div class="ttc" id="aclassMControl_html_a30a54267ead73d3911e7eadc5a85a88d"><div class="ttname"><a href="classMControl.html#a30a54267ead73d3911e7eadc5a85a88d">MControl\$formId</a></div><div class="ttdeci">$formId</div><div class="ttdef"><b>Definição</b> mcontrol.class.php:146</div></div>
+<div class="ttc" id="aclassMControl_html_a7aca792d28f49797d666f32ca78c009c"><div class="ttname"><a href="classMControl.html#a7aca792d28f49797d666f32ca78c009c">MControl\setClass</a></div><div class="ttdeci">setClass($cssClass, $add=TRUE)</div><div class="ttdef"><b>Definição</b> mcontrol.class.php:273</div></div>
+<div class="ttc" id="aclassMControl_html_a87313ad678fb2a2a8efb435cf0bdb9a0"><div class="ttname"><a href="classMControl.html#a87313ad678fb2a2a8efb435cf0bdb9a0">MControl\setId</a></div><div class="ttdeci">setId($id)</div><div class="ttdef"><b>Definição</b> mcontrol.class.php:217</div></div>
+<div class="ttc" id="aclassMControl_html_ac40d3d27b2d848f906775623025116d7"><div class="ttname"><a href="classMControl.html#ac40d3d27b2d848f906775623025116d7">MControl\$hint</a></div><div class="ttdeci">$hint</div><div class="ttdef"><b>Definição</b> mcontrol.class.php:107</div></div>
+<div class="ttc" id="aclassMControl_html_ae9006b8a77bfd0c2d371f8ac1a79ae4b"><div class="ttname"><a href="classMControl.html#ae9006b8a77bfd0c2d371f8ac1a79ae4b">MControl\FORM_MODE_SHOW_SIDE</a></div><div class="ttdeci">const FORM_MODE_SHOW_SIDE</div><div class="ttdef"><b>Definição</b> mcontrol.class.php:168</div></div>
+<div class="ttc" id="aclassMDiv_html"><div class="ttname"><a href="classMDiv.html">MDiv</a></div><div class="ttdef"><b>Definição</b> mdiv.class.php:4</div></div>
+<div class="ttc" id="aclassMDiv_html_a913873cf89f388d70a28de0b77d68884"><div class="ttname"><a href="classMDiv.html#a913873cf89f388d70a28de0b77d68884">MDiv\generate</a></div><div class="ttdeci">generate()</div><div class="ttdef"><b>Definição</b> mdiv.class.php:13</div></div>
+<div class="ttc" id="aclassMFieldLabel_html"><div class="ttname"><a href="classMFieldLabel.html">MFieldLabel</a></div><div class="ttdef"><b>Definição</b> mfieldlabel.class.php:4</div></div>
+<div class="ttc" id="aclassMFileField_html"><div class="ttname"><a href="classMFileField.html">MFileField</a></div><div class="ttdef"><b>Definição</b> mfilefield.class.php:34</div></div>
+<div class="ttc" id="aclassMFormControl_html"><div class="ttname"><a href="classMFormControl.html">MFormControl</a></div><div class="ttdef"><b>Definição</b> mformcontrol.class.php:8</div></div>
+<div class="ttc" id="aclassMHContainer_html"><div class="ttname"><a href="classMHContainer.html">MHContainer</a></div><div class="ttdef"><b>Definição</b> mcontainer.class.php:207</div></div>
+<div class="ttc" id="aclassMHiddenField_html"><div class="ttname"><a href="classMHiddenField.html">MHiddenField</a></div><div class="ttdef"><b>Definição</b> mhiddenfield.class.php:4</div></div>
+<div class="ttc" id="aclassMHr_html"><div class="ttname"><a href="classMHr.html">MHr</a></div><div class="ttdef"><b>Definição</b> mhr.class.php:4</div></div>
+<div class="ttc" id="aclassMIOLO_html_ac93fbec81f07e5d15f80db907e63dc10"><div class="ttname"><a href="classMIOLO.html#ac93fbec81f07e5d15f80db907e63dc10">MIOLO\getInstance</a></div><div class="ttdeci">static getInstance()</div><div class="ttdef"><b>Definição</b> miolo.class.php:147</div></div>
+<div class="ttc" id="aclassMIndexedControl_html"><div class="ttname"><a href="classMIndexedControl.html">MIndexedControl</a></div><div class="ttdef"><b>Definição</b> mindexedcontrol.class.php:4</div></div>
+<div class="ttc" id="aclassMInputControl_html"><div class="ttname"><a href="classMInputControl.html">MInputControl</a></div><div class="ttdef"><b>Definição</b> minputcontrol.class.php:4</div></div>
+<div class="ttc" id="aclassMInputGrid_html"><div class="ttname"><a href="classMInputGrid.html">MInputGrid</a></div><div class="ttdef"><b>Definição</b> minputgrid.class.php:26</div></div>
+<div class="ttc" id="aclassMPrompt_html_a18692c5663ece59764f61153434d740a"><div class="ttname"><a href="classMPrompt.html#a18692c5663ece59764f61153434d740a">MPrompt\alert</a></div><div class="ttdeci">static alert($msg, $goto='', $event='')</div><div class="ttdef"><b>Definição</b> mprompt.class.php:108</div></div>
+<div class="ttc" id="aclassMPrompt_html_ac8469d13bcd7619da8ce9098fd6a26a6"><div class="ttname"><a href="classMPrompt.html#ac8469d13bcd7619da8ce9098fd6a26a6">MPrompt\information</a></div><div class="ttdeci">static information($msg, $goto='', $event='')</div><div class="ttdef"><b>Definição</b> mprompt.class.php:140</div></div>
+<div class="ttc" id="aclassMPrompt_html_acee1b70484270ff6cabae7dc9b9d67c9"><div class="ttname"><a href="classMPrompt.html#acee1b70484270ff6cabae7dc9b9d67c9">MPrompt\error</a></div><div class="ttdeci">static error($msg='', $goto='', $caption='', $event='')</div><div class="ttdef"><b>Definição</b> mprompt.class.php:122</div></div>
+<div class="ttc" id="aclassMRadioButtonGroup_html"><div class="ttname"><a href="classMRadioButtonGroup.html">MRadioButtonGroup</a></div><div class="ttdef"><b>Definição</b> mradiobuttongroup.class.php:4</div></div>
+<div class="ttc" id="aclassMRadioButton_html"><div class="ttname"><a href="classMRadioButton.html">MRadioButton</a></div><div class="ttdef"><b>Definição</b> mradiobutton.class.php:4</div></div>
+<div class="ttc" id="aclassMSpan_html"><div class="ttname"><a href="classMSpan.html">MSpan</a></div><div class="ttdef"><b>Definição</b> mspan.class.php:4</div></div>
+<div class="ttc" id="aclassMTabbedBaseGroup_html"><div class="ttname"><a href="classMTabbedBaseGroup.html">MTabbedBaseGroup</a></div><div class="ttdef"><b>Definição</b> mtabbedbasegroup.class.php:30</div></div>
+<div class="ttc" id="aclassMUtil_html_a784910cc92181f2919504bb71ed4bb62"><div class="ttname"><a href="classMUtil.html#a784910cc92181f2919504bb71ed4bb62">MUtil\isAjaxEvent</a></div><div class="ttdeci">static isAjaxEvent()</div><div class="ttdef"><b>Definição</b> mutil.class.php:421</div></div>
+<div class="ttc" id="aclassMValidator_html"><div class="ttname"><a href="classMValidator.html">MValidator</a></div><div class="ttdef"><b>Definição</b> mvalidator.class.php:26</div></div>
+<div class="ttc" id="aclassMValidator_html_a1f94f16948172e3e19e9b224f455af9f"><div class="ttname"><a href="classMValidator.html#a1f94f16948172e3e19e9b224f455af9f">MValidator\generateJSValidators</a></div><div class="ttdeci">static generateJSValidators($validators)</div><div class="ttdef"><b>Definição</b> mvalidator.class.php:105</div></div>
+</div><!-- fragment --> </div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Gerado por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>
