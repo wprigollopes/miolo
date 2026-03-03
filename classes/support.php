@@ -137,13 +137,12 @@ function miolo_compatibility_autoload($className)
     // MIOLO 2.0 module integration fallback
     if (class_exists('MIOLO', false)) {
         $MIOLO = MIOLO::getInstance();
-        if ($MIOLO && strlen($MIOLO->getConf('options.miolo2modules'))) {
-            if (method_exists('sAutoload', 'SAGUAutoload')) {
-                $lower = strtolower($className);
-                if (substr($lower, 0, 8) === 'business'
-                    || in_array(substr($lower, 0, 3), ['bas', 'acd', 'fin', 'acp'])) {
-                    sAutoload::SAGUAutoload($className, $MIOLO->getConf('options.miolo2modules'), true);
-                }
+        $miolo2path = $MIOLO ? $MIOLO->getConf('options.miolo2modules') : '';
+        if ($miolo2path && method_exists('sAutoload', 'SAGUAutoload')) {
+            $lower = strtolower($className);
+            if (substr($lower, 0, 8) === 'business'
+                || in_array(substr($lower, 0, 3), ['bas', 'acd', 'fin', 'acp'])) {
+                sAutoload::SAGUAutoload($className, $miolo2path, true);
             }
         }
     }

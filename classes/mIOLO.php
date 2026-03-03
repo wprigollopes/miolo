@@ -811,6 +811,10 @@ class MIOLO
 
     public function loadExtensions()
     {
+        static $registered = false;
+        if ($registered) return;
+        $registered = true;
+
         $extensions = array_filter((array) $this->getConf('extensions.extension'));
         $dir = $this->getConf('home.extensions');
         $extDirs = [];
