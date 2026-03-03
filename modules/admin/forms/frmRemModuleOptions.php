@@ -212,14 +212,14 @@ class frmRemModuleOptions extends MForm
     public function removeDB($moduleDeleteName)
     {         
 
-        $dom = new DOMDocument();
-        $dom->load($this->MIOLO->getConf('home.modules') . '/' . $moduleDeleteName . '/etc/module.conf');
-        $bdSystem=$dom->getElementsByTagName('system')->item(0)->nodeValue;
-        $bdName=$dom->getElementsByTagName('name')->item(0)->nodeValue;
-        $bdHost=$dom->getElementsByTagName('host')->item(0)->nodeValue;
-        $bdPort=$dom->getElementsByTagName('port')->item(0)->nodeValue;
-        $bdUser=$dom->getElementsByTagName('user')->item(0)->nodeValue;
-        $bdPassword=$dom->getElementsByTagName('password')->item(0)->nodeValue;
+        $moduleConf = require $this->MIOLO->getConf('home.modules') . '/' . $moduleDeleteName . '/etc/module.php';
+        $dbConf = $moduleConf['db'][$moduleDeleteName] ?? [];
+        $bdSystem = $dbConf['system'] ?? '';
+        $bdName = $dbConf['name'] ?? '';
+        $bdHost = $dbConf['host'] ?? '';
+        $bdPort = $dbConf['port'] ?? '';
+        $bdUser = $dbConf['user'] ?? '';
+        $bdPassword = $dbConf['password'] ?? '';
         
 
         try

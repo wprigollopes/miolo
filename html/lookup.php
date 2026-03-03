@@ -6,7 +6,7 @@ header ("Pragma: no-cache");                          // HTTP/1.0
 
 
 $theme_layout = 'lookup';
-include_once '../etc/miolo/miolo.conf';
+include_once '../etc/miolo/miolo.php';
 
 // capture some statistics
 $MIOLO->trace("HTTP_REFERER='" . $_SERVER['HTTP_REFERER'] . "'");

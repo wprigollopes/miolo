@@ -30,7 +30,7 @@ class frmGenerate extends MForm
         $fields[] = MPopup::getPopupContainer();
 
         $dbOptions['manual'] = _M('Manual', $module);
-        $dbOptions['miolo'] = _M('Use miolo.conf or module.conf', $module);
+        $dbOptions['miolo'] = _M('Use miolo.php or module.php', $module);
         $fields['databaseOptions'] = new MSelection('databaseOptions', 'manual', _M('Database configuration', $module), NULL);
         $fields['databaseOptions']->options = $dbOptions;
         $fields['databaseOptions']->addEvent('change', ':changeDatabaseOptions');
@@ -202,13 +202,16 @@ class frmGenerate extends MForm
         $module = MIOLO::getCurrentModule();
         // Database conf
         $dbConf[] = new MLabel(_M('Database from configuration file', $module), NULL, true);
-        $confFile = $MIOLO->getConf('home.miolo') . "/etc/miolo.conf";
-        $xml = simplexml_load_file($confFile);
+        $confFile = $MIOLO->getConf('home.miolo') . "/etc/miolo.php";
+        $confData = require $confFile;
 
-        // get databases configuration from miolo.conf
-        foreach ( $xml->db->children() as $db => $object )
+        // get databases configuration from miolo.php
+        if ( isset($confData['db']) && is_array($confData['db']) )
         {
-            $dbs[$db] = $db;
+            foreach ( $confData['db'] as $db => $object )
+            {
+                $dbs[$db] = $db;
+            }
         }
 
         $dbConf['dbConf'] = new MSelection('dbConf', NULL, _M('DB conf', $module), $dbs);

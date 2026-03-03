@@ -47,17 +47,20 @@ class frmDbDump extends MForm
             $fields[] = new MTextLabel('pgDumpPath', _M('Found', $module) . ": $path", _M('Postgres path (@1)', $module, 'pg_dump'), 'green');
         }
 
-        $conf = $this->manager->getConf('home.etc') . '/miolo.conf';
-        $xml = simplexml_load_file($conf);
+        $conf = $this->manager->getConf('home.etc') . '/miolo.php';
+        $confData = require $conf;
 
         $dbs = array();
 
-        // get databases configuration from miolo.conf
-        foreach ( $xml->db->children() as $db => $object )
+        // get databases configuration from miolo.php
+        if ( isset($confData['db']) && is_array($confData['db']) )
         {
-            if ( ((string) $object->system) == 'postgres' )
+            foreach ( $confData['db'] as $db => $object )
             {
-                $dbs[$db] = $db;
+                if ( isset($object['system']) && $object['system'] == 'postgres' )
+                {
+                    $dbs[$db] = $db;
+                }
             }
         }
 

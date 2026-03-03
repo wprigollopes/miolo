@@ -1,0 +1,9 @@
+<?php
+
+return [
+    'db' => [
+        'miolo' => [
+            'password' => 'CHANGE_ME',
+        ],
+    ],
+];

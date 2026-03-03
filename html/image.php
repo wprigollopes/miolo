@@ -1,7 +1,7 @@
 <?php
 $module = $_REQUEST['module'];
 $name = $_REQUEST['name'];
-include_once '../etc/miolo/miolo.conf';
+include_once '../etc/miolo/miolo.php';
 
 // capture some statistics
 $MIOLO->trace("HTTP_REFERER='" . $_SERVER['HTTP_REFERER'] . "'");

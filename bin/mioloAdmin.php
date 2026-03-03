@@ -49,20 +49,18 @@ class MioloAdmin
     }
 
     /**
-     * Configure miolo.conf directories.
+     * Configure miolo.php directories.
      */
     public static function configure()
     {
-        $mioloRoot =  realpath('..');
-        $confSample = '../etc/miolo.conf.dist';
-        $confFile = '../etc/miolo.conf';
+        $mioloRoot = realpath('..');
+        $confSample = '../etc/miolo.php.dist';
+        $confFile = '../etc/miolo.php';
 
-        $content = fread(fopen($confSample, 'r'), filesize($confSample));
+        $content = file_get_contents($confSample);
         $content = str_replace('/var/www/miolo', $mioloRoot, $content);
 
-        $handler = fopen($confFile, 'w');
-        fwrite($handler, $content);
-        fclose($handler);
+        file_put_contents($confFile, $content);
     }
 
     /**
@@ -70,40 +68,41 @@ class MioloAdmin
      *
      * @param string $config Configuration name.
      * @param string $value Configuration value.
-     * @param string $module If it's informed, set the module.conf configuration.
+     * @param string $module If it's informed, set the module.php configuration.
      */
     public function setConfig($config, $value, $module=NULL)
     {
         if ( !$module )
         {
-            $confFile = $this->MIOLO->getConf('home.miolo') . "/etc/miolo.conf";
+            $confFile = $this->MIOLO->getConf('home.miolo') . "/etc/miolo.php";
         }
         else
         {
-            $confFile = $this->MIOLO->getConf('home.modules') . "/$module/etc/module.conf";
+            $confFile = $this->MIOLO->getConf('home.modules') . "/$module/etc/module.php";
         }
 
-        $xml = simplexml_load_file($confFile);
+        $data = file_exists($confFile) ? require $confFile : [];
         $configParts = explode('.', $config);
-        $node = $xml;
-        for ($i = 0; $i < count($configParts) - 1; $i++) {
-            $part = $configParts[$i];
-            if (!isset($node->$part)) {
-                $node->addChild($part);
+        $ref = &$data;
+        foreach ($configParts as $part) {
+            if (!isset($ref[$part])) {
+                $ref[$part] = [];
             }
-            $node = $node->$part;
+            $ref = &$ref[$part];
         }
-        $lastPart = $configParts[count($configParts) - 1];
-        $node->$lastPart = $value;
+        $ref = $value;
 
-        $this->writeContentToFile($xml->asXML(), $confFile);
+        $this->writeContentToFile(
+            "<?php\n\nreturn " . var_export($data, true) . ";\n",
+            $confFile
+        );
     }
 
     /**
      * Get a configurartion value.
      *
      * @param string $config Configuration name.
-     * @param string $module If it's informed, get the module.conf configuration.
+     * @param string $module If it's informed, get the module.php configuration.
      * @return string Configuration value.
      */
     public function getConfig($config, $module=NULL)
@@ -125,33 +124,32 @@ class MioloAdmin
      * Remove configuration.
      *
      * @param string $config Configuration name.
-     * @param string $module If it's informed, remove the module.conf configuration.
+     * @param string $module If it's informed, remove the module.php configuration.
      */
     public function removeConfig($config, $module=NULL)
     {
         if ( !$module )
         {
-            $confFile = $this->MIOLO->getConf('home.miolo') . "/etc/miolo.conf";
+            $confFile = $this->MIOLO->getConf('home.miolo') . "/etc/miolo.php";
         }
         else
         {
-            $confFile = $this->MIOLO->getConf('home.modules') . "/$module/etc/module.conf";
+            $confFile = $this->MIOLO->getConf('home.modules') . "/$module/etc/module.php";
         }
 
-        $xml = simplexml_load_file($confFile);
+        $data = file_exists($confFile) ? require $confFile : [];
         $configParts = explode('.', $config);
-        $node = $xml;
+        $ref = &$data;
         for ($i = 0; $i < count($configParts) - 1; $i++) {
-            $part = $configParts[$i];
-            if (!isset($node->$part)) {
-                break;
-            }
-            $node = $node->$part;
+            if (!isset($ref[$configParts[$i]])) break;
+            $ref = &$ref[$configParts[$i]];
         }
-        $lastPart = $configParts[count($configParts) - 1];
-        unset($node->$lastPart);
+        unset($ref[$configParts[count($configParts) - 1]]);
 
-        $this->writeContentToFile($xml->asXML(), $confFile);
+        $this->writeContentToFile(
+            "<?php\n\nreturn " . var_export($data, true) . ";\n",
+            $confFile
+        );
     }
 
     public function start($mioloPath)
@@ -187,7 +185,7 @@ class MioloAdmin
         symlink("$svnPath/package", "$mioloPath/package");
         symlink("$svnPath/var", "$mioloPath/var");
         mkdir("$mioloPath/etc");
-        symlink("$svnPath/etc/mkrono.conf", "$mioloPath/etc/mkrono.conf");
+        symlink("$svnPath/etc/mkrono.php", "$mioloPath/etc/mkrono.php");
 
         mkdir("$mioloPath/html");
         foreach ( scandir("$svnPath/html") as $dest )
@@ -212,19 +210,20 @@ class MioloAdmin
         symlink("$svnPath/modules/main_menu.php", "$mioloPath/modules/main_menu.php");
         symlink("$svnPath/modules/modules_menu.xml", "$mioloPath/modules/modules_menu.xml");
 
-        $confSample = "$svnPath/etc/miolo.conf.dist";
-        $confFile = "$mioloPath/etc/miolo.conf";
+        $confSample = "$svnPath/etc/miolo.php.dist";
+        $confFile = "$mioloPath/etc/miolo.php";
 
-        $content = fread(fopen($confSample, 'r'), filesize($confSample));
+        $content = file_get_contents($confSample);
         $content = str_replace('/var/www/miolo', $mioloPath, $content);
 
-        $handler = fopen($confFile, 'w');
-        fwrite($handler, $content);
-        fclose($handler);
+        file_put_contents($confFile, $content);
 
-        $xml = simplexml_load_file($confFile);
-        unset($xml->home->url);
-        $this->writeContentToFile($xml->asXML(), $confFile);
+        $data = require $confFile;
+        unset($data['home']['url']);
+        $this->writeContentToFile(
+            "<?php\n\nreturn " . var_export($data, true) . ";\n",
+            $confFile
+        );
     }
 
     /**
@@ -290,7 +289,7 @@ class MioloAdmin
         $content = str_replace('#actions', $this->getPanelActionItem('browser', 'Navegador'), $template);
         $this->writeContentToFile($content, "$moduleDir/handlers/main.php");
 
-        // Create module.conf file
+        // Create module.php file
         echo "Creating configuration file...\n";
         $this->createModuleConf($module);
 
@@ -574,20 +573,20 @@ class MioloAdmin
     }
 
     /**
-     * Create a module configuration file (module.conf).
+     * Create a module configuration file (module.php).
      *
      * @param string $module Module name.
-     * @return string Path where the module.conf will be saved.
+     * @return string Path where the module.php will be saved.
      */
     public function createModuleConf($module)
     {
         $moduleDir = $this->MIOLO->getConf('home.modules') . '/' . $module;
 
-        $template = $this->readTemplateContent('module.conf');
+        $template = $this->readTemplateContent('module.php');
         $content = str_replace('#moduleDir', $moduleDir, $template);
         $content = str_replace('#module', $module, $content);
 
-        $filePath = "$moduleDir/etc/module.conf";
+        $filePath = "$moduleDir/etc/module.php";
         $this->writeContentToFile($content, $filePath);
         return $filePath;
     }

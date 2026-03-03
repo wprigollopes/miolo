@@ -14,38 +14,39 @@ $pathInfo = pathinfo($argv[0]);
 $BIN_PATH = realpath($pathInfo['dirname']);
 $MIOLO_PATH = realpath($BIN_PATH . '/..');
 
-// Backup miolo.conf
-$confBackup = "$BIN_PATH/updater/backup/miolo.conf";
-$cmd = "cp $MIOLO_PATH/etc/miolo.conf $confBackup";
+// Backup miolo.php
+$confBackup = "$BIN_PATH/updater/backup/miolo.php";
+$cmd = "cp $MIOLO_PATH/etc/miolo.php $confBackup";
 exec($cmd, $output, $return);
 
 if ( $return !== 0 )
 {
-    die("Não foi possível realizar o backup do miolo.conf.\n");
+    die("Não foi possível realizar o backup do miolo.php.\n");
 }
 
 // Set server as in maintenance (down)
-$conf = simplexml_load_file($confBackup);
+$conf = require $confBackup;
 if ( file_exists("$MIOLO_PATH/.down") )
 {
     die("Uma outra atualização está em andamento.\n");
 }
 else
 {
-    file_put_contents("$MIOLO_PATH/.down", $conf->theme->main);
+    file_put_contents("$MIOLO_PATH/.down", $conf['theme']['main']);
     $GLOBALS['MIOLO_UPDATER'] = 'updating';
 }
 
-// Load miolo.conf
-$tempConf = simplexml_load_file($MIOLO_PATH . '/etc/miolo.conf');
+// Load miolo.php
+$tempConf = require $MIOLO_PATH . '/etc/miolo.php';
 
 // Set modern theme to avoid unnecessary database calls
-$tempConf->theme->main = 'modern';
-$tempConf->theme->lookup = 'modern';
+$tempConf['theme']['main'] = 'modern';
+$tempConf['theme']['lookup'] = 'modern';
 
-$handler = fopen("$MIOLO_PATH/etc/miolo.conf", 'w');
-fwrite($handler, $tempConf->asXML());
-fclose($handler);
+file_put_contents(
+    "$MIOLO_PATH/etc/miolo.php",
+    "<?php\n\nreturn " . var_export($tempConf, true) . ";\n"
+);
 
 
 $path = realpath($MIOLO_PATH . '/classes/utils');

@@ -36,17 +36,14 @@ class frmSetupModuleBD extends MForm
         global $modName;
         $MIOLO = MIOLO::getInstance();
         
-        //le informacoes do modulo no xml module.conf
-        $dom = new DomDocument();
-        $dom->load($MIOLO->getConf('home.modules') . '/' . $modName .
-        '/etc/module.conf');
-
-        $modInfo[0]=$dom->getElementsByTagName('system')->item(0)->nodeValue;
-        $modInfo[1]=$dom->getElementsByTagName('host')->item(0)->nodeValue;
-        $modInfo[2]=$dom->getElementsByTagName('port')->item(0)->nodeValue;
-        $modInfo[3]=$dom->getElementsByTagName('name')->item(0)->nodeValue;
-        $modInfo[4]=$dom->getElementsByTagName('user')->item(0)->nodeValue;        
-        $modInfo[5]=$dom->getElementsByTagName('password')->item(0)->nodeValue;
+        $moduleConf = require $MIOLO->getConf('home.modules') . '/' . $modName . '/etc/module.php';
+        $dbConf = $moduleConf['db'][$modName] ?? [];
+        $modInfo[0] = $dbConf['system'] ?? '';
+        $modInfo[1] = $dbConf['host'] ?? '';
+        $modInfo[2] = $dbConf['port'] ?? '';
+        $modInfo[3] = $dbConf['name'] ?? '';
+        $modInfo[4] = $dbConf['user'] ?? '';
+        $modInfo[5] = $dbConf['password'] ?? '';
     
         $options = array('postgres'=>'Postgres','mysql'=>'MySQL','SQL Server'=>'SQL Server','sqlite'=>'SQL Lite');
         
@@ -89,8 +86,12 @@ class frmSetupModuleBD extends MForm
            $this->createBD();
        }
        
-       //gera o module.conf no modules/modulo/etc 
-       $this->createXML($MIOLO->getConf('home.modules') . '/' . $modName . '/etc/module.conf', $this->generateXML());
+       //gera o module.php no modules/modulo/etc
+       $phpConfig = $this->generatePHP();
+       file_put_contents(
+           $MIOLO->getConf('home.modules') . '/' . $modName . '/etc/module.php',
+           $phpConfig
+       );
        
        //acresenta o modulo no menu
        $this->createXML($MIOLO->getConf('home.modules') . '/modules_menu.xml', $this->generateLinkMainMenuXML());
@@ -165,41 +166,33 @@ class frmSetupModuleBD extends MForm
 
     }
     
-    public function generateXML()
+    public function generatePHP()
     {
         global $modName;
         $MIOLO = MIOLO::getInstance();
-    
-        //recebe a porta do BD, caso default, passa null para a porta
-        if ($this->getFieldValue('bdPort')!="default")
-        {
-            $port = $this->getFieldValue('bdPort');
-        }
-        else
-        {
-            $port = null;
-        }
-        
-        //gera o xml do module.conf
-        $dom = new DomDocument('1.0','iso-8859-1');
-        $conf = $dom->appendChild($dom->createElement('conf'));
-        $db = $conf->appendChild($dom->createElement('db'));
-        $moduloName = $db->appendChild($dom->createElement($modName));
-        $moduloName->appendChild($dom->createElement('system',$this->getFieldValue('bdSystem')));
-        $moduloName->appendChild($dom->createElement('host',$this->getFieldValue('bdHost')));
-        $moduloName->appendChild($dom->createElement('port', $port));
-        $moduloName->appendChild($dom->createElement('name',$this->getFieldValue('bdName')));
-        $moduloName->appendChild($dom->createElement('user',$this->getFieldValue('bdUser')));
-        $moduloName->appendChild($dom->createElement('password',$this->getFieldValue('bdPassword')));
-        $theme = $conf->appendChild($dom->createElement('theme'));
-        $theme->appendChild($dom->createElement('module',$MIOLO->getConf("theme.module")));
-        $theme->appendChild($dom->createElement('main',$MIOLO->getConf("theme.main")));
-        $theme->appendChild($dom->createElement('lookup',$MIOLO->getConf("theme.lookup")));
-        $theme->appendChild($dom->createElement('title',$modName));
-        
-                
-        $dom->formatOutput = true;
-        return ($dom->saveXML());
+
+        $port = ($this->getFieldValue('bdPort') !== 'default') ? $this->getFieldValue('bdPort') : null;
+
+        $config = [
+            'db' => [
+                $modName => array_filter([
+                    'system'   => $this->getFieldValue('bdSystem'),
+                    'host'     => $this->getFieldValue('bdHost'),
+                    'port'     => $port,
+                    'name'     => $this->getFieldValue('bdName'),
+                    'user'     => $this->getFieldValue('bdUser'),
+                    'password' => $this->getFieldValue('bdPassword'),
+                ], fn($v) => $v !== null),
+            ],
+            'theme' => [
+                'module' => $MIOLO->getConf('theme.module'),
+                'main'   => $MIOLO->getConf('theme.main'),
+                'lookup' => $MIOLO->getConf('theme.lookup'),
+                'title'  => $modName,
+            ],
+        ];
+
+        return "<?php\n\nreturn " . var_export($config, true) . ";\n";
     }
     
     public function generateLinkMainMenuXML()

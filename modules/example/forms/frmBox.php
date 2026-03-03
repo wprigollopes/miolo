@@ -17,7 +17,7 @@ class frmBox extends MForm
         /*
          * Creates a link to the controls
          *
-         * Your miolo.conf or module.conf must have the configuration option
+         * Your miolo.php or module.php must have the configuration option
          * theme.options.close set to true
          *
          */
