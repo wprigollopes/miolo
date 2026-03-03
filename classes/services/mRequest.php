@@ -1,4 +1,7 @@
 <?php
+
+namespace App\Services;
+
 /**
  * Brief Class Description.
  * Complete Class Description.
@@ -66,5 +69,6 @@ class MRequest extends MService
     {
         return $this->getServer('QUERY_STRING');
     }
-
 }
+
+class_alias(MRequest::class, 'MRequest');

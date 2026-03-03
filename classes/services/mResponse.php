@@ -1,4 +1,7 @@
 <?php
+
+namespace App\Services;
+
 /**
  * Brief Class Description.
  * Complete Class Description.
@@ -203,6 +206,6 @@ class MResponse extends MService
         echo $binary;
         exit();
     }
-
-
 }
+
+class_alias(MResponse::class, 'MResponse');

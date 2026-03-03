@@ -1,4 +1,7 @@
 <?php
+
+namespace App\Services;
+
 class MContext extends MService
 {
     const ACTION = 'action';
@@ -62,7 +65,7 @@ class MContext extends MService
 
     private function parseScramble($url)
     {
-        $MIOLO = MIOLO::getInstance();
+        $MIOLO = \MIOLO::getInstance();
         $urlParts = parse_url($url);
         parse_str($urlParts['query'], $this->vars);
         $url = preg_replace('/\?MIOLO_URI=.*/',$MIOLO->unScramble($this->vars['MIOLO_URI']), $url);
@@ -106,12 +109,12 @@ class MContext extends MService
 
         if ( preg_match($regexp, $uri, $parts) !== FALSE )
         {
-            $MIOLO = MIOLO::getInstance();
+            $MIOLO = \MIOLO::getInstance();
             
             $parts[self::MODULE] = (isset($parts[self::MODULE])) ? str_replace('module=', '', $parts[self::MODULE]) : '';
 
             $this->dispatch = isset($parts[self::DISPATCH]) ? $parts[self::DISPATCH] : null;
-            $this->module = $parts[self::MODULE] ? $parts[self::MODULE] : MIOLO::getCurrentModule();
+            $this->module = $parts[self::MODULE] ? $parts[self::MODULE] : \MIOLO::getCurrentModule();
             $this->startup = $MIOLO->getConf('options.startup');
             $this->action = isset($parts[self::ACTION]) ? str_replace('/',':', $parts[self::ACTION]) : '';
             $this->delimiter = isset($parts[self::DELIMITER]) ? $parts[self::DELIMITER] : null;
@@ -208,7 +211,7 @@ class MContext extends MService
 
     public function composeURL($dispatch = '', $module = '', $action = '', $args = '', $scramble = false)
     {
-        $MIOLO = MIOLO::getInstance();
+        $MIOLO = \MIOLO::getInstance();
 
         $dispatch = ($dispatch == '') ? $this->dispatch : $dispatch;
         $module = ($module == '') ? $this->module : $module;
@@ -246,7 +249,8 @@ class MContext extends MService
     public function inDomain()
     {
         $url = $this->manager->getConf('home.url');
-        return ($url == $this->host); 
+        return ($url == $this->host);
     }
-                                
 }
+
+class_alias(MContext::class, 'MContext');

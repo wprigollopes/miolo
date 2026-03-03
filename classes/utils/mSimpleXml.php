@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Utils;
+
 /**
  * Brief Class Description.
  * Complete Class Description.
@@ -157,3 +159,6 @@ class MSimpleXml
         return $this->xml->xpath($argument);
     }
 }
+
+class_alias(MSimpleXml::class, 'MSimpleXml');
+class_alias(MSimpleXml::class, 'MSimpleXML');
