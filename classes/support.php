@@ -110,142 +110,46 @@ function _M($msg, $dom = 'miolo', $p1 = null, $p2 = null, $p3 = null)
     return $msg;
 }
 
-function miolo2AutoloadFileCheck($file)
+/**
+ * Compatibility autoloader for namespaced-to-global mappings, legacy short class
+ * names, and MIOLO 2.0 integration.
+ */
+function miolo_compatibility_autoload($className)
 {
-    $MIOLO = MIOLO::getInstance();
+    // Global names for namespaced classes. Loading the namespaced class triggers
+    // class_alias() at the end of each file, creating the global name.
+    static $namespaceMap = [
+        'MIOLO'         => 'App\\MIOLO',
+        'MService'      => 'App\\Services\\MService',
+        'MContext'       => 'App\\Services\\MContext',
+        'MRequest'      => 'App\\Services\\MRequest',
+        'MResponse'     => 'App\\Services\\MResponse',
+        'MSimpleXml'    => 'App\\Utils\\MSimpleXml',
+        'MSimpleXML'    => 'App\\Utils\\MSimpleXml',
+        'MConfigLoader' => 'App\\Utils\\MConfigLoader',
+    ];
 
-    $local[] = $MIOLO->getConf('options.miolo2modules');
-    $local[] = $MIOLO->getConf('home.miolo');
-    $local[] = $MIOLO->getConf('home.classes');
-    $local[] = $MIOLO->getConf('home.modules');
-    
-    foreach($local as $l)
-    {
-        $arq = $l.'/'.$file;
-        if(file_exists($arq))
-        {
-            $file = $arq;
-        }
-        
-        if(file_exists($arq.'.php'))
-        {
-            $file = $arq.'.php';
-        }
-        
-    }
-    
-    return $file;
-}
-
-function miolo_autoload($className)
-{
-    global $autoload;
-    $MIOLO = MIOLO::getInstance();
-    
-    if(stristr($className, 'pagseguro') && !strstr($className, 'PagSeguroLibrary.php') )
-    {
-        
-        $dirs = Array(
-		'config',
-		'resources',
-		'log',
-		'domain',
-		'exception',
-		'parser',
-		'service',
-		'utils',
-		'helper'
-	);
-        
-        foreach($dirs as $key => $dir) {
-                    
-            $d = "classes/PagSeguroLibrary/{$dir}/{$className}.php";
-            
-            if( file_exists($MIOLO->getConf('home.modules').'/portal/'.$d ) )
-            {
-                $MIOLO->uses($d, 'portal');  
-            }
-        }
-        
+    if (isset($namespaceMap[$className])) {
+        class_exists($namespaceMap[$className], true);
         return;
     }
-    
-  if(ucfirst(substr($className,0,1)) == substr($className,0,1))
-  $MIOLO->setConf('tempvar', $className);
 
-    // DOMPDF autoloading now handled by Composer (dompdf/dompdf ^2.0)
-    
-    $className = strtolower($className);
-
-    if ( ($file = $autoload->getFile($className)) != '' )
-    {
-	$file = $autoload->getFile($className);
-        if( !file_exists($file) )
-        {
-            $MIOLO = MIOLO::getInstance();
-
-            if($MIOLO->getConf('options.miolo2modules'))
-            {
-                $file = miolo2AutoloadFileCheck($file);
-            }
-            
-        }
-        
-        include_once($file);
-    }
-    elseif ( strlen($MIOLO->getConf('options.miolo2modules')) )
-    {        
-        if ( method_exists('sAutoload', 'SAGUAutoload') )
-        {
-	    if(strtolower(substr($className,0,1)) == 'm')
-            {	       
-                $className = substr($className,1);
-        
-                //FIXME A mesma logica esta sendo feita tambem no mCompatibility.php, corrigir quando possivel.
-                if( ( substr($className, 0, 8) == 'business' || in_array(substr($className, 0, 3), array('bas', 'acd', 'fin')) ) && $MIOLO->getConf('tempvar'))
-                {
-                    $MIOLO = MIOLO::getInstance();
-                    sAutoload::SAGUAutoload($MIOLO->getConf('tempvar'), $MIOLO->getConf('options.miolo2modules'), true);
+    // MIOLO 2.0 module integration fallback
+    if (class_exists('MIOLO', false)) {
+        $MIOLO = MIOLO::getInstance();
+        if ($MIOLO && strlen($MIOLO->getConf('options.miolo2modules'))) {
+            if (method_exists('sAutoload', 'SAGUAutoload')) {
+                $lower = strtolower($className);
+                if (substr($lower, 0, 8) === 'business'
+                    || in_array(substr($lower, 0, 3), ['bas', 'acd', 'fin', 'acp'])) {
+                    sAutoload::SAGUAutoload($className, $MIOLO->getConf('options.miolo2modules'), true);
                 }
-             }
+            }
         }
-     }
-}
-
-// Only register Miolo's autoloader when Composer's ClassLoader is not present
-if (!class_exists('Composer\\Autoload\\ClassLoader', false)) {
-    spl_autoload_register('miolo_autoload');
-}
-
-$error_types = (int)ini_get("error_reporting");
-
-// Remover?
-function errorHandlerMiolo( $errno, $errstr, $errfile, $errline)
-{
-    $e = "Unkown Error";
-    switch ($errno) {
-        case E_ERROR:
-            $e = "Error";
-            break;
-
-        case E_WARNING:
-            $e = "Warning";
-            break;
-
-        case E_PARSE:
-            $e = "Parse Error";
-            break;
-
-        case E_NOTICE:
-            $e = "Notice";
-            break;
     }
-
-    echo "<b>{$e}:</b>&nbsp;{$errstr}&nbsp;in&nbsp;<b>{$errfile}</b> on line <b>{$errline}</b><br/>";
-
-    /* Don't execute PHP internal error handler */
-    return true;
 }
+
+spl_autoload_register('miolo_compatibility_autoload');
 
 function mdump($var)
 {

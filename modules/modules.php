@@ -6,12 +6,6 @@ $MIOLO = MIOLO::getInstance();
 $module = MIOLO::getCurrentModule();
 $action = MIOLO::getCurrentAction();
 
-global $autoload;
-
-$autoload->setFile('SAGU', $MIOLO->getModulePath('basic', 'classes/sagu.class'));
-$autoload->setFile('SDatabase', $MIOLO->getModulePath('basic', 'classes/SDatabase.class'));
-
-
 //
 // defines user access right constants, which are used in the
 // $NIOLO->checkAccess() and ThemeMenu->addUserOption() methods.

@@ -410,18 +410,9 @@ class MIOLO
      */
     public function init( $home = NULL, $logname = 'miolo')
     {
-        global $autoload;
-
-        include ( 'flow/eMioloException.php' );
-        include ( 'utils/mXMLTree.php' );
-        include ( 'compatibility/mCompatibility.php' );
-        include ( 'utils/mAutoload.php' );
-
         $this->handlers = array();
         $this->uses     = array();
         $this->import   = array();
-        $this->getObject('autoload');
-        $autoload = $this->autoload;
         $this->setLog($logname);
 
         $this->logMessage('[RESET_LOG_MESSAGES]');
@@ -821,16 +812,31 @@ class MIOLO
     public function loadExtensions()
     {
         $extensions = array_filter((array) $this->getConf('extensions.extension'));
-        
         $dir = $this->getConf('home.extensions');
-        
+        $extDirs = [];
+
         foreach ($extensions as $extension)
         {
-            $autoload = $dir . '/' . $extension . '/autoload.xml';
-            if (file_exists($autoload))
+            $extDir = $dir . '/' . $extension;
+            if (is_dir($extDir))
             {
-                $this->autoload->loadFile($autoload);
+                $extDirs[] = $extDir;
             }
+        }
+
+        if ($extDirs)
+        {
+            spl_autoload_register(function($class) use ($extDirs) {
+                foreach ($extDirs as $extDir)
+                {
+                    $file = $extDir . '/' . $class . '.php';
+                    if (file_exists($file))
+                    {
+                        include_once $file;
+                        return;
+                    }
+                }
+            });
         }
     }
 
