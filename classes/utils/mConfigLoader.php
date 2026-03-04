@@ -125,6 +125,30 @@ class MConfigLoader
     {
         $this->conf[$key] = $value;
     }
+
+    /**
+     * Return all conf entries whose keys start with the given prefix.
+     *
+     * @param string $prefix  Key prefix (e.g. 'db.' returns 'db.miolo.host' => '...', etc.)
+     * @return array<string, mixed>
+     */
+    public function getConfByPrefix(string $prefix): array
+    {
+        $result = [];
+
+        foreach ([$this->conf, $this->defaultConf] as $source) {
+            if (!is_array($source)) {
+                continue;
+            }
+            foreach ($source as $key => $value) {
+                if (str_starts_with($key, $prefix) && !array_key_exists($key, $result)) {
+                    $result[$key] = $value;
+                }
+            }
+        }
+
+        return $result;
+    }
     /**
      * Brief Description.
      * Complete Description.

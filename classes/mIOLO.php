@@ -279,10 +279,15 @@ class MIOLO
      */
     public function initialize()
     {
-        $this->conf = new MConfigLoader();        
+        $this->conf = new MConfigLoader();
         $this->conf->loadConf();
         $this->request  = new MRequest();
         $this->response = new MResponse();
+
+        // Boot Eloquent ORM if available (opt-in: no breakage if not installed)
+        if (class_exists(\App\Database\MEloquentBootstrap::class)) {
+            \App\Database\MEloquentBootstrap::boot($this->conf);
+        }
     }
 
     /**
