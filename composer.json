@@ -1,0 +1,11 @@
+{
+    "name": "miolo/miolo",
+    "description": "MIOLO PHP Framework v1.0 — archived for documentation and historical reference. This is a legacy version (PHP 4) and is not intended for production use.",
+    "type": "library",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://github.com/wprigollopes/miolo",
+    "abandoned": true,
+    "require": {
+        "php": ">=4.0"
+    }
+}
