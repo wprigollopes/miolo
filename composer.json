@@ -4,6 +4,7 @@
     "type": "library",
     "license": "GPL-2.0-or-later",
     "homepage": "https://github.com/wprigollopes/miolo",
+    "keywords": ["framework", "php4", "legacy", "archive"],
     "abandoned": true,
     "require": {
         "php": ">=4.0"
